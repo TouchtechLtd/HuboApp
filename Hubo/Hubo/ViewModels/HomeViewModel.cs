@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Hubo.ViewModel
+namespace Hubo
 {
     class HomeViewModel
     {

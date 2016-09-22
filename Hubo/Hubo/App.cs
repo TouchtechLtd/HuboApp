@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Hubo.Services;
-using Hubo.View;
-using Hubo.ViewModel;
 using Xamarin.Forms;
 
 namespace Hubo
@@ -15,7 +12,6 @@ namespace Hubo
 
         public App()
         {
-            DatabaseService.initDb();
             MainPage = new NavigationPage(new HomePage());
         }
 

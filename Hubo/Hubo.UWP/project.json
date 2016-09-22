@@ -1,6 +1,10 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "modernhttpclient": "2.4.2",
+    "Newtonsoft.Json": "9.0.1",
+    "SQLite.Net-PCL": "3.1.1",
+    "SQLite.Net.Core-PCL": "3.1.1",
     "Xamarin.Forms": "2.3.2.127"
   },
   "frameworks": {
