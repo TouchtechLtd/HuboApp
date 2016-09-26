@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using HockeyApp.Android;
 
 namespace Hubo.Droid
 {
@@ -19,6 +20,8 @@ namespace Hubo.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            CrashManager.Register(this, Configuration.HockeyAppId);
 
             LoadApplication(new App());
         }

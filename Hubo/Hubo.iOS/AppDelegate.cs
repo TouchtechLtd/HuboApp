@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
+using HockeyApp.iOS;
 using UIKit;
 
 namespace Hubo.iOS
@@ -27,6 +27,10 @@ namespace Hubo.iOS
             #endif
 
             global::Xamarin.Forms.Forms.Init();
+
+            BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
+            manager.Configure(Configuration.HockeyAppId);
+            manager.StartManager();
 
             LoadApplication(new App());
 

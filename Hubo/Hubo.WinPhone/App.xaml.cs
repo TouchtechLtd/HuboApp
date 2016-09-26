@@ -35,6 +35,8 @@ namespace Hubo.WinPhone
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            //TODO add Nuget package HockeySDK.WP when the targets are fixed - https://github.com/bitstadium/HockeySDK-Windows/issues/73
+            //Microsoft.HockeyApp.HockeyClient.Current.Configure(Configuration.HockeyAppId);
         }
 
         /// <summary>

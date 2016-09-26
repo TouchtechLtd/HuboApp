@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.HockeyApp;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -33,6 +34,7 @@ namespace Hubo.Windows
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            HockeyClient.Current.Configure(Configuration.HockeyAppId);
         }
 
         /// <summary>

@@ -11,5 +11,6 @@ namespace Hubo
     {
         public static string DBname = "Hubo";
         public static string APKpath = "Hubo\\Hubo.Droid\\bin\\Debug\\Hubo.Droid.apk";
+        public static string HockeyAppId = "b6f976a17a7c40718f616e39dad2fc76";
     }
 }
