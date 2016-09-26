@@ -20,7 +20,7 @@ namespace Hubo.UWP
             //download SQLite for Universal Windows Platform from http://www.sqlite.org/download.html
             //add it and Visual C++ 2013 Runtime Package for Windows as references (Universal Windows > Extensions)
             SQLitePlatformWinRT platform = new SQLitePlatformWinRT();
-            string sqliteFilename = Resources.Resource.DatabaseName + ".db3";
+            string sqliteFilename = Configuration.DBname + ".db3";
             string path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 
             return new SQLiteConnection(platform, path);

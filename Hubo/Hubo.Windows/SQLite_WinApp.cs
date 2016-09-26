@@ -20,7 +20,7 @@ namespace Hubo.Windows
             //download SQLite for Windows Runtime (Windows 8.1) from http://www.sqlite.org/download.html
             //add it and Visual C++ 2013 Runtime Package for Windows as references (Windows 8.1 > Extensions)
             SQLitePlatformWinRT platform = new SQLitePlatformWinRT();
-            string sqliteFilename = Resources.Resource.DatabaseName + ".db3";
+            string sqliteFilename = Configuration.DBname + ".db3";
             string path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 
             return new SQLiteConnection(platform, path);

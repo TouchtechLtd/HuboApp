@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class Configuration
+    public class Configuration
     {
-        public static string DBPath = ""; //TODO define path & name
+        public static string DBname = "Hubo";
+        public static string APKpath = "Hubo\\Hubo.Droid\\bin\\Debug\\Hubo.Droid.apk";
     }
 }

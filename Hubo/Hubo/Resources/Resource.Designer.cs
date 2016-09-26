@@ -62,20 +62,11 @@ namespace Hubo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hubo.
-        /// </summary>
-        public static string DatabaseName {
-            get {
-                return ResourceManager.GetString("DatabaseName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Welcome to Hubo.
         /// </summary>
-        public static string HomePageLabel {
+        public static string WelcomeEntry {
             get {
-                return ResourceManager.GetString("HomePageLabel", resourceCulture);
+                return ResourceManager.GetString("WelcomeEntry", resourceCulture);
             }
         }
     }

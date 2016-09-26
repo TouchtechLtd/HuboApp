@@ -18,7 +18,7 @@ namespace Hubo.Droid
         public SQLiteConnection GetConnection()
         {
             SQLitePlatformAndroid platform = new SQLitePlatformAndroid();
-            string sqliteFilename = Resources.Resource.DatabaseName + ".db3";
+            string sqliteFilename = Configuration.DBname + ".db3";
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
             string path = Path.Combine(documentsPath, sqliteFilename);
 
