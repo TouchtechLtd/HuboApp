@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Hubo
 {
-    public class App : Application
+    public partial class App : Application
     {
-        AppViewModel appVM = new AppViewModel();
-
         public App()
         {
+            InitializeComponent();
             MainPage = new NavigationPage(new HomePage());
         }
 
@@ -31,3 +31,4 @@ namespace Hubo
         }
     }
 }
+

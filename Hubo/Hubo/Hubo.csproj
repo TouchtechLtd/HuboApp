@@ -35,7 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="DatabaseModels\UserTable.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
@@ -94,6 +96,12 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
