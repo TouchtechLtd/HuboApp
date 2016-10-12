@@ -10,8 +10,7 @@ Hubo/Hubo.iOS/bin/
 Hubo/Hubo.iOS/obj/
 Hubo/Hubo/bin/
 Hubo/Hubo/obj/
-packages/
-HuboTest/obj/
-Hubo.Test/obj/
+packages/*
+!packages/repositories.config
 Test/bin/
 Test/obj/
