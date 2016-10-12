@@ -48,6 +48,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\ScheduledTasks.cs" />
     <Compile Include="Services\TranslateExtension.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\RestService.cs" />

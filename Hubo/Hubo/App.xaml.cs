@@ -13,6 +13,11 @@ namespace Hubo
         {
             InitializeComponent();
             MainPage = new NavigationPage(new HomePage());
+
+            //TODO run a scheduled task every minute
+            Device.StartTimer(TimeSpan.FromMinutes(1), () => {
+                return ScheduledTasks.testTask();
+            });
         }
 
         protected override void OnStart()
