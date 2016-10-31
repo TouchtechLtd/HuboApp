@@ -12,7 +12,11 @@ namespace Hubo
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new HomePage());
+            //MainPage = new NavigationPage(new HomePage());
+
+            //TODO: Implement check for logged in status
+            
+            MainPage = new NavigationPage(new LandingPage());
 
             //TODO run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(1), () => {
@@ -32,7 +36,7 @@ namespace Hubo
 
         protected override void OnResume()
         {
-            //TODO Handle when your app resumes
+            //TODO: Implement check for logged in status
         }
     }
 }

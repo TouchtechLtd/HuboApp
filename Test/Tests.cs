@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Hubo;
-using Hubo.Resources;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;

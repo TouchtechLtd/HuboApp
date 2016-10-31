@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hubo.Resources {
+namespace Hubo {
     using System;
     using System.Reflection;
     
@@ -58,6 +58,51 @@ namespace Hubo.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string DisplayAlertOkay {
+            get {
+                return ResourceManager.GetString("DisplayAlertOkay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string LoginText {
+            get {
+                return ResourceManager.GetString("LoginText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide both Username &amp; Password.
+        /// </summary>
+        public static string NoUsernameOrPasswordMessage {
+            get {
+                return ResourceManager.GetString("NoUsernameOrPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string NoUsernameOrPasswordTitle {
+            get {
+                return ResourceManager.GetString("NoUsernameOrPasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegisterText {
+            get {
+                return ResourceManager.GetString("RegisterText", resourceCulture);
             }
         }
         
