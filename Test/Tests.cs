@@ -59,7 +59,7 @@ namespace Test
         //}
         [UI]
         [Test]
-        public void TestNavigateToNZTAPage()
+        public void TestNavigateToNZTAPageFromLogin()
         {
             app.Tap(c => c.Marked("LoginButton"));
             app.EnterText(c => c.Marked("Username"), "User");
@@ -71,9 +71,29 @@ namespace Test
             app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
             app.EnterText(c => c.Marked("Username"), "User");
             app.Tap(c => c.Marked("LoginButton"));
+            app.WaitForElement("NZTA PAGE");
         }
-
-
+        //[UI]
+        //[Test]
+        //public void TestNavigateToNZTAPageFromRegister()
+        //{
+        //    app.Tap(c => c.Marked("RegisterButton"));
+        //    //app.tap(c => c.marked("registerbutton"));
+        //    //app.tap(c => c.marked(resource.displayalertokay));
+        //    app.EnterText(c => c.Marked("FirstName"), "User");
+        //    app.Tap(c => c.Marked("RegisterButton"));
+        //    app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+        //    app.EnterText(c => c.Marked("LastName"), "User");
+        //    app.Tap(c => c.Marked("RegisterButton"));
+        //    app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+        //    app.EnterText(c => c.Marked("Email"), "User");
+        //    app.Tap(c => c.Marked("RegisterButton"));
+        //    app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+        //    app.EnterText(c => c.Marked("Password"), "User");
+        //    app.Tap(c => c.Marked("RegisterButton"));
+        //    app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+        //    app.WaitForElement("NZTA PAGE");
+        //}
     }
 }
 

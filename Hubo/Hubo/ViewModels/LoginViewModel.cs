@@ -29,7 +29,9 @@ namespace Hubo
         {
             if ((Username.Length != 0) && (Password.Length != 0))
             {
-                Navigation.PushAsync(new NZTAMessagePage());
+                //TODO: Check username & password against database.
+                App.Current.MainPage = new NZTAMessagePage();
+                
             }
             else
             {

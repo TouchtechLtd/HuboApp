@@ -57,6 +57,7 @@
     <Compile Include="ViewModels\LandingPageViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NZTAMessageViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -68,6 +69,9 @@
     </Compile>
     <Compile Include="Views\NZTAMessagePage.xaml.cs">
       <DependentUpon>NZTAMessagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\NZTAMessagePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\RegisterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

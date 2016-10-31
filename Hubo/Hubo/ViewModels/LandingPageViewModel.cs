@@ -29,7 +29,7 @@ namespace Hubo
 
         private void NavigateToRegisterPage()
         {
-            throw new NotImplementedException();
+            Navigation.PushAsync(new RegisterPage());
         }
 
         private void NavigateToLoginPage()
