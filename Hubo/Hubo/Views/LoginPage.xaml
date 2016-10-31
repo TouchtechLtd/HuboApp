@@ -21,9 +21,9 @@
         <RowDefinition Height="2*" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Entry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username"/>
-      <Entry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password"/>
-      <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" />
+      <Entry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username" AutomationId="Username"/>
+      <Entry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password"/>
+      <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" AutomationId="LoginButton"/>
     </Grid>
   </StackLayout>
 </ContentPage>

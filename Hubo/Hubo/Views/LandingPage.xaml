@@ -11,7 +11,7 @@
       <RowDefinition Height="8*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Button Text="{Binding Login}" Command="{Binding LoginButton}" Grid.Column="0" Grid.Row="1"/>
-    <Button Text="{Binding Register}" Command="{Binding RegisterButton}"  Grid.Column="1" Grid.Row="1"/>
+    <Button Text="{Binding Login}" Command="{Binding LoginButton}" Grid.Column="0" Grid.Row="1" AutomationId="LoginButton"/>
+    <Button Text="{Binding Register}" Command="{Binding RegisterButton}"  Grid.Column="1" Grid.Row="1" AutomationId="RegisterButton"/>
   </Grid>
 </ContentPage>
