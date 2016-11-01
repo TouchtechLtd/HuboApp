@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Net;
+using ModernHttpClient;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ModernHttpClient;
 using Newtonsoft.Json;
 
 
@@ -15,12 +15,12 @@ namespace Hubo
 {
     class RestService
     {
-        HttpClient client;
+        System.Net.Http.HttpClient client;
         DatabaseService db = new DatabaseService();
 
         public RestService()
         {
-            client = new HttpClient(new NativeMessageHandler());
+            client = new System.Net.Http.HttpClient(new NativeMessageHandler());
             this.db = new DatabaseService();
         }
     }

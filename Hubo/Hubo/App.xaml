@@ -4,17 +4,23 @@
              x:Class="Hubo.App">
   <Application.Resources>
     <ResourceDictionary>
-      <Color x:Key="pageBackgroundColour">Red</Color>
-      <Color x:Key="barBackgroundColour">Pink</Color>
-      <Color x:Key="entryBackgroundColour">Green</Color>
-      <Color x:Key="entryTextColor">White</Color>
+      <Color x:Key="pageBackgroundColour">White</Color>
+      <Color x:Key="barBackgroundColour">#424bf4</Color>
+      <Color x:Key="entryBackgroundColour">White</Color>
+      <Color x:Key="entryTextColour">#424bf4</Color>
+      <Color x:Key="buttonBackgroundColour">Gray</Color>
+      <Color x:Key="buttonTextColour">White</Color>
       <Style TargetType="NavigationPage">
         <Setter Property="BackgroundColor" Value="{StaticResource pageBackgroundColour}" />
         <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
       </Style>
       <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{StaticResource entryTextColor}" />
+        <Setter Property="TextColor" Value="{StaticResource entryTextColour}" />
         <Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />
+      </Style>
+      <Style TargetType="Button">
+        <Setter Property="TextColor"  Value="{StaticResource buttonTextColour}" />
+        <Setter Property="BackgroundColor"  Value="{StaticResource buttonBackgroundColour}" />
       </Style>
     </ResourceDictionary>
   </Application.Resources>
