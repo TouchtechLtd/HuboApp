@@ -76,7 +76,64 @@ namespace Test
             app.WaitForElement(Resource.WelcomeEntry);
         }
 
+        [UI]
+        [Test]
+        public void TestNavigateToAllMenuPagesFromLogin()
+        {
+            app.Tap(c => c.Marked("LoginButton"));
+            app.EnterText(c => c.Marked("Username"), "User");
+            app.Tap(c => c.Marked("LoginButton"));
+            app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+            app.ClearText(c => c.Marked("Username"));
+            app.EnterText(c => c.Marked("Password"), "Pass");
+            app.Tap(c => c.Marked("LoginButton"));
+            app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
+            app.EnterText(c => c.Marked("Username"), "User");
+            app.Tap(c => c.Marked("LoginButton"));
+            app.WaitForElement(Resource.NZTADisclaimer);
+            app.Tap(c => c.Marked("NZTAButton"));
 
+            //Open drawer menu
+            app.TapCoordinates(120, 120);
+
+            //Open Settings page
+            app.TapCoordinates(120, 120);
+
+            app.WaitForElement("SettingsPage");
+
+            //Close Settings page
+            app.TapCoordinates(120, 120);
+            app.TapCoordinates(120, 120);
+
+            app.Tap(x => x.Marked("Profile"));
+            app.WaitForElement("ProfilePage");
+
+            app.TapCoordinates(120, 120);
+            app.TapCoordinates(120, 120);
+
+            app.Tap(x => x.Marked("Vehicles"));
+            app.WaitForElement("VehiclesPage");
+
+            app.TapCoordinates(120, 120);
+            app.TapCoordinates(120, 120);
+
+            app.Tap(x => x.Marked("History"));
+            app.WaitForElement("HistoryPage");
+
+            app.TapCoordinates(120, 120);
+            app.TapCoordinates(120, 120);
+
+            app.Tap(x => x.Marked("Add Shift"));
+            app.WaitForElement("AddShiftPage");
+
+            app.TapCoordinates(120, 120);
+            app.TapCoordinates(120, 120);
+
+            app.Tap(x => x.Marked("Sign Out"));
+            app.WaitForElement("SignOutPage");
+
+
+        }
         //[UI]
         //[Test]
         //public void TestNavigateToNZTAPageFromRegister()

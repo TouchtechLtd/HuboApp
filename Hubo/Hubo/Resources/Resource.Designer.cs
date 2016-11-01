@@ -62,6 +62,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Shift.
+        /// </summary>
+        public static string AddShiftText {
+            get {
+                return ResourceManager.GetString("AddShiftText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string DisplayAlertOkay {
@@ -85,6 +94,15 @@ namespace Hubo {
         public static string FirstNamePlaceholder {
             get {
                 return ResourceManager.GetString("FirstNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        public static string HistoryText {
+            get {
+                return ResourceManager.GetString("HistoryText", resourceCulture);
             }
         }
         
@@ -170,6 +188,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string ProfileText {
+            get {
+                return ResourceManager.GetString("ProfileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registration successful!.
         /// </summary>
         public static string RegisterSuccessText {
@@ -193,6 +220,33 @@ namespace Hubo {
         public static string RegisterText {
             get {
                 return ResourceManager.GetString("RegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsText {
+            get {
+                return ResourceManager.GetString("SettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignOutText {
+            get {
+                return ResourceManager.GetString("SignOutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicles.
+        /// </summary>
+        public static string VehiclesText {
+            get {
+                return ResourceManager.GetString("VehiclesText", resourceCulture);
             }
         }
         

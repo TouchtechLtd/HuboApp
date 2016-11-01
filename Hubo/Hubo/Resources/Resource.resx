@@ -165,4 +165,22 @@
   <data name="WelcomeEntry" xml:space="preserve">
     <value>Welcome to Hubo</value>
   </data>
+  <data name="AddShiftText" xml:space="preserve">
+    <value>Add Shift</value>
+  </data>
+  <data name="HistoryText" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="ProfileText" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SettingsText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SignOutText" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="VehiclesText" xml:space="preserve">
+    <value>Vehicles</value>
+  </data>
 </root>
