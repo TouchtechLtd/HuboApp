@@ -144,6 +144,12 @@
   <data name="NoUsernameOrPasswordTitle" xml:space="preserve">
     <value>Alert</value>
   </data>
+  <data name="NZTAButtonText" xml:space="preserve">
+    <value>Agree</value>
+  </data>
+  <data name="NZTADisclaimer" xml:space="preserve">
+    <value>*PLACEHOLDER FOR DISCLAIMER*</value>
+  </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
     <value>Password</value>
   </data>

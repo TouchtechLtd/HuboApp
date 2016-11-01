@@ -3,5 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.HomePage">
-  <Entry x:Name="WelcomeEntry" AutomationId="WelcomeEntry" Text="{resource:Translate WelcomeEntry}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <Label x:Name="WelcomeEntry" AutomationId="WelcomeEntry" Text="{resource:Translate WelcomeEntry}" VerticalOptions="Center" HorizontalOptions="Center" />
 </ContentPage>

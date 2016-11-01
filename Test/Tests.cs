@@ -59,7 +59,7 @@ namespace Test
         //}
         [UI]
         [Test]
-        public void TestNavigateToNZTAPageFromLogin()
+        public void TestNavigateToHomePageFromLogin()
         {
             app.Tap(c => c.Marked("LoginButton"));
             app.EnterText(c => c.Marked("Username"), "User");
@@ -71,8 +71,12 @@ namespace Test
             app.Tap(c => c.Marked(Resource.DisplayAlertOkay));
             app.EnterText(c => c.Marked("Username"), "User");
             app.Tap(c => c.Marked("LoginButton"));
-            app.WaitForElement("NZTA PAGE");
+            app.WaitForElement(Resource.NZTADisclaimer);
+            app.Tap(c => c.Marked("NZTAButton"));
+            app.WaitForElement(Resource.WelcomeEntry);
         }
+
+
         //[UI]
         //[Test]
         //public void TestNavigateToNZTAPageFromRegister()

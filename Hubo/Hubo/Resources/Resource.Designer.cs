@@ -143,6 +143,24 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agree.
+        /// </summary>
+        public static string NZTAButtonText {
+            get {
+                return ResourceManager.GetString("NZTAButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *PLACEHOLDER FOR DISCLAIMER*.
+        /// </summary>
+        public static string NZTADisclaimer {
+            get {
+                return ResourceManager.GetString("NZTADisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordPlaceholder {
