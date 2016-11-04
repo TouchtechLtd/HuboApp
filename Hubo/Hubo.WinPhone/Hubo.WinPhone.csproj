@@ -136,6 +136,30 @@
       <HintPath>..\..\packages\SQLite.Net-PCL.3.1.1\lib\portable-win81+wpa81\SQLite.Net.Platform.WinRT.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Syncfusion.SfChart.WP, Version=14.3810.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.14.3.0.52\lib\wpa81\Syncfusion.SfChart.WP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms, Version=14.3451.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.14.3.0.52\lib\wpa81\Syncfusion.SfChart.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms.WinPhone, Version=14.3451.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.14.3.0.52\lib\wpa81\Syncfusion.SfChart.XForms.WinPhone.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGauge.WP, Version=14.3810.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfGauge.14.3.0.52\lib\wpa81\Syncfusion.SfGauge.WP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGauge.XForms, Version=14.3451.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfGauge.14.3.0.52\lib\wpa81\Syncfusion.SfGauge.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGauge.XForms.WinPhone, Version=14.3451.0.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfGauge.14.3.0.52\lib\wpa81\Syncfusion.SfGauge.XForms.WinPhone.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.2.127\lib\wpa81\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>

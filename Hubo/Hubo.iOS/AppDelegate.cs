@@ -4,6 +4,7 @@ using System.Linq;
 using Foundation;
 using HockeyApp.iOS;
 using UIKit;
+using Syncfusion.SfChart.XForms.iOS.Renderers;
 
 namespace Hubo.iOS
 {
@@ -27,7 +28,7 @@ namespace Hubo.iOS
             #endif
 
             global::Xamarin.Forms.Forms.Init();
-
+            new SfChartRenderer();
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppId);
             manager.StartManager();

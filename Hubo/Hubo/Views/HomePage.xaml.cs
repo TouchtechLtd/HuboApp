@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Syncfusion.SfChart.XForms;
+using Syncfusion.SfGauge.XForms;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,7 @@ namespace Hubo
             InitializeComponent();
             BindingContext = homeVM;
             homeVM.Navigation = Navigation;
+            Button da = new Button();
         }
     }
 }

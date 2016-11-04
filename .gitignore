@@ -14,3 +14,4 @@ packages/*
 !packages/repositories.config
 Test/bin/
 Test/obj/
+triotech.hubo.droid.apk
