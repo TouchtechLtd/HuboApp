@@ -13,6 +13,12 @@ namespace Hubo
         public ProfileLicencePage()
         {
             InitializeComponent();
+            licenseNumber.Completed += LicenseNumber_Completed;
+        }
+
+        private void LicenseNumber_Completed(object sender, EventArgs e)
+        {
+            endorsements.Focus();
         }
     }
 }

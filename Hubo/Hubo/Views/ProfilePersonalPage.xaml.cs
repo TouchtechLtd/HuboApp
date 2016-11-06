@@ -13,6 +13,24 @@ namespace Hubo
         public ProfilePersonalPage()
         {
             InitializeComponent();
+            firstName.Completed += FirstName_Completed;
+            lastName.Completed += LastName_Completed;
+            email.Completed += Email_Completed;
+        }
+
+        private void Email_Completed(object sender, EventArgs e)
+        {
+            password.Focus();
+        }
+
+        private void LastName_Completed(object sender, EventArgs e)
+        {
+            email.Focus();
+        }
+
+        private void FirstName_Completed(object sender, EventArgs e)
+        {
+            lastName.Focus();
         }
     }
 }

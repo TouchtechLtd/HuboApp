@@ -15,6 +15,6 @@
       <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
     <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" Placeholder="License Number"/>
-    <Entry Text="{Binding Endorsments}" x:Name="endorsements" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="Endorsements"/>
+    <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="Endorsements"/>
   </Grid>
 </ContentPage>
