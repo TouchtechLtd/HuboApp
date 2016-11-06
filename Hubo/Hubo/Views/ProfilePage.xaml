@@ -8,14 +8,14 @@
       <local:ProfilePersonalPage/>
     </x:Arguments>
   </NavigationPage>
+  <NavigationPage Title="License">
+    <x:Arguments>
+      <local:ProfileLicencePage/>
+    </x:Arguments>
+  </NavigationPage>
   <NavigationPage Title="Company">
     <x:Arguments>
       <local:ProfileCompanyPage/>
-    </x:Arguments>
-  </NavigationPage>
-  <NavigationPage Title="Licence">
-    <x:Arguments>
-      <local:ProfileLicencePage/>
     </x:Arguments>
   </NavigationPage>
 </TabbedPage>

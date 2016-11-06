@@ -2,5 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.ProfileCompanyPage">
-
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="8*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+    </Grid.RowDefinitions>
+    <Entry Text="{Binding Name}" x:Name="name" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" Placeholder="Name"/>
+    <Entry Text="{Binding Address}" x:Name="address" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="Address"/>
+    <Entry Text="{Binding CompanyEmail}" x:Name="companyEmail"  Grid.Column="1" Grid.Row="2" VerticalOptions="Center" Placeholder="CompanyEmail"/>
+    <Entry Text="{Binding Phone}" x:Name="phone" Grid.Column="1" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
+  </Grid>
 </ContentPage>
