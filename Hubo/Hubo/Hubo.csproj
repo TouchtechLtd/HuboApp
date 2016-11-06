@@ -59,6 +59,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\NZTAMessageViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\AddShiftPage.xaml.cs">
       <DependentUpon>AddShiftPage.xaml</DependentUpon>
@@ -81,8 +82,17 @@
     <Compile Include="Views\NZTAMessagePage.xaml.cs">
       <DependentUpon>NZTAMessagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProfileCompanyPage.xaml.cs">
+      <DependentUpon>ProfileCompanyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfileLicencePage.xaml.cs">
+      <DependentUpon>ProfileLicencePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfilePersonalPage.xaml.cs">
+      <DependentUpon>ProfilePersonalPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
@@ -225,6 +235,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SignOutPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ProfilePersonalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ProfileLicencePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ProfileCompanyPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -8,11 +8,25 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public partial class ProfilePage : ContentPage
+    public partial class ProfilePage : TabbedPage
     {
+
+        ProfileViewModel profileVM = new ProfileViewModel();
+
         public ProfilePage()
         {
             InitializeComponent();
+            Title = "HUBO";
+            profileVM.Navigation = Navigation;
+            BindingContext = profileVM;
+            ToolbarItem Done = new ToolbarItem();
+            ToolbarItem Cancel = new ToolbarItem();
+            Done.Icon = "Checkmark24.png";
+            Cancel.Icon = "Cancel.png";
+            Done.Command = profileVM.SaveAndExit;
+            Cancel.Command = profileVM.CancelAndExit;
+            ToolbarItems.Add(Done);
+            ToolbarItems.Add(Cancel);
         }
     }
 }

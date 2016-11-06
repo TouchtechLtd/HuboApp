@@ -43,7 +43,7 @@ namespace Hubo
             }
             else if(menu.TargetType == "Profile")
             {
-                Detail.Navigation.PushAsync(new ProfilePage());
+                Detail.Navigation.PushModalAsync(new ProfilePage());
             }
             else if (menu.TargetType == "Vehicles")
             {
