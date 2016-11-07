@@ -59,7 +59,11 @@ namespace Hubo
             }
             else if (menu.TargetType == "SignOut")
             {
-                Detail.Navigation.PushAsync(new SignOutPage());
+                bool result = await DisplayAlert("Log Out", "Would you like to logout?", "Yes", "No");
+                if (result)
+                {
+                    App.Current.MainPage = new NavigationPage(new LandingPage());
+                }
             }
                 IsPresented = false;
                 IsGestureEnabled = false;
