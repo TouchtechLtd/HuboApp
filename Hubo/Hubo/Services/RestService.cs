@@ -29,6 +29,9 @@ namespace Hubo
             //TODO: Code to communicate with server to login
             UserTable user = new UserTable();
             user.User = username;
+            user.FirstName = "Ben";
+            user.LastName = "Suarez-Brodie";
+            user.Email = "ben@triotech.co.nz";
             if(db.Login(user))
             {
                 return true;

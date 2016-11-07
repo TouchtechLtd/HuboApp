@@ -38,5 +38,11 @@ namespace Hubo
         {
             db.Query<UserTable>("DELETE FROM [UserTable]");
         }
+
+        internal UserTable GetUserInfo()
+        {
+            List<UserTable> list = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            return list[0];
+        } 
     }
 }
