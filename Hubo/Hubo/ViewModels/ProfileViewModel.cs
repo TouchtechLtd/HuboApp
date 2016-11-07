@@ -22,6 +22,7 @@ namespace Hubo
         public string Email { get; set; }
         public string Password { get; set; }
         public string LicenseNumber { get; set; }
+        public string LicenseVersion { get; set; }
         public string Endorsements { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -29,6 +30,10 @@ namespace Hubo
         public string Phone { get; set; }
 
         DatabaseService dbService;
+
+        RestService restService;
+
+        UserTable user;
 
         public ProfileViewModel()
         {
@@ -40,14 +45,28 @@ namespace Hubo
         private void GetUserInfo()
         {
             dbService = new DatabaseService();
-            UserTable user = new UserTable();
+            user = new UserTable();
             user = dbService.GetUserInfo();
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
+            LicenseNumber = user.License;
+            LicenseVersion = user.LicenseVersion;
+            Endorsements = user.Endorsements;
+            Name = user.CompanyName;
+            Address = user.Address;
+            CompanyEmail = user.CompanyEmail;
+            Phone = user.Phone;
             OnPropertyChanged("FirstName");
             OnPropertyChanged("LastName");
             OnPropertyChanged("Email");
+            OnPropertyChanged("LicenseNumber");
+            OnPropertyChanged("LicenseVersion");
+            OnPropertyChanged("Endorsements");
+            OnPropertyChanged("Name");
+            OnPropertyChanged("Address");
+            OnPropertyChanged("CompanyEmail");
+            OnPropertyChanged("Phone");
         }
 
         private void CancelAndPop(object obj)
@@ -57,7 +76,19 @@ namespace Hubo
 
         private void SaveAndPop(object obj)
         {
-            //TODO: Implement save of details written in
+            user = new UserTable();
+            user.FirstName = FirstName;
+            user.LastName = LastName;
+            user.Email = Email;
+            user.License = LicenseNumber;
+            user.LicenseVersion = LicenseVersion;
+            user.Endorsements = Endorsements;
+            user.CompanyName = Name;
+            user.Address = Address;
+            user.CompanyEmail = CompanyEmail;
+            user.Phone = Phone;
+            restService = new RestService();
+            restService.QueryUpdateUserInfo(user);
             Navigation.PopModalAsync();
         }
 

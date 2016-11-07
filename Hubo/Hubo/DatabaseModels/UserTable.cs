@@ -15,7 +15,16 @@ namespace Hubo
         [MaxLength(30)]
         public string LastName { get; set; }
 
-        [MaxLength(255)]
         public string Email { get; set; }
+        public string License { get; set; }
+        public string LicenseVersion { get; set; }
+        public string Endorsements { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string CompanyEmail { get; set; }
+        public string Phone { get; set; }
+
+
+
     }
 }

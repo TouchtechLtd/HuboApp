@@ -32,6 +32,14 @@ namespace Hubo
             user.FirstName = "Ben";
             user.LastName = "Suarez-Brodie";
             user.Email = "ben@triotech.co.nz";
+            user.License = "DJ89473KL";
+            user.LicenseVersion = "158";
+            user.Endorsements = "F";
+            user.CompanyName = "Trio Technology";
+            user.Address = "41 The Square, Palmerston North";
+            user.CompanyEmail = "nick@triotech.co.nz";
+            user.Phone = "0278851100";
+
             if(db.Login(user))
             {
                 return true;
@@ -40,6 +48,12 @@ namespace Hubo
             {
                 return false;
             }
+        }
+
+        internal void QueryUpdateUserInfo(UserTable user)
+        {
+            //TODO: Code to communicate with server to update user info
+            db.UpdateUserInfo(user);
         }
     }
 }

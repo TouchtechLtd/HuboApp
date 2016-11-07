@@ -43,6 +43,12 @@ namespace Hubo
         {
             List<UserTable> list = db.Query<UserTable>("SELECT * FROM [UserTable]");
             return list[0];
-        } 
+        }
+
+        internal void UpdateUserInfo(UserTable user)
+        {
+            db.Query<UserTable>("DELETE FROM [UserTable]");
+            db.Insert(user);
+        }
     }
 }
