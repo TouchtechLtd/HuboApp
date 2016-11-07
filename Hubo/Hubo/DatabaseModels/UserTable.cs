@@ -7,6 +7,8 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        public string User { get; set; }
+
         [MaxLength(30)]
         public string FirstName { get; set; }
 

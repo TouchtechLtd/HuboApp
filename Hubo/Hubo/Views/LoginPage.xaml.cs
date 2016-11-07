@@ -22,6 +22,10 @@ namespace Hubo
             {
                 DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
             });
+            MessagingCenter.Subscribe<string>(this, "UnsuccessfulLogin", (sender) =>
+            {
+                DisplayAlert(Resource.DisplayAlertTitle, Resource.UnsuccessfulLogin, Resource.DisplayAlertOkay);
+            });
         }
 
         private void Password_Completed(object sender, EventArgs e)

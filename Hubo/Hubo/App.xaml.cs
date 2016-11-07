@@ -9,14 +9,16 @@ namespace Hubo
 {
     public partial class App : Application
     {
+        DatabaseService dbService;
+
         public App()
         {
             InitializeComponent();
             //MainPage = new NavigationPage(new HomePage());
 
             //TODO: Implement check for logged in status
-            
-            MainPage = new NavigationPage(new LandingPage());
+            CheckLoggedInStatus();
+
 
             //TODO run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(1), () => {
@@ -24,9 +26,23 @@ namespace Hubo
             });
         }
 
+        private void CheckLoggedInStatus()
+        {
+            dbService = new DatabaseService();
+            if (dbService.CheckLoggedIn())
+            {
+                MainPage = new NZTAMessagePage();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LandingPage());
+            }
+        }
+
         protected override void OnStart()
         {
             //TODO Handle when your app starts
+            CheckLoggedInStatus();
         }
 
         protected override void OnSleep()
@@ -37,6 +53,7 @@ namespace Hubo
         protected override void OnResume()
         {
             //TODO: Implement check for logged in status
+            CheckLoggedInStatus();
         }
     }
 }

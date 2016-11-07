@@ -16,6 +16,7 @@ namespace Hubo
         public string Username { get; set; }
         public string Password { get; set; }
         public string LoginText { get; set; }
+        RestService restService;
 
         public LoginViewModel()
         {
@@ -29,9 +30,16 @@ namespace Hubo
         {
             if ((Username.Length != 0) && (Password.Length != 0))
             {
+                restService = new RestService();
                 //TODO: Check username & password against database.
-                App.Current.MainPage = new NZTAMessagePage();
-                
+                if(restService.Login(Username, Password))
+                {
+                    App.Current.MainPage = new NZTAMessagePage();
+                }
+                else
+                {
+                    MessagingCenter.Send<string>("UnsuccessfulLogin", "UnsuccessfulLogin");
+                }
             }
             else
             {

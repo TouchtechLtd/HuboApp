@@ -23,5 +23,20 @@ namespace Hubo
             client = new System.Net.Http.HttpClient(new NativeMessageHandler());
             this.db = new DatabaseService();
         }
+
+        internal bool Login(string username, string password)
+        {
+            //TODO: Code to communicate with server to login
+            UserTable user = new UserTable();
+            user.User = username;
+            if(db.Login(user))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

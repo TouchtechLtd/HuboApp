@@ -62,6 +62,8 @@ namespace Hubo
                 bool result = await DisplayAlert("Log Out", "Would you like to logout?", "Yes", "No");
                 if (result)
                 {
+                    DatabaseService dbService = new DatabaseService();
+                    dbService.Logout();
                     App.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }

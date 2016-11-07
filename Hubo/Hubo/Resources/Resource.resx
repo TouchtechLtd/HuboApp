@@ -135,7 +135,7 @@
   <data name="MissingText" xml:space="preserve">
     <value>Please fill out all the fields.</value>
   </data>
-  <data name="MissingTitle" xml:space="preserve">
+  <data name="DisplayAlertTitle" xml:space="preserve">
     <value>Alert</value>
   </data>
   <data name="NoUsernameOrPasswordMessage" xml:space="preserve">
@@ -215,5 +215,8 @@
   </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
+  </data>
+  <data name="UnsuccessfulLogin" xml:space="preserve">
+    <value>There was an issue logging in.</value>
   </data>
 </root>

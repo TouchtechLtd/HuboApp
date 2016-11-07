@@ -17,5 +17,26 @@ namespace Hubo
             db = DependencyService.Get<ISQLite>().GetConnection();
             db.CreateTable<UserTable>();
         }
+
+        internal bool CheckLoggedIn()
+        {
+            List<UserTable> list = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            if(list.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal bool Login(UserTable user)
+        {
+            db.Insert(user);
+            return true;
+        }
+
+        internal void Logout()
+        {
+            db.Query<UserTable>("DELETE FROM [UserTable]");
+        }
     }
 }

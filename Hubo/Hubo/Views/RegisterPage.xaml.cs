@@ -25,7 +25,7 @@ namespace Hubo
             
             MessagingCenter.Subscribe<string>(this, "IncompleteForm", async (sender) =>
             {
-                await DisplayAlert(Resource.MissingTitle, Resource.MissingText, Resource.DisplayAlertOkay);
+                await DisplayAlert(Resource.DisplayAlertTitle, Resource.MissingText, Resource.DisplayAlertOkay);
             });
 
             firstName.Completed += FirstName_Completed;

@@ -98,6 +98,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string DisplayAlertTitle {
+            get {
+                return ResourceManager.GetString("DisplayAlertTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Shift.
         /// </summary>
         public static string EditShift {
@@ -184,15 +193,6 @@ namespace Hubo {
         public static string MissingText {
             get {
                 return ResourceManager.GetString("MissingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alert.
-        /// </summary>
-        public static string MissingTitle {
-            get {
-                return ResourceManager.GetString("MissingTitle", resourceCulture);
             }
         }
         
@@ -337,6 +337,15 @@ namespace Hubo {
         public static string SwitchTextInActive {
             get {
                 return ResourceManager.GetString("SwitchTextInActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an issue logging in..
+        /// </summary>
+        public static string UnsuccessfulLogin {
+            get {
+                return ResourceManager.GetString("UnsuccessfulLogin", resourceCulture);
             }
         }
         
