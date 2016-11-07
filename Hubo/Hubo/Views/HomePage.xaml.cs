@@ -19,7 +19,6 @@ namespace Hubo
             InitializeComponent();
             BindingContext = homeVM;
             homeVM.Navigation = Navigation;
-            Button da = new Button();
         }
     }
 }

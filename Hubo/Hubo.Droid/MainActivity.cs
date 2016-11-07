@@ -25,6 +25,7 @@ namespace Hubo.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             new SfGaugeRenderer();
+            new SfChartRenderer();
             //Xamarin.Forms.Forms.ViewInitialized += (sender, e) =>
             //{
             //    if (!(e.NativeView is SfGauge)) return;

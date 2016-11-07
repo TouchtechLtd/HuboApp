@@ -1,0 +1,32 @@
+﻿using Syncfusion.SfChart.XForms;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Hubo
+{
+    class HistoryViewModel
+    {
+        public ObservableCollection<ChartDataPoint> HistoryChartData {get;set;}
+        public ObservableCollection<ChartDataPoint> HistoryChartData1 {get;set;}
+        public ObservableCollection<ChartDataPoint> HistoryChartData2 {get;set; }
+        public HistoryViewModel()
+        {
+            this.HistoryChartData = new ObservableCollection<ChartDataPoint>();
+            this.HistoryChartData.Add(new ChartDataPoint("Jan", 43));
+            this.HistoryChartData.Add(new ChartDataPoint("Feb", 80));
+
+            this.HistoryChartData1 = new ObservableCollection<ChartDataPoint>();
+            this.HistoryChartData1.Add(new ChartDataPoint("Jan", 43));
+            this.HistoryChartData1.Add(new ChartDataPoint("Feb", 80));
+
+            this.HistoryChartData2 = new ObservableCollection<ChartDataPoint>();
+            this.HistoryChartData2.Add(new ChartDataPoint("Jan", 43));
+            this.HistoryChartData2.Add(new ChartDataPoint("Feb", 80));
+        }
+
+    }
+}

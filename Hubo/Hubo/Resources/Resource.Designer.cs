@@ -98,6 +98,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Shift.
+        /// </summary>
+        public static string EditShift {
+            get {
+                return ResourceManager.GetString("EditShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Vehicle.
         /// </summary>
         public static string EditVehicleText {
@@ -112,6 +121,15 @@ namespace Hubo {
         public static string EmailPlaceholder {
             get {
                 return ResourceManager.GetString("EmailPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
             }
         }
         

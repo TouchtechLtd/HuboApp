@@ -54,6 +54,7 @@
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LandingPageViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

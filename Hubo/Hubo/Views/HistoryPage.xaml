@@ -1,6 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.HistoryPage">
-  <Label Text="HistoryPage" VerticalOptions="Center" HorizontalOptions="Center" />
+  <ContentView>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="4*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <DatePicker Format="D" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+      <chart:SfChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+        <chart:SfChart.BindingContext>
+          <local:HistoryViewModel/>
+        </chart:SfChart.BindingContext>
+        <chart:SfChart.PrimaryAxis>
+          <chart:CategoryAxis EdgeLabelsDrawingMode="Shift">
+            <chart:CategoryAxis.Title>
+              <chart:ChartAxisTitle Text="Date"/>
+            </chart:CategoryAxis.Title>
+          </chart:CategoryAxis>
+        </chart:SfChart.PrimaryAxis>
+
+        <chart:SfChart.SecondaryAxis>
+          <chart:NumericalAxis Maximum="0" Minimum="24" Interval="1" EdgeLabelsDrawingMode="Shift">
+            <chart:NumericalAxis.Title>
+              <chart:ChartAxisTitle Text="Hours"/>
+            </chart:NumericalAxis.Title>
+          </chart:NumericalAxis>
+        </chart:SfChart.SecondaryAxis>
+
+        <chart:SfChart.Series>
+          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData}" XBindingPath="Year" YBindingPath="Value"/>
+          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData1}" XBindingPath="Year" YBindingPath="Value"/>
+          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData2}" XBindingPath="Year" YBindingPath="Value"/>
+        </chart:SfChart.Series>
+      </chart:SfChart>
+      <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" />
+    </Grid>
+  
+  </ContentView>
 </ContentPage>

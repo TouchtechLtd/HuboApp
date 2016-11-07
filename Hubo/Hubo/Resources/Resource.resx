@@ -210,4 +210,10 @@
   <data name="SwitchTextInActive" xml:space="preserve">
     <value>Inactive</value>
   </data>
+  <data name="EditShift" xml:space="preserve">
+    <value>Edit Shift</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
 </root>

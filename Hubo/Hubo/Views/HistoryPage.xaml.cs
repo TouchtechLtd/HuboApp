@@ -10,9 +10,11 @@ namespace Hubo
 {
     public partial class HistoryPage : ContentPage
     {
+        HistoryViewModel historyVM = new HistoryViewModel();
         public HistoryPage()
         {
             InitializeComponent();
+            BindingContext = historyVM;
         }
     }
 }

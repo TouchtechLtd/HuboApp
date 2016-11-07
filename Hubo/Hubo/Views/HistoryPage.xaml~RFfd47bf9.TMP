@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             x:Class="Hubo.HistoryPage">
+  <chart:SfChart>
+
+    <chart:StackingBar100Series ItemsSource ="{Binding Data1}" XBindingPath="Year"
+                  YBindingPath="Value"/>
+
+    <chart:StackingBar100Series ItemsSource ="{Binding Data2}" XBindingPath="Year"
+                  YBindingPath="Value"/>
+
+    <chart:StackingBar100Series ItemsSource ="{Binding Data3}" XBindingPath="Year"
+                  YBindingPath="Value"/>
+
+  </chart:SfChart>
+</ContentPage>
