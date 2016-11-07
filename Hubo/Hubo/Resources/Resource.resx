@@ -183,4 +183,31 @@
   <data name="VehiclesText" xml:space="preserve">
     <value>Vehicles</value>
   </data>
+  <data name="AddVehicleText" xml:space="preserve">
+    <value>Add Vehicle</value>
+  </data>
+  <data name="CompanyText" xml:space="preserve">
+    <value>Company: </value>
+  </data>
+  <data name="EditVehicleText" xml:space="preserve">
+    <value>Edit Vehicle</value>
+  </data>
+  <data name="MakeText" xml:space="preserve">
+    <value>Make: </value>
+  </data>
+  <data name="ModelText" xml:space="preserve">
+    <value>Model: </value>
+  </data>
+  <data name="RegistrationText" xml:space="preserve">
+    <value>Registration: </value>
+  </data>
+  <data name="SearchVehiclesPlaceholder" xml:space="preserve">
+    <value>Search Vehicles</value>
+  </data>
+  <data name="SwitchTextActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="SwitchTextInActive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
 </root>

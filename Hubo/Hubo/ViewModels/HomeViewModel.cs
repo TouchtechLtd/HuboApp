@@ -14,6 +14,7 @@ namespace Hubo
     class HomeViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand ShiftButton { get; set; }
         public string ShiftText { get; set; }
