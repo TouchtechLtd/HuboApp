@@ -2,5 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.VehiclesPage">
-  <Label Text="VehiclesPage" VerticalOptions="Center" HorizontalOptions="Center" />
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="4*" />
+      <ColumnDefinition Width="4*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <SearchBar Placeholder="Search Vehicles" SearchCommand="{Binding SearchVehiclesCommand}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+    <Label Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+    <Label Text="{Binding MakeText}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+    <Label Text="{Binding ModelText}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
+    <Label Text="{Binding CompanyText}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"/>
+    <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+      <Switch />
+      <Label Text="{Binding SwitchText}" />
+    </StackLayout>
+    <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+    <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" />
+  </Grid>  
 </ContentPage>
