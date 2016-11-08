@@ -4,6 +4,7 @@
              x:Class="Hubo.MenuPage">
   <ContentPage.Content>
     <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+      <StackLayout HeightRequest="200" BackgroundColor="#3E606F"/>
       <StackLayout >
         <ListView x:Name="MenuList" ItemsSource="{Binding MenuPageList}" HasUnevenRows="True" SeparatorVisibility="None">
           <ListView.ItemTemplate>
