@@ -26,6 +26,7 @@ namespace Hubo.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             new SfGaugeRenderer();
             new SfChartRenderer();
+            Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#193441"));
             //Xamarin.Forms.Forms.ViewInitialized += (sender, e) =>
             //{
             //    if (!(e.NativeView is SfGauge)) return;

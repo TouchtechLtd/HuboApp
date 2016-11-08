@@ -5,11 +5,11 @@
   <Application.Resources>
     <ResourceDictionary>
       <Color x:Key="pageBackgroundColour">White</Color>
-      <Color x:Key="barBackgroundColour">#424bf4</Color>
-      <Color x:Key="entryBackgroundColour">White</Color>
-      <Color x:Key="entryTextColour">#424bf4</Color>
-      <Color x:Key="buttonBackgroundColour">Gray</Color>
-      <Color x:Key="buttonTextColour">White</Color>
+      <Color x:Key="barBackgroundColour">#3E606F</Color>
+      <Color x:Key="entryBackgroundColour">#FCFFF5</Color>
+      <Color x:Key="entryTextColour">#3E606F</Color>
+      <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
+      <Color x:Key="buttonTextColour">#D1DBBD</Color>
       <Style TargetType="NavigationPage">
         <Setter Property="BackgroundColor" Value="{StaticResource pageBackgroundColour}" />
         <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
