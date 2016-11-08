@@ -2,5 +2,46 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.AddShiftPage">
-  <Label Text="AddShiftPage" VerticalOptions="Center" HorizontalOptions="Center" />
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="2*" />
+    </Grid.RowDefinitions>
+    <Label Text="Date" YAlign="Center" Grid.Row="1" Grid.Column="1" />
+    <DatePicker Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="End"/>
+    <Label Text="Vehicle" YAlign="Center" Grid.Row="2" Grid.Column="1"/>
+    <Picker x:Name="VehiclePicker" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="Start Shift" YAlign="Center" Grid.Row="3" Grid.Column="1"/>
+    <TimePicker Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="Start Break" YAlign="Center" Grid.Row="4" Grid.Column="1"/>
+    <TimePicker Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="End Break" YAlign="Center" Grid.Row="5" Grid.Column="1"/>
+    <TimePicker Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="Start Break" YAlign="Center" Grid.Row="6" Grid.Column="1"/>
+    <TimePicker Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="End Break" YAlign="Center" Grid.Row="7" Grid.Column="1"/>
+    <TimePicker Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="End Shift" YAlign="Center" Grid.Row="8" Grid.Column="1"/>
+    <TimePicker Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Button Text="{Binding LoginText}" Command="{Binding AddBreakButton}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" />
+    <Button Text="{Binding SaveText}" Command="{Binding SaveButton}"  Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9"/>
+    
+    
+  </Grid>
 </ContentPage>
