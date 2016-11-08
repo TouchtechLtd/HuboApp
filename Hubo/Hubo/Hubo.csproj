@@ -131,7 +131,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http">
-      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Microsoft Azure Data Lake Tools for Visual Studio 2015\2.1.0000.0\System.Net.Http.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.2.127\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
