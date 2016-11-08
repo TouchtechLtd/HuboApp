@@ -53,6 +53,7 @@
     <Compile Include="Services\TranslateExtension.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\RestService.cs" />
+    <Compile Include="ViewModels\AddShiftViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

@@ -219,4 +219,28 @@
   <data name="UnsuccessfulLogin" xml:space="preserve">
     <value>There was an issue logging in.</value>
   </data>
+  <data name="AddBreak" xml:space="preserve">
+    <value>Add Break</value>
+  </data>
+  <data name="EndBreak" xml:space="preserve">
+    <value>End Break</value>
+  </data>
+  <data name="EndShift" xml:space="preserve">
+    <value>End Shift</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="StartBreak" xml:space="preserve">
+    <value>Start Break</value>
+  </data>
+  <data name="StartShift" xml:space="preserve">
+    <value>Start Shift</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Vehicle" xml:space="preserve">
+    <value>Vehicle</value>
+  </data>
 </root>
