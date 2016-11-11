@@ -16,13 +16,11 @@ namespace Hubo
         public VehiclesPage()
         {
             InitializeComponent();
+            vehiclesVM.Navigation = Navigation;
             BindingContext = vehiclesVM;
             switchToggle.Toggled += SwitchToggle_Toggled;
             vehicleNames = new List<string>();
-            vehicleNames.Add("BSK474");
-            vehicleNames.Add("YHG072");
-            vehicleNames.Add("HED889");
-            vehicleNames.Add("LWP127");
+            vehicleNames = vehiclesVM.listOfVehicleRegistrations;
             autocomplete.AutoCompleteSource = vehicleNames;
             autocomplete.ShowSuggestionsOnFocus = true;
             autocomplete.Watermark = "Enter Vehicle";

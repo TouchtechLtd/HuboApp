@@ -6,38 +6,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Hubo
 {
     class VehiclesViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Vehicle> listOfVehicles;
+        public List<string> listOfVehicleRegistrations;
+        public Vehicle currentVehicle;
+
+        public INavigation Navigation { get; set; }
         public string SearchVehiclesPlaceholder { get; set; }
         public string RegistrationText { get; set; }
+        public string RegistrationEntry { get; set; }
         public string MakeText { get; set; }
+        public string MakeEntry { get; set; }
         public string ModelText { get; set; }
+        public string ModelEntry { get; set; }
         public string CompanyText { get; set; }
+        public string CompanyEntry { get; set; }
         public string SwitchText { get; set; }
         public string EditVehicleText { get; set; }
         public string AddVehicleText { get; set; }
+        public string SaveText { get; set; }
+        public string CancelText { get; set; }
         public ICommand EditVehicleCommand { get; set; }
         public ICommand AddVehicleCommand { get; set; }
         public ICommand SearchVehiclesCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         public VehiclesViewModel()
         {
-            SearchVehiclesPlaceholder = Resource.SearchVehiclesPlaceholder;
-            RegistrationText = Resource.RegistrationText;
-            MakeText = Resource.MakeText;
-            ModelText = Resource.ModelText;
-            CompanyText = Resource.CompanyText;
-            SwitchText = Resource.SwitchTextInActive;
-            EditVehicleText = Resource.EditVehicleText;
-            AddVehicleText = Resource.AddVehicleText;
+            UpdateLabels();
             listOfVehicles = new ObservableCollection<Vehicle>();
+            listOfVehicleRegistrations = new List<string>();
             Vehicle test1 = new Vehicle();
             Vehicle test2 = new Vehicle();
             Vehicle test3 = new Vehicle();
@@ -61,10 +68,47 @@ namespace Hubo
             test2.Registration = "YHG072";
             test3.Registration = "HED889";
             test4.Registration = "LWP127";
+
+            listOfVehicleRegistrations.Add(test1.Registration);
+            listOfVehicleRegistrations.Add(test2.Registration);
+            listOfVehicleRegistrations.Add(test3.Registration);
+            listOfVehicleRegistrations.Add(test4.Registration);
+
             listOfVehicles.Add(test1);
             listOfVehicles.Add(test2);
             listOfVehicles.Add(test3);
             listOfVehicles.Add(test4);
+
+            currentVehicle = new Vehicle();
+
+            EditVehicleCommand = new Command(EditVehicle);
+
+            CancelText = Resource.Cancel;
+            SaveText = Resource.Save;
+        }
+
+        private void UpdateLabels()
+        {
+            SearchVehiclesPlaceholder = Resource.SearchVehiclesPlaceholder;
+            RegistrationText = Resource.RegistrationText;
+            MakeText = Resource.MakeText;
+            ModelText = Resource.ModelText;
+            CompanyText = Resource.CompanyText;
+            SwitchText = Resource.SwitchTextInActive;
+            EditVehicleText = Resource.EditVehicleText;
+            AddVehicleText = Resource.AddVehicleText;
+        }
+
+        private void EditVehicle()
+        {
+            if (currentVehicle == null)
+            {
+
+            }
+            else
+            {
+                Navigation.PushAsync(new EditVehiclePage(currentVehicle));
+            }
         }
 
         public void ToggleSwitch(bool toggle)
@@ -94,9 +138,32 @@ namespace Hubo
                     OnPropertyChanged("MakeText");
                     OnPropertyChanged("ModelText");
                     OnPropertyChanged("CompanyText");
+                    currentVehicle = vehicle;
                 }
             }
         }
+
+
+        internal void UpdateEditPage(string registration)
+        {
+            UpdateLabels();
+            foreach (Vehicle vehicle in listOfVehicles)
+            {
+                if (registration == vehicle.Registration)
+                {
+                    RegistrationEntry = vehicle.Registration;
+                    MakeEntry = vehicle.Make;
+                    ModelEntry = vehicle.Model;
+                    CompanyEntry = vehicle.Company;
+                    OnPropertyChanged("RegistrationEntry");
+                    OnPropertyChanged("MakeEntry");
+                    OnPropertyChanged("ModelEntry");
+                    OnPropertyChanged("CompanyEntry");
+                    currentVehicle = vehicle;
+                }
+            }
+        }
+
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class Vehicle
+    public class Vehicle
     {
         public string Registration { get; set; }
         public string Make { get; set; }
