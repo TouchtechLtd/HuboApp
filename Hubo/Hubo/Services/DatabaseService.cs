@@ -16,6 +16,44 @@ namespace Hubo
         {
             db = DependencyService.Get<ISQLite>().GetConnection();
             db.CreateTable<UserTable>();
+            db.CreateTable<VehicleTable>();
+            CreateTestData();
+        }
+
+        private void CreateTestData()
+        {
+            List<VehicleTable> vehiclesList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
+            if(vehiclesList.Count==0)
+            {
+                VehicleTable test1 = new VehicleTable();
+                VehicleTable test2 = new VehicleTable();
+                VehicleTable test3 = new VehicleTable();
+                VehicleTable test4 = new VehicleTable();
+                test1.Company = "BD14";
+                test2.Company = "BD14";
+                test3.Company = "BD14";
+                test4.Company = "BD14";
+
+                test1.Make = "Mack";
+                test2.Make = "Freightliner";
+                test3.Make = "Western Star";
+                test4.Make = "Kenworth";
+
+                test1.Model = "Example 1";
+                test2.Model = "Example 2";
+                test3.Model = "Example 3";
+                test4.Model = "Example 4";
+
+                test1.Registration = "BSK474";
+                test2.Registration = "YHG072";
+                test3.Registration = "HED889";
+                test4.Registration = "LWP127";
+
+                db.Insert(test1);
+                db.Insert(test2);
+                db.Insert(test3);
+                db.Insert(test4);
+            }
         }
 
         internal bool CheckLoggedIn()
@@ -26,6 +64,18 @@ namespace Hubo
                 return true;
             }
             return false;
+        }
+
+        internal ObservableCollection<VehicleTable> GetVehicles()
+        {
+            List<VehicleTable> vehiclesList = new List<VehicleTable>();
+            vehiclesList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
+            ObservableCollection<VehicleTable> vehiclesCollection = new ObservableCollection<VehicleTable>();
+            foreach(VehicleTable vehicle in vehiclesList)
+            {
+                vehiclesCollection.Add(vehicle);
+            }
+            return vehiclesCollection;
         }
 
         internal bool Login(UserTable user)

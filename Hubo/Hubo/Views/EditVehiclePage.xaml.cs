@@ -10,7 +10,7 @@ namespace Hubo
 {
     public partial class EditVehiclePage : ContentPage
     {
-        Vehicle currentVehicle;
+        VehicleTable currentVehicle;
         VehiclesViewModel vehiclesVM = new VehiclesViewModel();
 
         public EditVehiclePage()
@@ -20,7 +20,7 @@ namespace Hubo
             switchToggle.Toggled += SwitchToggle_Toggled;
         }
 
-        public EditVehiclePage(Vehicle chosenVehicle)
+        public EditVehiclePage(VehicleTable chosenVehicle)
         {
             InitializeComponent();
             BindingContext = vehiclesVM;

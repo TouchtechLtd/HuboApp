@@ -43,7 +43,7 @@
     <Compile Include="Interfaces\ISQLite.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\MenuItem.cs" />
-    <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="DatabaseModels\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
