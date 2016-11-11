@@ -16,17 +16,17 @@ namespace Hubo
         public ProfilePage()
         {
             InitializeComponent();
-            Title = "HUBO";
             profileVM.Navigation = Navigation;
             BindingContext = profileVM;
             ToolbarItem Done = new ToolbarItem();
             ToolbarItem Cancel = new ToolbarItem();
-            Done.Icon = "Checkmark24.png";
+            Done.Icon = "Ok.png";
             Cancel.Icon = "Cancel.png";
             Done.Command = profileVM.SaveAndExit;
             Cancel.Command = profileVM.CancelAndExit;
             ToolbarItems.Add(Done);
             ToolbarItems.Add(Cancel);
         }
+
     }
 }

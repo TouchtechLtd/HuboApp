@@ -53,7 +53,7 @@ namespace Hubo
         protected override void OnResume()
         {
             //TODO: Implement check for logged in status
-            CheckLoggedInStatus();
+            //CheckLoggedInStatus();
         }
     }
 }

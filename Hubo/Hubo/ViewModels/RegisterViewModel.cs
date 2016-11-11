@@ -27,10 +27,10 @@ namespace Hubo
         {
             RegisterButton = new Command(ProceedToRegister);
             RegisterButtonText = Resource.RegisterText;
-            FirstNamePlaceholder = Resource.FirstNamePlaceholder;
-            LastNamePlaceholder = Resource.LastNamePlaceholder;
-            EmailPlaceholder = Resource.EmailPlaceholder;
-            PasswordPlaceholder = Resource.PasswordPlaceholder;
+            FirstNamePlaceholder = Resource.FirstName;
+            LastNamePlaceholder = Resource.LastName;
+            EmailPlaceholder = Resource.Email;
+            PasswordPlaceholder = Resource.Password;
             FirstName = "";
             LastName = "";
             Email = "";

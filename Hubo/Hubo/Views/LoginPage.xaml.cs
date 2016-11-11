@@ -41,6 +41,7 @@ namespace Hubo
         protected override void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<string>(this, "EmptyDetails");
+            MessagingCenter.Unsubscribe<string>(this, "UnsuccessfulLogin");
             base.OnDisappearing();
         }
     }

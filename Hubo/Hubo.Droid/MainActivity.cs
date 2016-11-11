@@ -10,6 +10,7 @@ using Syncfusion.SfChart.XForms.Droid;
 using Syncfusion.SfGauge.XForms.Droid;
 using Com.Syncfusion.Charts;
 using Com.Syncfusion.Gauges;
+using Syncfusion.SfAutoComplete.XForms.Droid;
 
 namespace Hubo.Droid
 {
@@ -26,7 +27,11 @@ namespace Hubo.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             new SfGaugeRenderer();
             new SfChartRenderer();
-            Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#193441"));
+            new SfAutoCompleteRenderer();
+            if (((int)Build.VERSION.SdkInt) >= 21)
+            {
+                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#193441"));
+            }
             //Xamarin.Forms.Forms.ViewInitialized += (sender, e) =>
             //{
             //    if (!(e.NativeView is SfGauge)) return;

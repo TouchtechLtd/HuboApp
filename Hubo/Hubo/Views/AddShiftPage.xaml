@@ -25,7 +25,7 @@
     </Grid.RowDefinitions>
     
     <Label Text="{Binding Date}" YAlign="Center" Grid.Row="1" Grid.Column="1" />
-    <DatePicker x:Name="datePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="End"/>
+    <DatePicker x:Name="datePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="End"/>
     
     <Label Text="{Binding Vehicle}" YAlign="Center" Grid.Row="2" Grid.Column="1"/>
     <Picker x:Name="vehiclePicker" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>

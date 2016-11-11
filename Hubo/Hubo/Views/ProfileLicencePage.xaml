@@ -5,7 +5,8 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="8*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="6*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -14,8 +15,14 @@
       <RowDefinition Height="2*" />
       <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
-    <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" Placeholder="License Number"/>
-    <Entry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="License Version"/>
-    <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="1" Grid.Row="2" VerticalOptions="Center" Placeholder="Endorsements"/>
+    
+    <Label Text="{Binding LicenseNumberText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+    <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" />
+    
+    <Label Text="{Binding LicenseVersionText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+    <Entry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" />
+
+    <Label Text="{Binding EndorsementsText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+    <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="2" VerticalOptions="Center" />
   </Grid>
 </ContentPage>

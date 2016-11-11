@@ -15,17 +15,17 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
-      <RowDefinition Height="4*" />
-      <RowDefinition Height="3*" />
+      <RowDefinition Height="6*" />
+      <RowDefinition Height="1*" />
       <RowDefinition Height="3*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <syncfusion:SfCircularGauge Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+    <syncfusion:SfCircularGauge Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
       <syncfusion:SfCircularGauge.BindingContext>
         <local:HomeViewModel  />
       </syncfusion:SfCircularGauge.BindingContext>
       <syncfusion:SfCircularGauge.Scales>
-        <syncfusion:Scale StartValue="0" LabelColor="Gray" StartAngle="135" RimThickness="10" MinorTicksPerInterval="1" SweepAngle="270" EndValue="24"  Interval="2" RimColor="Red" LabelOffset="0.2">
+        <syncfusion:Scale  x:Name="circularScale" StartValue="0" LabelColor="Gray" StartAngle="135" RimThickness="10" MinorTicksPerInterval="1" SweepAngle="270" EndValue="24"  Interval="2" RimColor="Red" LabelOffset="0.2">
           <syncfusion:Scale.MajorTickSettings LabelColor="Black">
             <syncfusion:TickSettings Length="12" Thickness="3" Color="Black" Offset="0.35"/>
           </syncfusion:Scale.MajorTickSettings>
@@ -33,26 +33,16 @@
             <syncfusion:TickSettings Length="6" Thickness="3" Color="Green" Offset="0.35"/>
           </syncfusion:Scale.MinorTickSettings>
           <syncfusion:Scale.Pointers>
-            <syncfusion:RangePointer  Color="Green" Thickness="10" Value="{Binding RemainderOfJourney}" EnableAnimation="true"/>
-            <syncfusion:RangePointer  Color="Blue" Thickness="10" Value="{Binding CompletedJourney}" EnableAnimation="true"/>
-            <syncfusion:RangePointer  Color="Maroon" Thickness="10" Value="{Binding Break}" EnableAnimation="true"/>
+            <syncfusion:RangePointer x:Name="greenRangePointer" Color="{Binding GreenRangePointer}"  Thickness="10" Value="{Binding RemainderOfJourney}" EnableAnimation="true"/>
+            <syncfusion:RangePointer x:Name="blueRangePointer" Color="{Binding BlueRangePointer}"  Thickness="10" Value="{Binding CompletedJourney}" EnableAnimation="true"/>
+            <syncfusion:RangePointer x:Name="redRangePointer" Color="{Binding RedRangePointer}" Thickness="10" Value="{Binding Break}" EnableAnimation="true"/>
             <syncfusion:NeedlePointer  Value="{Binding CompletedJourney}" Color="Black" KnobColor="Gray" KnobRadius="15" LengthFactor="0.5" EnableAnimation="true"/>
           </syncfusion:Scale.Pointers>
         </syncfusion:Scale>
       </syncfusion:SfCircularGauge.Scales>
     </syncfusion:SfCircularGauge>
-      <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="20" TextColor="Black" Grid.Row="2" Grid.Column="2" />
-    <syncfusion:SfLinearGauge Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
-      <syncfusion:SfLinearGauge.Scales>
-    <syncfusion:LinearScale  x:Name="scale" MinimumValue="0"  MaximumValue="100" Interval="20" ScaleBarLength="100" ScaleBarColor="#FAECEC"  MinorTicksPerInterval="1" ScaleBarSize="50" ScalePosition="BackWard" >
-      <syncfusion:LinearScale.Pointers>
-        <syncfusion:BarPointer Value="100"  Thickness="150" Color="Red"/>
-        <syncfusion:BarPointer Value="70"  Thickness="150" Color="Green"/>
-        <syncfusion:BarPointer Value="{Binding TotalBeforeBreak}"  Thickness="150" Color="Blue" />
-      </syncfusion:LinearScale.Pointers>
-    </syncfusion:LinearScale>
-      </syncfusion:SfLinearGauge.Scales>
-    </syncfusion:SfLinearGauge>
+    <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="20" TextColor="Black" Grid.Row="2" Grid.Column="2" />
+
     <Button Text="{Binding ShiftText}" FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
   </Grid>  
 </ContentPage>

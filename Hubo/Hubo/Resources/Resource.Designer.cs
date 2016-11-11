@@ -71,6 +71,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Shift.
         /// </summary>
         public static string AddShiftText {
@@ -145,9 +154,9 @@ namespace Hubo {
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
-        public static string EmailPlaceholder {
+        public static string Email {
             get {
-                return ResourceManager.GetString("EmailPlaceholder", resourceCulture);
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -157,6 +166,15 @@ namespace Hubo {
         public static string EndBreak {
             get {
                 return ResourceManager.GetString("EndBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Endorsements.
+        /// </summary>
+        public static string Endorsements {
+            get {
+                return ResourceManager.GetString("Endorsements", resourceCulture);
             }
         }
         
@@ -181,9 +199,9 @@ namespace Hubo {
         /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
-        public static string FirstNamePlaceholder {
+        public static string FirstName {
             get {
-                return ResourceManager.GetString("FirstNamePlaceholder", resourceCulture);
+                return ResourceManager.GetString("FirstName", resourceCulture);
             }
         }
         
@@ -199,9 +217,27 @@ namespace Hubo {
         /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
-        public static string LastNamePlaceholder {
+        public static string LastName {
             get {
-                return ResourceManager.GetString("LastNamePlaceholder", resourceCulture);
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License Number.
+        /// </summary>
+        public static string LicenseNumber {
+            get {
+                return ResourceManager.GetString("LicenseNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License Version.
+        /// </summary>
+        public static string LicenseVersion {
+            get {
+                return ResourceManager.GetString("LicenseVersion", resourceCulture);
             }
         }
         
@@ -238,6 +274,15 @@ namespace Hubo {
         public static string ModelText {
             get {
                 return ResourceManager.GetString("ModelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -280,9 +325,18 @@ namespace Hubo {
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
-        public static string PasswordPlaceholder {
+        public static string Password {
             get {
-                return ResourceManager.GetString("PasswordPlaceholder", resourceCulture);
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
             }
         }
         

@@ -8,7 +8,7 @@
       <local:ProfilePersonalPage/>
     </x:Arguments>
   </NavigationPage>
-  <NavigationPage Title="License">
+  <NavigationPage Title="License" >
     <x:Arguments>
       <local:ProfileLicencePage/>
     </x:Arguments>

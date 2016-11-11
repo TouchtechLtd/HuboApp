@@ -28,6 +28,19 @@ namespace Hubo
         public string Address { get; set; }
         public string CompanyEmail { get; set; }
         public string Phone { get; set; }
+        public string FirstNameText { get; set; }
+        public string LastNameText { get; set; }
+        public string EmailText { get; set; }
+        public string PasswordText { get; set; }
+        public string LicenseNumberText { get; set; }
+        public string LicenseVersionText { get; set; }
+        public string EndorsementsText { get; set; }
+        public string NameText { get; set; }
+        public string AddressText { get; set; }
+        public string CompanyEmailText { get; set; }
+        public string PhoneText { get; set; }
+
+
 
         DatabaseService dbService;
 
@@ -39,11 +52,23 @@ namespace Hubo
         {
             SaveAndExit = new Command(SaveAndPop);
             CancelAndExit = new Command(CancelAndPop);
+            FirstNameText = Resource.FirstName;
+            LastNameText = Resource.LastName;
+            EmailText = Resource.Email;
+            PasswordText = Resource.Password;
+            LicenseNumberText = Resource.LicenseNumber;
+            LicenseVersionText = Resource.LicenseVersion;
+            EndorsementsText = Resource.Endorsements;
+            NameText = Resource.Name;
+            AddressText = Resource.Address;
+            CompanyEmailText = Resource.Email;
+            PhoneText = Resource.Phone;
             GetUserInfo();
         }
 
         private void GetUserInfo()
         {
+
             dbService = new DatabaseService();
             user = new UserTable();
             user = dbService.GetUserInfo();

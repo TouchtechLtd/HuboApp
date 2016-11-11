@@ -5,7 +5,8 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="8*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="6*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -14,9 +15,18 @@
       <RowDefinition Height="2*" />
       <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
-    <Entry Text="{Binding Name}" x:Name="name" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" Placeholder="Name"/>
-    <Entry Text="{Binding Address}" x:Name="address" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="Address"/>
-    <Entry Text="{Binding CompanyEmail}" x:Name="companyEmail"  Grid.Column="1" Grid.Row="2" VerticalOptions="Center" Placeholder="CompanyEmail"/>
-    <Entry Text="{Binding Phone}" x:Name="phone" Grid.Column="1" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
+
+    <Label Text="{Binding NameText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
+    <Entry Text="{Binding Name}" x:Name="name" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" Placeholder="Name"/>
+
+    <Label Text="{Binding AddressText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
+    <Entry Text="{Binding Address}" x:Name="address" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" Placeholder="Address"/>
+
+    <Label Text="{Binding CompanyEmailText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
+    <Entry Text="{Binding CompanyEmail}" x:Name="companyEmail"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center" Placeholder="CompanyEmail"/>
+
+    <Label Text="{Binding PhoneText}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
+    <Entry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
+    
   </Grid>
 </ContentPage>

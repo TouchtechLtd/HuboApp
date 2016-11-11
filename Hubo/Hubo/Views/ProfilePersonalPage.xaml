@@ -5,7 +5,8 @@
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="8*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="6*"/>
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
@@ -14,9 +15,18 @@
       <RowDefinition Height="2*" />
       <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
-    <Entry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" Placeholder="First Name"/>
-    <Entry Text="{Binding LastName}" x:Name="lastName" Grid.Column="1" Grid.Row="1" VerticalOptions="Center" Placeholder="Last Name"/>
-    <Entry Text="{Binding Email}" x:Name="email"  Grid.Column="1" Grid.Row="2" VerticalOptions="Center" Placeholder="Email"/>
-    <Entry Text="{Binding Password}" x:Name="password" Grid.Column="1" Grid.Row="3" VerticalOptions="Center" Placeholder="Password"/>
+
+    <Label Text="{Binding FirstNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" YAlign="Center" XAlign="Center"/>
+    <Entry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
+
+    <Label Text="{Binding LastNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  YAlign="Center" XAlign="Center"/>
+    <Entry Text="{Binding LastName}" x:Name="lastName" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
+
+    <Label Text="{Binding EmailText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"  YAlign="Center" XAlign="Center"/>
+    <Entry Text="{Binding Email}" x:Name="email"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
+
+    <Label Text="{Binding PasswordText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  YAlign="Center" XAlign="Center"/>
+    <Entry Text="{Binding Password}" x:Name="password" Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
+    
   </Grid>
 </ContentPage>

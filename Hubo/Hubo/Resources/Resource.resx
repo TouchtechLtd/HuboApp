@@ -120,13 +120,13 @@
   <data name="DisplayAlertOkay" xml:space="preserve">
     <value>Ok</value>
   </data>
-  <data name="EmailPlaceholder" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="FirstNamePlaceholder" xml:space="preserve">
+  <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
-  <data name="LastNamePlaceholder" xml:space="preserve">
+  <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
   <data name="LoginText" xml:space="preserve">
@@ -150,7 +150,7 @@
   <data name="NZTADisclaimer" xml:space="preserve">
     <value>*PLACEHOLDER FOR DISCLAIMER*</value>
   </data>
-  <data name="PasswordPlaceholder" xml:space="preserve">
+  <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="RegisterSuccessText" xml:space="preserve">
@@ -242,5 +242,23 @@
   </data>
   <data name="Vehicle" xml:space="preserve">
     <value>Vehicle</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Endorsements" xml:space="preserve">
+    <value>Endorsements</value>
+  </data>
+  <data name="LicenseNumber" xml:space="preserve">
+    <value>License Number</value>
+  </data>
+  <data name="LicenseVersion" xml:space="preserve">
+    <value>License Version</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
   </data>
 </root>

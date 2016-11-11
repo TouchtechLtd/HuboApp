@@ -53,5 +53,12 @@ namespace Hubo
         {
             lastName.Focus();
         }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<string>(this, "SuccessfulRegister");
+            MessagingCenter.Unsubscribe<string>(this, "IncompleteForm");
+            base.OnDisappearing();
+        }
     }
 }

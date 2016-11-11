@@ -24,20 +24,22 @@ namespace Hubo
         public int Break { get; set; }
         public int TotalBeforeBreak { get; set; }
         public string TotalBeforeBreakText { get; set; }
+        public int StartValue { get; set; }
 
         
 
 
         public HomeViewModel()
         {
-            this.CompletedJourney = 5;
-            this.RemainderOfJourney = 14;
+            this.CompletedJourney = 0;
+            this.RemainderOfJourney = 0;
             this.Break = 0;
             this.TotalBeforeBreak = 20;
             this.TotalBeforeBreakText = this.TotalBeforeBreak.ToString() + "/70 Hours Total";
             ShiftText = "Start Shift";
-            ShiftButtonColor = Color.Lime;
+            ShiftButtonColor = Color.FromHex("#009900");
             ShiftButton = new Command(ToggleShift);
+            this.StartValue = 5;
         }
 
         private void ToggleShift()
@@ -45,16 +47,26 @@ namespace Hubo
             if(ShiftText == "Start Shift")
             {
                 ShiftText = "Stop Shift";
-                ShiftButtonColor = Color.Red;
+                ShiftButtonColor = Color.FromHex("#cc0000"); ;
                 
             }
             else
             {
                 ShiftText = "Start Shift";
-                ShiftButtonColor = Color.Lime;
+                ShiftButtonColor = Color.FromHex("#009900");
+                UpdateCircularGauge();
             }
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
+        }
+
+        private void UpdateCircularGauge()
+        {
+            DateTime test = new DateTime();
+            test = DateTime.Now;
+            int hour = test.Hour;
+            this.CompletedJourney = hour;
+            OnPropertyChanged("CompletedJourney");
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

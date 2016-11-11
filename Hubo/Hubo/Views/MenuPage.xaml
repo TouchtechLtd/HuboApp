@@ -4,7 +4,9 @@
              x:Class="Hubo.MenuPage">
   <ContentPage.Content>
     <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
-      <StackLayout HeightRequest="200" BackgroundColor="#3E606F"/>
+      <StackLayout HeightRequest="150" BackgroundColor="#3E606F"/>
+      <Label Text="   Ben Suarez-Brodie" BackgroundColor="#3E606F" TextColor="White" FontSize="22"  />
+      <StackLayout BackgroundColor="#3E606F" HeightRequest="20" />
       <StackLayout >
         <ListView x:Name="MenuList" ItemsSource="{Binding MenuPageList}" HasUnevenRows="True" SeparatorVisibility="None">
           <ListView.ItemTemplate>
