@@ -84,6 +84,12 @@ namespace Hubo
             return true;
         }
 
+        internal void UpdateVehicleInfo(VehicleTable editedVehicle)
+        {
+            db.Update(editedVehicle);
+            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
+        }
+
         internal void Logout()
         {
             db.Query<UserTable>("DELETE FROM [UserTable]");

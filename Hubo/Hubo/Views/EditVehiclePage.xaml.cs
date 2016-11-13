@@ -27,6 +27,10 @@ namespace Hubo
             this.currentVehicle = chosenVehicle;
             vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
             switchToggle.Toggled += SwitchToggle_Toggled;
+            MessagingCenter.Subscribe<string>("UpdateVehicles", "UpdateVehicles", (sender) =>
+            {
+                Navigation.PopAsync();
+            });
 
         }
         private void SwitchToggle_Toggled(object sender, ToggledEventArgs e)

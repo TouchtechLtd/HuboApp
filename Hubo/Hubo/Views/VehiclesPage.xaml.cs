@@ -26,18 +26,20 @@ namespace Hubo
             autocomplete.Watermark = "Enter Vehicle";
             autocomplete.AutoCompleteMode = Syncfusion.SfAutoComplete.XForms.AutoCompleteMode.SuggestAppend;
             autocomplete.ValueChanged += Autocomplete_ValueChanged;
+            MessagingCenter.Subscribe<string>("UpdateVehicles", "UpdateVehicles", (sender) =>
+            {
+                vehicleNames = vehiclesVM.GetVehicles();
+                autocomplete.AutoCompleteSource = vehicleNames;
+            });
         }
 
         private void Autocomplete_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
         {
-            if(e.Value.Length == 6)
+            foreach(string vehicle in vehicleNames)
             {
-                foreach(string vehicle in vehicleNames)
+                if(vehicle==e.Value)
                 {
-                    if(vehicle==e.Value)
-                    {
-                        vehiclesVM.UpdatePage(e.Value);
-                    }
+                    vehiclesVM.UpdatePage(e.Value);
                 }
             }
         }

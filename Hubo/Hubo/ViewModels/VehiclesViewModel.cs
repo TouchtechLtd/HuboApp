@@ -44,15 +44,7 @@ namespace Hubo
         public VehiclesViewModel()
         {
             UpdateLabels();
-            listOfVehicles = new ObservableCollection<VehicleTable>();
-            listOfVehicleRegistrations = new List<string>();
-
-            listOfVehicles =  DbService.GetVehicles();
-
-            foreach(VehicleTable vehicle in listOfVehicles)
-            {
-                listOfVehicleRegistrations.Add(vehicle.Registration);
-            }
+            GetVehicles();
 
             currentVehicle = new VehicleTable();
 
@@ -60,6 +52,37 @@ namespace Hubo
 
             CancelText = Resource.Cancel;
             SaveText = Resource.Save;
+
+            SaveCommand = new Command(SaveVehicleDetails);
+
+            
+        }
+
+        public List<string> GetVehicles()
+        {
+            listOfVehicles = new ObservableCollection<VehicleTable>();
+            listOfVehicleRegistrations = new List<string>();
+
+            listOfVehicles = DbService.GetVehicles();
+
+            foreach (VehicleTable vehicle in listOfVehicles)
+            {
+                listOfVehicleRegistrations.Add(vehicle.Registration);
+            }
+            UpdateLabels();
+            return listOfVehicleRegistrations;
+                
+        }
+
+        private void SaveVehicleDetails()
+        {
+            VehicleTable editedVehicle = new VehicleTable();
+            editedVehicle.Company = CompanyEntry;
+            editedVehicle.Make = MakeEntry;
+            editedVehicle.Model = ModelEntry;
+            editedVehicle.Registration = RegistrationEntry;
+            editedVehicle.Key = currentVehicle.Key;
+            DbService.UpdateVehicleInfo(editedVehicle);
         }
 
         private void UpdateLabels()
@@ -72,6 +95,10 @@ namespace Hubo
             SwitchText = Resource.SwitchTextInActive;
             EditVehicleText = Resource.EditVehicleText;
             AddVehicleText = Resource.AddVehicleText;
+            OnPropertyChanged("RegistrationText");
+            OnPropertyChanged("MakeText");
+            OnPropertyChanged("ModelText");
+            OnPropertyChanged("CompanyText");
         }
 
         private void EditVehicle()
