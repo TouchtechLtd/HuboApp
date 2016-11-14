@@ -56,6 +56,7 @@
     <Compile Include="Services\RestService.cs" />
     <Compile Include="ViewModels\AddShiftViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\ExportViewModel.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LandingPageViewModel.cs" />
@@ -73,6 +74,9 @@
     </Compile>
     <Compile Include="Views\EditVehiclePage.xaml.cs">
       <DependentUpon>EditVehiclePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportPage.xaml.cs">
+      <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
@@ -270,6 +274,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AddVehiclePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ExportPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

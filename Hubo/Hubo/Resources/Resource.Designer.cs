@@ -215,6 +215,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        /// </summary>
+        public static string ExportDisclaimer {
+            get {
+                return ResourceManager.GetString("ExportDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
@@ -229,6 +238,15 @@ namespace Hubo {
         public static string HistoryText {
             get {
                 return ResourceManager.GetString("HistoryText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please fill out a valid email address..
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Hubo
 {
@@ -18,6 +19,7 @@ namespace Hubo
         public string ExportText { get; set; }
         public ICommand EditShiftCommand { get; set; }
         public ICommand ExportCommand { get; set; }
+        public INavigation Navigation { get; set; }
 
         public HistoryViewModel()
         {
@@ -59,7 +61,12 @@ namespace Hubo
 
             EditShiftText = Resource.EditShift;
             ExportText = Resource.Export;
+            ExportCommand = new Command(Export);
             }
 
+        private void Export()
+        {
+            Navigation.PushAsync(new ExportPage());
+        }
     }
 }

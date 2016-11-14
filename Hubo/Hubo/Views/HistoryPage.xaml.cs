@@ -14,6 +14,7 @@ namespace Hubo
         public HistoryPage()
         {
             InitializeComponent();
+            historyVM.Navigation = Navigation;
             BindingContext = historyVM;
         }
     }
