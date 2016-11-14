@@ -8,21 +8,22 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public partial class EditVehiclePage : ContentPage
+    public partial class AddVehiclePage : ContentPage
     {
-        VehicleTable currentVehicle;
         VehiclesViewModel vehiclesVM = new VehiclesViewModel();
-
-        public EditVehiclePage()
+        public AddVehiclePage()
         {
             InitializeComponent();
             BindingContext = vehiclesVM;
-            switchToggle.Toggled += SwitchToggle_Toggled;
+            registration.Completed += Registration_Completed;
+            make.Completed += Make_Completed;
+            model.Completed += Model_Completed;
+            company.Completed += Company_Completed;
         }
 
         private void Company_Completed(object sender, EventArgs e)
         {
-            vehiclesVM.SaveVehicleDetails();
+            vehiclesVM.InsertVehicle();
         }
 
         private void Model_Completed(object sender, EventArgs e)
@@ -38,23 +39,6 @@ namespace Hubo
         private void Registration_Completed(object sender, EventArgs e)
         {
             make.Focus();
-        }
-
-        public EditVehiclePage(VehicleTable chosenVehicle)
-        {
-            InitializeComponent();
-            BindingContext = vehiclesVM;
-            this.currentVehicle = chosenVehicle;
-            vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
-            switchToggle.Toggled += SwitchToggle_Toggled;
-            registration.Completed += Registration_Completed;
-            make.Completed += Make_Completed;
-            model.Completed += Model_Completed;
-            company.Completed += Company_Completed;
-        }
-        private void SwitchToggle_Toggled(object sender, ToggledEventArgs e)
-        {
-            vehiclesVM.ToggleSwitch(e.Value);
         }
 
         protected override void OnDisappearing()

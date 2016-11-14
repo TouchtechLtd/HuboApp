@@ -78,6 +78,12 @@ namespace Hubo
             return vehiclesCollection;
         }
 
+        internal void InsertVehicle(VehicleTable vehicleToAdd)
+        {
+            db.Insert(vehicleToAdd);
+            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
+        }
+
         internal bool Login(UserTable user)
         {
             db.Insert(user);

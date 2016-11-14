@@ -264,4 +264,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ChooseVehicleToEdit" xml:space="preserve">
+    <value>Please select a vehicle to edit.</value>
+  </data>
 </root>

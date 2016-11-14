@@ -21,12 +21,16 @@ namespace Hubo
         public string SearchVehiclesPlaceholder { get; set; }
         public string RegistrationText { get; set; }
         public string RegistrationEntry { get; set; }
+        public string AddRegistrationEntry { get; set; }
         public string MakeText { get; set; }
         public string MakeEntry { get; set; }
+        public string AddMakeEntry { get; set; }
         public string ModelText { get; set; }
         public string ModelEntry { get; set; }
+        public string AddModelEntry { get; set; }
         public string CompanyText { get; set; }
         public string CompanyEntry { get; set; }
+        public string AddCompanyEntry { get; set; }
         public string SwitchText { get; set; }
         public string EditVehicleText { get; set; }
         public string AddVehicleText { get; set; }
@@ -36,6 +40,7 @@ namespace Hubo
         public ICommand AddVehicleCommand { get; set; }
         public ICommand SearchVehiclesCommand { get; set; }
         public ICommand SaveCommand { get; set; }
+        public ICommand AddCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,8 +59,27 @@ namespace Hubo
             SaveText = Resource.Save;
 
             SaveCommand = new Command(SaveVehicleDetails);
-
+            AddVehicleCommand = new Command(AddVehicle);
+            AddCommand = new Command(InsertVehicle);
+            CancelCommand = new Command(Cancel);
             
+        }
+
+        private void Cancel()
+        {
+            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
+        }
+
+        public void InsertVehicle()
+        {
+            VehicleTable VehicleToAdd = new VehicleTable();
+            VehicleToAdd = BindXAMLToVehicle();
+            DbService.InsertVehicle(VehicleToAdd);
+        }
+
+        private void AddVehicle()
+        {
+            Navigation.PushAsync(new AddVehiclePage());
         }
 
         public List<string> GetVehicles()
@@ -74,13 +98,20 @@ namespace Hubo
                 
         }
 
-        private void SaveVehicleDetails()
+        private VehicleTable BindXAMLToVehicle()
         {
             VehicleTable editedVehicle = new VehicleTable();
             editedVehicle.Company = CompanyEntry;
             editedVehicle.Make = MakeEntry;
             editedVehicle.Model = ModelEntry;
             editedVehicle.Registration = RegistrationEntry;
+            return editedVehicle;
+        }
+
+        public void SaveVehicleDetails()
+        {
+            VehicleTable editedVehicle = new VehicleTable();
+            editedVehicle = BindXAMLToVehicle();
             editedVehicle.Key = currentVehicle.Key;
             DbService.UpdateVehicleInfo(editedVehicle);
         }
@@ -103,9 +134,9 @@ namespace Hubo
 
         private void EditVehicle()
         {
-            if (currentVehicle == null)
+            if (currentVehicle.Registration == null)
             {
-
+                App.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ChooseVehicleToEdit, Resource.DisplayAlertOkay);
             }
             else
             {

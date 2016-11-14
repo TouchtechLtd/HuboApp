@@ -48,5 +48,11 @@ namespace Hubo
         {
             vehiclesVM.ToggleSwitch(e.Value);
         }
+
+        protected override void OnDisappearing()
+        {
+            //MessagingCenter.Unsubscribe<string>("UpdateVehicles", "UpdateVehicles");
+            base.OnDisappearing();
+        }
     }
 }

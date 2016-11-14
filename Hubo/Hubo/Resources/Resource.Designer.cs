@@ -107,6 +107,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a vehicle to edit..
+        /// </summary>
+        public static string ChooseVehicleToEdit {
+            get {
+                return ResourceManager.GetString("ChooseVehicleToEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company: .
         /// </summary>
         public static string CompanyText {
