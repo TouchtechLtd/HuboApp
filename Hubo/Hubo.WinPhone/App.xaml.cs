@@ -23,7 +23,7 @@ namespace Hubo.WinPhone
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : Windows.UI.Xaml.Application
     {
         private TransitionCollection transitions;
 

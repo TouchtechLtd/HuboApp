@@ -40,7 +40,7 @@ namespace Hubo.Droid
             //};
             CrashManager.Register(this, Configuration.HockeyAppId);
 
-            LoadApplication(new App());
+            LoadApplication(new Application());
         }
     }
 }

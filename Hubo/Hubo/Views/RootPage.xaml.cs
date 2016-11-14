@@ -65,7 +65,7 @@ namespace Hubo
                 {
                     DatabaseService dbService = new DatabaseService();
                     dbService.Logout();
-                    App.Current.MainPage = new NavigationPage(new LandingPage());
+                    Application.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }
                 IsPresented = false;

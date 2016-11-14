@@ -42,7 +42,6 @@
       </syncfusion:SfCircularGauge.Scales>
     </syncfusion:SfCircularGauge>
     <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="20" TextColor="Black" Grid.Row="2" Grid.Column="2" />
-
     <Button Text="{Binding ShiftText}" FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
   </Grid>  
 </ContentPage>

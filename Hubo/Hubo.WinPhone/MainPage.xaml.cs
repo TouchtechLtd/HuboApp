@@ -28,7 +28,7 @@ namespace Hubo.WinPhone
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            LoadApplication(new Hubo.App());
+            LoadApplication(new Hubo.Application());
         }
 
         /// <summary>

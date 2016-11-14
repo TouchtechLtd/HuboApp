@@ -136,7 +136,7 @@ namespace Hubo
         {
             if (currentVehicle.Registration == null)
             {
-                App.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ChooseVehicleToEdit, Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ChooseVehicleToEdit, Resource.DisplayAlertOkay);
             }
             else
             {

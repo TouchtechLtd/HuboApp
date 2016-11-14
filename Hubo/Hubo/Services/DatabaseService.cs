@@ -90,6 +90,17 @@ namespace Hubo
             return true;
         }
 
+        internal List<string> GetChecklist()
+        {
+            List<string> questions = new List<string>();
+            questions.Add("This is a test");
+            questions.Add("This is a test");
+            questions.Add("This is a test");
+            questions.Add("This is a test");
+            return questions;
+
+        }
+
         internal void UpdateVehicleInfo(VehicleTable editedVehicle)
         {
             db.Update(editedVehicle);

@@ -24,7 +24,7 @@ namespace Hubo
 
         private void ProceedToHomePage()
         {
-            App.Current.MainPage = new RootPage();
+            Application.Current.MainPage = new RootPage();
         }
     }
 }

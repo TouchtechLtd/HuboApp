@@ -26,7 +26,7 @@ namespace Hubo
         public string TotalBeforeBreakText { get; set; }
         public int StartValue { get; set; }
 
-        
+        DatabaseService DbService = new DatabaseService();
 
 
         public HomeViewModel()
@@ -42,22 +42,45 @@ namespace Hubo
             this.StartValue = 5;
         }
 
-        private void ToggleShift()
+        private async void ToggleShift()
         {
-            if(ShiftText == "Start Shift")
+            if (ShiftText == "Start Shift")
             {
-                ShiftText = "Stop Shift";
-                ShiftButtonColor = Color.FromHex("#cc0000"); ;
-                
+                if (await StartShift())
+                {
+                    ShiftText = "Stop Shift";
+                    ShiftButtonColor = Color.FromHex("#cc0000"); 
+                }
+
             }
             else
             {
-                ShiftText = "Start Shift";
-                ShiftButtonColor = Color.FromHex("#009900");
-                UpdateCircularGauge();
+                { 
+                    ShiftText = "Start Shift";
+                    ShiftButtonColor = Color.FromHex("#009900");
+                    UpdateCircularGauge();
+                }
+
             }
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
+        }
+
+        private async Task<bool> StartShift()
+        {
+            List<string> checklistQuestions = new List<string>();
+            checklistQuestions = DbService.GetChecklist();
+            int count = 0;
+            foreach(string question in checklistQuestions)
+            {
+                count++;
+                bool result = await Application.Current.MainPage.DisplayAlert(Resource.ChecklistQuestionNumber + count.ToString(), question, Resource.Yes,Resource.No);
+                if (!result)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void UpdateCircularGauge()

@@ -33,7 +33,7 @@ namespace Hubo.iOS
             manager.Configure(Configuration.HockeyAppId);
             manager.StartManager();
 
-            LoadApplication(new App());
+            LoadApplication(new Hubo.Application());
 
             return base.FinishedLaunching(app, options);
         }

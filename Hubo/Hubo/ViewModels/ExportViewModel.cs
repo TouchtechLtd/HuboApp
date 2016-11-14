@@ -33,7 +33,7 @@ namespace Hubo
             }
             else
             {
-                App.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
             }
 
         }

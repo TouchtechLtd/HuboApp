@@ -107,6 +107,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question #.
+        /// </summary>
+        public static string ChecklistQuestionNumber {
+            get {
+                return ResourceManager.GetString("ChecklistQuestionNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a vehicle to edit..
         /// </summary>
         public static string ChooseVehicleToEdit {
@@ -323,6 +332,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please provide both Username &amp; Password.
         /// </summary>
         public static string NoUsernameOrPasswordMessage {
@@ -526,6 +544,15 @@ namespace Hubo {
         public static string WelcomeEntry {
             get {
                 return ResourceManager.GetString("WelcomeEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

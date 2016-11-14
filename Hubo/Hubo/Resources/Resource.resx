@@ -273,4 +273,13 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Please fill out a valid email address.</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ChecklistQuestionNumber" xml:space="preserve">
+    <value>Question #</value>
+  </data>
 </root>

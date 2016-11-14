@@ -7,11 +7,11 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public partial class App : Application
+    public partial class Application : Xamarin.Forms.Application
     {
         DatabaseService dbService;
 
-        public App()
+        public Application()
         {
             InitializeComponent();
             //MainPage = new NavigationPage(new HomePage());
