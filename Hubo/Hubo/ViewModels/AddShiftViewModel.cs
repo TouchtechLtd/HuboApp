@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    class AddShiftViewModel
+    class AddShiftViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public List<string> vehicles { get; set; }
         public INavigation Navigation { get; set; }
         public ICommand AddBreakButton { get; set; }
@@ -21,6 +23,7 @@ namespace Hubo
         public string SaveText { get; set; }
         public string Date { get; set; }
         public string Vehicle { get; set; }
+        public int EndShiftRow { get; set; }
         
 
 
@@ -35,6 +38,7 @@ namespace Hubo
             Date = Resource.Date;
             Vehicle = Resource.Vehicle;
             AddBreakButton = new Command(AddBreak);
+            EndShiftRow = 4;
             vehicles = new List<string>();
             vehicles.Add("ELM324");
             vehicles.Add("FJG012");
@@ -43,6 +47,7 @@ namespace Hubo
             vehicles.Add("FDG777");
         }
 
+
         public void Save()
         {
 
@@ -50,7 +55,24 @@ namespace Hubo
 
         private void AddBreak()
         {
-
+            if(EndShiftRow==4)
+            {
+                EndShiftRow = 6;
+            }
+            else if(EndShiftRow==6)
+            {
+                EndShiftRow = 8;
+            }
+            OnPropertyChanged("EndShiftRow");
         }
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (changed != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
     }
 }
