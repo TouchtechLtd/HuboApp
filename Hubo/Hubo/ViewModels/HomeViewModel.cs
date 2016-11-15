@@ -108,12 +108,13 @@ namespace Hubo
             }
             else
             {
-                { 
+                {
+                    Navigation.PushModalAsync(new NZTAMessagePage(2));
                     ShiftText = "Start Shift";
                     ShiftButtonColor = Color.FromHex("#009900");
                     StartShiftVisibility = true;
                     ShiftStarted = false;
-                    UpdateCircularGauge();
+                    //UpdateCircularGauge();
                 }
 
             }

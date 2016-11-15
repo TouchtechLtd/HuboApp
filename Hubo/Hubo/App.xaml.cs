@@ -31,7 +31,7 @@ namespace Hubo
             dbService = new DatabaseService();
             if (dbService.CheckLoggedIn())
             {
-                MainPage = new NZTAMessagePage();
+                MainPage = new NZTAMessagePage(1);
             }
             else
             {

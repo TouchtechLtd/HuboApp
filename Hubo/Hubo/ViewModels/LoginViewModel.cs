@@ -34,7 +34,7 @@ namespace Hubo
                 //TODO: Check username & password against database.
                 if(restService.Login(Username, Password))
                 {
-                    Application.Current.MainPage = new NZTAMessagePage();
+                    Application.Current.MainPage = new NZTAMessagePage(1);
                 }
                 else
                 {

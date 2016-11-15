@@ -12,11 +12,12 @@ namespace Hubo
     {
         NZTAMessageViewModel nztaMessageVM = new NZTAMessageViewModel();
 
-        public NZTAMessagePage()
+        public NZTAMessagePage(int instruction)
         {
             InitializeComponent();
             nztaMessageVM.Navigation = Navigation;
             BindingContext = nztaMessageVM;
+            nztaMessageVM.Load(instruction);
         }
     }
 }

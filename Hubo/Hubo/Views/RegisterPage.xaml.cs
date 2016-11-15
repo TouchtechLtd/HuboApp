@@ -20,7 +20,7 @@ namespace Hubo
             MessagingCenter.Subscribe<string>(this, "SuccessfulRegister", async (sender) =>
             {
                 await DisplayAlert(Resource.RegisterSuccessTitle, Resource.RegisterSuccessText, Resource.DisplayAlertOkay);
-                Application.Current.MainPage = new NZTAMessagePage();
+                Application.Current.MainPage = new NZTAMessagePage(1);
             });
             
             MessagingCenter.Subscribe<string>(this, "IncompleteForm", async (sender) =>
