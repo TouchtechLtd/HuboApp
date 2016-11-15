@@ -19,6 +19,7 @@ namespace Hubo
         public ICommand ShiftButton { get; set; }
         public string ShiftText { get; set; }
         public Color ShiftButtonColor { get; set; }
+        public Color BreakButtonColor { get; set; }
         public double CompletedJourney { get; set; }
         public int RemainderOfJourney { get; set; }
         public int Break { get; set; }
@@ -35,6 +36,7 @@ namespace Hubo
         public ICommand EndShiftCommand { get; set; }
         public ICommand VehicleCommand { get; set; }
         public ICommand AddNoteCommand { get; set; }
+        public bool OnBreak { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -55,6 +57,27 @@ namespace Hubo
             EndShiftText = Resource.EndShift;
             VehicleText = Resource.Vehicle;
             AddNoteText = Resource.AddNote;
+            BreakButtonColor = Color.FromHex("#009900");
+            StartBreakCommand = new Command(StartBreak);
+            OnBreak = false;
+        }
+
+        private void StartBreak()
+        {
+            if(OnBreak)
+            {
+                BreakButtonColor = Color.FromHex("#009900");
+                StartBreakText = Resource.StartBreak;
+                OnBreak = false;
+            }
+            else
+            {
+                BreakButtonColor = Color.FromHex("#cc0000");
+                StartBreakText = Resource.EndBreak;
+                OnBreak = true;
+            }
+            OnPropertyChanged("BreakButtonColor");
+            OnPropertyChanged("StartBreakText");
         }
 
         private async void ToggleShift()
