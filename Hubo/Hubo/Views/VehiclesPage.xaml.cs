@@ -13,8 +13,9 @@ namespace Hubo
         VehiclesViewModel vehiclesVM = new VehiclesViewModel();
         List<string> vehicleNames;
 
-        public VehiclesPage()
+        public VehiclesPage(int instruction)
         {
+            //We are accessing vehicle page through home menu 
             InitializeComponent();
             vehiclesVM.Navigation = Navigation;
             BindingContext = vehiclesVM;
@@ -30,7 +31,8 @@ namespace Hubo
             {
                 vehicleNames = vehiclesVM.GetVehicles();
                 autocomplete.AutoCompleteSource = vehicleNames;
-            });
+            });            
+            vehiclesVM.Load(instruction);
         }
 
         private void Autocomplete_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)

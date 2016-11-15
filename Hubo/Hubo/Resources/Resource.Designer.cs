@@ -530,6 +530,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Vehicle.
+        /// </summary>
+        public static string UseVehicle {
+            get {
+                return ResourceManager.GetString("UseVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vehicle.
         /// </summary>
         public static string Vehicle {

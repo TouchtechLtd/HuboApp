@@ -36,15 +36,20 @@ namespace Hubo
         public string AddVehicleText { get; set; }
         public string SaveText { get; set; }
         public string CancelText { get; set; }
+        public string UseOrStopVehicleText { get; set; }
         public ICommand EditVehicleCommand { get; set; }
         public ICommand AddVehicleCommand { get; set; }
         public ICommand SearchVehiclesCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand ToggleVehicleUseCommand { get; set; }
+        public Color UseVehicleColor { get; set; }
+        public bool UseVehicleButtonVisible { get; set; }
+        public bool VehiclesPageFromMenu { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
 
         public VehiclesViewModel()
         {
@@ -62,7 +67,26 @@ namespace Hubo
             AddVehicleCommand = new Command(AddVehicle);
             AddCommand = new Command(InsertVehicle);
             CancelCommand = new Command(Cancel);
-            
+
+            UseVehicleColor = Color.Green;
+
+            UseOrStopVehicleText = Resource.UseVehicle;
+        }
+
+        internal void Load(int instruction)
+        {
+            if(instruction == 1)
+            {
+                VehiclesPageFromMenu = true;
+                UseVehicleButtonVisible = false;
+            }
+            else if(instruction == 2)
+            {
+                VehiclesPageFromMenu = false;
+                UseVehicleButtonVisible = true;
+            }
+            OnPropertyChanged("VehiclesPageFromMenu");
+            OnPropertyChanged("UseVehicleButtonVisible");
         }
 
         private void Cancel()

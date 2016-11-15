@@ -60,6 +60,12 @@ namespace Hubo
             BreakButtonColor = Color.FromHex("#009900");
             StartBreakCommand = new Command(StartBreak);
             OnBreak = false;
+            VehicleCommand = new Command(Vehicle);
+        }
+
+        private void Vehicle()
+        {
+            Navigation.PushAsync(new VehiclesPage(2));
         }
 
         private void StartBreak()
