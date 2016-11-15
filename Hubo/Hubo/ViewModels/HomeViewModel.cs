@@ -25,6 +25,16 @@ namespace Hubo
         public int TotalBeforeBreak { get; set; }
         public string TotalBeforeBreakText { get; set; }
         public int StartValue { get; set; }
+        public bool StartShiftVisibility { get; set; }
+        public bool ShiftStarted { get; set; }
+        public string StartBreakText { get; set; }
+        public string EndShiftText { get; set; }
+        public string VehicleText { get; set; }
+        public string AddNoteText { get; set; }
+        public ICommand StartBreakCommand { get; set; }
+        public ICommand EndShiftCommand { get; set; }
+        public ICommand VehicleCommand { get; set; }
+        public ICommand AddNoteCommand { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -40,16 +50,25 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#009900");
             ShiftButton = new Command(ToggleShift);
             this.StartValue = 5;
+            StartShiftVisibility = true;
+            StartBreakText = Resource.StartBreak;
+            EndShiftText = Resource.EndShift;
+            VehicleText = Resource.Vehicle;
+            AddNoteText = Resource.AddNote;
         }
 
         private async void ToggleShift()
         {
-            if (ShiftText == "Start Shift")
+            if (!ShiftStarted)
             {
                 if (await StartShift())
                 {
-                    ShiftText = "Stop Shift";
-                    ShiftButtonColor = Color.FromHex("#cc0000"); 
+                    ShiftText = "End Shift";
+                    ShiftButtonColor = Color.FromHex("#cc0000");
+                    StartShiftVisibility = false;
+                    ShiftStarted = true;
+                    OnPropertyChanged("StartShiftVisibility");
+                    OnPropertyChanged("ShiftStarted");
                 }
 
             }

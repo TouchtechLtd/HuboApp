@@ -282,4 +282,7 @@
   <data name="ChecklistQuestionNumber" xml:space="preserve">
     <value>Question #</value>
   </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Add Note</value>
+  </data>
 </root>

@@ -71,6 +71,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Note.
+        /// </summary>
+        public static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string Address {

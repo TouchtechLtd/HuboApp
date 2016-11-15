@@ -9,7 +9,8 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="6*" />
+      <ColumnDefinition Width="4*" />
+      <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />      
     </Grid.ColumnDefinitions>
@@ -18,9 +19,9 @@
       <RowDefinition Height="6*" />
       <RowDefinition Height="1*" />
       <RowDefinition Height="3*" />
-      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <syncfusion:SfCircularGauge Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
+    <Label Text="Placeholder Vehicle" IsVisible="{Binding ShiftStarted}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
+    <syncfusion:SfCircularGauge Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6">
       <syncfusion:SfCircularGauge.BindingContext>
         <local:HomeViewModel  />
       </syncfusion:SfCircularGauge.BindingContext>
@@ -41,7 +42,28 @@
         </syncfusion:Scale>
       </syncfusion:SfCircularGauge.Scales>
     </syncfusion:SfCircularGauge>
-    <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="20" TextColor="Black" Grid.Row="2" Grid.Column="2" />
-    <Button Text="{Binding ShiftText}" FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
+    <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="20" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" />
+    <Button Text="{Binding ShiftText}" FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsVisible="{Binding StartShiftVisibility}"/>
+    <StackLayout Grid.Row="3" Grid.RowSpan="2"  Grid.Column="0" Grid.ColumnSpan="6"  IsVisible="{Binding ShiftStarted}" >
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="4*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="4*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="4*" />
+          <RowDefinition Height="4*" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Text="{Binding StartBreakText}" BackgroundColor="#009900" Command="{Binding StartBreakCommand}" Grid.Row="1" Grid.Column="1" />
+        <Button Text="{Binding EndShiftText}" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding EndShiftCommand}" Grid.Row="1" Grid.Column="3"   />
+        <Button Text="{Binding VehicleText}" Command="{Binding VehicleCommand}"  Grid.Row="2" Grid.Column="1"   />
+        <Button Text="{Binding AddNoteText}" Command="{Binding AddNoteCommand}" Grid.Row="2" Grid.Column="3"  />
+      </Grid>
+    </StackLayout>
   </Grid>  
 </ContentPage>
