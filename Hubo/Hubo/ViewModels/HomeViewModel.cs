@@ -61,6 +61,12 @@ namespace Hubo
             StartBreakCommand = new Command(StartBreak);
             OnBreak = false;
             VehicleCommand = new Command(Vehicle);
+            AddNoteCommand = new Command(AddNote);
+        }
+
+        private void AddNote()
+        {
+            Navigation.PushAsync(new AddNotePage());
         }
 
         private void Vehicle()
