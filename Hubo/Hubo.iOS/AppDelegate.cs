@@ -5,6 +5,7 @@ using Foundation;
 using HockeyApp.iOS;
 using UIKit;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
+using Syncfusion.SfGauge.XForms.iOS;
 
 namespace Hubo.iOS
 {
@@ -29,6 +30,7 @@ namespace Hubo.iOS
 
             global::Xamarin.Forms.Forms.Init();
             new SfChartRenderer();
+            new SfGaugeRenderer();
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppId);
             manager.StartManager();
