@@ -60,7 +60,7 @@
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="1" Grid.Column="1" />
-        <Button Text="{Binding EndShiftText}" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding EndShiftCommand}" Grid.Row="1" Grid.Column="3"   />
+        <Button Text="{Binding EndShiftText}" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="1" Grid.Column="3"   />
         <Button Text="{Binding VehicleText}" Command="{Binding VehicleCommand}"  Grid.Row="2" Grid.Column="1"   />
         <Button Text="{Binding AddNoteText}" Command="{Binding AddNoteCommand}" Grid.Row="2" Grid.Column="3"  />
       </Grid>

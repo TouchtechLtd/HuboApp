@@ -90,8 +90,7 @@ namespace Hubo
                     ShiftButtonColor = Color.FromHex("#cc0000");
                     StartShiftVisibility = false;
                     ShiftStarted = true;
-                    OnPropertyChanged("StartShiftVisibility");
-                    OnPropertyChanged("ShiftStarted");
+
                 }
 
             }
@@ -100,10 +99,14 @@ namespace Hubo
                 { 
                     ShiftText = "Start Shift";
                     ShiftButtonColor = Color.FromHex("#009900");
+                    StartShiftVisibility = true;
+                    ShiftStarted = false;
                     UpdateCircularGauge();
                 }
 
             }
+            OnPropertyChanged("StartShiftVisibility");
+            OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
         }
