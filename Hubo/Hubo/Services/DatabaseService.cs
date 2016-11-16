@@ -64,6 +64,25 @@ namespace Hubo
             }
         }
 
+        internal void SaveNote(string note, DateTime date, TimeSpan time)
+        {
+            NoteTable newNote = new NoteTable();
+            newNote.Note = note;
+            newNote.Date = date.ToString();
+            newNote.Time = time.ToString();
+            List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if((currentShiftList.Count==0)||(currentShiftList.Count>1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET CURRENT SHIFT, THUS NOTE NOT SAVED", Resource.DisplayAlertOkay);
+            }
+            else
+            {
+                ShiftTable currentShift = currentShiftList[0];
+                newNote.ShiftKey = currentShift.Key;
+                db.Insert(newNote);
+            }
+        }
+
         internal bool CheckLoggedIn()
         {
             List<UserTable> list = db.Query<UserTable>("SELECT * FROM [UserTable]");

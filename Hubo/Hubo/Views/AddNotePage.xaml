@@ -18,9 +18,9 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <DatePicker x:Name="datePicker" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
-    <TimePicker x:Name="timePicker" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
-    <Editor Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" />
-    <Button Text="{Binding SaveText}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" />
+    <DatePicker x:Name="datePicker" Date="{Binding Date}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+    <TimePicker x:Name="timePicker" Time="{Binding Time}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+    <Editor Text="{Binding Note}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" />
+    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" />
   </Grid>
 </ContentPage>

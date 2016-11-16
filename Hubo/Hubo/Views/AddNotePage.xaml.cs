@@ -14,10 +14,8 @@ namespace Hubo
         public AddNotePage()
         {
             InitializeComponent();
+            addNoteVM.Navigation = Navigation;
             BindingContext = addNoteVM;
-            datePicker.Date = DateTime.Now;
-            timePicker.Time = DateTime.Now.TimeOfDay;
-            
         }
     }
 }
