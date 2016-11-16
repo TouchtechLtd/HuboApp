@@ -17,6 +17,9 @@ namespace Hubo
             db = DependencyService.Get<ISQLite>().GetConnection();
             db.CreateTable<UserTable>();
             db.CreateTable<VehicleTable>();
+            db.CreateTable<BreakTable>();
+            db.CreateTable<NoteTable>();
+            db.CreateTable<ShiftTable>();
             CreateTestData();
         }
 
@@ -48,6 +51,11 @@ namespace Hubo
                 test2.Registration = "YHG072";
                 test3.Registration = "HED889";
                 test4.Registration = "LWP127";
+
+                test1.Active = 0;
+                test2.Active = 0;
+                test3.Active = 0;
+                test4.Active = 0;
 
                 db.Insert(test1);
                 db.Insert(test2);
@@ -110,6 +118,53 @@ namespace Hubo
         internal void Logout()
         {
             db.Query<UserTable>("DELETE FROM [UserTable]");
+        }
+
+        internal void StartShift()
+        {
+            ShiftTable newShift = new ShiftTable();
+            List<VehicleTable> activeVehicles = new List<VehicleTable>();
+            activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Active] == 1");
+            if(activeVehicles.Count > 1)
+            {
+                Application.Current.MainPage.DisplayAlert("WARNING", "MORE THAN ONE ACTIVE VEHICLE", "OK");
+            }
+            else if(activeVehicles.Count==1)
+            {
+                newShift.VehicleKey = activeVehicles[0].Key;
+            }
+            newShift.Date = DateTime.Now.ToString();
+            newShift.ActiveShift = 1;
+            newShift.TimeStart = DateTime.Now.TimeOfDay.ToString();
+            db.Insert(newShift);
+        }
+
+        internal bool StopShift()
+        {
+            //Get current shift
+            List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            //Check there is an active shift, or check of theres multiple active shifts
+            if(activeShifts.Count == 0)
+            {
+                Application.Current.MainPage.DisplayAlert("WARNING", "NO ACTIVE SHIFTS", "OK");
+                return false;
+            }
+            else if(activeShifts.Count > 1)
+            {
+                Application.Current.MainPage.DisplayAlert("WARNING", "MORE THAN ACTIVE SHIFT", "OK");
+                return false;
+            }
+
+            ShiftTable activeShift = activeShifts[0];
+            activeShift.TimeEnd = DateTime.Now.TimeOfDay.ToString();
+            activeShift.ActiveShift = 0;
+            db.Update(activeShift);
+            return true;
+            
+
+            //Check if a vehicle has been assigned
+
+
         }
 
         internal UserTable GetUserInfo()

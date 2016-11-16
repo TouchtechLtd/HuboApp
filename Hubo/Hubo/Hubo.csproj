@@ -39,6 +39,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
+    <Compile Include="DatabaseModels\BreakTable.cs" />
+    <Compile Include="DatabaseModels\NoteTable.cs" />
+    <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\UserTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />

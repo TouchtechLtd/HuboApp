@@ -102,12 +102,14 @@ namespace Hubo
                     ShiftButtonColor = Color.FromHex("#cc0000");
                     StartShiftVisibility = false;
                     ShiftStarted = true;
-
+                    DbService.StartShift();
                 }
 
             }
             else
             {
+                
+                if(DbService.StopShift())
                 {
                     Navigation.PushModalAsync(new NZTAMessagePage(2));
                     ShiftText = "Start Shift";

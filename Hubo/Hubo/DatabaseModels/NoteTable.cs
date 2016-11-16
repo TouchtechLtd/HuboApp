@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    public class VehicleTable
+    class NoteTable
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
-        public string Registration { get; set; }
-        public string Make { get; set; }
-        public string Model { get; set; }
-        public string Company { get; set; }
-        public int Active { get; set; }
+        public string Note { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
+
     }
 }
