@@ -32,6 +32,8 @@ namespace Hubo
         public string EndShiftText { get; set; }
         public string VehicleText { get; set; }
         public string AddNoteText { get; set; }
+        public string VehicleRego { get; set; }
+
         public ICommand StartBreakCommand { get; set; }
         public ICommand EndShiftCommand { get; set; }
         public ICommand VehicleCommand { get; set; }
@@ -59,6 +61,26 @@ namespace Hubo
             OnBreak = false;
             VehicleCommand = new Command(Vehicle);
             AddNoteCommand = new Command(AddNote);
+            SetVehicleLabel();
+            MessagingCenter.Subscribe<string>("UpdateActiveVehicle", "UpdateActiveVehicle", (sender) =>
+            {
+                SetVehicleLabel();
+            });
+        }
+
+        private void SetVehicleLabel()
+        {
+            if (DbService.VehicleActive())
+            {
+                VehicleTable currentVehicle = new VehicleTable();
+                currentVehicle = DbService.GetCurrentVehicle();
+                VehicleRego = currentVehicle.Registration;
+            }
+            else
+            {
+                VehicleRego = Resource.NoActiveVehicle;
+            }
+            OnPropertyChanged("VehicleRego");
         }
 
         private void CheckActiveShift()

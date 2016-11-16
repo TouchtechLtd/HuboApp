@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hubo{
+namespace Hubo {
     using System;
     using System.Reflection;
     
@@ -364,6 +364,15 @@ namespace Hubo{
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No active vehicle has been set..
+        /// </summary>
+        public static string NoActiveVehicle {
+            get {
+                return ResourceManager.GetString("NoActiveVehicle", resourceCulture);
             }
         }
         

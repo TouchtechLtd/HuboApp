@@ -20,7 +20,7 @@
       <RowDefinition Height="1*" />
       <RowDefinition Height="3*" />
     </Grid.RowDefinitions>
-    <Label Text="Placeholder Vehicle" IsVisible="{Binding ShiftStarted}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
+    <Label Text="{Binding VehicleRego}" IsVisible="{Binding ShiftStarted}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
     <syncfusion:SfCircularGauge Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6">
       <syncfusion:SfCircularGauge.BindingContext>
         <local:HomeViewModel  />

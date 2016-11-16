@@ -19,6 +19,7 @@ namespace Hubo
 
         public INavigation Navigation { get; set; }
         public string SearchVehiclesPlaceholder { get; set; }
+        public bool VehicleActive { get; set; }
         public string RegistrationText { get; set; }
         public string RegistrationEntry { get; set; }
         public string AddRegistrationEntry { get; set; }
@@ -71,6 +72,21 @@ namespace Hubo
             UseVehicleColor = Color.Green;
 
             UseOrStopVehicleText = Resource.UseVehicle;
+            
+            if(DbService.VehicleActive())
+            {
+                VehicleActive = true;
+                currentVehicle = DbService.GetCurrentVehicle();
+                RegistrationText = "Registration: " + currentVehicle.Registration;
+                MakeText = "Make: " + currentVehicle.Make;
+                ModelText = "Model: " + currentVehicle.Model;
+                CompanyText = "Company: " + currentVehicle.Company;
+                SwitchText = Resource.SwitchTextActive;
+                OnPropertyChanged("RegistrationText");
+                OnPropertyChanged("MakeText");
+                OnPropertyChanged("ModelText");
+                OnPropertyChanged("CompanyText");
+            }
         }
 
         internal void Load(int instruction)
@@ -170,15 +186,31 @@ namespace Hubo
 
         public void ToggleSwitch(bool toggle)
         {
-            if(toggle)
+            if(currentVehicle.Registration==null)
             {
-                SwitchText = Resource.SwitchTextActive;
+                VehicleActive = false;
             }
             else
             {
-                SwitchText = Resource.SwitchTextInActive;
+                if (toggle)
+                {
+                    currentVehicle.VehicleActive = 1;
+                    DbService.SetVehicleActiveOrInactive(currentVehicle);
+                    SwitchText = Resource.SwitchTextActive;
+                    VehicleActive = true;
+                }
+                else
+                {
+                    currentVehicle.VehicleActive = 0;
+                    DbService.SetVehicleActiveOrInactive(currentVehicle);
+                    SwitchText = Resource.SwitchTextInActive;
+                    VehicleActive = false;
+                }
             }
+
+            MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             OnPropertyChanged("SwitchText");
+            OnPropertyChanged("VehicleActive");
         }
 
         internal void UpdatePage(string rego)
@@ -191,10 +223,14 @@ namespace Hubo
                     MakeText = "Make: " + vehicle.Make;
                     ModelText = "Model: " + vehicle.Model;
                     CompanyText = "Company: " + vehicle.Company;
+                    VehicleActive = false;
+                    SwitchText = Resource.SwitchTextInActive;
                     OnPropertyChanged("RegistrationText");
                     OnPropertyChanged("MakeText");
                     OnPropertyChanged("ModelText");
                     OnPropertyChanged("CompanyText");
+                    OnPropertyChanged("VehicleActive");
+                    OnPropertyChanged("SwitchText");
                     currentVehicle = vehicle;
                 }
             }

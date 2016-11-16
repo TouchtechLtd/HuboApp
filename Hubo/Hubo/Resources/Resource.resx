@@ -294,4 +294,7 @@
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="NoActiveVehicle" xml:space="preserve">
+    <value>No active vehicle has been set.</value>
+  </data>
 </root>

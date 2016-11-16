@@ -52,10 +52,10 @@ namespace Hubo
                 test3.Registration = "HED889";
                 test4.Registration = "LWP127";
 
-                test1.Active = 0;
-                test2.Active = 0;
-                test3.Active = 0;
-                test4.Active = 0;
+                test1.VehicleActive = 0;
+                test2.VehicleActive = 0;
+                test3.VehicleActive = 0;
+                test4.VehicleActive = 0;
 
                 db.Insert(test1);
                 db.Insert(test2);
@@ -100,6 +100,30 @@ namespace Hubo
             Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE ACTIVE SHIFT DISCOVERED", Resource.DisplayAlertOkay);
             return false;
 
+        }
+
+        internal VehicleTable GetCurrentVehicle()
+        {
+            VehicleTable currentVehicle;
+            List<VehicleTable> currentVehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
+            currentVehicle = currentVehicleList[0];
+            return currentVehicle;
+        }
+
+        internal bool VehicleActive()
+        {
+            List<VehicleTable> currentVehicles = new List<VehicleTable>();
+            currentVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
+            if(currentVehicles.Count==0)
+            {
+                return false;
+            }
+            else if(currentVehicles.Count==1)
+            {
+                return true;
+            }
+            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE VEHICLE ACTIVE", Resource.DisplayAlertOkay);
+            return false;
         }
 
         internal bool StopBreak()
@@ -157,6 +181,18 @@ namespace Hubo
             return questions;
         }
 
+        internal void SetVehicleActiveOrInactive(VehicleTable currentVehicle)
+        {
+            List<VehicleTable> activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
+            foreach(VehicleTable vehicle in activeVehicles)
+            {
+                vehicle.VehicleActive = 0;
+                db.Update(vehicle);
+            }
+            db.Update(currentVehicle);
+        }
+
+
         internal void UpdateVehicleInfo(VehicleTable editedVehicle)
         {
             db.Update(editedVehicle);
@@ -172,7 +208,7 @@ namespace Hubo
         {
             ShiftTable newShift = new ShiftTable();
             List<VehicleTable> activeVehicles = new List<VehicleTable>();
-            activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Active] == 1");
+            activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
             if(activeVehicles.Count > 1)
             {
                 Application.Current.MainPage.DisplayAlert("WARNING", "MORE THAN ONE ACTIVE VEHICLE", "OK");

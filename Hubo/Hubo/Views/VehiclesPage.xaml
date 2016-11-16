@@ -30,7 +30,7 @@
     <!-- For use when selecting vehicles page in menu -->
     
     <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}">
-      <Switch x:Name="switchToggle" HorizontalOptions="Center"/>
+      <Switch x:Name="switchToggle" HorizontalOptions="Center" IsToggled="{Binding VehicleActive}" />
       <Label Text="{Binding SwitchText}" HorizontalTextAlignment="Center" HorizontalOptions="Center" YAlign="Center"/>
     </StackLayout>
     <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
