@@ -48,11 +48,8 @@ namespace Hubo
             this.Break = 0;
             this.TotalBeforeBreak = 20;
             this.TotalBeforeBreakText = this.TotalBeforeBreak.ToString() + "/70 Hours Total";
-            ShiftText = "Start Shift";
-            ShiftButtonColor = Color.FromHex("#009900");
+            CheckActiveShift();
             ShiftButton = new Command(ToggleShift);
-            this.StartValue = 5;
-            StartShiftVisibility = true;
             StartBreakText = Resource.StartBreak;
             EndShiftText = Resource.EndShift;
             VehicleText = Resource.Vehicle;
@@ -62,6 +59,19 @@ namespace Hubo
             OnBreak = false;
             VehicleCommand = new Command(Vehicle);
             AddNoteCommand = new Command(AddNote);
+        }
+
+        private void CheckActiveShift()
+        {
+            if(DbService.CheckActiveShift())
+            {
+                ShowEndShiftXAML();
+            }
+            else
+            {
+                ShowStartShiftXAML();
+            }
+            
         }
 
         private void AddNote()
@@ -78,15 +88,22 @@ namespace Hubo
         {
             if(OnBreak)
             {
-                BreakButtonColor = Color.FromHex("#009900");
-                StartBreakText = Resource.StartBreak;
-                OnBreak = false;
+                if(DbService.StopBreak())
+                {
+                    BreakButtonColor = Color.FromHex("#009900");
+                    StartBreakText = Resource.StartBreak;
+                    OnBreak = false;
+                }
+                
             }
             else
             {
-                BreakButtonColor = Color.FromHex("#cc0000");
-                StartBreakText = Resource.EndBreak;
-                OnBreak = true;
+                if(DbService.StartBreak())
+                {
+                    BreakButtonColor = Color.FromHex("#cc0000");
+                    StartBreakText = Resource.EndBreak;
+                    OnBreak = true;
+                }
             }
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
@@ -98,10 +115,7 @@ namespace Hubo
             {
                 if (await StartShift())
                 {
-                    ShiftText = "End Shift";
-                    ShiftButtonColor = Color.FromHex("#cc0000");
-                    StartShiftVisibility = false;
-                    ShiftStarted = true;
+                    ShowEndShiftXAML();
                     DbService.StartShift();
                 }
 
@@ -112,11 +126,7 @@ namespace Hubo
                 if(DbService.StopShift())
                 {
                     Navigation.PushModalAsync(new NZTAMessagePage(2));
-                    ShiftText = "Start Shift";
-                    ShiftButtonColor = Color.FromHex("#009900");
-                    StartShiftVisibility = true;
-                    ShiftStarted = false;
-                    //UpdateCircularGauge();
+                    ShowStartShiftXAML();
                 }
 
             }
@@ -124,6 +134,23 @@ namespace Hubo
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
+        }
+
+        private void ShowEndShiftXAML()
+        {
+            ShiftText = "End Shift";
+            ShiftButtonColor = Color.FromHex("#cc0000");
+            StartShiftVisibility = false;
+            ShiftStarted = true;
+
+        }
+
+        private void ShowStartShiftXAML()
+        {
+            ShiftText = "Start Shift";
+            ShiftButtonColor = Color.FromHex("#009900");
+            StartShiftVisibility = true;
+            ShiftStarted = false;
         }
 
         private async Task<bool> StartShift()

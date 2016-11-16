@@ -86,6 +86,38 @@ namespace Hubo
             return vehiclesCollection;
         }
 
+        internal bool CheckActiveShift()
+        {
+            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if(shiftList.Count==0)
+            {
+                return false;
+            }
+            else if(shiftList.Count==1)
+            {
+                return true;
+            }
+            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE ACTIVE SHIFT DISCOVERED", Resource.DisplayAlertOkay);
+            return false;
+
+        }
+
+        internal bool StopBreak()
+        {
+            List<BreakTable> currentBreaks = new List<BreakTable>();
+            currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+            if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET ACTIVE BREAK", Resource.DisplayAlertOkay);
+                return false;
+            }
+            BreakTable currentBreak = currentBreaks[0];
+            currentBreak.EndTime = DateTime.Now.TimeOfDay.ToString();
+            currentBreak.ActiveBreak = 0;
+            db.Update(currentBreak);
+            return true;
+        }
+
         internal void InsertVehicle(VehicleTable vehicleToAdd)
         {
             db.Insert(vehicleToAdd);
@@ -98,6 +130,23 @@ namespace Hubo
             return true;
         }
 
+        internal bool StartBreak()
+        {
+            BreakTable newBreak = new BreakTable();
+            List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if(CheckActiveShiftIsCorrect(activeShifts))
+            {
+                newBreak.ShiftKey = activeShifts[0].Key;
+                newBreak.StartTime = DateTime.Now.TimeOfDay.ToString();
+                newBreak.Date = DateTime.Now.ToString();
+                newBreak.ActiveBreak = 1;
+                db.Insert(newBreak);
+                return true;
+            }
+            return false;
+            
+        }
+
         internal List<string> GetChecklist()
         {
             List<string> questions = new List<string>();
@@ -106,7 +155,6 @@ namespace Hubo
             questions.Add("This is a test");
             questions.Add("This is a test");
             return questions;
-
         }
 
         internal void UpdateVehicleInfo(VehicleTable editedVehicle)
@@ -143,28 +191,36 @@ namespace Hubo
         {
             //Get current shift
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
-            //Check there is an active shift, or check of theres multiple active shifts
-            if(activeShifts.Count == 0)
+
+            if(CheckActiveShiftIsCorrect(activeShifts))
+            {
+                if(activeShifts[0].VehicleKey == 0)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
+                    return false;
+                }
+                ShiftTable activeShift = activeShifts[0];
+                activeShift.TimeEnd = DateTime.Now.TimeOfDay.ToString();
+                activeShift.ActiveShift = 0;
+                db.Update(activeShift);
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckActiveShiftIsCorrect(List<ShiftTable> activeShifts)
+        {
+            if (activeShifts.Count == 0)
             {
                 Application.Current.MainPage.DisplayAlert("WARNING", "NO ACTIVE SHIFTS", "OK");
                 return false;
             }
-            else if(activeShifts.Count > 1)
+            else if (activeShifts.Count > 1)
             {
                 Application.Current.MainPage.DisplayAlert("WARNING", "MORE THAN ACTIVE SHIFT", "OK");
                 return false;
             }
-
-            ShiftTable activeShift = activeShifts[0];
-            activeShift.TimeEnd = DateTime.Now.TimeOfDay.ToString();
-            activeShift.ActiveShift = 0;
-            db.Update(activeShift);
             return true;
-            
-
-            //Check if a vehicle has been assigned
-
-
         }
 
         internal UserTable GetUserInfo()
