@@ -297,4 +297,10 @@
   <data name="NoActiveVehicle" xml:space="preserve">
     <value>No active vehicle has been set.</value>
   </data>
+  <data name="StopUsingVehicle" xml:space="preserve">
+    <value>Stop using vehicle</value>
+  </data>
+  <data name="Hubo" xml:space="preserve">
+    <value>Hubo</value>
+  </data>
 </root>

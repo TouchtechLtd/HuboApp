@@ -48,6 +48,7 @@ namespace Hubo
         public Color UseVehicleColor { get; set; }
         public bool UseVehicleButtonVisible { get; set; }
         public bool VehiclesPageFromMenu { get; set; }
+        public bool VehicleInUse { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         
@@ -69,11 +70,13 @@ namespace Hubo
             AddCommand = new Command(InsertVehicle);
             CancelCommand = new Command(Cancel);
 
-            UseVehicleColor = Color.Green;
+            ToggleVehicleUseCommand = new Command(ToggleVehicleUse);
 
-            UseOrStopVehicleText = Resource.UseVehicle;
-            
-            if(DbService.VehicleActive())
+
+
+            ToggleVehicleInUseVisuals();
+
+            if (DbService.VehicleActive())
             {
                 VehicleActive = true;
                 currentVehicle = DbService.GetCurrentVehicle();
@@ -87,6 +90,51 @@ namespace Hubo
                 OnPropertyChanged("ModelText");
                 OnPropertyChanged("CompanyText");
             }
+            MessagingCenter.Subscribe<string>("UpdateVehicleInUse", "UpdateVehicleInUse", (sender) =>
+            {
+                ToggleVehicleInUseVisuals();
+            });
+        }
+
+        private void ToggleVehicleInUseVisuals()
+        {
+            if (DbService.VehicleInUse())
+            {
+                UseVehicleColor = Color.Red;
+                UseOrStopVehicleText = Resource.StopUsingVehicle;
+                VehicleInUse = true;
+            }
+            else
+            {
+                UseVehicleColor = Color.Green;
+                UseOrStopVehicleText = Resource.UseVehicle;
+                VehicleInUse = false;
+            }
+            OnPropertyChanged("VehicleInUse");
+            OnPropertyChanged("UseOrStopVehicleText");
+            OnPropertyChanged("UseVehicleColor");
+        }
+
+        private void ToggleVehicleUse(object obj)
+        {
+            if(currentVehicle.Registration!=null)
+            {
+                if (VehicleInUse)
+                {
+                    //TODO: Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
+                    Navigation.PushAsync(new VehicleChecklistPage(2));
+                }
+                else
+                {
+                    //TODO: Reverse of previous TODO
+                    Navigation.PushAsync(new VehicleChecklistPage(1, currentVehicle.Key));
+                }
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
+            }
+            
         }
 
         internal void Load(int instruction)

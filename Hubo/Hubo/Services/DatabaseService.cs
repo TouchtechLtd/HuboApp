@@ -20,6 +20,7 @@ namespace Hubo
             db.CreateTable<BreakTable>();
             db.CreateTable<NoteTable>();
             db.CreateTable<ShiftTable>();
+            db.CreateTable<VehicleInUseTable>();
             CreateTestData();
         }
 
@@ -93,6 +94,48 @@ namespace Hubo
             return false;
         }
 
+        internal bool VehicleInUse()
+        {
+            List<VehicleInUseTable> listVehiclesInUse = new List<VehicleInUseTable>();
+            listVehiclesInUse = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            if(listVehiclesInUse.Count==0)
+            {
+                return false;
+            }
+            else if(listVehiclesInUse.Count > 1)
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE ACTIVE VEHICLE DETECTED", Resource.DisplayAlertOkay);
+                return false;
+            }
+            return true;
+        }
+        internal void StopVehicleInUse(string huboEntry)
+        {
+            List<VehicleInUseTable> listVehiclesInUse = new List<VehicleInUseTable>();
+            listVehiclesInUse = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle]==1");
+            if((listVehiclesInUse.Count==0)||(listVehiclesInUse.Count>1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE VEHICLE FOUND", Resource.DisplayAlertOkay);
+                return;
+            }
+            VehicleInUseTable vehicleInUse = new VehicleInUseTable();
+            vehicleInUse = listVehiclesInUse[0];
+            vehicleInUse.HuboEnd = Int32.Parse(huboEntry);
+            vehicleInUse.ActiveVehicle = 0;
+            db.Update(vehicleInUse);
+
+            List<VehicleTable> listOfVehicles = new List<VehicleTable>();
+            listOfVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + vehicleInUse.VehicleKey + "");
+            VehicleTable vehicle = listOfVehicles[0];
+            vehicle.VehicleActive = 0;
+            db.Update(vehicle);
+
+
+            MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+            return;
+             
+        }
+
         internal ObservableCollection<VehicleTable> GetVehicles()
         {
             List<VehicleTable> vehiclesList = new List<VehicleTable>();
@@ -103,6 +146,42 @@ namespace Hubo
                 vehiclesCollection.Add(vehicle);
             }
             return vehiclesCollection;
+        }
+
+        internal void SetVehicleInUse(int key, string huboEntry)
+        {
+            VehicleInUseTable vehicleToUse = new VehicleInUseTable();
+            List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
+            listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift]==1");
+            if((listOfActiveShifts.Count==0)||(listOfActiveShifts.Count>1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO RETRIEVE ACTIVE SHIFT", Resource.DisplayAlertOkay);
+                return;
+            }
+            vehicleToUse.ShiftKey = listOfActiveShifts[0].Key;
+            vehicleToUse.VehicleKey = key;
+            vehicleToUse.HuboStart = Int32.Parse(huboEntry);
+            vehicleToUse.ActiveVehicle = 1;
+
+            List<VehicleTable> activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
+            foreach(VehicleTable vehicle in activeVehicles)
+            {
+                if(vehicle.Key == key)
+                {
+                    vehicle.VehicleActive = 1;
+                    db.Update(vehicle);
+                }
+                else
+                {
+                    vehicle.VehicleActive = 0;
+                }
+            }
+
+            db.Insert(vehicleToUse);
+
+            MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
+            MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+
         }
 
         internal bool CheckActiveShift()

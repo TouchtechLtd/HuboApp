@@ -19,7 +19,7 @@ namespace Hubo
             InitializeComponent();
             vehiclesVM.Navigation = Navigation;
             BindingContext = vehiclesVM;
-            switchToggle.Toggled += SwitchToggle_Toggled;
+            //switchToggle.Toggled += SwitchToggle_Toggled;
             vehicleNames = new List<string>();
             vehicleNames = vehiclesVM.listOfVehicleRegistrations;
             autocomplete.AutoCompleteSource = vehicleNames;

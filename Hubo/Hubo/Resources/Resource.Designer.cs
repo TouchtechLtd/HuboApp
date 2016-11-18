@@ -278,6 +278,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hubo.
+        /// </summary>
+        public static string Hubo {
+            get {
+                return ResourceManager.GetString("Hubo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please fill out a valid email address..
         /// </summary>
         public static string InvalidEmail {
@@ -526,6 +535,15 @@ namespace Hubo {
         public static string StartShift {
             get {
                 return ResourceManager.GetString("StartShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop using vehicle.
+        /// </summary>
+        public static string StopUsingVehicle {
+            get {
+                return ResourceManager.GetString("StopUsingVehicle", resourceCulture);
             }
         }
         

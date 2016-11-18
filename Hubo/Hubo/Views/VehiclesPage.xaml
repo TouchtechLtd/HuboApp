@@ -29,17 +29,19 @@
 
     <!-- For use when selecting vehicles page in menu -->
     
-    <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2" >
+    <!--<StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}">
       <Switch x:Name="switchToggle" HorizontalOptions="Center" IsToggled="{Binding VehicleActive}" />
       <Label Text="{Binding SwitchText}" HorizontalTextAlignment="Center" HorizontalOptions="Center" YAlign="Center"/>
-    </StackLayout>
+    </StackLayout>-->
+    
+    
     <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
     <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
 
     <!-- For use when selecting vehicles page in homepage after starting shift-->
 
-
-    <!--<Button Text="{Binding UseOrStopVehicleText}" Command="{Binding ToggleVehicleUseCommand}" BackgroundColor="{Binding UseVehicleColor}" Grid.Row="6" IsVisible="{Binding UseVehicleButtonVisible}" Grid.Column="1" Grid.ColumnSpan="2" />-->
+    
+    <Button Text="{Binding UseOrStopVehicleText}" Command="{Binding ToggleVehicleUseCommand}" BackgroundColor="{Binding UseVehicleColor}" Grid.Row="6" IsVisible="{Binding UseVehicleButtonVisible}" Grid.Column="1" Grid.ColumnSpan="2" />
     <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}"  Grid.Row="7" IsVisible="{Binding UseVehicleButtonVisible}" Grid.Column="1"  Grid.ColumnSpan="2"/>
   </Grid>  
 </ContentPage>
