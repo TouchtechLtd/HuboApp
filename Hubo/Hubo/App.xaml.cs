@@ -48,6 +48,9 @@ namespace Hubo
         protected override void OnSleep()
         {
             //TODO Handle when your app sleeps
+            MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
+            
+
         }
 
         protected override void OnResume()

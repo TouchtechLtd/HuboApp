@@ -98,7 +98,7 @@ namespace Hubo
 
         private void AddNote()
         {
-            Navigation.PushAsync(new AddNotePage());
+            Navigation.PushAsync(new AddNotePage(1));
         }
 
         private void Vehicle()
@@ -110,22 +110,47 @@ namespace Hubo
         {
             if(OnBreak)
             {
-                if(DbService.StopBreak())
+                
+                Navigation.PushModalAsync(new AddNotePage(2));
+                MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
-                    BreakButtonColor = Color.FromHex("#009900");
-                    StartBreakText = Resource.StartBreak;
-                    OnBreak = false;
-                }
+                    //Add break was successful
+                    if (sender == "Success")
+                    {
+                        BreakButtonColor = Color.FromHex("#009900");
+                        StartBreakText = Resource.StartBreak;
+                        OnBreak = false;
+                        //DbService.StopBreak();
+                        OnPropertyChanged("BreakButtonColor");
+                        OnPropertyChanged("StartBreakText");
+                        OnPropertyChanged("OnBreak");
+                    }
+                    MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
+                });
+
                 
             }
             else
             {
-                if(DbService.StartBreak())
+                
+                    //TODO: Implement ability to take note and hubo
+                Navigation.PushModalAsync(new AddNotePage(2));
+                MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
-                    BreakButtonColor = Color.FromHex("#cc0000");
-                    StartBreakText = Resource.EndBreak;
-                    OnBreak = true;
-                }
+                    //Add break was successful
+                    if(sender=="Success")
+                    {
+                        BreakButtonColor = Color.FromHex("#cc0000");
+                        StartBreakText = Resource.EndBreak;
+                        OnBreak = true;
+                        //DbService.StartBreak();
+                        OnPropertyChanged("BreakButtonColor");
+                        OnPropertyChanged("StartBreakText");
+                        OnPropertyChanged("OnBreak");
+                    }
+                    MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
+                });
+                    
             }
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");

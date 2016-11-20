@@ -303,4 +303,10 @@
   <data name="Hubo" xml:space="preserve">
     <value>Hubo</value>
   </data>
+  <data name="InvalidHubo" xml:space="preserve">
+    <value>Please enter a valid reading</value>
+  </data>
+  <data name="EmptyNote" xml:space="preserve">
+    <value>Please fill out the note section</value>
+  </data>
 </root>

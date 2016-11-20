@@ -65,12 +65,13 @@ namespace Hubo
             }
         }
 
-        internal void SaveNote(string note, DateTime date, TimeSpan time)
+        internal void SaveNote(string note, DateTime date, TimeSpan time, int huboEntry=0)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
             newNote.Date = date.ToString();
             newNote.Time = time.ToString();
+            newNote.Hubo = huboEntry;
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if((currentShiftList.Count==0)||(currentShiftList.Count>1))
             {
@@ -81,6 +82,46 @@ namespace Hubo
                 ShiftTable currentShift = currentShiftList[0];
                 newNote.ShiftKey = currentShift.Key;
                 db.Insert(newNote);
+            }
+        }
+
+        internal void SaveNoteFromBreak(string note, DateTime date, TimeSpan time, int huboEntry)
+        {
+            NoteTable newNote = new NoteTable();
+            newNote.Note = note;
+            newNote.Date = date.ToString();
+            newNote.Time = time.ToString();
+            newNote.Hubo = huboEntry;
+            List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET CURRENT SHIFT, THUS NOTE NOT SAVED", Resource.DisplayAlertOkay);
+            }
+            else
+            {
+                ShiftTable currentShift = currentShiftList[0];
+                newNote.ShiftKey = currentShift.Key;
+                db.Insert(newNote);
+                List<NoteTable> notes = new List<NoteTable>();
+                notes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Note] == '" + note + "' AND [ShiftKey] == " + currentShift.Key + "");
+                if((notes.Count==0)||(notes.Count>1))
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET CURRENT NOTE", Resource.DisplayAlertOkay);
+                    return;
+                }
+                List<BreakTable> listBreaks = new List<BreakTable>();
+                listBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+                int noteKeyForBreak = notes[0].Key;
+                //No active breaks, so starting break.
+                if(listBreaks.Count==0)
+                {
+                    StartBreak(noteKeyForBreak);
+                }
+                //Active Break, so stopping break.
+                else if(listBreaks.Count == 1)
+                {
+                    StopBreak(noteKeyForBreak);
+                }
             }
         }
 
@@ -170,6 +211,8 @@ namespace Hubo
                 {
                     vehicle.VehicleActive = 1;
                     db.Update(vehicle);
+                    listOfActiveShifts[0].VehicleKey = vehicle.Key;
+                    db.Update(listOfActiveShifts[0]);
                 }
                 else
                 {
@@ -224,7 +267,7 @@ namespace Hubo
             return false;
         }
 
-        internal bool StopBreak()
+        internal bool StopBreak(int noteKey)
         {
             List<BreakTable> currentBreaks = new List<BreakTable>();
             currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
@@ -236,6 +279,7 @@ namespace Hubo
             BreakTable currentBreak = currentBreaks[0];
             currentBreak.EndTime = DateTime.Now.TimeOfDay.ToString();
             currentBreak.ActiveBreak = 0;
+            currentBreak.StopNoteKey = noteKey;
             db.Update(currentBreak);
             return true;
         }
@@ -252,7 +296,7 @@ namespace Hubo
             return true;
         }
 
-        internal bool StartBreak()
+        internal bool StartBreak(int noteKey)
         {
             BreakTable newBreak = new BreakTable();
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -261,6 +305,7 @@ namespace Hubo
                 newBreak.ShiftKey = activeShifts[0].Key;
                 newBreak.StartTime = DateTime.Now.TimeOfDay.ToString();
                 newBreak.Date = DateTime.Now.ToString();
+                newBreak.StartNoteKey = noteKey;
                 newBreak.ActiveBreak = 1;
                 db.Insert(newBreak);
                 return true;

@@ -206,6 +206,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please fill out the note section.
+        /// </summary>
+        public static string EmptyNote {
+            get {
+                return ResourceManager.GetString("EmptyNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Break.
         /// </summary>
         public static string EndBreak {
@@ -292,6 +301,15 @@ namespace Hubo {
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid reading.
+        /// </summary>
+        public static string InvalidHubo {
+            get {
+                return ResourceManager.GetString("InvalidHubo", resourceCulture);
             }
         }
         
