@@ -54,10 +54,9 @@ namespace Hubo
         {
             if (CheckValidEntry())
             {
+                Navigation.PopModalAsync();
                 DbService.StopVehicleInUse(HuboEntry);
                 MessagingCenter.Send<string>("Success", "EndShiftRegoEntered");
-                Navigation.PopModalAsync();
-
             }
 
         }
