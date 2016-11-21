@@ -160,7 +160,9 @@ namespace Hubo
             vehicleInUse.ActiveVehicle = 0;
             db.Update(vehicleInUse);
 
+            MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+            
             return;
              
         }
