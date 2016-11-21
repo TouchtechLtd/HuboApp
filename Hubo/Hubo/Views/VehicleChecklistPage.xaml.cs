@@ -11,17 +11,31 @@ namespace Hubo
     public partial class VehicleChecklistPage : ContentPage
     {
         VehicleChecklistViewModel vehicleCheckListVM = new VehicleChecklistViewModel();
-        public VehicleChecklistPage(int instruction, int key=0)
+        public bool CanGoBack;
+        public VehicleChecklistPage(int instruction, bool fromEndShift, int key=0)
         {
             InitializeComponent();
             vehicleCheckListVM.Navigation = Navigation;
             BindingContext = vehicleCheckListVM;
             vehicleCheckListVM.CurrentVehicleKey = key;
             vehicleCheckListVM.Load(instruction);
+            CanGoBack = fromEndShift;
             //MessagingCenter.Subscribe<string>("UpdateVehicleInUse", "UpdateVehicleInUse", (sender) =>
             //{
             //    Navigation.PopAsync();
             //});
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            if(CanGoBack)
+            {
+                return base.OnBackButtonPressed();
+            }
+            else
+            {
+                MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                return base.OnBackButtonPressed();
+            }
         }
     }
 }

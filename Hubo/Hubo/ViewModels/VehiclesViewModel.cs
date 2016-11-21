@@ -122,12 +122,12 @@ namespace Hubo
                 if (VehicleInUse)
                 {
                     //TODO: Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
-                    Navigation.PushAsync(new VehicleChecklistPage(2));
+                    Navigation.PushAsync(new VehicleChecklistPage(2, true));
                 }
                 else
                 {
                     //TODO: Reverse of previous TODO
-                    Navigation.PushAsync(new VehicleChecklistPage(1, currentVehicle.Key));
+                    Navigation.PushAsync(new VehicleChecklistPage(1, true,currentVehicle.Key));
                 }
             }
             else

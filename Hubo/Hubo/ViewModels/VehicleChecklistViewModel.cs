@@ -43,8 +43,24 @@ namespace Hubo
                 ContinueCommand = new Command(Finish);
                 OnPropertyChanged("ContinueCommand");
             }
+            else if(instruction==3)
+            {
+                ContinueCommand = new Command(FinishAndMessage);
+                OnPropertyChanged("ContinueCommand");
+            }
         }
 
+        private void FinishAndMessage()
+        {
+            if (CheckValidEntry())
+            {
+                DbService.StopVehicleInUse(HuboEntry);
+                MessagingCenter.Send<string>("Success", "EndShiftRegoEntered");
+                Navigation.PopModalAsync();
+
+            }
+
+        }
         private void Finish()
         {
             if(CheckValidEntry())

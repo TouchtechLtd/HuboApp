@@ -108,10 +108,11 @@ namespace Hubo
 
         private void StartBreak()
         {
-            if(OnBreak)
+            Navigation.PushModalAsync(new AddNotePage(2));
+
+            if (OnBreak)
             {
                 
-                Navigation.PushModalAsync(new AddNotePage(2));
                 MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
                     //Add break was successful
@@ -134,7 +135,6 @@ namespace Hubo
             {
                 
                     //TODO: Implement ability to take note and hubo
-                Navigation.PushModalAsync(new AddNotePage(2));
                 MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
                     //Add break was successful
@@ -170,10 +170,31 @@ namespace Hubo
             else
             {
                 
-                if(DbService.StopShift())
+                if(!DbService.VehicleActive())
                 {
-                    Navigation.PushModalAsync(new NZTAMessagePage(2));
-                    ShowStartShiftXAML();
+                    if(DbService.StopShift())
+                    {
+                        Navigation.PushModalAsync(new NZTAMessagePage(2));
+                        ShowStartShiftXAML();
+                    }
+                    
+                }
+                else
+                {
+                    Navigation.PushModalAsync(new VehicleChecklistPage(3,false));
+                    MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", (sender) => {
+                        if(sender=="Success")
+                        {
+                            DbService.StopShift();
+                            Navigation.PushModalAsync(new NZTAMessagePage(2));
+                            ShowStartShiftXAML();
+                            OnPropertyChanged("StartShiftVisibility");
+                            OnPropertyChanged("ShiftStarted");
+                            OnPropertyChanged("ShiftText");
+                            OnPropertyChanged("ShiftButtonColor");
+                        }
+                        MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                    });
                 }
 
             }
