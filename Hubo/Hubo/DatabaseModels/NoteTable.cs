@@ -13,7 +13,6 @@ namespace Hubo
         public int Key { get; set; }
         public string Note { get; set; }
         public string Date { get; set; }
-        public string Time { get; set; }
         public int ShiftKey { get; set; }
         public int Hubo { get; set; }
 

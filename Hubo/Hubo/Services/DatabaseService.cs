@@ -60,12 +60,12 @@ namespace Hubo
             }
         }
 
-        internal void SaveNote(string note, DateTime date, TimeSpan time, int huboEntry=0)
+        internal void SaveNote(string note, DateTime date, int huboEntry=0)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
             newNote.Date = date.ToString();
-            newNote.Time = time.ToString();
+            //newNote.Time = time.ToString();
             newNote.Hubo = huboEntry;
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if((currentShiftList.Count==0)||(currentShiftList.Count>1))
@@ -80,12 +80,12 @@ namespace Hubo
             }
         }
 
-        internal void SaveNoteFromBreak(string note, DateTime date, TimeSpan time, int huboEntry)
+        internal void SaveNoteFromBreak(string note, DateTime date, int huboEntry)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
             newNote.Date = date.ToString();
-            newNote.Time = time.ToString();
+            //newNote.Time = time.ToString();
             newNote.Hubo = huboEntry;
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
@@ -269,7 +269,7 @@ namespace Hubo
                 return false;
             }
             BreakTable currentBreak = currentBreaks[0];
-            currentBreak.EndTime = DateTime.Now.TimeOfDay.ToString();
+            currentBreak.EndTime = DateTime.Now.ToString();
             currentBreak.ActiveBreak = 0;
             currentBreak.StopNoteKey = noteKey;
             db.Update(currentBreak);
@@ -295,8 +295,7 @@ namespace Hubo
             if(CheckActiveShiftIsCorrect(activeShifts))
             {
                 newBreak.ShiftKey = activeShifts[0].Key;
-                newBreak.StartTime = DateTime.Now.TimeOfDay.ToString();
-                newBreak.Date = DateTime.Now.ToString();
+                newBreak.StartTime = DateTime.Now.ToString();
                 newBreak.StartNoteKey = noteKey;
                 newBreak.ActiveBreak = 1;
                 db.Insert(newBreak);
@@ -353,9 +352,8 @@ namespace Hubo
         internal void StartShift()
         {
             ShiftTable newShift = new ShiftTable();
-            newShift.Date = DateTime.Now.ToString();
             newShift.ActiveShift = 1;
-            newShift.TimeStart = DateTime.Now.TimeOfDay.ToString();
+            newShift.TimeStart = DateTime.Now.ToString();
             db.Insert(newShift);
         }
 
@@ -373,7 +371,7 @@ namespace Hubo
                     return false;
                 }
                 ShiftTable activeShift = activeShifts[0];
-                activeShift.TimeEnd = DateTime.Now.TimeOfDay.ToString();
+                activeShift.TimeEnd = DateTime.Now.ToString();
                 activeShift.ActiveShift = 0;
                 db.Update(activeShift);
                 return true;

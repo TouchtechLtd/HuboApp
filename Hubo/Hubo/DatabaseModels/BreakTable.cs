@@ -13,7 +13,6 @@ namespace Hubo
         public int Key { get; set; }
         public string  StartTime { get; set; }
         public string EndTime { get; set; }
-        public string Date { get; set; }
         public int ShiftKey { get; set; }
         public int ActiveBreak { get; set; }
         public int StartNoteKey { get; set; }

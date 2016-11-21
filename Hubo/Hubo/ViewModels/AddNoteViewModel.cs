@@ -15,7 +15,6 @@ namespace Hubo
         public string SaveText { get; set; }
         public string CancelText { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public string Note { get; set; }
@@ -30,7 +29,6 @@ namespace Hubo
         {
             SaveText = Resource.Save;
             Date = DateTime.Now;
-            Time = DateTime.Now.TimeOfDay;
             HuboEntry = "";
             Note = "";
         }
@@ -50,7 +48,7 @@ namespace Hubo
                     return;
                 }
             }
-            DbService.SaveNote(Note, Date, Time);
+            DbService.SaveNote(Note, Date);
             Navigation.PopAsync();                        
         }
         public void Load(int instruction)
@@ -86,7 +84,7 @@ namespace Hubo
         {
             if (CheckValidEntry())
             {
-                DbService.SaveNoteFromBreak(Note, Date, Time, Int32.Parse(HuboEntry));
+                DbService.SaveNoteFromBreak(Note, Date, Int32.Parse(HuboEntry));
                 MessagingCenter.Send<string>("Success", "AddBreak");
                 Navigation.PopModalAsync();
             }
