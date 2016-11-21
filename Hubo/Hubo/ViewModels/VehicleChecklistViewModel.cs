@@ -26,7 +26,7 @@ namespace Hubo
         {
             HuboText = Resource.Hubo;
             ContinueText = Resource.Continue;
-
+            HuboEntry = "";
         }
 
         internal void Load(int instruction)

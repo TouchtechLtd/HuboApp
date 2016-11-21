@@ -242,15 +242,13 @@ namespace Hubo
             {
                 if (toggle)
                 {
-                    currentVehicle.VehicleActive = 1;
-                    DbService.SetVehicleActiveOrInactive(currentVehicle);
+                    DbService.SetVehicleInactive();
                     SwitchText = Resource.SwitchTextActive;
                     VehicleActive = true;
                 }
                 else
                 {
-                    currentVehicle.VehicleActive = 0;
-                    DbService.SetVehicleActiveOrInactive(currentVehicle);
+                    DbService.SetVehicleActive(currentVehicle);
                     SwitchText = Resource.SwitchTextInActive;
                     VehicleActive = false;
                 }

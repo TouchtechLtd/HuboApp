@@ -53,11 +53,6 @@ namespace Hubo
                 test3.Registration = "HED889";
                 test4.Registration = "LWP127";
 
-                test1.VehicleActive = 0;
-                test2.VehicleActive = 0;
-                test3.VehicleActive = 0;
-                test4.VehicleActive = 0;
-
                 db.Insert(test1);
                 db.Insert(test2);
                 db.Insert(test3);
@@ -165,13 +160,6 @@ namespace Hubo
             vehicleInUse.ActiveVehicle = 0;
             db.Update(vehicleInUse);
 
-            List<VehicleTable> listOfVehicles = new List<VehicleTable>();
-            listOfVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + vehicleInUse.VehicleKey + "");
-            VehicleTable vehicle = listOfVehicles[0];
-            vehicle.VehicleActive = 0;
-            db.Update(vehicle);
-
-
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
             return;
              
@@ -204,22 +192,6 @@ namespace Hubo
             vehicleToUse.HuboStart = Int32.Parse(huboEntry);
             vehicleToUse.ActiveVehicle = 1;
 
-            List<VehicleTable> activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
-            foreach(VehicleTable vehicle in activeVehicles)
-            {
-                if(vehicle.Key == key)
-                {
-                    vehicle.VehicleActive = 1;
-                    db.Update(vehicle);
-                    listOfActiveShifts[0].VehicleKey = vehicle.Key;
-                    db.Update(listOfActiveShifts[0]);
-                }
-                else
-                {
-                    vehicle.VehicleActive = 0;
-                }
-            }
-
             db.Insert(vehicleToUse);
 
             MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
@@ -245,16 +217,23 @@ namespace Hubo
 
         internal VehicleTable GetCurrentVehicle()
         {
-            VehicleTable currentVehicle;
-            List<VehicleTable> currentVehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
-            currentVehicle = currentVehicleList[0];
-            return currentVehicle;
+            //Retrieve currently used vehicle
+            VehicleInUseTable currentVehicleInUse;
+            List<VehicleInUseTable> currentVehicleInUseList = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            currentVehicleInUse = currentVehicleInUseList[0];
+
+            //Retrieve vehicle details using currentvehicles key
+            VehicleTable vehicle;
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUse.VehicleKey + "");
+            vehicle = vehicleList[0];
+
+            return vehicle;
         }
 
         internal bool VehicleActive()
         {
-            List<VehicleTable> currentVehicles = new List<VehicleTable>();
-            currentVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
+            List<VehicleInUseTable> currentVehicles = new List<VehicleInUseTable>();
+            currentVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
             if(currentVehicles.Count==0)
             {
                 return false;
@@ -324,17 +303,28 @@ namespace Hubo
             return questions;
         }
 
-        internal void SetVehicleActiveOrInactive(VehicleTable currentVehicle)
+        internal void SetVehicleActive(VehicleTable currentVehicle)
         {
-            List<VehicleTable> activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
-            foreach(VehicleTable vehicle in activeVehicles)
+            List<VehicleInUseTable> activeVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            foreach(VehicleInUseTable vehicle in activeVehicles)
             {
-                vehicle.VehicleActive = 0;
+                if(currentVehicle.Key == vehicle.VehicleKey)
+                {
+                    vehicle.ActiveVehicle = 1;
+                    db.Update(vehicle);
+                }
+            }
+
+        }
+        internal void SetVehicleInactive()
+        {
+            List<VehicleInUseTable> activeVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            foreach (VehicleInUseTable vehicle in activeVehicles)
+            {
+                vehicle.ActiveVehicle = 0;
                 db.Update(vehicle);
             }
-            db.Update(currentVehicle);
         }
-
 
         internal void UpdateVehicleInfo(VehicleTable editedVehicle)
         {
@@ -350,16 +340,6 @@ namespace Hubo
         internal void StartShift()
         {
             ShiftTable newShift = new ShiftTable();
-            List<VehicleTable> activeVehicles = new List<VehicleTable>();
-            activeVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleActive] == 1");
-            if(activeVehicles.Count > 1)
-            {
-                Application.Current.MainPage.DisplayAlert("WARNING", "MORE THAN ONE ACTIVE VEHICLE", "OK");
-            }
-            else if(activeVehicles.Count==1)
-            {
-                newShift.VehicleKey = activeVehicles[0].Key;
-            }
             newShift.Date = DateTime.Now.ToString();
             newShift.ActiveShift = 1;
             newShift.TimeStart = DateTime.Now.TimeOfDay.ToString();
@@ -370,10 +350,11 @@ namespace Hubo
         {
             //Get current shift
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
-
             if(CheckActiveShiftIsCorrect(activeShifts))
             {
-                if(activeShifts[0].VehicleKey == 0)
+                //TODO: Code to check that this shift had a vehicle assigned to it
+                List<VehicleInUseTable> listOfUsedVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] == " + activeShifts[0].Key + "");
+                if(listOfUsedVehicles.Count == 0)
                 {
                     Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
                     return false;

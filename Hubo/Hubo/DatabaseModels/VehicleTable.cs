@@ -15,6 +15,5 @@ namespace Hubo
         public string Make { get; set; }
         public string Model { get; set; }
         public string Company { get; set; }
-        public int VehicleActive { get; set; }
     }
 }

@@ -11,7 +11,6 @@ namespace Hubo
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
-        public int VehicleKey { get; set; }
         public string Date { get; set; }
         public string TimeStart { get; set; }
         public string TimeEnd { get; set; }

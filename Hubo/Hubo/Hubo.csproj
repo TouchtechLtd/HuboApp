@@ -43,7 +43,7 @@
     <Compile Include="DatabaseModels\NoteTable.cs" />
     <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\UserTable.cs" />
-    <Compile Include="DatabaseModels\VehiclesInUseTable.cs" />
+    <Compile Include="DatabaseModels\VehicleInUseTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
     <Compile Include="Models\ApiResponse.cs" />
