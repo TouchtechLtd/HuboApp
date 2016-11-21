@@ -170,32 +170,37 @@ namespace Hubo
             else
             {
                 
-                if(!DbService.VehicleActive())
+                if(DbService.NoBreaksActive())
                 {
-                    if(DbService.StopShift())
+                    if (!DbService.VehicleActive())
                     {
-                        Navigation.PushModalAsync(new NZTAMessagePage(2));
-                        ShowStartShiftXAML();
-                    }
-                    
-                }
-                else
-                {
-                    Navigation.PushModalAsync(new VehicleChecklistPage(3,false));
-                    MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", (sender) => {
-                        if(sender=="Success")
+                        if (DbService.StopShift())
                         {
-                            DbService.StopShift();
                             Navigation.PushModalAsync(new NZTAMessagePage(2));
                             ShowStartShiftXAML();
-                            OnPropertyChanged("StartShiftVisibility");
-                            OnPropertyChanged("ShiftStarted");
-                            OnPropertyChanged("ShiftText");
-                            OnPropertyChanged("ShiftButtonColor");
                         }
-                        MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
-                    });
+
+                    }
+                    else
+                    {
+                        Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
+                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", (sender) => {
+                            if (sender == "Success")
+                            {
+                                DbService.StopShift();
+                                Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                ShowStartShiftXAML();
+                                OnPropertyChanged("StartShiftVisibility");
+                                OnPropertyChanged("ShiftStarted");
+                                OnPropertyChanged("ShiftText");
+                                OnPropertyChanged("ShiftButtonColor");
+                            }
+                            MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                        });
+                    }
                 }
+
+
 
             }
             OnPropertyChanged("StartShiftVisibility");

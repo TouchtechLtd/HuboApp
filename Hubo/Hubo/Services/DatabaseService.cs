@@ -165,6 +165,17 @@ namespace Hubo
              
         }
 
+        internal bool NoBreaksActive()
+        {
+            List<BreakTable> listOfBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+            if(listOfBreaks.Count>0)
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE END BREAKS BEFORE ENDING SHIFT", Resource.DisplayAlertOkay);
+                return false;
+            }
+            return true;
+        }
+
         internal ObservableCollection<VehicleTable> GetVehicles()
         {
             List<VehicleTable> vehiclesList = new List<VehicleTable>();
