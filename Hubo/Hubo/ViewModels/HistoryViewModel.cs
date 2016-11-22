@@ -62,7 +62,13 @@ namespace Hubo
             EditShiftText = Resource.EditShift;
             ExportText = Resource.Export;
             ExportCommand = new Command(Export);
+            EditShiftCommand = new Command(EditShift);
             }
+
+        private void EditShift()
+        {
+            Navigation.PushAsync(new EditShiftPage());
+        }
 
         private void Export()
         {

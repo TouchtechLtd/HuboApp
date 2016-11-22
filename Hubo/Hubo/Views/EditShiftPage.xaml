@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hubo.EditShiftPage">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="4*" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+    </Grid.RowDefinitions>
+    
+    <Picker Grid.Row="0" Grid.Column="2"/>
+    
+    <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Vertical">
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Test" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Label Text="Test2"  VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Entry HorizontalOptions="FillAndExpand" Placeholder="New Value"/>  
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Test" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Label Text="Test2" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+        <Entry HorizontalOptions="FillAndExpand" Placeholder="New Value"/>
+      </StackLayout>
+    </StackLayout>
+    
+    <Picker Grid.Row="2" Grid.Column="2" />
+    
+    <Picker Grid.Row="3" Grid.Column="2" />
+    
+    <StackLayout Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Vertical">
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Test" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Label Text="Test2"  VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Entry HorizontalOptions="FillAndExpand" Placeholder="New Value"/>  
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+        <Label Text="Test" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+        <Label Text="Test2" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+        <Entry HorizontalOptions="FillAndExpand" Placeholder="New Value"/>
+      </StackLayout>
+    </StackLayout>
+    
+    <Editor Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" />
+    
+    <Button Text="Save" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" />
+  
+  </Grid>
+</ContentPage>
