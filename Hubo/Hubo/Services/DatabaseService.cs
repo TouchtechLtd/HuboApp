@@ -21,6 +21,7 @@ namespace Hubo
             db.CreateTable<NoteTable>();
             db.CreateTable<ShiftTable>();
             db.CreateTable<VehicleInUseTable>();
+            db.CreateTable<AmendmentTable>();
             CreateTestData();
         }
 
@@ -58,6 +59,22 @@ namespace Hubo
                 db.Insert(test3);
                 db.Insert(test4);
             }
+        }
+
+        internal void AmendShift(List<AmendmentTable> listOfAmendments, ShiftTable currentShift)
+        {
+            db.Update(currentShift);
+            foreach(AmendmentTable amendment in listOfAmendments)
+            {
+                db.Insert(amendment);
+            }
+        }
+
+        internal List<ShiftTable> GetShifts(string selectedDate)
+        {
+            List<ShiftTable> listOfShifts = new List<ShiftTable>();
+            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [TimeStart] LIKE '" + selectedDate + "%' OR [TimeEnd] LIKE '" + selectedDate +"%' ");
+            return listOfShifts;
         }
 
         internal void SaveNote(string note, DateTime date, int huboEntry=0)

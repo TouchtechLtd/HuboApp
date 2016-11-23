@@ -179,11 +179,38 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Breaks.
+        /// </summary>
+        public static string EditBreaks {
+            get {
+                return ResourceManager.GetString("EditBreaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Notes.
+        /// </summary>
+        public static string EditNotes {
+            get {
+                return ResourceManager.GetString("EditNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Shift.
         /// </summary>
         public static string EditShift {
             get {
                 return ResourceManager.GetString("EditShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Vehicles Used.
+        /// </summary>
+        public static string EditVehiclesUsed {
+            get {
+                return ResourceManager.GetString("EditVehiclesUsed", resourceCulture);
             }
         }
         

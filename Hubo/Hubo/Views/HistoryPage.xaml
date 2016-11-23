@@ -14,12 +14,14 @@
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
         <RowDefinition Height="4*" />
         <RowDefinition Height="2*" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <DatePicker Format="D" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
-      <chart:SfChart HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+      <Label Text="Select a Date to view shift hours" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+      <DatePicker Format="D" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="datepicker" Date="{Binding SelectedDate}"/>
+      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
         <chart:SfChart.BindingContext>
           <local:HistoryViewModel/>
         </chart:SfChart.BindingContext>
@@ -45,8 +47,9 @@
           <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData2}" XBindingPath="Year" YBindingPath="Value"/>
         </chart:SfChart.Series>
       </chart:SfChart>
-      <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" />
+      <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="When editing a shift, the app will retrieve all shifts for the date above." />
+      <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" />
     </Grid>
   
   </ContentView>

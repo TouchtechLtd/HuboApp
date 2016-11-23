@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    public class ShiftTable
+    class AmendmentTable
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
-        public string TimeStart { get; set; }
-        public string TimeEnd { get; set; }
-        public int ActiveShift { get; set; }
-
+        public int ShiftId { get; set; }
+        public string Table { get; set; }
+        public string Field { get; set; }
+        public string TimeStamp { get; set; }
+        public string BeforeValue { get; set; }
     }
 }

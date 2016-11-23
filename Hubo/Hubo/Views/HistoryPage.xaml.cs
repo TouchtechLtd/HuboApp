@@ -16,6 +16,8 @@ namespace Hubo
             InitializeComponent();
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;
+            datepicker.MaximumDate = DateTime.Now;
         }
+
     }
 }

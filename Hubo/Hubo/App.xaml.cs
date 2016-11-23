@@ -19,7 +19,6 @@ namespace Hubo
             //TODO: Implement check for logged in status
             CheckLoggedInStatus();
 
-
             //TODO run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(1), () => {
                 return ScheduledTasks.testTask();
@@ -31,7 +30,7 @@ namespace Hubo
             dbService = new DatabaseService();
             if (dbService.CheckLoggedIn())
             {
-                MainPage = new NZTAMessagePage(1);
+                MainPage = new NavigationPage(new NZTAMessagePage(1));
             }
             else
             {

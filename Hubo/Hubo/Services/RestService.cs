@@ -53,5 +53,22 @@ namespace Hubo
             //TODO: Code to communicate with server to update user info
             db.UpdateUserInfo(user);
         }
+        internal void QueryAddVehicle()
+        {
+            //JSON Structure
+
+            //{
+            //    "vehicle": {
+            //        "LicenceNo": "abc123",
+            //      "CompanyId": 1,
+            //      "Make": "Toyota",
+            //      "Model": "Giga",
+            //      "StartingOdometer": 123000
+            //    }
+            //}
+
+            //json for sending a vehicle
+        }
+
     }
 }

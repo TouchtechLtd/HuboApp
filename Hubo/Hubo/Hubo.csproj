@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
+    <Compile Include="DatabaseModels\AmendmentTable.cs" />
     <Compile Include="DatabaseModels\BreakTable.cs" />
     <Compile Include="DatabaseModels\NoteTable.cs" />
     <Compile Include="DatabaseModels\ShiftTable.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="ViewModels\AddNoteViewModel.cs" />
     <Compile Include="ViewModels\AddShiftViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\EditShiftDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EditShiftViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -80,6 +83,9 @@
     </Compile>
     <Compile Include="Views\AddVehiclePage.xaml.cs">
       <DependentUpon>AddVehiclePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditShiftDetailsPage.xaml.cs">
+      <DependentUpon>EditShiftDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditShiftPage.xaml.cs">
       <DependentUpon>EditShiftPage.xaml</DependentUpon>
@@ -322,6 +328,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EditShiftPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EditShiftDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

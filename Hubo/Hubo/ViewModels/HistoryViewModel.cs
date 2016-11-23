@@ -20,6 +20,7 @@ namespace Hubo
         public ICommand EditShiftCommand { get; set; }
         public ICommand ExportCommand { get; set; }
         public INavigation Navigation { get; set; }
+        public DateTime SelectedDate { get; set; }
 
         public HistoryViewModel()
         {
@@ -63,11 +64,12 @@ namespace Hubo
             ExportText = Resource.Export;
             ExportCommand = new Command(Export);
             EditShiftCommand = new Command(EditShift);
+            SelectedDate = DateTime.Now;
             }
 
         private void EditShift()
         {
-            Navigation.PushAsync(new EditShiftPage());
+            Navigation.PushAsync(new EditShiftPage(SelectedDate));
         }
 
         private void Export()
