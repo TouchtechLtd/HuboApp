@@ -28,10 +28,8 @@ namespace Hubo
         public string EditNotesText { get; set; }
         public string EditVehiclesText { get; set; }
         public bool ChangesMade { get; set; }
-
-
-
-        public bool ShiftInfoVisible { get; set; }
+        public bool ShiftStartInfoVisible { get; set; }
+        public bool ShiftEndInfoVisible { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -48,7 +46,8 @@ namespace Hubo
         {
             ShiftEndTime = "Shift End Time";
             ShiftStartTime = "Shift Start Time";
-            ShiftInfoVisible = false;
+            ShiftStartInfoVisible = false;
+            ShiftEndInfoVisible = false;
             SaveCommand = new Command(Save);
             VehiclesCommand = new Command(Vehicles);
             NotesCommand = new Command(Notes);
@@ -72,42 +71,58 @@ namespace Hubo
 
         private void Vehicles(object obj)
         {
-            Navigation.PushAsync(new EditShiftDetailsPage(3, currentShift));
+            if(currentShift.Key!=0)
+            {
+                Navigation.PushAsync(new EditShiftDetailsPage(3, currentShift));
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A SHIFT", Resource.DisplayAlertOkay);
+            }
         }
 
         private void Save()
         {
             string newStartShiftDate = ShiftStartDatePicker.ToString();
-            string newEndShiftDate = ShiftEndDatePicker.ToString();
+            if(!(currentShift.TimeEnd=="Current"))
+            {
+                string newEndShiftDate = ShiftEndDatePicker.ToString();
+                string oldEndShiftDate = DateTime.Parse(currentShift.TimeEnd).ToString();
+                newEndShiftDate = newEndShiftDate.Substring(0, newEndShiftDate.IndexOf(" ") + 1);
+                oldEndShiftDate = oldEndShiftDate.Substring(0, oldEndShiftDate.IndexOf(" ") + 1);
+                string newEndShiftTime = ShiftEndTimePicker.ToString();
+                string oldEndShiftTime = DateTime.Parse(currentShift.TimeEnd).TimeOfDay.ToString();
+                oldEndShiftTime = oldEndShiftTime.Remove(oldEndShiftTime.Length - 2);
+                newEndShiftTime = newEndShiftTime.Remove(newEndShiftTime.Length - 2);
+                oldEndShiftTime = oldEndShiftTime + "00";
+                newEndShiftTime = newEndShiftTime + "00";
+
+                if ((newEndShiftDate != oldEndShiftDate) || (newEndShiftTime != oldEndShiftTime))
+                {
+                    AmendmentTable newStopShift = new AmendmentTable();
+                    newStopShift.BeforeValue = oldEndShiftDate + " " + oldEndShiftTime;
+                    newStopShift.Field = "TimeEnd";
+                    newStopShift.ShiftId = currentShift.Key;
+                    newStopShift.Table = "ShiftTable";
+                    newStopShift.TimeStamp = DateTime.Now.ToString();
+                    listOfAmendments.Add(newStopShift);
+                    currentShift.TimeEnd = newEndShiftDate + " " + newEndShiftTime;
+                }
+            }
+            else
+            {
+                currentShift.TimeEnd = null;
+            }
 
             string oldStartShiftDate = DateTime.Parse(currentShift.TimeStart).ToString();
-            string oldEndShiftDate = DateTime.Parse(currentShift.TimeEnd).ToString();
-
             newStartShiftDate = newStartShiftDate.Substring(0, newStartShiftDate.IndexOf(" ") + 1);
-            newEndShiftDate = newEndShiftDate.Substring(0, newEndShiftDate.IndexOf(" ") + 1);
-
             oldStartShiftDate = oldStartShiftDate.Substring(0, oldStartShiftDate.IndexOf(" ") + 1);
-            oldEndShiftDate = oldEndShiftDate.Substring(0, oldEndShiftDate.IndexOf(" ") + 1);
-
-
             string newStartShiftTime = ShiftStartTimePicker.ToString();
-            string newEndShiftTime = ShiftEndTimePicker.ToString();
-
             string oldStartShiftTime = DateTime.Parse(currentShift.TimeStart).TimeOfDay.ToString();
-            string oldEndShiftTime = DateTime.Parse(currentShift.TimeEnd).TimeOfDay.ToString();
-
             oldStartShiftTime = oldStartShiftTime.Remove(oldStartShiftTime.Length - 2);
-            oldEndShiftTime = oldEndShiftTime.Remove(oldEndShiftTime.Length - 2);
-
             newStartShiftTime = newStartShiftTime.Remove(newStartShiftTime.Length - 2);
-            newEndShiftTime = newEndShiftTime.Remove(newEndShiftTime.Length - 2);
-            
             oldStartShiftTime = oldStartShiftTime + "00";
-            oldEndShiftTime = oldEndShiftTime + "00";
-
             newStartShiftTime = newStartShiftTime + "00";
-            newEndShiftTime = newEndShiftTime + "00";
-
 
             //TODO: Code to check if any differences have occured
             if ((newStartShiftDate!=oldStartShiftDate)||(oldStartShiftTime!=newStartShiftTime))
@@ -121,21 +136,11 @@ namespace Hubo
                 listOfAmendments.Add(newStartShift);
                 currentShift.TimeStart = newStartShiftDate + " " + newStartShiftTime;
             }
-            if ((newEndShiftDate!=oldEndShiftDate)||(newEndShiftTime!=oldEndShiftTime))
-            {
-                AmendmentTable newStopShift = new AmendmentTable();
-                newStopShift.BeforeValue = oldEndShiftDate + " " + oldEndShiftTime;
-                newStopShift.Field = "TimeEnd";
-                newStopShift.ShiftId = currentShift.Key;
-                newStopShift.Table = "ShiftTable";
-                newStopShift.TimeStamp = DateTime.Now.ToString();
-                listOfAmendments.Add(newStopShift);
-                currentShift.TimeEnd= newEndShiftDate + " " + newEndShiftTime;
-            }
+
             if (listOfAmendments.Count>0)
             {
                 //TODO: Code to add to ammendment table / update curentshift table
-                DbService.AmendShift(listOfAmendments, currentShift);
+                DbService.AddAmendments(listOfAmendments, currentShift);
             }
         }
 
@@ -152,20 +157,25 @@ namespace Hubo
         }
 
         internal void LoadInfoFromShift(ShiftTable shiftTable)
-        {            
-            ShiftInfoVisible = true;
-            //string[] shiftStart = shiftTable.TimeStart.Split(new char[] { ' ' }, 2);
-            //string[] shiftEnd = shiftTable.TimeEnd.Split(new char[] { ' ' }, 2);
+        {
+            ShiftStartInfoVisible = true;
+            if(!(shiftTable.TimeEnd=="Current"))
+            {
+                ShiftEndInfoVisible = true;
+                ShiftEndDatePicker = DateTime.Parse(shiftTable.TimeEnd);
+                ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
+                OnPropertyChanged("ShiftEndInfoVisible");
+            }
 
             currentShift = shiftTable;
 
             ShiftStartDatePicker = DateTime.Parse(shiftTable.TimeStart);
-            ShiftEndDatePicker = DateTime.Parse(shiftTable.TimeEnd);
 
             ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
-            ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
+            
 
-            OnPropertyChanged("ShiftInfoVisible");
+            OnPropertyChanged("ShiftStartInfoVisible");
+            OnPropertyChanged("ShiftEndInfoVisible");
             OnPropertyChanged("ShiftStartTimePicker");
             OnPropertyChanged("ShiftEndTimePicker");
             OnPropertyChanged("ShiftStartDatePicker");

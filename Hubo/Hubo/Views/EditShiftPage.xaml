@@ -24,13 +24,13 @@
     
     <Picker Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="6" x:Name="shiftPicker" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>    
       
-    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftInfoVisible}"/>
-    <TimePicker x:Name="shiftStartTimePicker" Time="{Binding ShiftStartTimePicker}" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftInfoVisible}"/>  
-    <DatePicker Date="{Binding ShiftStartDatePicker}" HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftInfoVisible}"/>       
+    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <TimePicker x:Name="shiftStartTimePicker" Time="{Binding ShiftStartTimePicker}" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftStartInfoVisible}"/>  
+    <DatePicker Date="{Binding ShiftStartDatePicker}" HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftStartInfoVisible}"/>       
     
-    <Label Text="{Binding ShiftEndTime}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="3"  Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding ShiftInfoVisible}"/>
-    <TimePicker Time="{Binding ShiftEndTimePicker}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftInfoVisible}"/>
-    <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding ShiftEndDatePicker}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftInfoVisible}"/>
+    <Label Text="{Binding ShiftEndTime}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="3"  Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
+    <TimePicker Time="{Binding ShiftEndTimePicker}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
+    <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding ShiftEndDatePicker}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
            
     <!--<Picker Grid.Row="2" Grid.Column="2" />
     

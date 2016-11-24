@@ -2,4 +2,38 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.EditShiftDetailsPage">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Label Text="Placeholder for Vehicle/Break/Note text" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+    <Picker x:Name="picker" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+    
+    
+    <!-- For Editing vehicle information -->
+    <Label Text="Hubo Start: " Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding EditingVehicle}"/>
+    <Entry Text="{Binding VehicleStartHubo}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" IsVisible="{Binding EditingVehicle}"/>
+    <Label Text="Hubo End: " Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding EditingVehicle}"/>
+    <Entry Text="{Binding VehicleEndHubo}" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" IsVisible="{Binding EditingVehicle}"/>
+
+    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" />
+    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="4" />
+  </Grid>
 </ContentPage>

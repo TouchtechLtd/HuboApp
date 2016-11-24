@@ -9,7 +9,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 namespace Hubo
 {
-    class AddNoteViewModel :INotifyPropertyChanged
+    class AddNoteViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
         public string SaveText { get; set; }

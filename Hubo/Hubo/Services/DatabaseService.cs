@@ -25,6 +25,24 @@ namespace Hubo
             CreateTestData();
         }
 
+        internal VehicleTable LoadVehicleInfo(VehicleInUseTable vehicle)
+        {
+            List<VehicleTable> vehicleDetails = new List<VehicleTable>();
+            vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + vehicle.VehicleKey + "");
+            if((vehicleDetails.Count==0)||(vehicleDetails.Count>1))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "ERROR GET ONE VEHICLE", Resource.DisplayAlertOkay);
+            }
+            return vehicleDetails[0];
+        }
+
+        internal List<VehicleInUseTable> GetUsedVehicles(ShiftTable currentShift)
+        {
+            List<VehicleInUseTable> usedVehicles = new List<VehicleInUseTable>();
+            usedVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] == " + currentShift.Key + "");
+            return usedVehicles;
+        }
+
         private void CreateTestData()
         {
             List<VehicleTable> vehiclesList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
@@ -61,14 +79,24 @@ namespace Hubo
             }
         }
 
-        internal void AmendShift(List<AmendmentTable> listOfAmendments, ShiftTable currentShift)
+        internal void AddAmendments(List<AmendmentTable> listOfAmendments, ShiftTable currentShift = null, VehicleInUseTable currentVehicleInUse = null)
         {
-            db.Update(currentShift);
-            foreach(AmendmentTable amendment in listOfAmendments)
+            if(currentShift!=null)
+            {
+                db.Update(currentShift);
+            }
+            if(currentVehicleInUse!=null)
+            {
+                db.Update(currentVehicleInUse);
+            }
+
+            foreach (AmendmentTable amendment in listOfAmendments)
             {
                 db.Insert(amendment);
             }
         }
+
+        
 
         internal List<ShiftTable> GetShifts(string selectedDate)
         {
