@@ -16,6 +16,7 @@ namespace Hubo
             InitializeComponent();
             loginVM.Navigation = Navigation;
             BindingContext = loginVM;
+            Title = Resource.LoginText;
             username.Completed += Username_Completed;
             password.Completed += Password_Completed;
             MessagingCenter.Subscribe<string>(this, "EmptyDetails", (sender) =>

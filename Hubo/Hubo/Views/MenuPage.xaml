@@ -3,10 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.MenuPage">
   <ContentPage.Content>
-    <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
-      <StackLayout HeightRequest="150" BackgroundColor="#3E606F"/>
-      <Label Text="   Ben Suarez-Brodie" BackgroundColor="#3E606F" TextColor="White" FontSize="22"  />
-      <StackLayout BackgroundColor="#3E606F" HeightRequest="20" />
+    <StackLayout Spacing="0" >
+      <StackLayout HeightRequest="200">
+        <RelativeLayout >
+          <Image Source="DesertRoadjpg.png" Aspect="AspectFill" />
+          <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=8}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=140}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Constant=-16}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=48}" Orientation="Horizontal">
+            <Label Text="{Binding Name}"  TextColor="White" FontSize="22" YAlign="End" VerticalOptions="End" HorizontalOptions="FillAndExpand" VerticalTextAlignment="End" />
+          </StackLayout>
+        </RelativeLayout>  
+      </StackLayout>
       <StackLayout >
         <ListView x:Name="MenuList" ItemsSource="{Binding MenuPageList}" HasUnevenRows="True" SeparatorVisibility="None">
           <ListView.ItemTemplate>
@@ -14,6 +22,7 @@
               <ViewCell >
                 <ViewCell.View >
                   <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15,12,0,12"  >
+                    <Image Source="{Binding ImageSource}" HeightRequest="30"/>
                     <Label Text="{Binding Title}" YAlign="Center" FontSize="14" HorizontalTextAlignment="Center" XAlign="Center" HorizontalOptions="Center"  TextColor="Black"/>
                   </StackLayout>
                 </ViewCell.View>

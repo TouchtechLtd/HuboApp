@@ -17,18 +17,19 @@ namespace Hubo
             InitializeComponent();
             editShiftVM.Navigation = Navigation;
             BindingContext = editShiftVM;
-            shiftPicker.Title = "Select a shift";
+            Title = Resource.EditShift;
+            shiftPicker.Title = Resource.ShiftPickerTitle;
 
             listOfShifts = editShiftVM.Load(selectedDate);
 
             foreach(ShiftTable shift in listOfShifts)
             {
                 //Format and add shifts to picker
-                if(shift.TimeEnd==null)
+                if(shift.EndTime==null)
                 {
-                    shift.TimeEnd = "Current";
+                    shift.EndTime = "Current";
                 }
-                shiftPicker.Items.Add(shift.TimeStart + " - " + shift.TimeEnd);
+                shiftPicker.Items.Add(shift.StartTime + " - " + shift.EndTime);
             }
 
             shiftPicker.SelectedIndexChanged += ShiftPicker_SelectedIndexChanged;

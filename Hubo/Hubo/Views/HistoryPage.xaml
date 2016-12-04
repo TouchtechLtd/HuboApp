@@ -8,8 +8,10 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="4*" />
-        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="8*" />
+        <ColumnDefinition Width="8*" />
+        <ColumnDefinition Width="*" />
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
@@ -19,12 +21,16 @@
         <RowDefinition Height="2*" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <Label Text="Select a Date to view shift hours" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-      <DatePicker Format="D" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="datepicker" Date="{Binding SelectedDate}"/>
-      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+      <DatePicker Format="D" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" MaximumDate="{Binding MaximumDate}"/>
+      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
         <chart:SfChart.BindingContext>
           <local:HistoryViewModel/>
         </chart:SfChart.BindingContext>
+
+        <chart:SfChart.Legend>
+          <chart:ChartLegend/>
+        </chart:SfChart.Legend>
+        
         <chart:SfChart.PrimaryAxis>
           <chart:CategoryAxis EdgeLabelsDrawingMode="Shift">
             <chart:CategoryAxis.Title>
@@ -34,22 +40,20 @@
         </chart:SfChart.PrimaryAxis>
 
         <chart:SfChart.SecondaryAxis>
-          <chart:NumericalAxis Maximum="0" Minimum="24" Interval="1" EdgeLabelsDrawingMode="Shift">
+          <chart:NumericalAxis Maximum="0" Minimum="24" Interval="2" EdgeLabelsDrawingMode="Shift">
             <chart:NumericalAxis.Title>
-              <chart:ChartAxisTitle Text="Hours"/>
+              <chart:ChartAxisTitle Text="Full 24 Hour Cycle"/>
             </chart:NumericalAxis.Title>
           </chart:NumericalAxis>
         </chart:SfChart.SecondaryAxis>
 
         <chart:SfChart.Series>
-          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData}" XBindingPath="Year" YBindingPath="Value"/>
-          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData1}" XBindingPath="Year" YBindingPath="Value"/>
-          <chart:StackingBarSeries  ItemsSource ="{Binding HistoryChartData2}" XBindingPath="Year" YBindingPath="Value"/>
+          <chart:StackingBarSeries Label="Hours Worked" ItemsSource ="{Binding HistoryChartData}" XBindingPath="Year" YBindingPath="Value"/>
+          <chart:StackingBarSeries Label="Hours Off" ItemsSource ="{Binding HistoryChartData1}" XBindingPath="Year" YBindingPath="Value"/>
         </chart:SfChart.Series>
       </chart:SfChart>
-      <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="When editing a shift, the app will retrieve all shifts for the date above." />
-      <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
-      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" />
+      <Button Text="{Binding EditShiftText}" FontFamily="Helvetica" Command="{Binding EditShiftCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" />
     </Grid>
   
   </ContentView>

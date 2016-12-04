@@ -27,7 +27,7 @@ namespace Hubo
             {
                 await DisplayAlert(Resource.DisplayAlertTitle, Resource.MissingText, Resource.DisplayAlertOkay);
             });
-
+            Title = Resource.RegisterText;
             firstName.Completed += FirstName_Completed;
             lastName.Completed += LastName_Completed;
             password.Completed += Password_Completed;

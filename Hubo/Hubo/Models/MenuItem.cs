@@ -9,7 +9,7 @@ namespace Hubo
     class MenuItem
     {
         public string Title { get; set; }
-
         public string TargetType { get; set; }
+        public string ImageSource { get; set; }
     }
 }

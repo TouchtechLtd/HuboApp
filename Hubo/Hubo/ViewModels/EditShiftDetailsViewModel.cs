@@ -21,18 +21,55 @@ namespace Hubo
         public string CancelText { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public bool EditingStartBreak { get; set; }
+        public bool EditingEndBreak { get; set; }
+        public string BreakStartLabel { get; set; }
+        public string BreakStartNote { get; set; }
+        public string BreakEndLabel { get; set; }
+        public string BreakEndNote { get; set; }
+        public string BreakStartLocation { get; set; }
+        public string BreakEndLocation { get; set; }
+        public TimeSpan BreakStartTime { get; set; }
+        public TimeSpan BreakEndTime { get; set; }
+        public DateTime BreakStartDate { get; set; }
+        public DateTime BreakEndDate { get; set; }
+        public bool StartNoteChanged { get; set; }
+        public bool EndNoteChanged { get; set; }
+        public bool BreakInfoChanged { get; set; }
+        public bool ShowSaveButton { get; set; }
+        public bool EditingNote { get; set; }
+        public string NoteEntry { get; set; }
+        public string LocationEntry { get; set; }
+        public string HuboEntry { get; set; }
+        public DateTime NoteDate { get; set; }
+        public TimeSpan NoteTime { get; set; }
+        public string VehicleStartLocation { get; set; }
+        public string VehicleStartNote { get; set; }
+        public string VehicleEndLocation { get; set; }
+        public string VehicleEndNote { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
+
         ShiftTable currentShift = new ShiftTable();
         DatabaseService DbService = new DatabaseService();
+
 
         List<VehicleInUseTable> listUsedVehicles = new List<VehicleInUseTable>();
         VehicleInUseTable currentVehicleInUse = new VehicleInUseTable();
 
         List<VehicleTable> listOfRegisteredVehicles = new List<VehicleTable>();
         VehicleTable currentRegisteredVehicle = new VehicleTable();
+
+        List<BreakTable> listOfBreaks = new List<BreakTable>();
+        BreakTable currentBreak = new BreakTable();
+
+        List<NoteTable> listOfNotes = new List<NoteTable>();
+        NoteTable currentStartNote = new NoteTable();
+        NoteTable currentEndNote = new NoteTable();
+        NoteTable currentNote = new NoteTable();
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
         
@@ -41,21 +78,33 @@ namespace Hubo
             VehicleStartHubo = "";
             VehicleEndHubo = "";
             EditingVehicle = false;
+            SaveText = Resource.Save;
+            CancelText = Resource.Cancel;
+            SaveCommand = new Command(Save);
+            CancelCommand = new Command(Cancel);
+            ShowSaveButton = false;
         }
 
         internal void Load(int instructionNo, ShiftTable shift)
         {
             currentShift = shift;
             instruction = instructionNo;
-            EditingVehicle = false;
-            SaveText = Resource.Save;
-            CancelText = Resource.Cancel;
-            SaveCommand = new Command(Save);
-            CancelCommand = new Command(Cancel);
-            OnPropertyChanged("SaveText");
-            OnPropertyChanged("CancelText");
-            OnPropertyChanged("SaveCommand");
-            OnPropertyChanged("CancelCommand");
+            if(instruction==1)
+            {
+                StartNoteChanged = false;
+                EndNoteChanged = false;
+                BreakInfoChanged = false;
+            }
+            if(instructionNo==2)
+            {
+                EditingNote = false;
+            }
+
+            else if (instructionNo==3)
+            {
+                EditingVehicle = false;
+            }
+            
         }
 
         private void Cancel()
@@ -65,7 +114,231 @@ namespace Hubo
 
         private void Save()
         {
-            if(instruction==3)
+            if(instruction==1)
+            {
+                if(CheckValidHuboEntry())
+                {
+                    //TODO: Code for checking for changes and saving as amendments
+                    listOfNotes = new List<NoteTable>();
+                    //Hubo Break start
+                    if (VehicleStartHubo != currentStartNote.Hubo.ToString())
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentStartNote.Hubo.ToString();
+                        newAmendment.ShiftId = currentStartNote.ShiftKey;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.Field = "Hubo";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentStartNote.Hubo = Int32.Parse(VehicleStartHubo);
+                        listOfAmendments.Add(newAmendment);
+                        StartNoteChanged = true;
+                    }
+
+                    //Hubo Break end
+                    if(VehicleEndHubo != currentEndNote.Hubo.ToString())
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentEndNote.Hubo.ToString();
+                        newAmendment.ShiftId = currentEndNote.ShiftKey;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.Field = "Hubo";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentEndNote.Hubo = Int32.Parse(VehicleEndHubo);
+                        listOfAmendments.Add(newAmendment);
+                        EndNoteChanged = true;
+                    }
+
+                    //Check if start note has changed
+                    if (BreakStartNote!=currentStartNote.Note)
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentStartNote.Note;
+                        newAmendment.ShiftId = currentStartNote.ShiftKey;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.Field = "Note";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentStartNote.Note = BreakStartNote;
+                        listOfAmendments.Add(newAmendment);
+                        StartNoteChanged = true;
+                    }
+
+                    //Check if end note has changed
+                    if (BreakEndNote!=currentEndNote.Note)
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentEndNote.Note;
+                        newAmendment.ShiftId = currentEndNote.ShiftKey;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.Field = "Note";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentEndNote.Note = BreakEndNote;
+                        listOfAmendments.Add(newAmendment);
+                        EndNoteChanged = true;
+                    }
+
+                    //TODO: Code to do string conversions
+                    string newStartBreakDate = BreakStartDate.ToString();
+                    newStartBreakDate = newStartBreakDate.Substring(0, newStartBreakDate.IndexOf(" ") + 1);
+
+                    string newEndBreakDate = BreakEndDate.ToString();
+                    newEndBreakDate = newEndBreakDate.Substring(0, newEndBreakDate.IndexOf(" ") + 1);
+                    
+
+                    string newStartBreakTime = BreakStartTime.ToString();
+                    newStartBreakTime = newStartBreakTime.Remove(newStartBreakTime.Length - 2);
+
+
+                    string newEndBreakTime = BreakEndTime.ToString();
+                    newEndBreakTime = newEndBreakTime.Remove(newEndBreakTime.Length - 2);
+
+                    string oldStartBreakDate = currentBreak.StartTime.ToString();
+                    oldStartBreakDate = oldStartBreakDate.Substring(0, oldStartBreakDate.IndexOf(" ") + 1);
+
+                    string oldEndBreakDate = currentBreak.EndTime.ToString();
+                    oldEndBreakDate = oldEndBreakDate.Substring(0, oldEndBreakDate.IndexOf(" ") + 1);
+
+                    string oldStartBreakTime = DateTime.Parse(currentBreak.StartTime).TimeOfDay.ToString();
+                    oldStartBreakTime = oldStartBreakTime.Remove(oldStartBreakTime.Length - 2);
+
+                    string oldEndBreakTime = DateTime.Parse(currentBreak.EndTime).TimeOfDay.ToString();
+                    oldEndBreakTime = oldEndBreakTime.Remove(oldEndBreakTime.Length - 2);
+
+                    newStartBreakTime = newStartBreakTime + "00";
+                    newEndBreakTime = newEndBreakTime + "00";
+                    oldStartBreakTime = oldStartBreakTime + "00";
+                    oldEndBreakTime = oldEndBreakTime + "00";
+
+                    //Check if date/time has changed for start break
+                    if ((newStartBreakDate != oldStartBreakDate) || (newStartBreakTime != oldStartBreakTime))
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = oldStartBreakDate + " " + oldStartBreakTime;
+                        newAmendment.Field = "StartTime";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.Table = "BreakTable";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        listOfAmendments.Add(newAmendment);
+                        currentBreak.StartTime = newStartBreakDate + " " + newStartBreakTime;
+                        BreakInfoChanged = true;
+                    }
+
+
+                    //Check if date/time has changed for end break
+                    if ((newEndBreakDate != oldEndBreakDate) || (newEndBreakTime != oldEndBreakTime))
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = oldEndBreakDate + " " + oldEndBreakTime;
+                        newAmendment.Field = "EndTime";
+                        newAmendment.Table = "BreakTable";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        listOfAmendments.Add(newAmendment);
+                        currentBreak.EndTime = newEndBreakDate + " " + newEndBreakTime;
+                        BreakInfoChanged = true;
+                    }
+
+
+                    if (StartNoteChanged)
+                    {
+                        listOfNotes.Add(currentStartNote);
+                    }
+
+                    if (EndNoteChanged)
+                    {
+                        listOfNotes.Add(currentEndNote);
+                    }
+
+                    if (listOfAmendments.Count>0)
+                    {
+                        DbService.AddAmendments(listOfAmendments, null, null, listOfNotes, currentBreak);
+                    }
+                    Navigation.PopAsync();
+                }
+            }
+
+            else if(instruction==2)
+            {
+                Regex regex = new Regex("^[0-9]+$");
+                if (regex.IsMatch(HuboEntry))
+                {
+
+                    string currentDate = NoteDate.ToString();
+                    currentDate = currentDate.Substring(0, currentDate.IndexOf(" ") + 1);
+
+                    string oldDate = currentNote.Date.ToString();
+                    oldDate = oldDate.Substring(0, oldDate.IndexOf(" ") + 1);
+
+
+                    string currentTime = NoteDate.TimeOfDay.ToString();
+                    currentTime = currentTime.Remove(currentTime.Length - 2);
+
+                    string oldTime = DateTime.Parse(currentNote.Date).TimeOfDay.ToString();
+                    oldTime = oldTime.Remove(oldTime.Length - 2);
+
+                    currentTime = currentTime + "00";
+                    oldTime = oldTime + "00";
+
+                    if (NoteEntry != currentNote.Note)
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentNote.Note;
+                        newAmendment.Field = "Note";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentNote.Note = NoteEntry;
+                        listOfAmendments.Add(newAmendment);
+                    }
+
+                    if(LocationEntry != currentNote.Location)
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentNote.Location;
+                        newAmendment.Field = "Location";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentNote.Location = LocationEntry;
+                        listOfAmendments.Add(newAmendment);
+                    }
+
+                    if (HuboEntry != currentNote.Hubo.ToString())
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = currentNote.Hubo.ToString();
+                        newAmendment.Field = "Hubo";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentNote.Hubo = Int32.Parse(HuboEntry);
+                        listOfAmendments.Add(newAmendment);
+                    }
+
+                    if ((currentDate!=oldDate) || (currentTime!=oldTime))
+                    {
+                        AmendmentTable newAmendment = new AmendmentTable();
+                        newAmendment.BeforeValue = oldDate + " " + oldTime;
+                        newAmendment.Field = "Date";
+                        newAmendment.ShiftId = currentShift.Key;
+                        newAmendment.Table = "NoteTable";
+                        newAmendment.TimeStamp = DateTime.Now.ToString();
+                        currentNote.Date = currentDate + " " + currentTime;
+                        listOfAmendments.Add(newAmendment);
+                    }
+
+                    if (listOfAmendments.Count > 0)
+                    {
+                        DbService.AddAmendments(listOfAmendments, null, null, null, null, currentNote);
+                    }
+
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                }
+            }
+
+            else if(instruction==3)
             {
                 if(CheckValidHuboEntry() && EditingVehicle)
                 {
@@ -91,6 +364,7 @@ namespace Hubo
                         currentVehicleInUse.HuboEnd = Int32.Parse(VehicleEndHubo);
                         listOfAmendments.Add(newAmendment);
                     }
+
                     if (listOfAmendments.Count > 0)
                     {
                         DbService.AddAmendments(listOfAmendments, null, currentVehicleInUse);
@@ -117,6 +391,31 @@ namespace Hubo
             return true;
         }
 
+        internal List<NoteTable> LoadNotes()
+        {
+            //Load notes in relation to break
+            if(instruction==1)
+            {
+                listOfNotes = DbService.GetNotes(listOfBreaks);
+            }
+
+            ////Load all notes (Maybe not in relation to breaks)
+            else if(instruction==2)
+            {
+                listOfNotes = DbService.GetNotes();
+            }
+
+            return listOfNotes;
+
+        }
+
+
+        internal List<BreakTable> LoadBreaks()
+        {
+            listOfBreaks = DbService.GetBreaks(currentShift);
+            return listOfBreaks;
+        }
+
         internal List<VehicleInUseTable> LoadVehicles()
         {
             listUsedVehicles = DbService.GetUsedVehicles(currentShift);
@@ -130,16 +429,113 @@ namespace Hubo
 
         internal void DisplayDetails(int selectedIndex)
         {
-            if(instruction==3)
+            //Breaks
+            if(instruction==1)
+            {
+                BreakStartLabel = Resource.StartBreak;
+                BreakEndLabel = Resource.EndBreak;
+                currentBreak = listOfBreaks[selectedIndex];
+                
+                //TODO: Code to load the notes for this break
+                foreach(NoteTable note in listOfNotes)
+                {
+                    if(note.Key==currentBreak.StartNoteKey)
+                    {
+                        //TODO: Code to load details into start note
+                        BreakStartNote = note.Note;
+                        VehicleStartHubo = note.Hubo.ToString();
+                        BreakStartDate = DateTime.Parse(currentBreak.StartTime);
+                        BreakStartTime = BreakStartDate.TimeOfDay;
+                        BreakStartLocation = note.Location;
+                        currentStartNote = note;
+                    }
+                    else if(note.Key==currentBreak.StopNoteKey)
+                    {
+                        //TODO: Code to load details into stop note
+                        BreakEndNote = note.Note;
+                        VehicleEndHubo = note.Hubo.ToString();
+                        BreakEndDate = DateTime.Parse(currentBreak.EndTime);
+                        BreakEndTime = BreakEndDate.TimeOfDay;
+                        currentEndNote = note;
+                        BreakEndLocation = note.Location;
+                    }
+                }
+                
+                EditingStartBreak = true;
+                if(currentBreak.EndTime!=null)
+                {
+                    EditingEndBreak = true;
+                }
+                OnPropertyChanged("EditingStartBreak");
+                OnPropertyChanged("EditingEndBreak");
+                OnPropertyChanged("BreakStartNote");
+                OnPropertyChanged("BreakStartDate");
+                OnPropertyChanged("BreakStartTime");
+                OnPropertyChanged("BreakEndNote");
+                OnPropertyChanged("BreakEndDate");
+                OnPropertyChanged("BreakEndTime");
+                OnPropertyChanged("BreakStartLabel");
+                OnPropertyChanged("BreakEndLabel");
+                OnPropertyChanged("BreakStartLocation");
+                OnPropertyChanged("BreakEndLocation");
+            }
+
+            if(instruction==2)
+            {
+                currentNote = listOfNotes[selectedIndex];
+                NoteEntry = currentNote.Note;
+                LocationEntry = currentNote.Location;
+                HuboEntry = currentNote.Hubo.ToString();
+                EditingNote = true;
+
+                NoteDate = DateTime.Parse(currentNote.Date);
+                NoteTime = NoteDate.TimeOfDay;
+
+                OnPropertyChanged("NoteEntry");
+                OnPropertyChanged("NoteDate");
+                OnPropertyChanged("NoteTime");
+                OnPropertyChanged("LocationEntry");
+                OnPropertyChanged("HuboEntry");
+                OnPropertyChanged("EditingNote");
+            }
+            //Vehicle
+            if (instruction==3)
             {
                 currentVehicleInUse = listUsedVehicles[selectedIndex];
                 VehicleStartHubo = currentVehicleInUse.HuboStart.ToString();
                 VehicleEndHubo = currentVehicleInUse.HuboEnd.ToString();
-                EditingVehicle = true;
-                OnPropertyChanged("VehicleStartHubo");
-                OnPropertyChanged("VehicleEndHubo");
+
+                List<NoteTable> vehicleNotes = new List<NoteTable>();
+                vehicleNotes = DbService.GetNotesFromVehicle(currentVehicleInUse);
+
+                foreach(NoteTable note in vehicleNotes)
+                {
+                    if(note.Key == currentVehicleInUse.StartNoteKey)
+                    {
+                        VehicleStartLocation = note.Location;
+                        VehicleStartNote = note.Note;
+                    }
+                    else if(note.Key == currentVehicleInUse.EndNoteKey)
+                    {
+                        VehicleEndLocation = note.Location;
+                        VehicleEndNote = note.Note;
+                    }
+                }
+
+ 
+                EditingVehicle = true;                
                 OnPropertyChanged("EditingVehicle");
+                OnPropertyChanged("VehicleEndLocation");
+                OnPropertyChanged("VehicleEndNote");
+                OnPropertyChanged("VehicleStartNote");
+                OnPropertyChanged("VehicleStartLocation");
             }
+
+            ShowSaveButton = true;
+
+            OnPropertyChanged("ShowSaveButton");
+            OnPropertyChanged("VehicleStartHubo");
+            OnPropertyChanged("VehicleEndHubo");
         }
         protected virtual void OnPropertyChanged(string propertyName)
         {

@@ -20,6 +20,7 @@ namespace Hubo
         public string ShiftText { get; set; }
         public Color ShiftButtonColor { get; set; }
         public Color BreakButtonColor { get; set; }
+        public Color VehicleTextColor { get; set; }
         public double CompletedJourney { get; set; }
         public int RemainderOfJourney { get; set; }
         public int Break { get; set; }
@@ -33,8 +34,10 @@ namespace Hubo
         public string VehicleText { get; set; }
         public string AddNoteText { get; set; }
         public string VehicleRego { get; set; }
+        public string HoursTillReset { get; set; }
 
         public ICommand StartBreakCommand { get; set; }
+        
         public ICommand EndShiftCommand { get; set; }
         public ICommand VehicleCommand { get; set; }
         public ICommand AddNoteCommand { get; set; }
@@ -48,13 +51,42 @@ namespace Hubo
             this.CompletedJourney = 0;
             this.RemainderOfJourney = 0;
             this.Break = 0;
-            this.TotalBeforeBreak = 20;
-            this.TotalBeforeBreakText = this.TotalBeforeBreak.ToString() + "/70 Hours Total";
+
+            int hoursTillReset = DbService.HoursTillReset();
+            if(hoursTillReset == -1)
+            {
+                HoursTillReset = Resource.NoShiftsDoneYet;
+                TotalBeforeBreak = DbService.TotalBeforeBreak();
+            }
+            else if(hoursTillReset == -2)
+            {
+                HoursTillReset = Resource.FullyRested;
+                TotalBeforeBreak = 0;
+            }
+            else
+            {
+                HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
+                TotalBeforeBreak = DbService.TotalBeforeBreak();
+            }
+
+
+            this.TotalBeforeBreakText = this.TotalBeforeBreak.ToString() + Resource.HoursTotalText;
+
             CheckActiveShift();
             ShiftButton = new Command(ToggleShift);
             StartBreakText = Resource.StartBreak;
             EndShiftText = Resource.EndShift;
-            VehicleText = Resource.Vehicle;
+
+            //TODO: Code to check if vehicle in use
+            if(DbService.VehicleInUse())
+            {
+                VehicleText = Resource.StopDriving;
+            }
+            else
+            {
+                VehicleText = Resource.StartDriving;
+            }
+
             AddNoteText = Resource.AddNote;
             BreakButtonColor = Color.FromHex("#009900");
             StartBreakCommand = new Command(StartBreak);
@@ -75,12 +107,21 @@ namespace Hubo
                 VehicleTable currentVehicle = new VehicleTable();
                 currentVehicle = DbService.GetCurrentVehicle();
                 VehicleRego = currentVehicle.Registration;
+                VehicleText = Resource.StopDriving;
+                VehicleTextColor = Color.FromHex("#cc0000");
+
             }
             else
             {
                 VehicleRego = Resource.NoActiveVehicle;
+                VehicleText = Resource.StartDriving;
+                VehicleTextColor = Color.FromHex("#009900");
+
             }
+            
             OnPropertyChanged("VehicleRego");
+            OnPropertyChanged("VehicleText");
+            OnPropertyChanged("VehicleTextColor");
         }
 
         private void CheckActiveShift()
@@ -260,6 +301,8 @@ namespace Hubo
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        
     }
 
 

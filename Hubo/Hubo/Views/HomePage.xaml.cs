@@ -19,9 +19,12 @@ namespace Hubo
             InitializeComponent();
             BindingContext = homeVM;
             homeVM.Navigation = Navigation;
+            BackgroundColor = Color.FromHex("#FCFFF5");
+            Title = Resource.Hubo;
             greenRangePointer.Color = Color.FromHex("#009900");
             redRangePointer.Color = Color.FromHex("#cc0000");
             blueRangePointer.Color = Color.FromHex("#0000cc");
+
             //blueBarPointer.Color = Color.FromHex("#0000cc");
             //redBarPointer.Color = Color.FromHex("cc0000");
             //greenBarPointer.Color = Color.FromHex("#009900");

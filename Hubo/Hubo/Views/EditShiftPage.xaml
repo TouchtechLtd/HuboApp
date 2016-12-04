@@ -25,7 +25,7 @@
     <Picker Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="6" x:Name="shiftPicker" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>    
       
     <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
-    <TimePicker x:Name="shiftStartTimePicker" Time="{Binding ShiftStartTimePicker}" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftStartInfoVisible}"/>  
+    <TimePicker Time="{Binding ShiftStartTimePicker}" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftStartInfoVisible}"/>  
     <DatePicker Date="{Binding ShiftStartDatePicker}" HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftStartInfoVisible}"/>       
     
     <Label Text="{Binding ShiftEndTime}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="3"  Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
@@ -51,10 +51,10 @@
     
     <Editor Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" />
     -->
-    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" />
-    <Button Text="{Binding EditBreaksText}" Command="{Binding BreaksCommand}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" />
-    <Button Text="{Binding EditNotesText}" Command="{Binding NotesCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" /> 
-    <Button Text="{Binding EditVehiclesText}" Command="{Binding VehiclesCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" /> 
+    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
+    <Button Text="{Binding EditBreaksText}" Command="{Binding BreaksCommand}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
+    <Button Text="{Binding EditNotesText}" Command="{Binding NotesCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" /> 
+    <Button Text="{Binding EditVehiclesText}" Command="{Binding VehiclesCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" /> 
   
   </Grid>
 </ContentPage>

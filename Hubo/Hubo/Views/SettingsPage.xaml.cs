@@ -13,6 +13,7 @@ namespace Hubo
         public SettingsPage()
         {
             InitializeComponent();
+            Title = Resource.SettingsText;
         }
     }
 }

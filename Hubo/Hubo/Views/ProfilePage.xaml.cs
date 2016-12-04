@@ -20,12 +20,15 @@ namespace Hubo
             BindingContext = profileVM;
             ToolbarItem Done = new ToolbarItem();
             ToolbarItem Cancel = new ToolbarItem();
-            Done.Icon = "Ok.png";
-            Cancel.Icon = "Cancel.png";
+            Done.Text = Resource.Save;
+            Cancel.Text = Resource.Cancel;
+            //Done.Icon = "Ok.png";
+            //Cancel.Icon = "Cancel.png";
             Done.Command = profileVM.SaveAndExit;
             Cancel.Command = profileVM.CancelAndExit;
             ToolbarItems.Add(Done);
             ToolbarItems.Add(Cancel);
+            Title = Resource.ProfileText;
         }
 
     }

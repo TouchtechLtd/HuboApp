@@ -6,7 +6,8 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="4*" />
+      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
@@ -14,16 +15,19 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="2*" />
+      <RowDefinition Height="*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <StackLayout Grid.Row="0" Grid.Column="2">
+    <StackLayout Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"> 
       <Label Text="{Binding HuboLabel}"/>
       <Entry Text="{Binding HuboEntry}" Keyboard="Numeric"/>
     </StackLayout>
-    <DatePicker x:Name="datePicker" Date="{Binding Date}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
-    <Editor Text="{Binding Note}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" />
-    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
-    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" />
+    <DatePicker x:Name="datePicker" Date="{Binding Date}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
+    <Label Text="Note: " Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center"/>
+    <Entry Text="{Binding Note}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
+    <Label Text="Location: " Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" />
+    <Entry Text="{Binding Location}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
+    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" />
+    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" />
   </Grid>
 </ContentPage>

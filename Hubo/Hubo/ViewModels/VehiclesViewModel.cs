@@ -12,7 +12,7 @@ namespace Hubo
 {
     class VehiclesViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<VehicleTable> listOfVehicles;
+        public List<VehicleTable> listOfVehicles;
         public List<string> listOfVehicleRegistrations;
         public VehicleTable currentVehicle;
         DatabaseService DbService = new DatabaseService();
@@ -121,13 +121,14 @@ namespace Hubo
             {
                 if (VehicleInUse)
                 {
-                    //TODO: Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
-                    Navigation.PushAsync(new VehicleChecklistPage(2, true));
+                    // Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
+                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
                 }
                 else
                 {
-                    //TODO: Reverse of previous TODO
-                    Navigation.PushAsync(new VehicleChecklistPage(1, true,currentVehicle.Key));
+                    //Code to switch vehicle on Reverse of previous TODO
+                    //Navigation.PushAsync(new VehicleChecklistPage(1, true,currentVehicle.Key));
+                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
                 }
             }
             else
@@ -170,20 +171,12 @@ namespace Hubo
             Navigation.PushAsync(new AddVehiclePage());
         }
 
-        public List<string> GetVehicles()
+        public List<VehicleTable> GetVehicles()
         {
-            listOfVehicles = new ObservableCollection<VehicleTable>();
-            listOfVehicleRegistrations = new List<string>();
-
+            listOfVehicles = new List<VehicleTable>();
             listOfVehicles = DbService.GetVehicles();
-
-            foreach (VehicleTable vehicle in listOfVehicles)
-            {
-                listOfVehicleRegistrations.Add(vehicle.Registration);
-            }
             UpdateLabels();
-            return listOfVehicleRegistrations;
-                
+            return listOfVehicles;
         }
 
         private VehicleTable BindXAMLToVehicle()
@@ -232,54 +225,22 @@ namespace Hubo
             }
         }
 
-        public void ToggleSwitch(bool toggle)
+        internal void UpdatePage(int selectedVehicle)
         {
-            if(currentVehicle.Registration==null)
-            {
-                VehicleActive = false;
-            }
-            else
-            {
-                if (toggle)
-                {
-                    DbService.SetVehicleInactive();
-                    SwitchText = Resource.SwitchTextActive;
-                    VehicleActive = true;
-                }
-                else
-                {
-                    DbService.SetVehicleActive(currentVehicle);
-                    SwitchText = Resource.SwitchTextInActive;
-                    VehicleActive = false;
-                }
-            }
-
-            MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
-            OnPropertyChanged("SwitchText");
+            VehicleTable vehicle = listOfVehicles[selectedVehicle];
+            RegistrationText = "Registration: " + vehicle.Registration;
+            MakeText = "Make: " + vehicle.Make;
+            ModelText = "Model: " + vehicle.Model;
+            CompanyText = "Company: " + vehicle.Company;
+            VehicleActive = false;
+            SwitchText = Resource.SwitchTextInActive;
+            OnPropertyChanged("RegistrationText");
+            OnPropertyChanged("MakeText");
+            OnPropertyChanged("ModelText");
+            OnPropertyChanged("CompanyText");
             OnPropertyChanged("VehicleActive");
-        }
-
-        internal void UpdatePage(string rego)
-        {
-            foreach(VehicleTable vehicle in listOfVehicles)
-            {
-                if(rego==vehicle.Registration)
-                {
-                    RegistrationText = "Registration: " + vehicle.Registration;
-                    MakeText = "Make: " + vehicle.Make;
-                    ModelText = "Model: " + vehicle.Model;
-                    CompanyText = "Company: " + vehicle.Company;
-                    VehicleActive = false;
-                    SwitchText = Resource.SwitchTextInActive;
-                    OnPropertyChanged("RegistrationText");
-                    OnPropertyChanged("MakeText");
-                    OnPropertyChanged("ModelText");
-                    OnPropertyChanged("CompanyText");
-                    OnPropertyChanged("VehicleActive");
-                    OnPropertyChanged("SwitchText");
-                    currentVehicle = vehicle;
-                }
-            }
+            OnPropertyChanged("SwitchText");
+            currentVehicle = vehicle;
         }
 
 

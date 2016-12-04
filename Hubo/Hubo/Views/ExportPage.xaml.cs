@@ -16,6 +16,7 @@ namespace Hubo
             InitializeComponent();
             BindingContext = exportVM;
             emailEntry.Completed += EmailEntry_Completed;
+            Title = Resource.Export;
         }
 
         private void EmailEntry_Completed(object sender, EventArgs e)

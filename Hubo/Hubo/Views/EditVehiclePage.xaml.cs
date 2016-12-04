@@ -17,7 +17,7 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = vehiclesVM;
-            switchToggle.Toggled += SwitchToggle_Toggled;
+            Title = Resource.EditVehicleText;
         }
 
         private void Company_Completed(object sender, EventArgs e)
@@ -46,15 +46,10 @@ namespace Hubo
             BindingContext = vehiclesVM;
             this.currentVehicle = chosenVehicle;
             vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
-            switchToggle.Toggled += SwitchToggle_Toggled;
             registration.Completed += Registration_Completed;
             make.Completed += Make_Completed;
             model.Completed += Model_Completed;
             company.Completed += Company_Completed;
-        }
-        private void SwitchToggle_Toggled(object sender, ToggledEventArgs e)
-        {
-            vehiclesVM.ToggleSwitch(e.Value);
         }
 
         protected override void OnDisappearing()

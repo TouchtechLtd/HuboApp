@@ -19,6 +19,7 @@ namespace Hubo
             saveButton.Clicked += SaveButton_Clicked;
             addBreakButton.Clicked += AddBreakButton_Clicked;
             UpdateVehicleItems();
+            Title = Resource.AddShiftText;
         }
 
         private void UpdateVehicleItems()

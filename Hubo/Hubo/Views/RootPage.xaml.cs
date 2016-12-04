@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Hubo
@@ -28,6 +28,16 @@ namespace Hubo
                 BarTextColor = Color.White
             };
             this.PropertyChanged += RootPage_PropertyChanged;
+            ToolbarItem Vehicle = new ToolbarItem();
+            Vehicle.Icon = "Settings96.png";
+            Vehicle.Command = new Command(NavigateToSettingsPage);
+            ToolbarItems.Add(Vehicle);
+            
+        }
+
+        private void NavigateToSettingsPage()
+        {
+            Detail.Navigation.PushAsync(new SettingsPage());
         }
 
         private void RootPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -37,14 +47,9 @@ namespace Hubo
 
         async void NavigateTo(MenuItem menu)
         {
-            if (menu.TargetType == "Settings")
+            if(menu.TargetType == "Profile")
             {
-                Detail.Navigation.PushAsync(new SettingsPage());
-            }
-            else if(menu.TargetType == "Profile")
-            {
-                //Detail.Navigation.PushModalAsync(new ProfilePage());
-                await Navigation.PushModalAsync(new ProfilePage());
+                Detail.Navigation.PushModalAsync(new ProfilePage());
             }
             else if (menu.TargetType == "Vehicles")
             {
@@ -60,7 +65,7 @@ namespace Hubo
             }
             else if (menu.TargetType == "SignOut")
             {
-                bool result = await DisplayAlert("Log Out", "Would you like to logout?", "Yes", "No");
+                bool result = await DisplayAlert("Log Out", "Would you like to sign out?", "Yes", "No");
                 if (result)
                 {
                     DatabaseService dbService = new DatabaseService();

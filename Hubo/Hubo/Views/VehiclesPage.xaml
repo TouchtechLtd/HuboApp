@@ -21,7 +21,8 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <!-- <SearchBar Placeholder="{Binding SearchVehiclesPlaceholder}" SearchCommand="{Binding SearchVehiclesCommand}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/> -->
-    <autocomplete:SfAutoComplete x:Name="autocomplete" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>
+    <!-- <autocomplete:SfAutoComplete x:Name="autocomplete" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>-->
+    <Picker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>
     <Label Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
     <Label Text="{Binding MakeText}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
     <Label Text="{Binding ModelText}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>

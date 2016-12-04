@@ -12,11 +12,12 @@ namespace Hubo
     {
         AddNoteViewModel addNoteVM = new AddNoteViewModel();
         public bool AllowBack;
-        public AddNotePage(int instruction)
+        public AddNotePage(int instruction, int vehicleKey = 0)
         {
             InitializeComponent();
             addNoteVM.Navigation = Navigation;
             BindingContext = addNoteVM;
+            Title = Resource.AddNote;
             if(instruction==1)
             {
                 AllowBack = true;
@@ -25,7 +26,7 @@ namespace Hubo
             {
                 AllowBack = false;
             }
-            addNoteVM.Load(instruction);
+            addNoteVM.Load(instruction, vehicleKey);
         }
 
         protected override bool OnBackButtonPressed()

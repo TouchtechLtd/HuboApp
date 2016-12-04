@@ -11,50 +11,41 @@ namespace Hubo
     public partial class VehiclesPage : ContentPage
     {
         VehiclesViewModel vehiclesVM = new VehiclesViewModel();
-        List<string> vehicleNames;
+        List<VehicleTable> vehicles = new List<VehicleTable>();
 
         public VehiclesPage(int instruction)
         {
-            //We are accessing vehicle page through home menu 
             InitializeComponent();
             vehiclesVM.Navigation = Navigation;
             BindingContext = vehiclesVM;
-            //switchToggle.Toggled += SwitchToggle_Toggled;
-            vehicleNames = new List<string>();
-            vehicleNames = vehiclesVM.listOfVehicleRegistrations;
-            autocomplete.AutoCompleteSource = vehicleNames;
-            autocomplete.ShowSuggestionsOnFocus = true;
-            autocomplete.Watermark = "Enter Vehicle";
-            autocomplete.AutoCompleteMode = Syncfusion.SfAutoComplete.XForms.AutoCompleteMode.SuggestAppend;
-            autocomplete.ValueChanged += Autocomplete_ValueChanged;
+            UpdateList();
+            Title = Resource.VehiclesText;
+            vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
+            vehiclePicker.Title = Resource.SelectAVehicle;
             MessagingCenter.Subscribe<string>("UpdateVehicles", "UpdateVehicles", (sender) =>
             {
-                vehicleNames = vehiclesVM.GetVehicles();
-                autocomplete.AutoCompleteSource = vehicleNames;
+                UpdateList();
             });            
             vehiclesVM.Load(instruction);
         }
 
-        private void Autocomplete_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        private void UpdateList()
         {
-            foreach(string vehicle in vehicleNames)
+            vehicles = vehiclesVM.GetVehicles();
+            vehiclePicker.Items.Clear();
+            foreach (VehicleTable vehicle in vehicles)
             {
-                if(vehicle==e.Value)
-                {
-                    vehiclesVM.UpdatePage(e.Value);
-                }
+                vehiclePicker.Items.Add(vehicle.Registration);
             }
         }
 
-        private void SwitchToggle_Toggled(object sender, ToggledEventArgs e)
+        private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            vehiclesVM.ToggleSwitch(e.Value);
+            if(vehiclePicker.SelectedIndex!=-1)
+            {
+                vehiclesVM.UpdatePage(vehiclePicker.SelectedIndex);
+            }
         }
 
-        protected override void OnDisappearing()
-        {
-            //MessagingCenter.Unsubscribe<string>("UpdateVehicles", "UpdateVehicles");
-            base.OnDisappearing();
-        }
     }
 }

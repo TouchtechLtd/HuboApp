@@ -10,14 +10,28 @@ namespace Hubo
 {
     public partial class HistoryPage : ContentPage
     {
-        HistoryViewModel historyVM = new HistoryViewModel();
+        DatabaseService DbService = new DatabaseService();
         public HistoryPage()
         {
             InitializeComponent();
+            HistoryViewModel historyVM = new HistoryViewModel();
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;
-            datepicker.MaximumDate = DateTime.Now;
+            Title = Resource.HistoryText;
+            //LoadTip();
         }
 
+        public async void LoadTip()
+        {
+            if (DbService.ShowTip("HistoryViewModel"))
+            {
+                bool tipResult = await DisplayAlert(Resource.Tip, Resource.HistoryTip, Resource.GotIt, Resource.DontShowAgain);
+                if (!tipResult)
+                {
+                    DbService.HideTip("HistoryViewModel");
+                }
+            }
+
+        }
     }
 }

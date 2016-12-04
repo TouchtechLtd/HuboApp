@@ -16,5 +16,7 @@ namespace Hubo
         public int ActiveVehicle { get; set; }
         public int HuboStart { get; set; }
         public int HuboEnd { get; set; }
+        public int StartNoteKey { get; set; }
+        public int EndNoteKey { get; set; }
     }
 }

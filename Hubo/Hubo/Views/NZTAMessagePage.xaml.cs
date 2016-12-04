@@ -18,6 +18,7 @@ namespace Hubo
             nztaMessageVM.Navigation = Navigation;
             BindingContext = nztaMessageVM;
             nztaMessageVM.Load(instruction);
+            Title = Resource.NZTA;
         }
     }
 }

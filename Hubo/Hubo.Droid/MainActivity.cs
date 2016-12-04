@@ -30,7 +30,7 @@ namespace Hubo.Droid
             new SfAutoCompleteRenderer();
             if (((int)Build.VERSION.SdkInt) >= 21)
             {
-                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#193441"));
+                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#0e1d25"));
             }
             //Xamarin.Forms.Forms.ViewInitialized += (sender, e) =>
             //{

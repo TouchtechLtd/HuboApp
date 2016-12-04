@@ -21,6 +21,8 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
+    <Label Text="*Placeholder*" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" YAlign="Center" XAlign="Center" />
+    
     <Label Text="{Binding RegistrationText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" YAlign="Center" XAlign="Center"/>
     <Entry Text="{Binding RegistrationEntry}" x:Name="registration" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
@@ -33,10 +35,6 @@
     <Label Text="{Binding CompanyText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
     <Entry Text="{Binding CompanyEntry}" x:Name="company" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
-    <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-      <Switch x:Name="switchToggle" HorizontalOptions="Center"/>
-      <Label Text="{Binding SwitchText}" HorizontalTextAlignment="Center" HorizontalOptions="Center" YAlign="Center"/>
-    </StackLayout>
     <Button Text="{Binding SaveText}" x:Name="saveButton" Command="{Binding AddCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
     <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
   </Grid>

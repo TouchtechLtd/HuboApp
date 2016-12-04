@@ -318,4 +318,49 @@
   <data name="EditVehiclesUsed" xml:space="preserve">
     <value>Edit Vehicles Used</value>
   </data>
+  <data name="StartDriving" xml:space="preserve">
+    <value>Start Driving</value>
+  </data>
+  <data name="StopDriving" xml:space="preserve">
+    <value>Stop Driving</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Don't Show Again</value>
+  </data>
+  <data name="GotIt" xml:space="preserve">
+    <value>Got It</value>
+  </data>
+  <data name="HistoryTip" xml:space="preserve">
+    <value>Selecting a date will enable you to edit/export the selected date and its past week of shifts</value>
+  </data>
+  <data name="Tip" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="SelectAVehicle" xml:space="preserve">
+    <value>Select A Vehicle</value>
+  </data>
+  <data name="BreaksText" xml:space="preserve">
+    <value>Breaks</value>
+  </data>
+  <data name="FullyRested" xml:space="preserve">
+    <value>More than 24 hours since last shift</value>
+  </data>
+  <data name="HoursTotalText" xml:space="preserve">
+    <value>/70 Hours Total</value>
+  </data>
+  <data name="LastShiftEndText" xml:space="preserve">
+    <value>/24 Hours since last shift end</value>
+  </data>
+  <data name="NoShiftsDoneYet" xml:space="preserve">
+    <value>No shifts have been recorded yet</value>
+  </data>
+  <data name="NotesText" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="NZTA" xml:space="preserve">
+    <value>NZTA</value>
+  </data>
+  <data name="ShiftPickerTitle" xml:space="preserve">
+    <value>Select a shift</value>
+  </data>
 </root>

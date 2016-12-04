@@ -19,6 +19,7 @@ namespace Hubo
             make.Completed += Make_Completed;
             model.Completed += Model_Completed;
             company.Completed += Company_Completed;
+            Title = Resource.AddVehicleText;
         }
 
         private void Company_Completed(object sender, EventArgs e)
