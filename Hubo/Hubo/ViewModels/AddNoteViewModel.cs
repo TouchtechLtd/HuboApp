@@ -18,9 +18,11 @@ namespace Hubo
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public string Note { get; set; }
+        public string NoteText { get; set; }
         public string HuboLabel { get; set; }
         public string HuboEntry { get; set; }
         public string Location { get; set; }
+        public string LocationText { get; set; }
         public int CurrentVehicleKey { get; set; }
 
         DatabaseService DbService = new DatabaseService();
@@ -35,6 +37,8 @@ namespace Hubo
             HuboEntry = "";
             Note = "";
             Location = "";
+            NoteText = Resource.Note;
+            LocationText = Resource.Location;
         }
 
         private void CancelFromBreak()
@@ -54,7 +58,7 @@ namespace Hubo
             }
             if (Location.Length == 0)
             {
-                Application.Current.MainPage.DisplayActionSheet(Resource.DisplayAlertTitle, "Please input a location", Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InputLocation, Resource.DisplayAlertOkay);
                 return;
             }
             DbService.SaveNote(Note, Date, Location, 0);
@@ -66,7 +70,7 @@ namespace Hubo
             if(instruction==1)
             {
                 SaveCommand = new Command(SaveNoteWithoutHubo);
-                HuboLabel = Resource.Hubo + "(Not Required)";
+                HuboLabel = Resource.HuboNotRequired;
                 CancelCommand = new Command(Cancel);
             }
             else if(instruction==2)
@@ -83,10 +87,6 @@ namespace Hubo
                 HuboLabel = Resource.Hubo;
                 CancelCommand = new Command(Cancel);
                 SaveCommand = new Command(SaveNoteFromVehicle);
-            }
-            else
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "ERROR: WRONG INSTRUCTION NUMBER IDENTIFIED", Resource.DisplayAlertOkay);
             }
             OnPropertyChanged("SaveCommand");
             OnPropertyChanged("CancelCommand");
@@ -133,7 +133,7 @@ namespace Hubo
 
             if (Location.Length == 0)
             {
-                Application.Current.MainPage.DisplayActionSheet(Resource.DisplayAlertTitle, "Please input a location", Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InputLocation , Resource.DisplayAlertOkay);
                 return false;
             }
 

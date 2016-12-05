@@ -73,9 +73,5 @@ namespace Hubo
         {
             Navigation.PushAsync(new ExportPage());
         }
-
-
-
-
     }
 }

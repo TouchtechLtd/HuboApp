@@ -49,6 +49,23 @@ namespace Hubo
         public string VehicleEndNote { get; set; }
 
 
+        public string HuboStartText { get; set; }
+        public string HuboEndText { get; set; }
+        public string StartLocationText { get; set; }
+        public string EndLocationText { get; set; }
+        public string StartNoteText { get; set; }
+        public string EndNoteText { get; set; }
+
+
+        public string StartTimeText { get; set; }
+        public string EndTimeText { get; set; }
+
+
+        public string NoteText { get; set; }
+        public string LocationText { get; set; }
+        public string HuboText { get; set; }
+        public string DateText { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -73,38 +90,23 @@ namespace Hubo
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
         
-        public EditShiftDetailsViewModel()
+        public EditShiftDetailsViewModel(int instructionNo, ShiftTable shift)
         {
             VehicleStartHubo = "";
             VehicleEndHubo = "";
+            currentShift = shift;
+            instruction = instructionNo;
             EditingVehicle = false;
             SaveText = Resource.Save;
             CancelText = Resource.Cancel;
             SaveCommand = new Command(Save);
             CancelCommand = new Command(Cancel);
             ShowSaveButton = false;
-        }
-
-        internal void Load(int instructionNo, ShiftTable shift)
-        {
-            currentShift = shift;
-            instruction = instructionNo;
-            if(instruction==1)
-            {
-                StartNoteChanged = false;
-                EndNoteChanged = false;
-                BreakInfoChanged = false;
-            }
-            if(instructionNo==2)
-            {
-                EditingNote = false;
-            }
-
-            else if (instructionNo==3)
-            {
-                EditingVehicle = false;
-            }
-            
+            StartNoteChanged = false;
+            EndNoteChanged = false;
+            BreakInfoChanged = false;
+            EditingVehicle = false;
+            EditingNote = false;
         }
 
         private void Cancel()
@@ -176,67 +178,40 @@ namespace Hubo
                         EndNoteChanged = true;
                     }
 
-                    //TODO: Code to do string conversions
-                    string newStartBreakDate = BreakStartDate.ToString();
-                    newStartBreakDate = newStartBreakDate.Substring(0, newStartBreakDate.IndexOf(" ") + 1);
 
-                    string newEndBreakDate = BreakEndDate.ToString();
-                    newEndBreakDate = newEndBreakDate.Substring(0, newEndBreakDate.IndexOf(" ") + 1);
-                    
+                    DateTime oldStartBreakDate = DateTime.Parse(currentBreak.StartTime).Date;
+                    DateTime oldEndBreakDate = DateTime.Parse(currentBreak.EndTime).Date;
 
-                    string newStartBreakTime = BreakStartTime.ToString();
-                    newStartBreakTime = newStartBreakTime.Remove(newStartBreakTime.Length - 2);
+                    TimeSpan oldStartBreakTime = DateTime.Parse(currentBreak.StartTime).TimeOfDay;
+                    TimeSpan oldEndBreakTime = DateTime.Parse(currentBreak.EndTime).TimeOfDay;
 
-
-                    string newEndBreakTime = BreakEndTime.ToString();
-                    newEndBreakTime = newEndBreakTime.Remove(newEndBreakTime.Length - 2);
-
-                    string oldStartBreakDate = currentBreak.StartTime.ToString();
-                    oldStartBreakDate = oldStartBreakDate.Substring(0, oldStartBreakDate.IndexOf(" ") + 1);
-
-                    string oldEndBreakDate = currentBreak.EndTime.ToString();
-                    oldEndBreakDate = oldEndBreakDate.Substring(0, oldEndBreakDate.IndexOf(" ") + 1);
-
-                    string oldStartBreakTime = DateTime.Parse(currentBreak.StartTime).TimeOfDay.ToString();
-                    oldStartBreakTime = oldStartBreakTime.Remove(oldStartBreakTime.Length - 2);
-
-                    string oldEndBreakTime = DateTime.Parse(currentBreak.EndTime).TimeOfDay.ToString();
-                    oldEndBreakTime = oldEndBreakTime.Remove(oldEndBreakTime.Length - 2);
-
-                    newStartBreakTime = newStartBreakTime + "00";
-                    newEndBreakTime = newEndBreakTime + "00";
-                    oldStartBreakTime = oldStartBreakTime + "00";
-                    oldEndBreakTime = oldEndBreakTime + "00";
-
-                    //Check if date/time has changed for start break
-                    if ((newStartBreakDate != oldStartBreakDate) || (newStartBreakTime != oldStartBreakTime))
+                    if ((BreakStartDate.Date!=oldStartBreakDate) || (BreakStartTime!=oldStartBreakTime))
                     {
                         AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.BeforeValue = oldStartBreakDate + " " + oldStartBreakTime;
+                        newAmendment.BeforeValue = oldStartBreakDate.ToString("dd/MM/yyyy") + " " + oldStartBreakTime;
                         newAmendment.Field = "StartTime";
                         newAmendment.ShiftId = currentShift.Key;
                         newAmendment.Table = "BreakTable";
                         newAmendment.TimeStamp = DateTime.Now.ToString();
                         listOfAmendments.Add(newAmendment);
-                        currentBreak.StartTime = newStartBreakDate + " " + newStartBreakTime;
+                        //currentBreak.StartTime = newStartBreakDate + " " + newStartBreakTime;
+                        currentBreak.StartTime = BreakStartDate.Date.ToString("dd/MM/yyyy") + " " + BreakStartTime;
                         BreakInfoChanged = true;
                     }
 
-
-                    //Check if date/time has changed for end break
-                    if ((newEndBreakDate != oldEndBreakDate) || (newEndBreakTime != oldEndBreakTime))
+                    if((BreakEndDate!=oldEndBreakDate) || (BreakEndTime!=oldEndBreakTime))
                     {
                         AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.BeforeValue = oldEndBreakDate + " " + oldEndBreakTime;
+                        newAmendment.BeforeValue = oldEndBreakDate.ToString("dd/MM/yyyy") + " " + oldEndBreakTime;
                         newAmendment.Field = "EndTime";
                         newAmendment.Table = "BreakTable";
                         newAmendment.ShiftId = currentShift.Key;
                         newAmendment.TimeStamp = DateTime.Now.ToString();
                         listOfAmendments.Add(newAmendment);
-                        currentBreak.EndTime = newEndBreakDate + " " + newEndBreakTime;
+                        //currentBreak.EndTime = newEndBreakDate + " " + newEndBreakTime;
+                        currentBreak.EndTime = BreakEndDate.Date.ToString("dd/MM/yyyy") + " " + BreakEndTime.ToString();
                         BreakInfoChanged = true;
                     }
-
 
                     if (StartNoteChanged)
                     {
@@ -261,22 +236,6 @@ namespace Hubo
                 Regex regex = new Regex("^[0-9]+$");
                 if (regex.IsMatch(HuboEntry))
                 {
-
-                    string currentDate = NoteDate.ToString();
-                    currentDate = currentDate.Substring(0, currentDate.IndexOf(" ") + 1);
-
-                    string oldDate = currentNote.Date.ToString();
-                    oldDate = oldDate.Substring(0, oldDate.IndexOf(" ") + 1);
-
-
-                    string currentTime = NoteDate.TimeOfDay.ToString();
-                    currentTime = currentTime.Remove(currentTime.Length - 2);
-
-                    string oldTime = DateTime.Parse(currentNote.Date).TimeOfDay.ToString();
-                    oldTime = oldTime.Remove(oldTime.Length - 2);
-
-                    currentTime = currentTime + "00";
-                    oldTime = oldTime + "00";
 
                     if (NoteEntry != currentNote.Note)
                     {
@@ -314,15 +273,20 @@ namespace Hubo
                         listOfAmendments.Add(newAmendment);
                     }
 
-                    if ((currentDate!=oldDate) || (currentTime!=oldTime))
+
+                    DateTime oldDate = DateTime.Parse(currentNote.Date).Date;
+                    TimeSpan oldTime = DateTime.Parse(currentNote.Date).TimeOfDay;
+
+
+                    if ((NoteDate!=oldDate) || (NoteTime!=oldTime))
                     {
                         AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.BeforeValue = oldDate + " " + oldTime;
+                        newAmendment.BeforeValue = oldDate.Date.ToString("dd/MM/yyyy") + " " + oldTime;
                         newAmendment.Field = "Date";
                         newAmendment.ShiftId = currentShift.Key;
                         newAmendment.Table = "NoteTable";
                         newAmendment.TimeStamp = DateTime.Now.ToString();
-                        currentNote.Date = currentDate + " " + currentTime;
+                        currentNote.Date = NoteDate.Date.ToString("dd/MM/yyyy") + " " + NoteTime;
                         listOfAmendments.Add(newAmendment);
                     }
 
@@ -460,7 +424,10 @@ namespace Hubo
                         BreakEndLocation = note.Location;
                     }
                 }
-                
+
+                StartTimeText = Resource.StartTime;
+                EndTimeText = Resource.EndTime;
+
                 EditingStartBreak = true;
                 if(currentBreak.EndTime!=null)
                 {
@@ -478,6 +445,8 @@ namespace Hubo
                 OnPropertyChanged("BreakEndLabel");
                 OnPropertyChanged("BreakStartLocation");
                 OnPropertyChanged("BreakEndLocation");
+                OnPropertyChanged("StartTimeText");
+                OnPropertyChanged("EndTimeText");
             }
 
             if(instruction==2)
@@ -491,12 +460,21 @@ namespace Hubo
                 NoteDate = DateTime.Parse(currentNote.Date);
                 NoteTime = NoteDate.TimeOfDay;
 
+                NoteText = Resource.Note;
+                LocationText = Resource.Location;
+                HuboText = Resource.HuboEquals;
+                DateText = Resource.DateEquals;
+
                 OnPropertyChanged("NoteEntry");
                 OnPropertyChanged("NoteDate");
                 OnPropertyChanged("NoteTime");
                 OnPropertyChanged("LocationEntry");
                 OnPropertyChanged("HuboEntry");
                 OnPropertyChanged("EditingNote");
+                OnPropertyChanged("NoteText");
+                OnPropertyChanged("LocationText");
+                OnPropertyChanged("HuboText");
+                OnPropertyChanged("DateText");
             }
             //Vehicle
             if (instruction==3)
@@ -522,6 +500,13 @@ namespace Hubo
                     }
                 }
 
+                HuboStartText = Resource.HuboStart;
+                HuboEndText = Resource.HuboEnd;
+                StartLocationText = Resource.StartLocation;
+                EndLocationText = Resource.EndLocation;
+                StartNoteText = Resource.StartNote;
+                EndNoteText = Resource.EndNote;
+
  
                 EditingVehicle = true;                
                 OnPropertyChanged("EditingVehicle");
@@ -529,6 +514,12 @@ namespace Hubo
                 OnPropertyChanged("VehicleEndNote");
                 OnPropertyChanged("VehicleStartNote");
                 OnPropertyChanged("VehicleStartLocation");
+                OnPropertyChanged("HuboStartText");
+                OnPropertyChanged("HuboEndText");
+                OnPropertyChanged("StartLocationText");
+                OnPropertyChanged("EndLocationText");
+                OnPropertyChanged("StartNoteText");
+                OnPropertyChanged("EndNoteText");
             }
 
             ShowSaveButton = true;

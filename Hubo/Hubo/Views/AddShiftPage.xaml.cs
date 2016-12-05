@@ -24,12 +24,16 @@ namespace Hubo
 
         private void UpdateVehicleItems()
         {
-            List<string> vehiclePickerItems = new List<string>();
-            vehiclePickerItems = addShiftVM.vehicles;
-            foreach(string vehicle in vehiclePickerItems)
+            List<VehicleTable> vehiclePickerItems = new List<VehicleTable>();
+            vehiclePickerItems = addShiftVM.GetVehicles();
+            if(vehiclePickerItems!=null)
             {
-                vehiclePicker.Items.Add(vehicle);
+                foreach(VehicleTable vehicle in vehiclePickerItems)
+                {
+                    vehiclePicker.Items.Add(vehicle.Registration);
+                }
             }
+            
         }
 
         private void AddBreakButton_Clicked(object sender, EventArgs e)

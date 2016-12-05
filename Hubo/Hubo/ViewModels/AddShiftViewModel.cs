@@ -12,7 +12,7 @@ namespace Hubo
     class AddShiftViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<string> vehicles { get; set; }
+        public List<VehicleTable> vehicles { get; set; }
         public INavigation Navigation { get; set; }
         public ICommand AddBreakButton { get; set; }
         public string StartShift { get; set; }
@@ -24,8 +24,9 @@ namespace Hubo
         public string Date { get; set; }
         public string Vehicle { get; set; }
         public int EndShiftRow { get; set; }
-        
 
+
+        DatabaseService DbService = new DatabaseService();
 
         public AddShiftViewModel()
         {
@@ -39,14 +40,13 @@ namespace Hubo
             Vehicle = Resource.Vehicle;
             AddBreakButton = new Command(AddBreak);
             EndShiftRow = 4;
-            vehicles = new List<string>();
-            vehicles.Add("ELM324");
-            vehicles.Add("FJG012");
-            vehicles.Add("KDG956");
-            vehicles.Add("PFW337");
-            vehicles.Add("FDG777");
         }
 
+        internal List<VehicleTable> GetVehicles()
+        {
+            vehicles = DbService.GetVehicles();
+            return vehicles;
+        }
 
         public void Save()
         {

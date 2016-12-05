@@ -363,4 +363,58 @@
   <data name="ShiftPickerTitle" xml:space="preserve">
     <value>Select a shift</value>
   </data>
+  <data name="InputLocation" xml:space="preserve">
+    <value>Please input a location</value>
+  </data>
+  <data name="NoShiftsFound" xml:space="preserve">
+    <value>No shifts found for this date</value>
+  </data>
+  <data name="SelectAShift" xml:space="preserve">
+    <value>Please select a shift</value>
+  </data>
+  <data name="ShiftEndTime" xml:space="preserve">
+    <value>Shift End Time</value>
+  </data>
+  <data name="ShiftStartTime" xml:space="preserve">
+    <value>Shift Start Time</value>
+  </data>
+  <data name="DateEquals" xml:space="preserve">
+    <value>Date: </value>
+  </data>
+  <data name="EndLocation" xml:space="preserve">
+    <value>End Location: </value>
+  </data>
+  <data name="EndNote" xml:space="preserve">
+    <value>End Note: </value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End Time: </value>
+  </data>
+  <data name="HuboEnd" xml:space="preserve">
+    <value>Hubo End: </value>
+  </data>
+  <data name="HuboEquals" xml:space="preserve">
+    <value>Hubo: </value>
+  </data>
+  <data name="HuboStart" xml:space="preserve">
+    <value>Hubo Start: </value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location: </value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note: </value>
+  </data>
+  <data name="StartLocation" xml:space="preserve">
+    <value>Start Location: </value>
+  </data>
+  <data name="StartNote" xml:space="preserve">
+    <value>Start Note: </value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start Time: </value>
+  </data>
+  <data name="HuboNotRequired" xml:space="preserve">
+    <value>Hubo (Not Required)</value>
+  </data>
 </root>

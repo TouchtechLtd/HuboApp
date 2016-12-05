@@ -126,7 +126,14 @@ namespace Hubo
                 difference =  previous - current;
                 if(difference.TotalHours > 24)
                 {
-                    totalHours = Convert.ToInt32((DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime)).Hours) + totalHours;
+                    if(listOfShiftsForAmount[i - 1].EndTime == null)
+                    {
+                        totalHours = Convert.ToInt32((DateTime.Now - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime)).Hours) + totalHours;
+                    }
+                    else
+                    {
+                        totalHours = Convert.ToInt32((DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime)).Hours) + totalHours;
+                    }
                     return totalHours;
                 }
                 else
@@ -257,6 +264,7 @@ namespace Hubo
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
             List<DateTime> listOfDates = new List<DateTime>();
             DateTime fromDate = selectedDate.AddDays(-7);
+            selectedDate = selectedDate.AddDays(1);
             while(fromDate != selectedDate)
             {
                 listOfDates.Add(fromDate);

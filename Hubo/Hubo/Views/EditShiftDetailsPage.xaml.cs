@@ -10,14 +10,15 @@ namespace Hubo
 {
     public partial class EditShiftDetailsPage : ContentPage
     {
-        EditShiftDetailsViewModel editShiftDetailsVM = new EditShiftDetailsViewModel();
+        EditShiftDetailsViewModel editShiftDetailsVM;
 
         public EditShiftDetailsPage(int instruction, ShiftTable currentShift)
         {
             InitializeComponent();
+            editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentShift);
             editShiftDetailsVM.Navigation = Navigation;
             BindingContext = editShiftDetailsVM;
-            editShiftDetailsVM.Load(instruction, currentShift);
+            //editShiftDetailsVM.Load(instruction, currentShift);
             picker.SelectedIndexChanged += Picker_SelectedIndexChanged;
             if(instruction==1)
             {
