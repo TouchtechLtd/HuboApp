@@ -53,7 +53,7 @@ namespace Hubo
         public event PropertyChangedEventHandler PropertyChanged;
         
 
-        public VehiclesViewModel()
+        public VehiclesViewModel(int instruction = 0)
         {
             UpdateLabels();
             GetVehicles();
@@ -72,7 +72,18 @@ namespace Hubo
 
             ToggleVehicleUseCommand = new Command(ToggleVehicleUse);
 
-
+            if (instruction == 1)
+            {
+                VehiclesPageFromMenu = true;
+                UseVehicleButtonVisible = false;
+            }
+            else if (instruction == 2)
+            {
+                VehiclesPageFromMenu = false;
+                UseVehicleButtonVisible = true;
+            }
+            OnPropertyChanged("VehiclesPageFromMenu");
+            OnPropertyChanged("UseVehicleButtonVisible");
 
             ToggleVehicleInUseVisuals();
 
@@ -136,22 +147,6 @@ namespace Hubo
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
             }
             
-        }
-
-        internal void Load(int instruction)
-        {
-            if(instruction == 1)
-            {
-                VehiclesPageFromMenu = true;
-                UseVehicleButtonVisible = false;
-            }
-            else if(instruction == 2)
-            {
-                VehiclesPageFromMenu = false;
-                UseVehicleButtonVisible = true;
-            }
-            OnPropertyChanged("VehiclesPageFromMenu");
-            OnPropertyChanged("UseVehicleButtonVisible");
         }
 
         private void Cancel()

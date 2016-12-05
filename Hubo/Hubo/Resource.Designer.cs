@@ -530,6 +530,24 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log Out.
+        /// </summary>
+        internal static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to log out?.
+        /// </summary>
+        internal static string LogOutMessage {
+            get {
+                return ResourceManager.GetString("LogOutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make: .
         /// </summary>
         internal static string MakeText {
@@ -760,6 +778,33 @@ namespace Hubo {
         internal static string SelectAVehicle {
             get {
                 return ResourceManager.GetString("SelectAVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a break period.
+        /// </summary>
+        internal static string SelectBreak {
+            get {
+                return ResourceManager.GetString("SelectBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a note.
+        /// </summary>
+        internal static string SelectNote {
+            get {
+                return ResourceManager.GetString("SelectNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a vehicle.
+        /// </summary>
+        internal static string SelectVehicle {
+            get {
+                return ResourceManager.GetString("SelectVehicle", resourceCulture);
             }
         }
         

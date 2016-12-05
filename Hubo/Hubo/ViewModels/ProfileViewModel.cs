@@ -102,16 +102,16 @@ namespace Hubo
         private void SaveAndPop(object obj)
         {
             user = new UserTable();
-            user.FirstName = FirstName;
-            user.LastName = LastName;
-            user.Email = Email;
-            user.License = LicenseNumber;
-            user.LicenseVersion = LicenseVersion;
-            user.Endorsements = Endorsements;
-            user.CompanyName = Name;
-            user.Address = Address;
-            user.CompanyEmail = CompanyEmail;
-            user.Phone = Phone;
+            user.FirstName = FirstName.Trim();
+            user.LastName = LastName.Trim();
+            user.Email = Email.Trim();
+            user.License = LicenseNumber.Trim();
+            user.LicenseVersion = LicenseVersion.Trim();
+            user.Endorsements = Endorsements.Trim();
+            user.CompanyName = Name.Trim();
+            user.Address = Address.Trim();
+            user.CompanyEmail = CompanyEmail.Trim();
+            user.Phone = Phone.Trim();
             restService = new RestService();
             restService.QueryUpdateUserInfo(user);
             Navigation.PopModalAsync();

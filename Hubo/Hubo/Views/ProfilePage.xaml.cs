@@ -22,8 +22,6 @@ namespace Hubo
             ToolbarItem Cancel = new ToolbarItem();
             Done.Text = Resource.Save;
             Cancel.Text = Resource.Cancel;
-            //Done.Icon = "Ok.png";
-            //Cancel.Icon = "Cancel.png";
             Done.Command = profileVM.SaveAndExit;
             Cancel.Command = profileVM.CancelAndExit;
             ToolbarItems.Add(Done);

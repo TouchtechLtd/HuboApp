@@ -417,4 +417,19 @@
   <data name="HuboNotRequired" xml:space="preserve">
     <value>Hubo (Not Required)</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="LogOutMessage" xml:space="preserve">
+    <value>Would you like to log out?</value>
+  </data>
+  <data name="SelectBreak" xml:space="preserve">
+    <value>Select a break period</value>
+  </data>
+  <data name="SelectNote" xml:space="preserve">
+    <value>Select a note</value>
+  </data>
+  <data name="SelectVehicle" xml:space="preserve">
+    <value>Select a vehicle</value>
+  </data>
 </root>

@@ -19,14 +19,6 @@ namespace Hubo
             Title = Resource.LoginText;
             username.Completed += Username_Completed;
             password.Completed += Password_Completed;
-            MessagingCenter.Subscribe<string>(this, "EmptyDetails", (sender) =>
-            {
-                DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
-            });
-            MessagingCenter.Subscribe<string>(this, "UnsuccessfulLogin", (sender) =>
-            {
-                DisplayAlert(Resource.DisplayAlertTitle, Resource.UnsuccessfulLogin, Resource.DisplayAlertOkay);
-            });
         }
 
         private void Password_Completed(object sender, EventArgs e)
@@ -37,13 +29,6 @@ namespace Hubo
         private void Username_Completed(object sender, EventArgs e)
         {
             password.Focus();
-        }
-
-        protected override void OnDisappearing()
-        {
-            MessagingCenter.Unsubscribe<string>(this, "EmptyDetails");
-            MessagingCenter.Unsubscribe<string>(this, "UnsuccessfulLogin");
-            base.OnDisappearing();
         }
     }
 }

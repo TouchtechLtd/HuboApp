@@ -50,9 +50,9 @@ namespace Hubo
             ShiftStartInfoVisible = false;
             ShiftEndInfoVisible = false;
             SaveCommand = new Command(Save);
-            VehiclesCommand = new Command(Vehicles);
-            NotesCommand = new Command(Notes);
-            BreaksCommand = new Command(Break);
+            VehiclesCommand = new Command(EditShiftDetails);
+            NotesCommand = new Command(EditShiftDetails);
+            BreaksCommand = new Command(EditShiftDetails);
             SaveText = Resource.Save;
             EditBreaksText = Resource.EditBreaks;
             EditNotesText = Resource.EditNotes;
@@ -61,35 +61,11 @@ namespace Hubo
             ShiftSelected = false;
         }
 
-        private void Break(object obj)
+        private void EditShiftDetails(object obj)
         {
             if (currentShift.Key != 0)
             {
-                Navigation.PushAsync(new EditShiftDetailsPage(1, currentShift));
-            }
-            else
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.SelectAShift, Resource.DisplayAlertOkay);
-            }
-        }
-
-        private void Notes(object obj)
-        {
-            if (currentShift.Key != 0)
-            {
-                Navigation.PushAsync(new EditShiftDetailsPage(2, currentShift));
-            }
-            else
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.SelectAShift, Resource.DisplayAlertOkay);
-            }
-        }
-
-        private void Vehicles(object obj)
-        {
-            if(currentShift.Key!=0)
-            {
-                Navigation.PushAsync(new EditShiftDetailsPage(3, currentShift));
+                Navigation.PushAsync(new EditShiftDetailsPage(obj.ToString(), currentShift));
             }
             else
             {

@@ -22,31 +22,24 @@ namespace Hubo
         public string ContinueText { get; set; }
         public ICommand ContinueCommand { get; set; }
         public int CurrentVehicleKey { get; set; }
-        public VehicleChecklistViewModel()
+        public VehicleChecklistViewModel(int instruction)
         {
             HuboText = Resource.Hubo;
             ContinueText = Resource.Continue;
             HuboEntry = "";
-        }
-
-        internal void Load(int instruction)
-        {
-            if(instruction==1)
+            if (instruction == 1)
             {
                 //Start Hubo
                 ContinueCommand = new Command(Continue);
-                OnPropertyChanged("ContinueCommand");
             }
-            else if(instruction==2)
+            else if (instruction == 2)
             {
                 //End Hubo
                 ContinueCommand = new Command(Finish);
-                OnPropertyChanged("ContinueCommand");
             }
-            else if(instruction==3)
+            else if (instruction == 3)
             {
                 ContinueCommand = new Command(FinishAndMessage);
-                OnPropertyChanged("ContinueCommand");
             }
         }
 

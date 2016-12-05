@@ -29,7 +29,10 @@ namespace Hubo
                 {
                     shift.EndTime = "Current";
                 }
-                shiftPicker.Items.Add(shift.StartTime + " - " + shift.EndTime);
+                DateTime shiftStart = DateTime.Parse(shift.StartTime);
+                DateTime shiftEnd = DateTime.Parse(shift.EndTime);
+
+                shiftPicker.Items.Add(string.Format("{0:dd/MM}" , shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
             }
 
             shiftPicker.SelectedIndexChanged += ShiftPicker_SelectedIndexChanged;

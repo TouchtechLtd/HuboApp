@@ -48,9 +48,9 @@ namespace Hubo
 
         public HomeViewModel()
         {
-            this.CompletedJourney = 0;
-            this.RemainderOfJourney = 0;
-            this.Break = 0;
+            CompletedJourney = 0;
+            RemainderOfJourney = 0;
+            Break = 0;
 
             int hoursTillReset = DbService.HoursTillReset();
             if(hoursTillReset == -1)
@@ -70,7 +70,7 @@ namespace Hubo
             }
 
 
-            this.TotalBeforeBreakText = this.TotalBeforeBreak.ToString() + Resource.HoursTotalText;
+            TotalBeforeBreakText = TotalBeforeBreak.ToString() + Resource.HoursTotalText;
 
             CheckActiveShift();
             ShiftButton = new Command(ToggleShift);

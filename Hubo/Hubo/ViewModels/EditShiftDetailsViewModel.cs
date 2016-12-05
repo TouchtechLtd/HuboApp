@@ -12,7 +12,7 @@ namespace Hubo
 {
     class EditShiftDetailsViewModel : INotifyPropertyChanged
     {
-        public int instruction { get; set; }
+        public string instruction { get; set; }
         public INavigation Navigation { get; set; }
         public string VehicleStartHubo { get; set; }
         public string VehicleEndHubo { get; set; }
@@ -90,12 +90,12 @@ namespace Hubo
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
         
-        public EditShiftDetailsViewModel(int instructionNo, ShiftTable shift)
+        public EditShiftDetailsViewModel(string instructionCommand, ShiftTable shift)
         {
             VehicleStartHubo = "";
             VehicleEndHubo = "";
             currentShift = shift;
-            instruction = instructionNo;
+            instruction = instructionCommand;
             EditingVehicle = false;
             SaveText = Resource.Save;
             CancelText = Resource.Cancel;
@@ -116,7 +116,7 @@ namespace Hubo
 
         private void Save()
         {
-            if(instruction==1)
+            if(instruction=="Breaks")
             {
                 if(CheckValidHuboEntry())
                 {
@@ -231,7 +231,7 @@ namespace Hubo
                 }
             }
 
-            else if(instruction==2)
+            else if(instruction=="Notes")
             {
                 Regex regex = new Regex("^[0-9]+$");
                 if (regex.IsMatch(HuboEntry))
@@ -302,7 +302,7 @@ namespace Hubo
                 }
             }
 
-            else if(instruction==3)
+            else if(instruction=="Vehicles")
             {
                 if(CheckValidHuboEntry() && EditingVehicle)
                 {
@@ -357,20 +357,8 @@ namespace Hubo
 
         internal List<NoteTable> LoadNotes()
         {
-            //Load notes in relation to break
-            if(instruction==1)
-            {
-                listOfNotes = DbService.GetNotes(listOfBreaks);
-            }
-
-            ////Load all notes (Maybe not in relation to breaks)
-            else if(instruction==2)
-            {
-                listOfNotes = DbService.GetNotes();
-            }
-
+            listOfNotes = DbService.GetNotes(listOfBreaks);
             return listOfNotes;
-
         }
 
 
@@ -393,8 +381,8 @@ namespace Hubo
 
         internal void DisplayDetails(int selectedIndex)
         {
-            //Breaks
-            if(instruction==1)
+
+            if(instruction=="Breaks")
             {
                 BreakStartLabel = Resource.StartBreak;
                 BreakEndLabel = Resource.EndBreak;
@@ -449,7 +437,7 @@ namespace Hubo
                 OnPropertyChanged("EndTimeText");
             }
 
-            if(instruction==2)
+            if(instruction=="Notes")
             {
                 currentNote = listOfNotes[selectedIndex];
                 NoteEntry = currentNote.Note;
@@ -476,8 +464,8 @@ namespace Hubo
                 OnPropertyChanged("HuboText");
                 OnPropertyChanged("DateText");
             }
-            //Vehicle
-            if (instruction==3)
+
+            if (instruction=="Vehicles")
             {
                 currentVehicleInUse = listUsedVehicles[selectedIndex];
                 VehicleStartHubo = currentVehicleInUse.HuboStart.ToString();

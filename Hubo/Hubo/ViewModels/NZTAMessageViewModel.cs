@@ -18,28 +18,21 @@ namespace Hubo
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public NZTAMessageViewModel()
+        public NZTAMessageViewModel(int instruction)
         {
-            
-        }
-
-        internal void Load(int instruction)
-        {
-            if(instruction==1)
+            if (instruction == 1)
             {
                 NZTAButtonText = Resource.NZTAButtonText;
                 NZTADisclaimer = Resource.NZTADisclaimer;
                 NZTAButton = new Command(ProceedToHomePage);
             }
-            else if(instruction==2)
+
+            else if (instruction == 2)
             {
                 NZTADisclaimer = Resource.EndShiftDisclaimer;
                 NZTAButtonText = Resource.Continue;
                 NZTAButton = new Command(PopPage);
             }
-            OnPropertyChanged("NZTAButtonText");
-            OnPropertyChanged("NZTADisclaimer");
-            OnPropertyChanged("NZTAButton");
         }
 
         private void PopPage()

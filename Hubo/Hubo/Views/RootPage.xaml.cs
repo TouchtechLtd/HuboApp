@@ -65,7 +65,7 @@ namespace Hubo
             }
             else if (menu.TargetType == "SignOut")
             {
-                bool result = await DisplayAlert("Log Out", "Would you like to sign out?", "Yes", "No");
+                bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
                 if (result)
                 {
                     DatabaseService dbService = new DatabaseService();

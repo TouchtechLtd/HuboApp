@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -37,18 +38,29 @@ namespace Hubo
             Password = "";
         }
 
-        public void ProceedToRegister()
+        public async void ProceedToRegister()
         {
             //TODO: Check if email is in legit style
+            FirstName = FirstName.Trim();
+            LastName = LastName.Trim();
+            Email = Email.Trim();
             if ((FirstName.Length != 0) && (LastName.Length != 0) && (Email.Length != 0) && (Password.Length != 0))
             {
-                //TODO: Code to send info to the webservice
-
-                MessagingCenter.Send<string>("SuccessfulRegister", "SuccessfulRegister");
+                if((Regex.IsMatch(Email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")))
+                {
+                    //TODO: Code to send info to the webservice
+                    await Application.Current.MainPage.DisplayAlert(Resource.RegisterSuccessTitle, Resource.RegisterSuccessText, Resource.DisplayAlertOkay);
+                    Application.Current.MainPage = new NZTAMessagePage(1);
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
+                }
+                
             }
             else
             {
-                MessagingCenter.Send<string>("IncompleteForm", "IncompleteForm");
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MissingText, Resource.DisplayAlertOkay);
             }
         }
     }

@@ -10,14 +10,14 @@ namespace Hubo
 {
     public partial class NZTAMessagePage : ContentPage
     {
-        NZTAMessageViewModel nztaMessageVM = new NZTAMessageViewModel();
+        NZTAMessageViewModel nztaMessageVM;
 
         public NZTAMessagePage(int instruction)
         {
             InitializeComponent();
+            nztaMessageVM = new NZTAMessageViewModel(instruction);
             nztaMessageVM.Navigation = Navigation;
             BindingContext = nztaMessageVM;
-            nztaMessageVM.Load(instruction);
             Title = Resource.NZTA;
         }
     }

@@ -28,6 +28,8 @@ namespace Hubo
 
         public void NavigateToNZTAMessage()
         {
+            Username = Username.Trim();
+            
             if ((Username.Length != 0) && (Password.Length != 0))
             {
                 restService = new RestService();
@@ -38,12 +40,13 @@ namespace Hubo
                 }
                 else
                 {
-                    MessagingCenter.Send<string>("UnsuccessfulLogin", "UnsuccessfulLogin");
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnsuccessfulLogin, Resource.DisplayAlertOkay);
+
                 }
             }
             else
             {
-                MessagingCenter.Send<string>("EmptyDetails", "EmptyDetails");
+                Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
             }
         }
     }

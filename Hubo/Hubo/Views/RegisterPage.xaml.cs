@@ -17,16 +17,6 @@ namespace Hubo
             InitializeComponent();
             registerVM.Navigation = Navigation;
             BindingContext = registerVM;
-            MessagingCenter.Subscribe<string>(this, "SuccessfulRegister", async (sender) =>
-            {
-                await DisplayAlert(Resource.RegisterSuccessTitle, Resource.RegisterSuccessText, Resource.DisplayAlertOkay);
-                Application.Current.MainPage = new NZTAMessagePage(1);
-            });
-            
-            MessagingCenter.Subscribe<string>(this, "IncompleteForm", async (sender) =>
-            {
-                await DisplayAlert(Resource.DisplayAlertTitle, Resource.MissingText, Resource.DisplayAlertOkay);
-            });
             Title = Resource.RegisterText;
             firstName.Completed += FirstName_Completed;
             lastName.Completed += LastName_Completed;
@@ -56,8 +46,7 @@ namespace Hubo
 
         protected override void OnDisappearing()
         {
-            MessagingCenter.Unsubscribe<string>(this, "SuccessfulRegister");
-            MessagingCenter.Unsubscribe<string>(this, "IncompleteForm");
+
             base.OnDisappearing();
         }
     }

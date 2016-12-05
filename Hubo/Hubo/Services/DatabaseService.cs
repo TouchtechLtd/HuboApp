@@ -407,25 +407,25 @@ namespace Hubo
         internal List<NoteTable> GetNotes(List<BreakTable> listOfBreaks)
         {
             List<NoteTable> listOfNotes = new List<NoteTable>();
-            foreach(BreakTable breakItem in listOfBreaks)
+            if(listOfBreaks.Count!=0 && listOfBreaks!=null)
             {
-                List<NoteTable> tempList = new List<NoteTable>();
-                tempList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] ==" + breakItem.StartNoteKey + " OR [Key] == " + breakItem.StopNoteKey + "");
-                foreach(NoteTable note in tempList)
+                foreach (BreakTable breakItem in listOfBreaks)
                 {
-                    listOfNotes.Add(note);
+                    List<NoteTable> tempList = new List<NoteTable>();
+                    tempList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] ==" + breakItem.StartNoteKey + " OR [Key] == " + breakItem.StopNoteKey + "");
+                    foreach (NoteTable note in tempList)
+                    {
+                        listOfNotes.Add(note);
+                    }
                 }
             }
+            else
+            {
+                listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [StandAloneNote] == 1");
+            }
+
             return listOfNotes;
             
-        }
-
-        internal List<NoteTable> GetNotes()
-        {
-            List<NoteTable> listOfNotes = new List<NoteTable>();
-            listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [StandAloneNote] == 1");
-            return listOfNotes;
-
         }
 
         internal List<BreakTable> GetBreaks(ShiftTable currentShift)
