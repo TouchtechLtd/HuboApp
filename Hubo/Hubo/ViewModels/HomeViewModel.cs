@@ -217,14 +217,14 @@ namespace Hubo
                     {
                         if (DbService.StopShift())
                         {
-                            Navigation.PushModalAsync(new NZTAMessagePage(2));
+                             await Navigation.PushModalAsync(new NZTAMessagePage(2));
                             ShowStartShiftXAML();
                         }
 
                     }
                     else
                     {
-                        Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
+                        await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
                         MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", (sender) => {
                             if (sender == "Success")
                             {

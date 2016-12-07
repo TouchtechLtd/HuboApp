@@ -5,8 +5,8 @@
   <Grid x:Name="grid">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="*" />
@@ -21,34 +21,39 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="2*" />
+      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     
-    <Label Text="{Binding Date}" YAlign="Center" Grid.Row="1" Grid.Column="1" />
-    <DatePicker x:Name="datePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="End"/>
+    <Label Text="{Binding Date}" YAlign="End" Grid.Row="0" Grid.Column="1" />
+    <DatePicker x:Name="datePicker" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="End"/>
     
-    <Label Text="{Binding Vehicle}" YAlign="Center" Grid.Row="2" Grid.Column="1"/>
-    <Picker x:Name="vehiclePicker" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="{Binding Vehicle}" YAlign="End" Grid.Row="1" Grid.Column="1"/>
+    <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="End"/>
     
-    <Label Text="{Binding StartShift}" YAlign="Center" Grid.Row="3" Grid.Column="1"/>
-    <TimePicker x:Name="startShiftPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <Label Text="{Binding StartShift}" YAlign="End" Grid.Row="2" Grid.Column="1"/>
+    <TimePicker x:Name="startShiftPicker" Grid.Row="2" Grid.Column="2" VerticalOptions="End"/>
+    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="2" Grid.Column="3"/>
+    <TimePicker Grid.Row="2" x:Name="endShiftPicker" Grid.Column="4" VerticalOptions="End"/>
+
+    <Label Text="{Binding DriveText}" YAlign="End" Grid.Row="3" Grid.Column="1"/>
+    <Entry Text="{Binding DriveStartData}" x:Name="startDrive" Grid.Row="3" Grid.Column="2" VerticalOptions="End"/>
+    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="3" Grid.Column="3"/>
+    <Entry Text="{Binding DriveEndData}" Grid.Row="3"  x:Name="endDrive" Grid.Column="4" VerticalOptions="End"/>
+
+    <Label Text="{Binding LocationText}" YAlign="End" Grid.Row="4" Grid.Column="1"/>
+    <Entry Text="{Binding LocationStartData}" x:Name="startLocation" Grid.Row="4" Grid.Column="2" VerticalOptions="End"/>
+    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="4" Grid.Column="3"/>
+    <Entry Text="{Binding LocationEndData}" Grid.Row="4"  x:Name="endLocation" Grid.Column="4" VerticalOptions="End"/>
+
+    <Label Text="{Binding HuboText}" YAlign="End" Grid.Row="5" Grid.Column="1"/>
+    <Entry Text="{Binding HuboStartData}" x:Name="startHubo" Grid.Row="5" Grid.Column="2" VerticalOptions="End"/>
+    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="5" Grid.Column="3"/>
+    <Entry Text="{Binding HuboEndData}" Grid.Row="5"  x:Name="endHubo" Grid.Column="4" VerticalOptions="End"/>
     
-    <Label Text="{Binding EndShift}" YAlign="Center" Grid.Row="{Binding EndShiftRow}" Grid.Column="1"/>
-    <TimePicker Grid.Row="{Binding EndShiftRow}"  x:Name="endShiftPicker" Grid.Column="2" Grid.ColumnSpan="2"/>
+    <!--<Label Text="{Binding EndShift}" YAlign="End" Grid.Row="{Binding EndShiftRow}" Grid.Column="1"/>
+    <TimePicker Grid.Row="{Binding EndShiftRow}"  x:Name="endShiftPicker" Grid.Column="" Grid.ColumnSpan="2" VerticalOptions="End"/>-->
     
-    <Label Text="{Binding StartBreak}" YAlign="Center" Grid.Row="4" Grid.Column="1" IsVisible="false" x:Name="startBreakText1"/>
-    <TimePicker Grid.Row="4" x:Name="startBreakPicker1" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="false"/>
-    
-    <Label Text="{Binding EndBreak}" YAlign="Center" Grid.Row="5" Grid.Column="1" IsVisible="false" x:Name="EndBreakText1"/>
-    <TimePicker Grid.Row="5" x:Name="endBreakPicker1" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="false"/>
-    
-    <Label Text="{Binding StartBreak}" YAlign="Center" Grid.Row="6" Grid.Column="1" IsVisible="false" x:Name="startBreakText2"/>
-    <TimePicker Grid.Row="6" x:Name="startBreakPicker2" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="false"/>
-    
-    <Label Text="{Binding EndBreak}" YAlign="Center" Grid.Row="7" Grid.Column="1" IsVisible="false" x:Name="endBreakText2"/>
-    <TimePicker Grid.Row="7" x:Name="endBreakPicker2" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="false"/>
-    
-    <Button Text="{Binding AddBreakText}" Command="{Binding AddBreakButton}" x:Name="addBreakButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" />
+    <Button Text="{Binding AddText}" Command="{Binding AddButton}" x:Name="addButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" />
     <Button Text="{Binding SaveText}" x:Name="saveButton" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9"/>
   </Grid>
 </ContentPage>

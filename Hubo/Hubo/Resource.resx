@@ -432,4 +432,25 @@
   <data name="SelectVehicle" xml:space="preserve">
     <value>Select a vehicle</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="Dash" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Drive" xml:space="preserve">
+    <value>Drive:</value>
+  </data>
+  <data name="EndHubo" xml:space="preserve">
+    <value>End Hubo:</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift:</value>
+  </data>
+  <data name="StartHubo" xml:space="preserve">
+    <value>Start Hubo:</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time:</value>
+  </data>
 </root>

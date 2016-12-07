@@ -60,6 +60,7 @@
     <Compile Include="Services\TranslateExtension.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\RestService.cs" />
+    <Compile Include="ViewModels\AddManBreakNoteViewModel.cs" />
     <Compile Include="ViewModels\AddNoteViewModel.cs" />
     <Compile Include="ViewModels\AddShiftViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\VehicleChecklistViewModel.cs" />
     <Compile Include="ViewModels\VehiclesViewModel.cs" />
+    <Compile Include="Views\AddManBreakNotePage.xaml.cs">
+      <DependentUpon>AddManBreakNotePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddNotePage.xaml.cs">
       <DependentUpon>AddNotePage.xaml</DependentUpon>
     </Compile>
@@ -172,7 +176,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Net.Http.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.2.127\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
@@ -341,6 +345,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AddManBreakNotePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -49,19 +49,19 @@ namespace Hubo
         {
             if(menu.TargetType == "Profile")
             {
-                Detail.Navigation.PushModalAsync(new ProfilePage());
+                await Detail.Navigation.PushModalAsync(new ProfilePage());
             }
             else if (menu.TargetType == "Vehicles")
             {
-                Detail.Navigation.PushAsync(new VehiclesPage(1));
+                await Detail.Navigation.PushAsync(new VehiclesPage(1));
             }
             else if (menu.TargetType == "History")
             {
-                Detail.Navigation.PushAsync(new HistoryPage());
+                await Detail.Navigation.PushAsync(new HistoryPage());
             }
             else if (menu.TargetType == "AddShift")
             {
-                Detail.Navigation.PushAsync(new AddShiftPage());
+                await Detail.Navigation.PushAsync(new AddShiftPage());
             }
             else if (menu.TargetType == "SignOut")
             {
