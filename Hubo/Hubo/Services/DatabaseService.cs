@@ -428,6 +428,54 @@ namespace Hubo
             
         }
 
+        internal List<NoteTable> GetRecentNote()
+        {
+            List<NoteTable> recentNote = new List<NoteTable>();
+
+            recentNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1");
+
+            if (recentNote.Count < 1 && recentNote.Count > 1)
+            {
+                return null;
+            }
+            else
+            {
+                return recentNote;
+            }
+        }
+
+        internal List<NoteTable> GetSelectedNote(int selectedIndex)
+        {
+            List<NoteTable> selectedNote = new List<NoteTable>();
+
+            selectedNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] == " + selectedIndex);
+
+            if (selectedNote.Count < 1 && selectedNote.Count > 1)
+            {
+                return null;
+            }
+            else
+            {
+                return selectedNote;
+            }
+        }
+
+        internal List<BreakTable> GetRecentBreak()
+        {
+            List<BreakTable> recentNote = new List<BreakTable>();
+
+            recentNote = db.Query<BreakTable>("SELECT * FROM [BreakTable] ORDER BY [Key] DESC LIMIT 1");
+
+            if (recentNote.Count != 1)
+            {
+                return null;
+            }
+            else
+            {
+                return recentNote;
+            }
+        }
+
         internal List<BreakTable> GetBreaks(ShiftTable currentShift)
         {
             List<BreakTable> listOfBreaks = new List<BreakTable>();

@@ -36,7 +36,7 @@ namespace Hubo
 
         public TimeSpan BreakStart { get; set; }
         public TimeSpan BreakEnd { get; set; }
-        public string LocattionStart { get; set; }
+        public string LocationStart { get; set; }
         public string LocationEnd { get; set; }
         public string HuboStart { get; set; }
         public string HuboEnd { get; set; }
@@ -72,7 +72,9 @@ namespace Hubo
 
         private void Add()
         {
+            Navigation.PopModalAsync();
 
+            MessagingCenter.Send(this, "Note_Break_Added");
         }
 
         internal void InflatePage()
