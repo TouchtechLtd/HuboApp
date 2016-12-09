@@ -11,6 +11,7 @@ namespace Hubo
     public partial class AddShiftPage : ContentPage
     {
         AddShiftViewModel addShiftVM = new AddShiftViewModel();
+
         public AddShiftPage()
         {
             InitializeComponent();
@@ -51,7 +52,10 @@ namespace Hubo
 
         private void SaveButton_Clicked(object sender, EventArgs e)
         {
-
+            //if (vehiclePicker.SelectedIndex != -1)
+            //{
+            //    addShiftVM.selectedVehicle = vehiclePicker.SelectedIndex;
+            //}
         }
     }
 }

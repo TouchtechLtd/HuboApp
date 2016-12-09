@@ -72,9 +72,51 @@ namespace Hubo
 
         private void Add()
         {
-            Navigation.PopModalAsync();
+            if (instruction == "Break")
+            {
+                NoteTable noteTableStart = new NoteTable();
+                NoteTable noteTableEnd = new NoteTable();
+                BreakTable breakTable = new BreakTable();
 
-            MessagingCenter.Send(this, "Note_Break_Added");
+                breakTable.StartTime = BreakStart.ToString();
+                breakTable.EndTime = BreakEnd.ToString();
+
+                noteTableStart.Note = BreakStartNote;
+                noteTableStart.Location = LocationStart;
+                noteTableStart.Hubo = int.Parse(HuboStart);
+                noteTableStart.StandAloneNote = false;
+
+                noteTableEnd.Note = BreakEndNote;
+                noteTableEnd.Location = LocationEnd;
+                noteTableEnd.Hubo = int.Parse(HuboEnd);
+                noteTableEnd.StandAloneNote = false;
+
+                List<NoteTable> noteList = new List<NoteTable>();
+                List<BreakTable> breakList = new List<BreakTable>();
+
+                breakList.Add(breakTable);
+                noteList.Add(noteTableStart);
+                noteList.Add(noteTableEnd);
+
+                MessagingCenter.Send(this, "Note_Added", noteList);
+                MessagingCenter.Send(this, "Break_Added", breakList);
+            }
+            else if (instruction == "Note")
+            {
+                NoteTable noteTable = new NoteTable();
+                noteTable.Date = NoteTime.ToString();
+                noteTable.Note = NoteDetail;
+                noteTable.Location = NoteLocation;
+                noteTable.Hubo = int.Parse(NoteHubo);
+                noteTable.StandAloneNote = true;
+
+                List<NoteTable> noteList = new List<NoteTable>();
+                noteList.Add(noteTable);
+
+                MessagingCenter.Send(this, "Note_Added", noteList);
+            }
+
+            Navigation.PopModalAsync();
         }
 
         internal void InflatePage()
@@ -116,7 +158,7 @@ namespace Hubo
                 NoteTimeText = Resource.Time;
                 NoteDetailText = Resource.Note;
                 NoteLocationText = Resource.Location;
-                NoteHuboText = Resource.HuboEquals;
+                NoteHuboText = Resource.HuboNotRequired;
 
                 OnPropertyChanged("AddingNote");
                 OnPropertyChanged("NoteText");
@@ -132,9 +174,7 @@ namespace Hubo
         {
             var changed = PropertyChanged;
             if (changed != null)
-            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

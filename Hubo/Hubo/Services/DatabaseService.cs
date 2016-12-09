@@ -428,54 +428,6 @@ namespace Hubo
             
         }
 
-        internal List<NoteTable> GetRecentNote()
-        {
-            List<NoteTable> recentNote = new List<NoteTable>();
-
-            recentNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1");
-
-            if (recentNote.Count < 1 && recentNote.Count > 1)
-            {
-                return null;
-            }
-            else
-            {
-                return recentNote;
-            }
-        }
-
-        internal List<NoteTable> GetSelectedNote(int selectedIndex)
-        {
-            List<NoteTable> selectedNote = new List<NoteTable>();
-
-            selectedNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] == " + selectedIndex);
-
-            if (selectedNote.Count < 1 && selectedNote.Count > 1)
-            {
-                return null;
-            }
-            else
-            {
-                return selectedNote;
-            }
-        }
-
-        internal List<BreakTable> GetRecentBreak()
-        {
-            List<BreakTable> recentNote = new List<BreakTable>();
-
-            recentNote = db.Query<BreakTable>("SELECT * FROM [BreakTable] ORDER BY [Key] DESC LIMIT 1");
-
-            if (recentNote.Count != 1)
-            {
-                return null;
-            }
-            else
-            {
-                return recentNote;
-            }
-        }
-
         internal List<BreakTable> GetBreaks(ShiftTable currentShift)
         {
             List<BreakTable> listOfBreaks = new List<BreakTable>();
@@ -770,6 +722,65 @@ namespace Hubo
         {
             db.Query<UserTable>("DELETE FROM [UserTable]");
             db.Insert(user);
+        }
+
+        internal int SaveShift(string startDate, string endDate, int vehicleKey, string huboStart, string huboEnd, string locationStart, string locationEnd)
+        {
+            ShiftTable shiftTable = new ShiftTable();
+            VehicleInUseTable vehicleTable = new VehicleInUseTable();
+            NoteTable noteTableStart = new NoteTable();
+            NoteTable noteTableEnd = new NoteTable();
+
+            shiftTable.ActiveShift = 0;
+            shiftTable.StartTime = startDate;
+            shiftTable.EndTime = endDate;
+            db.Insert(shiftTable);
+
+            List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [Key] LIMIT 1");
+            if (currentShiftList.Count < 1 && currentShiftList.Count > 1)
+            {
+                return -1;
+            }
+
+            ShiftTable shiftKey = currentShiftList[0];
+            vehicleTable.ShiftKey = shiftKey.Key;
+            noteTableStart.ShiftKey = shiftKey.Key;
+            noteTableEnd.ShiftKey = shiftKey.Key;
+
+            noteTableStart.Note = "Start Shift";
+            noteTableStart.Date = startDate;
+            noteTableStart.Hubo = int.Parse(huboStart);
+            noteTableStart.Location = locationStart;
+            noteTableStart.StandAloneNote = false;
+
+            noteTableEnd.Note = "End Shift";
+            noteTableEnd.Date = endDate;
+            noteTableEnd.Hubo = int.Parse(huboEnd);
+            noteTableEnd.Location = locationEnd;
+            noteTableEnd.StandAloneNote = false;
+
+            db.Insert(noteTableStart);
+            db.Insert(noteTableEnd);
+
+            List<NoteTable> currentNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] LIMIT 2");
+            if (currentNoteList.Count < 2 && currentNoteList.Count > 2)
+            {
+                return -1;
+            }
+
+            NoteTable startNoteKey = currentNoteList[0];
+            NoteTable endNoteKey = currentNoteList[1];
+            vehicleTable.StartNoteKey = startNoteKey.Key;
+            vehicleTable.EndNoteKey = endNoteKey.Key;
+
+            vehicleTable.VehicleKey = vehicleKey;
+            vehicleTable.ActiveVehicle = 0;
+            vehicleTable.HuboStart = int.Parse(huboStart);
+            vehicleTable.HuboEnd = int.Parse(huboEnd);
+
+            db.Insert(vehicleTable);
+
+            return shiftKey.Key;
         }
     }
 }

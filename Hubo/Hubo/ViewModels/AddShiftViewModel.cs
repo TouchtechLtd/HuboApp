@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -17,20 +18,24 @@ namespace Hubo
 
         public INavigation Navigation { get; set; }
         public ICommand AddButton { get; set; }
+        public ICommand SaveButton { get; set; }
 
-        public string StartShift { get; set; }
+        public string StartShiftText { get; set; }
+        public TimeSpan StartShift { get; set; }
+        public TimeSpan EndShift { get; set; }
         public string DashIcon { get; set; }
         public string AddText { get; set; }
         public string SaveText { get; set; }
-        public string Date { get; set; }
+        public string DateText { get; set; }
+        public DateTime Date { get; set; }
         public string Vehicle { get; set; }
         public int EndShiftRow { get; set; }
         public string LocationText { get; set; }
         public string LocationStartData { get; set; }
         public string LocationEndData { get; set; }
         public string DriveText { get; set; }
-        public string DriveStartData { get; set; }
-        public string DriveEndData { get; set; }
+        public TimePicker DriveStartData { get; set; }
+        public TimePicker DriveEndData { get; set; }
         public string HuboText { get; set; }
         public string HuboStartData { get; set; }
         public string HuboEndData { get; set; }
@@ -43,6 +48,7 @@ namespace Hubo
         public Grid NoteGrid { get; set; }
         public int NumBreaks { get; set; }
         public int NumNotes { get; set; }
+        public int selectedVehicle { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -51,26 +57,28 @@ namespace Hubo
 
         List<NoteTable> listOfNotes = new List<NoteTable>();
         List<BreakTable> listOfBreaks = new List<BreakTable>();
-        List<NoteTable> listOfStartNotes = new List<NoteTable>();
-        List<NoteTable> listOfEndNotes = new List<NoteTable>();
 
         public AddShiftViewModel()
         {
-            StartShift = Resource.Shift;
+            StartShiftText = Resource.Shift;
             DashIcon = Resource.Dash;
             DriveText = Resource.Drive;
             LocationText = Resource.Location;
             HuboText = Resource.HuboEquals;
             AddText = Resource.Add;
             SaveText = Resource.Save;
-            Date = Resource.Date;
+            DateText = Resource.Date;
             Vehicle = Resource.Vehicle;
-            AddButton = new Command(AddBreak);
+            AddButton = new Command(AddBreakNote);
+            SaveButton = new Command(Save);
             EndShiftRow = 4;
             BreakDetails = false;
             NoteDetails = false;
             NumBreaks = 0;
             NumNotes = 0;
+            Date = DateTime.Now.Date;
+            StartShift = DateTime.Now.TimeOfDay;
+            EndShift = DateTime.Now.TimeOfDay;
         }
 
         internal List<VehicleTable> GetVehicles()
@@ -81,10 +89,49 @@ namespace Hubo
 
         public void Save()
         {
+            //if (!CheckValidHuboEntry(HuboStartData))
+            //    return;
+            //if (!CheckValidHuboEntry(HuboEndData))
+            //    return;
 
+            //string startDate = Date + " " + StartShift;
+            //string endDate = Date + " " + EndShift;
+
+
+            //int result = DbService.SaveShift(startDate, endDate, selectedVehicle, HuboStartData, HuboEndData, LocationStartData, LocationEndData);
+
+            //if (result == -1)
+            //{
+            //    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to save shift!", Resource.DisplayAlertOkay);
+            //    return;
+            //}
+
+            //if (listOfBreaks.Count != 0)
+            //{
+            //    if (listOfNotes.Count != 0)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
+            //else
+            //{
+            //    if (listOfNotes.Count != 0)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
+            //Navigation.PopAsync();
         }
 
-        private void AddBreak()
+        private void AddBreakNote()
         {
             //if(EndShiftRow==4)
             //{
@@ -96,83 +143,186 @@ namespace Hubo
             //}
             //OnPropertyChanged("EndShiftRow");
 
-            MessagingCenter.Subscribe<AddManBreakNoteViewModel>(this, "Note_Break_Added", (senderPage) =>
+            MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added", (senderNotePage, noteList) =>
             {
-                MessagingCenter.Unsubscribe<AddManBreakNoteViewModel>(this, "Note_Break_Added");
-                //TODO: add note or break to page
+                MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added");
+
                 if (Add == "Break")
                 {
-                    listOfBreaks = DbService.GetRecentBreak();
-
-                    if (listOfBreaks != null)
+                    MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added", (senderBreakPage, breakList) =>
                     {
-                        listOfStartNotes = DbService.GetSelectedNote(listOfBreaks[0].StartNoteKey);
-                        listOfEndNotes = DbService.GetSelectedNote(listOfBreaks[0].StopNoteKey);
-
-                        if (listOfStartNotes != null && listOfEndNotes != null)
+                        MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added");
+                        //TODO: add note or break to page
+                        if (breakList != null)
                         {
-                            BreakText = Resource.BreaksText;
-                            BreakDetails = true;
+                            if (noteList != null && noteList != null)
+                            {
+                                BreakText = Resource.BreaksText;
+                                BreakDetails = true;
 
-                            string[] breakStartTime = listOfBreaks[0].StartTime.Split(' ');
-                            string[] breakEndTime = listOfBreaks[0].EndTime.Split(' ');
-                            string breakStartNote = listOfStartNotes[0].Note;
-                            string breakStartLocation = listOfStartNotes[0].Location;
-                            string breakEndNote = listOfEndNotes[0].Note;
-                            string breakEndLocation = listOfStartNotes[0].Location;
+                                string breakStartTime = breakList[0].StartTime;
+                                string breakEndTime = breakList[0].EndTime;
+                                string breakStartNote = noteList[0].Note;
+                                string breakStartLocation = noteList[0].Location;
+                                string breakEndNote = noteList[1].Note;
+                                string breakEndLocation = noteList[1].Location;
 
-                            BreakGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                            BreakGrid.Children.Add(new Label { Text = breakStartTime[1] + " " + breakStartTime[2] + ": " + breakStartNote + ", " + breakStartLocation + " - " + breakEndTime[1] + " " + breakEndTime[2] + ": " + breakEndNote + ", " + breakEndLocation }, 1, NumBreaks);
-                            NumBreaks++;
+                                if (String.Compare(breakStartTime, "12:00:00") > 0)
+                                {
+                                    TimeSpan temp = TimeSpan.Parse(breakStartTime);
+                                    int temphour = temp.Hours - 12;
+                                    int tempMin = temp.Minutes;
 
-                            OnPropertyChanged("BreakText");
-                            OnPropertyChanged("BreakDetails");
-                            OnPropertyChanged("BreakGrid");
+                                    if (temphour == 00)
+                                        temphour = 12;
+
+                                    if (tempMin < 10)
+                                        breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                    else
+                                        breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                                }
+                                else
+                                {
+                                    TimeSpan temp = TimeSpan.Parse(breakStartTime);
+                                    int temphour = temp.Hours;
+                                    int tempMin = temp.Minutes;
+
+                                    if (temphour == 00)
+                                        temphour = 12;
+
+                                    if (tempMin < 10)
+                                        breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                    else
+                                        breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                                }
+
+                                if (String.Compare(breakEndTime, "12:00:00") > 0)
+                                {
+                                    TimeSpan temp = TimeSpan.Parse(breakEndTime);
+                                    int temphour = temp.Hours - 12;
+                                    int tempMin = temp.Minutes;
+
+                                    if (temphour == 00)
+                                        temphour = 12;
+
+                                    if (tempMin < 10)
+                                        breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                    else
+                                        breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                                }
+                                else
+                                {
+                                    TimeSpan temp = TimeSpan.Parse(breakEndTime);
+                                    int temphour = temp.Hours;
+                                    int tempMin = temp.Minutes;
+
+                                    if (temphour == 00)
+                                        temphour = 12;
+
+                                    if (tempMin < 10)
+                                        breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                    else
+                                        breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                                }
+
+                                BreakGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                                BreakGrid.Children.Add(new Label { Text = breakStartTime + ": " + breakStartNote + ", " + breakStartLocation + " - " + breakEndTime + ": " + breakEndNote + ", " + breakEndLocation }, 1, NumBreaks);
+                                NumBreaks++;
+
+                                OnPropertyChanged("BreakText");
+                                OnPropertyChanged("BreakDetails");
+                                OnPropertyChanged("BreakGrid");
+
+                                listOfBreaks.AddRange(breakList);
+                                listOfNotes.AddRange(noteList);
+                            }
+                            else
+                            {
+                                Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
+                            }
                         }
                         else
                         {
                             Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
                         }
+                    });
                     }
-                    else
+                    else if (Add == "Note")
                     {
-                        Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
+                        listOfNotes = noteList;
+
+                        if (listOfNotes != null)
+                        {
+                            NoteText = Resource.NotesText;
+                            NoteDetails = true;
+
+                            string noteTime = noteList[0].Date;
+                            string noteDetails = noteList[0].Note;
+                            string noteLocation = noteList[0].Location;
+
+                            if (String.Compare(noteTime, "12:00:00") > 0 )
+                            {
+                                TimeSpan temp = TimeSpan.Parse(noteTime);
+                                int temphour = temp.Hours - 12;
+                                int tempMin = temp.Minutes;
+
+                                if (temphour == 00)
+                                    temphour = 12;
+
+                                if (tempMin < 10)
+                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                else
+                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
+                            else
+                            {
+                                TimeSpan temp = TimeSpan.Parse(noteTime);
+                                int temphour = temp.Hours;
+                                int tempMin = temp.Minutes;
+
+                                if (temphour == 00)
+                                    temphour = 12;
+
+                                if (tempMin < 10)
+                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                else
+                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
+
+                            NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                            NoteGrid.Children.Add(new Label { Text = noteTime + " - " + noteDetails + ", " + noteLocation }, 1, NumNotes);
+                            NumNotes++;
+
+                            OnPropertyChanged("NoteText");
+                            OnPropertyChanged("NoteDetails");
+                            OnPropertyChanged("NoteGrid");
+
+                        listOfNotes.AddRange(noteList);
+                        }
+                        else
+                        {
+                            Application.Current.MainPage.DisplayAlert("Error Adding Note", "Unable to add note!", "OK");
+                        }
                     }
-                }
-                else if (Add == "Note")
-                {
-                    listOfNotes = DbService.GetRecentNote();
-
-                    if (listOfNotes != null)
-                    {
-                        NoteText = Resource.NotesText;
-                        NoteDetails = true;
-
-                        string[] noteTime = listOfNotes[0].Date.Split(' ');
-                        string noteDetails = listOfNotes[0].Note;
-                        string noteLocation = listOfNotes[0].Location;
-
-                        NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                        NoteGrid.Children.Add(new Label { Text = noteTime[1] + " " + noteTime[2] + " - " + noteDetails + ", " + noteLocation }, 1, NumNotes);
-                        NumNotes++;
-
-                        OnPropertyChanged("NoteText");
-                        OnPropertyChanged("NoteDetails");
-                        OnPropertyChanged("NoteGrid");
-                    }
-                    else
-                    {
-                        Application.Current.MainPage.DisplayAlert("Error Adding Note", "Unable to add note!", "OK");
-                    }
-                }
             });  
         }
 
-        //internal List<NoteTable> LoadNote(int selectedIndex)
-        //{
-        //    listOfNotes = DbService.GetRecentNote(selectedIndex);
-        //    return listOfNotes;
-        //}
+        private bool CheckValidHuboEntry(string huboValue)
+        {
+            Regex regex = new Regex("^[0-9]+$");
+            if ((huboValue.Length == 0) || (huboValue.Length == 0))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                return false;
+            }
+            if (!(regex.IsMatch(huboValue)) || !(regex.IsMatch(huboValue)))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                return false;
+            }
+
+            return true;
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

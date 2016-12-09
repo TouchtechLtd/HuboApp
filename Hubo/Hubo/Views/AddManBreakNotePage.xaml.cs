@@ -17,6 +17,14 @@ namespace Hubo
             addBreakNoteVM = new AddManBreakNoteViewModel(instuction);
             addBreakNoteVM.Navigation = Navigation;
             BindingContext = addBreakNoteVM;
+            if (instuction == "Break")
+            {
+                Title = Resource.AddBreak;
+            }
+            else if (instuction == "Note")
+            {
+                Title = Resource.AddNote;
+            }
 
             addBreakNoteVM.InflatePage();
         }

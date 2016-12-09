@@ -13,7 +13,6 @@ namespace Hubo
     class VehiclesViewModel : INotifyPropertyChanged
     {
         public List<VehicleTable> listOfVehicles;
-        public List<string> listOfVehicleRegistrations;
         public VehicleTable currentVehicle;
         DatabaseService DbService = new DatabaseService();
 
