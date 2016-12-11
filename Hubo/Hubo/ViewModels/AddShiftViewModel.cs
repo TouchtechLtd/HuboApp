@@ -70,7 +70,6 @@ namespace Hubo
             Vehicle = Resource.Vehicle;
             AddButton = new Command(AddBreakNote);
             SaveButton = new Command(Save);
-            EndShiftRow = 4;
             BreakDetails = false;
             NoteDetails = false;
             NumBreaks = 0;
