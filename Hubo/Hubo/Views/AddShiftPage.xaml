@@ -32,14 +32,14 @@
     <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" VerticalOptions="End"/>
     
     <Label Text="{Binding StartShiftText}" YAlign="End" Grid.Row="2" Grid.Column="1"/>
-    <TimePicker Time="{Binding StartShift}" x:Name="startShiftPicker" Grid.Row="2" Grid.Column="2" VerticalOptions="End"/>
+    <TimePicker Time="{Binding StartShift}" Grid.Row="2" Grid.Column="2" VerticalOptions="End"/>
     <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="2" Grid.Column="3"/>
-    <TimePicker Time="{Binding EndShift}" Grid.Row="2" x:Name="endShiftPicker" Grid.Column="4" VerticalOptions="End"/>
+    <TimePicker Time="{Binding EndShift}" Grid.Row="2" Grid.Column="4" VerticalOptions="End"/>
 
     <Label Text="{Binding DriveText}" YAlign="End" Grid.Row="3" Grid.Column="1"/>
-    <TimePicker Time="{Binding DriveStartData}" x:Name="startDrive" Grid.Row="3" Grid.Column="2" VerticalOptions="End"/>
+    <TimePicker Time="{Binding DriveStartData}" Grid.Row="3" Grid.Column="2" VerticalOptions="End"/>
     <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="3" Grid.Column="3"/>
-    <TimePicker Time="{Binding DriveEndData}" Grid.Row="3"  x:Name="endDrive" Grid.Column="4" VerticalOptions="End"/>
+    <TimePicker Time="{Binding DriveEndData}" Grid.Row="3" Grid.Column="4" VerticalOptions="End"/>
 
     <Label Text="{Binding LocationText}" YAlign="End" Grid.Row="4" Grid.Column="1"/>
     <Entry Text="{Binding LocationStartData}" x:Name="startLocation" Grid.Row="4" Grid.Column="2" VerticalOptions="End"/>

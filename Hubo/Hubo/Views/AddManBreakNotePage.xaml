@@ -31,7 +31,7 @@
       <Label Text="{Binding BreakStartText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="startBreakText"/>
 
       <Label Text="{Binding BreakStartTimeText}" YAlign="End" Grid.Row="1" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakTimeText"/>
-      <TimePicker Time="{Binding BreakStart}" Grid.Row="1" x:Name="startBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <TimePicker Time="{Binding BreakStart}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding BreakStartNoteText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakNoteText"/>
       <Entry Text="{Binding BreakStartNote}" Grid.Row="2" x:Name="startBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
@@ -60,7 +60,7 @@
       <Label Text="{Binding NoteText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingNote}" x:Name="noteText"/>
 
       <Label Text="{Binding NoteTimeText}" YAlign="End" Grid.Row="1" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteTimeText"/>
-      <TimePicker Time="{Binding NoteTime}" Grid.Row="1" x:Name="noteTime" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
+      <TimePicker Time="{Binding NoteTime}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
 
       <Label Text="{Binding NoteDetailText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteDetailText"/>
       <Entry Text="{Binding NoteDetail}" Grid.Row="2" x:Name="noteDetail" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
