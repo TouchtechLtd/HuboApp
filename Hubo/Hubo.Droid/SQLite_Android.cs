@@ -23,7 +23,7 @@ namespace Hubo.Droid
             string path = Path.Combine(documentsPath, sqliteFilename);
 
             //FOR DEBUG REASON, REMOVE WHEN PUSHING TO USERS
-            path = path.Replace("data/user/0/triotech.hubo.droid/files/", "sdcard/Download/");
+            path = path.Replace("data/user/0/triotech.hubo.droid/files/", "Download/");
 
             return new SQLiteConnection(platform, path);
         }

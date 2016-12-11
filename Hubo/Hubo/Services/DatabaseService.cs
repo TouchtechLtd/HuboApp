@@ -769,8 +769,8 @@ namespace Hubo
                 return -1;
             }
 
-            NoteTable startNoteKey = currentNoteList[0];
-            NoteTable endNoteKey = currentNoteList[1];
+            NoteTable startNoteKey = currentNoteList[1];
+            NoteTable endNoteKey = currentNoteList[0];
             vehicleTable.StartNoteKey = startNoteKey.Key;
             vehicleTable.EndNoteKey = endNoteKey.Key;
 

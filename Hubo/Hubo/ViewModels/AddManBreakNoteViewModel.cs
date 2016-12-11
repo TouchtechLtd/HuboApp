@@ -81,11 +81,13 @@ namespace Hubo
                 breakTable.StartTime = BreakStart.ToString();
                 breakTable.EndTime = BreakEnd.ToString();
 
+                noteTableStart.Date = BreakStart.ToString();
                 noteTableStart.Note = BreakStartNote;
                 noteTableStart.Location = LocationStart;
                 noteTableStart.Hubo = int.Parse(HuboStart);
                 noteTableStart.StandAloneNote = false;
 
+                noteTableEnd.Date = BreakEnd.ToString();
                 noteTableEnd.Note = BreakEndNote;
                 noteTableEnd.Location = LocationEnd;
                 noteTableEnd.Hubo = int.Parse(HuboEnd);

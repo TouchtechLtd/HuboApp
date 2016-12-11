@@ -117,9 +117,8 @@ namespace Hubo
 
                 for (int i = 0; i < listOfBreaks.Count; i++)
                 {
-                    breakDetails = listOfBreaks[i]
-
-;                   for (int n = 0; n < listOfNotes.Count; n++)
+                    breakDetails = listOfBreaks[i];
+                    for (int n = 0; n < listOfNotes.Count; n++)
                     {
                         noteDetails = listOfNotes[n];
                         if (noteDetails.Date == breakDetails.StartTime)
@@ -138,12 +137,12 @@ namespace Hubo
 
                     for (int v = 0; v < breakEndNote.Count; v++)
                     {
-                        if (v == breakStartNote[v] && v == breakEndNote[v + 1])
-                        {
-                            noteDetails = listOfNotes[v];
-                            noteEndDetails = listOfNotes[v + 1];
+                       // if (v == breakStartNote[v])
+                        //{
+                            noteDetails = listOfNotes[breakStartNote[v]];
+                            noteEndDetails = listOfNotes[breakEndNote[v]];
                             DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
-                        }
+                       // }
                     }
                 }
 
@@ -151,11 +150,11 @@ namespace Hubo
                 {
                     for (int v = 0; v < notes.Count; v++)
                     {
-                        if (v == notes[v])
-                        {
-                            noteDetails = listOfNotes[v];
+                       //if (v == notes[v])
+                        //{
+                            noteDetails = listOfNotes[notes[v]];
                             DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
-                        }
+                        //}
                     }
                 }
             }
@@ -290,9 +289,7 @@ namespace Hubo
                     }
                     else if (Add == "Note")
                     {
-                        listOfNotes = noteList;
-
-                        if (listOfNotes != null)
+                        if (noteList != null)
                         {
                             NoteText = Resource.NotesText;
                             NoteDetails = true;
