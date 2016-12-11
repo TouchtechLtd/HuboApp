@@ -724,7 +724,7 @@ namespace Hubo
             db.Insert(user);
         }
 
-        internal int SaveShift(string startDate, string endDate, int vehicleKey, string huboStart, string huboEnd, string locationStart, string locationEnd)
+        internal int SaveShift(DateTime startDate, DateTime endDate, VehicleTable vehicleKey, string huboStart, string huboEnd, string locationStart, string locationEnd)
         {
             ShiftTable shiftTable = new ShiftTable();
             VehicleInUseTable vehicleTable = new VehicleInUseTable();
@@ -732,11 +732,11 @@ namespace Hubo
             NoteTable noteTableEnd = new NoteTable();
 
             shiftTable.ActiveShift = 0;
-            shiftTable.StartTime = startDate;
-            shiftTable.EndTime = endDate;
+            shiftTable.StartTime = startDate.ToString();
+            shiftTable.EndTime = endDate.ToString();
             db.Insert(shiftTable);
 
-            List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [Key] LIMIT 1");
+            List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [Key] DESC LIMIT 1");
             if (currentShiftList.Count < 1 && currentShiftList.Count > 1)
             {
                 return -1;
@@ -748,13 +748,13 @@ namespace Hubo
             noteTableEnd.ShiftKey = shiftKey.Key;
 
             noteTableStart.Note = "Start Shift";
-            noteTableStart.Date = startDate;
+            noteTableStart.Date = startDate.ToString();
             noteTableStart.Hubo = int.Parse(huboStart);
             noteTableStart.Location = locationStart;
             noteTableStart.StandAloneNote = false;
 
             noteTableEnd.Note = "End Shift";
-            noteTableEnd.Date = endDate;
+            noteTableEnd.Date = endDate.ToString();
             noteTableEnd.Hubo = int.Parse(huboEnd);
             noteTableEnd.Location = locationEnd;
             noteTableEnd.StandAloneNote = false;
@@ -762,9 +762,10 @@ namespace Hubo
             db.Insert(noteTableStart);
             db.Insert(noteTableEnd);
 
-            List<NoteTable> currentNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] LIMIT 2");
+            List<NoteTable> currentNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 2");
             if (currentNoteList.Count < 2 && currentNoteList.Count > 2)
             {
+                db.Delete(shiftKey.Key);
                 return -1;
             }
 
@@ -773,7 +774,7 @@ namespace Hubo
             vehicleTable.StartNoteKey = startNoteKey.Key;
             vehicleTable.EndNoteKey = endNoteKey.Key;
 
-            vehicleTable.VehicleKey = vehicleKey;
+            vehicleTable.VehicleKey = vehicleKey.Key;
             vehicleTable.ActiveVehicle = 0;
             vehicleTable.HuboStart = int.Parse(huboStart);
             vehicleTable.HuboEnd = int.Parse(huboEnd);
@@ -781,6 +782,56 @@ namespace Hubo
             db.Insert(vehicleTable);
 
             return shiftKey.Key;
+        }
+
+        internal void SaveBreak(string breakStart, string breakEnd, int shiftKey, string startNote, int startHubo, string startLocation, string endNote, int endHubo, string endLocation)
+        {
+            //TODO: create save break
+            NoteTable breakStartNote = new NoteTable();
+            NoteTable breakEndNote = new NoteTable();
+            BreakTable newBreak = new BreakTable();
+
+            breakStartNote.Note = startNote;
+            breakStartNote.Date = breakStart;
+            breakStartNote.ShiftKey = shiftKey;
+            breakStartNote.Hubo = startHubo;
+            breakStartNote.Location = startLocation;
+            breakStartNote.StandAloneNote = false;
+
+            breakEndNote.Note = endNote;
+            breakEndNote.Date = breakEnd;
+            breakEndNote.ShiftKey = shiftKey;
+            breakEndNote.Hubo = endHubo;
+            breakEndNote.Location = endLocation;
+            breakEndNote.StandAloneNote = false;
+
+            db.Insert(breakStartNote);
+            db.Insert(breakEndNote);
+
+            List<NoteTable> currentNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 2");
+
+            newBreak.StartTime = breakStart;
+            newBreak.EndTime = breakEnd;
+            newBreak.ShiftKey = shiftKey;
+            newBreak.ActiveBreak = 0;
+            newBreak.StartNoteKey = currentNoteList[1].Key;
+            newBreak.StopNoteKey = currentNoteList[0].Key;
+
+            db.Insert(newBreak);
+        }
+
+        internal void SaveManNote(string note, string date, int shiftKey, int hubo, string location)
+        {
+            //TODO: create save note
+            NoteTable newNote = new NoteTable();
+            newNote.Note = note;
+            newNote.Date = date;
+            newNote.ShiftKey = shiftKey;
+            newNote.Hubo = hubo;
+            newNote.Location = location;
+            newNote.StandAloneNote = true;
+
+            db.Insert(newNote);
         }
     }
 }

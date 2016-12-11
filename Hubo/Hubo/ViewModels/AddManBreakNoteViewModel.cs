@@ -107,7 +107,8 @@ namespace Hubo
                 noteTable.Date = NoteTime.ToString();
                 noteTable.Note = NoteDetail;
                 noteTable.Location = NoteLocation;
-                noteTable.Hubo = int.Parse(NoteHubo);
+                if (NoteHubo != null)
+                    noteTable.Hubo = int.Parse(NoteHubo);
                 noteTable.StandAloneNote = true;
 
                 List<NoteTable> noteList = new List<NoteTable>();

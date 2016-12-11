@@ -41,7 +41,7 @@ namespace Hubo
 
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
-            var action = await DisplayActionSheet("Add Break or Note?", "Cancel", null, "Break", "Note");
+            var action = await DisplayActionSheet(Resource.AddBreakNote, Resource.Cancel, null, Resource.Break, Resource.NoteText);
 
             if (action != null && action != "Cancel")
             {
@@ -52,10 +52,10 @@ namespace Hubo
 
         private void SaveButton_Clicked(object sender, EventArgs e)
         {
-            //if (vehiclePicker.SelectedIndex != -1)
-            //{
-            //    addShiftVM.selectedVehicle = vehiclePicker.SelectedIndex;
-            //}
+            if (vehiclePicker.SelectedIndex != -1)
+            {
+                addShiftVM.selectedVehicle = vehiclePicker.SelectedIndex;
+            }
         }
     }
 }

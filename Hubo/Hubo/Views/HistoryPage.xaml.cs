@@ -18,7 +18,7 @@ namespace Hubo
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;
             Title = Resource.HistoryText;
-            LoadTip();
+            //LoadTip();
         }
 
         public async void LoadTip()

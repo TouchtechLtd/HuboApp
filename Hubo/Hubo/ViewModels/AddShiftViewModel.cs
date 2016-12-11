@@ -34,8 +34,8 @@ namespace Hubo
         public string LocationStartData { get; set; }
         public string LocationEndData { get; set; }
         public string DriveText { get; set; }
-        public TimePicker DriveStartData { get; set; }
-        public TimePicker DriveEndData { get; set; }
+        public TimeSpan DriveStartData { get; set; }
+        public TimeSpan DriveEndData { get; set; }
         public string HuboText { get; set; }
         public string HuboStartData { get; set; }
         public string HuboEndData { get; set; }
@@ -77,8 +77,6 @@ namespace Hubo
             NumBreaks = 0;
             NumNotes = 0;
             Date = DateTime.Now.Date;
-            StartShift = DateTime.Now.TimeOfDay;
-            EndShift = DateTime.Now.TimeOfDay;
         }
 
         internal List<VehicleTable> GetVehicles()
@@ -89,46 +87,89 @@ namespace Hubo
 
         public void Save()
         {
-            //if (!CheckValidHuboEntry(HuboStartData))
-            //    return;
-            //if (!CheckValidHuboEntry(HuboEndData))
-            //    return;
+            if (!CheckValidHuboEntry(HuboStartData))
+                return;
+            if (!CheckValidHuboEntry(HuboEndData))
+                return;
 
-            //string startDate = Date + " " + StartShift;
-            //string endDate = Date + " " + EndShift;
+            DateTime startDate = Date.Date + StartShift;
+            DateTime endDate = Date.Date + EndShift;
 
+            List<VehicleTable> vehicleKey = GetVehicles();
 
-            //int result = DbService.SaveShift(startDate, endDate, selectedVehicle, HuboStartData, HuboEndData, LocationStartData, LocationEndData);
+            int result = DbService.SaveShift(startDate, endDate, vehicleKey[selectedVehicle], HuboStartData, HuboEndData, LocationStartData, LocationEndData);
 
-            //if (result == -1)
-            //{
-            //    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to save shift!", Resource.DisplayAlertOkay);
-            //    return;
-            //}
+            if (result == -1)
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to save shift!", Resource.DisplayAlertOkay);
+                return;
+            }
 
-            //if (listOfBreaks.Count != 0)
-            //{
-            //    if (listOfNotes.Count != 0)
-            //    {
+            if (listOfBreaks.Count != 0)
+            {
+                List<int> breakStartNote = new List<int>();
+                List<int> breakEndNote = new List<int>();
+                List<int> notes = new List<int>();
 
-            //    }
-            //    else
-            //    {
+                BreakTable breakDetails = new BreakTable();
+                NoteTable noteDetails = new NoteTable();
+                NoteTable noteEndDetails = new NoteTable();
 
-            //    }
-            //}
-            //else
-            //{
-            //    if (listOfNotes.Count != 0)
-            //    {
+                for (int i = 0; i < listOfBreaks.Count; i++)
+                {
+                    breakDetails = listOfBreaks[i]
 
-            //    }
-            //    else
-            //    {
+;                   for (int n = 0; n < listOfNotes.Count; n++)
+                    {
+                        noteDetails = listOfNotes[n];
+                        if (noteDetails.Date == breakDetails.StartTime)
+                        {
+                            breakStartNote.Add(n);
+                        }
+                        else if (noteDetails.Date == breakDetails.EndTime)
+                        {
+                            breakEndNote.Add(n);
+                        }
+                        else if (noteDetails.StandAloneNote == true)
+                        {
+                            notes.Add(n);
+                        }
+                    }
 
-            //    }
-            //}
-            //Navigation.PopAsync();
+                    for (int v = 0; v < breakEndNote.Count; v++)
+                    {
+                        if (v == breakStartNote[v] && v == breakEndNote[v + 1])
+                        {
+                            noteDetails = listOfNotes[v];
+                            noteEndDetails = listOfNotes[v + 1];
+                            DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
+                        }
+                    }
+                }
+
+                if (notes.Count > 0)
+                {
+                    for (int v = 0; v < notes.Count; v++)
+                    {
+                        if (v == notes[v])
+                        {
+                            noteDetails = listOfNotes[v];
+                            DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (listOfNotes.Count != 0)
+                {
+                    foreach (NoteTable note in listOfNotes)
+                    {
+                        DbService.SaveManNote(note.Note, note.Date, result, note.Hubo, note.Location);
+                    }
+                }
+            }
+            Navigation.PopAsync();
         }
 
         private void AddBreakNote()

@@ -453,4 +453,13 @@
   <data name="Time" xml:space="preserve">
     <value>Time:</value>
   </data>
+  <data name="AddBreakNote" xml:space="preserve">
+    <value>Add Break or Note?</value>
+  </data>
+  <data name="Break" xml:space="preserve">
+    <value>Break</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Note</value>
+  </data>
 </root>

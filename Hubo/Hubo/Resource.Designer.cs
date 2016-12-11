@@ -80,6 +80,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Break or Note?.
+        /// </summary>
+        internal static string AddBreakNote {
+            get {
+                return ResourceManager.GetString("AddBreakNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Note.
         /// </summary>
         internal static string AddNote {
@@ -112,6 +121,15 @@ namespace Hubo {
         internal static string AddVehicleText {
             get {
                 return ResourceManager.GetString("AddVehicleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break.
+        /// </summary>
+        internal static string Break {
+            get {
+                return ResourceManager.GetString("Break", resourceCulture);
             }
         }
         
@@ -670,6 +688,15 @@ namespace Hubo {
         internal static string NotesText {
             get {
                 return ResourceManager.GetString("NotesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        internal static string NoteText {
+            get {
+                return ResourceManager.GetString("NoteText", resourceCulture);
             }
         }
         
