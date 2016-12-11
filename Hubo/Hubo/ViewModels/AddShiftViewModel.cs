@@ -29,7 +29,6 @@ namespace Hubo
         public string DateText { get; set; }
         public DateTime Date { get; set; }
         public string Vehicle { get; set; }
-        public int EndShiftRow { get; set; }
         public string LocationText { get; set; }
         public string LocationStartData { get; set; }
         public string LocationEndData { get; set; }
@@ -167,16 +166,6 @@ namespace Hubo
 
         private void AddBreakNote()
         {
-            //if(EndShiftRow==4)
-            //{
-            //    EndShiftRow = 6;
-            //}
-            //else if(EndShiftRow==6)
-            //{
-            //    EndShiftRow = 8;
-            //}
-            //OnPropertyChanged("EndShiftRow");
-
             MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added", (senderNotePage, noteList) =>
             {
                 MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added");
