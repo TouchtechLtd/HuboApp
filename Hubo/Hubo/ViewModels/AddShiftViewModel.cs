@@ -137,12 +137,9 @@ namespace Hubo
 
                     for (int v = 0; v < breakEndNote.Count; v++)
                     {
-                       // if (v == breakStartNote[v])
-                        //{
                             noteDetails = listOfNotes[breakStartNote[v]];
                             noteEndDetails = listOfNotes[breakEndNote[v]];
                             DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
-                       // }
                     }
                 }
 
@@ -150,11 +147,8 @@ namespace Hubo
                 {
                     for (int v = 0; v < notes.Count; v++)
                     {
-                       //if (v == notes[v])
-                        //{
                             noteDetails = listOfNotes[notes[v]];
                             DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
-                        //}
                     }
                 }
             }
