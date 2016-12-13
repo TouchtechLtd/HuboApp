@@ -38,7 +38,7 @@ namespace Hubo
 
             //Code to get shifts from the past week
             SelectedDate = DateTime.Now;
-            //listOfShifts = DbService.GetShiftsWeek(SelectedDate);
+            listOfShifts = DbService.GetShiftsWeek(SelectedDate);
 
             foreach(ShiftTable shift in listOfShifts)
             {

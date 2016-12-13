@@ -18,7 +18,7 @@
     </Grid.RowDefinitions>
   <Label Text="{Binding ExportDisclaimerText}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
   <Label Text="{Binding EmailText}" Grid.Row="2" Grid.Column="1" YAlign="Center" />
-  <Entry Text="{Binding EmailEntry}" x:Name="emailEntry" Grid.Row="2" Grid.Column="2" VerticalOptions="Center"/>
+  <Entry Text="{Binding EmailEntry}" x:Name="emailEntry" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" Keyboard="Email"/>
   <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
   </Grid>
   

@@ -160,7 +160,7 @@ namespace Hubo
             while((returnShifts.Count < 8))
             {
                 List<ShiftTable> listOfShifts = new List<ShiftTable>();
-                string dateString = selectedDate.ToString().Remove(9);
+                string dateString = selectedDate.ToString().Remove(10);
                 listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] LIKE '" + dateString + "%'");
                 foreach(ShiftTable shift in listOfShifts)
                 {
@@ -832,6 +832,66 @@ namespace Hubo
             newNote.StandAloneNote = true;
 
             db.Insert(newNote);
+        }
+
+        internal List<ExportData> GetExportData()
+        {
+            ExportData exportData = new ExportData();
+
+            List<BreakTable> breakList = new List<BreakTable>();
+            List<NoteTable> noteList = new List<NoteTable>();
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            List<VehicleInUseTable> vehicleInUseList = new List<VehicleInUseTable>();
+            List<VehicleTable> vehicleList = new List<VehicleTable>();
+            List<ExportData> exportList = new List<ExportData>();
+
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] > (SELECT DATE('now', '-7 day'))");
+
+            foreach (ShiftTable shiftData in shiftList)
+            {
+                breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shiftData.Key);
+                noteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] = " + shiftData.Key + " AND [StandAloneNote] = 1");
+                vehicleInUseList = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] = " + shiftData.Key);
+                vehicleList = db.Query<VehicleTable>("SELECT * FROM [Vehicle] WHERE [Key] = " + vehicleInUseList[0].VehicleKey);
+
+                List<NoteTable> breakStartNotesList = db.Query<NoteTable>("SELECT [Note], [Hubo], [Location] FROM [NoteTable] WHERE [Key] = " + breakList[0].StartNoteKey + " AND [ShiftKey]" + shiftData.Key);
+                List<NoteTable> breakEndNotesList = db.Query<NoteTable>("SELECT [Note], [Hubo], [Location] FROM [NoteTable] WHERE [Key] = " + breakList[0].StopNoteKey + " AND [ShiftKey]" + shiftData.Key);
+                List<NoteTable> locationStartNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseList[0].StartNoteKey + " AND [ShiftKey]" + shiftData.Key);
+                List<NoteTable> locationEndNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseList[0].EndNoteKey + " AND [ShiftKey]" + shiftData.Key);
+
+                exportData.shiftStart = shiftData.StartTime;
+                exportData.shiftEnd = shiftData.EndTime;
+                exportData.activeShift = shiftData.ActiveShift.ToString();
+
+                exportData.vehicleMake = vehicleList[0].Make;
+                exportData.vehicleModel = vehicleList[0].Model;
+                exportData.vehicleRego = vehicleList[0].Registration;
+                exportData.vehicleCompany = vehicleList[0].Company;
+                exportData.currentVehicle = vehicleInUseList[0].ActiveVehicle.ToString();
+
+                exportData.huboStart = vehicleInUseList[0].HuboStart.ToString();
+                exportData.huboEnd = vehicleInUseList[0].HuboEnd.ToString();
+                exportData.startLocation = locationStartNotesList[0].Location;
+                exportData.endLocation = locationEndNotesList[0].Location;
+
+                exportData.breakStart = breakList[0].StartTime;
+                exportData.breakEnd = breakList[0].EndTime;
+                exportData.activeBreak = breakList[0].ActiveBreak.ToString();
+                exportData.breakDetails = breakStartNotesList[0].Note;
+                exportData.breakStartHubo = breakStartNotesList[0].Hubo.ToString();
+                exportData.breakEndHubo = breakEndNotesList[0].Hubo.ToString();
+                exportData.breakStartLocation = breakStartNotesList[0].Location;
+                exportData.breakEndLocation = breakEndNotesList[0].Location;
+
+                exportData.noteTime = noteList[0].Date;
+                exportData.noteDetails = noteList[0].Note;
+                exportData.noteHubo = noteList[0].Hubo.ToString();
+                exportData.noteLocation = noteList[0].Location;
+
+                exportList.Add(exportData);        
+            }
+
+            return exportList;
         }
     }
 }
