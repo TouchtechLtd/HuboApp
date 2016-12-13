@@ -36,21 +36,53 @@ namespace Hubo
             EmailEntry = EmailEntry.Trim();
             if(Regex.IsMatch(EmailEntry, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"))
             {
-                //var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "export.csv");
                 IFolder rootFolder = FileSystem.Current.LocalStorage;
                 IFolder folder = await rootFolder.CreateFolderAsync("ExportFolder", CreationCollisionOption.OpenIfExists);
-                IFile exportFile = await folder.CreateFileAsync("exportFile.csv", CreationCollisionOption.ReplaceExisting);
 
-                using (Stream fileName = ToStream(Path.Combine(exportFile.Path, exportFile.Name)))
+                IFile exportShift = await folder.CreateFileAsync("exportShift.csv", CreationCollisionOption.ReplaceExisting);
+                IFile exportVehicle = await folder.CreateFileAsync("exportVehicle.csv", CreationCollisionOption.ReplaceExisting);
+
+                IEnumerable<ExportShift> compiledShiftData = DbService.GetExportShift();
+                IEnumerable<ExportBreak> compiledBreakData = DbService.GetExportBreak();
+                IEnumerable<ExportNote> compiledNoteData = DbService.GetExportNote();
+                IEnumerable<ExportVehicle> compiledVehicleData = DbService.GetExportVehicle();
+
+                using (Stream file = await exportShift.OpenAsync(FileAccess.ReadAndWrite))
+                using (TextWriter sw = new StreamWriter(file))
+                using (var writer = new CsvWriter(sw))
                 {
-                    using (var sw = new StreamWriter(fileName))
+                    writer.WriteRecords(compiledShiftData);
+                }
+
+                if (compiledBreakData != null)
+                {
+                    IFile exportBreak = await folder.CreateFileAsync("exportBreak.csv", CreationCollisionOption.ReplaceExisting);
+
+                    using (Stream file = await exportBreak.OpenAsync(FileAccess.ReadAndWrite))
+                    using (TextWriter sw = new StreamWriter(file))
+                    using (var writer = new CsvWriter(sw))
                     {
-                        var writer = new CsvWriter(sw);
-
-                        IEnumerable<ExportData> compiledData = DbService.GetExportData();
-
-                        writer.WriteRecords(compiledData);
+                        writer.WriteRecords(compiledBreakData);
                     }
+                }
+
+                if (compiledNoteData != null)
+                {
+                    IFile exportNote = await folder.CreateFileAsync("exportNote.csv", CreationCollisionOption.ReplaceExisting);
+
+                    using (Stream file = await exportNote.OpenAsync(FileAccess.ReadAndWrite))
+                    using (TextWriter sw = new StreamWriter(file))
+                    using (var writer = new CsvWriter(sw))
+                    {
+                        writer.WriteRecords(compiledNoteData);
+                    }
+                }
+
+                using (Stream file = await exportVehicle.OpenAsync(FileAccess.ReadAndWrite))
+                using (TextWriter sw = new StreamWriter(file))
+                using (var writer = new CsvWriter(sw))
+                {
+                    writer.WriteRecords(compiledVehicleData);
                 }
 
                 MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
@@ -60,16 +92,6 @@ namespace Hubo
                 await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
             }
 
-        }
-
-        public static Stream ToStream(string str)
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(str);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
         }
     }
 }

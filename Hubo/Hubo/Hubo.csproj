@@ -49,7 +49,10 @@
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
     <Compile Include="Models\ApiResponse.cs" />
-    <Compile Include="Models\ExportData.cs" />
+    <Compile Include="Models\ExportNote.cs" />
+    <Compile Include="Models\ExportBreak.cs" />
+    <Compile Include="Models\ExportVehicle.cs" />
+    <Compile Include="Models\ExportShift.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
