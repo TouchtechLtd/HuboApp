@@ -160,7 +160,7 @@ namespace Hubo
             while((returnShifts.Count < 8))
             {
                 List<ShiftTable> listOfShifts = new List<ShiftTable>();
-                string dateString = selectedDate.ToString().Remove(10);
+                string dateString = selectedDate.Day + "/" + selectedDate.Month + "/" + selectedDate.Year;
                 listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] LIKE '" + dateString + "%'");
                 foreach(ShiftTable shift in listOfShifts)
                 {
