@@ -27,8 +27,8 @@ namespace Hubo.Droid
 
         public bool Email(string mailTo, string subject, List<string> filePaths)
         {
-            //try
-            //{
+            try
+            {
                 Context context = Android.App.Application.Context;
 
                 var email = new Intent(Intent.ActionSendMultiple);
@@ -45,15 +45,16 @@ namespace Hubo.Droid
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
+                email.AddFlags(ActivityFlags.NewTask);
 
                 context.StartActivity(email);
 
                 return true;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
