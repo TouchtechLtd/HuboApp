@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;
+using ModernHttpClient;
+using System.Net.Http;
+using System.Text;
 
 namespace Hubo
 {
@@ -18,7 +21,7 @@ namespace Hubo
             this.db = new DatabaseService();
         }
 
-        internal Task<bool> Login(string username, string password)
+        internal async Task<bool> Login(string username, string password)
         {
             //TODO: Code to communicate with server to login
             UserTable user = new UserTable();
@@ -36,40 +39,28 @@ namespace Hubo
             username = "Developer";
             password = "D3v@triotech";
 
-            //using (var client = new HttpClient(new NativeMessageHandler()))
-            //{
-            ////    var content = new FormUrlEncodedContent(new[]
-            ////    {
-            ////    new KeyValuePair<string,string>("usernameOrEmailaddress", username),
-            ////    new KeyValuePair<string,string>("password", password)
-            ////});
-
-
-
-
-            //    var huboApiTokenUrl = GetBaseUrl() + Constants.REST_URL_LOGIN;
-            //    HttpResponseMessage authenticateResponse;
-            //    authenticateResponse = await client.PostAsJsonAsync(new Uri(huboApiTokenUrl), content);
-            //    if (authenticateResponse.IsSuccessStatusCode)
-            //    {
-            //        return true;
-            //    }
-            //    return false;
-            //}
+            string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
+            string contentType = "application/json"; // or application/xml
 
             LoginModel login = new LoginModel();
             login.usernameOrEmailAddress = username;
             login.password = password;
             string json = JsonConvert.SerializeObject(login);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(GetBaseUrl() + Constants.REST_URL_LOGIN);
-            request.ContentType = "application/json";
-            request.Method = "POST";
+            HttpClient client = new HttpClient();
+            var taskPostClient = client.PostAsync(url, new StringContent(json, Encoding.UTF8, contentType));
 
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-            }
+            await taskPostClient.ContinueWith((HttpResponseMessage) =>
+             {
+                 return true;
+             });
+
+            return false;
+
+          
+
+
+           
         }
 
         private string GetBaseUrl()
