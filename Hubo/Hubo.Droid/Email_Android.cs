@@ -45,7 +45,7 @@ namespace Hubo.Droid
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
-
+                email.AddFlags(ActivityFlags.NewTask);
                 context.StartActivity(email);
 
                 return true;
