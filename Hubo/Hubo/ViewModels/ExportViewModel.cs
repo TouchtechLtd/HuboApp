@@ -98,11 +98,11 @@ namespace Hubo
                 {
                     MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
                 }
-                //else
-                //{
-                 //   await Application.Current.MainPage.DisplayAlert("Send Error", "Unable to send email!", "OK");
-                  //  return;
-                //}
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Send Error", "Unable to send email!", "OK");
+                    return;
+                }
             }
             else
             {

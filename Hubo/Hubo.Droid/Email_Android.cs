@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -32,6 +31,7 @@ namespace Hubo.Droid
                 Context context = Android.App.Application.Context;
 
                 var email = new Intent(Intent.ActionSendMultiple);
+                email.AddFlags(ActivityFlags.NewTask);
                 email.SetType("message/rfc822");
                 email.PutExtra(Intent.ExtraEmail, mailTo);
                 email.PutExtra(Intent.ExtraSubject, subject);
@@ -40,12 +40,16 @@ namespace Hubo.Droid
                 filePaths.ForEach(file =>
                 {
                     var fileIn = new File(file);
+                if (!fileIn.Exists() && !fileIn.CanRead())
+                    {
+                        Toast.MakeText(context, "Attachment Error", ToastLength.Short);
+                        return;
+                    }
                     var uri = Android.Net.Uri.FromFile(fileIn);
                     uris.Add(uri);
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
-                email.AddFlags(ActivityFlags.NewTask);
 
                 context.StartActivity(email);
 
