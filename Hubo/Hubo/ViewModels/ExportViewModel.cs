@@ -36,6 +36,9 @@ namespace Hubo
             EmailEntry = EmailEntry.Trim();
             if(Regex.IsMatch(EmailEntry, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"))
             {
+                bool emailClient;
+                List<string> filePaths = new List<string>();
+
                 IFolder rootFolder = FileSystem.Current.LocalStorage;
                 IFolder folder = await rootFolder.CreateFolderAsync("ExportFolder", CreationCollisionOption.OpenIfExists);
 
@@ -53,6 +56,7 @@ namespace Hubo
                 {
                     writer.WriteRecords(compiledShiftData);
                 }
+                filePaths.Add(exportShift.Path);
 
                 if (compiledBreakData != null)
                 {
@@ -64,6 +68,7 @@ namespace Hubo
                     {
                         writer.WriteRecords(compiledBreakData);
                     }
+                    filePaths.Add(exportBreak.Path);
                 }
 
                 if (compiledNoteData != null)
@@ -76,6 +81,7 @@ namespace Hubo
                     {
                         writer.WriteRecords(compiledNoteData);
                     }
+                    filePaths.Add(exportNote.Path);
                 }
 
                 using (Stream file = await exportVehicle.OpenAsync(FileAccess.ReadAndWrite))
@@ -84,8 +90,19 @@ namespace Hubo
                 {
                     writer.WriteRecords(compiledVehicleData);
                 }
+                filePaths.Add(exportVehicle.Path);
 
-                MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
+                emailClient = DependencyService.Get<IEmail>().Email(EmailEntry, "Last 7 Days of Shifts", filePaths);
+
+                if (emailClient)
+                {
+                    MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
+                }
+                //else
+                //{
+                 //   await Application.Current.MainPage.DisplayAlert("Send Error", "Unable to send email!", "OK");
+                  //  return;
+                //}
             }
             else
             {

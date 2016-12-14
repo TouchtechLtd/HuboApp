@@ -47,6 +47,7 @@
     <Compile Include="DatabaseModels\UserTable.cs" />
     <Compile Include="DatabaseModels\VehicleInUseTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
+    <Compile Include="Interfaces\IEmail.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\ExportNote.cs" />
