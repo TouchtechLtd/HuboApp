@@ -23,6 +23,7 @@ namespace Hubo
         public string Address { get; set; }
         public string CompanyEmail { get; set; }
         public string Phone { get; set; }
+        public string Token { get; set; }
 
 
 

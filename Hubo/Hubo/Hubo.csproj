@@ -49,7 +49,7 @@
     <Compile Include="DatabaseModels\VehicleInUseTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
-    <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
