@@ -10,6 +10,7 @@ namespace Hubo
     {
         public bool Success { get; set; }
         public string Result { get; set; }
+        public string error { get; set; }
         public bool UnAuthorizedRequest { get; set; }
 
     }

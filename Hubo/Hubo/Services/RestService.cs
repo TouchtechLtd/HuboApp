@@ -39,23 +39,30 @@ namespace Hubo
             username = "Developer";
             password = "D3v@triotech";
 
-            string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
-            string contentType = "application/json"; // or application/xml
+            using (var client = new HttpClient())
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
+                string contentType = "application/json"; // or application/xml
 
-            LoginModel login = new LoginModel();
-            login.usernameOrEmailAddress = username;
-            login.password = password;
-            string json = JsonConvert.SerializeObject(login);
+                LoginModel login = new LoginModel();
+                login.usernameOrEmailAddress = username;
+                login.password = password;
+                string json = JsonConvert.SerializeObject(login);
 
-            HttpClient client = new HttpClient();
-            var taskPostClient = client.PostAsync(url, new StringContent(json, Encoding.UTF8, contentType));
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+                client.DefaultRequestHeaders.Add("user-agent", "feasfse");
 
-            await taskPostClient.ContinueWith((HttpResponseMessage) =>
-             {
-                 return true;
-             });
+                var response = client.PostAsync(url, content);
 
-            return false;
+                if (response.IsCompleted)
+                {
+                    var result = JsonConvert.DeserializeObject<ApiResponse>(response.Result.Content.ToString());
+                }
+
+                return false;
+            }
+
+
 
           
 
@@ -65,7 +72,7 @@ namespace Hubo
 
         private string GetBaseUrl()
         {
-            return "http://192.168.1.112:6634/api";
+            return "http://test.triotech.co.nz/huboserver/api";
         }
 
         internal void QueryUpdateUserInfo(UserTable user)
