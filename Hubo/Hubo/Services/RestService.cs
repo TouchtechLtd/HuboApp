@@ -7,6 +7,7 @@ using System.Net;
 using ModernHttpClient;
 using System.Net.Http;
 using System.Text;
+using System.Dynamic;
 
 namespace Hubo
 {
@@ -23,23 +24,18 @@ namespace Hubo
 
         internal async Task<bool> Login(string username, string password)
         {
-            //TODO: Code to communicate with server to login
-
-            username = "Developer";
-            password = "D3v@triotech";
-
             using (var client = new HttpClient())
             {
                 string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
-                string contentType = "application/json"; // or application/xml
+                string contentType = Constants.CONTENT_TYPE;
 
-                LoginModel login = new LoginModel();
-                login.usernameOrEmailAddress = username;
-                login.password = password;
-                string json = JsonConvert.SerializeObject(login);
+                dynamic loginModel = new ExpandoObject();
+                loginModel.usernameOrEmailAddress = username;
+                loginModel.password = password;
+
+                string json = JsonConvert.SerializeObject(loginModel);
 
                 HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-                client.DefaultRequestHeaders.Add("user-agent", "feasfse");
 
                 var response = await client.PostAsync(url, content);
 
@@ -90,21 +86,38 @@ namespace Hubo
             //TODO: Code to communicate with server to update user info
             db.UpdateUserInfo(user);
         }
-        internal void QueryAddVehicle()
+        internal async Task<bool> QueryAddVehicle(VehicleTable vehicle)
         {
-            //JSON Structure
+            using (var client = new HttpClient())
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
+                string contentType = Constants.CONTENT_TYPE;
 
-            //{
-            //    "vehicle": {
-            //        "LicenceNo": "abc123",
-            //      "CompanyId": 1,
-            //      "Make": "Toyota",
-            //      "Model": "Giga",
-            //      "StartingOdometer": 123000
-            //    }
-            //}
+                string json = JsonConvert.SerializeObject(vehicle);
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
-            //json for sending a vehicle
+                var response = await client.PostAsync(url, content);
+
+                if(response.IsSuccessStatusCode)
+                {
+                    UserResponse result = new UserResponse();
+                    result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
+                    if(result.Success)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register vehicle, please try again", Resource.DisplayAlertOkay);
+                        return false;
+                    }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "There was an error communicating with the server", Resource.DisplayAlertOkay);
+                    return false;
+                }
+            }
         }
 
     }

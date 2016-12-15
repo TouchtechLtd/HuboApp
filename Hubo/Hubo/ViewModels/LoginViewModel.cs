@@ -38,11 +38,6 @@ namespace Hubo
                 {
                     Application.Current.MainPage = new NZTAMessagePage(1);
                 }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnsuccessfulLogin, Resource.DisplayAlertOkay);
-
-                }
             }
             else
             {
