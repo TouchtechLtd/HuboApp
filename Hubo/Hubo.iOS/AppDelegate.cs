@@ -35,6 +35,9 @@ namespace Hubo.iOS
             manager.Configure(Configuration.HockeyAppId);
             manager.StartManager();
 
+            //String that contains the path and loads to the preloaded database
+            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
+
             LoadApplication(new Hubo.Application());
 
             return base.FinishedLaunching(app, options);

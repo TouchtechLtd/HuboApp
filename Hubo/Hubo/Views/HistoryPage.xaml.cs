@@ -11,14 +11,22 @@ namespace Hubo
     public partial class HistoryPage : ContentPage
     {
         DatabaseService DbService = new DatabaseService();
+        HistoryViewModel historyVM;
+
         public HistoryPage()
         {
             InitializeComponent();
-            HistoryViewModel historyVM = new HistoryViewModel();
+            historyVM = new HistoryViewModel();
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;
             Title = Resource.HistoryText;
+            picker.DateSelected += Picker_DateSelected;
             //LoadTip();
+        }
+
+        private void Picker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            historyVM.UpdateShift();
         }
 
         public async void LoadTip()
@@ -31,7 +39,6 @@ namespace Hubo
                     DbService.HideTip("HistoryViewModel");
                 }
             }
-
         }
     }
 }

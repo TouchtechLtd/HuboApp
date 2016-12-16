@@ -32,29 +32,41 @@ namespace Hubo.Droid
 
                 var email = new Intent(Intent.ActionSendMultiple);
                 email.AddFlags(ActivityFlags.NewTask);
+                email.AddFlags(ActivityFlags.GrantReadUriPermission);
+                email.AddFlags(ActivityFlags.GrantWriteUriPermission);
                 email.SetType("message/rfc822");
-                email.PutExtra(Intent.ExtraEmail, mailTo);
+                email.PutExtra(Intent.ExtraEmail, new string[] { mailTo });
                 email.PutExtra(Intent.ExtraSubject, subject);
 
-                var uris = new List<IParcelable>();
+                List<IParcelable> uris = new List<IParcelable>();
+
+                int name = 0;
                 filePaths.ForEach(file =>
                 {
-                    var fileIn = new File(file);
-                if (!fileIn.Exists() && !fileIn.CanRead())
-                    {
-                        Toast.MakeText(context, "Attachment Error", ToastLength.Short);
-                        return;
-                    }
-                    var uri = Android.Net.Uri.FromFile(fileIn);
-                    uris.Add(uri);
+                        var fileIn = new File(file);
+                        if (!fileIn.Exists() && !fileIn.CanRead())
+                        {
+                            Toast.MakeText(context, "Attachment Error", ToastLength.Short);
+                            return;
+                        }
+                        var bytes = System.IO.File.ReadAllBytes(fileIn.Path);
+                        var externalPath = global::Android.OS.Environment.ExternalStorageDirectory.Path + "/Download/" + fileIn.Name;
+                        System.IO.File.WriteAllBytes(externalPath, bytes);
+
+                    name++;
+                        var filePath = new File(externalPath);
+                        filePath.SetReadable(true, false);
+                        ParcelFileDescriptor.Open(filePath, ParcelFileMode.ReadOnly);
+                        var uri = Android.Net.Uri.FromFile(filePath);
+                        uris.Add(uri);
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
 
-                context.StartActivity(email);
+                context.StartActivity(Intent.CreateChooser(email, "Send Email...").AddFlags(ActivityFlags.NewTask));
 
                 return true;
-            }
+        }
             catch
             {
                 return false;
