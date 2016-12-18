@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -27,22 +26,6 @@ namespace Hubo.Droid
 
         public bool Email(string mailTo, string subject, List<string> filePaths)
         {
-            //try
-            //{
-                Context context = Android.App.Application.Context;
-
-                var email = new Intent(Intent.ActionSendMultiple);
-                email.SetType("message/rfc822");
-                email.PutExtra(Intent.ExtraEmail, mailTo);
-                email.PutExtra(Intent.ExtraSubject, subject);
-
-                var uris = new List<IParcelable>();
-                filePaths.ForEach(file =>
-                {
-                    var fileIn = new File(file);
-                    var uri = Android.Net.Uri.FromFile(fileIn);
-                    uris.Add(uri);
-=======
             try
             {
                 Context context = Android.App.Application.Context;
@@ -57,7 +40,6 @@ namespace Hubo.Droid
 
                 List<IParcelable> uris = new List<IParcelable>();
 
-                int name = 0;
                 filePaths.ForEach(file =>
                 {
                         var fileIn = new File(file);
@@ -70,36 +52,23 @@ namespace Hubo.Droid
                         var externalPath = global::Android.OS.Environment.ExternalStorageDirectory.Path + "/Download/" + fileIn.Name;
                         System.IO.File.WriteAllBytes(externalPath, bytes);
 
-                    name++;
                         var filePath = new File(externalPath);
                         filePath.SetReadable(true, false);
                         ParcelFileDescriptor.Open(filePath, ParcelFileMode.ReadOnly);
                         var uri = Android.Net.Uri.FromFile(filePath);
                         uris.Add(uri);
->>>>>>> feature/HUBOM-135-implement-the-research-to-expo
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
 
-<<<<<<< HEAD
-                context.StartActivity(email);
-
-                return true;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
-=======
                 context.StartActivity(Intent.CreateChooser(email, "Send Email...").AddFlags(ActivityFlags.NewTask));
 
                 return true;
-        }
+            }
             catch
             {
                 return false;
             }
->>>>>>> feature/HUBOM-135-implement-the-research-to-expo
         }
     }
 }

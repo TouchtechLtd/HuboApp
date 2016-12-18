@@ -26,22 +26,27 @@ namespace Hubo
             Password = "";
         }
 
-        public async void NavigateToNZTAMessage()
+        public void NavigateToNZTAMessage()
         {
             Username = Username.Trim();
-
+            
             if ((Username.Length != 0) && (Password.Length != 0))
             {
                 restService = new RestService();
                 //TODO: Check username & password against database.
-                if (await restService.Login(Username, Password))
+                if(restService.Login(Username, Password))
                 {
                     Application.Current.MainPage = new NZTAMessagePage(1);
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnsuccessfulLogin, Resource.DisplayAlertOkay);
+
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
             }
         }
     }

@@ -120,7 +120,6 @@ namespace Hubo
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            var changed = PropertyChanged;
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

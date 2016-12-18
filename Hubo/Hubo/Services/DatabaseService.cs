@@ -67,12 +67,6 @@ namespace Hubo
             }
         }
 
-        internal void InsertUser(UserTable user)
-        {
-            db.Query<UserTable>("DELETE FROM [UserTable]");
-            db.Insert(user);
-        }
-
         internal string GetName()
         {
             List<UserTable> listUser = new List<UserTable>();
@@ -606,6 +600,11 @@ namespace Hubo
             MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
         }
 
+        internal bool Login(UserTable user)
+        {
+            db.Insert(user);
+            return true;
+        }
 
         internal bool StartBreak(int noteKey)
         {
