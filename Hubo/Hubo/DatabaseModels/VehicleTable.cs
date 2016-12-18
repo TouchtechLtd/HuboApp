@@ -14,6 +14,7 @@ namespace Hubo
         public string Registration { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
-        public string Company { get; set; }
+        public string CompanyId { get; set; }
+        public string StartingOdometer { get; set; }
     }
 }

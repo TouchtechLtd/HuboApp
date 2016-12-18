@@ -136,48 +136,5 @@ namespace Hubo
         {
             Navigation.PushAsync(new ExportPage());
         }
-
-        //public class Model : INotifyPropertyChanged
-        //{
-        //    public Model(string pname, double value1)
-        //    {
-        //        ProductName = pname;
-        //        Year2013 = value1;
-        //    }
-
-        //    private string productName;
-
-        //    public string ProductName
-        //    {
-        //        get { return productName; }
-        //        set
-        //        {
-        //            productName = value;
-        //            NotifyPropertyChanged("ProductName");
-        //        }
-        //    }
-
-        //    private double year2013;
-
-        //    public double Year2013
-        //    {
-        //        get { return year2013; }
-        //        set
-        //        {
-        //            year2013 = value;
-        //            NotifyPropertyChanged("Year2013");
-        //        }
-        //    }
-
-        //    public event PropertyChangedEventHandler PropertyChanged;
-
-        //    private void NotifyPropertyChanged(String propertyName)
-        //    {
-        //        if (PropertyChanged != null)
-        //        {
-        //            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //        }
-        //    }
-        //}
     }
 }
