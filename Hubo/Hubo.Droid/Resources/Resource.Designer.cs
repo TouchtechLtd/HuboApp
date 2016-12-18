@@ -147,6 +147,8 @@ namespace Hubo.Droid
 			global::HockeyApp.Resource.Style.HockeyApp_EditTextStyle = global::Hubo.Droid.Resource.Style.HockeyApp_EditTextStyle;
 			global::HockeyApp.Resource.Style.HockeyApp_SingleLineInputStyle = global::Hubo.Droid.Resource.Style.HockeyApp_SingleLineInputStyle;
 			global::ModernHttpClient.Resource.String.library_name = global::Hubo.Droid.Resource.String.library_name;
+			global::PCLStorage.Resource.String.ApplicationName = global::Hubo.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::Hubo.Droid.Resource.String.Hello;
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Hubo.Droid.Resource.String.ApplicationName;
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Hubo.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Hubo.Droid.Resource.Attribute.actionBarSize;
@@ -3348,11 +3350,11 @@ namespace Hubo.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f08002b
-			public const int ApplicationName = 2131230763;
+			// aapt resource value: 0x7f080027
+			public const int ApplicationName = 2131230759;
 			
-			// aapt resource value: 0x7f08002a
-			public const int Hello = 2131230762;
+			// aapt resource value: 0x7f080026
+			public const int Hello = 2131230758;
 			
 			// aapt resource value: 0x7f08000f
 			public const int abc_action_bar_home_description = 2131230735;
@@ -3681,20 +3683,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08000e
 			public const int mr_user_route_category_name = 2131230734;
 			
-			// aapt resource value: 0x7f080026
-			public const int q = 2131230758;
+			// aapt resource value: 0x7f080028
+			public const int q = 2131230760;
 			
-			// aapt resource value: 0x7f080027
-			public const int quarter = 2131230759;
+			// aapt resource value: 0x7f080029
+			public const int quarter = 2131230761;
 			
 			// aapt resource value: 0x7f080022
 			public const int status_bar_notification_info_overflow = 2131230754;
 			
-			// aapt resource value: 0x7f080028
-			public const int w = 2131230760;
+			// aapt resource value: 0x7f08002a
+			public const int w = 2131230762;
 			
-			// aapt resource value: 0x7f080029
-			public const int week = 2131230761;
+			// aapt resource value: 0x7f08002b
+			public const int week = 2131230763;
 			
 			static String()
 			{

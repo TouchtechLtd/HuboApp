@@ -40,6 +40,9 @@ namespace Hubo.Droid
             //};
             CrashManager.Register(this, Configuration.HockeyAppId);
 
+            //String that contains the path and loads the preloaded database
+            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
+
             LoadApplication(new Application());
         }
     }

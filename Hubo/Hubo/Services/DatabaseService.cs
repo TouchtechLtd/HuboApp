@@ -160,7 +160,7 @@ namespace Hubo
             while((returnShifts.Count < 8))
             {
                 List<ShiftTable> listOfShifts = new List<ShiftTable>();
-                string dateString = selectedDate.ToString().Remove(9);
+                string dateString = selectedDate.Day + "/" + selectedDate.Month + "/" + selectedDate.Year;
                 listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] LIKE '" + dateString + "%'");
                 foreach(ShiftTable shift in listOfShifts)
                 {
@@ -832,6 +832,150 @@ namespace Hubo
             newNote.StandAloneNote = true;
 
             db.Insert(newNote);
+        }
+
+        internal List<ExportShift> GetExportShift()
+        {
+            ExportShift exportData = new ExportShift();
+
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            List<ExportShift> exportList = new List<ExportShift>();
+
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] <= (SELECT DATE('now', '-7 day'))");
+
+            foreach (ShiftTable shiftData in shiftList)
+            {
+                exportData.shiftCode = shiftData.Key.ToString();
+                exportData.shiftStart = shiftData.StartTime;
+                exportData.shiftEnd = shiftData.EndTime;
+                exportData.activeShift = shiftData.ActiveShift.ToString();
+
+                exportList.Add(exportData);        
+            }
+
+            return exportList;
+        }
+
+        internal List<ExportBreak> GetExportBreak()
+        {
+            ExportBreak exportData = new ExportBreak();
+
+            List<BreakTable> breakList = new List<BreakTable>();
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            List<ExportBreak> exportList = new List<ExportBreak>();
+
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] <= (SELECT DATE('now', '-7 day'))");
+
+            foreach (ShiftTable shiftData in shiftList)
+            {
+                breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shiftData.Key);
+
+                foreach (BreakTable breakData in breakList)
+                {
+                    List<NoteTable> breakStartNotesList = db.Query<NoteTable>("SELECT [Note], [Hubo], [Location] FROM [NoteTable] WHERE [Key] = " + breakData.StartNoteKey + " AND [ShiftKey] = " + shiftData.Key);
+                    List<NoteTable> breakEndNotesList = db.Query<NoteTable>("SELECT [Note], [Hubo], [Location] FROM [NoteTable] WHERE [Key] = " + breakData.StopNoteKey + " AND [ShiftKey] = " + shiftData.Key);
+
+                    exportData.shiftCode = breakData.Key.ToString();
+                    exportData.breakStart = breakData.StartTime;
+                    exportData.breakEnd = breakData.EndTime;
+                    exportData.activeBreak = breakData.ActiveBreak.ToString();
+                    exportData.breakDetails = breakStartNotesList[0].Note;
+                    exportData.breakStartHubo = breakStartNotesList[0].Hubo.ToString();
+                    exportData.breakEndHubo = breakEndNotesList[0].Hubo.ToString();
+                    exportData.breakStartLocation = breakStartNotesList[0].Location;
+                    exportData.breakEndLocation = breakEndNotesList[0].Location;
+
+                    exportList.Add(exportData);
+                }
+            }
+
+            if (exportList.Count > 0)
+            {
+                return exportList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        internal List<ExportNote> GetExportNote()
+        {
+            ExportNote exportData = new ExportNote();
+
+            List<NoteTable> noteList = new List<NoteTable>();
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            List<ExportNote> exportList = new List<ExportNote>();
+
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] <= (SELECT DATE('now', '-7 day'))");
+
+            foreach (ShiftTable shiftData in shiftList)
+            {
+                noteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] = " + shiftData.Key + " AND [StandAloneNote] = 1");
+
+                foreach (NoteTable noteData in noteList)
+                {
+                    exportData.shiftCode = noteData.Key.ToString();
+                    exportData.noteTime = noteData.Date;
+                    exportData.noteDetails = noteData.Note;
+                    exportData.noteHubo = noteData.Hubo.ToString();
+                    exportData.noteLocation = noteData.Location;
+
+                    exportList.Add(exportData);
+                }
+            }
+
+            if (exportList.Count > 0)
+            {
+                return exportList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        internal List<ExportVehicle> GetExportVehicle()
+        {
+            ExportVehicle exportData = new ExportVehicle ();
+
+            List<VehicleInUseTable> vehicleInUseList = new List<VehicleInUseTable>();
+            List<VehicleTable> vehicleList = new List<VehicleTable>();
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            List<ExportVehicle> exportList = new List<ExportVehicle>();
+
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] <= (SELECT DATE('now', '-7 day'))");
+
+            foreach (ShiftTable shiftData in shiftList)
+            {
+                vehicleInUseList = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] = " + shiftData.Key);
+
+                foreach (VehicleInUseTable vehicleInUseData in vehicleInUseList)
+                {
+                    vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + vehicleInUseData.VehicleKey);
+
+                    foreach (VehicleTable vehicleData in vehicleList)
+                    {
+                        List<NoteTable> locationStartNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseData.StartNoteKey + " AND [ShiftKey] = " + shiftData.Key);
+                        List<NoteTable> locationEndNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseData.EndNoteKey + " AND [ShiftKey] = " + shiftData.Key);
+
+                        exportData.vehicleMake = vehicleData.Make;
+                        exportData.vehicleModel = vehicleData.Model;
+                        exportData.vehicleRego = vehicleData.Registration;
+                        exportData.vehicleCompany = vehicleData.Company;
+                        exportData.currentVehicle = vehicleInUseData.ActiveVehicle.ToString();
+
+                        exportData.huboStart = vehicleInUseData.HuboStart.ToString();
+                        exportData.huboEnd = vehicleInUseData.HuboEnd.ToString();
+                        exportData.startLocation = locationStartNotesList[0].Location;
+                        exportData.endLocation = locationEndNotesList[0].Location;
+
+                        exportList.Add(exportData);
+                    }
+                }
+            }
+
+            return exportList;
         }
     }
 }

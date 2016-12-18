@@ -2,19 +2,35 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Hubo
 {
-    class HistoryViewModel
+    class HistoryViewModel : INotifyPropertyChanged
     {
         DatabaseService DbService = new DatabaseService();
-        public ObservableCollection<ChartDataPoint> HistoryChartData {get;set;}
-        public ObservableCollection<ChartDataPoint> HistoryChartData1 {get;set;}
+
+
+        private ObservableCollection<ChartDataPoint> histroyChartData;
+        private ObservableCollection<ChartDataPoint> histroyChartData1;
+        public ObservableCollection<ChartDataPoint> HistoryChartData
+        {
+            get { return histroyChartData; }
+            set { histroyChartData = value; }
+        }
+
+        public ObservableCollection<ChartDataPoint> HistoryChartData1
+        {
+            get { return histroyChartData1; }
+            set { histroyChartData1 = value; }
+        }
         List<ShiftTable> listOfShifts = new List<ShiftTable>();
 
         public string EditShiftText { get; set; }
@@ -24,6 +40,8 @@ namespace Hubo
         public INavigation Navigation { get; set; }
         public DateTime SelectedDate { get; set; }
         public DateTime MaximumDate { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public HistoryViewModel()
         {
@@ -38,7 +56,7 @@ namespace Hubo
 
             //Code to get shifts from the past week
             SelectedDate = DateTime.Now;
-            //listOfShifts = DbService.GetShiftsWeek(SelectedDate);
+            listOfShifts = DbService.GetShiftsWeek(SelectedDate);
 
             foreach(ShiftTable shift in listOfShifts)
             {
@@ -64,6 +82,51 @@ namespace Hubo
             MaximumDate = DateTime.Now;
         }
 
+        public void UpdateShift()
+        {
+            while (HistoryChartData.Any())
+                HistoryChartData.RemoveAt(HistoryChartData.Count - 1);
+
+            while (HistoryChartData1.Any())
+                HistoryChartData1.RemoveAt(HistoryChartData1.Count - 1);
+
+            listOfShifts = DbService.GetShiftsWeek(SelectedDate);
+
+            foreach (ShiftTable shift in listOfShifts)
+            {
+                if (!(shift.EndTime == null))
+                {
+                    DateTime start = new DateTime();
+                    DateTime end = new DateTime();
+
+                    start = DateTime.Parse(shift.StartTime);
+                    end = DateTime.Parse(shift.EndTime);
+
+                    TimeSpan amountHoursWork = end - start;
+                    int hoursWork = amountHoursWork.Hours;
+
+                    int minsWork = amountHoursWork.Minutes;
+                    minsWork = minsWork / 100;
+                    string datePoint = start.Day + "/" + start.Month;
+
+                    HistoryChartData.Add(new ChartDataPoint(datePoint, hoursWork + minsWork));
+                    HistoryChartData1.Add(new ChartDataPoint(datePoint, (24 - hoursWork) + (0.6 - minsWork)));
+                }
+            }
+
+            OnPropertyChanged("HistoryChartData");
+            OnPropertyChanged("HistoryChartData1");
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         private void EditShift()
         {
             Navigation.PushAsync(new EditShiftPage(SelectedDate));
@@ -73,5 +136,48 @@ namespace Hubo
         {
             Navigation.PushAsync(new ExportPage());
         }
+
+        //public class Model : INotifyPropertyChanged
+        //{
+        //    public Model(string pname, double value1)
+        //    {
+        //        ProductName = pname;
+        //        Year2013 = value1;
+        //    }
+
+        //    private string productName;
+
+        //    public string ProductName
+        //    {
+        //        get { return productName; }
+        //        set
+        //        {
+        //            productName = value;
+        //            NotifyPropertyChanged("ProductName");
+        //        }
+        //    }
+
+        //    private double year2013;
+
+        //    public double Year2013
+        //    {
+        //        get { return year2013; }
+        //        set
+        //        {
+        //            year2013 = value;
+        //            NotifyPropertyChanged("Year2013");
+        //        }
+        //    }
+
+        //    public event PropertyChangedEventHandler PropertyChanged;
+
+        //    private void NotifyPropertyChanged(String propertyName)
+        //    {
+        //        if (PropertyChanged != null)
+        //        {
+        //            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //        }
+        //    }
+        //}
     }
 }
