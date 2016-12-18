@@ -35,6 +35,9 @@
     <Label Text="{Binding CompanyText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
     <Entry Text="{Binding CompanyEntry}" x:Name="company" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
+    <Label Text="{Binding HuboText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" YAlign="Center" XAlign="Center"/>
+    <Entry Text="{Binding HuboEntry}" x:Name="hubo" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center" Keyboard="Numeric"/>
+
     <Button Text="{Binding SaveText}" x:Name="saveButton" Command="{Binding AddCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
     <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
   </Grid>
