@@ -28,11 +28,21 @@ namespace Hubo
                 BarTextColor = Color.White
             };
             this.PropertyChanged += RootPage_PropertyChanged;
-            ToolbarItem Vehicle = new ToolbarItem();
-            Vehicle.Icon = "Settings96.png";
-            Vehicle.Command = new Command(NavigateToSettingsPage);
-            ToolbarItems.Add(Vehicle);
-            
+            ToolbarItem Settings = new ToolbarItem();
+            Settings.Icon = "Settings96.png";
+            Settings.Text = "Settings";
+            Settings.Command = new Command(NavigateToSettingsPage);
+            ToolbarItems.Add(Settings);
+
+            MessagingCenter.Subscribe<string>("Remove_Settings", "Remove_Settings", (sender) =>
+            {
+                ToolbarItems.Remove(Settings);
+            });
+
+            MessagingCenter.Subscribe<string>("Reset_Settings", "Reset_Settings", (sender) =>
+            {
+                ToolbarItems.Add(Settings);
+            });
         }
 
         private void NavigateToSettingsPage()

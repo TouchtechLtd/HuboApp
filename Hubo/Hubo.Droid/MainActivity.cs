@@ -39,7 +39,7 @@ namespace Hubo.Droid
 
             //    // (e.NativeView as SfChart).SetOnTouchListener(new OnTouchListenerExt());
             //};
-            CrashManager.Register(this, Configuration.HockeyAppId);
+            CrashManager.Register(this, Configuration.HockeyAppIdDroid);
 
             //String that contains the path and loads the preloaded database
             string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
