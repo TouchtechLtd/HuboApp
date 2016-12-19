@@ -32,7 +32,7 @@ namespace Hubo.iOS
             new SfChartRenderer();
             new SfGaugeRenderer();
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
-            manager.Configure(Configuration.HockeyAppId);
+            manager.Configure(Configuration.HockeyAppIdIOS);
             manager.StartManager();
 
             //String that contains the path and loads to the preloaded database
