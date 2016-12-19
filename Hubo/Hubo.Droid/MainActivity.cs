@@ -11,6 +11,7 @@ using Syncfusion.SfGauge.XForms.Droid;
 using Com.Syncfusion.Charts;
 using Com.Syncfusion.Gauges;
 using Syncfusion.SfAutoComplete.XForms.Droid;
+using Plugin.Permissions;
 
 namespace Hubo.Droid
 {
@@ -44,6 +45,11 @@ namespace Hubo.Droid
             string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
 
             LoadApplication(new Application());
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
