@@ -41,13 +41,6 @@ namespace Hubo.iOS
 
                 UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(mailController, true, null);
 
-                //var rootController = ((AppDelegate)(UIApplication.SharedApplication.Delegate)).Window.RootViewController.ChildViewControllers[0].ChildViewControllers[1].ChildViewControllers[0];
-                //var navController = rootController as UINavigationController;
-
-                //if (navController != null)
-                //    rootController = navController.VisibleViewController;
-                //rootController.PresentViewController(mailController, true, null);
-
                 return true;
             }
             return false;
