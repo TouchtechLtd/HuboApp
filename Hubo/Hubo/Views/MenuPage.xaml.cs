@@ -18,6 +18,7 @@ namespace Hubo
         {
             InitializeComponent();
             Title = "menu";
+            Icon = "Menu-25.png";
             BindingContext = menuVM;
             CopyList = MenuList;
         }
