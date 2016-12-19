@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite.Net;
 using Xamarin.Forms;
+using Plugin.Geolocator;
 
 namespace Hubo
 {
@@ -65,6 +66,12 @@ namespace Hubo
                 shift.EndTime = endShift.ToString();
                 db.Update(shift);
             }
+        }
+
+        internal void InsertUser(UserTable user)
+        {
+            db.Query<UserTable>("DELETE FROM [UserTable]");
+            db.Insert(user);
         }
 
         internal string GetName()
@@ -284,7 +291,7 @@ namespace Hubo
             return listOfShifts;
         }
 
-        internal void SaveNote(string note, DateTime date, string location, int huboEntry=0)
+        internal async void SaveNote(string note, DateTime date, string location, int huboEntry = 0)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
@@ -293,8 +300,12 @@ namespace Hubo
             newNote.Location = location;
             //newNote.Time = time.ToString();
             newNote.Hubo = huboEntry;
+            Geolocation geoLocation = new Geolocation();
+            geoLocation = await GetLatAndLong();
+            newNote.Longitude = geoLocation.Longitude;
+            newNote.Latitude = geoLocation.Latitude;
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
-            if((currentShiftList.Count==0)||(currentShiftList.Count>1))
+            if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET CURRENT SHIFT, THUS NOTE NOT SAVED", Resource.DisplayAlertOkay);
             }
@@ -306,7 +317,7 @@ namespace Hubo
             }
         }
 
-        internal void SaveNoteFromVehicle(string note, DateTime date, string location, int huboEntry, int vehicleKey)
+        internal async void SaveNoteFromVehicle(string note, DateTime date, string location, int huboEntry, int vehicleKey)
         {
 
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
@@ -323,6 +334,10 @@ namespace Hubo
                 newNote.Location = location;
                 newNote.Note = note;
                 newNote.ShiftKey = listOfShifts[0].Key;
+                Geolocation geoLocation = new Geolocation();
+                geoLocation = await GetLatAndLong();
+                newNote.Longitude = geoLocation.Longitude;
+                newNote.Latitude = geoLocation.Latitude;
                 db.Insert(newNote);
 
                 List<NoteTable> listOfNotes = new List<NoteTable>();
@@ -364,13 +379,17 @@ namespace Hubo
 
         }
 
-        internal void SaveNoteFromBreak(string note, DateTime date, string location, int huboEntry)
+        internal async void SaveNoteFromBreak(string note, DateTime date, string location, int huboEntry)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
             newNote.Date = date.ToString();
             newNote.Location = location;
             newNote.Hubo = huboEntry;
+            Geolocation geoLocation = new Geolocation();
+            geoLocation = await GetLatAndLong();
+            newNote.Longitude = geoLocation.Longitude;
+            newNote.Latitude = geoLocation.Latitude;
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
             {
@@ -383,7 +402,7 @@ namespace Hubo
                 db.Insert(newNote);
                 List<NoteTable> notes = new List<NoteTable>();
                 notes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Note] == '" + note + "' AND [ShiftKey] == " + currentShift.Key + "");
-                if((notes.Count==0)||(notes.Count>1))
+                if ((notes.Count == 0) || (notes.Count > 1))
                 {
                     Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET CURRENT NOTE", Resource.DisplayAlertOkay);
                     return;
@@ -392,12 +411,12 @@ namespace Hubo
                 listBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
                 int noteKeyForBreak = notes[0].Key;
                 //No active breaks, so starting break.
-                if(listBreaks.Count==0)
+                if (listBreaks.Count == 0)
                 {
                     StartBreak(noteKeyForBreak);
                 }
                 //Active Break, so stopping break.
-                else if(listBreaks.Count == 1)
+                else if (listBreaks.Count == 1)
                 {
                     StopBreak(noteKeyForBreak);
                 }
@@ -610,7 +629,7 @@ namespace Hubo
         {
             BreakTable newBreak = new BreakTable();
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
-            if(CheckActiveShiftIsCorrect(activeShifts))
+            if (CheckActiveShiftIsCorrect(activeShifts))
             {
                 newBreak.ShiftKey = activeShifts[0].Key;
                 newBreak.StartTime = DateTime.Now.ToString();
@@ -620,7 +639,18 @@ namespace Hubo
                 return true;
             }
             return false;
-            
+
+        }
+
+        private async Task<Geolocation> GetLatAndLong()
+        {
+            var locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 50;
+            var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+            Geolocation results = new Geolocation();
+            results.Longitude = position.Longitude;
+            results.Latitude = position.Latitude;
+            return results;
         }
 
         internal List<string> GetChecklist()
@@ -820,7 +850,7 @@ namespace Hubo
             db.Insert(newBreak);
         }
 
-        internal void SaveManNote(string note, string date, int shiftKey, int hubo, string location)
+        internal async void SaveManNote(string note, string date, int shiftKey, int hubo, string location)
         {
             //TODO: create save note
             NoteTable newNote = new NoteTable();
@@ -830,7 +860,10 @@ namespace Hubo
             newNote.Hubo = hubo;
             newNote.Location = location;
             newNote.StandAloneNote = true;
-
+            Geolocation geoLocation = new Geolocation();
+            geoLocation = await GetLatAndLong();
+            newNote.Longitude = geoLocation.Longitude;
+            newNote.Latitude = geoLocation.Latitude;
             db.Insert(newNote);
         }
 
@@ -962,7 +995,7 @@ namespace Hubo
                         exportData.vehicleMake = vehicleData.Make;
                         exportData.vehicleModel = vehicleData.Model;
                         exportData.vehicleRego = vehicleData.Registration;
-                        exportData.vehicleCompany = vehicleData.Company;
+                        exportData.vehicleCompany = vehicleData.CompanyId;
                         exportData.currentVehicle = vehicleInUseData.ActiveVehicle.ToString();
 
                         exportData.huboStart = vehicleInUseData.HuboStart.ToString();

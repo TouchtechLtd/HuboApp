@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Geolocator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Hubo
         {
             InitializeComponent();
             //MainPage = new NavigationPage(new HomePage());
+
 
             //TODO: Implement check for logged in status
             CheckLoggedInStatus();

@@ -15,6 +15,7 @@ namespace Hubo
         public List<VehicleTable> listOfVehicles;
         public VehicleTable currentVehicle;
         DatabaseService DbService = new DatabaseService();
+        RestService RestAPI = new RestService();
 
         public INavigation Navigation { get; set; }
         public string SearchVehiclesPlaceholder { get; set; }
@@ -22,6 +23,8 @@ namespace Hubo
         public string RegistrationText { get; set; }
         public string RegistrationEntry { get; set; }
         public string AddRegistrationEntry { get; set; }
+        public string HuboText { get; set; }
+        public string HuboEntry { get; set; }
         public string MakeText { get; set; }
         public string MakeEntry { get; set; }
         public string AddMakeEntry { get; set; }
@@ -50,7 +53,7 @@ namespace Hubo
         public bool VehicleInUse { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
 
         public VehiclesViewModel(int instruction = 0)
         {
@@ -93,7 +96,7 @@ namespace Hubo
                 RegistrationText = "Registration: " + currentVehicle.Registration;
                 MakeText = "Make: " + currentVehicle.Make;
                 ModelText = "Model: " + currentVehicle.Model;
-                CompanyText = "Company: " + currentVehicle.Company;
+                CompanyText = "Company: " + currentVehicle.CompanyId;
                 SwitchText = Resource.SwitchTextActive;
                 OnPropertyChanged("RegistrationText");
                 OnPropertyChanged("MakeText");
@@ -127,7 +130,7 @@ namespace Hubo
 
         private void ToggleVehicleUse(object obj)
         {
-            if(currentVehicle.Registration!=null)
+            if (currentVehicle.Registration != null)
             {
                 if (VehicleInUse)
                 {
@@ -145,7 +148,7 @@ namespace Hubo
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
             }
-            
+
         }
 
         private void Cancel()
@@ -153,11 +156,15 @@ namespace Hubo
             MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
         }
 
-        public void InsertVehicle()
+        public async void InsertVehicle()
         {
             VehicleTable VehicleToAdd = new VehicleTable();
             VehicleToAdd = BindXAMLToVehicle();
-            DbService.InsertVehicle(VehicleToAdd);
+
+            if (await RestAPI.QueryAddVehicle(VehicleToAdd))
+            {
+                DbService.InsertVehicle(VehicleToAdd);
+            }
         }
 
         private void AddVehicle()
@@ -176,10 +183,11 @@ namespace Hubo
         private VehicleTable BindXAMLToVehicle()
         {
             VehicleTable editedVehicle = new VehicleTable();
-            editedVehicle.Company = CompanyEntry;
+            editedVehicle.CompanyId = CompanyEntry;
             editedVehicle.Make = MakeEntry;
             editedVehicle.Model = ModelEntry;
             editedVehicle.Registration = RegistrationEntry;
+            editedVehicle.StartingOdometer = HuboEntry;
             return editedVehicle;
         }
 
@@ -225,7 +233,7 @@ namespace Hubo
             RegistrationText = "Registration: " + vehicle.Registration;
             MakeText = "Make: " + vehicle.Make;
             ModelText = "Model: " + vehicle.Model;
-            CompanyText = "Company: " + vehicle.Company;
+            CompanyText = "Company: " + vehicle.CompanyId;
             VehicleActive = false;
             SwitchText = Resource.SwitchTextInActive;
             OnPropertyChanged("RegistrationText");
@@ -248,7 +256,7 @@ namespace Hubo
                     RegistrationEntry = vehicle.Registration;
                     MakeEntry = vehicle.Make;
                     ModelEntry = vehicle.Model;
-                    CompanyEntry = vehicle.Company;
+                    CompanyEntry = vehicle.CompanyId;
                     OnPropertyChanged("RegistrationEntry");
                     OnPropertyChanged("MakeEntry");
                     OnPropertyChanged("ModelEntry");
