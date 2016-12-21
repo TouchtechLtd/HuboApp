@@ -1,44 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.AddVehiclePage">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="4*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+  <ScrollView>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
 
-    <Label Text="*Placeholder*" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" YAlign="Center" XAlign="Center" />
+      <Label Text="*Placeholder*" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" YAlign="Center" XAlign="Center" />
 
-    <Label Text="{Binding RegistrationText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" YAlign="Center" XAlign="Center"/>
-    <Entry Text="{Binding RegistrationEntry}" x:Name="registration" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+      <Label Text="{Binding RegistrationText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" YAlign="Center" XAlign="Center"/>
+      <local:BaseEntry Text="{Binding RegistrationEntry}" x:Name="registration" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
-    <Label Text="{Binding MakeText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" YAlign="Center" XAlign="Center"/>
-    <Entry Text="{Binding MakeEntry}" x:Name="make" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+      <Label Text="{Binding MakeText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" YAlign="Center" XAlign="Center"/>
+      <local:BaseEntry Text="{Binding MakeEntry}" x:Name="make" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
-    <Label Text="{Binding ModelText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" YAlign="Center" XAlign="Center"/>
-    <Entry Text="{Binding ModelEntry}" x:Name="model" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+      <Label Text="{Binding ModelText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" YAlign="Center" XAlign="Center"/>
+      <local:BaseEntry Text="{Binding ModelEntry}" x:Name="model" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
-    <Label Text="{Binding CompanyText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
-    <Entry Text="{Binding CompanyEntry}" x:Name="company" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+      <Label Text="{Binding CompanyText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
+      <local:BaseEntry Text="{Binding CompanyEntry}" x:Name="company" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
 
-    <Label Text="{Binding HuboText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" YAlign="Center" XAlign="Center"/>
-    <Entry Text="{Binding HuboEntry}" x:Name="hubo" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center" Keyboard="Numeric"/>
+      <Label Text="{Binding HuboText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" YAlign="Center" XAlign="Center"/>
+      <local:BaseEntry Text="{Binding HuboEntry}" x:Name="hubo" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center" Keyboard="Numeric"/>
 
-    <Button Text="{Binding SaveText}" x:Name="saveButton" Command="{Binding AddCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
-    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
-  </Grid>
+      <Button Text="{Binding SaveText}" x:Name="saveButton" Command="{Binding AddCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
+      <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
+    </Grid>
+  </ScrollView>
 </ContentPage>

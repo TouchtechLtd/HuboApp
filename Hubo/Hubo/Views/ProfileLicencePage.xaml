@@ -2,27 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.ProfileLicencePage">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="6*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="2*" />
-    </Grid.RowDefinitions>
-    
-    <Label Text="{Binding LicenseNumberText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-    <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" />
-    
-    <Label Text="{Binding LicenseVersionText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-    <Entry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" />
+  <ScrollView>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="6*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+      </Grid.RowDefinitions>
 
-    <Label Text="{Binding EndorsementsText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-    <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="2" VerticalOptions="Center" />
-  </Grid>
+      <Label Text="{Binding LicenseNumberText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+      <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" />
+
+      <Label Text="{Binding LicenseVersionText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+      <Entry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" />
+
+      <Label Text="{Binding EndorsementsText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
+      <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="2" VerticalOptions="Center" />
+    </Grid>
+  </ScrollView>
 </ContentPage>

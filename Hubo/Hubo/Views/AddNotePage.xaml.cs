@@ -27,6 +27,14 @@ namespace Hubo
                 AllowBack = false;
             }
             addNoteVM.Load(instruction, vehicleKey);
+
+            hubo.ReturnType = ReturnType.Next;
+            hubo.Next = note;
+
+            note.ReturnType = ReturnType.Next;
+            note.Next = location;
+
+            location.ReturnType = ReturnType.Done;
         }
 
         protected override bool OnBackButtonPressed()

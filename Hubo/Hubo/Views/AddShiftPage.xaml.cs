@@ -33,6 +33,7 @@ namespace Hubo
             startHubo.Next = endHubo;
 
             endHubo.ReturnType = ReturnType.Done;
+            endHubo.Completed += SaveButton_Clicked;
         }
 
         private void UpdateVehicleItems()

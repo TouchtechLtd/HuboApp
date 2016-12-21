@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.AddManBreakNotePage">
-
+  <ScrollView>
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
@@ -34,13 +35,13 @@
       <TimePicker Time="{Binding BreakStart}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding BreakStartNoteText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakNoteText"/>
-      <Entry Text="{Binding BreakStartNote}" Grid.Row="2" x:Name="startBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding BreakStartNote}" Grid.Row="2" x:Name="startBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding LocationStartText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakLocationText"/>
-      <Entry Text="{Binding LocationStart}" Grid.Row="3" x:Name="startBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding LocationStart}" Grid.Row="3" x:Name="startBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding HuboStartText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakHuboText"/>
-      <Entry Text="{Binding HuboStart}" Grid.Row="4" x:Name="startBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding HuboStart}" Grid.Row="4" x:Name="startBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
 
       <Label Text="{Binding BreakEndText}" YAlign="End" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="endBreakText"/>
 
@@ -48,13 +49,13 @@
       <TimePicker Time="{Binding BreakEnd}" Grid.Row="6" x:Name="endBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding BreakEndNoteText}" YAlign="End" Grid.Row="7" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakNoteText"/>
-      <Entry Text="{Binding BreakEndNote}" Grid.Row="7" x:Name="endBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding BreakEndNote}" Grid.Row="7" x:Name="endBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding LocationEndText}" YAlign="End" Grid.Row="8" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakLocationText"/>
-      <Entry Text="{Binding LocationEnd}" Grid.Row="8" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding LocationEnd}" Grid.Row="8" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <Label Text="{Binding HuboEndText}" YAlign="End" Grid.Row="9" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakHuboText"/>
-      <Entry Text="{Binding HuboEnd}" Grid.Row="9" x:Name="endBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding HuboEnd}" Grid.Row="9" x:Name="endBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
 
       <!-- For adding a note to the shift -->
       <Label Text="{Binding NoteText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingNote}" x:Name="noteText"/>
@@ -63,16 +64,17 @@
       <TimePicker Time="{Binding NoteTime}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
 
       <Label Text="{Binding NoteDetailText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteDetailText"/>
-      <Entry Text="{Binding NoteDetail}" Grid.Row="2" x:Name="noteDetail" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding NoteDetail}" Grid.Row="2" x:Name="noteDetail" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
 
       <Label Text="{Binding NoteLocationText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteLocationText"/>
-      <Entry Text="{Binding NoteLocation}" Grid.Row="3" x:Name="noteLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding NoteLocation}" Grid.Row="3" x:Name="noteLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
 
       <Label Text="{Binding NoteHuboText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="NoteHuboText"/>
-      <Entry Text="{Binding NoteHubo}" Grid.Row="4" x:Name="noteHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" Keyboard="Numeric" VerticalOptions="End"/>
+      <local:BaseEntry Text="{Binding NoteHubo}" Grid.Row="4" x:Name="noteHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" Keyboard="Numeric" VerticalOptions="End"/>
 
       <!-- Control Buttons -->
       <Button Text="{Binding AddText}" Command="{Binding AddCommand}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"/>
       <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3"/>
     </Grid>
+  </ScrollView>
 </ContentPage>

@@ -169,7 +169,9 @@ namespace Hubo
 
         private void AddVehicle()
         {
+            HuboText = Resource.HuboEquals;
             Navigation.PushAsync(new AddVehiclePage());
+            OnPropertyChanged("HuboText");
         }
 
         public List<VehicleTable> GetVehicles()

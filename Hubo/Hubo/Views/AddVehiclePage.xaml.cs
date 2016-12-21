@@ -15,37 +15,27 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = vehiclesVM;
-            registration.Completed += Registration_Completed;
-            make.Completed += Make_Completed;
-            model.Completed += Model_Completed;
-            company.Completed += Company_Completed;
-            hubo.Completed += Hubo_Completed;
             Title = Resource.AddVehicleText;
+
+            registration.ReturnType = ReturnType.Next;
+            registration.Next = make;
+
+            make.ReturnType = ReturnType.Next;
+            make.Next = model;
+
+            model.ReturnType = ReturnType.Next;
+            model.Next = company;
+
+            company.ReturnType = ReturnType.Next;
+            company.Next = hubo;
+
+            hubo.ReturnType = ReturnType.Done;
+            hubo.Completed += Hubo_Completed;
         }
 
         private void Hubo_Completed(object sender, EventArgs e)
         {
             vehiclesVM.InsertVehicle();
-        }
-
-        private void Company_Completed(object sender, EventArgs e)
-        {
-            hubo.Focus();
-        }
-
-        private void Model_Completed(object sender, EventArgs e)
-        {
-            company.Focus();
-        }
-
-        private void Make_Completed(object sender, EventArgs e)
-        {
-            model.Focus();
-        }
-
-        private void Registration_Completed(object sender, EventArgs e)
-        {
-            make.Focus();
         }
 
         protected override void OnDisappearing()

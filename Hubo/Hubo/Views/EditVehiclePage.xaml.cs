@@ -25,30 +25,22 @@ namespace Hubo
             vehiclesVM.SaveVehicleDetails();
         }
 
-        private void Model_Completed(object sender, EventArgs e)
-        {
-            company.Focus();
-        }
-
-        private void Make_Completed(object sender, EventArgs e)
-        {
-            model.Focus();
-        }
-
-        private void Registration_Completed(object sender, EventArgs e)
-        {
-            make.Focus();
-        }
-
         public EditVehiclePage(VehicleTable chosenVehicle)
         {
             InitializeComponent();
             BindingContext = vehiclesVM;
             this.currentVehicle = chosenVehicle;
             vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
-            registration.Completed += Registration_Completed;
-            make.Completed += Make_Completed;
-            model.Completed += Model_Completed;
+
+            registration.ReturnType = ReturnType.Next;
+            registration.Next = make;
+
+            make.ReturnType = ReturnType.Next;
+            make.Next = model;
+
+            model.ReturnType = ReturnType.Next;
+            model.Next = company;
+
             company.Completed += Company_Completed;
         }
 

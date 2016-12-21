@@ -17,18 +17,17 @@ namespace Hubo
             loginVM.Navigation = Navigation;
             BindingContext = loginVM;
             Title = Resource.LoginText;
-            username.Completed += Username_Completed;
+
+            username.ReturnType = ReturnType.Next;
+            username.Next = password;
+
+            password.ReturnType = ReturnType.Go;
             password.Completed += Password_Completed;
         }
 
         private void Password_Completed(object sender, EventArgs e)
         {
             loginVM.NavigateToNZTAMessage();
-        }
-
-        private void Username_Completed(object sender, EventArgs e)
-        {
-            password.Focus();
         }
     }
 }

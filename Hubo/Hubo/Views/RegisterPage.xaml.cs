@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Hubo;
 using Xamarin.Forms;
 
 namespace Hubo
@@ -18,30 +18,23 @@ namespace Hubo
             registerVM.Navigation = Navigation;
             BindingContext = registerVM;
             Title = Resource.RegisterText;
-            firstName.Completed += FirstName_Completed;
-            lastName.Completed += LastName_Completed;
-            password.Completed += Password_Completed;
-            email.Completed += Email_Completed;
-        }
 
-        private void Email_Completed(object sender, EventArgs e)
-        {
-            password.Focus();
+            firstName.ReturnType = ReturnType.Next;
+            firstName.Next = lastName;
+
+            lastName.ReturnType = ReturnType.Next;
+            lastName.Next = email;
+
+            email.ReturnType = ReturnType.Next;
+            email.Next = password;
+
+            password.ReturnType = ReturnType.Done;
+            password.Completed += Password_Completed;
         }
 
         private void Password_Completed(object sender, EventArgs e)
         {
             registerVM.ProceedToRegister();
-        }
-
-        private void LastName_Completed(object sender, EventArgs e)
-        {
-            email.Focus();
-        }
-
-        private void FirstName_Completed(object sender, EventArgs e)
-        {
-            lastName.Focus();
         }
 
         protected override void OnDisappearing()

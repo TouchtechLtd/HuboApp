@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.AddNotePage">
+  <ScrollView>
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
@@ -21,14 +23,15 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Label Text="{Binding HuboLabel}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-    <Entry Text="{Binding HuboEntry}" Keyboard="Numeric" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
+    <local:BaseEntry Text="{Binding HuboEntry}" x:Name="hubo" Keyboard="Numeric" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="Center"/>
     <Label Text="Date: " Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
     <DatePicker x:Name="datePicker" Date="{Binding Date}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Center" />
     <Label Text="{Binding NoteText}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    <Entry Text="{Binding Note}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
+    <local:BaseEntry Text="{Binding Note}" x:Name="note" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
     <Label Text="{Binding LocationText}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    <Entry Text="{Binding Location}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
+    <local:BaseEntry Text="{Binding Location}" x:Name="location" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
     <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" />
     <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" />
   </Grid>
+  </ScrollView>
 </ContentPage>
