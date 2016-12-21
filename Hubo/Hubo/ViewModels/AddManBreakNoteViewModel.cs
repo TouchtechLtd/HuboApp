@@ -74,6 +74,11 @@ namespace Hubo
         {
             if (instruction == "Break")
             {
+                if (!CheckValidHuboEntry(HuboStart))
+                    return;
+                if (!CheckValidHuboEntry(HuboEnd))
+                    return;
+
                 NoteTable noteTableStart = new NoteTable();
                 NoteTable noteTableEnd = new NoteTable();
                 BreakTable breakTable = new BreakTable();
@@ -110,7 +115,11 @@ namespace Hubo
                 noteTable.Note = NoteDetail;
                 noteTable.Location = NoteLocation;
                 if (NoteHubo != null)
+                {
+                    if (!CheckValidHuboEntry(NoteHubo))
+                        return;
                     noteTable.Hubo = int.Parse(NoteHubo);
+                }
                 noteTable.StandAloneNote = true;
 
                 List<NoteTable> noteList = new List<NoteTable>();
@@ -171,6 +180,23 @@ namespace Hubo
                 OnPropertyChanged("NoteHuboText");
             }
             OnPropertyChanged("AddText");
+        }
+
+        private bool CheckValidHuboEntry(string huboValue)
+        {
+            Regex regex = new Regex("^[0-9]+$");
+            if ((huboValue.Length == 0) || (huboValue.Length == 0))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                return false;
+            }
+            if (!(regex.IsMatch(huboValue)) || !(regex.IsMatch(huboValue)))
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                return false;
+            }
+
+            return true;
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

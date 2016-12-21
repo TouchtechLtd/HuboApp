@@ -134,6 +134,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to add break!.
+        /// </summary>
+        internal static string BreakAddError {
+            get {
+                return ResourceManager.GetString("BreakAddError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Breaks.
         /// </summary>
         internal static string BreaksText {
@@ -683,6 +692,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to add note!.
+        /// </summary>
+        internal static string NoteAddError {
+            get {
+                return ResourceManager.GetString("NoteAddError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         internal static string NotesText {
@@ -886,6 +904,15 @@ namespace Hubo {
         internal static string Shift {
             get {
                 return ResourceManager.GetString("Shift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save shift!.
+        /// </summary>
+        internal static string ShiftAddError {
+            get {
+                return ResourceManager.GetString("ShiftAddError", resourceCulture);
             }
         }
         

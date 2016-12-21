@@ -106,7 +106,7 @@ namespace Hubo
 
             if (result == -1)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to save shift!", Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ShiftAddError, Resource.DisplayAlertOkay);
                 return;
             }
 
@@ -134,10 +134,6 @@ namespace Hubo
                         {
                             breakEndNote.Add(n);
                         }
-                        else if (noteDetails.StandAloneNote == true)
-                        {
-                            notes.Add(n);
-                        }
                     }
 
                     for (int v = 0; v < breakEndNote.Count; v++)
@@ -148,12 +144,11 @@ namespace Hubo
                     }
                 }
 
-                if (notes.Count > 0)
+                foreach (NoteTable note in listOfNotes)
                 {
-                    for (int v = 0; v < notes.Count; v++)
+                    if (note.StandAloneNote == true)
                     {
-                        noteDetails = listOfNotes[notes[v]];
-                        DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
+                        DbService.SaveManNote(note.Note, note.Date, result, note.Hubo, note.Location);
                     }
                 }
             }
@@ -297,12 +292,12 @@ namespace Hubo
                             }
                             else
                             {
-                                Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
+                                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
                             }
                         }
                         else
                         {
-                            Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
+                            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
                         }
                     });
                 }
@@ -389,7 +384,7 @@ namespace Hubo
                     }
                     else
                     {
-                        Application.Current.MainPage.DisplayAlert("Error Adding Note", "Unable to add note!", "OK");
+                        Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoteAddError, Resource.DisplayAlertOkay);
                     }
                 }
             });

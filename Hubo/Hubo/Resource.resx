@@ -462,4 +462,13 @@
   <data name="NoteText" xml:space="preserve">
     <value>Note</value>
   </data>
+  <data name="BreakAddError" xml:space="preserve">
+    <value>Unable to add break!</value>
+  </data>
+  <data name="NoteAddError" xml:space="preserve">
+    <value>Unable to add note!</value>
+  </data>
+  <data name="ShiftAddError" xml:space="preserve">
+    <value>Unable to save shift!</value>
+  </data>
 </root>
