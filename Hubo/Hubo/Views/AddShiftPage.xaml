@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.AddShiftPage">
-  <Grid>
+  <Grid x:Name="grid">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width=".3*" />
       <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width=".3*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
@@ -18,69 +19,37 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="2*" />
+      <RowDefinition Height=".1*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     
-    <Label Text="{Binding DateText}" YAlign="End" Grid.Row="0" Grid.Column="1" />
-    <DatePicker Date="{Binding Date}" x:Name="datePicker" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" VerticalOptions="End"/>
+    <Label Text="{Binding DateText}" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1" />
+    <DatePicker Date="{Binding Date}" x:Name="datePicker" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="Center"/>
     
-    <Label Text="{Binding Vehicle}" YAlign="End" Grid.Row="1" Grid.Column="1"/>
-    <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" VerticalOptions="End"/>
+    <Label Text="{Binding Vehicle}" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+    <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="Center"/>
     
-    <Label Text="{Binding StartShiftText}" YAlign="End" Grid.Row="2" Grid.Column="1"/>
-    <TimePicker Time="{Binding StartShift}" Grid.Row="2" Grid.Column="2" VerticalOptions="End"/>
-    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="2" Grid.Column="3"/>
-    <TimePicker Time="{Binding EndShift}" Grid.Row="2" Grid.Column="4" VerticalOptions="End"/>
+    <Label Text="{Binding StartShiftText}" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+    <TimePicker Time="{Binding StartShift}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center"/>
+    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="2" Grid.Column="3"/>
+    <TimePicker Time="{Binding EndShift}" Grid.Row="2" Grid.Column="4" VerticalOptions="Center"/>
 
-    <Label Text="{Binding DriveText}" YAlign="End" Grid.Row="3" Grid.Column="1"/>
-    <TimePicker Time="{Binding DriveStartData}" Grid.Row="3" Grid.Column="2" VerticalOptions="End"/>
-    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="3" Grid.Column="3"/>
-    <TimePicker Time="{Binding DriveEndData}" Grid.Row="3" Grid.Column="4" VerticalOptions="End"/>
+    <Label Text="{Binding DriveText}" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+    <TimePicker Time="{Binding DriveStartData}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center"/>
+    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="3" Grid.Column="3"/>
+    <TimePicker Time="{Binding DriveEndData}" Grid.Row="3" Grid.Column="4" VerticalOptions="Center"/>
 
-    <Label Text="{Binding LocationText}" YAlign="End" Grid.Row="4" Grid.Column="1"/>
-    <Entry Text="{Binding LocationStartData}" x:Name="startLocation" Grid.Row="4" Grid.Column="2" VerticalOptions="End"/>
-    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="4" Grid.Column="3"/>
-    <Entry Text="{Binding LocationEndData}" Grid.Row="4"  x:Name="endLocation" Grid.Column="4" VerticalOptions="End"/>
+    <Label Text="{Binding LocationText}" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+    <local:BaseEntry Text="{Binding LocationStartData}" x:Name="startLocation" Grid.Row="4" Grid.Column="2" VerticalOptions="Center"/>
+    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="4" Grid.Column="3"/>
+    <local:BaseEntry Text="{Binding LocationEndData}" Grid.Row="4"  x:Name="endLocation" Grid.Column="4" VerticalOptions="Center"/>
 
-    <Label Text="{Binding HuboText}" YAlign="End" Grid.Row="5" Grid.Column="1"/>
-    <Entry Text="{Binding HuboStartData}" x:Name="startHubo" Grid.Row="5" Grid.Column="2" VerticalOptions="End" Keyboard="Numeric"/>
-    <Label Text="{Binding DashIcon}" YAlign="End" XAlign="Center" Grid.Row="5" Grid.Column="3"/>
-    <Entry Text="{Binding HuboEndData}" Grid.Row="5"  x:Name="endHubo" Grid.Column="4" VerticalOptions="End" Keyboard="Numeric"/>
-
-    <Label Text="{Binding BreakText}" YAlign="End" Grid.Row="6" Grid.Column="1" IsVisible="{Binding BreakDetails}"/>
-    <ScrollView Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" IsVisible="{Binding BreakDetails}">
-      <Grid x:Name="gridBreak">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width=".1*"/>
-          <ColumnDefinition Width="2*"/>
-          <ColumnDefinition Width=".1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          
-        </Grid.RowDefinitions>
-      </Grid>
-    </ScrollView>
-
-
-    <Label Text="{Binding NoteText}" YAlign="End" Grid.Row="8" Grid.Column="1" IsVisible="{Binding NoteDetails}"/>
-    <ScrollView Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" IsVisible="{Binding NoteDetails}">
-      <Grid x:Name="gridNote">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width=".1*"/>
-          <ColumnDefinition Width="2*"/>
-          <ColumnDefinition Width=".1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-
-        </Grid.RowDefinitions>
-      </Grid>
-    </ScrollView>
+    <Label Text="{Binding HuboText}" VerticalTextAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+    <local:BaseEntry Text="{Binding HuboStartData}" x:Name="startHubo" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" Keyboard="Numeric"/>
+    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="5" Grid.Column="3"/>
+    <local:BaseEntry Text="{Binding HuboEndData}" Grid.Row="5"  x:Name="endHubo" Grid.Column="4" VerticalOptions="Center" Keyboard="Numeric"/>
     
-    <Button Text="{Binding AddText}" Command="{Binding AddButton}" x:Name="addButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10" />
-    <Button Text="{Binding SaveText}" Command="{Binding SaveButton}" x:Name="saveButton" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="10"/>
+    <Button Text="{Binding AddText}" Command="{Binding AddButton}" x:Name="addButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}" />
+    <Button Text="{Binding SaveText}" Command="{Binding SaveButton}" x:Name="saveButton" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}"/>
   </Grid>
 </ContentPage>

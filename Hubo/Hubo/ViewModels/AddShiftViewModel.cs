@@ -45,9 +45,13 @@ namespace Hubo
         public bool NoteDetails { get; set; }
         public Grid BreakGrid { get; set; }
         public Grid NoteGrid { get; set; }
+        public Grid FullGrid { get; set; }
         public int NumBreaks { get; set; }
         public int NumNotes { get; set; }
         public int selectedVehicle { get; set; }
+        public int ButtonRow { get; set; }
+        public bool CreatedBreak { get; set; }
+        public bool CreatedNote { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -75,6 +79,9 @@ namespace Hubo
             NumBreaks = 0;
             NumNotes = 0;
             Date = DateTime.Now.Date;
+            ButtonRow = 7;
+            CreatedBreak = false;
+            CreatedNote = false;
         }
 
         internal List<VehicleTable> GetVehicles()
@@ -135,9 +142,9 @@ namespace Hubo
 
                     for (int v = 0; v < breakEndNote.Count; v++)
                     {
-                            noteDetails = listOfNotes[breakStartNote[v]];
-                            noteEndDetails = listOfNotes[breakEndNote[v]];
-                            DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
+                        noteDetails = listOfNotes[breakStartNote[v]];
+                        noteEndDetails = listOfNotes[breakEndNote[v]];
+                        DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
                     }
                 }
 
@@ -145,8 +152,8 @@ namespace Hubo
                 {
                     for (int v = 0; v < notes.Count; v++)
                     {
-                            noteDetails = listOfNotes[notes[v]];
-                            DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
+                        noteDetails = listOfNotes[notes[v]];
+                        DbService.SaveManNote(noteDetails.Note, noteDetails.Date, result, noteDetails.Hubo, noteDetails.Location);
                     }
                 }
             }
@@ -174,7 +181,6 @@ namespace Hubo
                     MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added", (senderBreakPage, breakList) =>
                     {
                         MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added");
-                        //TODO: add note or break to page
                         if (breakList != null)
                         {
                             if (noteList != null && noteList != null)
@@ -247,6 +253,35 @@ namespace Hubo
                                         breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
                                 }
 
+                                if (BreakDetails && !CreatedBreak)
+                                {
+                                    ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+                                    Grid newGrid = new Grid
+                                    {
+                                        ColumnDefinitions =
+                                        {
+                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                            new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
+                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
+                                        }
+                                    };
+
+                                    BreakGrid = newGrid;
+
+                                    scroll.Content = newGrid;
+
+                                    FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                                    FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                                    FullGrid.Children.Add(new Label { Text = BreakText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
+                                    FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
+
+                                    ButtonRow = ButtonRow + 2;
+
+                                    CreatedBreak = true;
+                                }
+
                                 BreakGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
                                 BreakGrid.Children.Add(new Label { Text = breakStartTime + ": " + breakStartNote + ", " + breakStartLocation + " - " + breakEndTime + ": " + breakEndNote + ", " + breakEndLocation }, 1, NumBreaks);
                                 NumBreaks++;
@@ -254,6 +289,8 @@ namespace Hubo
                                 OnPropertyChanged("BreakText");
                                 OnPropertyChanged("BreakDetails");
                                 OnPropertyChanged("BreakGrid");
+                                OnPropertyChanged("FullGrid");
+                                OnPropertyChanged("ButtonRow");
 
                                 listOfBreaks.AddRange(breakList);
                                 listOfNotes.AddRange(noteList);
@@ -268,63 +305,94 @@ namespace Hubo
                             Application.Current.MainPage.DisplayAlert("Error Adding Break", "Unable to add break!", "OK");
                         }
                     });
-                    }
-                    else if (Add == "Note")
+                }
+                else if (Add == "Note")
+                {
+                    if (noteList != null)
                     {
-                        if (noteList != null)
+                        NoteText = Resource.NotesText;
+                        NoteDetails = true;
+
+                        string noteTime = noteList[0].Date;
+                        string noteDetails = noteList[0].Note;
+                        string noteLocation = noteList[0].Location;
+
+                        if (String.Compare(noteTime, "12:00:00") > 0)
                         {
-                            NoteText = Resource.NotesText;
-                            NoteDetails = true;
+                            TimeSpan temp = TimeSpan.Parse(noteTime);
+                            int temphour = temp.Hours - 12;
+                            int tempMin = temp.Minutes;
 
-                            string noteTime = noteList[0].Date;
-                            string noteDetails = noteList[0].Note;
-                            string noteLocation = noteList[0].Location;
+                            if (temphour == 00)
+                                temphour = 12;
 
-                            if (String.Compare(noteTime, "12:00:00") > 0 )
-                            {
-                                TimeSpan temp = TimeSpan.Parse(noteTime);
-                                int temphour = temp.Hours - 12;
-                                int tempMin = temp.Minutes;
-
-                                if (temphour == 00)
-                                    temphour = 12;
-
-                                if (tempMin < 10)
-                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
-                                else
-                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
-                            }
+                            if (tempMin < 10)
+                                noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
                             else
-                            {
-                                TimeSpan temp = TimeSpan.Parse(noteTime);
-                                int temphour = temp.Hours;
-                                int tempMin = temp.Minutes;
-
-                                if (temphour == 00)
-                                    temphour = 12;
-
-                                if (tempMin < 10)
-                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
-                                else
-                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
-                            }
-
-                            NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                            NoteGrid.Children.Add(new Label { Text = noteTime + " - " + noteDetails + ", " + noteLocation }, 1, NumNotes);
-                            NumNotes++;
-
-                            OnPropertyChanged("NoteText");
-                            OnPropertyChanged("NoteDetails");
-                            OnPropertyChanged("NoteGrid");
-
-                        listOfNotes.AddRange(noteList);
+                                noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
                         }
                         else
                         {
-                            Application.Current.MainPage.DisplayAlert("Error Adding Note", "Unable to add note!", "OK");
+                            TimeSpan temp = TimeSpan.Parse(noteTime);
+                            int temphour = temp.Hours;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            else
+                                noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
                         }
+
+                        if (NoteDetails && !CreatedNote)
+                        {
+                            ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+                            Grid newGrid = new Grid
+                            {
+                                ColumnDefinitions =
+                                {
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                    new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
+                                }
+                            };
+
+                            NoteGrid = newGrid;
+
+                            scroll.Content = newGrid;
+
+                            FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                            FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                            FullGrid.Children.Add(new Label { Text = NoteText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
+                            FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
+
+                            ButtonRow = ButtonRow + 2;
+
+                            CreatedNote = true;
+                        }
+
+                        NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                        NoteGrid.Children.Add(new Label { Text = noteTime + " - " + noteDetails + ", " + noteLocation }, 1, NumNotes);
+                        NumNotes++;
+
+                        OnPropertyChanged("NoteText");
+                        OnPropertyChanged("NoteDetails");
+                        OnPropertyChanged("NoteGrid");
+                        OnPropertyChanged("FullGrid");
+                        OnPropertyChanged("ButtonRow");
+
+                        listOfNotes.AddRange(noteList);
                     }
-            });  
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert("Error Adding Note", "Unable to add note!", "OK");
+                    }
+                }
+            });
         }
 
         private bool CheckValidHuboEntry(string huboValue)

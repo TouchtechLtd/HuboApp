@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Hubo;
 using Xamarin.Forms;
 
 namespace Hubo
@@ -21,8 +21,18 @@ namespace Hubo
             addButton.Clicked += AddButton_Clicked;
             UpdateVehicleItems();
             Title = Resource.AddShiftText;
-            addShiftVM.BreakGrid = gridBreak;
-            addShiftVM.NoteGrid = gridNote;
+            addShiftVM.FullGrid = grid;
+
+            startLocation.ReturnType = ReturnType.Next;
+            startLocation.Next = endLocation;
+
+            endLocation.ReturnType = ReturnType.Next;
+            endLocation.Next = startHubo;
+
+            startHubo.ReturnType = ReturnType.Next;
+            startHubo.Next = endHubo;
+
+            endHubo.ReturnType = ReturnType.Done;
         }
 
         private void UpdateVehicleItems()
