@@ -140,7 +140,6 @@ namespace Hubo
                 else
                 {
                     //Code to switch vehicle on Reverse of previous TODO
-                    //Navigation.PushAsync(new VehicleChecklistPage(1, true,currentVehicle.Key));
                     Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
                 }
             }
@@ -151,9 +150,9 @@ namespace Hubo
 
         }
 
-        private void Cancel()
+        private async void Cancel()
         {
-            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
+            await Navigation.PopAsync();
         }
 
         public async void InsertVehicle()
@@ -164,14 +163,13 @@ namespace Hubo
             if (await RestAPI.QueryAddVehicle(VehicleToAdd))
             {
                 DbService.InsertVehicle(VehicleToAdd);
+                await Navigation.PopAsync();
             }
         }
 
         private void AddVehicle()
         {
-            HuboText = Resource.HuboEquals;
             Navigation.PushAsync(new AddVehiclePage());
-            OnPropertyChanged("HuboText");
         }
 
         public List<VehicleTable> GetVehicles()
@@ -211,6 +209,8 @@ namespace Hubo
             SwitchText = Resource.SwitchTextInActive;
             EditVehicleText = Resource.EditVehicleText;
             AddVehicleText = Resource.AddVehicleText;
+            HuboText = Resource.HuboEquals;
+            OnPropertyChanged("HuboText");
             OnPropertyChanged("RegistrationText");
             OnPropertyChanged("MakeText");
             OnPropertyChanged("ModelText");

@@ -15,6 +15,7 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = vehiclesVM;
+            vehiclesVM.Navigation = Navigation;
             Title = Resource.AddVehicleText;
 
             registration.ReturnType = ReturnType.Next;
@@ -36,21 +37,6 @@ namespace Hubo
         private void Hubo_Completed(object sender, EventArgs e)
         {
             vehiclesVM.InsertVehicle();
-        }
-
-        protected override void OnDisappearing()
-        {
-            MessagingCenter.Unsubscribe<string>("UpdateVehicles", "UpdateVehicles");
-            base.OnDisappearing();
-        }
-
-        protected override void OnAppearing()
-        {
-            MessagingCenter.Subscribe<string>("UpdateVehicles", "UpdateVehicles", (sender) =>
-            {
-                Navigation.PopAsync();
-            });
-            base.OnAppearing();
         }
     }
 }

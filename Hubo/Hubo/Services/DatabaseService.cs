@@ -616,7 +616,6 @@ namespace Hubo
         internal void InsertVehicle(VehicleTable vehicleToAdd)
         {
             db.Insert(vehicleToAdd);
-            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
         }
 
         internal bool Login(UserTable user)
@@ -689,7 +688,6 @@ namespace Hubo
         internal void UpdateVehicleInfo(VehicleTable editedVehicle)
         {
             db.Update(editedVehicle);
-            MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
         }
 
         internal void Logout()
