@@ -80,7 +80,7 @@ namespace Hubo
                 {
                     DatabaseService dbService = new DatabaseService();
                     dbService.Logout();
-                    Application.Current.MainPage = new NavigationPage(new LandingPage());
+                    Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }
                 IsPresented = false;

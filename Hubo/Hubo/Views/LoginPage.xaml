@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.LoginPage">
-  <StackLayout>
+  <ScrollView>
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
@@ -26,5 +26,5 @@
       <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password"/>
       <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" AutomationId="LoginButton"/>
     </Grid>
-  </StackLayout>
+  </ScrollView>
 </ContentPage>

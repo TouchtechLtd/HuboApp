@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.ProfilePersonalPage">
   <ScrollView>
     <Grid>
@@ -21,25 +22,25 @@
       </Grid.RowDefinitions>
 
       <Label Text="{Binding FirstNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" YAlign="Center" XAlign="Center"/>
-      <Entry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
+      <local:BaseEntry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
 
       <Label Text="{Binding LastNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  YAlign="Center" XAlign="Center"/>
-      <Entry Text="{Binding LastName}" x:Name="lastName" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
+      <local:BaseEntry Text="{Binding LastName}" x:Name="lastName" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
 
       <Label Text="{Binding EmailText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"  YAlign="Center" XAlign="Center"/>
-      <Entry Text="{Binding Email}" x:Name="email"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
+      <local:BaseEntry Text="{Binding Email}" x:Name="email"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
 
       <Label Text="{Binding PasswordText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  YAlign="Center" XAlign="Center"/>
-      <Entry Text="{Binding Password}" x:Name="password" Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
+      <local:BaseEntry Text="{Binding Password}" x:Name="password" Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
 
       <Label Text="{Binding LicenseNumberText}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-      <Entry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="4" VerticalOptions="Center" />
+      <local:BaseEntry Text="{Binding LicenseNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="4" VerticalOptions="Center" />
 
       <Label Text="{Binding LicenseVersionText}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-      <Entry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="5" VerticalOptions="Center" />
+      <local:BaseEntry Text="{Binding LicenseVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="5" VerticalOptions="Center" />
 
       <Label Text="{Binding EndorsementsText}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" YAlign="Center" XAlign="Center" />
-      <Entry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="6" VerticalOptions="Center" />
+      <local:BaseEntry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="6" VerticalOptions="Center" />
 
     </Grid>
   </ScrollView>

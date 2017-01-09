@@ -858,10 +858,6 @@ namespace Hubo
             newNote.Hubo = hubo;
             newNote.Location = location;
             newNote.StandAloneNote = true;
-            Geolocation geoLocation = new Geolocation();
-            geoLocation = await GetLatAndLong();
-            newNote.Longitude = geoLocation.Longitude;
-            newNote.Latitude = geoLocation.Latitude;
             db.Insert(newNote);
         }
 

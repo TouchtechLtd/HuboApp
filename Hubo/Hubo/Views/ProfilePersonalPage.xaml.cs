@@ -13,24 +13,26 @@ namespace Hubo
         public ProfilePersonalPage()
         {
             InitializeComponent();
-            firstName.Completed += FirstName_Completed;
-            lastName.Completed += LastName_Completed;
-            email.Completed += Email_Completed;
-        }
 
-        private void Email_Completed(object sender, EventArgs e)
-        {
-            password.Focus();
-        }
+            firstName.ReturnType = ReturnType.Next;
+            firstName.Next = lastName;
 
-        private void LastName_Completed(object sender, EventArgs e)
-        {
-            email.Focus();
-        }
+            lastName.ReturnType = ReturnType.Next;
+            lastName.Next = email;
 
-        private void FirstName_Completed(object sender, EventArgs e)
-        {
-            lastName.Focus();
+            email.ReturnType = ReturnType.Next;
+            email.Next = password;
+
+            password.ReturnType = ReturnType.Next;
+            password.Next = licenseNumber;
+
+            licenseNumber.ReturnType = ReturnType.Next;
+            licenseNumber.Next = licenseVersion;
+
+            licenseVersion.ReturnType = ReturnType.Next;
+            licenseVersion.Next = endorsements;
+
+            endorsements.ReturnType = ReturnType.Done;
         }
     }
 }

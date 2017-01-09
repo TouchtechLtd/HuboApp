@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.ProfileCompanyPage">
   <ScrollView>
     <Grid>
@@ -18,16 +19,16 @@
       </Grid.RowDefinitions>
 
       <Label Text="{Binding NameText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
-      <Entry Text="{Binding Name}" x:Name="name" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" Placeholder="Name"/>
+      <local:BaseEntry Text="{Binding Name}" x:Name="name" Grid.Column="2" Grid.Row="0" VerticalOptions="Center" Placeholder="Name"/>
 
       <Label Text="{Binding AddressText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
-      <Entry Text="{Binding Address}" x:Name="address" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" Placeholder="Address"/>
+      <local:BaseEntry Text="{Binding Address}" x:Name="address" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" Placeholder="Address"/>
 
       <Label Text="{Binding CompanyEmailText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
-      <Entry Text="{Binding CompanyEmail}" x:Name="companyEmail"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center" Placeholder="CompanyEmail"/>
+      <local:BaseEntry Text="{Binding CompanyEmail}" x:Name="companyEmail"  Grid.Column="2" Grid.Row="2" VerticalOptions="Center" Placeholder="CompanyEmail"/>
 
       <Label Text="{Binding PhoneText}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
-      <Entry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
+      <local:BaseEntry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
 
     </Grid>
   </ScrollView>

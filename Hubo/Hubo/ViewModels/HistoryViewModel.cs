@@ -58,9 +58,9 @@ namespace Hubo
             SelectedDate = DateTime.Now;
             listOfShifts = DbService.GetShiftsWeek(SelectedDate);
 
-            foreach(ShiftTable shift in listOfShifts)
+            foreach (ShiftTable shift in listOfShifts)
             {
-                if(!(shift.EndTime == null))
+                if (!(shift.EndTime == null))
                 {
                     DateTime start = new DateTime();
                     DateTime end = new DateTime();

@@ -22,17 +22,17 @@ namespace Hubo
 
             listOfShifts = editShiftVM.Load(selectedDate);
 
-            foreach(ShiftTable shift in listOfShifts)
+            foreach (ShiftTable shift in listOfShifts)
             {
                 //Format and add shifts to picker
-                if(shift.EndTime==null)
+                if (shift.EndTime == null)
                 {
                     shift.EndTime = "Current";
                 }
                 DateTime shiftStart = DateTime.Parse(shift.StartTime);
                 DateTime shiftEnd = DateTime.Parse(shift.EndTime);
 
-                shiftPicker.Items.Add(string.Format("{0:dd/MM}" , shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
+                shiftPicker.Items.Add(string.Format("{0:dd/MM}", shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
             }
 
             shiftPicker.SelectedIndexChanged += ShiftPicker_SelectedIndexChanged;

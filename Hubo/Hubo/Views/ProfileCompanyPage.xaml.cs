@@ -13,24 +13,17 @@ namespace Hubo
         public ProfileCompanyPage()
         {
             InitializeComponent();
-            name.Completed += Name_Completed;
-            address.Completed += Address_Completed;
-            companyEmail.Completed += CompanyEmail_Completed;
-        }
 
-        private void CompanyEmail_Completed(object sender, EventArgs e)
-        {
-            phone.Focus();
-        }
+            name.ReturnType = ReturnType.Next;
+            name.Next = address;
 
-        private void Address_Completed(object sender, EventArgs e)
-        {
-            companyEmail.Focus();
-        }
+            address.ReturnType = ReturnType.Next;
+            address.Next = companyEmail;
 
-        private void Name_Completed(object sender, EventArgs e)
-        {
-            address.Focus();
+            companyEmail.ReturnType = ReturnType.Next;
+            companyEmail.Next = phone;
+
+            phone.ReturnType = ReturnType.Done;
         }
     }
 }

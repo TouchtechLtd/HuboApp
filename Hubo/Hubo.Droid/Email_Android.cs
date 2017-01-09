@@ -11,12 +11,13 @@ using Android.Widget;
 using Java.IO;
 using Xamarin.Forms;
 using Hubo.Droid;
+using Android.Support.V4.Content;
 
 [assembly: Dependency(typeof(Email_Android))]
 
 namespace Hubo.Droid
 {
-    
+
     class Email_Android : IEmail
     {
         public Email_Android()
@@ -31,9 +32,6 @@ namespace Hubo.Droid
                 Context context = Android.App.Application.Context;
 
                 var email = new Intent(Intent.ActionSendMultiple);
-                email.AddFlags(ActivityFlags.NewTask);
-                email.AddFlags(ActivityFlags.GrantReadUriPermission);
-                email.AddFlags(ActivityFlags.GrantWriteUriPermission);
                 email.SetType("message/rfc822");
                 email.PutExtra(Intent.ExtraEmail, new string[] { mailTo });
                 email.PutExtra(Intent.ExtraSubject, subject);
@@ -42,24 +40,25 @@ namespace Hubo.Droid
 
                 filePaths.ForEach(file =>
                 {
-                        var fileIn = new File(file);
-                        if (!fileIn.Exists() && !fileIn.CanRead())
-                        {
-                            Toast.MakeText(context, "Attachment Error", ToastLength.Short);
-                            return;
-                        }
-                        var bytes = System.IO.File.ReadAllBytes(fileIn.Path);
-                        var externalPath = global::Android.OS.Environment.ExternalStorageDirectory.Path + "/Download/" + fileIn.Name;
-                        System.IO.File.WriteAllBytes(externalPath, bytes);
-
-                        var filePath = new File(externalPath);
-                        filePath.SetReadable(true, false);
-                        ParcelFileDescriptor.Open(filePath, ParcelFileMode.ReadOnly);
-                        var uri = Android.Net.Uri.FromFile(filePath);
-                        uris.Add(uri);
+                    var fileIn = new File(file);
+                    if (!fileIn.Exists() || !fileIn.CanRead())
+                    {
+                        Toast.MakeText(context, "Attachment Error", ToastLength.Short);
+                        return;
+                    }
+                    fileIn.SetReadable(true, false);
+                    ParcelFileDescriptor.Open(fileIn, ParcelFileMode.ReadOnly);
+                    var uri = FileProvider.GetUriForFile(Forms.Context.ApplicationContext, "triotech.hubo.droid.fileprovider", fileIn);
+                    uris.Add(uri);
                 });
 
                 email.PutParcelableArrayListExtra(Intent.ExtraStream, uris);
+
+                email.AddFlags(ActivityFlags.NewTask);
+                email.AddFlags(ActivityFlags.GrantReadUriPermission);
+                email.AddFlags(ActivityFlags.GrantWriteUriPermission);
+                email.SetFlags(ActivityFlags.GrantReadUriPermission);
+                email.SetFlags(ActivityFlags.GrantWriteUriPermission);
 
                 context.StartActivity(Intent.CreateChooser(email, "Send Email...").AddFlags(ActivityFlags.NewTask));
 

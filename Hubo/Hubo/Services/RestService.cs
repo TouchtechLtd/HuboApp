@@ -43,6 +43,9 @@ namespace Hubo
                 {
                     UserResponse result = new UserResponse();
                     result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
+
+                    result.Success = true;
+
                     if (result.Success)
                     {
                         UserTable user = new UserTable();
