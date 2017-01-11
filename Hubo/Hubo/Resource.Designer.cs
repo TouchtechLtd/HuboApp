@@ -458,6 +458,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string HomeText {
+            get {
+                return ResourceManager.GetString("HomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /70 Hours Total.
         /// </summary>
         internal static string HoursTotalText {
@@ -760,6 +769,15 @@ namespace Hubo {
         internal static string NZTADisclaimer {
             get {
                 return ResourceManager.GetString("NZTADisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other....
+        /// </summary>
+        internal static string OthersText {
+            get {
+                return ResourceManager.GetString("OthersText", resourceCulture);
             }
         }
         

@@ -848,7 +848,7 @@ namespace Hubo
             db.Insert(newBreak);
         }
 
-        internal async void SaveManNote(string note, string date, int shiftKey, int hubo, string location)
+        internal void SaveManNote(string note, string date, int shiftKey, int hubo, string location)
         {
             //TODO: create save note
             NoteTable newNote = new NoteTable();

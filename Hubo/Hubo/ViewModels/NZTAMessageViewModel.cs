@@ -42,7 +42,7 @@ namespace Hubo
 
         private void ProceedToHomePage()
         {
-            Application.Current.MainPage = new RootPage();
+            Application.Current.MainPage = new RootPageBottomBar();
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

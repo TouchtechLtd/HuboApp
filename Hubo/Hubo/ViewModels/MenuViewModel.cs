@@ -21,6 +21,11 @@ namespace Hubo
         {
             List<MenuItem> items = new List<MenuItem>();
 
+            MenuItem home = new MenuItem();
+            home.Title = Resource.HomeText;
+            home.TargetType = "Home";
+            home.ImageSource = "Home96.png";
+
             MenuItem profile = new MenuItem();
             profile.Title = Resource.ProfileText;
             profile.TargetType = "Profile";
@@ -47,6 +52,7 @@ namespace Hubo
             signOut.ImageSource = "Exit96.png";
 
             //items.Add(settings);
+            items.Add(home);
             items.Add(profile);
             items.Add(vehicles);
             items.Add(history);

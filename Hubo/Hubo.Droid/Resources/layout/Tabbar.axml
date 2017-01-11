@@ -6,6 +6,5 @@
     android:layout_height="wrap_content"
     android:background="#3E606F"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    
     app:tabGravity="fill"
     app:tabMode="fixed" />

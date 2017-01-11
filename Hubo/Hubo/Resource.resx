@@ -471,4 +471,10 @@
   <data name="ShiftAddError" xml:space="preserve">
     <value>Unable to save shift!</value>
   </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="OthersText" xml:space="preserve">
+    <value>Other...</value>
+  </data>
 </root>

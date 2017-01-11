@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public partial class RootPage : MasterDetailPage
+    public partial class RootPageHamburger : MasterDetailPage
     {
-        public RootPage()
+        public RootPageHamburger()
         {
             var menuPage = new MenuPage();
             menuPage.CopyList.ItemSelected += (sender, e) =>
