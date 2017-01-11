@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public partial class RootPageHamburger : MasterDetailPage
+    public partial class RootPage : MasterDetailPage
     {
-        public RootPageHamburger()
+        public RootPage()
         {
             var menuPage = new MenuPage();
             menuPage.CopyList.ItemSelected += (sender, e) =>
@@ -57,7 +57,11 @@ namespace Hubo
 
         async void NavigateTo(MenuItem menu)
         {
-            if(menu.TargetType == "Profile")
+            if (menu.TargetType == "Home")
+            {
+                await Detail.Navigation.PopToRootAsync(true);
+            }
+            else if(menu.TargetType == "Profile")
             {
                 await Detail.Navigation.PushModalAsync(new ProfilePage());
             }

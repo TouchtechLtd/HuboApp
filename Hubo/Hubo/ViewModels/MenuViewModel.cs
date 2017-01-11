@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Hubo
 {
@@ -52,7 +53,8 @@ namespace Hubo
             signOut.ImageSource = "Exit96.png";
 
             //items.Add(settings);
-            items.Add(home);
+            if (Device.OS != TargetPlatform.iOS)
+                items.Add(home);
             items.Add(profile);
             items.Add(vehicles);
             items.Add(history);

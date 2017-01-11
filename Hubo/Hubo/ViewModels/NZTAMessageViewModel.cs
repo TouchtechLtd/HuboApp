@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hubo.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -42,7 +43,19 @@ namespace Hubo
 
         private void ProceedToHomePage()
         {
-            Application.Current.MainPage = new RootPageBottomBar();
+            if (Settings.HamburgerSettings == false)
+            {
+                BottomNavBar navBar = new BottomNavBar();
+
+                BottomBarPage bottomBarPage = navBar.GetBottomBar();
+
+                NavigationPage.SetHasNavigationBar(bottomBarPage, false);
+                Application.Current.MainPage = new NavigationPage(bottomBarPage);
+            }
+            else
+            {
+                Application.Current.MainPage = new RootPage();
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

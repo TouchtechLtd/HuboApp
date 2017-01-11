@@ -3,30 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
-using BottomBar.XamarinForms;
 
 namespace Hubo
 {
-    public partial class RootPageBottomBar
+    public class BottomNavBar
     {
-        public RootPageBottomBar()
-        {
-            //var othersPage = new OthersPage();
-            //othersPage.CopyList.ItemSelected += (sender, e) =>
-            //{
-            //    if (((ListView)sender).SelectedItem == null)
-            //    {
-            //        return;
-            //    }
-            //    ((ListView)sender).SelectedItem = null;
-            //    NavigateTo(e.SelectedItem as MenuItem);
-            //};
+        public BottomNavBar() { }
 
+        public BottomBarPage GetBottomBar()
+        {
             BottomBarPage bottomBarPage = new BottomBarPage();
 
-            bottomBarPage.BarTextColor = Color.Pink;
+            bottomBarPage.BarTextColor = Color.Black;
             bottomBarPage.FixedMode = true;
 
             MenuViewModel menuVM = new MenuViewModel();
@@ -44,16 +33,6 @@ namespace Hubo
                         home.Icon = homeIcon;
 
                         bottomBarPage.Children.Add(home);
-                        break;
-                    case "Profile":
-                        ProfilePage profile = new ProfilePage();
-
-                        FileImageSource profileIcon = (FileImageSource)FileImageSource.FromFile(string.Format(item.ImageSource, item.Title.ToLowerInvariant()));
-
-                        profile.Title = item.Title;
-                        profile.Icon = profileIcon;
-
-                        bottomBarPage.Children.Add(profile);
                         break;
                     case "Vehicles":
                         EditVehiclePage vehicle = new EditVehiclePage();
@@ -85,38 +64,13 @@ namespace Hubo
 
                         bottomBarPage.Children.Add(addShift);
                         break;
-                    case "Sign Out":
-
-                        break;
                 }
             }
 
-            Application.Current.MainPage = bottomBarPage;
+            OthersPage other = new OthersPage();
+            bottomBarPage.Children.Add(other);
 
-            //((Application)Application.Current).SetRootPage();
+            return bottomBarPage;
         }
-
-        //async void NavigateTo(MenuItem menu)
-        //{
-        //    if (menu.TargetType == "Profile")
-        //    {
-        //        await Navigation.PushModalAsync(new ProfilePage());
-        //    }
-        //    else if (menu.TargetType == "Settings")
-        //    {
-        //        await Navigation.PushAsync(new SettingsPage());
-        //    }
-        //    else if (menu.TargetType == "SignOut")
-        //    {
-        //        await DisplayAlert("Logout Error", "Unable to logout at this time", "OK");
-        //        //bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
-        //        //if (result)
-        //        //{
-        //        //    DatabaseService dbService = new DatabaseService();
-        //        //    dbService.Logout();
-        //        //    Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
-        //        //}
-        //    }
-        //}
     }
 }
