@@ -42,7 +42,7 @@ namespace Hubo
         protected override void OnStart()
         {
             //TODO Handle when your app starts
-            //CheckLoggedInStatus();
+            CheckLoggedInStatus();
         }
 
         protected override void OnSleep()
@@ -56,7 +56,7 @@ namespace Hubo
         protected override void OnResume()
         {
             //TODO: Implement check for logged in status
-            //CheckLoggedInStatus();
+            CheckLoggedInStatus();
         }
     }
 }

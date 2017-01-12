@@ -24,7 +24,7 @@ namespace Hubo
         public double CompletedJourney { get; set; }
         public int RemainderOfJourney { get; set; }
         public int Break { get; set; }
-        public int TotalBeforeBreak { get; set; }
+        public double TotalBeforeBreak { get; set; }
         public string TotalBeforeBreakText { get; set; }
         public int StartValue { get; set; }
         public bool StartShiftVisibility { get; set; }
@@ -44,7 +44,6 @@ namespace Hubo
         public bool OnBreak { get; set; }
 
         DatabaseService DbService = new DatabaseService();
-
 
         public HomeViewModel()
         {
@@ -70,11 +69,12 @@ namespace Hubo
             }
 
 
-            TotalBeforeBreakText = TotalBeforeBreak.ToString() + Resource.HoursTotalText;
+            TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
 
             CheckActiveShift();
+            CheckActiveBreak();
             ShiftButton = new Command(ToggleShift);
-            StartBreakText = Resource.StartBreak;
+            //StartBreakText = Resource.StartBreak;
             EndShiftText = Resource.EndShift;
 
             //TODO: Code to check if vehicle in use
@@ -87,10 +87,11 @@ namespace Hubo
                 VehicleText = Resource.StartDriving;
             }
 
+            OnBreak = DbService.CheckOnBreak();
+
             AddNoteText = Resource.AddNote;
-            BreakButtonColor = Color.FromHex("#009900");
+            //BreakButtonColor = Color.FromHex("#009900");
             StartBreakCommand = new Command(StartBreak);
-            OnBreak = false;
             VehicleCommand = new Command(Vehicle);
             AddNoteCommand = new Command(AddNote);
             SetVehicleLabel();
@@ -98,6 +99,8 @@ namespace Hubo
             {
                 SetVehicleLabel();
             });
+
+            UpdateCircularGauge();
         }
 
         private void SetVehicleLabel()
@@ -135,6 +138,20 @@ namespace Hubo
                 ShowStartShiftXAML();
             }
             
+        }
+
+        private void CheckActiveBreak()
+        {
+            if (DbService.CheckOnBreak())
+            {
+                BreakButtonColor = Color.FromHex("#cc0000");
+                StartBreakText = Resource.EndBreak;
+            }
+            else
+            {
+                BreakButtonColor = Color.FromHex("#009900");
+                StartBreakText = Resource.StartBreak;
+            }
         }
 
         private void AddNote()
@@ -286,10 +303,43 @@ namespace Hubo
 
         private void UpdateCircularGauge()
         {
-            DateTime test = new DateTime();
-            test = DateTime.Now;
-            int hour = test.Hour;
-            this.CompletedJourney = hour;
+            ShiftTable currentShift = DbService.GetCurrentShift();
+            if (currentShift != null)
+            {
+                List<BreakTable> breaks = DbService.GetBreaks(currentShift);
+                double totalBreakTime = 0;
+
+                if (OnBreak)
+                {
+                    foreach (BreakTable item in breaks)
+                    {
+                        TimeSpan start = DateTime.Parse(item.StartTime).TimeOfDay;
+                        TimeSpan end = DateTime.Now.TimeOfDay;
+
+                        double temp = end.TotalHours - start.TotalHours;
+
+                        totalBreakTime = totalBreakTime + temp;
+                    }
+                }
+                else
+                {
+                    foreach (BreakTable item in breaks)
+                    {
+                        TimeSpan start = DateTime.Parse(item.StartTime).TimeOfDay;
+                        TimeSpan end = DateTime.Parse(item.EndTime).TimeOfDay;
+
+                        double temp = end.TotalHours - start.TotalHours;
+
+                        totalBreakTime = totalBreakTime + temp;
+                    }
+                }
+
+                this.CompletedJourney = TotalBeforeBreak - totalBreakTime;
+            }
+            else
+            {
+                this.CompletedJourney = TotalBeforeBreak;
+            }
             OnPropertyChanged("CompletedJourney");
         }
 

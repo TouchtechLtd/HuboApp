@@ -6,7 +6,7 @@
   <TableView>
     <TableView.Root>
       <TableSection Title="Layout">
-      <SwitchCell Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
+      <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
       
       <TextCell Text="SettingsPage" />
       </TableSection>

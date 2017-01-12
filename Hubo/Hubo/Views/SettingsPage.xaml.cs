@@ -17,12 +17,18 @@ namespace Hubo
             MessagingCenter.Send<string>("Remove_Settings", "Remove_Settings");
             BindingContext = settingsVM;
             Title = Resource.SettingsText;
+
+            hamburgerSwitch.OnChanged += HamburgerSwitch_OnChanged;
+            
+        }
+
+        private void HamburgerSwitch_OnChanged(object sender, ToggledEventArgs e)
+        {
+            settingsVM.OnPropertyChanged("HamburgerSettings");
         }
 
         protected override void OnAppearing()
         {
-            //MessagingCenter.Send<string>("Remove_Settings", "Remove_Settings");
-
             base.OnAppearing();
         }
 

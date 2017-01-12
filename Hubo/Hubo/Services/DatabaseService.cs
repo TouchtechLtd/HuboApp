@@ -115,11 +115,11 @@ namespace Hubo
             return false;
         }
 
-        internal int TotalBeforeBreak()
+        internal double TotalBeforeBreak()
         {
             //TODO: Code to retrieve hours since last gap of 24 hours
             List<ShiftTable> listOfShiftsForAmount = new List<ShiftTable>();
-            int totalHours = 0;
+            double totalHours = 0;
             listOfShiftsForAmount = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY Key DESC LIMIT 20");
             for(int i = 1; i < listOfShiftsForAmount.Count; i++)
             {
@@ -135,11 +135,11 @@ namespace Hubo
                 {
                     if(listOfShiftsForAmount[i - 1].EndTime == null)
                     {
-                        totalHours = Convert.ToInt32((DateTime.Now - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime)).Hours) + totalHours;
+                        totalHours = (DateTime.Now.TimeOfDay - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime).TimeOfDay).TotalHours + totalHours;
                     }
                     else
                     {
-                        totalHours = Convert.ToInt32((DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime)).Hours) + totalHours;
+                        totalHours = (DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime).TimeOfDay - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime).TimeOfDay).TotalHours + totalHours;
                     }
                     return totalHours;
                 }
@@ -154,7 +154,7 @@ namespace Hubo
                     {
                         amountOfTime = DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime);
                     }
-                    totalHours = totalHours + Convert.ToInt32(amountOfTime.Hours);
+                    totalHours = totalHours + amountOfTime.TotalHours;
                 }
             }
             return totalHours;
@@ -558,6 +558,22 @@ namespace Hubo
 
         }
 
+        internal bool CheckOnBreak()
+        {
+            List<BreakTable> breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+            if (breakList.Count == 0)
+            {
+                return false;
+            }
+            else if (breakList.Count == 1)
+            {
+                return true;
+            }
+
+            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE ACTIVE BREAK DISCOVERED", Resource.DisplayAlertOkay);
+            return false;
+        }
+
         internal List<NoteTable> GetNotesFromVehicle(VehicleInUseTable currentVehicleInUse)
         {
             List<NoteTable> listOfNotes = new List<NoteTable>();
@@ -701,6 +717,18 @@ namespace Hubo
             newShift.ActiveShift = 1;
             newShift.StartTime = DateTime.Now.ToString();
             db.Insert(newShift);
+        }
+
+        internal ShiftTable GetCurrentShift()
+        {
+            List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+
+            if (CheckActiveShiftIsCorrect(activeShifts))
+            {
+                ShiftTable activeShift = activeShifts[0];
+                return activeShift;
+            }
+            return null;
         }
 
         internal bool StopShift()

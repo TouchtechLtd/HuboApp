@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hubo.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,7 @@ namespace Hubo
             signOut.ImageSource = "Exit96.png";
 
             //items.Add(settings);
-            if (Device.OS != TargetPlatform.iOS)
+            if (Device.OS != TargetPlatform.iOS || Settings.HamburgerSettings != true)
                 items.Add(home);
             items.Add(profile);
             items.Add(vehicles);

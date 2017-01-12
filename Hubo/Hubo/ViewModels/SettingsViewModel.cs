@@ -12,13 +12,16 @@ namespace Hubo
 {
     class SettingsViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public SwitchCell HamburgerSwitch { get; set; }
+
         public bool HamburgerSettings
         {
             get { return Settings.HamburgerSettings; }
             set
             {
                 Settings.HamburgerSettings = value;
-                OnPropertyChanged("HamburgerSettings");
+                //OnPropertyChanged("HamburgerSettings");
             }
         }
 
@@ -33,7 +36,7 @@ namespace Hubo
             Application.Current.MainPage.DisplayAlert("Layout Change", "For this setting to take affect please restart the App", "OK");
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        
 
         public void OnPropertyChanged(string name)
         {
