@@ -49,7 +49,10 @@
     <Compile Include="DatabaseModels\VehicleInUseTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Interfaces\ICloseApplication.cs" />
     <Compile Include="Interfaces\IEmail.cs" />
+    <Compile Include="Interfaces\INotifyService.cs" />
+    <Compile Include="Interfaces\IReloadView.cs" />
     <Compile Include="Interfaces\ISQLite.cs" />
     <Compile Include="Models\BottomBarPage.cs" />
     <Compile Include="Models\BottomBarPageExtensions.cs" />

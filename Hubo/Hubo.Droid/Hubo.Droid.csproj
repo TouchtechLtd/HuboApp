@@ -243,12 +243,14 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Renderers\BaseRenderer.cs" />
     <Compile Include="Renderers\BottomBarPageRenderer.cs" />
+    <Compile Include="Utils\CloseApplication.cs" />
     <Compile Include="Utils\Email_Android.cs" />
     <Compile Include="Utils\FileAccessHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Utils\IPageController.cs" />
     <Compile Include="Utils\MeasureSpecFactory.cs" />
+    <Compile Include="Utils\NotifyService.cs" />
     <Compile Include="Utils\PageController.cs" />
     <Compile Include="Utils\ReflectedProxy.cs" />
     <Compile Include="Utils\ResizeBugWorkaround.cs" />

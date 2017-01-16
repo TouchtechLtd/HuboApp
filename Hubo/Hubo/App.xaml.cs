@@ -21,7 +21,8 @@ namespace Hubo
             CheckLoggedInStatus();
 
             //TODO run a scheduled task every minute
-            Device.StartTimer(TimeSpan.FromMinutes(1), () => {
+            Device.StartTimer(TimeSpan.FromMinutes(1), () =>
+            {
                 return ScheduledTasks.testTask();
             });
         }
@@ -49,7 +50,7 @@ namespace Hubo
         {
             //TODO Handle when your app sleeps
             MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
-            
+
 
         }
 

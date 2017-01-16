@@ -38,9 +38,42 @@ namespace Hubo.iOS
             //String that contains the path and loads to the preloaded database
             string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
 
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8,0))
+            {
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            }
+
+            if (options != null)
+            {
+                if (options.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
+                {
+                    var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
+                    if (localNotification != null)
+                    {
+                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+                        okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default,  null));
+
+                        Window.RootViewController.PresentViewController(okayAlertController, true, null);
+
+                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                    }
+                }
+            }
+
             LoadApplication(new Hubo.Application());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+        {
+            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+            Window.RootViewController.PresentViewController(okayAlertController, true, null);
+
+            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
     }
 }

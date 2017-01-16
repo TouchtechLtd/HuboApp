@@ -26,14 +26,18 @@ namespace Hubo
             Title = Resource.Hubo;
 
             Range rangeBlue = new Range();
+            rangeBlue.BindingContext = homeVM;
             rangeBlue.StartValue = 0;
-            rangeBlue.EndValue = homeVM.CompletedJourney;
+            rangeBlue.SetBinding(Range.EndValueProperty, new Binding("CompletedJourney"));
+            //rangeBlue.EndValue = homeVM.CompletedJourney;
             rangeBlue.Color = Color.FromHex("#0000cc");
             rangeBlue.Thickness = 10;
             Scale.Ranges.Add(rangeBlue);
 
             Range rangeGreen = new Range();
-            rangeGreen.StartValue = homeVM.CompletedJourney;
+            rangeGreen.BindingContext = homeVM;
+            rangeGreen.SetBinding(Range.StartValueProperty, new Binding("CompletedJourney"));
+            //rangeGreen.StartValue = homeVM.CompletedJourney;
             rangeGreen.EndValue = 13;
             rangeGreen.Color = Color.FromHex("#009900");
             rangeGreen.Thickness = 10;
@@ -64,16 +68,20 @@ namespace Hubo
             Scale.MajorTickSettings = major;
 
             TickSettings minor = new TickSettings();
+            minor.BindingContext = homeVM;
             minor.Length = 6;
             minor.Thickness = 3;
-            minor.Color = Color.Green;
+            minor.SetBinding(TickSettings.ColorProperty, new Binding("MinorTickColor"));
+            //minor.Color = Color.FromHex("#009900");
             minor.Offset = 0.35;
             Scale.MinorTickSettings = minor;
 
             List<Pointer> pointers = new List<Pointer>();
 
             NeedlePointer needlePointer = new NeedlePointer();
-            needlePointer.Value = homeVM.CompletedJourney;
+            needlePointer.BindingContext = homeVM;
+            needlePointer.SetBinding(NeedlePointer.ValueProperty, new Binding("CompletedJourney"));
+            //needlePointer.Value = homeVM.CompletedJourney;
             needlePointer.Color = Color.Black;
             needlePointer.KnobColor = Color.Gray;
             needlePointer.KnobRadius = 15;
@@ -82,30 +90,36 @@ namespace Hubo
             pointers.Add(needlePointer);
 
             RangePointer greenRangepointer = new RangePointer();
+            greenRangepointer.BindingContext = homeVM;
             greenRangepointer.Color = Color.FromHex("#009900");
             greenRangepointer.Thickness = 10;
-            greenRangepointer.Value = homeVM.RemainderOfJourney;
+            greenRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
+            //greenRangepointer.Value = homeVM.RemainderOfJourney;
             greenRangepointer.EnableAnimation = true;
             pointers.Add(greenRangepointer);
 
             RangePointer blueRangepointer = new RangePointer();
+            blueRangepointer.BindingContext = homeVM;
             blueRangepointer.Color = Color.FromHex("#0000cc");
             blueRangepointer.Thickness = 10;
-            blueRangepointer.Value = homeVM.CompletedJourney;
+            blueRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("CompletedJourney"));
+            //blueRangepointer.Value = homeVM.CompletedJourney;
             blueRangepointer.EnableAnimation = true;
             pointers.Add(blueRangepointer);
 
             RangePointer redRangepointer = new RangePointer();
+            redRangepointer.BindingContext = homeVM;
             redRangepointer.Color = Color.FromHex("#cc0000");
             redRangepointer.Thickness = 10;
-            redRangepointer.Value = homeVM.RemainderOfJourney;
+            redRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
+            //redRangepointer.Value = homeVM.RemainderOfJourney;
             redRangepointer.EnableAnimation = true;
             pointers.Add(redRangepointer);
 
             Scale.Pointers = pointers;
 
             Scales.Add(Scale);
-            
+
             circleGauge.Scales = Scales;
         }
     }

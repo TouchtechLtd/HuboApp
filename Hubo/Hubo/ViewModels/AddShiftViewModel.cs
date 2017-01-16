@@ -110,6 +110,8 @@ namespace Hubo
                 return;
             }
 
+            DbService.SaveVehicleInUse(result, startDate, endDate, vehicleKey[selectedVehicle], HuboStartData, HuboEndData, LocationStartData, LocationEndData);
+
             if (listOfBreaks.Count != 0)
             {
                 List<int> breakStartNote = new List<int>();
