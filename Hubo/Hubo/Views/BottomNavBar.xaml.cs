@@ -5,22 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Hubo.Test
+namespace Hubo
 {
-    public class BottomNavBar : ContentPage
+    public partial class BottomNavBar : ContentPage
     {
         public BottomNavBar()
         {
             InitializeComponent();
+            Title = "Test";
+
         }
 
         public BottomBarPage GetBottomBar()
         {
             BottomBarPage bottomBarPage = new BottomBarPage();
-            Title = "Test";
             bottomBarPage.BarTextColor = Color.Black;
             bottomBarPage.FixedMode = false;
-            
+
             MenuViewModel menuVM = new MenuViewModel();
 
             foreach (MenuItem item in menuVM.MenuPageList)
@@ -38,8 +39,8 @@ namespace Hubo.Test
                         bottomBarPage.Children.Add(home);
                         break;
                     case "Vehicles":
-                        EditVehiclePage vehicle = new EditVehiclePage();
-
+                        VehiclesPage vehicle = new VehiclesPage(1);
+                        vehicle.AddToolBar();
                         FileImageSource vehicleIcon = (FileImageSource)FileImageSource.FromFile(string.Format(item.ImageSource, item.Title.ToLowerInvariant()));
 
                         vehicle.Title = item.Title;

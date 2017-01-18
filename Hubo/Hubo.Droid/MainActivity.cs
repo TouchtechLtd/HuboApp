@@ -43,9 +43,8 @@ namespace Hubo.Droid
 
             //String that contains the path and loads the preloaded database
             string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
-
-            Window.SetSoftInputMode(SoftInput.AdjustResize);
-            ResizeBugWorkaround.assistActivity(this);
+            //AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
+            //ResizeBugWorkaround.assistActivity(this);
 
             LoadApplication(new Application());
         }

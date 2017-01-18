@@ -18,6 +18,9 @@ namespace Hubo
         {
             InitializeComponent();
             Title = Resource.OthersText;
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "Other";
+            ToolbarItems.Add(topLeftText);
             Icon = "Menu25.png";
             BindingContext = othersVM;
             //CopyList = othersList;

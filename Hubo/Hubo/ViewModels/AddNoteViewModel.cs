@@ -104,7 +104,7 @@ namespace Hubo
 
         private void Cancel()
         {
-            Navigation.PopAsync();
+            Navigation.PopModalAsync();
         }
 
         private void SaveNoteWithHubo()

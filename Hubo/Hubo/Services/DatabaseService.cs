@@ -1059,7 +1059,10 @@ namespace Hubo
                         exportData.huboStart = vehicleInUseData.HuboStart.ToString();
                         exportData.huboEnd = vehicleInUseData.HuboEnd.ToString();
                         exportData.startLocation = locationStartNotesList[0].Location;
-                        exportData.endLocation = locationEndNotesList[0].Location;
+                        if(locationEndNotesList.Count!=0)
+                        {
+                            exportData.endLocation = locationEndNotesList[0].Location;
+                        }
 
                         exportList.Add(exportData);
                     }

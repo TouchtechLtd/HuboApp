@@ -82,6 +82,9 @@ namespace Hubo
             ButtonRow = 7;
             CreatedBreak = false;
             CreatedNote = false;
+            HuboStartData = "";
+            HuboEndData = "";
+
         }
 
         internal List<VehicleTable> GetVehicles()

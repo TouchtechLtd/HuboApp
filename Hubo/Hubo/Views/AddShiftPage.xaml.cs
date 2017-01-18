@@ -16,6 +16,9 @@ namespace Hubo
         {
             InitializeComponent();
             addShiftVM.Navigation = Navigation;
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "Add Shift";
+            ToolbarItems.Add(topLeftText);
             BindingContext = addShiftVM;
             saveButton.Clicked += SaveButton_Clicked;
             addButton.Clicked += AddButton_Clicked;

@@ -17,6 +17,9 @@ namespace Hubo
         {
             InitializeComponent();
             historyVM = new HistoryViewModel();
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "History";
+            ToolbarItems.Add(topLeftText);
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;
             Title = Resource.HistoryText;

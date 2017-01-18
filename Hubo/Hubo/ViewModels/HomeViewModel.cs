@@ -329,8 +329,8 @@ namespace Hubo
                 else if (CompletedJourney >= 13)
                     MinorTickColor = Color.FromHex("#cc0000");
 
-                if (this.CompletedJourney >= 13)
-                    DependencyService.Get<INotifyService>().LocalNotification("Shift Limit Reached!", "You have reached the maximum allowed shift time for today.", DateTime.Now);
+                //if (this.CompletedJourney >= 13)
+                //    DependencyService.Get<INotifyService>().LocalNotification("Shift Limit Reached!", "You have reached the maximum allowed shift time for today.", DateTime.Now);
 
                 OnPropertyChanged("CompletedJourney");
                 OnPropertyChanged("MinorTickColor");

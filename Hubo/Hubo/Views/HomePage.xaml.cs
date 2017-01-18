@@ -25,6 +25,10 @@ namespace Hubo
             BackgroundColor = Color.FromHex("#FCFFF5");
             Title = Resource.Hubo;
 
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "Home";
+            ToolbarItems.Add(topLeftText);
+
             Range rangeBlue = new Range();
             rangeBlue.BindingContext = homeVM;
             rangeBlue.StartValue = 0;

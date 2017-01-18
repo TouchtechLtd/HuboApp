@@ -49,7 +49,7 @@ namespace Hubo
 
                 BottomBarPage bottomBarPage = navBar.GetBottomBar();
 
-                NavigationPage.SetHasNavigationBar(bottomBarPage, false);
+                //NavigationPage.SetHasNavigationBar(bottomBarPage, false);
                 Application.Current.MainPage = new NavigationPage(bottomBarPage);
             }
             else

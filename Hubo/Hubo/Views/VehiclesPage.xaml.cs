@@ -13,6 +13,8 @@ namespace Hubo
         VehiclesViewModel vehiclesVM;
         List<VehicleTable> vehicles = new List<VehicleTable>();
 
+
+
         public VehiclesPage(int instruction)
         {
             InitializeComponent();
@@ -47,5 +49,11 @@ namespace Hubo
             }
         }
 
+        internal void AddToolBar()
+        {
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "Vehicle";
+            ToolbarItems.Add(topLeftText);
+        }
     }
 }
