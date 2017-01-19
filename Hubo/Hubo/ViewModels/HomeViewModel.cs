@@ -14,6 +14,8 @@ namespace Hubo
     class HomeViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
+        public List<VehicleTable> listOfVehicles;
+        public VehicleTable currentVehicle;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand ShiftButton { get; set; }
@@ -33,17 +35,21 @@ namespace Hubo
         public string EndShiftText { get; set; }
         public string VehicleText { get; set; }
         public string AddNoteText { get; set; }
-        public string VehicleRego { get; set; }
+        public int VehicleRego { get; set; }
         public string HoursTillReset { get; set; }
+        public bool VehicleInUse { get; set; }
+        public string VehiclePickerText { get; set; }
+        public bool PickerEnabled { get; set; }
 
         public ICommand StartBreakCommand { get; set; }
 
-        public ICommand EndShiftCommand { get; set; }
+        //public ICommand EndShiftCommand { get; set; }
         public ICommand VehicleCommand { get; set; }
-        public ICommand AddNoteCommand { get; set; }
+        //public ICommand AddNoteCommand { get; set; }
         public bool OnBreak { get; set; }
 
         public Color MinorTickColor { get; set; }
+        public string UseOrStopVehicleText { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -52,6 +58,8 @@ namespace Hubo
             CompletedJourney = 0;
             RemainderOfJourney = 0;
             Break = 0;
+
+            currentVehicle = new VehicleTable();
 
             int hoursTillReset = DbService.HoursTillReset();
             if (hoursTillReset == -1)
@@ -95,7 +103,7 @@ namespace Hubo
             //BreakButtonColor = Color.FromHex("#009900");
             StartBreakCommand = new Command(StartBreak);
             VehicleCommand = new Command(Vehicle);
-            AddNoteCommand = new Command(AddNote);
+            //AddNoteCommand = new Command(AddNote);
             SetVehicleLabel();
             MessagingCenter.Subscribe<string>("UpdateActiveVehicle", "UpdateActiveVehicle", (sender) =>
             {
@@ -103,6 +111,8 @@ namespace Hubo
             });
 
             UpdateCircularGauge();
+
+            //DbService.CheckShifts();
 
             var minutes = TimeSpan.FromMinutes(10);
 
@@ -120,24 +130,42 @@ namespace Hubo
         {
             if (DbService.VehicleActive())
             {
-                VehicleTable currentVehicle = new VehicleTable();
+                //VehicleTable currentVehicle = new VehicleTable();
                 currentVehicle = DbService.GetCurrentVehicle();
-                VehicleRego = currentVehicle.Registration;
+                GetVehicles();
+
+                int count = 0;
+                foreach (VehicleTable item in listOfVehicles)
+                {
+                    if (item.Registration == currentVehicle.Registration)
+                    {
+                        VehicleRego = count;
+                        break;
+                    }
+                    count++;
+                }
+                VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
                 VehicleTextColor = Color.FromHex("#cc0000");
+                PickerEnabled = false;
+                VehicleInUse = true;
 
             }
             else
             {
-                VehicleRego = Resource.NoActiveVehicle;
+                //VehicleRego = -1;
+                VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
                 VehicleTextColor = Color.FromHex("#009900");
-
+                PickerEnabled = true;
+                VehicleInUse = false;
             }
 
             OnPropertyChanged("VehicleRego");
+            OnPropertyChanged("PickerEnabled");
             OnPropertyChanged("VehicleText");
             OnPropertyChanged("VehicleTextColor");
+            OnPropertyChanged("VehicleInUse");
         }
 
         private void CheckActiveShift()
@@ -174,7 +202,25 @@ namespace Hubo
 
         private void Vehicle()
         {
-            Navigation.PushAsync(new VehiclesPage(2));
+            //Navigation.PushAsync(new VehiclesPage(2));
+            if (currentVehicle.Registration != null)
+            {
+                if (VehicleInUse)
+                {
+                    // Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
+                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
+                }
+                else
+                {
+                    //Code to switch vehicle on Reverse of previous TODO
+                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
+                }
+                SetVehicleLabel();
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
+            }
         }
 
         private void StartBreak()
@@ -240,7 +286,6 @@ namespace Hubo
             }
             else
             {
-
                 if (DbService.NoBreaksActive())
                 {
                     if (!DbService.VehicleActive())
@@ -250,7 +295,6 @@ namespace Hubo
                             await Navigation.PushModalAsync(new NZTAMessagePage(2));
                             ShowStartShiftXAML();
                         }
-
                     }
                     else
                     {
@@ -271,9 +315,6 @@ namespace Hubo
                         });
                     }
                 }
-
-
-
             }
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
@@ -322,21 +363,32 @@ namespace Hubo
                 CompletedJourney = TotalBeforeBreak;
                 TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
 
-                if (CompletedJourney < 8)
-                    MinorTickColor = Color.FromHex("#009900");
-                else if (CompletedJourney >= 8 && CompletedJourney < 13)
-                    MinorTickColor = Color.Yellow;
-                else if (CompletedJourney >= 13)
-                    MinorTickColor = Color.FromHex("#cc0000");
+                //if (CompletedJourney < 8)
+                //    MinorTickColor = Color.FromHex("#009900");
+                //else if (CompletedJourney >= 8 && CompletedJourney < 13)
+                //    MinorTickColor = Color.Yellow;
+                //else if (CompletedJourney >= 13)
+                //    MinorTickColor = Color.FromHex("#cc0000");
 
                 //if (this.CompletedJourney >= 13)
                 //    DependencyService.Get<INotifyService>().LocalNotification("Shift Limit Reached!", "You have reached the maximum allowed shift time for today.", DateTime.Now);
 
                 OnPropertyChanged("CompletedJourney");
-                OnPropertyChanged("MinorTickColor");
+                //OnPropertyChanged("MinorTickColor");
                 OnPropertyChanged("TotalBeforeBreakText");
             }
+            else
+            {
+                //MinorTickColor = Color.FromHex("#009900");
+            }
 
+        }
+
+        public List<VehicleTable> GetVehicles()
+        {
+            listOfVehicles = new List<VehicleTable>();
+            listOfVehicles = DbService.GetVehicles();
+            return listOfVehicles;
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

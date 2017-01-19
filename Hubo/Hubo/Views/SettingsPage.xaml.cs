@@ -20,6 +20,7 @@ namespace Hubo
 
             hamburgerSwitch.OnChanged += HamburgerSwitch_OnChanged;
             
+            
         }
 
         private void HamburgerSwitch_OnChanged(object sender, ToggledEventArgs e)

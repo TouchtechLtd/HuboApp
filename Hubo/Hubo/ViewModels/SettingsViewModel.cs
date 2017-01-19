@@ -13,7 +13,6 @@ namespace Hubo
     class SettingsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public SwitchCell HamburgerSwitch { get; set; }
 
         public bool HamburgerSettings
         {
@@ -21,13 +20,24 @@ namespace Hubo
             set
             {
                 Settings.HamburgerSettings = value;
-                //OnPropertyChanged("HamburgerSettings");
+                OnPropertyChanged("HamburgerSettings");
+            }
+        }
+
+        public bool DarkLightSetting
+        {
+            get { return Settings.DarkLightSetting; }
+            set
+            {
+                Settings.DarkLightSetting = value;
+                OnPropertyChanged("DarkLightSetting");
             }
         }
 
         public SettingsViewModel()
         {
-            HamburgerSettings = Settings.HamburgerSettings;
+            //HamburgerSettings = Settings.HamburgerSettings;
+
             
         }
 

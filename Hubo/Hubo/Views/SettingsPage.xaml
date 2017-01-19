@@ -6,9 +6,10 @@
   <TableView>
     <TableView.Root>
       <TableSection Title="Layout">
-      <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
-      
-      <TextCell Text="SettingsPage" />
+        <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
+        <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
+
+        <TextCell Text="SettingsPage" />
       </TableSection>
     </TableView.Root>
   </TableView>

@@ -26,6 +26,14 @@ namespace Hubo
             db.CreateTable<TipTable>();
         }
 
+        public void CheckShifts()
+        {
+            List<ShiftTable> shifts = new List<ShiftTable>();
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+            foreach (ShiftTable item in shifts)
+            Application.Current.MainPage.DisplayAlert("Check Shifts", item.ActiveShift.ToString(), "OK");
+        }
+
         public void IncrementDates()
         {
             List<ShiftTable> shifts = new List<ShiftTable>();

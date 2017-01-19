@@ -2,38 +2,58 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:Hubo;assembly=Hubo"
-             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
              x:Class="Hubo.HomePage">
-  <Grid>
+  <Grid Padding="-7">
     <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="4*" />
       <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />      
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="6*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="3*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="5*" />
+      <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
     
-    <Label Text="{Binding VehicleRego}" IsVisible="{Binding ShiftStarted}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
-    <syncfusion:SfCircularGauge x:Name="circleGauge" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6">
-      <syncfusion:SfCircularGauge.BindingContext>
-        <local:HomeViewModel  />
-      </syncfusion:SfCircularGauge.BindingContext>
-    </syncfusion:SfCircularGauge>
+    <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
+
+    <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="{StaticResource pageBackgroundColour}">
+      <syncfusion:SfLinearGauge.Scales>
+        <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="13" ScaleBarColor="#faecec" LabelColor="Gray">
+          <syncfusion:LinearScale.MajorTickSettings>
+            <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="Black" />
+          </syncfusion:LinearScale.MajorTickSettings>
+          <!--<syncfusion:LinearScale.Ranges>
+            <syncfusion:LinearRange StartValue="0" Color="#009900" EndValue="40" StartWidth="0" EndWidth="10" Offset="-0.5" />
+            <syncfusion:LinearRange StartValue="40" Color="Yellow" EndValue="60" StartWidth="10" EndWidth="15" Offset="-0.5" />
+            <syncfusion:LinearRange StartValue="60" Color="#cc0000" EndValue="70" StartWidth="15" EndWidth="18" Offset="-0.5" />
+          </syncfusion:LinearScale.Ranges>-->
+          <syncfusion:LinearScale.Pointers>
+            <syncfusion:BarPointer Value="{Binding CompletedJourney}" Thickness="23" Color="Black"/>
+          </syncfusion:LinearScale.Pointers>
+        </syncfusion:LinearScale>
+      </syncfusion:SfLinearGauge.Scales>
+    </syncfusion:SfLinearGauge>
     
-    <Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" />
-    <Label Text="{Binding HoursTillReset}" VerticalTextAlignment="Start" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1" /> 
-    <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" IsVisible="{Binding StartShiftVisibility}"/>
+    <Picker x:Name="vehiclePicker" IsEnabled="{Binding PickerEnabled}" Title="{Binding VehiclePickerText}" IsVisible="{Binding ShiftStarted}" SelectedIndex="{Binding VehicleRego}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalOptions="Center"/>
+    <Button Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Command="{Binding VehicleCommand}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>
     
-    <StackLayout Grid.Row="4"  Grid.Column="0" Grid.ColumnSpan="6"  IsVisible="{Binding ShiftStarted}" >
+    <syncfusion:SfCircularGauge x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />
+
+    <Button Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4"/>
+    
+    <!--<Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" />-->
+    <!--<Label Text="{Binding HoursTillReset}" VerticalTextAlignment="Start" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1" />-->
+    
+    <!--<StackLayout Grid.Row="4"  Grid.Column="0" Grid.ColumnSpan="6"  IsVisible="{Binding ShiftStarted}" >
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -53,6 +73,6 @@
         <Button Text="{Binding VehicleText}" Command="{Binding VehicleCommand}"  Grid.Row="2" Grid.Column="1"  FontSize="12" BackgroundColor="{Binding VehicleTextColor}"/>
         <Button Text="{Binding AddNoteText}" Command="{Binding AddNoteCommand}" Grid.Row="2" Grid.Column="3"  />
       </Grid>
-    </StackLayout>
+    </StackLayout>-->
   </Grid>  
 </ContentPage>

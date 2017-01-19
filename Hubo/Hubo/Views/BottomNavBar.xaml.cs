@@ -12,7 +12,7 @@ namespace Hubo
         public BottomNavBar()
         {
             InitializeComponent();
-            Title = "Test";
+            Title = "BottomBar";
 
         }
 
