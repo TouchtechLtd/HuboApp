@@ -48,7 +48,7 @@
     
     <syncfusion:SfCircularGauge x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />
 
-    <Button IsEnabled="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
+    <Button IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
     
     <!--<Label Text="{Binding TotalBeforeBreakText}" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" />-->
     <!--<Label Text="{Binding HoursTillReset}" VerticalTextAlignment="Start" YAlign="Start" XAlign="Center" FontSize="18" TextColor="Black" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1" />-->
