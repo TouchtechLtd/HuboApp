@@ -360,6 +360,8 @@ namespace Hubo
         {
             if (DbService.CheckActiveShift())
             {
+                TotalBeforeBreak = DbService.TotalBeforeBreak();
+
                 CompletedJourney = TotalBeforeBreak;
                 TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
 

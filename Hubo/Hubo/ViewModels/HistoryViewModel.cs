@@ -17,19 +17,19 @@ namespace Hubo
     {
         DatabaseService DbService = new DatabaseService();
 
+        private ObservableCollection<ChartDataPoint> historyChartData;
+        private ObservableCollection<ChartDataPoint> historyChartData1;
 
-        private ObservableCollection<ChartDataPoint> histroyChartData;
-        private ObservableCollection<ChartDataPoint> histroyChartData1;
         public ObservableCollection<ChartDataPoint> HistoryChartData
         {
-            get { return histroyChartData; }
-            set { histroyChartData = value; }
+            get { return historyChartData; }
+            set { historyChartData = value; }
         }
 
         public ObservableCollection<ChartDataPoint> HistoryChartData1
         {
-            get { return histroyChartData1; }
-            set { histroyChartData1 = value; }
+            get { return historyChartData1; }
+            set { historyChartData1 = value; }
         }
         List<ShiftTable> listOfShifts = new List<ShiftTable>();
 
@@ -86,11 +86,14 @@ namespace Hubo
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                while (HistoryChartData.Any())
-                    HistoryChartData.RemoveAt(HistoryChartData.Count - 1);
+                //while (HistoryChartData.Any())
+                //    HistoryChartData.RemoveAt(HistoryChartData.Count - 1);
 
-                while (HistoryChartData1.Any())
-                    HistoryChartData1.RemoveAt(HistoryChartData1.Count - 1);
+                //while (HistoryChartData1.Any())
+                //    HistoryChartData1.RemoveAt(HistoryChartData1.Count - 1);
+
+                HistoryChartData = new ObservableCollection<ChartDataPoint>();
+                HistoryChartData1 = new ObservableCollection<ChartDataPoint>();
 
                 listOfShifts = DbService.GetShiftsWeek(SelectedDate);
 

@@ -28,32 +28,33 @@ namespace Hubo
             UpdateList();
             vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
 
-            ToolbarItem topLeftText = new ToolbarItem();
-            topLeftText.Text = "Home";
-            ToolbarItems.Add(topLeftText);
+            //ToolbarItem topLeftText = new ToolbarItem();
+            //topLeftText.Text = "Home";
+            //ToolbarItems.Add(topLeftText);
 
-            Range rangeBlue = new Range();
-            rangeBlue.BindingContext = homeVM;
-            rangeBlue.StartValue = 0;
-            rangeBlue.SetBinding(Range.EndValueProperty, new Binding("CompletedJourney"));
-            rangeBlue.Color = Color.FromHex("#0000cc");
-            rangeBlue.Thickness = 30;
-            Scale.Ranges.Add(rangeBlue);
+            //Range rangeBlue = new Range();
+            //rangeBlue.BindingContext = homeVM;
+            //rangeBlue.StartValue = 0;
+            //rangeBlue.SetBinding(Range.EndValueProperty, new Binding("CompletedJourney"));
+            //rangeBlue.Color = Color.FromHex("#0000cc");
+            //rangeBlue.Thickness = 30;
+            //Scale.Ranges.Add(rangeBlue);
 
             Range rangeGreen = new Range();
             rangeGreen.BindingContext = homeVM;
-            rangeGreen.SetBinding(Range.StartValueProperty, new Binding("CompletedJourney"));
-            rangeGreen.EndValue = 8;
+            //rangeGreen.SetBinding(Range.StartValueProperty, new Binding("CompletedJourney"));
+            rangeGreen.StartValue = 0;
+            rangeGreen.EndValue = 14;
             rangeGreen.Color = Color.FromHex("#009900");
             rangeGreen.Thickness = 30;
             Scale.Ranges.Add(rangeGreen);
 
-            Range rangeRed = new Range();
-            rangeRed.StartValue = 8;
-            rangeRed.EndValue = 14;
-            rangeRed.Color = Color.FromHex("#cc0000");
-            rangeRed.Thickness = 30;
-            Scale.Ranges.Add(rangeRed);
+            //Range rangeRed = new Range();
+            //rangeRed.StartValue = 8;
+            //rangeRed.EndValue = 14;
+            //rangeRed.Color = Color.FromHex("#cc0000");
+            //rangeRed.Thickness = 30;
+            //Scale.Ranges.Add(rangeRed);
 
             Scale.Interval = 14;
             Scale.RimThickness = 30;
@@ -62,8 +63,9 @@ namespace Hubo
             Scale.StartValue = 0;
             Scale.EndValue = 14;
             Scale.LabelColor = Color.Gray;
-            Scale.MinorTicksPerInterval = 0;
-            Scale.LabelOffset = -0.3;
+            Scale.MinorTicksPerInterval = 13;
+            Scale.LabelOffset = -0.27;
+            Scale.LabelFontSize = 24;
 
             TickSettings major = new TickSettings();
             major.Length = 0;
@@ -92,29 +94,29 @@ namespace Hubo
             //needlePointer.EnableAnimation = true;
             //pointers.Add(needlePointer);
 
-            RangePointer greenRangepointer = new RangePointer();
-            greenRangepointer.BindingContext = homeVM;
-            greenRangepointer.Color = Color.FromHex("#009900");
-            greenRangepointer.Thickness = 30;
-            greenRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
-            greenRangepointer.EnableAnimation = true;
-            pointers.Add(greenRangepointer);
+            //RangePointer greenRangepointer = new RangePointer();
+            //greenRangepointer.BindingContext = homeVM;
+            //greenRangepointer.Color = Color.FromHex("#009900");
+            //greenRangepointer.Thickness = 30;
+            //greenRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
+            //greenRangepointer.EnableAnimation = true;
+            //pointers.Add(greenRangepointer);
 
             RangePointer blueRangepointer = new RangePointer();
             blueRangepointer.BindingContext = homeVM;
             blueRangepointer.Color = Color.FromHex("#0000cc");
-            blueRangepointer.Thickness = 30;
+            blueRangepointer.Thickness = 60;
             blueRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("CompletedJourney"));
             blueRangepointer.EnableAnimation = true;
             pointers.Add(blueRangepointer);
 
-            RangePointer redRangepointer = new RangePointer();
-            redRangepointer.BindingContext = homeVM;
-            redRangepointer.Color = Color.FromHex("#cc0000");
-            redRangepointer.Thickness = 30;
-            redRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
-            redRangepointer.EnableAnimation = true;
-            pointers.Add(redRangepointer);
+            //RangePointer redRangepointer = new RangePointer();
+            //redRangepointer.BindingContext = homeVM;
+            //redRangepointer.Color = Color.FromHex("#cc0000");
+            //redRangepointer.Thickness = 30;
+            //redRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("RemainderOfJourney"));
+            //redRangepointer.EnableAnimation = true;
+            //pointers.Add(redRangepointer);
 
             Scale.Pointers = pointers;
 
