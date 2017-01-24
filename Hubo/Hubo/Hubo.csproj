@@ -42,6 +42,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DatabaseModels\AmendmentTable.cs" />
     <Compile Include="DatabaseModels\BreakTable.cs" />
+    <Compile Include="DatabaseModels\CompanyTable.cs" />
     <Compile Include="DatabaseModels\NoteTable.cs" />
     <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\TipTable.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Models\BottomBarPage.cs" />
     <Compile Include="Models\BottomBarPageExtensions.cs" />
     <Compile Include="Models\Geolocation.cs" />
+    <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\ExportNote.cs" />
     <Compile Include="Models\ExportBreak.cs" />

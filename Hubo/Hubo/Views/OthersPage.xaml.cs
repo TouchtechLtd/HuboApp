@@ -48,14 +48,14 @@ namespace Hubo
             }
             else if (menu.TargetType == "SignOut")
             {
-                await DisplayAlert("Logout Error", "Unable to logout at this time", "OK");
-                //bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
-                //if (result)
-                //{
-                //    DatabaseService dbService = new DatabaseService();
-                //    dbService.Logout();
-                //    Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
-                //}
+                //await DisplayAlert("Logout Error", "Unable to logout at this time", "OK");
+                bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
+                if (result)
+                {
+                    DatabaseService dbService = new DatabaseService();
+                    dbService.Logout();
+                    Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
+                }
             }
         }
     }

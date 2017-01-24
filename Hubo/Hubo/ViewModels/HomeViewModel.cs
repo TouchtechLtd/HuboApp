@@ -290,7 +290,7 @@ namespace Hubo
                 {
                     if (!DbService.VehicleActive())
                     {
-                        if (DbService.StopShift())
+                        if (await DbService.StopShift())
                         {
                             await Navigation.PushModalAsync(new NZTAMessagePage(2));
                             ShowStartShiftXAML();
@@ -299,12 +299,12 @@ namespace Hubo
                     else
                     {
                         await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
-                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", (sender) =>
+                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
                         {
                             if (sender == "Success")
                             {
-                                DbService.StopShift();
-                                Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                await DbService.StopShift();
+                                await Navigation.PushModalAsync(new NZTAMessagePage(2));
                                 ShowStartShiftXAML();
                                 OnPropertyChanged("StartShiftVisibility");
                                 OnPropertyChanged("ShiftStarted");

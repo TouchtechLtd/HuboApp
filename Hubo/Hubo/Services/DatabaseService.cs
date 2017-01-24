@@ -12,6 +12,7 @@ namespace Hubo
     public class DatabaseService
     {
         public SQLiteConnection db;
+        RestService RestAPI;
 
         public DatabaseService()
         {
@@ -24,6 +25,7 @@ namespace Hubo
             db.CreateTable<VehicleInUseTable>();
             db.CreateTable<AmendmentTable>();
             db.CreateTable<TipTable>();
+            db.CreateTable<CompanyTable>();
         }
 
         public void CheckShifts()
@@ -31,7 +33,7 @@ namespace Hubo
             List<ShiftTable> shifts = new List<ShiftTable>();
             shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
             foreach (ShiftTable item in shifts)
-            Application.Current.MainPage.DisplayAlert("Check Shifts", item.ActiveShift.ToString(), "OK");
+                Application.Current.MainPage.DisplayAlert("Check Shifts", item.ActiveShift.ToString(), "OK");
         }
 
         public void IncrementDates()
@@ -121,6 +123,18 @@ namespace Hubo
                 return true;
             }
             return false;
+        }
+
+        internal void InsertUserVehicles(VehicleTable vehicle)
+        {
+            db.Query<VehicleTable>("DELETE FROM [VehicleTable]");
+            db.Insert(vehicle);
+        }
+
+        internal void InsertUserComapany(CompanyTable company)
+        {
+            db.Query<CompanyTable>("DELETE FROM [CompanyTable]");
+            db.Insert(company);
         }
 
         internal double TotalBeforeBreak()
@@ -669,11 +683,22 @@ namespace Hubo
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
-            var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+
             Geolocation results = new Geolocation();
-            results.Longitude = position.Longitude;
-            results.Latitude = position.Latitude;
-            return results;
+
+            try
+            {
+                var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+
+                results.Longitude = position.Longitude;
+                results.Latitude = position.Latitude;
+                return results;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, e.ToString(), Resource.DisplayAlertOkay);
+                return results;
+            }
         }
 
         internal List<string> GetChecklist()
@@ -719,12 +744,28 @@ namespace Hubo
             db.Query<UserTable>("DELETE FROM [UserTable]");
         }
 
-        internal void StartShift()
+        internal async void StartShift()
         {
             ShiftTable newShift = new ShiftTable();
             newShift.ActiveShift = 1;
             newShift.StartTime = DateTime.Now.ToString();
             db.Insert(newShift);
+
+            List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if (CheckActiveShiftIsCorrect(activeShifts))
+            {
+
+                ShiftTable shift = activeShifts[0];
+
+                Geolocation location = new Geolocation();
+                location = await GetLatAndLong();
+
+                RestAPI = new RestService();
+                var result = await RestAPI.QueryShift(shift, false, location);
+
+                shift.ServerKey = result;
+                db.Update(shift);
+            }
         }
 
         internal ShiftTable GetCurrentShift()
@@ -739,7 +780,7 @@ namespace Hubo
             return null;
         }
 
-        internal bool StopShift()
+        internal async Task<bool> StopShift()
         {
             //Get current shift
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -749,13 +790,20 @@ namespace Hubo
                 List<VehicleInUseTable> listOfUsedVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] == " + activeShifts[0].Key + "");
                 if (listOfUsedVehicles.Count == 0)
                 {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
                     return false;
                 }
                 ShiftTable activeShift = activeShifts[0];
                 activeShift.EndTime = DateTime.Now.ToString();
                 activeShift.ActiveShift = 0;
                 db.Update(activeShift);
+
+                Geolocation location = new Geolocation();
+                location = await GetLatAndLong();
+
+                RestAPI = new RestService();
+                var result = await RestAPI.QueryShift(activeShift, true, location);
+
                 return true;
             }
             return false;
@@ -1067,7 +1115,7 @@ namespace Hubo
                         exportData.huboStart = vehicleInUseData.HuboStart.ToString();
                         exportData.huboEnd = vehicleInUseData.HuboEnd.ToString();
                         exportData.startLocation = locationStartNotesList[0].Location;
-                        if(locationEndNotesList.Count!=0)
+                        if (locationEndNotesList.Count != 0)
                         {
                             exportData.endLocation = locationEndNotesList[0].Location;
                         }

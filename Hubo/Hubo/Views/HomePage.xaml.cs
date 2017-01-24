@@ -64,7 +64,7 @@ namespace Hubo
             Scale.EndValue = 14;
             Scale.LabelColor = Color.Gray;
             Scale.MinorTicksPerInterval = 13;
-            Scale.LabelOffset = -0.27;
+            Scale.LabelOffset = -0.45;
             Scale.LabelFontSize = 24;
 
             TickSettings major = new TickSettings();

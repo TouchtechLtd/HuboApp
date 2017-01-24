@@ -158,6 +158,7 @@ namespace Hubo
             if (await RestAPI.QueryAddVehicle(VehicleToAdd))
             {
                 DbService.InsertVehicle(VehicleToAdd);
+                GetVehicles();
                 await Navigation.PopAsync();
             }
         }

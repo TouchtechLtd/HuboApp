@@ -48,6 +48,8 @@ namespace Hubo
 
         UserTable user;
 
+        CompanyTable company;
+
         public ProfileViewModel()
         {
             SaveAndExit = new Command(SaveAndPop);
@@ -71,6 +73,7 @@ namespace Hubo
 
             dbService = new DatabaseService();
             user = new UserTable();
+            company = new CompanyTable();
             user = dbService.GetUserInfo();
             FirstName = user.FirstName;
             LastName = user.LastName;
@@ -78,9 +81,9 @@ namespace Hubo
             LicenseNumber = user.License;
             LicenseVersion = user.LicenseVersion;
             Endorsements = user.Endorsements;
-            Name = user.CompanyName;
+            Name = company.Name;
             Address = user.Address;
-            CompanyEmail = user.CompanyEmail;
+            CompanyEmail = user.Email;
             Phone = user.Phone;
             OnPropertyChanged("FirstName");
             OnPropertyChanged("LastName");
@@ -108,9 +111,9 @@ namespace Hubo
             user.License = LicenseNumber.Trim();
             user.LicenseVersion = LicenseVersion.Trim();
             user.Endorsements = Endorsements.Trim();
-            user.CompanyName = Name.Trim();
+            company.Name = Name.Trim();
             user.Address = Address.Trim();
-            user.CompanyEmail = CompanyEmail.Trim();
+            user.Email = CompanyEmail.Trim();
             user.Phone = Phone.Trim();
             restService = new RestService();
             restService.QueryUpdateUserInfo(user);

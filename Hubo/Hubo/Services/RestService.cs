@@ -14,7 +14,7 @@ namespace Hubo
     class RestService
     {
         HttpClient client;
-        DatabaseService db = new DatabaseService();
+        DatabaseService db;
 
         public RestService()
         {
@@ -30,8 +30,10 @@ namespace Hubo
                 string contentType = Constants.CONTENT_TYPE;
 
                 dynamic loginModel = new ExpandoObject();
-                loginModel.usernameOrEmailAddress = username;
-                loginModel.password = password;
+                //loginModel.usernameOrEmailAddress = username;
+                //loginModel.password = password;
+                loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
+                loginModel.password = "BaliRadiance92";
 
                 string json = JsonConvert.SerializeObject(loginModel);
 
@@ -44,25 +46,18 @@ namespace Hubo
                     UserResponse result = new UserResponse();
                     result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
 
-                    result.Success = true;
-
                     if (result.Success)
                     {
-                        UserTable user = new UserTable();
-                        user.User = username;
-                        user.FirstName = "Ben";
-                        user.LastName = "Suarez-Brodie";
-                        user.Email = "ben@triotech.co.nz";
-                        user.License = "DJ89473KL";
-                        user.LicenseVersion = "158";
-                        user.Endorsements = "F";
-                        user.CompanyName = "Trio Technology";
-                        user.Address = "41 The Square, Palmerston North";
-                        user.CompanyEmail = "nick@triotech.co.nz";
-                        user.Phone = "0278851100";
-                        user.Token = result.Result;
-                        db.InsertUser(user);
-                        return true;
+                        //UserTable user = new UserTable();
+                        //user.User = username;
+                        //user.Token = result.Result;
+                        if (await GetUser(loginModel.usernameOrEmailAddress))
+                            return true;
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user details", Resource.DisplayAlertOkay);
+                            return false;
+                        }
                     }
                     else
                     {
@@ -79,9 +74,63 @@ namespace Hubo
             }
         }
 
+        private async Task<bool> GetUser(string userName)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
+            string contentType = Constants.CONTENT_TYPE;
+
+            LoginResponse login = new LoginResponse();
+
+            if (userName == null)
+                return false;
+
+            dynamic userModel = new ExpandoObject();
+            userModel.userName = userName;
+
+            string json = JsonConvert.SerializeObject(userModel);
+
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                LoginResponse userDetails = new LoginResponse();
+                userDetails = JsonConvert.DeserializeObject<LoginResponse>(response.Content.ReadAsStringAsync().Result);
+
+                UserTable user = new UserTable();
+                CompanyTable userCompany = new CompanyTable();
+                VehicleTable userVehicles = new VehicleTable();
+
+                user.Id = Int32.Parse(userDetails.UserId.ToString());
+                user.FirstName = userDetails.DriverFirstName;
+                user.LastName = userDetails.DriverSurname;
+                user.License = userDetails.LicenceNo;
+                user.LicenseVersion = userDetails.LicenceVersion.ToString();
+                user.Phone = userDetails.MobilePh.ToString();
+
+                foreach (CompanyAndVehicles companyItem in userDetails.CompaniesAndVehicle)
+                {
+                    companyItem.Company.DriverId = user.Id;
+                    db.InsertUserComapany(companyItem.Company);
+
+                    foreach (VehicleTable vehicleItem in companyItem.Vehicles)
+                    {
+                        db.InsertUserVehicles(vehicleItem);
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private string GetBaseUrl()
         {
-            return "http://test.triotech.co.nz/huboserver/api";
+            return "http://test.triotech.co.nz/huboportal/api";
         }
 
         internal void QueryUpdateUserInfo(UserTable user)
@@ -89,6 +138,7 @@ namespace Hubo
             //TODO: Code to communicate with server to update user info
             db.UpdateUserInfo(user);
         }
+
         internal async Task<bool> QueryAddVehicle(VehicleTable vehicle)
         {
             using (var client = new HttpClient())
@@ -96,7 +146,15 @@ namespace Hubo
                 string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
                 string contentType = Constants.CONTENT_TYPE;
 
-                string json = JsonConvert.SerializeObject(vehicle);
+                dynamic vehicleModel = new ExpandoObject();
+                vehicleModel.registrationNo = vehicle.Registration;
+                vehicleModel.make = vehicle.Make;
+                vehicleModel.model = vehicle.Model;
+                vehicleModel.startingOdometer = vehicle.StartingOdometer;
+                vehicleModel.currentOdometer = vehicle.StartingOdometer;
+                vehicleModel.companyId = 1;
+
+                string json = JsonConvert.SerializeObject(vehicleModel);
                 HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
                 var response = await client.PostAsync(url, content);
@@ -123,5 +181,61 @@ namespace Hubo
             }
         }
 
+        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, Geolocation location)
+        {
+            using (var client = new HttpClient())
+            {
+                string contentType = Constants.CONTENT_TYPE;
+                string url;
+
+                dynamic shiftModel = new ExpandoObject();
+
+                if (shiftStarted)
+                {
+                    url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
+
+                    shiftModel.id = shift.ServerKey;
+                    shiftModel.endDateTime = DateTime.Now;
+                    shiftModel.start_location_lat = location.Latitude;
+                    shiftModel.start_location_long = location.Longitude;
+                }
+                else
+                {
+                    url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTSTART;
+
+                    shiftModel.companyID = 1;
+                    shiftModel.driverId = 1;
+                    shiftModel.vehicleId = 1;
+                    shiftModel.startDateTime = DateTime.Now;
+                    shiftModel.start_location_lat = location.Latitude;
+                    shiftModel.start_location_long = location.Longitude;
+                }
+
+                string json = JsonConvert.SerializeObject(shiftModel);
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    int result;
+                    result = JsonConvert.DeserializeObject<int>(response.Content.ReadAsStringAsync().Result);
+                    if (result > 0)
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
+                        return -2;
+                    }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "There was an error communicating with the server", Resource.DisplayAlertOkay);
+                    return -2;
+                }
+            }
+        }
     }
 }

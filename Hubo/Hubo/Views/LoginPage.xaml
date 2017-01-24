@@ -23,7 +23,7 @@
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <local:BaseEntry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username" AutomationId="Username"/>
-      <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password"/>
+      <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password" IsPassword="true"/>
       <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" AutomationId="LoginButton"/>
     </Grid>
   </ScrollView>
