@@ -33,7 +33,7 @@ namespace Hubo
                 //loginModel.usernameOrEmailAddress = username;
                 //loginModel.password = password;
                 loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
-                loginModel.password = "BaliRadiance92";
+                loginModel.password = "tazmania";
 
                 string json = JsonConvert.SerializeObject(loginModel);
 
@@ -51,13 +51,27 @@ namespace Hubo
                         //UserTable user = new UserTable();
                         //user.User = username;
                         //user.Token = result.Result;
-                        if (await GetUser(loginModel.usernameOrEmailAddress))
-                            return true;
-                        else
-                        {
-                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user details", Resource.DisplayAlertOkay);
-                            return false;
-                        }
+                        //if (await GetUser(loginModel.usernameOrEmailAddress))
+                        //    return true;
+                        //else
+                        //{
+                        //    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user details", Resource.DisplayAlertOkay);
+                        //    return false;
+                        //}
+                        UserTable newUser = new UserTable();
+                        newUser.Address = "dfsdfa";
+                        newUser.CompanyId = 1;
+                        newUser.DriverId = 1;
+                        newUser.Email = "ben@triotech.co.nz";
+                        newUser.Endorsements = "3";
+                        newUser.FirstName = "Ben";
+                        newUser.LastName = "Suarez-Brodie";
+                        newUser.Token = result.Result;
+                        newUser.Phone = "0278851100";
+                        newUser.LicenseVersion = "2";
+                        newUser.License = "DJK432";
+                        db.InsertUser(newUser);
+                        return true;
                     }
                     else
                     {
@@ -181,7 +195,7 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, Geolocation location)
+        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, NoteTable note)
         {
             using (var client = new HttpClient())
             {
@@ -189,6 +203,8 @@ namespace Hubo
                 string url;
 
                 dynamic shiftModel = new ExpandoObject();
+                dynamic shiftExpando = new ExpandoObject();
+                dynamic noteExpando = new ExpandoObject();
 
                 if (shiftStarted)
                 {
@@ -196,19 +212,22 @@ namespace Hubo
 
                     shiftModel.id = shift.ServerKey;
                     shiftModel.endDateTime = DateTime.Now;
-                    shiftModel.start_location_lat = location.Latitude;
-                    shiftModel.start_location_long = location.Longitude;
                 }
                 else
                 {
                     url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTSTART;
 
-                    shiftModel.companyID = 1;
-                    shiftModel.driverId = 1;
-                    shiftModel.vehicleId = 1;
-                    shiftModel.startDateTime = DateTime.Now;
-                    shiftModel.start_location_lat = location.Latitude;
-                    shiftModel.start_location_long = location.Longitude;
+                    shiftExpando.driverId = 1;
+                    shiftExpando.vehicleId = 1;
+
+                    noteExpando.noteText = note.Note;
+                    noteExpando.date = note.Date;
+                    noteExpando.hubo = note.Hubo;
+                    noteExpando.latitude = note.Latitude;
+                    noteExpando.longitude = note.Longitude;
+
+                    shiftModel.shift = shiftExpando;
+                    shiftModel.note = noteExpando;
                 }
 
                 string json = JsonConvert.SerializeObject(shiftModel);

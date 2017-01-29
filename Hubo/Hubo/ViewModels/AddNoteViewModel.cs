@@ -88,9 +88,24 @@ namespace Hubo
                 CancelCommand = new Command(Cancel);
                 SaveCommand = new Command(SaveNoteFromVehicle);
             }
+
+            else if(instruction==5)
+            {
+                SaveCommand = new Command(SaveNoteStartShift);
+                CancelCommand = new Command(Cancel);
+                HuboLabel = Resource.Hubo;
+
+            }
+
+
             OnPropertyChanged("SaveCommand");
             OnPropertyChanged("CancelCommand");
             OnPropertyChanged("HuboLabel");
+        }
+
+        private void SaveNoteStartShift()
+        {
+            DbService.StartShift(Note,Date,Location,Int32.Parse(HuboEntry));
         }
 
         private void SaveNoteFromVehicle()

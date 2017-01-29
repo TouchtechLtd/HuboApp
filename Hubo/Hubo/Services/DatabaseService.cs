@@ -36,47 +36,47 @@ namespace Hubo
                 Application.Current.MainPage.DisplayAlert("Check Shifts", item.ActiveShift.ToString(), "OK");
         }
 
-        public void IncrementDates()
-        {
-            List<ShiftTable> shifts = new List<ShiftTable>();
-            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
-            foreach (ShiftTable shift in shifts)
-            {
-                List<BreakTable> breaks = new List<BreakTable>();
-                breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + shift.Key + "");
-                foreach (BreakTable breakItem in breaks)
-                {
-                    DateTime start = new DateTime();
-                    DateTime end = new DateTime();
-                    start = DateTime.Parse(breakItem.StartTime);
-                    end = DateTime.Parse(breakItem.EndTime);
-                    start = start.AddDays(1);
-                    end = end.AddDays(1);
-                    breakItem.StartTime = start.ToString();
-                    breakItem.EndTime = end.ToString();
-                    db.Update(breakItem);
-                }
-                List<NoteTable> notes = new List<NoteTable>();
-                notes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] == " + shift.Key + "");
-                foreach (NoteTable note in notes)
-                {
-                    DateTime date = new DateTime();
-                    date = DateTime.Parse(note.Date);
-                    date = date.AddDays(1);
-                    note.Date = date.ToString();
-                    db.Update(note);
-                }
-                DateTime startShift = new DateTime();
-                DateTime endShift = new DateTime();
-                startShift = DateTime.Parse(shift.StartTime);
-                endShift = DateTime.Parse(shift.EndTime);
-                startShift = startShift.AddDays(1);
-                endShift = endShift.AddDays(1);
-                shift.StartTime = startShift.ToString();
-                shift.EndTime = endShift.ToString();
-                db.Update(shift);
-            }
-        }
+        //public void IncrementDates()
+        //{
+        //    List<ShiftTable> shifts = new List<ShiftTable>();
+        //    shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+        //    foreach (ShiftTable shift in shifts)
+        //    {
+        //        List<BreakTable> breaks = new List<BreakTable>();
+        //        breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + shift.Key + "");
+        //        foreach (BreakTable breakItem in breaks)
+        //        {
+        //            DateTime start = new DateTime();
+        //            DateTime end = new DateTime();
+        //            start = DateTime.Parse(breakItem.StartTime);
+        //            end = DateTime.Parse(breakItem.EndTime);
+        //            start = start.AddDays(1);
+        //            end = end.AddDays(1);
+        //            breakItem.StartTime = start.ToString();
+        //            breakItem.EndTime = end.ToString();
+        //            db.Update(breakItem);
+        //        }
+        //        List<NoteTable> notes = new List<NoteTable>();
+        //        notes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] == " + shift.Key + "");
+        //        foreach (NoteTable note in notes)
+        //        {
+        //            DateTime date = new DateTime();
+        //            date = DateTime.Parse(note.Date);
+        //            date = date.AddDays(1);
+        //            note.Date = date.ToString();
+        //            db.Update(note);
+        //        }
+        //        DateTime startShift = new DateTime();
+        //        DateTime endShift = new DateTime();
+        //        startShift = DateTime.Parse(shift.StartTime);
+        //        endShift = DateTime.Parse(shift.EndTime);
+        //        startShift = startShift.AddDays(1);
+        //        endShift = endShift.AddDays(1);
+        //        shift.StartTime = startShift.ToString();
+        //        shift.EndTime = endShift.ToString();
+        //        db.Update(shift);
+        //    }
+        //}
 
         internal void InsertUser(UserTable user)
         {
@@ -145,36 +145,46 @@ namespace Hubo
             listOfShiftsForAmount = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY Key DESC LIMIT 20");
             for (int i = 1; i < listOfShiftsForAmount.Count; i++)
             {
+                NoteTable currentStartNote = db.Get<NoteTable>(listOfShiftsForAmount[i].StartShiftNoteId);
+                NoteTable currentEndNote = db.Get<NoteTable>(listOfShiftsForAmount[i].StopShiftNoteId);
+
+                NoteTable previousStartNote = db.Get<NoteTable>(listOfShiftsForAmount[i-1].StartShiftNoteId);
+                NoteTable previousEndNote = db.Get<NoteTable>(listOfShiftsForAmount[i-1].StopShiftNoteId);
+
+
                 DateTime previous = new DateTime();
                 DateTime current = new DateTime();
 
-                previous = DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime);
-                current = DateTime.Parse(listOfShiftsForAmount[i].EndTime);
+                //previous = DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime);
+                //current = DateTime.Parse(listOfShiftsForAmount[i].EndTime);
+
+                previous = DateTime.Parse(previousStartNote.Date);
+                current = DateTime.Parse(currentEndNote.Date);
 
                 TimeSpan difference = new TimeSpan();
                 difference = previous - current;
                 if (difference.TotalHours > 24)
                 {
-                    if (listOfShiftsForAmount[i - 1].EndTime == null)
+                    if (previousEndNote.Date == null)
                     {
-                        totalHours = (DateTime.Now.TimeOfDay - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime).TimeOfDay).TotalHours + totalHours;
+                        totalHours = (DateTime.Now.TimeOfDay - DateTime.Parse(previousStartNote.Date).TimeOfDay).TotalHours + totalHours;
                     }
                     else
                     {
-                        totalHours = (DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime).TimeOfDay - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime).TimeOfDay).TotalHours + totalHours;
+                        totalHours = (DateTime.Parse(previousEndNote.Date).TimeOfDay - DateTime.Parse(previousStartNote.Date).TimeOfDay).TotalHours + totalHours;
                     }
                     return totalHours;
                 }
                 else
                 {
                     TimeSpan amountOfTime = new TimeSpan();
-                    if (listOfShiftsForAmount[i - 1].EndTime == null)
+                    if (previousEndNote.Date == null)
                     {
-                        amountOfTime = DateTime.Now - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime);
+                        amountOfTime = DateTime.Now - DateTime.Parse(previousStartNote.Date);
                     }
                     else
                     {
-                        amountOfTime = DateTime.Parse(listOfShiftsForAmount[i - 1].EndTime) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartTime);
+                        amountOfTime = DateTime.Parse(previousEndNote.Date) - DateTime.Parse(previousStartNote.Date);
                     }
                     totalHours = totalHours + amountOfTime.TotalHours;
                 }
@@ -215,33 +225,37 @@ namespace Hubo
         internal int HoursTillReset()
         {
             //TODO: Code to retrieve time since last shift (Once it hits 24 hours, 70 hour a week will reset
-            List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
-            ShiftTable lastShift = new ShiftTable();
-            if (listOfShifts.Count == 0)
-            {
-                return -1;
-            }
-            lastShift = listOfShifts[0];
-            DateTime dateNow = new DateTime();
-            DateTime dateOnLastShift = new DateTime();
-            dateNow = DateTime.Now;
-            string dateLastShiftString = lastShift.EndTime;
-            if (dateLastShiftString == null)
-            {
-                //Shift is still occuring, thus 0
-                return 0;
-            }
-            dateOnLastShift = DateTime.Parse(dateLastShiftString);
-            TimeSpan time = new TimeSpan();
-            time = dateNow - dateOnLastShift;
-            if (time.TotalDays >= 1)
-            {
-                //Have rested for longer/as long as 24 hours
-                return -2;
-            }
-            int timeSinceReset = Int32.Parse(time.ToString().Remove(2));
-            return timeSinceReset;
+            //List<ShiftTable> listOfShifts = new List<ShiftTable>();
+            //listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
+            //ShiftTable lastShift = new ShiftTable();
+            //if (listOfShifts.Count == 0)
+            //{
+            //    return -1;
+            //}
+            //lastShift = listOfShifts[0];
+            //DateTime dateNow = new DateTime();
+            //DateTime dateOnLastShift = new DateTime();
+            //dateNow = DateTime.Now;
+
+            //NoteTable shiftNote = db.Get<NoteTable>(lastShift.StopShiftNoteId);
+
+            //string dateLastShiftString = shiftNote.Date;
+            //if (dateLastShiftString == null)
+            //{
+            //    //Shift is still occuring, thus 0
+            //    return 0;
+            //}
+            //dateOnLastShift = DateTime.Parse(dateLastShiftString);
+            //TimeSpan time = new TimeSpan();
+            //time = dateNow - dateOnLastShift;
+            //if (time.TotalDays >= 1)
+            //{
+            //    //Have rested for longer/as long as 24 hours
+            //    return -2;
+            //}
+            //int timeSinceReset = Int32.Parse(time.ToString().Remove(2));
+            //return timeSinceReset;
+            return 20;
         }
 
         internal List<VehicleInUseTable> GetUsedVehicles(ShiftTable currentShift)
@@ -744,11 +758,17 @@ namespace Hubo
             db.Query<UserTable>("DELETE FROM [UserTable]");
         }
 
-        internal async void StartShift()
+        internal async void StartShift(string note, DateTime date, string location, int hubo)
         {
             ShiftTable newShift = new ShiftTable();
+
+            NoteTable newNote = new NoteTable();
+            newNote.Date = date.ToString();
+            newNote.Hubo = hubo;
+            newNote.Note = note;
+            newNote.StandAloneNote = false;
+
             newShift.ActiveShift = 1;
-            newShift.StartTime = DateTime.Now.ToString();
             db.Insert(newShift);
 
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -757,11 +777,15 @@ namespace Hubo
 
                 ShiftTable shift = activeShifts[0];
 
-                Geolocation location = new Geolocation();
-                location = await GetLatAndLong();
+                Geolocation geoLocation = new Geolocation();
+                geoLocation = await GetLatAndLong();
+                newNote.ShiftKey = shift.Key;
+                newNote.Latitude = geoLocation.Latitude;
+                newNote.Longitude = geoLocation.Longitude;
+
 
                 RestAPI = new RestService();
-                var result = await RestAPI.QueryShift(shift, false, location);
+                var result = await RestAPI.QueryShift(shift, false, newNote);
 
                 shift.ServerKey = result;
                 db.Update(shift);
@@ -794,7 +818,6 @@ namespace Hubo
                     return false;
                 }
                 ShiftTable activeShift = activeShifts[0];
-                activeShift.EndTime = DateTime.Now.ToString();
                 activeShift.ActiveShift = 0;
                 db.Update(activeShift);
 
@@ -802,7 +825,8 @@ namespace Hubo
                 location = await GetLatAndLong();
 
                 RestAPI = new RestService();
-                var result = await RestAPI.QueryShift(activeShift, true, location);
+                NoteTable newNote = new NoteTable();
+                var result = await RestAPI.QueryShift(activeShift, true, newNote);
 
                 return true;
             }
@@ -844,8 +868,6 @@ namespace Hubo
             NoteTable noteTableEnd = new NoteTable();
 
             shiftTable.ActiveShift = 0;
-            shiftTable.StartTime = startDate.ToString();
-            shiftTable.EndTime = endDate.ToString();
             db.Insert(shiftTable);
 
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [Key] DESC LIMIT 1");
@@ -864,15 +886,22 @@ namespace Hubo
             noteTableStart.Hubo = int.Parse(huboStart);
             noteTableStart.Location = locationStart;
             noteTableStart.StandAloneNote = false;
+            db.Insert(noteTableStart);
+
+            List<NoteTable> startNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1");
+            shiftKey.StartShiftNoteId = startNoteList[0].Key;
 
             noteTableEnd.Note = "End Shift";
             noteTableEnd.Date = endDate.ToString();
             noteTableEnd.Hubo = int.Parse(huboEnd);
             noteTableEnd.Location = locationEnd;
             noteTableEnd.StandAloneNote = false;
-
-            db.Insert(noteTableStart);
             db.Insert(noteTableEnd);
+
+            List<NoteTable> EndNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1");
+            shiftKey.StartShiftNoteId = startNoteList[0].Key;
+
+            db.Update(shiftKey);
 
             List<NoteTable> currentNoteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 2");
             if (currentNoteList.Count < 2 && currentNoteList.Count > 2)
@@ -993,8 +1022,6 @@ namespace Hubo
             foreach (ShiftTable shiftData in shiftList)
             {
                 exportData.shiftCode = shiftData.Key.ToString();
-                exportData.shiftStart = shiftData.StartTime;
-                exportData.shiftEnd = shiftData.EndTime;
                 exportData.activeShift = shiftData.ActiveShift.ToString();
 
                 exportList.Add(exportData);

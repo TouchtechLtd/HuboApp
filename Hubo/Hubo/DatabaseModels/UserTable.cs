@@ -25,8 +25,7 @@ namespace Hubo
         public string Phone { get; set; }
         public int CompanyId { get; set; }
         public string Token { get; set; }
-
-
+        public int DriverId { get; set; }
 
     }
 }

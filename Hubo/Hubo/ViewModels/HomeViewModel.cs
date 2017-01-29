@@ -279,8 +279,20 @@ namespace Hubo
             {
                 if (await StartShift())
                 {
-                    ShowEndShiftXAML();
-                    DbService.StartShift();
+                    await Navigation.PushModalAsync(new AddNotePage(2));
+                    MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", (sender) =>
+                    {
+                        if (sender == "Success")
+                        {
+                            ShowEndShiftXAML();
+
+                        }
+                    });
+
+
+
+                    
+
                 }
 
             }
@@ -292,8 +304,16 @@ namespace Hubo
                     {
                         if (await DbService.StopShift())
                         {
-                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                            ShowStartShiftXAML();
+
+                            MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (sender) =>
+                            {
+                                if(sender == "Success")
+                                {
+                                    await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                    ShowStartShiftXAML();
+                                }
+                            });
+
                         }
                     }
                     else
