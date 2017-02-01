@@ -15,12 +15,12 @@
         <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
       </Style>
       <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{StaticResource entryTextColour}" />
+        <Setter Property="TextColor"  Value="{StaticResource entryTextColour}" />
         <!--<Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />-->
         <Setter Property="FontFamily" Value="ComicSans" />
       </Style>
       <Style TargetType="Button">
-        <Setter Property="TextColor"  Value="{StaticResource buttonTextColour}" />
+        <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
         <Setter Property="BackgroundColor"  Value="{StaticResource buttonBackgroundColour}" />
       </Style>
       <Style TargetType="Label">

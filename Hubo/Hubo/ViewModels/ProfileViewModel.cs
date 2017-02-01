@@ -46,6 +46,20 @@ namespace Hubo
 
         RestService restService;
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
+            }
+        }
+
         UserTable user;
 
         CompanyTable company;
@@ -102,7 +116,7 @@ namespace Hubo
             Navigation.PopModalAsync();
         }
 
-        private void SaveAndPop(object obj)
+        private async void SaveAndPop(object obj)
         {
             user = new UserTable();
             user.FirstName = FirstName.Trim();
@@ -115,9 +129,18 @@ namespace Hubo
             user.Address = Address.Trim();
             user.Email = CompanyEmail.Trim();
             user.Phone = Phone.Trim();
+
             restService = new RestService();
-            restService.QueryUpdateUserInfo(user);
-            Navigation.PopModalAsync();
+            IsBusy = true;
+            if (await restService.QueryUpdateUserInfo(user))
+            {
+                IsBusy = false;
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                IsBusy = false;
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

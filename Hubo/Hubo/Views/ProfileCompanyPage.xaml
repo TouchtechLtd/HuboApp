@@ -29,6 +29,9 @@
 
       <Label Text="{Binding PhoneText}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center" />
       <local:BaseEntry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="3" VerticalOptions="Center" Placeholder="Phone"/>
+      
+      <ActivityIndicator BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="4"/>
+      <Label Text="Updating User..." TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="4"/>
 
     </Grid>
   </ScrollView>

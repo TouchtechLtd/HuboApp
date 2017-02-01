@@ -29,7 +29,7 @@ namespace Hubo
                 string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
                 string contentType = Constants.CONTENT_TYPE;
 
-                dynamic loginModel = new ExpandoObject();
+                LoginRequestModel loginModel = new LoginRequestModel();
                 //loginModel.usernameOrEmailAddress = username;
                 //loginModel.password = password;
                 loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
@@ -51,12 +51,24 @@ namespace Hubo
                         //UserTable user = new UserTable();
                         //user.User = username;
                         //user.Token = result.Result;
-                        //if (await GetUser(loginModel.usernameOrEmailAddress))
-                        //    return true;
-                        //else
+
+                        //int totalDetails = await GetUser("result.Id");
+                        //switch (totalDetails)
                         //{
-                        //    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user details", Resource.DisplayAlertOkay);
-                        //    return false;
+                        //    case -2:
+                        //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Invalid User Details", Resource.DisplayAlertOkay);
+                        //        return false;
+                        //    case -1:
+                        //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user, company and vehicle details", Resource.DisplayAlertOkay);
+                        //        return false;
+                        //    case 1:
+                        //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all vehicle details", Resource.DisplayAlertOkay);
+                        //        return false;
+                        //    case 2:
+                        //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all company and vehicle details", Resource.DisplayAlertOkay);
+                        //        return false;
+                        //    case 3:
+                        //        return true;
                         //}
                         UserTable newUser = new UserTable();
                         newUser.Address = "dfsdfa";
@@ -88,57 +100,115 @@ namespace Hubo
             }
         }
 
-        private async Task<bool> GetUser(string userName)
+        internal Task<bool> ImportTips()
         {
-            string url = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
+            throw new NotImplementedException();
+        }
+
+        internal Task<bool> ImportLoadText()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<int> GetUser(int id)
+        {
+            string urlUser = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
+            string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
+            string urlVehicle = GetBaseUrl() + Constants.REST_URL_GETVEHICLEDETAILS;
             string contentType = Constants.CONTENT_TYPE;
 
-            LoginResponse login = new LoginResponse();
+            if (id < 0)
+                return -2;
 
-            if (userName == null)
-                return false;
+            UserRequestModel userModel = new UserRequestModel();
+            userModel.id = id;
 
-            dynamic userModel = new ExpandoObject();
-            userModel.userName = userName;
+            string userJson = JsonConvert.SerializeObject(userModel);
 
-            string json = JsonConvert.SerializeObject(userModel);
+            HttpContent userContent = new StringContent(userJson, Encoding.UTF8, contentType);
 
-            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+            var userResponse = await client.PostAsync(urlUser, userContent);
 
-            var response = await client.PostAsync(url, content);
-
-            if (response.IsSuccessStatusCode)
+            if (userResponse.IsSuccessStatusCode)
             {
-                LoginResponse userDetails = new LoginResponse();
-                userDetails = JsonConvert.DeserializeObject<LoginResponse>(response.Content.ReadAsStringAsync().Result);
+                LoginUserResponse userDetails = new LoginUserResponse();
+                userDetails = JsonConvert.DeserializeObject<LoginUserResponse>(userResponse.Content.ReadAsStringAsync().Result);
 
                 UserTable user = new UserTable();
                 CompanyTable userCompany = new CompanyTable();
                 VehicleTable userVehicles = new VehicleTable();
 
-                user.Id = Int32.Parse(userDetails.UserId.ToString());
+                CompanyDetailModel companyModel = new CompanyDetailModel();
+
+                user.Id = userDetails.DriverId;
                 user.FirstName = userDetails.DriverFirstName;
                 user.LastName = userDetails.DriverSurname;
                 user.License = userDetails.LicenceNo;
                 user.LicenseVersion = userDetails.LicenceVersion.ToString();
                 user.Phone = userDetails.MobilePh.ToString();
+                db.InsertUser(user);
 
-                foreach (CompanyAndVehicles companyItem in userDetails.CompaniesAndVehicle)
+                companyModel.id = user.Id;
+
+                string companyJson = JsonConvert.SerializeObject(companyModel);
+                HttpContent companyContent = new StringContent(companyJson, Encoding.UTF8, contentType);
+                var companyResponse = await client.PostAsync(urlCompany, companyContent);
+
+                if (companyResponse.IsSuccessStatusCode)
                 {
-                    companyItem.Company.DriverId = user.Id;
-                    db.InsertUserComapany(companyItem.Company);
+                    LoginCompanyResponse companyDetails = new LoginCompanyResponse();
+                    companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
 
-                    foreach (VehicleTable vehicleItem in companyItem.Vehicles)
+                    VehicleDetailModel vehicleModel = new VehicleDetailModel();
+
+                    foreach (CompanyTable companyItem in companyDetails.Companies)
                     {
-                        db.InsertUserVehicles(vehicleItem);
+                        companyItem.DriverId = companyDetails.DriverId;
+                        db.InsertUserComapany(companyItem);
+
+                        vehicleModel.id = companyItem.Key;
+
+                        string vehicleJson = JsonConvert.SerializeObject(vehicleModel);
+                        HttpContent vehicleContent = new StringContent(vehicleJson, Encoding.UTF8, contentType);
+                        var vehicleResponse = await client.PostAsync(urlVehicle, vehicleContent);
+
+                        if (vehicleResponse.IsSuccessStatusCode)
+                        {
+                            LoginVehicleResponse vehicleDetails = new LoginVehicleResponse();
+                            vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+
+                            foreach (VehicleTable vehicleItem in vehicleDetails.Vehicles)
+                            {
+                                db.InsertUserVehicles(vehicleItem);
+                            }
+                        }
+                        else
+                        {
+                            return 1;
+                        }
                     }
                 }
+                else
+                {
+                    return 2;
+                }
 
-                return true;
+                //foreach (CompanyAndVehicles companyItem in userDetails.CompaniesAndVehicle)
+                //{
+                //    companyItem.Company.DriverId = user.Id;
+                //    db.InsertUserComapany(companyItem.Company);
+
+                //    foreach (VehicleTable vehicleItem in companyItem.Vehicles)
+                //    {
+                //        db.InsertUserVehicles(vehicleItem);
+                //    }
+                //}
+
+                return 3;
             }
             else
             {
-                return false;
+                return -1;
             }
         }
 
@@ -147,10 +217,32 @@ namespace Hubo
             return "http://test.triotech.co.nz/huboportal/api";
         }
 
-        internal void QueryUpdateUserInfo(UserTable user)
+        internal async Task<bool> QueryUpdateUserInfo(UserTable user)
         {
             //TODO: Code to communicate with server to update user info
-            db.UpdateUserInfo(user);
+            using (var client = new HttpClient())
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
+                string contentType = Constants.CONTENT_TYPE;
+
+                dynamic vehicleModel = new ExpandoObject();
+                vehicleModel.registrationNo = user.DriverId;
+
+                string json = JsonConvert.SerializeObject(vehicleModel);
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    db.UpdateUserInfo(user);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         internal async Task<bool> QueryAddVehicle(VehicleTable vehicle)
@@ -160,7 +252,7 @@ namespace Hubo
                 string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
                 string contentType = Constants.CONTENT_TYPE;
 
-                dynamic vehicleModel = new ExpandoObject();
+                VehicleRequestModel vehicleModel = new VehicleRequestModel();
                 vehicleModel.registrationNo = vehicle.Registration;
                 vehicleModel.make = vehicle.Make;
                 vehicleModel.model = vehicle.Model;
@@ -202,16 +294,24 @@ namespace Hubo
                 string contentType = Constants.CONTENT_TYPE;
                 string url;
 
-                dynamic shiftModel = new ExpandoObject();
-                dynamic shiftExpando = new ExpandoObject();
-                dynamic noteExpando = new ExpandoObject();
+                ShiftModel shiftModel = new ShiftModel();
+                ShiftExpando shiftExpando = new ShiftExpando();
+                NoteExpando noteExpando = new NoteExpando();
 
                 if (shiftStarted)
                 {
                     url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
 
-                    shiftModel.id = shift.ServerKey;
-                    shiftModel.endDateTime = DateTime.Now;
+                    shiftExpando.shiftId = 1;
+
+                    noteExpando.noteText = note.Note;
+                    noteExpando.date = note.Date;
+                    noteExpando.hubo = note.Hubo;
+                    noteExpando.latitude = note.Latitude;
+                    noteExpando.longitude = note.Longitude;
+
+                    shiftModel.shift = shiftExpando;
+                    shiftModel.note = noteExpando;
                 }
                 else
                 {

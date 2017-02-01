@@ -148,8 +148,8 @@ namespace Hubo
                 NoteTable currentStartNote = db.Get<NoteTable>(listOfShiftsForAmount[i].StartShiftNoteId);
                 NoteTable currentEndNote = db.Get<NoteTable>(listOfShiftsForAmount[i].StopShiftNoteId);
 
-                NoteTable previousStartNote = db.Get<NoteTable>(listOfShiftsForAmount[i-1].StartShiftNoteId);
-                NoteTable previousEndNote = db.Get<NoteTable>(listOfShiftsForAmount[i-1].StopShiftNoteId);
+                NoteTable previousStartNote = db.Get<NoteTable>(listOfShiftsForAmount[i - 1].StartShiftNoteId);
+                NoteTable previousEndNote = db.Get<NoteTable>(listOfShiftsForAmount[i - 1].StopShiftNoteId);
 
 
                 DateTime previous = new DateTime();
@@ -758,7 +758,7 @@ namespace Hubo
             db.Query<UserTable>("DELETE FROM [UserTable]");
         }
 
-        internal async void StartShift(string note, DateTime date, string location, int hubo)
+        internal async void StartShift(string note, DateTime date, int hubo)
         {
             ShiftTable newShift = new ShiftTable();
 
@@ -782,13 +782,30 @@ namespace Hubo
                 newNote.ShiftKey = shift.Key;
                 newNote.Latitude = geoLocation.Latitude;
                 newNote.Longitude = geoLocation.Longitude;
-
+                db.Insert(newNote);
 
                 RestAPI = new RestService();
                 var result = await RestAPI.QueryShift(shift, false, newNote);
 
-                shift.ServerKey = result;
-                db.Update(shift);
+                if (result > 0)
+                {
+                    shift.ServerKey = result;
+                    db.Update(shift);
+                }
+                else
+                {
+                    var tbl = db.GetTableInfo("ShiftOffline");
+
+                    if (tbl == null)
+                        db.CreateTable<ShiftOffline>();
+
+                    ShiftOffline offline = new ShiftOffline();
+
+                    offline.ShiftKey = shift.Key;
+
+                    db.Insert(offline);
+                }
+                MessagingCenter.Send<string>("ShiftStart", "ShiftStart");
             }
         }
 
@@ -804,7 +821,7 @@ namespace Hubo
             return null;
         }
 
-        internal async Task<bool> StopShift()
+        internal async void StopShift(string note, DateTime date, int hubo)
         {
             //Get current shift
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -815,7 +832,6 @@ namespace Hubo
                 if (listOfUsedVehicles.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
-                    return false;
                 }
                 ShiftTable activeShift = activeShifts[0];
                 activeShift.ActiveShift = 0;
@@ -824,13 +840,55 @@ namespace Hubo
                 Geolocation location = new Geolocation();
                 location = await GetLatAndLong();
 
-                RestAPI = new RestService();
                 NoteTable newNote = new NoteTable();
-                var result = await RestAPI.QueryShift(activeShift, true, newNote);
+                newNote.Note = note;
+                newNote.Date = date.ToString();
+                newNote.Hubo = hubo;
+                newNote.Latitude = location.Latitude;
+                newNote.Longitude = location.Longitude;
+                newNote.StandAloneNote = false;
+                db.Insert(newNote);
 
-                return true;
+                if (activeShift.ServerKey > 0)
+                {
+                    RestAPI = new RestService();
+                    var result = await RestAPI.QueryShift(activeShift, true, newNote);
+
+                    var tbl = db.GetTableInfo("ShiftOffline");
+
+                    if (tbl == null)
+                    {
+                        db.CreateTable<ShiftOffline>();
+
+                        ShiftOffline offline = new ShiftOffline();
+
+                        offline.ShiftKey = activeShift.Key;
+                        db.Insert(offline);
+                    }
+                    else
+                    {
+                        List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
+                        int num = 0;
+
+                        foreach (ShiftOffline item in checkOffline)
+                        {
+                            if (item.ShiftKey == activeShift.Key)
+                            {
+                                num++;
+                            }
+                        }
+
+                        if (num == 0)
+                        {
+                            ShiftOffline offline = new ShiftOffline();
+
+                            offline.ShiftKey = activeShift.Key;
+                            db.Insert(offline);
+                        }
+                    }
+                }
+                MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
             }
-            return false;
         }
 
         private bool CheckActiveShiftIsCorrect(List<ShiftTable> activeShifts)

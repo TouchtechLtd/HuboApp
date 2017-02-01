@@ -12,6 +12,20 @@ namespace Hubo
         DatabaseService DbService = new DatabaseService();
         RestService RestAPI = new RestService();
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
+            }
+        }
+
         public INavigation Navigation { get; set; }
         public string SearchVehiclesPlaceholder { get; set; }
         public bool VehicleActive { get; set; }
@@ -102,6 +116,8 @@ namespace Hubo
             {
                 ToggleVehicleInUseVisuals();
             });
+
+            IsBusy = false;
         }
 
         private void ToggleVehicleInUseVisuals()
@@ -155,10 +171,12 @@ namespace Hubo
             VehicleTable VehicleToAdd = new VehicleTable();
             VehicleToAdd = BindXAMLToVehicle();
 
+            IsBusy = true;
             if (await RestAPI.QueryAddVehicle(VehicleToAdd))
             {
                 DbService.InsertVehicle(VehicleToAdd);
                 GetVehicles();
+                IsBusy = false;
                 await Navigation.PopAsync();
             }
         }

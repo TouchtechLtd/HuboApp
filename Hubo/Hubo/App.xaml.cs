@@ -11,11 +11,13 @@ namespace Hubo
 {
     public partial class Application : Xamarin.Forms.Application
     {
-        DatabaseService dbService;
+        DatabaseService DbService;
+        AppViewModel appVM = new AppViewModel();
 
         public Application()
         {
             InitializeComponent();
+            BindingContext = appVM;
 
             //TODO: Implement check for logged in status
             CheckLoggedInStatus();
@@ -29,8 +31,8 @@ namespace Hubo
 
         private void CheckLoggedInStatus()
         {
-            dbService = new DatabaseService();
-            if (dbService.CheckLoggedIn())
+            DbService = new DatabaseService();
+            if (DbService.CheckLoggedIn())
             {
                 MainPage = new NavigationPage(new NZTAMessagePage(1));
             }

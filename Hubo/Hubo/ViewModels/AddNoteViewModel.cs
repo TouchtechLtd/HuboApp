@@ -49,9 +49,9 @@ namespace Hubo
 
         private void SaveNoteWithoutHubo()
         {
-            if(HuboEntry!="")
+            if (HuboEntry != "")
             {
-                if(!CheckValidEntry())
+                if (!CheckValidEntry())
                 {
                     return;
                 }
@@ -62,18 +62,18 @@ namespace Hubo
                 return;
             }
             DbService.SaveNote(Note, Date, Location, 0);
-            Navigation.PopAsync();                        
+            Navigation.PopAsync();
         }
         public void Load(int instruction, int vehicleKey = 0)
         {
             //Add Note button clicked, hubo not required
-            if(instruction==1)
+            if (instruction == 1)
             {
                 SaveCommand = new Command(SaveNoteWithoutHubo);
                 HuboLabel = Resource.HuboNotRequired;
                 CancelCommand = new Command(Cancel);
             }
-            else if(instruction==2)
+            else if (instruction == 2)
             {
                 SaveCommand = new Command(SaveNoteWithHubo);
                 HuboLabel = Resource.Hubo;
@@ -81,7 +81,7 @@ namespace Hubo
             }
 
             //Load details for attaching note to currentvehicle
-            else if(instruction==4)
+            else if (instruction == 4)
             {
                 CurrentVehicleKey = vehicleKey;
                 HuboLabel = Resource.Hubo;
@@ -89,12 +89,17 @@ namespace Hubo
                 SaveCommand = new Command(SaveNoteFromVehicle);
             }
 
-            else if(instruction==5)
+            else if (instruction == 5)
             {
                 SaveCommand = new Command(SaveNoteStartShift);
                 CancelCommand = new Command(Cancel);
                 HuboLabel = Resource.Hubo;
-
+            }
+            else if (instruction == 6)
+            {
+                SaveCommand = new Command(SaveNoteEndShift);
+                CancelCommand = new Command(Cancel);
+                HuboLabel = Resource.Hubo;
             }
 
 
@@ -103,14 +108,19 @@ namespace Hubo
             OnPropertyChanged("HuboLabel");
         }
 
+        private void SaveNoteEndShift()
+        {
+            DbService.StopShift(Note, Date, Int32.Parse(HuboEntry));
+        }
+
         private void SaveNoteStartShift()
         {
-            DbService.StartShift(Note,Date,Location,Int32.Parse(HuboEntry));
+            DbService.StartShift(Note, Date, Int32.Parse(HuboEntry));
         }
 
         private void SaveNoteFromVehicle()
         {
-            if(CheckValidEntry())
+            if (CheckValidEntry())
             {
                 DbService.SaveNoteFromVehicle(Note, Date, Location, Int32.Parse(HuboEntry), CurrentVehicleKey);
                 Navigation.PopAsync();
@@ -148,7 +158,7 @@ namespace Hubo
 
             if (Location.Length == 0)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InputLocation , Resource.DisplayAlertOkay);
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InputLocation, Resource.DisplayAlertOkay);
                 return false;
             }
 

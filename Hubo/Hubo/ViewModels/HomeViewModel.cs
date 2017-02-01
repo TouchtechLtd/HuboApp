@@ -40,6 +40,7 @@ namespace Hubo
         public bool VehicleInUse { get; set; }
         public string VehiclePickerText { get; set; }
         public bool PickerEnabled { get; set; }
+        public string LoadText { get; set; }
 
         public ICommand StartBreakCommand { get; set; }
 
@@ -52,6 +53,20 @@ namespace Hubo
         public string UseOrStopVehicleText { get; set; }
 
         DatabaseService DbService = new DatabaseService();
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
+            }
+        }
 
         public HomeViewModel()
         {
@@ -97,7 +112,7 @@ namespace Hubo
                 VehicleText = Resource.StartDriving;
             }
 
-            OnBreak = DbService.CheckOnBreak();
+            //OnBreak = DbService.CheckOnBreak();
 
             AddNoteText = Resource.AddNote;
             //BreakButtonColor = Color.FromHex("#009900");
@@ -112,8 +127,6 @@ namespace Hubo
 
             UpdateCircularGauge();
 
-            //DbService.CheckShifts();
-
             var minutes = TimeSpan.FromMinutes(10);
 
             Device.StartTimer(minutes, () =>
@@ -124,6 +137,7 @@ namespace Hubo
                 });
                 return true;
             });
+            IsBusy = false;
         }
 
         private void SetVehicleLabel()
@@ -187,11 +201,13 @@ namespace Hubo
             {
                 BreakButtonColor = Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
+                OnBreak = true;
             }
             else
             {
                 BreakButtonColor = Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
+                OnBreak = false;
             }
         }
 
@@ -275,26 +291,22 @@ namespace Hubo
 
         private async void ToggleShift()
         {
+            IsBusy = true;
             if (!ShiftStarted)
             {
                 if (await StartShift())
                 {
-                    await Navigation.PushModalAsync(new AddNotePage(2));
-                    MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", (sender) =>
+                    MessagingCenter.Subscribe<string>("ShiftStart", "ShiftStart", (sender) =>
                     {
                         if (sender == "Success")
                         {
+                            IsBusy = false;
                             ShowEndShiftXAML();
-
                         }
+                        MessagingCenter.Unsubscribe<string>("ShiftStart", "ShiftStart");
                     });
-
-
-
-                    
-
+                    await Navigation.PushModalAsync(new AddNotePage(5));
                 }
-
             }
             else
             {
@@ -302,38 +314,40 @@ namespace Hubo
                 {
                     if (!DbService.VehicleActive())
                     {
-                        if (await DbService.StopShift())
-                        {
-
-                            MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (sender) =>
-                            {
-                                if(sender == "Success")
-                                {
-                                    await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                                    ShowStartShiftXAML();
-                                }
-                            });
-
-                        }
-                    }
-                    else
-                    {
-                        await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
-                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
+                        MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (sender) =>
                         {
                             if (sender == "Success")
                             {
-                                await DbService.StopShift();
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                IsBusy = false;
                                 ShowStartShiftXAML();
-                                OnPropertyChanged("StartShiftVisibility");
-                                OnPropertyChanged("ShiftStarted");
-                                OnPropertyChanged("ShiftText");
-                                OnPropertyChanged("ShiftButtonColor");
                             }
-                            MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                            MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
                         });
+                        await Navigation.PushModalAsync(new AddNotePage(6));
                     }
+                }
+                else
+                {
+                    await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
+                    MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
+                    {
+                        if (sender == "Success")
+                        {
+                            MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (send) =>
+                            {
+                                if (sender == "Success")
+                                {
+                                    await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                    IsBusy = false;
+                                    ShowStartShiftXAML();
+                                }
+                                MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
+                            });
+                            await Navigation.PushModalAsync(new AddNotePage(6));
+                        }
+                        MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                    });
                 }
             }
             OnPropertyChanged("StartShiftVisibility");
@@ -348,7 +362,7 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
-
+            LoadText = "Stopping Shift...";
         }
 
         private void ShowStartShiftXAML()
@@ -357,6 +371,7 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
+            LoadText = "Starting Shift...";
         }
 
         private async Task<bool> StartShift()
@@ -385,23 +400,11 @@ namespace Hubo
                 CompletedJourney = TotalBeforeBreak;
                 TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
 
-                //if (CompletedJourney < 8)
-                //    MinorTickColor = Color.FromHex("#009900");
-                //else if (CompletedJourney >= 8 && CompletedJourney < 13)
-                //    MinorTickColor = Color.Yellow;
-                //else if (CompletedJourney >= 13)
-                //    MinorTickColor = Color.FromHex("#cc0000");
-
                 //if (this.CompletedJourney >= 13)
                 //    DependencyService.Get<INotifyService>().LocalNotification("Shift Limit Reached!", "You have reached the maximum allowed shift time for today.", DateTime.Now);
 
                 OnPropertyChanged("CompletedJourney");
-                //OnPropertyChanged("MinorTickColor");
                 OnPropertyChanged("TotalBeforeBreakText");
-            }
-            else
-            {
-                //MinorTickColor = Color.FromHex("#009900");
             }
 
         }

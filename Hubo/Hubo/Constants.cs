@@ -11,9 +11,14 @@ namespace Hubo
         public const string CONTENT_TYPE = "application/json";
 
         public const string REST_URL_LOGIN = "/Account/Authenticate";
+
         public const string REST_URL_ADDVEHICLE = "/Vehicles/registerVehicleAsync";
+
         public const string REST_URL_ADDSHIFTSTART = "/Shift/startShiftAsync";
         public const string REST_URL_ADDSHIFTEND = "/Shift/endShiftAsync";
+
         public const string REST_URL_GETUSERDETAILS = "/Account/GetDetailsAsync";
+        public const string REST_URL_GETCOMPANYDETAILS = "/Account/GetDetailsAsync";
+        public const string REST_URL_GETVEHICLEDETAILS = "/Account/GetDetailsAsync";
     }
 }

@@ -35,6 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApiClasses\DetailRequestModels.cs" />
+    <Compile Include="ApiClasses\LoginRequestModel.cs" />
+    <Compile Include="ApiClasses\ShiftRequestModels.cs" />
+    <Compile Include="ApiClasses\UserRequestModel.cs" />
+    <Compile Include="ApiClasses\VehicleRequestModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -43,7 +48,10 @@
     <Compile Include="DatabaseModels\AmendmentTable.cs" />
     <Compile Include="DatabaseModels\BreakTable.cs" />
     <Compile Include="DatabaseModels\CompanyTable.cs" />
+    <Compile Include="DatabaseModels\GeolocationTable.cs" />
+    <Compile Include="DatabaseModels\LoadTextTable.cs" />
     <Compile Include="DatabaseModels\NoteTable.cs" />
+    <Compile Include="DatabaseModels\OfflineTables.cs" />
     <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\TipTable.cs" />
     <Compile Include="DatabaseModels\UserTable.cs" />

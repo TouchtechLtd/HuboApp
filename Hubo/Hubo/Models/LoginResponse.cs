@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
-    public class LoginResponse
+    public class LoginUserResponse
     {
         public long UserId { get; set; }
         public int DriverId { get; set; }
@@ -18,6 +18,18 @@ namespace Hubo
         public int LicenceVersion { get; set; }
         public int MobilePh { get; set; }
         public List<CompanyAndVehicles> CompaniesAndVehicle { get; set; }
+    }
+
+    public class LoginCompanyResponse
+    {
+        public int DriverId { get; set; }
+        public List<CompanyTable> Companies { get; set; }
+    }
+
+    public class LoginVehicleResponse
+    {
+        public int CompanyId { get; set; }
+        public List<VehicleTable> Vehicles { get; set; }
     }
 
     public class CompanyAndVehicles
