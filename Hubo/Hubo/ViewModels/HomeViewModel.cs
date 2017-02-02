@@ -475,6 +475,8 @@ namespace Hubo
 
             int shiftKey = DbService.GetCurrentShift().Key;
 
+            DbService.CollectGeolocation(shiftKey);
+
             Device.StartTimer(min, () =>
             {
                 DbService.CollectGeolocation(shiftKey);

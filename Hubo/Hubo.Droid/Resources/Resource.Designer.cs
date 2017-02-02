@@ -6842,11 +6842,11 @@ namespace Hubo.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f090027
-			public const int ApplicationName = 2131296295;
+			// aapt resource value: 0x7f09002b
+			public const int ApplicationName = 2131296299;
 			
-			// aapt resource value: 0x7f090026
-			public const int Hello = 2131296294;
+			// aapt resource value: 0x7f09002a
+			public const int Hello = 2131296298;
 			
 			// aapt resource value: 0x7f09000f
 			public const int abc_action_bar_home_description = 2131296271;
@@ -7178,20 +7178,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f09000e
 			public const int mr_user_route_category_name = 2131296270;
 			
-			// aapt resource value: 0x7f090028
-			public const int q = 2131296296;
+			// aapt resource value: 0x7f090026
+			public const int q = 2131296294;
 			
-			// aapt resource value: 0x7f090029
-			public const int quarter = 2131296297;
+			// aapt resource value: 0x7f090027
+			public const int quarter = 2131296295;
 			
 			// aapt resource value: 0x7f090022
 			public const int status_bar_notification_info_overflow = 2131296290;
 			
-			// aapt resource value: 0x7f09002a
-			public const int w = 2131296298;
+			// aapt resource value: 0x7f090028
+			public const int w = 2131296296;
 			
-			// aapt resource value: 0x7f09002b
-			public const int week = 2131296299;
+			// aapt resource value: 0x7f090029
+			public const int week = 2131296297;
 			
 			static String()
 			{
