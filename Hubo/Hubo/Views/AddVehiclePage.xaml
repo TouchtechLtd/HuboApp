@@ -2,7 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Class="Hubo.AddVehiclePage">
+  <ResourceDictionary>
+      <OnPlatform x:Key="PlatformRowSpan" x:TypeArguments="system:Int32" iOS="7" Android="8"/>
+      <OnPlatform x:Key="PlatformRow" x:TypeArguments="system:Int32" iOS="1" Android="0"/>
+  </ResourceDictionary>
+  
   <ScrollView>
     <Grid>
       <Grid.ColumnDefinitions>
@@ -44,7 +50,7 @@
       <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
 
       <ActivityIndicator BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="8"/>
-      <Label Text="Adding Vehicle..." TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="8"/>
+      <Label Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="{StaticResource PlatformRow}" Grid.RowSpan="{StaticResource PlatformRowSpan}"/>
     </Grid>
   </ScrollView>
 </ContentPage>

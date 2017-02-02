@@ -35,10 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApiClasses\DetailRequestModels.cs" />
     <Compile Include="ApiClasses\LoginRequestModel.cs" />
     <Compile Include="ApiClasses\ShiftRequestModels.cs" />
-    <Compile Include="ApiClasses\UserRequestModel.cs" />
     <Compile Include="ApiClasses\VehicleRequestModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

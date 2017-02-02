@@ -12,12 +12,10 @@ namespace Hubo
     public partial class Application : Xamarin.Forms.Application
     {
         DatabaseService DbService;
-        AppViewModel appVM = new AppViewModel();
 
         public Application()
         {
             InitializeComponent();
-            BindingContext = appVM;
 
             //TODO: Implement check for logged in status
             CheckLoggedInStatus();

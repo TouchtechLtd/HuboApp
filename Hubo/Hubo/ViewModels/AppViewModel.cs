@@ -11,36 +11,11 @@ namespace Hubo
     {
         //TODO add functions to call when app starts/sleeps/resumes
         public event PropertyChangedEventHandler PropertyChanged;
-        RestService restService;
+        DatabaseService db = new DatabaseService();
 
         public AppViewModel()
         {
-            //LoadLoadingText();
-        }
-
-        private async void LoadTips()
-        {
-            //TODO: import tips from portal
-            restService = new RestService();
-
-            if (await restService.ImportTips())
-            {
-
-            }
-        }
-
-        private async void LoadLoadingText()
-        {
-            restService = new RestService();
-
-            if (await restService.ImportLoadText())
-            {
-                LoadTips();
-            }
-            else
-            {
-                LoadTips();
-            }
+           
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

@@ -36,7 +36,7 @@ namespace Hubo.iOS
             manager.StartManager();
 
             //String that contains the path and loads to the preloaded database
-            //string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
+            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(8,0))
             {

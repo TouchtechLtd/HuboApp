@@ -42,7 +42,7 @@ namespace Hubo.Droid
             CrashManager.Register(this, Configuration.HockeyAppIdDroid);
 
             //String that contains the path and loads the preloaded database
-            //string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
+            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
 
             //AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
             //ResizeBugWorkaround.assistActivity(this);

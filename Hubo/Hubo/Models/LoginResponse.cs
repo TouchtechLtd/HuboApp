@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,24 +18,17 @@ namespace Hubo
         public string LicenceNo { get; set; }
         public int LicenceVersion { get; set; }
         public int MobilePh { get; set; }
-        public List<CompanyAndVehicles> CompaniesAndVehicle { get; set; }
     }
 
     public class LoginCompanyResponse
     {
-        public int DriverId { get; set; }
+        [JsonProperty(PropertyName = "result")]
         public List<CompanyTable> Companies { get; set; }
     }
 
     public class LoginVehicleResponse
     {
-        public int CompanyId { get; set; }
-        public List<VehicleTable> Vehicles { get; set; }
-    }
-
-    public class CompanyAndVehicles
-    {
-        public CompanyTable Company { get; set; }
-        public List<VehicleTable> Vehicles { get; set; }
+        [JsonProperty(PropertyName = "result")]
+        public List<VehicleResponseModel> Vehicles { get; set; }
     }
 }

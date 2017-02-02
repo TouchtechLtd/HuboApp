@@ -40,7 +40,7 @@ namespace Hubo
         public bool VehicleInUse { get; set; }
         public string VehiclePickerText { get; set; }
         public bool PickerEnabled { get; set; }
-        public string LoadText { get; set; }
+        public string LoadingText { get; set; }
 
         public ICommand StartBreakCommand { get; set; }
 
@@ -65,6 +65,20 @@ namespace Hubo
             {
                 _isBusy = value;
                 OnPropertyChanged("IsBusy");
+            }
+        }
+
+        private bool _shiftRunning;
+        public bool ShiftRunning
+        {
+            get
+            {
+                return _shiftRunning;
+            }
+            set
+            {
+                _shiftRunning = value;
+                OnPropertyChanged("ShiftRunning");
             }
         }
 
@@ -138,6 +152,16 @@ namespace Hubo
                 return true;
             });
             IsBusy = false;
+
+            if (DbService.CheckActiveShift())
+            {
+                ShiftRunning = true;
+                GeoCollection();
+            }
+            else
+            {
+                ShiftRunning = false;
+            }
         }
 
         private void SetVehicleLabel()
@@ -291,7 +315,6 @@ namespace Hubo
 
         private async void ToggleShift()
         {
-            IsBusy = true;
             if (!ShiftStarted)
             {
                 if (await StartShift())
@@ -326,29 +349,30 @@ namespace Hubo
                         });
                         await Navigation.PushModalAsync(new AddNotePage(6));
                     }
-                }
-                else
-                {
-                    await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
-                    MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
+                    else
                     {
-                        if (sender == "Success")
+                        await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
+                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
                         {
-                            MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (send) =>
+                            if (sender == "Success")
                             {
-                                if (sender == "Success")
+                                MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (send) =>
                                 {
-                                    await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                                    IsBusy = false;
-                                    ShowStartShiftXAML();
-                                }
-                                MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
-                            });
-                            await Navigation.PushModalAsync(new AddNotePage(6));
-                        }
-                        MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
-                    });
+                                    if (sender == "Success")
+                                    {
+                                        await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                        IsBusy = false;
+                                        ShowStartShiftXAML();
+                                    }
+                                    MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
+                                });
+                                await Navigation.PushModalAsync(new AddNotePage(6));
+                            }
+                            MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
+                        });
+                    }
                 }
+
             }
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
@@ -362,7 +386,8 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
-            LoadText = "Stopping Shift...";
+            ShiftRunning = true;
+            //LoadingText = "Stopping Shift...";
         }
 
         private void ShowStartShiftXAML()
@@ -371,7 +396,8 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
-            LoadText = "Starting Shift...";
+            ShiftRunning = false;
+            //LoadingText = "Starting Shift...";
         }
 
         private async Task<bool> StartShift()
@@ -388,6 +414,10 @@ namespace Hubo
                     return false;
                 }
             }
+
+            IsBusy = true;
+            SetLoadingText();
+
             return true;
         }
 
@@ -414,6 +444,42 @@ namespace Hubo
             listOfVehicles = new List<VehicleTable>();
             listOfVehicles = DbService.GetVehicles();
             return listOfVehicles;
+        }
+
+        private void SetLoadingText()
+        {
+            List<LoadTextTable> loadText = new List<LoadTextTable>();
+            loadText = DbService.GetLoadingText();
+
+            Random random = new Random();
+
+            int id = random.Next(1, loadText.Count);
+
+            LoadingText = loadText[id - 1].LoadText;
+
+            var sec = TimeSpan.FromSeconds(5);
+
+            Device.StartTimer(sec, () =>
+            {
+                id = random.Next(1, loadText.Count);
+
+                LoadingText = loadText[id - 1].LoadText;
+
+                return IsBusy;
+            });
+        }
+
+        private void GeoCollection()
+        {
+            var min = TimeSpan.FromMinutes(1);
+
+            int shiftKey = DbService.GetCurrentShift().Key;
+
+            Device.StartTimer(min, () =>
+            {
+                DbService.CollectGeolocation(shiftKey);
+                return ShiftRunning;
+            });
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

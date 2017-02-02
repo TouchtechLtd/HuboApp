@@ -26,6 +26,16 @@ namespace Hubo
             db.CreateTable<AmendmentTable>();
             db.CreateTable<TipTable>();
             db.CreateTable<CompanyTable>();
+            db.CreateTable<LoadTextTable>();
+            db.CreateTable<Geolocation>();
+        }
+
+        internal List<LoadTextTable> GetLoadingText()
+        {
+            List<LoadTextTable> loadList = new List<LoadTextTable>();
+            loadList = db.Query<LoadTextTable>("SELECT * FROM [LoadTextTable]");
+
+            return loadList;
         }
 
         public void CheckShifts()
@@ -80,7 +90,6 @@ namespace Hubo
 
         internal void InsertUser(UserTable user)
         {
-            db.Query<UserTable>("DELETE FROM [UserTable]");
             db.Insert(user);
         }
 
@@ -125,15 +134,32 @@ namespace Hubo
             return false;
         }
 
+        internal bool ClearDatabaseForNewUser()
+        {
+            try
+            {
+                db.Query<VehicleTable>("DROP TABLE [VehicleTable]");
+                db.Query<UserTable>("DROP TABLE [UserTable]");
+                db.Query<CompanyTable>("DROP TABLE [CompanyTable]");
+
+                db.CreateTable<UserTable>();
+                db.CreateTable<CompanyTable>();
+                db.CreateTable<VehicleTable>();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         internal void InsertUserVehicles(VehicleTable vehicle)
         {
-            db.Query<VehicleTable>("DELETE FROM [VehicleTable]");
             db.Insert(vehicle);
         }
 
         internal void InsertUserComapany(CompanyTable company)
         {
-            db.Query<CompanyTable>("DELETE FROM [CompanyTable]");
             db.Insert(company);
         }
 
@@ -413,6 +439,25 @@ namespace Hubo
             MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
 
+        }
+
+        internal async void CollectGeolocation(int shiftKey)
+        {
+            GeolocationTable geoInsert = new GeolocationTable();
+            Geolocation geolocation = new Geolocation();
+
+            geolocation = await GetLatAndLong();
+
+            geoInsert.ShiftKey = shiftKey;
+            geoInsert.TimeStamp = DateTime.Now.ToString();
+            geoInsert.latitude = geolocation.Latitude;
+            geoInsert.Longitude = geolocation.Longitude;
+
+            db.Insert(geoInsert);
+
+            List<GeolocationTable> testInsert = db.Query<GeolocationTable>("SELECT * FROM [GeolocationTable]");
+
+            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, testInsert[testInsert.Count - 1].TimeStamp, Resource.DisplayAlertOkay);
         }
 
         internal async void SaveNoteFromBreak(string note, DateTime date, string location, int huboEntry)

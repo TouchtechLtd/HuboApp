@@ -18,7 +18,7 @@ namespace Hubo
         public const string REST_URL_ADDSHIFTEND = "/Shift/endShiftAsync";
 
         public const string REST_URL_GETUSERDETAILS = "/Account/GetDetailsAsync";
-        public const string REST_URL_GETCOMPANYDETAILS = "/Account/GetDetailsAsync";
-        public const string REST_URL_GETVEHICLEDETAILS = "/Account/GetDetailsAsync";
+        public const string REST_URL_GETCOMPANYDETAILS = "/Company/getCompanyListAsync";
+        public const string REST_URL_GETVEHICLEDETAILS = "/Vehicles/getVehiclesAsync";
     }
 }

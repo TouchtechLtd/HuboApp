@@ -43,7 +43,7 @@
       <local:BaseEntry Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="6" VerticalOptions="Center" />
 
       <ActivityIndicator BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="7"/>
-      <Label Text="Updating User..." TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="7"/>
+      <Label Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="7"/>
     </Grid>
   </ScrollView>
 </ContentPage>

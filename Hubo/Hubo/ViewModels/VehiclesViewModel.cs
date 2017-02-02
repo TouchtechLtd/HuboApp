@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -23,6 +24,20 @@ namespace Hubo
             {
                 _isBusy = value;
                 OnPropertyChanged("IsBusy");
+            }
+        }
+        private string _loadingText;
+        public string LoadingText
+        {
+            get
+            {
+                return _loadingText;
+            }
+
+            set
+            {
+                _loadingText = value;
+                OnPropertyChanged("LoadingText");
             }
         }
 
@@ -172,6 +187,7 @@ namespace Hubo
             VehicleToAdd = BindXAMLToVehicle();
 
             IsBusy = true;
+            SetLoadingText();
             if (await RestAPI.QueryAddVehicle(VehicleToAdd))
             {
                 DbService.InsertVehicle(VehicleToAdd);
@@ -282,6 +298,28 @@ namespace Hubo
             }
         }
 
+        private void SetLoadingText()
+        {
+            List<LoadTextTable> loadText = new List<LoadTextTable>();
+            loadText = DbService.GetLoadingText();
+
+            Random random = new Random();
+
+            int id = random.Next(1, loadText.Count);
+
+            LoadingText = loadText[id - 1].LoadText;
+
+            var sec = TimeSpan.FromSeconds(5);
+
+            Device.StartTimer(sec, () =>
+            {
+                id = random.Next(1, loadText.Count);
+
+                LoadingText = loadText[id - 1].LoadText;
+
+                return IsBusy;
+            });
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

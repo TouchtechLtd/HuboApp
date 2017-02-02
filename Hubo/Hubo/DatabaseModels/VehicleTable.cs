@@ -16,5 +16,6 @@ namespace Hubo
         public string Model { get; set; }
         public string CompanyId { get; set; }
         public string StartingOdometer { get; set; }
+        public string CurrentOdometer { get; set; }
     }
 }

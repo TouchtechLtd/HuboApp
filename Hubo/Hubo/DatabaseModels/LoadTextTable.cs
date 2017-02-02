@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hubo.DatabaseModels
+namespace Hubo
 {
     class LoadTextTable
     {
