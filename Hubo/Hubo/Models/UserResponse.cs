@@ -23,7 +23,22 @@ namespace Hubo
 
     }
 
-    class Error
+    public class InsertGeoResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
+
+    public class Error
     {
         [JsonProperty(PropertyName = "code")]
         public int Code { get; set; }

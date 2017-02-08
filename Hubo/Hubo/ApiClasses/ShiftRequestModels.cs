@@ -6,24 +6,27 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class ShiftModel
+    class StartShiftModel
     {
-        public ShiftExpando shift { get; set; }
-        public NoteExpando note { get; set; }
-    }
-
-    class ShiftExpando
-    {
-        public int shiftId { get; set; }
         public int driverId { get; set; }
-        public int vehicleId { get; set; }
+        public int companyId { get; set; }
+        public string startDate { get; set; }
+        public double startLocationLat { get; set; }
+        public double startLocationLong { get; set; }
     }
 
-    class NoteExpando
+    class EndShiftModel
     {
-        public string noteText { get; set; }
-        public string date { get; set; }
-        public int hubo { get; set; }
+        public int id { get; set; }
+        public string endDate { get; set; }
+        public double endLocationLat { get; set; }
+        public double endLocationLong { get; set; }
+    }
+
+    class InsertGeoModel
+    {
+        public int drivingShiftId { get; set; }
+        public string timeStamp { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }
     }

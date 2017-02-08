@@ -19,11 +19,8 @@ namespace Hubo
         public string License { get; set; }
         public string LicenseVersion { get; set; }
         public string Endorsements { get; set; }
-        //public string CompanyName { get; set; }
         public string Address { get; set; }
-        //public string CompanyEmail { get; set; }
         public string Phone { get; set; }
-        public int CompanyId { get; set; }
         public string Token { get; set; }
         public int DriverId { get; set; }
 

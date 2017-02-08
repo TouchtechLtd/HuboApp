@@ -111,11 +111,13 @@ namespace Hubo
         private void SaveNoteEndShift()
         {
             DbService.StopShift(Note, Date, Int32.Parse(HuboEntry));
+            Navigation.PopAsync();
         }
 
         private void SaveNoteStartShift()
         {
             DbService.StartShift(Note, Date, Int32.Parse(HuboEntry));
+            Navigation.PopAsync();
         }
 
         private void SaveNoteFromVehicle()

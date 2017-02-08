@@ -74,8 +74,8 @@ namespace Hubo
         DatabaseService DbService = new DatabaseService();
 
 
-        List<VehicleInUseTable> listUsedVehicles = new List<VehicleInUseTable>();
-        VehicleInUseTable currentVehicleInUse = new VehicleInUseTable();
+        List<DriveTable> listUsedVehicles = new List<DriveTable>();
+        DriveTable currentVehicleInUse = new DriveTable();
 
         List<VehicleTable> listOfRegisteredVehicles = new List<VehicleTable>();
         VehicleTable currentRegisteredVehicle = new VehicleTable();
@@ -178,7 +178,6 @@ namespace Hubo
                         EndNoteChanged = true;
                     }
 
-
                     DateTime oldStartBreakDate = DateTime.Parse(currentBreak.StartTime).Date;
                     DateTime oldEndBreakDate = DateTime.Parse(currentBreak.EndTime).Date;
 
@@ -230,7 +229,6 @@ namespace Hubo
                     Navigation.PopAsync();
                 }
             }
-
             else if(instruction=="Notes")
             {
                 Regex regex = new Regex("^[0-9]+$");
@@ -301,31 +299,30 @@ namespace Hubo
                     Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 }
             }
-
             else if(instruction=="Vehicles")
             {
                 if(CheckValidHuboEntry() && EditingVehicle)
                 {
-                    if (VehicleStartHubo != currentVehicleInUse.HuboStart.ToString())
+                    if (VehicleStartHubo != listOfNotes[currentVehicleInUse.StartNoteKey].ToString())
                     {
                         AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.BeforeValue = currentVehicleInUse.HuboStart.ToString();
+                        newAmendment.BeforeValue = listOfNotes[currentVehicleInUse.StartNoteKey].ToString();
                         newAmendment.Field = "HuboStart";
                         newAmendment.ShiftId = currentShift.Key;
                         newAmendment.Table = "VehicleInUseTable";
                         newAmendment.TimeStamp = DateTime.Now.ToString();
-                        currentVehicleInUse.HuboStart = Int32.Parse(VehicleStartHubo);
+                        //currentVehicleInUse.HuboStart = Int32.Parse(VehicleStartHubo);
                         listOfAmendments.Add(newAmendment);
                     }
-                    if (VehicleEndHubo != currentVehicleInUse.HuboEnd.ToString())
+                    if (VehicleEndHubo != listOfNotes[currentVehicleInUse.EndNoteKey].ToString())
                     {
                         AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.BeforeValue = currentVehicleInUse.HuboEnd.ToString();
+                        newAmendment.BeforeValue = listOfNotes[currentVehicleInUse.EndNoteKey].ToString();
                         newAmendment.Field = "HuboEnd";
                         newAmendment.ShiftId = currentShift.Key;
                         newAmendment.Table = "VehicleInUseTable";
                         newAmendment.TimeStamp = DateTime.Now.ToString();
-                        currentVehicleInUse.HuboEnd = Int32.Parse(VehicleEndHubo);
+                        //currentVehicleInUse.HuboEnd = Int32.Parse(VehicleEndHubo);
                         listOfAmendments.Add(newAmendment);
                     }
 
@@ -368,13 +365,14 @@ namespace Hubo
             return listOfBreaks;
         }
 
-        internal List<VehicleInUseTable> LoadVehicles()
+        internal List<DriveTable> LoadVehicles()
         {
             listUsedVehicles = DbService.GetUsedVehicles(currentShift);
+            listOfNotes = DbService.GetNotesFromVehicles(listUsedVehicles);
             return listUsedVehicles;
         }
 
-        internal VehicleTable LoadVehicleInfo(VehicleInUseTable vehicle)
+        internal VehicleTable LoadVehicleInfo(DriveTable vehicle)
         {
             return DbService.LoadVehicleInfo(vehicle);
         }
@@ -468,8 +466,8 @@ namespace Hubo
             if (instruction=="Vehicles")
             {
                 currentVehicleInUse = listUsedVehicles[selectedIndex];
-                VehicleStartHubo = currentVehicleInUse.HuboStart.ToString();
-                VehicleEndHubo = currentVehicleInUse.HuboEnd.ToString();
+                VehicleStartHubo = listOfNotes[currentVehicleInUse.StartNoteKey].ToString();
+                VehicleEndHubo = listOfNotes[currentVehicleInUse.EndNoteKey].ToString();
 
                 List<NoteTable> vehicleNotes = new List<NoteTable>();
                 vehicleNotes = DbService.GetNotesFromVehicle(currentVehicleInUse);

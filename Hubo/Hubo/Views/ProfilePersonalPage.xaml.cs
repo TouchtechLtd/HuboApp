@@ -33,6 +33,9 @@ namespace Hubo
             licenseVersion.Next = endorsements;
 
             endorsements.ReturnType = ReturnType.Done;
+
+            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
+            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 6));
         }
     }
 }

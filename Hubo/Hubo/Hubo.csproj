@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApiClasses\LoginRequestModel.cs" />
+    <Compile Include="ApiClasses\LoginModels.cs" />
     <Compile Include="ApiClasses\ShiftRequestModels.cs" />
     <Compile Include="ApiClasses\VehicleRequestModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -53,7 +53,7 @@
     <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\TipTable.cs" />
     <Compile Include="DatabaseModels\UserTable.cs" />
-    <Compile Include="DatabaseModels\VehicleInUseTable.cs" />
+    <Compile Include="DatabaseModels\DriveTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Interfaces\ICloseApplication.cs" />

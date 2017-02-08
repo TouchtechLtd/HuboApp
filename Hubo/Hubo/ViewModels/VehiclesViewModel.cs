@@ -49,14 +49,11 @@ namespace Hubo
         public string AddRegistrationEntry { get; set; }
         public string HuboText { get; set; }
         public string HuboEntry { get; set; }
-        public string MakeText { get; set; }
-        public string MakeEntry { get; set; }
-        public string AddMakeEntry { get; set; }
-        public string ModelText { get; set; }
-        public string ModelEntry { get; set; }
-        public string AddModelEntry { get; set; }
+        public string MakeModelText { get; set; }
+        public string MakeModelEntry { get; set; }
+        public string AddMakeModelEntry { get; set; }
         public string CompanyText { get; set; }
-        public string CompanyEntry { get; set; }
+        public int CompanyEntry { get; set; }
         public string AddCompanyEntry { get; set; }
         public string SwitchText { get; set; }
         public string EditVehicleText { get; set; }
@@ -118,8 +115,7 @@ namespace Hubo
                 VehicleActive = true;
                 currentVehicle = DbService.GetCurrentVehicle();
                 RegistrationText = "Registration: " + currentVehicle.Registration;
-                MakeText = "Make: " + currentVehicle.Make;
-                ModelText = "Model: " + currentVehicle.Model;
+                MakeModelText = "Make and Model: " + currentVehicle.MakeModel;
                 CompanyText = "Company: " + currentVehicle.CompanyId;
                 SwitchText = Resource.SwitchTextActive;
                 OnPropertyChanged("RegistrationText");
@@ -165,7 +161,7 @@ namespace Hubo
                 }
                 else
                 {
-                    //Code to switch vehicle on Reverse of previous TODO
+                    //Code to switch vehicle on Reverse of previous Comment
                     Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
                 }
             }
@@ -195,6 +191,10 @@ namespace Hubo
                 IsBusy = false;
                 await Navigation.PopAsync();
             }
+            else
+            {
+                DbService.VehicleOffine(VehicleToAdd);
+            }
         }
 
         private void AddVehicle()
@@ -214,8 +214,7 @@ namespace Hubo
         {
             VehicleTable editedVehicle = new VehicleTable();
             editedVehicle.CompanyId = CompanyEntry;
-            editedVehicle.Make = MakeEntry;
-            editedVehicle.Model = ModelEntry;
+            editedVehicle.MakeModel = MakeModelEntry;
             editedVehicle.Registration = RegistrationEntry;
             editedVehicle.StartingOdometer = HuboEntry;
             return editedVehicle;
@@ -233,8 +232,7 @@ namespace Hubo
         {
             SearchVehiclesPlaceholder = Resource.SearchVehiclesPlaceholder;
             RegistrationText = Resource.RegistrationText;
-            MakeText = Resource.MakeText;
-            ModelText = Resource.ModelText;
+            MakeModelText = Resource.MakeModelText;
             CompanyText = Resource.CompanyText;
             SwitchText = Resource.SwitchTextInActive;
             EditVehicleText = Resource.EditVehicleText;
@@ -263,8 +261,7 @@ namespace Hubo
         {
             VehicleTable vehicle = listOfVehicles[selectedVehicle];
             RegistrationText = "Registration: " + vehicle.Registration;
-            MakeText = "Make: " + vehicle.Make;
-            ModelText = "Model: " + vehicle.Model;
+            MakeModelText = "Make and Model: " + vehicle.MakeModel;
             CompanyText = "Company: " + vehicle.CompanyId;
             VehicleActive = false;
             SwitchText = Resource.SwitchTextInActive;
@@ -286,8 +283,7 @@ namespace Hubo
                 if (registration == vehicle.Registration)
                 {
                     RegistrationEntry = vehicle.Registration;
-                    MakeEntry = vehicle.Make;
-                    ModelEntry = vehicle.Model;
+                    MakeModelEntry = vehicle.MakeModel;
                     CompanyEntry = vehicle.CompanyId;
                     OnPropertyChanged("RegistrationEntry");
                     OnPropertyChanged("MakeEntry");

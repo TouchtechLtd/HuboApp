@@ -9,8 +9,7 @@ namespace Hubo
     class ExportVehicle
     {
         public string shiftCode { get; set; }
-        public string vehicleMake { get; set; }
-        public string vehicleModel { get; set; }
+        public string vehicleMakeModel { get; set; }
         public string vehicleRego { get; set; }
         public string vehicleCompany { get; set; }
         public string currentVehicle { get; set; }

@@ -32,6 +32,9 @@ namespace Hubo
 
             hubo.ReturnType = ReturnType.Done;
             hubo.Completed += Hubo_Completed;
+
+            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
+            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 7));
         }
 
         private void Hubo_Completed(object sender, EventArgs e)

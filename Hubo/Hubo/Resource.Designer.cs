@@ -620,11 +620,11 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make: .
+        ///   Looks up a localized string similar to Make and Model: .
         /// </summary>
-        internal static string MakeText {
+        internal static string MakeModelText {
             get {
-                return ResourceManager.GetString("MakeText", resourceCulture);
+                return ResourceManager.GetString("MakeModelText", resourceCulture);
             }
         }
         
@@ -634,15 +634,6 @@ namespace Hubo {
         internal static string MissingText {
             get {
                 return ResourceManager.GetString("MissingText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Model: .
-        /// </summary>
-        internal static string ModelText {
-            get {
-                return ResourceManager.GetString("ModelText", resourceCulture);
             }
         }
         

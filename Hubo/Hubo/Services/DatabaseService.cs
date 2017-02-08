@@ -22,7 +22,7 @@ namespace Hubo
             db.CreateTable<BreakTable>();
             db.CreateTable<NoteTable>();
             db.CreateTable<ShiftTable>();
-            db.CreateTable<VehicleInUseTable>();
+            db.CreateTable<DriveTable>();
             db.CreateTable<AmendmentTable>();
             db.CreateTable<TipTable>();
             db.CreateTable<CompanyTable>();
@@ -104,7 +104,7 @@ namespace Hubo
             return listUser[0].FirstName + " " + listUser[0].LastName;
         }
 
-        internal VehicleTable LoadVehicleInfo(VehicleInUseTable vehicle)
+        internal VehicleTable LoadVehicleInfo(DriveTable vehicle)
         {
             List<VehicleTable> vehicleDetails = new List<VehicleTable>();
             vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + vehicle.VehicleKey + "");
@@ -134,7 +134,7 @@ namespace Hubo
             return false;
         }
 
-        internal bool ClearDatabaseForNewUser()
+        internal bool ClearTablesForNewUser()
         {
             try
             {
@@ -153,6 +153,25 @@ namespace Hubo
             }
         }
 
+        internal bool ClearTablesForUserShifts()
+        {
+            try
+            {
+                db.Query<ShiftTable>("DROP TABLE [ShiftTable]");
+                db.Query<DriveTable>("DROP TABLE [DriveTable]");
+                db.Query<BreakTable>("DROP TABLE [BreakTable]");
+
+                db.CreateTable<ShiftTable>();
+                db.CreateTable<DriveTable>();
+                db.CreateTable<BreakTable>();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         internal void InsertUserVehicles(VehicleTable vehicle)
         {
             db.Insert(vehicle);
@@ -161,6 +180,20 @@ namespace Hubo
         internal void InsertUserComapany(CompanyTable company)
         {
             db.Insert(company);
+        }
+
+        internal void VehicleOffine(VehicleTable vehicle)
+        {
+            var tbl = db.GetTableInfo("VehicleOffline");
+
+            if (tbl == null)
+                db.CreateTable<VehicleOffline>();
+
+            VehicleOffline offline = new VehicleOffline();
+
+            offline.VehicleKey = vehicle.Key;
+
+            db.Insert(offline);
         }
 
         internal double TotalBeforeBreak()
@@ -218,6 +251,27 @@ namespace Hubo
             return totalHours;
         }
 
+        internal void InsertUserDrives(DriveTable drive)
+        {
+            //DriveTable drive = new DriveTable();
+            //drive.ShiftKey = fullDrive.ShiftKey;
+            //db.Insert(drive);
+
+            //drive.VehicleKey = fullDrive.VehicleKey;
+            //db.Update(drive);
+
+            //drive.StartNoteKey = fullDrive.StartNoteKey;
+            //db.Update(drive);
+
+            //drive.EndNoteKey = fullDrive.EndNoteKey;
+            //db.Update(drive);
+
+            //drive.ActiveVehicle = fullDrive.ActiveVehicle;
+            //db.Update(drive);
+
+            db.Insert(drive);
+        }
+
         internal List<ShiftTable> GetShiftsWeek(DateTime selectedDate)
         {
             List<ShiftTable> returnShifts = new List<ShiftTable>();
@@ -248,51 +302,67 @@ namespace Hubo
             return returnShifts;
         }
 
+        internal void InsertUserNotes(NoteTable note)
+        {
+            db.Insert(note);
+        }
+
         internal int HoursTillReset()
         {
             //TODO: Code to retrieve time since last shift (Once it hits 24 hours, 70 hour a week will reset
-            //List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            //listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
-            //ShiftTable lastShift = new ShiftTable();
-            //if (listOfShifts.Count == 0)
-            //{
-            //    return -1;
-            //}
-            //lastShift = listOfShifts[0];
-            //DateTime dateNow = new DateTime();
-            //DateTime dateOnLastShift = new DateTime();
-            //dateNow = DateTime.Now;
+            List<ShiftTable> listOfShifts = new List<ShiftTable>();
+            listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
+            ShiftTable lastShift = new ShiftTable();
+            if (listOfShifts.Count == 0)
+            {
+                return -1;
+            }
+            lastShift = listOfShifts[0];
+            DateTime dateNow = new DateTime();
+            DateTime dateOnLastShift = new DateTime();
+            dateNow = DateTime.Now;
 
-            //NoteTable shiftNote = db.Get<NoteTable>(lastShift.StopShiftNoteId);
+            NoteTable shiftNote = db.Get<NoteTable>(lastShift.StopShiftNoteId);
 
-            //string dateLastShiftString = shiftNote.Date;
-            //if (dateLastShiftString == null)
-            //{
-            //    //Shift is still occuring, thus 0
-            //    return 0;
-            //}
-            //dateOnLastShift = DateTime.Parse(dateLastShiftString);
-            //TimeSpan time = new TimeSpan();
-            //time = dateNow - dateOnLastShift;
-            //if (time.TotalDays >= 1)
-            //{
-            //    //Have rested for longer/as long as 24 hours
-            //    return -2;
-            //}
-            //int timeSinceReset = Int32.Parse(time.ToString().Remove(2));
-            //return timeSinceReset;
-            return 20;
+            string dateLastShiftString = shiftNote.Date;
+            if (dateLastShiftString == null)
+            {
+                //Shift is still occuring, thus 0
+                return 0;
+            }
+            dateOnLastShift = DateTime.Parse(dateLastShiftString);
+            TimeSpan time = new TimeSpan();
+            time = dateNow - dateOnLastShift;
+            if (time.TotalDays >= 1)
+            {
+                //Have rested for longer/as long as 24 hours
+                return -2;
+            }
+            int timeSinceReset = Int32.Parse(time.ToString().Remove(2));
+            return timeSinceReset;
         }
 
-        internal List<VehicleInUseTable> GetUsedVehicles(ShiftTable currentShift)
+        internal int InsertUserShifts(ShiftTable shift)
         {
-            List<VehicleInUseTable> usedVehicles = new List<VehicleInUseTable>();
-            usedVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] == " + currentShift.Key + "");
+            db.Insert(shift);
+
+            return shift.Key;
+        }
+
+        internal void InsertUserBreaks(BreakTable breakTable)
+        {
+            db.Insert(breakTable);
+        }
+
+        internal List<DriveTable> GetUsedVehicles(ShiftTable currentShift)
+        {
+            List<DriveTable> usedVehicles = new List<DriveTable>();
+            usedVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] == " + currentShift.Key + "");
             return usedVehicles;
         }
 
 
-        internal void AddAmendments(List<AmendmentTable> listOfAmendments, ShiftTable currentShift = null, VehicleInUseTable currentVehicleInUse = null, List<NoteTable> listOfNotes = null, BreakTable currentBreak = null, NoteTable currentNote = null)
+        internal void AddAmendments(List<AmendmentTable> listOfAmendments, ShiftTable currentShift = null, DriveTable currentVehicleInUse = null, List<NoteTable> listOfNotes = null, BreakTable currentBreak = null, NoteTable currentNote = null)
         {
             if (currentNote != null)
             {
@@ -325,7 +395,19 @@ namespace Hubo
             }
         }
 
+        internal void UserOffline(UserTable user)
+        {
+            var tbl = db.GetTableInfo("UserOffline");
 
+            if (tbl == null)
+                db.CreateTable<UserOffline>();
+
+            UserOffline offline = new UserOffline();
+
+            offline.UserKey = user.Id;
+
+            db.Insert(offline);
+        }
 
         internal List<ShiftTable> GetShifts(DateTime selectedDate)
         {
@@ -379,6 +461,22 @@ namespace Hubo
             }
         }
 
+        internal List<NoteTable> GetNotesFromVehicles(List<DriveTable> listUsedVehicles)
+        {
+            List<NoteTable> notes = new List<NoteTable>();
+
+            foreach (DriveTable driveItem in listUsedVehicles)
+            {
+                NoteTable startNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + driveItem.StartNoteKey)[0];
+                NoteTable endNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + driveItem.EndNoteKey)[0];
+
+                notes.Add(startNote);
+                notes.Add(endNote);
+            }
+
+            return notes;
+        }
+
         internal async void SaveNoteFromVehicle(string note, DateTime date, string location, int huboEntry, int vehicleKey)
         {
 
@@ -395,6 +493,7 @@ namespace Hubo
                 newNote.Date = date.ToString();
                 newNote.Location = location;
                 newNote.Note = note;
+                newNote.Hubo = huboEntry;
                 newNote.ShiftKey = listOfShifts[0].Key;
                 Geolocation geoLocation = new Geolocation();
                 geoLocation = await GetLatAndLong();
@@ -403,22 +502,21 @@ namespace Hubo
                 db.Insert(newNote);
 
                 List<NoteTable> listOfNotes = new List<NoteTable>();
-                listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Date] == '" + date + "' AND [Location] == '" + location + "' AND [Note] == '" + note + "' AND [ShiftKey] == '" + listOfShifts[0].Key + "'");
+                listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Date] == '" + date + "' AND [Location] == '" + location + "' AND [Note] == '" + note + "' AND [ShiftKey] == " + listOfShifts[0].Key);
                 if (VehicleInUse())
                 {
                     //TODO: CODE TO Turn off vehicle in use
-                    List<VehicleInUseTable> listOfVehiclesInUse = new List<VehicleInUseTable>();
-                    listOfVehiclesInUse = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+                    List<DriveTable> listOfVehiclesInUse = new List<DriveTable>();
+                    listOfVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
                     if (listOfVehiclesInUse.Count == 0)
                     {
                         await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "CANNOT RETRIEVE VEHICLE IN USE", Resource.DisplayAlertOkay);
                         return;
                     }
-                    VehicleInUseTable vehicleInUse = new VehicleInUseTable();
+                    DriveTable vehicleInUse = new DriveTable();
                     vehicleInUse = listOfVehiclesInUse[0];
-                    vehicleInUse.ActiveVehicle = 0;
+                    vehicleInUse.ActiveVehicle = false;
                     vehicleInUse.EndNoteKey = listOfNotes[0].Key;
-                    vehicleInUse.HuboEnd = huboEntry;
                     vehicleInUse.ShiftKey = listOfShifts[0].Key;
                     vehicleInUse.VehicleKey = vehicleKey;
                     db.Update(vehicleInUse);
@@ -427,9 +525,8 @@ namespace Hubo
                 else
                 {
                     //TODO: Code to turn on vehicle in use
-                    VehicleInUseTable newVehicleInUse = new VehicleInUseTable();
-                    newVehicleInUse.ActiveVehicle = 1;
-                    newVehicleInUse.HuboStart = huboEntry;
+                    DriveTable newVehicleInUse = new DriveTable();
+                    newVehicleInUse.ActiveVehicle = true;
                     newVehicleInUse.ShiftKey = listOfShifts[0].Key;
                     newVehicleInUse.StartNoteKey = listOfNotes[0].Key;
                     newVehicleInUse.VehicleKey = vehicleKey;
@@ -441,14 +538,14 @@ namespace Hubo
 
         }
 
-        internal async void CollectGeolocation(int shiftKey)
+        internal async void CollectGeolocation(int driveKey)
         {
             GeolocationTable geoInsert = new GeolocationTable();
             Geolocation geolocation = new Geolocation();
 
             geolocation = await GetLatAndLong();
 
-            geoInsert.ShiftKey = shiftKey;
+            geoInsert.DriveKey = driveKey;
             geoInsert.TimeStamp = DateTime.Now.ToString();
             geoInsert.latitude = geolocation.Latitude;
             geoInsert.Longitude = geolocation.Longitude;
@@ -512,7 +609,7 @@ namespace Hubo
                 foreach (BreakTable breakItem in listOfBreaks)
                 {
                     List<NoteTable> tempList = new List<NoteTable>();
-                    tempList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] ==" + breakItem.StartNoteKey + " OR [Key] == " + breakItem.StopNoteKey + "");
+                    tempList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] ==" + breakItem.StartNoteKey + " OR [Key] == " + breakItem.StopNoteKey);
                     foreach (NoteTable note in tempList)
                     {
                         listOfNotes.Add(note);
@@ -548,8 +645,8 @@ namespace Hubo
 
         internal bool VehicleInUse()
         {
-            List<VehicleInUseTable> listVehiclesInUse = new List<VehicleInUseTable>();
-            listVehiclesInUse = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            List<DriveTable> listVehiclesInUse = new List<DriveTable>();
+            listVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
             if (listVehiclesInUse.Count == 0)
             {
                 return false;
@@ -561,26 +658,42 @@ namespace Hubo
             }
             return true;
         }
-        internal void StopVehicleInUse(string huboEntry)
+
+        internal async void StopVehicleInUse(string huboEntry)
         {
-            List<VehicleInUseTable> listVehiclesInUse = new List<VehicleInUseTable>();
-            listVehiclesInUse = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle]==1");
+            List<DriveTable> listVehiclesInUse = new List<DriveTable>();
+            NoteTable note = new NoteTable();
+            listVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle]==1");
             if ((listVehiclesInUse.Count == 0) || (listVehiclesInUse.Count > 1))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE VEHICLE FOUND", Resource.DisplayAlertOkay);
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "MORE THAN ONE VEHICLE FOUND", Resource.DisplayAlertOkay);
                 return;
             }
-            VehicleInUseTable vehicleInUse = new VehicleInUseTable();
+            DriveTable vehicleInUse = new DriveTable();
             vehicleInUse = listVehiclesInUse[0];
-            vehicleInUse.HuboEnd = Int32.Parse(huboEntry);
-            vehicleInUse.ActiveVehicle = 0;
+            vehicleInUse.ActiveVehicle = false;
+
+            note.Date = DateTime.Now.ToString();
+            note.ShiftKey = listVehiclesInUse[0].ShiftKey;
+            note.Hubo = int.Parse(huboEntry);
+            note.Note = "Drive Start";
+
+            Geolocation location = new Geolocation();
+            location = await GetLatAndLong();
+            note.Latitude = location.Latitude;
+            note.Longitude = location.Longitude;
+            db.Insert(note);
+
+            NoteTable currentNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1")[0];
+
+            vehicleInUse.EndNoteKey = currentNote.Key;
+
             db.Update(vehicleInUse);
 
             MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
 
             return;
-
         }
 
         internal bool NoBreaksActive()
@@ -601,20 +714,36 @@ namespace Hubo
             return vehiclesList;
         }
 
-        internal void SetVehicleInUse(int key, string huboEntry)
+        internal async void SetVehicleInUse(int key, string huboEntry)
         {
-            VehicleInUseTable vehicleToUse = new VehicleInUseTable();
+            DriveTable vehicleToUse = new DriveTable();
+            NoteTable note = new NoteTable();
             List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
+
             listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift]==1");
             if ((listOfActiveShifts.Count == 0) || (listOfActiveShifts.Count > 1))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO RETRIEVE ACTIVE SHIFT", Resource.DisplayAlertOkay);
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO RETRIEVE ACTIVE SHIFT", Resource.DisplayAlertOkay);
                 return;
             }
             vehicleToUse.ShiftKey = listOfActiveShifts[0].Key;
             vehicleToUse.VehicleKey = key;
-            vehicleToUse.HuboStart = Int32.Parse(huboEntry);
-            vehicleToUse.ActiveVehicle = 1;
+            vehicleToUse.ActiveVehicle = true;
+
+            note.Date = DateTime.Now.ToString();
+            note.ShiftKey = listOfActiveShifts[0].Key;
+            note.Hubo = int.Parse(huboEntry);
+            note.Note = "Drive Start";
+
+            Geolocation location = new Geolocation();
+            location = await GetLatAndLong();
+            note.Latitude = location.Latitude;
+            note.Longitude = location.Longitude;
+            db.Insert(note);
+
+            NoteTable currentNote = db.Query<NoteTable>("SELECT * FROM [NoteTable] ORDER BY [Key] DESC LIMIT 1")[0];
+
+            vehicleToUse.StartNoteKey = currentNote.Key;
 
             db.Insert(vehicleToUse);
 
@@ -655,7 +784,7 @@ namespace Hubo
             return false;
         }
 
-        internal List<NoteTable> GetNotesFromVehicle(VehicleInUseTable currentVehicleInUse)
+        internal List<NoteTable> GetNotesFromVehicle(DriveTable currentVehicleInUse)
         {
             List<NoteTable> listOfNotes = new List<NoteTable>();
             listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] == " + currentVehicleInUse.StartNoteKey + " OR [Key] == " + currentVehicleInUse.EndNoteKey + "");
@@ -665,8 +794,8 @@ namespace Hubo
         internal VehicleTable GetCurrentVehicle()
         {
             //Retrieve currently used vehicle
-            VehicleInUseTable currentVehicleInUse;
-            List<VehicleInUseTable> currentVehicleInUseList = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            DriveTable currentVehicleInUse;
+            List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
             currentVehicleInUse = currentVehicleInUseList[0];
 
             //Retrieve vehicle details using currentvehicles key
@@ -679,8 +808,8 @@ namespace Hubo
 
         internal bool VehicleActive()
         {
-            List<VehicleInUseTable> currentVehicles = new List<VehicleInUseTable>();
-            currentVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
+            List<DriveTable> currentVehicles = new List<DriveTable>();
+            currentVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
             if (currentVehicles.Count == 0)
             {
                 return false;
@@ -702,9 +831,10 @@ namespace Hubo
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "UNABLE TO GET ACTIVE BREAK", Resource.DisplayAlertOkay);
                 return false;
             }
+
             BreakTable currentBreak = currentBreaks[0];
             currentBreak.EndTime = DateTime.Now.ToString();
-            currentBreak.ActiveBreak = 0;
+            currentBreak.ActiveBreak = false;
             currentBreak.StopNoteKey = noteKey;
             db.Update(currentBreak);
             return true;
@@ -730,7 +860,7 @@ namespace Hubo
                 newBreak.ShiftKey = activeShifts[0].Key;
                 newBreak.StartTime = DateTime.Now.ToString();
                 newBreak.StartNoteKey = noteKey;
-                newBreak.ActiveBreak = 1;
+                newBreak.ActiveBreak = true;
                 db.Insert(newBreak);
                 return true;
             }
@@ -772,12 +902,12 @@ namespace Hubo
 
         internal void SetVehicleActive(VehicleTable currentVehicle)
         {
-            List<VehicleInUseTable> activeVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
-            foreach (VehicleInUseTable vehicle in activeVehicles)
+            List<DriveTable> activeVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
+            foreach (DriveTable vehicle in activeVehicles)
             {
                 if (currentVehicle.Key == vehicle.VehicleKey)
                 {
-                    vehicle.ActiveVehicle = 1;
+                    vehicle.ActiveVehicle = true;
                     db.Update(vehicle);
                 }
             }
@@ -785,10 +915,10 @@ namespace Hubo
         }
         internal void SetVehicleInactive()
         {
-            List<VehicleInUseTable> activeVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ActiveVehicle] == 1");
-            foreach (VehicleInUseTable vehicle in activeVehicles)
+            List<DriveTable> activeVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
+            foreach (DriveTable vehicle in activeVehicles)
             {
-                vehicle.ActiveVehicle = 0;
+                vehicle.ActiveVehicle = false;
                 db.Update(vehicle);
             }
         }
@@ -813,7 +943,7 @@ namespace Hubo
             newNote.Note = note;
             newNote.StandAloneNote = false;
 
-            newShift.ActiveShift = 1;
+            newShift.ActiveShift = true;
             db.Insert(newShift);
 
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -821,6 +951,9 @@ namespace Hubo
             {
 
                 ShiftTable shift = activeShifts[0];
+                UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable]")[0];
+                DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + shift.Key + " LIMIT 1")[0];
+                VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [VehicleKey] = " + drive.VehicleKey + " LIMIT 1")[0];
 
                 Geolocation geoLocation = new Geolocation();
                 geoLocation = await GetLatAndLong();
@@ -830,7 +963,7 @@ namespace Hubo
                 db.Insert(newNote);
 
                 RestAPI = new RestService();
-                var result = await RestAPI.QueryShift(shift, false, newNote);
+                var result = await RestAPI.QueryShift(shift, false, newNote, user.Id, vehicle.CompanyId);
 
                 if (result > 0)
                 {
@@ -866,6 +999,14 @@ namespace Hubo
             return null;
         }
 
+        internal DriveTable GetCurrentDriveShift()
+        {
+            List<DriveTable> activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == TRUE LIMIT 1");
+
+            DriveTable activeDrive = activeDrives[0];
+            return activeDrive;
+        }
+
         internal async void StopShift(string note, DateTime date, int hubo)
         {
             //Get current shift
@@ -873,13 +1014,14 @@ namespace Hubo
             if (CheckActiveShiftIsCorrect(activeShifts))
             {
                 //TODO: Code to check that this shift had a vehicle assigned to it
-                List<VehicleInUseTable> listOfUsedVehicles = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] == " + activeShifts[0].Key + "");
+                List<DriveTable> listOfUsedVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] == " + activeShifts[0].Key + "");
                 if (listOfUsedVehicles.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Please select a vehicle before ending your shift", Resource.DisplayAlertOkay);
                 }
                 ShiftTable activeShift = activeShifts[0];
-                activeShift.ActiveShift = 0;
+                activeShift.EndTime = date.ToString();
+                activeShift.ActiveShift = false;
                 db.Update(activeShift);
 
                 Geolocation location = new Geolocation();
@@ -897,42 +1039,46 @@ namespace Hubo
                 if (activeShift.ServerKey > 0)
                 {
                     RestAPI = new RestService();
-                    var result = await RestAPI.QueryShift(activeShift, true, newNote);
+                    var result = await RestAPI.QueryShift(activeShift, true, newNote, 0, 0);
 
-                    var tbl = db.GetTableInfo("ShiftOffline");
-
-                    if (tbl == null)
+                    if (result < 0)
                     {
-                        db.CreateTable<ShiftOffline>();
+                        var tbl = db.GetTableInfo("ShiftOffline");
 
-                        ShiftOffline offline = new ShiftOffline();
-
-                        offline.ShiftKey = activeShift.Key;
-                        db.Insert(offline);
-                    }
-                    else
-                    {
-                        List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
-                        int num = 0;
-
-                        foreach (ShiftOffline item in checkOffline)
+                        if (tbl == null)
                         {
-                            if (item.ShiftKey == activeShift.Key)
-                            {
-                                num++;
-                            }
-                        }
+                            db.CreateTable<ShiftOffline>();
 
-                        if (num == 0)
-                        {
                             ShiftOffline offline = new ShiftOffline();
 
                             offline.ShiftKey = activeShift.Key;
                             db.Insert(offline);
                         }
+                        else
+                        {
+                            List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
+                            int num = 0;
+
+                            foreach (ShiftOffline item in checkOffline)
+                            {
+                                if (item.ShiftKey == activeShift.Key)
+                                {
+                                    num++;
+                                }
+                            }
+
+                            if (num == 0)
+                            {
+                                ShiftOffline offline = new ShiftOffline();
+
+                                offline.ShiftKey = activeShift.Key;
+                                db.Insert(offline);
+                            }
+                        }
                     }
+                    MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
                 }
-                MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to end shift", Resource.DisplayAlertOkay);
             }
         }
 
@@ -966,11 +1112,11 @@ namespace Hubo
         internal int SaveShift(DateTime startDate, DateTime endDate, VehicleTable vehicleKey, string huboStart, string huboEnd, string locationStart, string locationEnd)
         {
             ShiftTable shiftTable = new ShiftTable();
-            VehicleInUseTable vehicleTable = new VehicleInUseTable();
+            DriveTable driveTable = new DriveTable();
             NoteTable noteTableStart = new NoteTable();
             NoteTable noteTableEnd = new NoteTable();
 
-            shiftTable.ActiveShift = 0;
+            shiftTable.ActiveShift = false;
             db.Insert(shiftTable);
 
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [Key] DESC LIMIT 1");
@@ -980,7 +1126,7 @@ namespace Hubo
             }
 
             ShiftTable shiftKey = currentShiftList[0];
-            vehicleTable.ShiftKey = shiftKey.Key;
+            driveTable.ShiftKey = shiftKey.Key;
             noteTableStart.ShiftKey = shiftKey.Key;
             noteTableEnd.ShiftKey = shiftKey.Key;
 
@@ -1015,15 +1161,13 @@ namespace Hubo
 
             NoteTable startNoteKey = currentNoteList[1];
             NoteTable endNoteKey = currentNoteList[0];
-            vehicleTable.StartNoteKey = startNoteKey.Key;
-            vehicleTable.EndNoteKey = endNoteKey.Key;
+            driveTable.StartNoteKey = startNoteKey.Key;
+            driveTable.EndNoteKey = endNoteKey.Key;
 
-            vehicleTable.VehicleKey = vehicleKey.Key;
-            vehicleTable.ActiveVehicle = 0;
-            vehicleTable.HuboStart = int.Parse(huboStart);
-            vehicleTable.HuboEnd = int.Parse(huboEnd);
+            driveTable.VehicleKey = vehicleKey.Key;
+            driveTable.ActiveVehicle = false;
 
-            db.Insert(vehicleTable);
+            db.Insert(driveTable);
 
             return shiftKey.Key;
         }
@@ -1057,7 +1201,7 @@ namespace Hubo
             newBreak.StartTime = breakStart;
             newBreak.EndTime = breakEnd;
             newBreak.ShiftKey = shiftKey;
-            newBreak.ActiveBreak = 0;
+            newBreak.ActiveBreak = false;
             newBreak.StartNoteKey = currentNoteList[1].Key;
             newBreak.StopNoteKey = currentNoteList[0].Key;
 
@@ -1068,7 +1212,7 @@ namespace Hubo
         {
             NoteTable vehicleStartNote = new NoteTable();
             NoteTable vehicleEndNote = new NoteTable();
-            VehicleInUseTable vehicleInUse = new VehicleInUseTable();
+            DriveTable vehicleInUse = new DriveTable();
 
             vehicleStartNote.Note = "Drive Start";
             vehicleStartNote.Date = start.ToString();
@@ -1091,9 +1235,7 @@ namespace Hubo
 
             vehicleInUse.ShiftKey = shiftKey;
             vehicleInUse.VehicleKey = vehicleKey.Key;
-            vehicleInUse.ActiveVehicle = 0;
-            vehicleInUse.HuboStart = int.Parse(startHubo);
-            vehicleInUse.HuboEnd = int.Parse(endHubo);
+            vehicleInUse.ActiveVehicle = false;
             vehicleInUse.StartNoteKey = currentNoteList[1].Key;
             vehicleInUse.EndNoteKey = currentNoteList[0].Key;
 
@@ -1216,34 +1358,31 @@ namespace Hubo
         {
             ExportVehicle exportData = new ExportVehicle();
 
-            List<VehicleInUseTable> vehicleInUseList = new List<VehicleInUseTable>();
+            List<DriveTable> vehicleInUseList = new List<DriveTable>();
             List<VehicleTable> vehicleList = new List<VehicleTable>();
             List<ShiftTable> shiftList = new List<ShiftTable>();
             List<ExportVehicle> exportList = new List<ExportVehicle>();
-
             shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartTime] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
-                vehicleInUseList = db.Query<VehicleInUseTable>("SELECT * FROM [VehicleInUseTable] WHERE [ShiftKey] = " + shiftData.Key);
+                vehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + shiftData.Key);
 
-                foreach (VehicleInUseTable vehicleInUseData in vehicleInUseList)
+                foreach (DriveTable vehicleInUseData in vehicleInUseList)
                 {
                     vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + vehicleInUseData.VehicleKey);
-
                     foreach (VehicleTable vehicleData in vehicleList)
                     {
                         List<NoteTable> locationStartNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseData.StartNoteKey + " AND [ShiftKey] = " + shiftData.Key);
                         List<NoteTable> locationEndNotesList = db.Query<NoteTable>("SELECT [Location] FROM [NoteTable] WHERE [Key] = " + vehicleInUseData.EndNoteKey + " AND [ShiftKey] = " + shiftData.Key);
 
-                        exportData.vehicleMake = vehicleData.Make;
-                        exportData.vehicleModel = vehicleData.Model;
+                        exportData.vehicleMakeModel = vehicleData.MakeModel;
                         exportData.vehicleRego = vehicleData.Registration;
-                        exportData.vehicleCompany = vehicleData.CompanyId;
+                        exportData.vehicleCompany = vehicleData.CompanyId.ToString();
                         exportData.currentVehicle = vehicleInUseData.ActiveVehicle.ToString();
 
-                        exportData.huboStart = vehicleInUseData.HuboStart.ToString();
-                        exportData.huboEnd = vehicleInUseData.HuboEnd.ToString();
+                        exportData.huboStart = locationStartNotesList[0].Hubo.ToString();
+                        exportData.huboEnd = locationEndNotesList[0].Hubo.ToString();
                         exportData.startLocation = locationStartNotesList[0].Location;
                         if (locationEndNotesList.Count != 0)
                         {

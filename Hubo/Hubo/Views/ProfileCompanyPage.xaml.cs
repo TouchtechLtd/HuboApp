@@ -24,6 +24,9 @@ namespace Hubo
             companyEmail.Next = phone;
 
             phone.ReturnType = ReturnType.Done;
+
+            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
+            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 3));
         }
     }
 }

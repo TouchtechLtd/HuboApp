@@ -40,7 +40,17 @@ namespace Hubo
         public bool VehicleInUse { get; set; }
         public string VehiclePickerText { get; set; }
         public bool PickerEnabled { get; set; }
-        public string LoadingText { get; set; }
+
+        private string _loadingText;
+        public string LoadingText
+        {
+            get { return _loadingText; }
+            set
+            {
+                _loadingText = value;
+                OnPropertyChanged("LoadingText");
+            }
+        }
 
         public ICommand StartBreakCommand { get; set; }
 
@@ -68,16 +78,16 @@ namespace Hubo
             }
         }
 
-        private bool _shiftRunning;
-        public bool ShiftRunning
+        private bool _driveShiftRunning;
+        public bool DriveShiftRunning
         {
             get
             {
-                return _shiftRunning;
+                return _driveShiftRunning;
             }
             set
             {
-                _shiftRunning = value;
+                _driveShiftRunning = value;
                 OnPropertyChanged("ShiftRunning");
             }
         }
@@ -113,10 +123,9 @@ namespace Hubo
             CheckActiveShift();
             CheckActiveBreak();
             ShiftButton = new Command(ToggleShift);
-            //StartBreakText = Resource.StartBreak;
             EndShiftText = Resource.EndShift;
 
-            //TODO: Code to check if vehicle in use
+            //Code to check if vehicle in use
             if (DbService.VehicleInUse())
             {
                 VehicleText = Resource.StopDriving;
@@ -126,10 +135,7 @@ namespace Hubo
                 VehicleText = Resource.StartDriving;
             }
 
-            //OnBreak = DbService.CheckOnBreak();
-
             AddNoteText = Resource.AddNote;
-            //BreakButtonColor = Color.FromHex("#009900");
             StartBreakCommand = new Command(StartBreak);
             VehicleCommand = new Command(Vehicle);
             //AddNoteCommand = new Command(AddNote);
@@ -155,12 +161,12 @@ namespace Hubo
 
             if (DbService.CheckActiveShift())
             {
-                ShiftRunning = true;
+                DriveShiftRunning = true;
                 GeoCollection();
             }
             else
             {
-                ShiftRunning = false;
+                DriveShiftRunning = false;
             }
         }
 
@@ -168,7 +174,6 @@ namespace Hubo
         {
             if (DbService.VehicleActive())
             {
-                //VehicleTable currentVehicle = new VehicleTable();
                 currentVehicle = DbService.GetCurrentVehicle();
                 GetVehicles();
 
@@ -191,7 +196,6 @@ namespace Hubo
             }
             else
             {
-                //VehicleRego = -1;
                 VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
                 VehicleTextColor = Color.FromHex("#009900");
@@ -242,7 +246,6 @@ namespace Hubo
 
         private void Vehicle()
         {
-            //Navigation.PushAsync(new VehiclesPage(2));
             if (currentVehicle.Registration != null)
             {
                 if (VehicleInUse)
@@ -252,7 +255,7 @@ namespace Hubo
                 }
                 else
                 {
-                    //Code to switch vehicle on Reverse of previous TODO
+                    //Code to switch vehicle on Reverse of previous comment
                     Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
                 }
                 SetVehicleLabel();
@@ -269,7 +272,6 @@ namespace Hubo
 
             if (OnBreak)
             {
-
                 MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
                     //Add break was successful
@@ -278,20 +280,18 @@ namespace Hubo
                         BreakButtonColor = Color.FromHex("#009900");
                         StartBreakText = Resource.StartBreak;
                         OnBreak = false;
-                        //DbService.StopBreak();
+                        DriveShiftRunning = true;
+                        GeoCollection();
                         OnPropertyChanged("BreakButtonColor");
                         OnPropertyChanged("StartBreakText");
                         OnPropertyChanged("OnBreak");
                     }
                     MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
                 });
-
-
             }
             else
             {
-
-                //TODO: Implement ability to take note and hubo
+                //Implement ability to take note and hubo
                 MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
                 {
                     //Add break was successful
@@ -300,14 +300,13 @@ namespace Hubo
                         BreakButtonColor = Color.FromHex("#cc0000");
                         StartBreakText = Resource.EndBreak;
                         OnBreak = true;
-                        //DbService.StartBreak();
+                        DriveShiftRunning = false;
                         OnPropertyChanged("BreakButtonColor");
                         OnPropertyChanged("StartBreakText");
                         OnPropertyChanged("OnBreak");
                     }
                     MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
                 });
-
             }
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
@@ -328,6 +327,10 @@ namespace Hubo
                         }
                         MessagingCenter.Unsubscribe<string>("ShiftStart", "ShiftStart");
                     });
+
+                    IsBusy = true;
+                    SetLoadingText();
+
                     await Navigation.PushModalAsync(new AddNotePage(5));
                 }
             }
@@ -347,6 +350,10 @@ namespace Hubo
                             }
                             MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
                         });
+
+                        IsBusy = true;
+                        SetLoadingText();
+
                         await Navigation.PushModalAsync(new AddNotePage(6));
                     }
                     else
@@ -366,6 +373,10 @@ namespace Hubo
                                     }
                                     MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
                                 });
+
+                                IsBusy = true;
+                                SetLoadingText();
+
                                 await Navigation.PushModalAsync(new AddNotePage(6));
                             }
                             MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
@@ -386,8 +397,8 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
-            ShiftRunning = true;
-            //LoadingText = "Stopping Shift...";
+            DriveShiftRunning = true;
+            GeoCollection();
         }
 
         private void ShowStartShiftXAML()
@@ -396,8 +407,7 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
-            ShiftRunning = false;
-            //LoadingText = "Starting Shift...";
+            DriveShiftRunning = false;
         }
 
         private async Task<bool> StartShift()
@@ -414,10 +424,6 @@ namespace Hubo
                     return false;
                 }
             }
-
-            IsBusy = true;
-            SetLoadingText();
-
             return true;
         }
 
@@ -473,14 +479,14 @@ namespace Hubo
         {
             var min = TimeSpan.FromMinutes(1);
 
-            int shiftKey = DbService.GetCurrentShift().Key;
+            int driveKey = DbService.GetCurrentDriveShift().Key;
 
-            DbService.CollectGeolocation(shiftKey);
+            DbService.CollectGeolocation(driveKey);
 
             Device.StartTimer(min, () =>
             {
-                DbService.CollectGeolocation(shiftKey);
-                return ShiftRunning;
+                DbService.CollectGeolocation(driveKey);
+                return DriveShiftRunning;
             });
         }
 

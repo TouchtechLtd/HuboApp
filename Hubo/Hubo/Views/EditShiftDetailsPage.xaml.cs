@@ -53,9 +53,9 @@ namespace Hubo
             else if (instruction=="Vehicles")
             {
                 Title = Resource.VehiclesText;
-                List<VehicleInUseTable> usedVehicles = new List<VehicleInUseTable>();
+                List<DriveTable> usedVehicles = new List<DriveTable>();
                 usedVehicles = editShiftDetailsVM.LoadVehicles();
-                foreach(VehicleInUseTable vehicle in usedVehicles)
+                foreach(DriveTable vehicle in usedVehicles)
                 {
                     VehicleTable vehicleInfo = editShiftDetailsVM.LoadVehicleInfo(vehicle);
                     picker.Items.Add(vehicleInfo.Registration);

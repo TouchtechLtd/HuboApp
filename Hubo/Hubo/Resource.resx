@@ -192,11 +192,8 @@
   <data name="EditVehicleText" xml:space="preserve">
     <value>Edit Vehicle</value>
   </data>
-  <data name="MakeText" xml:space="preserve">
-    <value>Make: </value>
-  </data>
-  <data name="ModelText" xml:space="preserve">
-    <value>Model: </value>
+  <data name="MakeModelText" xml:space="preserve">
+    <value>Make and Model: </value>
   </data>
   <data name="RegistrationText" xml:space="preserve">
     <value>Registration: </value>

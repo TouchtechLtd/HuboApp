@@ -11,7 +11,7 @@ namespace Hubo
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
-        public int ShiftKey { get; set; }
+        public int DriveKey { get; set; }
         public string TimeStamp { get; set; }
         public double latitude { get; set; }
         public double Longitude { get; set; }

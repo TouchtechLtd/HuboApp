@@ -69,6 +69,9 @@ namespace Hubo
             Scales.Add(Scale);
 
             circleGauge.Scales = Scales;
+
+            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
+            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 4));
         }
 
         private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)

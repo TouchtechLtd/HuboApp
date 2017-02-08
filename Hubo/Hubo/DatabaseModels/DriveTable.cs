@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    public class VehicleInUseTable
+    public class DriveTable
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int ShiftKey { get; set; }
         public int VehicleKey { get; set; }
-        public int ActiveVehicle { get; set; }
-        public int HuboStart { get; set; }
-        public int HuboEnd { get; set; }
+        public bool ActiveVehicle { get; set; }
         public int StartNoteKey { get; set; }
         public int EndNoteKey { get; set; }
     }

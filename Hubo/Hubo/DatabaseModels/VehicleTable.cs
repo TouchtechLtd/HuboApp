@@ -12,9 +12,8 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public string Registration { get; set; }
-        public string Make { get; set; }
-        public string Model { get; set; }
-        public string CompanyId { get; set; }
+        public string MakeModel { get; set; }
+        public int CompanyId { get; set; }
         public string StartingOdometer { get; set; }
         public string CurrentOdometer { get; set; }
     }

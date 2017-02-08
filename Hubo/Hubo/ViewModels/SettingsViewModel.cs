@@ -19,6 +19,9 @@ namespace Hubo
             get { return Settings.HamburgerSettings; }
             set
             {
+                if (Settings.HamburgerSettings == value)
+                    return;
+
                 Settings.HamburgerSettings = value;
                 OnPropertyChanged("HamburgerSettings");
             }
@@ -29,6 +32,9 @@ namespace Hubo
             get { return Settings.DarkLightSetting; }
             set
             {
+                if (Settings.DarkLightSetting == value)
+                    return;
+
                 Settings.DarkLightSetting = value;
                 OnPropertyChanged("DarkLightSetting");
             }
@@ -36,20 +42,17 @@ namespace Hubo
 
         public SettingsViewModel()
         {
-            //HamburgerSettings = Settings.HamburgerSettings;
 
-            
         }
 
         public async void Restart()
         {
-            await Application.Current.MainPage.DisplayAlert("Layout Change", "For this setting to take affect, the app will now close", "OK");
+            await Application.Current.MainPage.DisplayAlert("Layout Change", "For this setting to take affect a restart is required, the app will now close", "OK");
             var closer = DependencyService.Get<ICloseApplication>();
             if (closer != null)
                 closer.closeApplication();
         }
 
-        
 
         public void OnPropertyChanged(string name)
         {

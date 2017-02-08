@@ -39,7 +39,7 @@ namespace Hubo
         List<ShiftTable> listOfShifts = new List<ShiftTable>();
         List<BreakTable> listOfBreaks = new List<BreakTable>();
         List<NoteTable> listOfNotes = new List<NoteTable>();
-        List<VehicleInUseTable> listOfVehiclesUsed = new List<VehicleInUseTable>();
+        List<DriveTable> listOfVehiclesUsed = new List<DriveTable>();
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
 
