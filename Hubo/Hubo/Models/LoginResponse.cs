@@ -10,14 +10,32 @@ namespace Hubo
 {
     public class LoginUserResponse
     {
-        public long UserId { get; set; }
-        public int DriverId { get; set; }
-        public string DriverFirstName { get; set; }
-        public string DriverSurname { get; set; }
-        public string DriverEmail { get; set; }
-        public string LicenceNo { get; set; }
-        public int LicenceVersion { get; set; }
-        public int MobilePh { get; set; }
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public LoginResponseModel Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
+
+    public class LoginUserDetailsResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public UserResponseModel Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
     }
 
     public class LoginCompanyResponse

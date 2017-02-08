@@ -395,6 +395,11 @@ namespace Hubo
             }
         }
 
+        internal void UpdateUser(UserTable user)
+        {
+            db.Update(user);
+        }
+
         internal void UserOffline(UserTable user)
         {
             var tbl = db.GetTableInfo("UserOffline");

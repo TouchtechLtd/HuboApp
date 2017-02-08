@@ -41,26 +41,24 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                UserResponse result = new UserResponse();
-                result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
+                LoginUserResponse result = new LoginUserResponse();
+                result = JsonConvert.DeserializeObject<LoginUserResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
                 {
                     UserTable user = new UserTable();
-                    user.User = username;
-                    user.Token = result.Result;
-                    user.Address = "dfsdfa";
-                    user.DriverId = 1;
-                    user.Email = "ben@triotech.co.nz";
-                    user.Endorsements = "3";
-                    user.FirstName = "Ben";
-                    user.LastName = "Suarez-Brodie";
-                    user.Token = result.Result;
-                    user.Phone = "0278851100";
-                    user.LicenseVersion = "2";
-                    user.License = "DJK432";
+                    user.Id = result.Result.Id;
+                    user.UserName = username;
+                    user.Token = result.Result.Token;
+                    user.DriverId = result.Result.DriverId;
+                    user.Email = result.Result.EmailAddress;
+                    user.FirstName = result.Result.FirstName;
+                    user.LastName = result.Result.Surname;
+                    db.InsertUser(user);
 
-                    int totalDetails = await GetUser(user.DriverId, user.Token);
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + user.Token);
+
+                    int totalDetails = await GetUser(user, user.Token);
                     switch (totalDetails)
                     {
                         case -3:
@@ -105,7 +103,6 @@ namespace Hubo
                             return false;
                     }
 
-                    db.InsertUser(user);
                     return true;
                 }
                 else
@@ -136,7 +133,6 @@ namespace Hubo
 
             var shiftGet = new HttpRequestMessage(HttpMethod.Get, urlShift);
             shiftGet.Headers.Add("DriverId", id.ToString());
-            shiftGet.Headers.Add("Authorization", "Bearer " + token);
 
             var shiftResponse = await client.SendAsync(shiftGet);
 
@@ -163,7 +159,6 @@ namespace Hubo
 
                     var noteGet = new HttpRequestMessage(HttpMethod.Get, urlNote);
                     noteGet.Headers.Add("ShiftId", shiftId.ToString());
-                    noteGet.Headers.Add("Authorization", "Bearer " + token);
 
                     var noteResponse = await client.SendAsync(noteGet);
 
@@ -192,7 +187,6 @@ namespace Hubo
 
                         var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
                         driveGet.Headers.Add("ShiftId", shiftId.ToString());
-                        driveGet.Headers.Add("Authorization", "Bearer " + token);
 
                         var driveResponse = await client.SendAsync(driveGet);
 
@@ -226,7 +220,6 @@ namespace Hubo
 
                                 var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
                                 breakGet.Headers.Add("DriveShiftId", drive.Key.ToString());
-                                breakGet.Headers.Add("Authorization", "Bearer " + token);
 
                                 var breakResponse = await client.SendAsync(breakGet);
 
@@ -287,7 +280,7 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> GetUser(int id, string token)
+        internal async Task<int> GetUser(UserTable user, string token)
         {
             string urlUser = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
             string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
@@ -296,85 +289,79 @@ namespace Hubo
             if (!db.ClearTablesForNewUser())
                 return -3;
 
-            if (id < 0)
+            if (user.Id < 0)
                 return -2;
 
-            //var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
-            //userGet.Headers.Add("Authorization", "Bearer " + token);
-            //userGet.Headers.Add("Authorization", "Bearer " + token);
+            var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
+            userGet.Headers.Add("UserId", user.Id.ToString());
 
-            //var userResponse = await client.PostAsync(urlUser, userContent);
+            var userResponse = await client.SendAsync(userGet);
 
-            //if (userResponse.IsSuccessStatusCode)
-            //{
-            //    LoginUserResponse userDetails = new LoginUserResponse();
-            //    userDetails = JsonConvert.DeserializeObject<LoginUserResponse>(userResponse.Content.ReadAsStringAsync().Result);
-
-            //    UserTable user = new UserTable();
-            //    CompanyTable userCompany = new CompanyTable();
-            //    VehicleTable userVehicles = new VehicleTable();
-
-            //    //CompanyDetailModel companyModel = new CompanyDetailModel();
-
-            //    user.Id = userDetails.DriverId;
-            //    user.FirstName = userDetails.DriverFirstName;
-            //    user.LastName = userDetails.DriverSurname;
-            //    user.License = userDetails.LicenceNo;
-            //    user.LicenseVersion = userDetails.LicenceVersion.ToString();
-            //    user.Phone = userDetails.MobilePh.ToString();
-            //    db.InsertUser(user);
-
-            //companyModel.id = id;
-
-            var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
-            companyGet.Headers.Add("DriverId", id.ToString());
-            companyGet.Headers.Add("Authorization", "Bearer " + token);
-
-            var companyResponse = await client.SendAsync(companyGet);
-
-            if (companyResponse.IsSuccessStatusCode)
+            if (userResponse.IsSuccessStatusCode)
             {
-                LoginCompanyResponse companyDetails = new LoginCompanyResponse();
-                companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
+                LoginUserDetailsResponse userDetails = new LoginUserDetailsResponse();
+                userDetails = JsonConvert.DeserializeObject<LoginUserDetailsResponse>(userResponse.Content.ReadAsStringAsync().Result);
 
-                foreach (CompanyTable companyItem in companyDetails.Companies)
+                CompanyTable userCompany = new CompanyTable();
+                VehicleTable userVehicles = new VehicleTable();
+
+                user.Phone = userDetails.Result.PhoneNumber;
+                user.Address1 = userDetails.Result.Address1;
+                user.Address2 = userDetails.Result.Address2;
+                user.Address3 = userDetails.Result.Address3;
+                user.PostCode = userDetails.Result.PostCode;
+                user.City = userDetails.Result.City;
+                user.Country = userDetails.Result.Country;
+
+                db.UpdateUser(user);
+
+                var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
+                companyGet.Headers.Add("DriverId", user.DriverId.ToString());
+
+                var companyResponse = await client.SendAsync(companyGet);
+
+                if (companyResponse.IsSuccessStatusCode)
                 {
-                    companyItem.DriverId = id;
-                    db.InsertUserComapany(companyItem);
+                    LoginCompanyResponse companyDetails = new LoginCompanyResponse();
+                    companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
 
-                    var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
-                    vehicleGet.Headers.Add("CompanyId", companyItem.Key.ToString());
-                    vehicleGet.Headers.Add("Authorization", "Bearer " + token);
-
-                    var vehicleResponse = await client.SendAsync(vehicleGet);
-
-                    if (vehicleResponse.IsSuccessStatusCode)
+                    foreach (CompanyTable companyItem in companyDetails.Companies)
                     {
-                        LoginVehicleResponse vehicleDetails = new LoginVehicleResponse();
-                        vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+                        companyItem.DriverId = user.DriverId;
+                        db.InsertUserComapany(companyItem);
 
-                        foreach (VehicleTable vehicleItem in vehicleDetails.Vehicles)
+                        var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
+                        vehicleGet.Headers.Add("CompanyId", companyItem.Key.ToString());
+
+                        var vehicleResponse = await client.SendAsync(vehicleGet);
+
+                        if (vehicleResponse.IsSuccessStatusCode)
                         {
-                            db.InsertUserVehicles(vehicleItem);
+                            LoginVehicleResponse vehicleDetails = new LoginVehicleResponse();
+                            vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+
+                            foreach (VehicleTable vehicleItem in vehicleDetails.Vehicles)
+                            {
+                                db.InsertUserVehicles(vehicleItem);
+                            }
+                        }
+                        else
+                        {
+                            return 1;
                         }
                     }
-                    else
-                    {
-                        return 1;
-                    }
                 }
+                else
+                {
+                    return 2;
+                }
+
+                return 3;
             }
             else
             {
-                return 2;
+                return -1;
             }
-
-            return 3;
-            //}
-            //else
-            //{
-            //    return -1;
-            //}
         }
 
         private string GetBaseUrl()
@@ -482,6 +469,7 @@ namespace Hubo
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
+
             var response = await client.PostAsync(url, content);
 
             if (response.IsSuccessStatusCode)
@@ -513,16 +501,106 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> InsertGeoData(int driveShiftId, DateTime timeStamp, double lat, double longitude)
+        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive, string date)
+        {
+            if (!driveStarted)
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
+                string contentType = Constants.CONTENT_TYPE;
+
+                DriveModel driveModel = new DriveModel();
+                driveModel.shiftId = drive.ShiftKey;
+                driveModel.timeStamp = date;
+                driveModel.vehicleId = drive.VehicleKey;
+
+                string json = JsonConvert.SerializeObject(driveModel);
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
+
+                var stopDrivePut = new HttpRequestMessage(HttpMethod.Put, url);
+                stopDrivePut.Headers.Add("DriverShiftId", drive.Key.ToString());
+
+                var response = await client.SendAsync(stopDrivePut);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        internal async Task<int> QueryBreak(bool breakStarted, int driveShiftId, NoteTable note)
+        {
+            if (!breakStarted)
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
+                string contentType = Constants.CONTENT_TYPE;
+
+                BreakModel driveModel = new BreakModel();
+                driveModel.driveShiftId = driveShiftId;
+                driveModel.timeStamp = note.Date;
+                driveModel.geoDataId = 4;
+
+                string json = JsonConvert.SerializeObject(driveModel);
+                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
+
+                var stopDrivePut = new HttpRequestMessage(HttpMethod.Put, url);
+                stopDrivePut.Headers.Add("DriverShiftId", driveShiftId.ToString());
+
+                var response = await client.SendAsync(stopDrivePut);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        internal async Task<int> InsertGeoData(int driveShiftId, NoteTable note)
         {
             string url = GetBaseUrl() + Constants.REST_URL_INSERTGEODATA;
             string contentType = Constants.CONTENT_TYPE;
 
             InsertGeoModel geoModel = new InsertGeoModel();
             geoModel.drivingShiftId = driveShiftId;
-            geoModel.timeStamp = timeStamp.ToString();
-            geoModel.latitude = lat;
-            geoModel.longitude = longitude;
+            geoModel.timeStamp = note.Date;
+            geoModel.latitude = note.Latitude;
+            geoModel.longitude = note.Longitude;
 
             string json = JsonConvert.SerializeObject(geoModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
@@ -530,14 +608,11 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                InsertGeoResponse result = new InsertGeoResponse();
-                result = JsonConvert.DeserializeObject<InsertGeoResponse>(response.Content.ReadAsStringAsync().Result);
+                InsertGeoResponse result = JsonConvert.DeserializeObject<InsertGeoResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
                 {
-
-
-                    return 1;
+                    return result.Result;
                 }
                 else
                 {
@@ -546,6 +621,43 @@ namespace Hubo
             }
 
             return -1;
+        }
+
+        internal async Task<int> InsertNote(int breakId, int drivingShiftId, int geoData, NoteTable note)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_INSERTNOTE;
+            string contentType = Constants.CONTENT_TYPE;
+
+            InsertNoteModel noteModel = new InsertNoteModel();
+            noteModel.shiftId = note.ShiftKey;
+            noteModel.breakId = breakId;
+            noteModel.drivingShiftId = drivingShiftId;
+            noteModel.noteText = note.Note;
+            noteModel.geoDataLink = geoData;
+            noteModel.timeStamp = note.Date;
+            noteModel.hubo = note.Hubo;
+
+            string json = JsonConvert.SerializeObject(noteModel);
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                InsertNoteResponse result = JsonConvert.DeserializeObject<InsertNoteResponse>(response.Content.ReadAsStringAsync().Result);
+
+                if (result.Success)
+                {
+                    return result.Result;
+                }
+                else
+                {
+                    return -2;
+                }
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }

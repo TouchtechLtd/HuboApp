@@ -26,5 +26,13 @@ namespace Hubo
         public const string REST_URL_GETNOTEDETAILS = "/Note/GetNotesAsync";
 
         public const string REST_URL_INSERTGEODATA = "/DrivingShift/InsertGeoPointAsync";
+
+        public const string REST_URL_ADDDRIVESTART = "/DrivingShift/StartDrivingAsync";
+        public const string REST_URL_ADDDRIVEEND = "/DrivingShift/StopDrivingAsync";
+
+        public const string REST_URL_ADDBREAKSTART = "/Break/StartBreakAsync";
+        public const string REST_URL_ADDBREAKEND = "/Break/StopBreakAsync";
+
+        public const string REST_URL_INSERTNOTE = "/Note/InsertNoteAsync";
     }
 }

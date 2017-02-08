@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +13,61 @@ namespace Hubo
         public string password { get; set; }
     }
 
-    class UserRequestModel
+    public class LoginResponseModel
     {
-        public int id { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "driverId")]
+        public int DriverId { get; set; }
+
+        [JsonProperty(PropertyName = "firstName")]
+        public string FirstName { get; set; }
+
+        [JsonProperty(PropertyName = "surName")]
+        public string Surname { get; set; }
+
+        [JsonProperty(PropertyName = "emailAddress")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty(PropertyName = "token")]
+        public string Token { get; set; }
     }
 
-    class CompanyDetailModel
+    public class UserResponseModel
     {
-        public int id { get; set; }
-    }
+        [JsonProperty(PropertyName = "id")]
+        public int UserId { get; set; }
 
-    class VehicleDetailModel
-    {
-        public int id { get; set; }
+        [JsonProperty(PropertyName = "phoneNumber")]
+        public int PhoneNumber { get; set; }
+
+        [JsonProperty(PropertyName = "licenceNumber")]
+        public string LicenceNumber { get; set; }
+
+        [JsonProperty(PropertyName = "licenceVersion")]
+        public string LicenceVersion { get; set; }
+
+        [JsonProperty(PropertyName = "licenceEndorsements")]
+        public string LicenceEndorsements { get; set; }
+
+        [JsonProperty(PropertyName = "address1")]
+        public string Address1 { get; set; }
+
+        [JsonProperty(PropertyName = "address2")]
+        public string Address2 { get; set; }
+
+        [JsonProperty(PropertyName = "address3")]
+        public string Address3 { get; set; }
+
+        [JsonProperty(PropertyName = "postCode")]
+        public string PostCode { get; set; }
+
+        [JsonProperty(PropertyName = "city")]
+        public string City { get; set; }
+
+        [JsonProperty(PropertyName = "country")]
+        public string Country { get; set; }
     }
 
     public class ShiftResponseModel
