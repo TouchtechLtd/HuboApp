@@ -13,7 +13,7 @@ namespace Hubo
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public bool Result { get; set; }
+        public int Result { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }

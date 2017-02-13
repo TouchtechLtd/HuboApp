@@ -192,9 +192,7 @@ namespace Hubo
                         }
                     }
                     else
-                    {
                         return 1;
-                    }
 
                     var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
                     driveGet.Headers.Add("ShiftId", shiftId.ToString());
@@ -222,9 +220,7 @@ namespace Hubo
                         }
                     }
                     else
-                    {
                         return 2;
-                    }
                 }
 
                 var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
@@ -256,16 +252,12 @@ namespace Hubo
                     }
                 }
                 else
-                {
                     return 3;
-                }
 
                 return 4;
             }
             else
-            {
                 return -1;
-            }
         }
 
         internal async Task<int> GetUser(UserTable user, string token)
@@ -331,9 +323,7 @@ namespace Hubo
                     }
                 }
                 else
-                {
                     return 2;
-                }
 
                 var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
                 vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
@@ -357,16 +347,12 @@ namespace Hubo
                     }
                 }
                 else
-                {
                     return 1;
-                }
 
                 return 3;
             }
             else
-            {
                 return -1;
-            }
         }
 
         private string GetBaseUrl()
@@ -415,12 +401,11 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                UserResponse result = new UserResponse();
-                result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
+                QueryShiftResponse result = new QueryShiftResponse();
+                result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
+
                 if (result.Success)
-                {
                     return true;
-                }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register vehicle, please try again", Resource.DisplayAlertOkay);
@@ -448,6 +433,8 @@ namespace Hubo
 
                 shiftModel.id = shift.ServerKey;
                 shiftModel.endDate = shift.EndDate;
+                shiftModel.endLocationLat = shift.EndLat;
+                shiftModel.endLocationLong = shift.EndLong;
 
                 json = JsonConvert.SerializeObject(shiftModel);
             }
@@ -460,30 +447,32 @@ namespace Hubo
                 shiftModel.driverId = userId;
                 shiftModel.companyId = companyId;
                 shiftModel.startDate = shift.StartDate;
+                shiftModel.startLocationLat = shift.StartLat;
+                shiftModel.startLocationLong = shift.StartLong;
 
                 json = JsonConvert.SerializeObject(shiftModel);
             }
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-
-
             var response = await client.PostAsync(url, content);
 
             if (response.IsSuccessStatusCode)
             {
-                UserResponse result = new UserResponse();
-                result = JsonConvert.DeserializeObject<UserResponse>(response.Content.ReadAsStringAsync().Result);
+                QueryShiftResponse result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
                 if (result.Success)
                 {
-                    if (int.Parse(result.Result) > 0)
+                    if (!shiftStarted)
                     {
-                        return int.Parse(result.Result);
+                        if (result.Result > 0)
+                            return result.Result;
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
+                            return -2;
+                        }
                     }
                     else
-                    {
-                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
-                        return -2;
-                    }
+                        return 0;
                 }
                 else
                 {
@@ -498,94 +487,115 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive, string date)
+        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive)
         {
+            string url;
+            string contentType = Constants.CONTENT_TYPE;
+            string json;
+
             if (!driveStarted)
             {
-                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
-                string contentType = Constants.CONTENT_TYPE;
+                url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
 
-                DriveModel driveModel = new DriveModel();
+                DriveStartModel driveModel = new DriveStartModel();
                 driveModel.shiftId = drive.ShiftKey;
-                driveModel.timeStamp = date;
+                driveModel.startDrivingDateTime = drive.StartDate;
                 driveModel.vehicleId = drive.VehicleKey;
+                driveModel.startHubo = drive.StartHubo;
 
-                string json = JsonConvert.SerializeObject(driveModel);
-                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-                var response = await client.PostAsync(url, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
+                json = JsonConvert.SerializeObject(driveModel);
             }
             else
             {
-                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
+                url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
 
-                var stopDrivePut = new HttpRequestMessage(HttpMethod.Put, url);
-                stopDrivePut.Headers.Add("DriverShiftId", drive.Key.ToString());
+                DriveEndModel driveModel = new DriveEndModel();
+                driveModel.id = drive.ServerId;
+                driveModel.stopDrivingDateTime = drive.EndDate;
+                driveModel.stopHubo = drive.EndHubo;
 
-                var response = await client.SendAsync(stopDrivePut);
+                json = JsonConvert.SerializeObject(driveModel);
+            }
 
-                if (response.IsSuccessStatusCode)
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                QueryDriveResponse result = JsonConvert.DeserializeObject<QueryDriveResponse>(response.Content.ReadAsStringAsync().Result);
+
+                if (result.Success)
                 {
-                    return 1;
+                    if (!driveStarted)
+                    {
+                        if (result.Result > 0)
+                            return result.Result;
+                        else
+                            return -2;
+                    }
+                    else
+                        return 0;
                 }
                 else
-                {
-                    return -1;
-                }
+                    return -2;
             }
+            else
+                return -1;
         }
 
-        internal async Task<int> QueryBreak(bool breakStarted, int driveShiftId, NoteTable note)
+        internal async Task<int> QueryBreak(bool breakStarted, int driveShiftId, BreakTable breakTable)
         {
+            string url;
+            string contentType = Constants.CONTENT_TYPE;
+            string json;
+
             if (!breakStarted)
             {
-                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
-                string contentType = Constants.CONTENT_TYPE;
+                url = GetBaseUrl() + Constants.REST_URL_ADDBREAKSTART;
 
-                BreakModel driveModel = new BreakModel();
-                driveModel.driveShiftId = driveShiftId;
-                driveModel.timeStamp = note.Date;
-                driveModel.geoDataId = 4;
+                BreakStartModel breakModel = new BreakStartModel();
+                breakModel.shiftId = driveShiftId;
+                breakModel.startBreakDateTime = breakTable.StartDate;
+                breakModel.startBreakLocation = breakTable.StartLocation;
 
-                string json = JsonConvert.SerializeObject(driveModel);
-                HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-                var response = await client.PostAsync(url, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
+                json = JsonConvert.SerializeObject(breakModel);
             }
             else
             {
-                string url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
+                url = GetBaseUrl() + Constants.REST_URL_ADDBREAKEND;
 
-                var stopDrivePut = new HttpRequestMessage(HttpMethod.Put, url);
-                stopDrivePut.Headers.Add("DriverShiftId", driveShiftId.ToString());
+                BreakEndModel breakModel = new BreakEndModel();
+                breakModel.id = breakTable.ServerId;
+                breakModel.stopBreakDateTime = breakTable.EndDate;
+                breakModel.stopBreakLocation = breakTable.EndLocation;
 
-                var response = await client.SendAsync(stopDrivePut);
+                json = JsonConvert.SerializeObject(breakModel);
+            }
 
-                if (response.IsSuccessStatusCode)
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                QueryBreakResponse result = JsonConvert.DeserializeObject<QueryBreakResponse>(response.Content.ReadAsStringAsync().Result);
+
+                if (result.Success)
                 {
-                    return 1;
+                    if (!breakStarted)
+                    {
+                        if (result.Result > 0)
+                            return result.Result;
+                        else
+                            return -2;
+                    }
+                    else
+                        return 0;
                 }
                 else
-                {
-                    return -1;
-                }
+                    return -3;
             }
+            else
+                return -1;
         }
 
         internal async Task<int> InsertGeoData(int driveShiftId, DateTime date, Geolocation location)
@@ -608,16 +618,12 @@ namespace Hubo
                 InsertGeoResponse result = JsonConvert.DeserializeObject<InsertGeoResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
-                {
                     return result.Result;
-                }
                 else
-                {
                     return -2;
-                }
             }
-
-            return -1;
+            else
+                return -1;
         }
 
         internal async Task<int> InsertNote(NoteTable note)
@@ -639,21 +645,15 @@ namespace Hubo
                 InsertNoteResponse result = JsonConvert.DeserializeObject<InsertNoteResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
-                {
                     return result.Result;
-                }
                 else
-                {
                     return -2;
-                }
             }
             else
-            {
                 return -1;
-            }
         }
 
-        internal async Task<bool> ExportData(string emailAddress, string emailBody)
+        internal async Task<int> ExportData(string emailAddress, string emailBody)
         {
             string url = GetBaseUrl() + Constants.REST_URL_EXPORTDATA;
             string contentType = Constants.CONTENT_TYPE;
@@ -671,18 +671,12 @@ namespace Hubo
                 ExportResponse result = JsonConvert.DeserializeObject<ExportResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
-                {
                     return result.Result;
-                }
                 else
-                {
-                    return false;
-                }
+                    return -1;
             }
             else
-            {
-                return false;
-            }
+                return -2;
         }
     }
 }

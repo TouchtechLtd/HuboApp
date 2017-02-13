@@ -382,6 +382,32 @@ namespace Hubo
                 ShiftTable currentShift = currentShiftList[0];
                 newNote.ShiftKey = currentShift.Key;
                 db.Insert(newNote);
+
+                RestAPI = new RestService();
+                int result = await RestAPI.InsertNote(newNote);
+
+                switch (result)
+                {
+                    case -1:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to connect to the server", Resource.DisplayAlertOkay);
+                        break;
+                    case -2:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal server error", Resource.DisplayAlertOkay);
+                        break;
+                    default:
+                        return;
+                }
+
+                var tbl = db.GetTableInfo("NoteOffline");
+
+                if (tbl == null)
+                    db.CreateTable<NoteOffline>();
+
+                NoteOffline offline = new NoteOffline();
+
+                offline.NoteKey = newNote.Key;
+
+                db.Insert(offline);
             }
         }
 
@@ -401,12 +427,86 @@ namespace Hubo
                     return;
                 }
 
-                DriveTable vehicleInUse = new DriveTable();
-                vehicleInUse = listOfVehiclesInUse[0];
-                vehicleInUse.ActiveVehicle = false;
-                vehicleInUse.EndDate = date.ToString();
-                vehicleInUse.EndHubo = hubo;
-                db.Update(vehicleInUse);
+                DriveTable drive = new DriveTable();
+                drive = listOfVehiclesInUse[0];
+                drive.ActiveVehicle = false;
+                drive.EndDate = date.ToString();
+                drive.EndHubo = hubo;
+                db.Update(drive);
+
+                List<GeolocationTable> locationUpload = db.Query<GeolocationTable>("SELECT * FROM [GeolocationTable] WHERE [DriveKey] = " + drive.Key);
+
+                if (locationUpload != null)
+                {
+                    RestAPI = new RestService();
+                    int locationResult = await RestAPI.InsertGeoData(locationUpload);
+
+                    switch (locationResult)
+                    {
+                        case -1:
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to connect to server", Resource.DisplayAlertOkay);
+                            break;
+                        case -2:
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal Server Error", Resource.DisplayAlertOkay);
+                            break;
+                        default:
+                            db.Query<Geolocation>("DELETE FROM [GeolocationTable]");
+                            break;
+                    }
+                }
+
+                if (drive.ServerId > 0)
+                {
+                    RestAPI = new RestService();
+                    int result = await RestAPI.QueryDrive(true, drive);
+
+                    switch (result)
+                    {
+                        case -1:
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to connect to server", Resource.DisplayAlertOkay);
+                            break;
+                        case -2:
+                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal Server Error", Resource.DisplayAlertOkay);
+                            break;
+                        default:
+                            MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
+                            MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+                            return;
+                    }
+
+                    var tbl = db.GetTableInfo("DriveOffline");
+
+                    if (tbl == null)
+                    {
+                        db.CreateTable<DriveOffline>();
+
+                        DriveOffline offline = new DriveOffline();
+
+                        offline.DriveKey = drive.Key;
+                        db.Insert(offline);
+                    }
+                    else
+                    {
+                        List<DriveOffline> checkOffline = db.Query<DriveOffline>("SELECT [DriveKey] FROM [DriveOffline]");
+                        int num = 0;
+
+                        foreach (DriveOffline item in checkOffline)
+                        {
+                            if (item.DriveKey == drive.Key)
+                            {
+                                num++;
+                            }
+                        }
+
+                        if (num == 0)
+                        {
+                            DriveOffline offline = new DriveOffline();
+
+                            offline.DriveKey = drive.Key;
+                            db.Insert(offline);
+                        }
+                    }
+                }
             }
             else
             {
@@ -417,14 +517,43 @@ namespace Hubo
                     return;
                 }
 
-                DriveTable newVehicleInUse = new DriveTable();
-                newVehicleInUse.ActiveVehicle = true;
-                newVehicleInUse.ShiftKey = listOfShifts[0].Key;
-                newVehicleInUse.StartDate = date.ToString();
-                newVehicleInUse.VehicleKey = vehicleKey;
-                newVehicleInUse.StartHubo = hubo;
-                db.Insert(newVehicleInUse);
+                DriveTable newDrive = new DriveTable();
+                newDrive.ActiveVehicle = true;
+                newDrive.ShiftKey = listOfShifts[0].Key;
+                newDrive.StartDate = date.ToString();
+                newDrive.VehicleKey = vehicleKey;
+                newDrive.StartHubo = hubo;
+                db.Insert(newDrive);
+
+                RestAPI = new RestService();
+                int result = await RestAPI.QueryDrive(false, newDrive);
+
+                switch (result)
+                {
+                    case -1:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to connect to server", Resource.DisplayAlertOkay);
+                        break;
+                    case -2:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal Server Error", Resource.DisplayAlertOkay);
+                        break;
+                    default:
+                        MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
+                        MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+                        return;
+                }
+
+                var tbl = db.GetTableInfo("DriveOffline");
+
+                if (tbl == null)
+                    db.CreateTable<DriveOffline>();
+
+                DriveOffline offline = new DriveOffline();
+
+                offline.DriveKey = newDrive.Key;
+
+                db.Insert(offline);
             }
+
             MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
         }
@@ -542,12 +671,12 @@ namespace Hubo
             return false;
         }
 
-        internal bool StopBreak(string location)
+        internal async Task<bool> StopBreak(string location)
         {
             List<BreakTable> currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
             if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnableToGetBreak, Resource.DisplayAlertOkay);
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnableToGetBreak, Resource.DisplayAlertOkay);
                 return false;
             }
 
@@ -557,7 +686,62 @@ namespace Hubo
             currentBreak.EndLocation = location;
             db.Update(currentBreak);
 
-            return true;
+            if (currentBreak.ServerId > 0)
+            {
+                RestAPI = new RestService();
+                int result = await RestAPI.QueryBreak(true, currentBreak);
+
+                switch (result)
+                {
+                    case -1:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to connect to the server", Resource.DisplayAlertOkay);
+                        break;
+                    case -2:
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal Server Error", Resource.DisplayAlertOkay);
+                        break;
+                    default:
+                        return true;
+                }
+
+                var tbl = db.GetTableInfo("BreakOffline");
+
+                if (tbl == null)
+                {
+                    db.CreateTable<BreakOffline>();
+                    BreakOffline offline = new BreakOffline();
+
+                    offline.BreakKey = currentBreak.Key;
+                    db.Insert(offline);
+                }
+                else
+                {
+                    List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
+                    int num = 0;
+
+                    foreach (BreakOffline item in checkOffline)
+                    {
+                        if (item.BreakKey == currentBreak.Key)
+                        {
+                            num++;
+                        }
+                    }
+
+                    if (num == 0)
+                    {
+                        BreakOffline offline = new BreakOffline();
+
+                        offline.BreakKey = currentBreak.Key;
+                        db.Insert(offline);
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Invalid Server Key", Resource.DisplayAlertOkay);
+                return false;
+            }
         }
 
         internal void InsertVehicle(VehicleTable vehicleToAdd)
@@ -571,7 +755,7 @@ namespace Hubo
             return true;
         }
 
-        internal bool StartBreak(string location)
+        internal async Task<bool> StartBreak(string location)
         {
             BreakTable newBreak = new BreakTable();
             List<DriveTable> activeDrive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
@@ -582,6 +766,27 @@ namespace Hubo
                 newBreak.ActiveBreak = true;
                 newBreak.StartLocation = location;
                 db.Insert(newBreak);
+
+                RestAPI = new RestService();
+                int result = await RestAPI.QueryBreak(false, newBreak);
+
+                if (result > 0)
+                {
+                    newBreak.ServerId = result;
+                    db.Update(newBreak);
+                }
+
+                var tbl = db.GetTableInfo("BreakOffline");
+
+                if (tbl == null)
+                    db.CreateTable<BreakOffline>();
+
+                BreakOffline offline = new BreakOffline();
+
+                offline.BreakKey = newBreak.Key;
+
+                db.Insert(offline);
+
                 return true;
             }
             return false;

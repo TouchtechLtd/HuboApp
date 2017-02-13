@@ -18,7 +18,7 @@ namespace Hubo
             InitializeComponent();
 
             //Check for logged in status
-            CheckLoggedInStatus();
+            //CheckLoggedInStatus();
 
             //Run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(1), () =>
@@ -43,18 +43,21 @@ namespace Hubo
         protected override void OnStart()
         {
             //Handle when your app starts
+            base.OnStart();
             CheckLoggedInStatus();
         }
 
         protected override void OnSleep()
         {
             //Handle when your app sleeps
+            base.OnSleep();
             MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
         }
 
         protected override void OnResume()
         {
             //Implement check for logged in status
+            base.OnResume();
             CheckLoggedInStatus();
         }
     }
