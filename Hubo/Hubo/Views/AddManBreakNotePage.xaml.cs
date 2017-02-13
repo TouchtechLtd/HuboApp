@@ -15,43 +15,58 @@ namespace Hubo
         {
             InitializeComponent();
             addBreakNoteVM = new AddManBreakNoteViewModel(instuction);
-            addBreakNoteVM.Navigation = Navigation;
             BindingContext = addBreakNoteVM;
+            addBreakNoteVM.Navigation = Navigation;
+            UpdateVehicleItems();
+            addButton.Clicked += AddButton_Clicked;
+
             if (instuction == "Break")
             {
                 Title = Resource.AddBreak;
 
-                startBreakNote.ReturnType = ReturnType.Next;
-                startBreakNote.Next = startBreakLocation;
-
                 startBreakLocation.ReturnType = ReturnType.Next;
-                startBreakLocation.Next = startBreakHubo;
+                startBreakLocation.Next = endBreakLocation;
 
-                startBreakHubo.ReturnType = ReturnType.Next;
-                startBreakHubo.Next = endBreakNote;
-
-                endBreakNote.ReturnType = ReturnType.Next;
-                endBreakNote.Next = endBreakLocation;
-
-                endBreakLocation.ReturnType = ReturnType.Next;
-                endBreakLocation.Next = endBreakHubo;
-
-                endBreakHubo.ReturnType = ReturnType.Done;
+                endBreakLocation.ReturnType = ReturnType.Done;
             }
             else if (instuction == "Note")
             {
                 Title = Resource.AddNote;
 
-                noteDetail.ReturnType = ReturnType.Next;
-                noteDetail.Next = noteLocation;
+                noteDetail.ReturnType = ReturnType.Done;
+            }
+            else if (instuction == "Drive Shift")
+            {
+                Title = Resource.AddDrive;
 
-                noteLocation.ReturnType = ReturnType.Next;
-                noteLocation.Next = noteHubo;
+                startDriveHubo.ReturnType = ReturnType.Next;
+                startDriveHubo.Next = endDriveHubo;
 
-                noteHubo.ReturnType = ReturnType.Done;
+                endDriveHubo.ReturnType = ReturnType.Done;
             }
 
             addBreakNoteVM.InflatePage();
+        }
+
+        private void AddButton_Clicked(object sender, EventArgs e)
+        {
+            if (vehiclePicker.SelectedIndex != -1)
+            {
+                addBreakNoteVM.selectedVehicle = vehiclePicker.SelectedIndex;
+            }
+        }
+
+        private void UpdateVehicleItems()
+        {
+            List<VehicleTable> vehiclePickerItems = new List<VehicleTable>();
+            vehiclePickerItems = addBreakNoteVM.GetVehicles();
+            if (vehiclePickerItems != null)
+            {
+                foreach (VehicleTable vehicle in vehiclePickerItems)
+                {
+                    vehiclePicker.Items.Add(vehicle.Registration);
+                }
+            }
         }
     }
 }

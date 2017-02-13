@@ -2,7 +2,7 @@
 
 namespace Hubo
 {
-    class UserTable
+    public class UserTable
     {
         [PrimaryKey]
         public int Id { get; set; }
@@ -16,9 +16,6 @@ namespace Hubo
         public string LastName { get; set; }
 
         public string Email { get; set; }
-        public string License { get; set; }
-        public string LicenseVersion { get; set; }
-        public string Endorsements { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
@@ -28,6 +25,6 @@ namespace Hubo
         public int Phone { get; set; }
         public string Token { get; set; }
         public int DriverId { get; set; }
-
+        public string LicenceNumber { get; set; }
     }
 }

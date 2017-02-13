@@ -25,12 +25,12 @@ namespace Hubo
             foreach (ShiftTable shift in listOfShifts)
             {
                 //Format and add shifts to picker
-                if (shift.EndTime == null)
+                if (shift.EndDate == null)
                 {
-                    shift.EndTime = "Current";
+                    shift.EndDate = "Current";
                 }
-                DateTime shiftStart = DateTime.Parse(shift.StartTime);
-                DateTime shiftEnd = DateTime.Parse(shift.EndTime);
+                DateTime shiftStart = DateTime.Parse(shift.StartDate);
+                DateTime shiftEnd = DateTime.Parse(shift.EndDate);
 
                 shiftPicker.Items.Add(string.Format("{0:dd/MM}", shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
             }

@@ -75,43 +75,40 @@ namespace Hubo
 
         private void Save()
         {
-            string newStartShiftDate = ShiftStartDatePicker.ToString();
-            if (!(currentShift.EndTime == "Current"))
+            if (!(currentShift.EndDate == "Current"))
             {
 
-                DateTime oldEndShiftDate = DateTime.Parse(currentShift.EndTime).Date;
-                TimeSpan oldEndShiftTime = DateTime.Parse(currentShift.EndTime).TimeOfDay;
+                DateTime oldEndShiftDate = DateTime.Parse(currentShift.EndDate).Date;
+                TimeSpan oldEndShiftTime = DateTime.Parse(currentShift.EndDate).TimeOfDay;
 
                 if ((ShiftEndDatePicker != oldEndShiftDate) || (ShiftEndTimePicker != oldEndShiftTime))
                 {
                     AmendmentTable newStopShift = new AmendmentTable();
-                    newStopShift.BeforeValue = oldEndShiftDate.Date.ToString("dd/MM/yyyy") + " " + oldEndShiftTime;
-                    newStopShift.Field = "EndTime";
+                    newStopShift.Field = "EndDate";
                     newStopShift.ShiftId = currentShift.Key;
                     newStopShift.Table = "ShiftTable";
                     newStopShift.TimeStamp = DateTime.Now.ToString();
+                    newStopShift.BeforeValue = currentShift.EndDate;
+                    newStopShift.AfterValue = (ShiftEndDatePicker + ShiftEndTimePicker).ToString();
+                    currentShift.EndDate = (ShiftEndDatePicker + ShiftEndTimePicker).ToString();
                     listOfAmendments.Add(newStopShift);
-                    currentShift.EndTime = ShiftEndDatePicker.Date.ToString("dd/MM/yyyy") + " " + ShiftEndTimePicker;
                 }
             }
-            else
-            {
-                currentShift.EndTime = null;
-            }
 
-            DateTime oldStartShiftDate = DateTime.Parse(currentShift.StartTime).Date;
-            TimeSpan oldStartShiftTime = DateTime.Parse(currentShift.StartTime).TimeOfDay;
+            DateTime oldStartShiftDate = DateTime.Parse(currentShift.StartDate).Date;
+            TimeSpan oldStartShiftTime = DateTime.Parse(currentShift.StartDate).TimeOfDay;
 
             if ((ShiftStartDatePicker != oldStartShiftDate) || (oldStartShiftTime != ShiftStartTimePicker))
             {
-                AmendmentTable newStartShift = new AmendmentTable();
-                newStartShift.BeforeValue = oldStartShiftDate.Date.ToString("dd/MM/yyyy") + " " + oldStartShiftTime;
+                AmendmentTable newStartShift = new AmendmentTable();;
                 newStartShift.Field = "StartTime";
                 newStartShift.ShiftId = currentShift.Key;
                 newStartShift.Table = "ShiftTable";
                 newStartShift.TimeStamp = DateTime.Now.ToString();
+                newStartShift.BeforeValue = currentShift.StartDate;
+                newStartShift.AfterValue = (ShiftStartDatePicker + ShiftStartTimePicker).ToString();
                 listOfAmendments.Add(newStartShift);
-                currentShift.StartTime = ShiftStartDatePicker.Date.ToString("dd/MM/yyyy") + " " + ShiftStartTimePicker;
+                currentShift.StartDate = (ShiftStartDatePicker + ShiftStartTimePicker).ToString();
             }
 
             if (listOfAmendments.Count > 0)
@@ -134,17 +131,16 @@ namespace Hubo
         internal void LoadInfoFromShift(ShiftTable shiftTable)
         {
             ShiftStartInfoVisible = true;
-            if (!(shiftTable.EndTime == "Current"))
+            if (!(shiftTable.EndDate == "Current"))
             {
                 ShiftEndInfoVisible = true;
-                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndTime);
+                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate);
                 ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
-                OnPropertyChanged("ShiftEndInfoVisible");
             }
 
             currentShift = shiftTable;
 
-            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartTime);
+            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate);
 
             ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
 

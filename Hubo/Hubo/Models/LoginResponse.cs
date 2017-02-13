@@ -29,7 +29,7 @@ namespace Hubo
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public UserResponseModel Result { get; set; }
+        public UserResultResponseModel Result { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }
@@ -59,7 +59,7 @@ namespace Hubo
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public List<VehicleTable> Vehicles { get; set; }
+        public List<VehicleResponseModel> Vehicles { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }

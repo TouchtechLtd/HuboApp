@@ -10,23 +10,11 @@ namespace Hubo
 {
     public partial class ProfileCompanyPage : ContentPage
     {
+        ProfileViewModel profileVM = new ProfileViewModel();
         public ProfileCompanyPage()
         {
             InitializeComponent();
-
-            name.ReturnType = ReturnType.Next;
-            name.Next = address;
-
-            address.ReturnType = ReturnType.Next;
-            address.Next = companyEmail;
-
-            companyEmail.ReturnType = ReturnType.Next;
-            companyEmail.Next = phone;
-
-            phone.ReturnType = ReturnType.Done;
-
-            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
-            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 3));
+            BindingContext = profileVM;
         }
     }
 }

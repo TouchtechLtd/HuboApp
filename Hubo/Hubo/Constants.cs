@@ -17,9 +17,10 @@ namespace Hubo
         public const string REST_URL_ADDSHIFTSTART = "/WorkShift/StartShiftAsync";
         public const string REST_URL_ADDSHIFTEND = "/WorkShift/StopShiftAsync";
 
-        public const string REST_URL_GETUSERDETAILS = "/Account/GetDetailsAsync";
+        public const string REST_URL_GETUSERDETAILS = "/Account/GetDriverDetailsAsync";
         public const string REST_URL_GETCOMPANYDETAILS = "/Company/getCompanyListAsync";
-        public const string REST_URL_GETVEHICLEDETAILS = "/Vehicles/getVehiclesAsync";
+        public const string REST_URL_GETVEHICLEDETAILS = "/Vehicles/getVehiclesByDriverAsync";
+
         public const string REST_URL_GETSHIFTDETAILS = "/WorkShift/getWorkShiftsAsync";
         public const string REST_URL_GETDRIVEDETAILS = "/DrivingShift/GetDrivingShiftsAsync";
         public const string REST_URL_GETBREAKDETAILS = "/Break/GetBreaksAsync";
@@ -34,5 +35,7 @@ namespace Hubo
         public const string REST_URL_ADDBREAKEND = "/Break/StopBreakAsync";
 
         public const string REST_URL_INSERTNOTE = "/Note/InsertNoteAsync";
+
+        public const string REST_URL_EXPORTDATA = "";
     }
 }

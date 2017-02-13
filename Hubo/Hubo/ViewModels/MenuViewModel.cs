@@ -53,8 +53,7 @@ namespace Hubo
             signOut.TargetType = "SignOut";
             signOut.ImageSource = "Exit96.png";
 
-            //items.Add(settings);
-            if (Device.OS != TargetPlatform.iOS || Settings.HamburgerSettings != true)
+            if (Settings.HamburgerSettings != true)
                 items.Add(home);
             items.Add(profile);
             items.Add(vehicles);

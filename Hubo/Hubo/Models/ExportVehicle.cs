@@ -15,7 +15,5 @@ namespace Hubo
         public string currentVehicle { get; set; }
         public string huboStart { get; set; }
         public string huboEnd { get; set; }
-        public string startLocation { get; set; }
-        public string endLocation { get; set; }
     }
 }

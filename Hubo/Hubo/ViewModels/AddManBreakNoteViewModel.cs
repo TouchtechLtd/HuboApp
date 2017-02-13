@@ -14,9 +14,7 @@ namespace Hubo
     {
         public string instruction { get; set; }
         public INavigation Navigation { get; set; }
-
-        public bool AddingBreak { get; set; }
-        public bool AddingNote { get; set; }
+        public List<VehicleTable> vehicles { get; set; }
 
         public string BreakStartText { get; set; }
         public string BreakEndText { get; set; }
@@ -29,10 +27,6 @@ namespace Hubo
         public string NoteText { get; set; }
         public string NoteTimeText { get; set; }
         public string NoteDetailText { get; set; }
-        public string NoteLocationText { get; set; }
-        public string NoteHuboText { get; set; }
-        public string BreakStartNoteText { get; set; }
-        public string BreakEndNoteText { get; set; }
 
         public TimeSpan BreakStart { get; set; }
         public TimeSpan BreakEnd { get; set; }
@@ -42,27 +36,44 @@ namespace Hubo
         public string HuboEnd { get; set; }
         public TimeSpan NoteTime { get; set; }
         public string NoteDetail { get; set; }
-        public string NoteLocation { get; set; }
-        public string NoteHubo { get; set; }
-        public string BreakStartNote { get; set; }
-        public string BreakEndNote { get; set; }
 
         public ICommand AddCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public string AddText { get; set; }
         public string CancelText { get; set; }
+        public string DriveText { get; set; }
+        public string DriveStartTimeText { get; set; }
+        public string DriveEndTimeText { get; set; }
+        public string DriveStartHuboText { get; set; }
+        public string DriveEndHuboText { get; set; }
+        public TimeSpan DriveStartTime { get; set; }
+        public TimeSpan DriveEndTime { get; set; }
+        public int selectedVehicle { get; set; }
+        public bool AddingBreak { get; set; }
+        public bool AddingNote { get; set; }
+        public bool AddingDrive { get; set; }
+        public string Vehicle { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        DatabaseService DbService = new DatabaseService();
 
         public AddManBreakNoteViewModel(string instructionCommand)
         {
             instruction = instructionCommand;
-            AddingBreak = false;
-            AddingNote = false;
             CancelText = Resource.Cancel;
             AddCommand = new Command(Add);
             CancelCommand = new Command(Cancel);
+            Vehicle = Resource.Vehicle;
+            AddingBreak = false;
+            AddingNote = false;
+            AddingDrive = false;
+        }
+
+        internal List<VehicleTable> GetVehicles()
+        {
+            vehicles = DbService.GetVehicles();
+            return vehicles;
         }
 
         private async void Cancel()
@@ -79,53 +90,40 @@ namespace Hubo
                 if (!CheckValidHuboEntry(HuboEnd))
                     return;
 
-                NoteTable noteTableStart = new NoteTable();
-                NoteTable noteTableEnd = new NoteTable();
-                BreakTable breakTable = new BreakTable();
+                BreakTable breakAdd = new BreakTable();
 
-                breakTable.StartTime = BreakStart.ToString();
-                breakTable.EndTime = BreakEnd.ToString();
+                breakAdd.StartDate = BreakStart.ToString();
+                breakAdd.EndDate = BreakEnd.ToString();
+                breakAdd.StartLocation = LocationStart;
+                breakAdd.EndLocation = LocationEnd;
 
-                noteTableStart.Date = BreakStart.ToString();
-                noteTableStart.Note = BreakStartNote;
-                noteTableStart.Location = LocationStart;
-                noteTableStart.Hubo = int.Parse(HuboStart);
-                noteTableStart.StandAloneNote = false;
-
-                noteTableEnd.Date = BreakEnd.ToString();
-                noteTableEnd.Note = BreakEndNote;
-                noteTableEnd.Location = LocationEnd;
-                noteTableEnd.Hubo = int.Parse(HuboEnd);
-                noteTableEnd.StandAloneNote = false;
-
-                List<NoteTable> noteList = new List<NoteTable>();
-                List<BreakTable> breakList = new List<BreakTable>();
-
-                breakList.Add(breakTable);
-                noteList.Add(noteTableStart);
-                noteList.Add(noteTableEnd);
-
-                MessagingCenter.Send(this, "Note_Added", noteList);
-                MessagingCenter.Send(this, "Break_Added", breakList);
+                MessagingCenter.Send(this, "Break_Added", breakAdd);
             }
             else if (instruction == "Note")
             {
-                NoteTable noteTable = new NoteTable();
-                noteTable.Date = NoteTime.ToString();
-                noteTable.Note = NoteDetail;
-                noteTable.Location = NoteLocation;
-                if (NoteHubo != null)
-                {
-                    if (!CheckValidHuboEntry(NoteHubo))
-                        return;
-                    noteTable.Hubo = int.Parse(NoteHubo);
-                }
-                noteTable.StandAloneNote = true;
+                NoteTable note = new NoteTable();
+                note.Date = NoteTime.ToString();
+                note.Note = NoteDetail;
 
-                List<NoteTable> noteList = new List<NoteTable>();
-                noteList.Add(noteTable);
+                MessagingCenter.Send(this, "Note_Added", note);
+            }
+            else if (instruction == "Drive Shift")
+            {
+                if (!CheckValidHuboEntry(HuboStart))
+                    return;
+                if (!CheckValidHuboEntry(HuboEnd))
+                    return;
+                List<VehicleTable> vehicleKey = GetVehicles();
 
-                MessagingCenter.Send(this, "Note_Added", noteList);
+                DriveTable drive = new DriveTable();
+                drive.StartDate = DriveStartTime.ToString();
+                drive.EndDate = DriveEndTime.ToString();
+                drive.StartHubo = int.Parse(HuboStart);
+                drive.EndHubo = int.Parse(HuboEnd);
+                drive.ActiveVehicle = false;
+                drive.VehicleKey = vehicleKey[selectedVehicle].Key;
+
+                MessagingCenter.Send(this, "Drive_Added", drive);
             }
 
             Navigation.PopModalAsync();
@@ -139,46 +137,54 @@ namespace Hubo
                 AddText = Resource.AddBreak;
                 BreakStartText = Resource.StartBreak;
                 BreakStartTimeText = Resource.StartTime;
-                BreakStartNoteText = Resource.StartNote;
                 LocationStartText = Resource.StartLocation;
                 HuboStartText = Resource.StartHubo;
                 BreakEndText = Resource.EndBreak;
                 BreakEndTimeText = Resource.EndTime;
-                BreakEndNoteText = Resource.EndNote;
                 LocationEndText = Resource.EndLocation;
                 HuboEndText = Resource.EndHubo;
 
                 OnPropertyChanged("AddingBreak");
-                OnPropertyChanged("AddText");
                 OnPropertyChanged("BreakStartText");
                 OnPropertyChanged("BreakStartTimeText");
-                OnPropertyChanged("BreakStartNoteText");
                 OnPropertyChanged("LocationStartText");
                 OnPropertyChanged("HuboStartText");
                 OnPropertyChanged("BreakEndText");
                 OnPropertyChanged("BreakEndTimeText");
-                OnPropertyChanged("BreakEndNoteText");
                 OnPropertyChanged("LocationEndText");
                 OnPropertyChanged("HuboEndText");
             }
             else if (instruction == "Note")
             {
                 AddingNote = true;
-                
                 AddText = Resource.AddNote;
                 NoteText = Resource.AddNote;
                 NoteTimeText = Resource.Time;
                 NoteDetailText = Resource.Note;
-                NoteLocationText = Resource.Location;
-                NoteHuboText = Resource.HuboNotRequired;
 
                 OnPropertyChanged("AddingNote");
                 OnPropertyChanged("NoteText");
                 OnPropertyChanged("NoteTimeText");
                 OnPropertyChanged("NoteDetailText");
-                OnPropertyChanged("NoteLocationText");
-                OnPropertyChanged("NoteHuboText");
             }
+            else if (instruction == "Drive Shift")
+            {
+                AddingDrive = true;
+                AddText = Resource.AddDrive;
+                DriveText = Resource.AddDrive;
+                DriveStartTimeText = Resource.StartTime;
+                DriveEndTimeText = Resource.EndTime;
+                DriveStartHuboText = Resource.StartHubo;
+                DriveEndHuboText = Resource.EndHubo;
+
+                OnPropertyChanged("AddingDrive");
+                OnPropertyChanged("DriveText");
+                OnPropertyChanged("DriveStartTimeText");
+                OnPropertyChanged("DriveEndTimeText");
+                OnPropertyChanged("DriveStartHuboText");
+                OnPropertyChanged("DriveEndHuboText");
+            }
+
             OnPropertyChanged("AddText");
         }
 

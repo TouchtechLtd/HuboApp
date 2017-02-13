@@ -108,7 +108,6 @@ namespace Hubo
             {
                 await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
             }
-
         }
     }
 }

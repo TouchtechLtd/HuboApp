@@ -23,9 +23,6 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="*"/>
         <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
       <!-- For adding a break to the shift -->
@@ -34,28 +31,16 @@
       <Label Text="{Binding BreakStartTimeText}" YAlign="End" Grid.Row="1" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakTimeText"/>
       <TimePicker Time="{Binding BreakStart}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding BreakStartNoteText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakNoteText"/>
-      <local:BaseEntry Text="{Binding BreakStartNote}" Grid.Row="2" x:Name="startBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
-
       <Label Text="{Binding LocationStartText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakLocationText"/>
       <local:BaseEntry Text="{Binding LocationStart}" Grid.Row="3" x:Name="startBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding HuboStartText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakHuboText"/>
-      <local:BaseEntry Text="{Binding HuboStart}" Grid.Row="4" x:Name="startBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
+      <Label Text="{Binding BreakEndText}" YAlign="End" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="endBreakText"/>
 
-      <Label Text="{Binding BreakEndText}" YAlign="End" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="endBreakText"/>
+      <Label Text="{Binding BreakEndTimeText}" YAlign="End" Grid.Row="5" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakTimeText"/>
+      <TimePicker Time="{Binding BreakEnd}" Grid.Row="5" x:Name="endBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding BreakEndTimeText}" YAlign="End" Grid.Row="6" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakTimeText"/>
-      <TimePicker Time="{Binding BreakEnd}" Grid.Row="6" x:Name="endBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
-
-      <Label Text="{Binding BreakEndNoteText}" YAlign="End" Grid.Row="7" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakNoteText"/>
-      <local:BaseEntry Text="{Binding BreakEndNote}" Grid.Row="7" x:Name="endBreakNote" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
-
-      <Label Text="{Binding LocationEndText}" YAlign="End" Grid.Row="8" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakLocationText"/>
-      <local:BaseEntry Text="{Binding LocationEnd}" Grid.Row="8" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
-
-      <Label Text="{Binding HuboEndText}" YAlign="End" Grid.Row="9" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakHuboText"/>
-      <local:BaseEntry Text="{Binding HuboEnd}" Grid.Row="9" x:Name="endBreakHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" Keyboard="Numeric" VerticalOptions="End"/>
+      <Label Text="{Binding LocationEndText}" YAlign="End" Grid.Row="6" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakLocationText"/>
+      <local:BaseEntry Text="{Binding LocationEnd}" Grid.Row="6" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <!-- For adding a note to the shift -->
       <Label Text="{Binding NoteText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingNote}" x:Name="noteText"/>
@@ -65,16 +50,28 @@
 
       <Label Text="{Binding NoteDetailText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteDetailText"/>
       <local:BaseEntry Text="{Binding NoteDetail}" Grid.Row="2" x:Name="noteDetail" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
+      
+      <!-- For adding a drive shift to the shift -->
+      <Label Text="{Binding DriveText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingDrive}" x:Name="driveText"/>
 
-      <Label Text="{Binding NoteLocationText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="noteLocationText"/>
-      <local:BaseEntry Text="{Binding NoteLocation}" Grid.Row="3" x:Name="noteLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" VerticalOptions="End"/>
+      <Label Text="{Binding Vehicle}" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1" IsVisible="{Binding AddingDrive}"/>
+      <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" VerticalOptions="Center" IsVisible="{Binding AddingDrive}"/>
 
-      <Label Text="{Binding NoteHuboText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingNote}" x:Name="NoteHuboText"/>
-      <local:BaseEntry Text="{Binding NoteHubo}" Grid.Row="4" x:Name="noteHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingNote}" Keyboard="Numeric" VerticalOptions="End"/>
+      <Label Text="{Binding DriveStartTimeText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingDrive}"/>
+      <TimePicker Time="{Binding DriveStartTime}" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingDrive}" VerticalOptions="End"/>
+
+      <Label Text="{Binding DriveEndTimeText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingDrive}"/>
+      <TimePicker Time="{Binding DriveEndTime}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingDrive}" VerticalOptions="End"/>
+
+      <Label Text="{Binding DriveStartHuboText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingDrive}"/>
+      <local:BaseEntry Text="{Binding HuboStart}" Grid.Row="4" x:Name="startDriveHubo" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingDrive}" VerticalOptions="End" Keyboard="Numeric"/>
+
+      <Label Text="{Binding DriveEndHuboText}" YAlign="End" Grid.Row="5" Grid.Column="1" IsVisible="{Binding AddingDrive}"/>
+      <local:BaseEntry Text="{Binding HuboEnd}" x:Name="endDriveHubo" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingDrive}" VerticalOptions="End" Keyboard="Numeric"/>
 
       <!-- Control Buttons -->
-      <Button Text="{Binding AddText}" Command="{Binding AddCommand}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"/>
-      <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="3"/>
+      <Button Text="{Binding AddText}" Command="{Binding AddCommand}" x:Name="addButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"/>
+      <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3"/>
     </Grid>
   </ScrollView>
 </ContentPage>

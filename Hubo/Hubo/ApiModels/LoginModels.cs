@@ -34,6 +34,15 @@ namespace Hubo
         public string Token { get; set; }
     }
 
+    public class UserResultResponseModel
+    {
+        [JsonProperty(PropertyName = "driverInfo")]
+        public UserResponseModel DriverInfo { get; set; }
+
+        [JsonProperty(PropertyName = "listOfLicences")]
+        public List<LicenceResponseModel> ListOfLicences { get; set; }
+    }
+
     public class UserResponseModel
     {
         [JsonProperty(PropertyName = "id")]
@@ -44,12 +53,6 @@ namespace Hubo
 
         [JsonProperty(PropertyName = "licenceNumber")]
         public string LicenceNumber { get; set; }
-
-        [JsonProperty(PropertyName = "licenceVersion")]
-        public string LicenceVersion { get; set; }
-
-        [JsonProperty(PropertyName = "licenceEndorsements")]
-        public string LicenceEndorsements { get; set; }
 
         [JsonProperty(PropertyName = "address1")]
         public string Address1 { get; set; }
@@ -70,26 +73,53 @@ namespace Hubo
         public string Country { get; set; }
     }
 
+    public class LicenceResponseModel
+    {
+        [JsonProperty(PropertyName = "class")]
+        public string Class { get; set; }
+
+        [JsonProperty(PropertyName = "endorsement")]
+        public string Endorsement { get; set; }
+    }
+
     public class ShiftResponseModel
     {
+        public int Id { get; set; }
         public int DriverId { get; set; }
         public int CompanyId { get; set; }
-        public int ServerKey { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public double StartLocationLat { get; set; }
         public double StartLocationLong { get; set; }
         public double EndLocationLat { get; set; }
         public double EndLocationLong { get; set; }
-        public bool State { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class VehicleResponseModel
+    {
+        [JsonProperty(PropertyName = "registrationNo")]
+        public string Rego { get; set; }
+
+        [JsonProperty(PropertyName = "makeModel")]
+        public string MakeModel { get; set; }
+
+        [JsonProperty(PropertyName = "fleetNumber")]
+        public string FleetNumber { get; set; }
+
+        [JsonProperty(PropertyName = "companyId")]
+        public int CompanyId { get; set; }
     }
 
     public class DriveResponseModel
     {
         public int Id { get; set; }
         public int ShiftId { get; set; }
-        public string TimeStamp { get; set; }
-        public bool State { get; set; }
+        public string StartDrivingDateTime { get; set; }
+        public string StopDrivingDateTime { get; set; }
+        public int StartHubo { get; set; }
+        public int StopHubo { get; set; }
+        public bool IsActive { get; set; }
         public int VehicleId { get; set; }
     }
 
@@ -100,18 +130,16 @@ namespace Hubo
         public int BreakId { get; set; }
         public int DrivingShiftId { get; set; }
         public string NoteText { get; set; }
-        public int GeoDataLink { get; set; }
         public string TimeStamp { get; set; }
-        public int Hubo { get; set; }
-        public bool StandAloneNote { get; set; }
     }
 
     public class BreakResponseModel
     {
         public int Id { get; set; }
         public int ShiftId { get; set; }
+        public string StartBreakDateTime { get; set; }
+        public string StopBreakDateTime { get; set; }
         public int GeoDataId { get; set; }
-        public string TimeStamp { get; set; }
         public bool State { get; set; }
     }
 }

@@ -20,13 +20,9 @@ namespace Hubo
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string LicenseNumber { get; set; }
-        public string LicenseVersion { get; set; }
-        public string Endorsements { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string CompanyEmail { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
         public string Phone { get; set; }
         public string FirstNameText { get; set; }
         public string LastNameText { get; set; }
@@ -35,14 +31,24 @@ namespace Hubo
         public string LicenseNumberText { get; set; }
         public string LicenseVersionText { get; set; }
         public string EndorsementsText { get; set; }
-        public string NameText { get; set; }
+        public string CompanyNameText { get; set; }
         public string AddressText { get; set; }
         public string CompanyEmailText { get; set; }
         public string PhoneText { get; set; }
+        public string UserName { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string SuburbText { get; set; }
+        public string CityText { get; set; }
+        public string CountryText { get; set; }
+        public string UserNameText { get; set; }
+        public string PostCodeText { get; set; }
 
+        public List<CompanyTable> Companies { get; set; }
+        public List<LicenceTable> Licences { get; set; }
 
-
-        DatabaseService dbService;
+        DatabaseService dbService = new DatabaseService();
 
         RestService restService;
 
@@ -74,86 +80,100 @@ namespace Hubo
             }
         }
 
-        UserTable user;
-
-        CompanyTable company;
+        UserTable user = new UserTable();
 
         public ProfileViewModel()
         {
             SaveAndExit = new Command(SaveAndPop);
             CancelAndExit = new Command(CancelAndPop);
+
+            UserNameText = Resource.UserName;
             FirstNameText = Resource.FirstName;
             LastNameText = Resource.LastName;
             EmailText = Resource.Email;
             PasswordText = Resource.Password;
+            AddressText = Resource.Address;
+            PhoneText = Resource.Phone;
+            PostCodeText = Resource.PostCode;
+
             LicenseNumberText = Resource.LicenseNumber;
             LicenseVersionText = Resource.LicenseVersion;
             EndorsementsText = Resource.Endorsements;
-            NameText = Resource.Name;
-            AddressText = Resource.Address;
-            CompanyEmailText = Resource.Email;
-            PhoneText = Resource.Phone;
+
+            SuburbText = Resource.SuburbText;
+            CityText = Resource.CityText;
+            CountryText = Resource.CountryText;
+
             GetUserInfo();
+            Companies = dbService.GetCompanyInfo(user.DriverId);
+            Licences = dbService.GetLicenceInfo(user.DriverId);
         }
 
         private void GetUserInfo()
         {
 
             dbService = new DatabaseService();
-            user = new UserTable();
-            company = new CompanyTable();
             user = dbService.GetUserInfo();
+
+            UserName = user.UserName;
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
-            LicenseNumber = user.License;
-            LicenseVersion = user.LicenseVersion;
-            Endorsements = user.Endorsements;
-            Name = company.Name;
-            Address = user.Address;
-            CompanyEmail = user.Email;
-            Phone = user.Phone;
+            Address1 = user.Address1;
+            Address2 = user.Address2;
+            Address3 = user.Address3;
+            PostCode = user.PostCode;
+            City = user.City;
+            Country = user.Country;
+            Phone = user.Phone.ToString();
+
+            OnPropertyChanged("UserName");
             OnPropertyChanged("FirstName");
             OnPropertyChanged("LastName");
             OnPropertyChanged("Email");
-            OnPropertyChanged("LicenseNumber");
-            OnPropertyChanged("LicenseVersion");
-            OnPropertyChanged("Endorsements");
-            OnPropertyChanged("Name");
-            OnPropertyChanged("Address");
-            OnPropertyChanged("CompanyEmail");
+            OnPropertyChanged("Address1");
+            OnPropertyChanged("Address2");
+            OnPropertyChanged("Address3");
+            OnPropertyChanged("PostCode");
+            OnPropertyChanged("City");
+            OnPropertyChanged("Country");
             OnPropertyChanged("Phone");
         }
 
-        private void CancelAndPop(object obj)
+        private void CancelAndPop()
         {
             Navigation.PopModalAsync();
         }
 
-        private async void SaveAndPop(object obj)
+        private async void SaveAndPop()
         {
-            user = new UserTable();
-            user.FirstName = FirstName.Trim();
-            user.LastName = LastName.Trim();
-            user.Email = Email.Trim();
-            user.License = LicenseNumber.Trim();
-            user.LicenseVersion = LicenseVersion.Trim();
-            user.Endorsements = Endorsements.Trim();
-            company.Name = Name.Trim();
-            user.Address = Address.Trim();
-            user.Email = CompanyEmail.Trim();
-            user.Phone = Phone.Trim();
+            UserTable userChanges = new UserTable();
 
-            restService = new RestService();
-            IsBusy = true;
-            if (await restService.QueryUpdateUserInfo(user))
+            userChanges.UserName = UserName.Trim();
+            userChanges.FirstName = FirstName.Trim();
+            userChanges.LastName = LastName.Trim();
+            userChanges.Email = Email.Trim();
+            userChanges.Address1 = Address1.Trim();
+            userChanges.Address2 = Address2.Trim();
+            userChanges.Address3 = Address3.Trim();
+            userChanges.PostCode = PostCode.Trim();
+            userChanges.City = City.Trim();
+            userChanges.Country = Country.Trim();
+            userChanges.Phone = int.Parse(Phone.Trim());
+
+            if (userChanges != user)
             {
-                IsBusy = false;
-                await Navigation.PopModalAsync();
-            }
-            else
-            {
-                IsBusy = false;
+                restService = new RestService();
+                IsBusy = true;
+                if (await restService.QueryUpdateProfile(user))
+                {
+                    IsBusy = false;
+                    await Navigation.PopModalAsync();
+                }
+                else
+                {
+                    IsBusy = false;
+                }
             }
         }
 

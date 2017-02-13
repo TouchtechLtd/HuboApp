@@ -13,8 +13,7 @@ namespace Hubo
         public int Key { get; set; }
         public string Registration { get; set; }
         public string MakeModel { get; set; }
+        public string FleetNumber { get; set; }
         public int CompanyId { get; set; }
-        public string StartingOdometer { get; set; }
-        public string CurrentOdometer { get; set; }
     }
 }

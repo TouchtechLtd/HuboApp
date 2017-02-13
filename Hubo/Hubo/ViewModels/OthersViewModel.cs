@@ -11,7 +11,6 @@ namespace Hubo
     class OthersViewModel
     {
         public List<MenuItem> OthersPageList { get; set; }
-        public Grid grid { get; set; }
         public string Name { get; set; }
         DatabaseService DbService = new DatabaseService();
         

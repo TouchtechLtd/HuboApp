@@ -133,7 +133,7 @@ namespace Hubo
 
         private void ToggleVehicleInUseVisuals()
         {
-            if (DbService.VehicleInUse())
+            if (DbService.VehicleActive())
             {
                 UseVehicleColor = Color.Red;
                 UseOrStopVehicleText = Resource.StopUsingVehicle;
@@ -216,7 +216,6 @@ namespace Hubo
             editedVehicle.CompanyId = CompanyEntry;
             editedVehicle.MakeModel = MakeModelEntry;
             editedVehicle.Registration = RegistrationEntry;
-            editedVehicle.StartingOdometer = HuboEntry;
             return editedVehicle;
         }
 

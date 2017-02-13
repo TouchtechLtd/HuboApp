@@ -19,12 +19,15 @@ namespace Hubo
 
         public string HuboText { get; set; }
         public string HuboEntry { get; set; }
+        public string LocationText { get; set; }
+        public string LocationEntry { get; set; }
         public string ContinueText { get; set; }
         public ICommand ContinueCommand { get; set; }
         public int CurrentVehicleKey { get; set; }
         public VehicleChecklistViewModel(int instruction)
         {
             HuboText = Resource.Hubo;
+            LocationText = Resource.Location;
             ContinueText = Resource.Continue;
             HuboEntry = "";
             if (instruction == 1)
@@ -47,8 +50,9 @@ namespace Hubo
         {
             if (CheckValidEntry())
             {
+
                 Navigation.PopModalAsync();
-                DbService.StopVehicleInUse(HuboEntry);
+                DbService.SaveDrive(true, DateTime.Now, int.Parse(HuboEntry));
                 MessagingCenter.Send<string>("Success", "EndShiftRegoEntered");
             }
 
@@ -57,7 +61,7 @@ namespace Hubo
         {
             if(CheckValidEntry())
             {
-                DbService.StopVehicleInUse(HuboEntry);
+                DbService.SaveDrive(true, DateTime.Now, int.Parse(HuboEntry));
                 Navigation.PopAsync();
             }
 
@@ -67,7 +71,12 @@ namespace Hubo
         {
             if(CheckValidEntry())
             {
-                DbService.SetVehicleInUse(CurrentVehicleKey, HuboEntry);
+                DriveTable drive = new DriveTable();
+                drive.VehicleKey = CurrentVehicleKey;
+                drive.StartDate = DateTime.Now.ToString();
+                drive.StartHubo = int.Parse(HuboEntry);
+
+                DbService.SaveDrive(false, DateTime.Now, int.Parse(HuboEntry), CurrentVehicleKey);
                 Navigation.PopAsync();
             }
 

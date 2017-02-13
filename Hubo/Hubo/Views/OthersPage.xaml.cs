@@ -10,8 +10,6 @@ namespace Hubo
 {
     public partial class OthersPage : ContentPage
     {
-        public ListView CopyList { get; }
-
         OthersViewModel othersVM = new OthersViewModel();
 
         public OthersPage()
@@ -23,7 +21,6 @@ namespace Hubo
             ToolbarItems.Add(topLeftText);
             Icon = "Menu25.png";
             BindingContext = othersVM;
-            //CopyList = othersList;
 
             othersList.ItemSelected += (sender, e) =>
             {

@@ -12,7 +12,7 @@ namespace Hubo
     {
         AddNoteViewModel addNoteVM = new AddNoteViewModel();
         public bool AllowBack;
-        public AddNotePage(int instruction, int vehicleKey = 0)
+        public AddNotePage(int instruction, int vehicleKey = 0, bool driveActive = false)
         {
             InitializeComponent();
             addNoteVM.Navigation = Navigation;
@@ -26,13 +26,11 @@ namespace Hubo
             {
                 AllowBack = false;
             }
-            addNoteVM.Load(instruction, vehicleKey);
+            addNoteVM.Load(instruction, vehicleKey, driveActive);
 
-            hubo.ReturnType = ReturnType.Next;
-            hubo.Next = note;
+            hubo.ReturnType = ReturnType.Done;
 
-            note.ReturnType = ReturnType.Next;
-            note.Next = location;
+            note.ReturnType = ReturnType.Done;
 
             location.ReturnType = ReturnType.Done;
         }

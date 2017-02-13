@@ -126,7 +126,7 @@ namespace Hubo
             EndShiftText = Resource.EndShift;
 
             //Code to check if vehicle in use
-            if (DbService.VehicleInUse())
+            if (DbService.VehicleActive())
             {
                 VehicleText = Resource.StopDriving;
             }
@@ -225,13 +225,14 @@ namespace Hubo
 
         private void CheckActiveBreak()
         {
-            if (DbService.CheckOnBreak())
+            int onBreak = DbService.CheckOnBreak();
+            if (onBreak == 1)
             {
                 BreakButtonColor = Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
             }
-            else
+            else if (onBreak == -1)
             {
                 BreakButtonColor = Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
@@ -248,16 +249,8 @@ namespace Hubo
         {
             if (currentVehicle.Registration != null)
             {
-                if (VehicleInUse)
-                {
-                    // Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
-                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
-                }
-                else
-                {
-                    //Code to switch vehicle on Reverse of previous comment
-                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
-                }
+                Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key, VehicleInUse));
+
                 SetVehicleLabel();
             }
             else
@@ -268,7 +261,7 @@ namespace Hubo
 
         private void StartBreak()
         {
-            Navigation.PushModalAsync(new AddNotePage(2));
+
 
             if (OnBreak)
             {
@@ -288,6 +281,8 @@ namespace Hubo
                     }
                     MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
                 });
+
+                Navigation.PushModalAsync(new AddNotePage(2));
             }
             else
             {
@@ -307,6 +302,8 @@ namespace Hubo
                     }
                     MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
                 });
+
+                Navigation.PushModalAsync(new AddNotePage(3));
             }
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
@@ -336,7 +333,7 @@ namespace Hubo
             }
             else
             {
-                if (DbService.NoBreaksActive())
+                if (DbService.CheckOnBreak() == 1)
                 {
                     if (!DbService.VehicleActive())
                     {
@@ -383,7 +380,6 @@ namespace Hubo
                         });
                     }
                 }
-
             }
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");

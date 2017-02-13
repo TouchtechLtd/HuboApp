@@ -12,9 +12,11 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int ShiftId { get; set; }
+        public int DriveId { get; set; }
         public string Table { get; set; }
         public string Field { get; set; }
         public string TimeStamp { get; set; }
         public string BeforeValue { get; set; }
+        public string AfterValue { get; set; }
     }
 }

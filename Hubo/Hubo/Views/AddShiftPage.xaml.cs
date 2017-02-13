@@ -15,14 +15,12 @@ namespace Hubo
         public AddShiftPage()
         {
             InitializeComponent();
+            BindingContext = addShiftVM;
             addShiftVM.Navigation = Navigation;
             ToolbarItem topLeftText = new ToolbarItem();
             topLeftText.Text = "Add Shift";
             ToolbarItems.Add(topLeftText);
-            BindingContext = addShiftVM;
-            saveButton.Clicked += SaveButton_Clicked;
             addButton.Clicked += AddButton_Clicked;
-            UpdateVehicleItems();
             Title = Resource.AddShiftText;
             addShiftVM.FullGrid = grid;
 
@@ -30,45 +28,23 @@ namespace Hubo
             startLocation.Next = endLocation;
 
             endLocation.ReturnType = ReturnType.Next;
-            endLocation.Next = startHubo;
-
-            startHubo.ReturnType = ReturnType.Next;
-            startHubo.Next = endHubo;
-
-            endHubo.ReturnType = ReturnType.Done;
-            endHubo.Completed += SaveButton_Clicked;
+            endLocation.Completed += EndLocation_Completed;
         }
 
-        private void UpdateVehicleItems()
+        private void EndLocation_Completed(object sender, EventArgs e)
         {
-            List<VehicleTable> vehiclePickerItems = new List<VehicleTable>();
-            vehiclePickerItems = addShiftVM.GetVehicles();
-            if(vehiclePickerItems!=null)
-            {
-                foreach(VehicleTable vehicle in vehiclePickerItems)
-                {
-                    vehiclePicker.Items.Add(vehicle.Registration);
-                }
-            }
-            
+            addShiftVM.SaveButton.Execute(null);
         }
 
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
-            var action = await DisplayActionSheet(Resource.AddBreakNote, Resource.Cancel, null, Resource.Break, Resource.NoteText);
+            string[] buttons = new string[] { Resource.Break, Resource.NoteText, Resource.DriveText };
+            var action = await DisplayActionSheet(Resource.AddBreakNote, Resource.Cancel, null, buttons);
 
             if (action != null && action != "Cancel")
             {
                 addShiftVM.Add = action;
                 await Navigation.PushModalAsync(new NavigationPage(new AddManBreakNotePage(action)));
-            }
-        }
-
-        private void SaveButton_Clicked(object sender, EventArgs e)
-        {
-            if (vehiclePicker.SelectedIndex != -1)
-            {
-                addShiftVM.selectedVehicle = vehiclePicker.SelectedIndex;
             }
         }
     }

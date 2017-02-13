@@ -14,7 +14,10 @@ namespace Hubo
         public int ShiftKey { get; set; }
         public int VehicleKey { get; set; }
         public bool ActiveVehicle { get; set; }
-        public int StartNoteKey { get; set; }
-        public int EndNoteKey { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public int StartHubo { get; set; }
+        public int EndHubo { get; set; }
+        public int ServerId { get; set; }
     }
 }

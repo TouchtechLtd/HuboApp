@@ -11,12 +11,11 @@ namespace Hubo
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
-        public string  StartTime { get; set; }
-        public string EndTime { get; set; }
-        public int ShiftKey { get; set; }
+        public string  StartDate { get; set; }
+        public string EndDate { get; set; }
+        public int DriveKey { get; set; }
         public bool ActiveBreak { get; set; }
-        public int StartNoteKey { get; set; }
-        public int StopNoteKey { get; set; }
-
+        public string StartLocation { get; set; }
+        public string EndLocation { get; set; }
     }
 }

@@ -14,12 +14,9 @@ namespace Hubo
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<VehicleTable> vehicles { get; set; }
-
         public INavigation Navigation { get; set; }
         public ICommand AddButton { get; set; }
         public ICommand SaveButton { get; set; }
-
         public string StartShiftText { get; set; }
         public TimeSpan StartShift { get; set; }
         public TimeSpan EndShift { get; set; }
@@ -28,13 +25,12 @@ namespace Hubo
         public string SaveText { get; set; }
         public string DateText { get; set; }
         public DateTime Date { get; set; }
-        public string Vehicle { get; set; }
         public string LocationText { get; set; }
         public string LocationStartData { get; set; }
         public string LocationEndData { get; set; }
         public string DriveText { get; set; }
-        public TimeSpan DriveStartData { get; set; }
-        public TimeSpan DriveEndData { get; set; }
+        public TimeSpan DriveStart { get; set; }
+        public TimeSpan DriveEnd { get; set; }
         public string HuboText { get; set; }
         public string HuboStartData { get; set; }
         public string HuboEndData { get; set; }
@@ -52,6 +48,10 @@ namespace Hubo
         public int ButtonRow { get; set; }
         public bool CreatedBreak { get; set; }
         public bool CreatedNote { get; set; }
+        public bool CreatedDrive { get; set; }
+        public bool DriveDetails { get; set; }
+        public Grid DriveGrid { get; set; }
+        public int NumDrives { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
@@ -60,37 +60,29 @@ namespace Hubo
 
         List<NoteTable> listOfNotes = new List<NoteTable>();
         List<BreakTable> listOfBreaks = new List<BreakTable>();
+        List<DriveTable> listOfDrives = new List<DriveTable>();
 
         public AddShiftViewModel()
         {
             StartShiftText = Resource.Shift;
             DashIcon = Resource.Dash;
-            DriveText = Resource.Drive;
             LocationText = Resource.Location;
-            HuboText = Resource.HuboEquals;
             AddText = Resource.Add;
             SaveText = Resource.Save;
             DateText = Resource.Date;
-            Vehicle = Resource.Vehicle;
             AddButton = new Command(AddBreakNote);
             SaveButton = new Command(Save);
             BreakDetails = false;
             NoteDetails = false;
+            DriveDetails = false;
             NumBreaks = 0;
             NumNotes = 0;
+            NumDrives = 0;
             Date = DateTime.Now.Date;
-            ButtonRow = 7;
+            ButtonRow = 4;
             CreatedBreak = false;
             CreatedNote = false;
-            HuboStartData = "";
-            HuboEndData = "";
-
-        }
-
-        internal List<VehicleTable> GetVehicles()
-        {
-            vehicles = DbService.GetVehicles();
-            return vehicles;
+            CreatedDrive = false;
         }
 
         public void Save()
@@ -100,12 +92,13 @@ namespace Hubo
             if (!CheckValidHuboEntry(HuboEndData))
                 return;
 
-            DateTime startDate = Date.Date + StartShift;
-            DateTime endDate = Date.Date + EndShift;
+            DateTime startShift = Date.Date + StartShift;
+            DateTime endShift = Date.Date + EndShift;
 
-            List<VehicleTable> vehicleKey = GetVehicles();
+            DateTime startDrive = Date.Date + DriveStart;
+            DateTime endDrive = Date.Date + DriveStart;
 
-            int result = DbService.SaveShift(startDate, endDate, vehicleKey[selectedVehicle], HuboStartData, HuboEndData, LocationStartData, LocationEndData);
+            int result = DbService.SaveShift(startShift, endShift, listOfDrives);//, LocationStartData, LocationEndData);
 
             if (result == -1)
             {
@@ -113,48 +106,11 @@ namespace Hubo
                 return;
             }
 
-            DbService.SaveVehicleInUse(result, startDate, endDate, vehicleKey[selectedVehicle], HuboStartData, HuboEndData, LocationStartData, LocationEndData);
-
             if (listOfBreaks.Count != 0)
             {
-                List<int> breakStartNote = new List<int>();
-                List<int> breakEndNote = new List<int>();
-                List<int> notes = new List<int>();
-
-                BreakTable breakDetails = new BreakTable();
-                NoteTable noteDetails = new NoteTable();
-                NoteTable noteEndDetails = new NoteTable();
-
-                for (int i = 0; i < listOfBreaks.Count; i++)
+                foreach (BreakTable breakItem in listOfBreaks)
                 {
-                    breakDetails = listOfBreaks[i];
-                    for (int n = 0; n < listOfNotes.Count; n++)
-                    {
-                        noteDetails = listOfNotes[n];
-                        if (noteDetails.Date == breakDetails.StartTime)
-                        {
-                            breakStartNote.Add(n);
-                        }
-                        else if (noteDetails.Date == breakDetails.EndTime)
-                        {
-                            breakEndNote.Add(n);
-                        }
-                    }
-
-                    for (int v = 0; v < breakEndNote.Count; v++)
-                    {
-                        noteDetails = listOfNotes[breakStartNote[v]];
-                        noteEndDetails = listOfNotes[breakEndNote[v]];
-                        DbService.SaveBreak(breakDetails.StartTime, breakDetails.EndTime, result, noteDetails.Note, noteDetails.Hubo, noteDetails.Location, noteEndDetails.Note, noteEndDetails.Hubo, noteEndDetails.Location);
-                    }
-                }
-
-                foreach (NoteTable note in listOfNotes)
-                {
-                    if (note.StandAloneNote == true)
-                    {
-                        DbService.SaveManNote(note.Note, note.Date, result, note.Hubo, note.Location);
-                    }
+                    DbService.SaveBreak(breakItem);
                 }
             }
             else
@@ -163,7 +119,7 @@ namespace Hubo
                 {
                     foreach (NoteTable note in listOfNotes)
                     {
-                        DbService.SaveManNote(note.Note, note.Date, result, note.Hubo, note.Location);
+                        DbService.SaveNote(note.Note, DateTime.Parse(note.Date));
                     }
                 }
             }
@@ -172,154 +128,24 @@ namespace Hubo
 
         private void AddBreakNote()
         {
-            MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added", (senderNotePage, noteList) =>
+            if (Add == "Break")
             {
-                MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<NoteTable>>(this, "Note_Added");
-
-                if (Add == "Break")
+                MessagingCenter.Subscribe<AddManBreakNoteViewModel, BreakTable>(this, "Break_Added", (senderBreakPage, breakAdd) =>
                 {
-                    MessagingCenter.Subscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added", (senderBreakPage, breakList) =>
+                    MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, BreakTable>(this, "Break_Added");
+                    if (breakAdd != null)
                     {
-                        MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, List<BreakTable>>(this, "Break_Added");
-                        if (breakList != null)
+                        BreakText = Resource.BreaksText;
+                        BreakDetails = true;
+
+                        string breakStartTime = breakAdd.StartDate;
+                        string breakEndTime = breakAdd.EndDate;
+                        string breakStartLocation = breakAdd.StartLocation;
+                        string breakEndLocation = breakAdd.EndLocation;
+
+                        if (String.Compare(breakStartTime, "12:00:00") > 0)
                         {
-                            if (noteList != null && noteList != null)
-                            {
-                                BreakText = Resource.BreaksText;
-                                BreakDetails = true;
-
-                                string breakStartTime = breakList[0].StartTime;
-                                string breakEndTime = breakList[0].EndTime;
-                                string breakStartNote = noteList[0].Note;
-                                string breakStartLocation = noteList[0].Location;
-                                string breakEndNote = noteList[1].Note;
-                                string breakEndLocation = noteList[1].Location;
-
-                                if (String.Compare(breakStartTime, "12:00:00") > 0)
-                                {
-                                    TimeSpan temp = TimeSpan.Parse(breakStartTime);
-                                    int temphour = temp.Hours - 12;
-                                    int tempMin = temp.Minutes;
-
-                                    if (temphour == 00)
-                                        temphour = 12;
-
-                                    if (tempMin < 10)
-                                        breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
-                                    else
-                                        breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
-                                }
-                                else
-                                {
-                                    TimeSpan temp = TimeSpan.Parse(breakStartTime);
-                                    int temphour = temp.Hours;
-                                    int tempMin = temp.Minutes;
-
-                                    if (temphour == 00)
-                                        temphour = 12;
-
-                                    if (tempMin < 10)
-                                        breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
-                                    else
-                                        breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
-                                }
-
-                                if (String.Compare(breakEndTime, "12:00:00") > 0)
-                                {
-                                    TimeSpan temp = TimeSpan.Parse(breakEndTime);
-                                    int temphour = temp.Hours - 12;
-                                    int tempMin = temp.Minutes;
-
-                                    if (temphour == 00)
-                                        temphour = 12;
-
-                                    if (tempMin < 10)
-                                        breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
-                                    else
-                                        breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
-                                }
-                                else
-                                {
-                                    TimeSpan temp = TimeSpan.Parse(breakEndTime);
-                                    int temphour = temp.Hours;
-                                    int tempMin = temp.Minutes;
-
-                                    if (temphour == 00)
-                                        temphour = 12;
-
-                                    if (tempMin < 10)
-                                        breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
-                                    else
-                                        breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
-                                }
-
-                                if (BreakDetails && !CreatedBreak)
-                                {
-                                    ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
-
-                                    Grid newGrid = new Grid
-                                    {
-                                        ColumnDefinitions =
-                                        {
-                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
-                                            new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
-                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
-                                        }
-                                    };
-
-                                    BreakGrid = newGrid;
-
-                                    scroll.Content = newGrid;
-
-                                    FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                                    FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
-                                    FullGrid.Children.Add(new Label { Text = BreakText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
-                                    FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
-
-                                    ButtonRow = ButtonRow + 2;
-
-                                    CreatedBreak = true;
-                                }
-
-                                BreakGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                                BreakGrid.Children.Add(new Label { Text = breakStartTime + ": " + breakStartNote + ", " + breakStartLocation + " - " + breakEndTime + ": " + breakEndNote + ", " + breakEndLocation }, 1, NumBreaks);
-                                NumBreaks++;
-
-                                OnPropertyChanged("BreakText");
-                                OnPropertyChanged("BreakDetails");
-                                OnPropertyChanged("BreakGrid");
-                                OnPropertyChanged("FullGrid");
-                                OnPropertyChanged("ButtonRow");
-
-                                listOfBreaks.AddRange(breakList);
-                                listOfNotes.AddRange(noteList);
-                            }
-                            else
-                            {
-                                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
-                            }
-                        }
-                        else
-                        {
-                            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
-                        }
-                    });
-                }
-                else if (Add == "Note")
-                {
-                    if (noteList != null)
-                    {
-                        NoteText = Resource.NotesText;
-                        NoteDetails = true;
-
-                        string noteTime = noteList[0].Date;
-                        string noteDetails = noteList[0].Note;
-                        string noteLocation = noteList[0].Location;
-
-                        if (String.Compare(noteTime, "12:00:00") > 0)
-                        {
-                            TimeSpan temp = TimeSpan.Parse(noteTime);
+                            TimeSpan temp = TimeSpan.Parse(breakStartTime);
                             int temphour = temp.Hours - 12;
                             int tempMin = temp.Minutes;
 
@@ -327,13 +153,13 @@ namespace Hubo
                                 temphour = 12;
 
                             if (tempMin < 10)
-                                noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
                             else
-                                noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                                breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
                         }
                         else
                         {
-                            TimeSpan temp = TimeSpan.Parse(noteTime);
+                            TimeSpan temp = TimeSpan.Parse(breakStartTime);
                             int temphour = temp.Hours;
                             int tempMin = temp.Minutes;
 
@@ -341,12 +167,251 @@ namespace Hubo
                                 temphour = 12;
 
                             if (tempMin < 10)
-                                noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
                             else
-                                noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                                breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
                         }
 
-                        if (NoteDetails && !CreatedNote)
+                        if (String.Compare(breakEndTime, "12:00:00") > 0)
+                        {
+                            TimeSpan temp = TimeSpan.Parse(breakEndTime);
+                            int temphour = temp.Hours - 12;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            else
+                                breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                        }
+                        else
+                        {
+                            TimeSpan temp = TimeSpan.Parse(breakEndTime);
+                            int temphour = temp.Hours;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            else
+                                breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                        }
+
+                        if (BreakDetails && !CreatedBreak)
+                        {
+                            ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+                            Grid newGrid = new Grid
+                            {
+                                ColumnDefinitions =
+                                        {
+                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                            new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
+                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
+                                        }
+                            };
+
+                            BreakGrid = newGrid;
+
+                            scroll.Content = newGrid;
+
+                            FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                            FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                            FullGrid.Children.Add(new Label { Text = BreakText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
+                            FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
+
+                            ButtonRow = ButtonRow + 2;
+
+                            CreatedBreak = true;
+                        }
+
+                        BreakGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                        BreakGrid.Children.Add(new Label { Text = breakStartTime + ": " + breakStartLocation + " - " + breakEndTime + ": " + breakEndLocation }, 1, NumBreaks);
+                        NumBreaks++;
+
+                        OnPropertyChanged("BreakText");
+                        OnPropertyChanged("BreakDetails");
+                        OnPropertyChanged("BreakGrid");
+                        OnPropertyChanged("FullGrid");
+                        OnPropertyChanged("ButtonRow");
+
+                        listOfBreaks.Add(breakAdd);
+                    }
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
+                    }
+                });
+            }
+            else if (Add == "Note")
+            {
+                MessagingCenter.Subscribe<AddManBreakNoteViewModel, NoteTable>(this, "Note_Added", (senderNotePage, note) =>
+                    {
+                        MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, NoteTable>(this, "Note_Added");
+                        if (note != null)
+                        {
+                            NoteText = Resource.NotesText;
+                            NoteDetails = true;
+
+                            string noteTime = note.Date;
+                            string noteDetails = note.Note;
+
+                            if (String.Compare(noteTime, "12:00:00") > 0)
+                            {
+                                TimeSpan temp = TimeSpan.Parse(noteTime);
+                                int temphour = temp.Hours - 12;
+                                int tempMin = temp.Minutes;
+
+                                if (temphour == 00)
+                                    temphour = 12;
+
+                                if (tempMin < 10)
+                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                else
+                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
+                            else
+                            {
+                                TimeSpan temp = TimeSpan.Parse(noteTime);
+                                int temphour = temp.Hours;
+                                int tempMin = temp.Minutes;
+
+                                if (temphour == 00)
+                                    temphour = 12;
+
+                                if (tempMin < 10)
+                                    noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                else
+                                    noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
+
+                            if (NoteDetails && !CreatedNote)
+                            {
+                                ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
+
+                                Grid newGrid = new Grid
+                                {
+                                    ColumnDefinitions =
+                                {
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                    new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
+                                }
+                                };
+
+                                NoteGrid = newGrid;
+
+                                scroll.Content = newGrid;
+
+                                FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                                FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+                                FullGrid.Children.Add(new Label { Text = NoteText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
+                                FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
+
+                                ButtonRow = ButtonRow + 2;
+
+                                CreatedNote = true;
+                            }
+
+                            NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                            NoteGrid.Children.Add(new Label { Text = noteTime + " - " + noteDetails }, 1, NumNotes);
+                            NumNotes++;
+
+                            OnPropertyChanged("NoteText");
+                            OnPropertyChanged("NoteDetails");
+                            OnPropertyChanged("NoteGrid");
+                            OnPropertyChanged("FullGrid");
+                            OnPropertyChanged("ButtonRow");
+
+                            listOfNotes.Add(note);
+                        }
+                        else
+                        {
+                            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoteAddError, Resource.DisplayAlertOkay);
+                        }
+                    });
+            }
+            else if (Add == "Drive Shift")
+            {
+                MessagingCenter.Subscribe<AddManBreakNoteViewModel, DriveTable>(this, "Drive_Added", (senderDrivePage, drive) =>
+                {
+                    MessagingCenter.Unsubscribe<AddManBreakNoteViewModel, DriveTable>(this, "Drive_Added");
+
+                    if (drive != null)
+                    {
+                        DriveText = Resource.Drive;
+                        DriveDetails = true;
+
+                        string driveStart = drive.StartDate.ToString();
+                        string driveEnd = drive.EndDate.ToString();
+                        string driveStartHubo = drive.StartHubo.ToString();
+                        string driveEndHubo = drive.EndHubo.ToString();
+
+                        if (String.Compare(driveStart, "12:00:00") > 0)
+                        {
+                            TimeSpan temp = TimeSpan.Parse(driveStart);
+                            int temphour = temp.Hours - 12;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                driveStart = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            else
+                                driveStart = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                        }
+                        else
+                        {
+                            TimeSpan temp = TimeSpan.Parse(driveStart);
+                            int temphour = temp.Hours;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                driveStart = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            else
+                                driveStart = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                        }
+
+                        if (String.Compare(driveEnd, "12:00:00") > 0)
+                        {
+                            TimeSpan temp = TimeSpan.Parse(driveEnd);
+                            int temphour = temp.Hours - 12;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                driveEnd = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            else
+                                driveEnd = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                        }
+                        else
+                        {
+                            TimeSpan temp = TimeSpan.Parse(driveEnd);
+                            int temphour = temp.Hours;
+                            int tempMin = temp.Minutes;
+
+                            if (temphour == 00)
+                                temphour = 12;
+
+                            if (tempMin < 10)
+                                driveEnd = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            else
+                                driveEnd = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                        }
+
+                        if (DriveDetails && !CreatedDrive)
                         {
                             ScrollView scroll = new ScrollView { Orientation = ScrollOrientation.Vertical, HorizontalOptions = LayoutOptions.FillAndExpand };
 
@@ -360,39 +425,35 @@ namespace Hubo
                                 }
                             };
 
-                            NoteGrid = newGrid;
+                            DriveGrid = newGrid;
 
                             scroll.Content = newGrid;
 
                             FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                             FullGrid.RowDefinitions.Insert(ButtonRow - 1, new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-                            FullGrid.Children.Add(new Label { Text = NoteText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
+                            FullGrid.Children.Add(new Label { Text = DriveText, VerticalTextAlignment = TextAlignment.Center }, 1, ButtonRow - 1);
                             FullGrid.Children.Add(scroll, 1, 5, ButtonRow, ButtonRow + 1);
 
                             ButtonRow = ButtonRow + 2;
 
-                            CreatedNote = true;
+                            CreatedDrive = true;
                         }
 
-                        NoteGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                        NoteGrid.Children.Add(new Label { Text = noteTime + " - " + noteDetails + ", " + noteLocation }, 1, NumNotes);
-                        NumNotes++;
+                        DriveGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                        DriveGrid.Children.Add(new Label { Text = driveStart + ": " + driveStartHubo + " - " + driveEnd + ": " + driveEndHubo }, 1, NumDrives);
+                        NumDrives++;
 
-                        OnPropertyChanged("NoteText");
-                        OnPropertyChanged("NoteDetails");
-                        OnPropertyChanged("NoteGrid");
+                        OnPropertyChanged("DriveText");
+                        OnPropertyChanged("DriveDetails");
+                        OnPropertyChanged("DriveGrid");
                         OnPropertyChanged("FullGrid");
                         OnPropertyChanged("ButtonRow");
 
-                        listOfNotes.AddRange(noteList);
+                        listOfDrives.Add(drive);
                     }
-                    else
-                    {
-                        Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoteAddError, Resource.DisplayAlertOkay);
-                    }
-                }
-            });
+                });
+            }
         }
 
         private bool CheckValidHuboEntry(string huboValue)

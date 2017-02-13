@@ -12,7 +12,9 @@ namespace Hubo
     {
         VehicleChecklistViewModel vehicleCheckListVM;
         public bool canGoBack;
-        public VehicleChecklistPage(int instruction, bool fromEndShift, int key=0)
+        public int Instruction;
+
+        public VehicleChecklistPage(int instruction, bool fromEndShift, int key = 0)
         {
             InitializeComponent();
             vehicleCheckListVM = new VehicleChecklistViewModel(instruction);
@@ -20,11 +22,20 @@ namespace Hubo
             BindingContext = vehicleCheckListVM;
             vehicleCheckListVM.CurrentVehicleKey = key;
             canGoBack = fromEndShift;
-            //MessagingCenter.Subscribe<string>("UpdateVehicleInUse", "UpdateVehicleInUse", (sender) =>
-            //{
-            //    Navigation.PopAsync();
-            //});
+            Instruction = instruction;
+
+            huboEntry.ReturnType = ReturnType.Next;
+            huboEntry.Next = locationEntry;
+
+            locationEntry.ReturnType = ReturnType.Go;
+            locationEntry.Completed += LocationEntry_Completed;
         }
+
+        private void LocationEntry_Completed(object sender, EventArgs e)
+        {
+            vehicleCheckListVM.ContinueCommand.Execute(null);
+        }
+
         protected override bool OnBackButtonPressed()
         {
             if(canGoBack)

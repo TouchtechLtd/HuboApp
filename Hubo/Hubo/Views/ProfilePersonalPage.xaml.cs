@@ -14,6 +14,9 @@ namespace Hubo
         {
             InitializeComponent();
 
+            userName.ReturnType = ReturnType.Next;
+            userName.Next = firstName;
+
             firstName.ReturnType = ReturnType.Next;
             firstName.Next = lastName;
 
@@ -21,18 +24,27 @@ namespace Hubo
             lastName.Next = email;
 
             email.ReturnType = ReturnType.Next;
-            email.Next = password;
+            email.Next = phone;
 
-            password.ReturnType = ReturnType.Next;
-            password.Next = licenseNumber;
+            phone.ReturnType = ReturnType.Next;
+            phone.Next = address1;
 
-            licenseNumber.ReturnType = ReturnType.Next;
-            licenseNumber.Next = licenseVersion;
+            address1.ReturnType = ReturnType.Next;
+            address1.Next = address2;
 
-            licenseVersion.ReturnType = ReturnType.Next;
-            licenseVersion.Next = endorsements;
+            address2.ReturnType = ReturnType.Next;
+            address2.Next = address3;
 
-            endorsements.ReturnType = ReturnType.Done;
+            address3.ReturnType = ReturnType.Next;
+            address3.Next = postCode;
+
+            postCode.ReturnType = ReturnType.Next;
+            postCode.Next = city;
+
+            city.ReturnType = ReturnType.Next;
+            city.Next = country;
+
+            country.ReturnType = ReturnType.Done;
 
             Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
             Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 6));

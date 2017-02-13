@@ -11,7 +11,5 @@ namespace Hubo
         public string shiftCode { get; set; }
         public string noteTime { get; set; }
         public string noteDetails { get; set; }
-        public string noteHubo { get; set; }
-        public string noteLocation { get; set; }
     }
 }

@@ -31,8 +31,8 @@ namespace Hubo
                 listOfNotes = editShiftDetailsVM.LoadNotes();
                 foreach(BreakTable breakItem in listOfBreaks)
                 {
-                    string StartTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.StartTime));
-                    string EndTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.EndTime));
+                    string StartTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.StartDate));
+                    string EndTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.EndDate));
                     picker.Items.Add(StartTime + " - " + EndTime);
                 }
                 picker.Title = Resource.SelectBreak;
@@ -45,7 +45,7 @@ namespace Hubo
                 listOfNotes = editShiftDetailsVM.LoadNotes();
                 foreach(NoteTable note in listOfNotes)
                 {
-                    picker.Items.Add(note.Location + " - " + note.Date);
+                    picker.Items.Add(note.Date + " - " + note.Note.Remove(0, 20));
                 }
                 picker.Title = Resource.SelectNote;
             }

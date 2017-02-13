@@ -35,9 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApiClasses\LoginModels.cs" />
-    <Compile Include="ApiClasses\ShiftRequestModels.cs" />
-    <Compile Include="ApiClasses\VehicleRequestModel.cs" />
+    <Compile Include="ApiModels\LoginModels.cs" />
+    <Compile Include="ApiModels\OtherModels.cs" />
+    <Compile Include="ApiModels\ShiftRequestModels.cs" />
+    <Compile Include="ApiModels\VehicleRequestModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -47,6 +48,7 @@
     <Compile Include="DatabaseModels\BreakTable.cs" />
     <Compile Include="DatabaseModels\CompanyTable.cs" />
     <Compile Include="DatabaseModels\GeolocationTable.cs" />
+    <Compile Include="DatabaseModels\LicenceTable.cs" />
     <Compile Include="DatabaseModels\LoadTextTable.cs" />
     <Compile Include="DatabaseModels\NoteTable.cs" />
     <Compile Include="DatabaseModels\OfflineTables.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Models\BottomBarPageExtensions.cs" />
     <Compile Include="Models\Geolocation.cs" />
     <Compile Include="Models\LoginResponse.cs" />
+    <Compile Include="Models\OtherResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\ExportNote.cs" />
     <Compile Include="Models\ExportBreak.cs" />
