@@ -485,6 +485,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fleet Number:.
+        /// </summary>
+        internal static string FleetText {
+            get {
+                return ResourceManager.GetString("FleetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More than 24 hours since last shift.
         /// </summary>
         internal static string FullyRested {

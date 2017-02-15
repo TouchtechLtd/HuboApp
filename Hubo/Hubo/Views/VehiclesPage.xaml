@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.VehiclesPage">
   <Grid>
     <Grid.ColumnDefinitions>
@@ -20,28 +20,25 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <!-- <SearchBar Placeholder="{Binding SearchVehiclesPlaceholder}" SearchCommand="{Binding SearchVehiclesCommand}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/> -->
-    <!-- <autocomplete:SfAutoComplete x:Name="autocomplete" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>-->
-    <Picker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>
-    <Label Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
-    <Label Text="{Binding MakeModelText}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
-    <Label Text="{Binding CompanyText}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
 
-    <!-- For use when selecting vehicles page in menu -->
-    
-    <!--<StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}">
-      <Switch x:Name="switchToggle" HorizontalOptions="Center" IsToggled="{Binding VehicleActive}" />
-      <Label Text="{Binding SwitchText}" HorizontalTextAlignment="Center" HorizontalOptions="Center" YAlign="Center"/>
-    </StackLayout>-->
-    
-    
+    <Picker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start"/>
+
+    <Label Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" />
+    <local:BaseEntry x:Name="registration" IsEnabled="{Binding VehicleSelected}" Text="{Binding RegistrationEntry}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center"/>
+
+    <Label Text="{Binding MakeModelText}" Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" />
+    <local:BaseEntry x:Name="makeModel" IsEnabled="{Binding VehicleSelected}" Text="{Binding MakeModelEntry}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center"/>
+
+    <Label Text="{Binding CompanyText}" Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" />
+    <Picker x:Name="companyPicker" Grid.Column="2" IsEnabled="{Binding VehicleSelected}" Grid.Row="4" VerticalOptions="Center" />
+
+    <Label Text="{Binding FleetText}" Grid.Row="5" Grid.Column="1" VerticalTextAlignment="Center" />
+    <local:BaseEntry x:Name="fleet" IsEnabled="{Binding VehicleSelected}" Text="{Binding FleetEntry}" Grid.Row="5" Grid.Column="2" VerticalOptions="Center"/>
+
     <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
     <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
 
-    <!-- For use when selecting vehicles page in homepage after starting shift-->
-
-    
-    <Button Text="{Binding UseOrStopVehicleText}" Command="{Binding ToggleVehicleUseCommand}" BackgroundColor="{Binding UseVehicleColor}" Grid.Row="6" IsVisible="{Binding UseVehicleButtonVisible}" Grid.Column="1" Grid.ColumnSpan="2" />
-    <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}"  Grid.Row="7" IsVisible="{Binding UseVehicleButtonVisible}" Grid.Column="1"  Grid.ColumnSpan="2"/>
-  </Grid>  
+    <ActivityIndicator x:Name="activityIndicator" BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>
+    <Label x:Name="activityLabel" Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>
+  </Grid>
 </ContentPage>

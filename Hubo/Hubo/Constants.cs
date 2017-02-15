@@ -37,5 +37,7 @@ namespace Hubo
         public const string REST_URL_INSERTNOTE = "/Note/InsertNoteAsync";
 
         public const string REST_URL_EXPORTDATA = "";
+
+        public const string REST_URL_REGISTERUSER = "";
     }
 }

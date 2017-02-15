@@ -12,6 +12,8 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int ShiftKey { get; set; }
+        public bool StartOffline { get; set; }
+        public bool EndOffline { get; set; }
     }
 
     class DriveOffline
@@ -19,6 +21,8 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int DriveKey { get; set; }
+        public bool StartOffline { get; set; }
+        public bool EndOffline { get; set; }
     }
 
     class BreakOffline
@@ -26,6 +30,8 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int BreakKey { get; set; }
+        public bool StartOffline { get; set; }
+        public bool EndOffline { get; set; }
     }
 
     class NoteOffline
@@ -33,16 +39,6 @@ namespace Hubo
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }
         public int NoteKey { get; set; }
-    }
-
-    class GeolocationOffline
-    {
-        [PrimaryKey, AutoIncrement]
-        public int Key { get; set; }
-        public int DriveId { get; set; }
-        public string TimeStamp { get; set; }
-        public double Lat { get; set; }
-        public double Longitude { get; set; }
     }
 
     class VehicleOffline

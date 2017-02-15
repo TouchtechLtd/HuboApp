@@ -154,23 +154,23 @@ namespace Hubo
             Navigation.PopModalAsync();
         }
 
-        private void StartBreak()
+        private async void StartBreak()
         {
             if (CheckValidEntry())
             {
-                DbService.StartBreak(Location);
+                await DbService.StartBreak(Location);
                 MessagingCenter.Send<string>("Success", "AddBreak");
-                Navigation.PopModalAsync();
+                await Navigation.PopModalAsync();
             }
         }
 
-        private void EndBreak()
+        private async void EndBreak()
         {
             if (CheckValidEntry())
             {
-                DbService.StopBreak(Location);
+                await DbService.StopBreak(Location);
                 MessagingCenter.Send<string>("Success", "AddBreak");
-                Navigation.PopModalAsync();
+                await Navigation.PopModalAsync();
             }
         }
 

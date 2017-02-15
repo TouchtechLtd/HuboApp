@@ -152,7 +152,7 @@ namespace Hubo
         {
             var tbl = db.GetTableInfo("VehicleOffline");
 
-            if (tbl == null)
+            if (tbl.Count == 0)
                 db.CreateTable<VehicleOffline>();
 
             VehicleOffline offline = new VehicleOffline();
@@ -276,6 +276,19 @@ namespace Hubo
             return timeSinceReset;
         }
 
+        internal List<CompanyTable> GetCompanies(int id = 0)
+        {
+            List<CompanyTable> companies;
+
+            if (id == 0)
+                companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
+            else
+                companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable] WHERE [Key] = " + id);
+
+
+            return companies;
+        }
+
         internal int InsertUserShifts(ShiftTable shift)
         {
             db.Insert(shift);
@@ -330,7 +343,7 @@ namespace Hubo
         {
             var tbl = db.GetTableInfo("UserOffline");
 
-            if (tbl == null)
+            if (tbl.Count == 0)
                 db.CreateTable<UserOffline>();
 
             UserOffline offline = new UserOffline();
@@ -400,7 +413,7 @@ namespace Hubo
 
                 var tbl = db.GetTableInfo("NoteOffline");
 
-                if (tbl == null)
+                if (tbl.Count == 0)
                     db.CreateTable<NoteOffline>();
 
                 NoteOffline offline = new NoteOffline();
@@ -420,6 +433,8 @@ namespace Hubo
         {
             if (driveActive)
             {
+                await ReturnOffline();
+
                 List<DriveTable> listOfVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
                 if (listOfVehiclesInUse.Count == 0)
                 {
@@ -473,38 +488,44 @@ namespace Hubo
                             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
                             return;
                     }
+                }
 
-                    var tbl = db.GetTableInfo("DriveOffline");
+                var tbl = db.GetTableInfo("DriveOffline");
 
-                    if (tbl == null)
+                if (tbl.Count == 0)
+                {
+                    db.CreateTable<DriveOffline>();
+
+                    DriveOffline offline = new DriveOffline();
+
+                    offline.DriveKey = drive.Key;
+                    offline.EndOffline = true;
+                    offline.StartOffline = false;
+                    db.Insert(offline);
+                }
+                else
+                {
+                    List<DriveOffline> checkOffline = db.Query<DriveOffline>("SELECT [DriveKey] FROM [DriveOffline]");
+                    int num = 0;
+
+                    foreach (DriveOffline item in checkOffline)
                     {
-                        db.CreateTable<DriveOffline>();
+                        if (item.DriveKey == drive.Key)
+                        {
+                            item.EndOffline = true;
+                            db.Update(item);
+                            num++;
+                        }
+                    }
 
+                    if (num == 0)
+                    {
                         DriveOffline offline = new DriveOffline();
 
                         offline.DriveKey = drive.Key;
+                        offline.EndOffline = true;
+                        offline.StartOffline = false;
                         db.Insert(offline);
-                    }
-                    else
-                    {
-                        List<DriveOffline> checkOffline = db.Query<DriveOffline>("SELECT [DriveKey] FROM [DriveOffline]");
-                        int num = 0;
-
-                        foreach (DriveOffline item in checkOffline)
-                        {
-                            if (item.DriveKey == drive.Key)
-                            {
-                                num++;
-                            }
-                        }
-
-                        if (num == 0)
-                        {
-                            DriveOffline offline = new DriveOffline();
-
-                            offline.DriveKey = drive.Key;
-                            db.Insert(offline);
-                        }
                     }
                 }
             }
@@ -537,6 +558,9 @@ namespace Hubo
                         await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Internal Server Error", Resource.DisplayAlertOkay);
                         break;
                     default:
+                        newDrive.ServerId = result;
+                        db.Update(result);
+
                         MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
                         MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
                         return;
@@ -550,6 +574,8 @@ namespace Hubo
                 DriveOffline offline = new DriveOffline();
 
                 offline.DriveKey = newDrive.Key;
+                offline.StartOffline = true;
+                offline.EndOffline = false;
 
                 db.Insert(offline);
             }
@@ -702,51 +728,59 @@ namespace Hubo
                     default:
                         return true;
                 }
-
-                var tbl = db.GetTableInfo("BreakOffline");
-
-                if (tbl == null)
-                {
-                    db.CreateTable<BreakOffline>();
-                    BreakOffline offline = new BreakOffline();
-
-                    offline.BreakKey = currentBreak.Key;
-                    db.Insert(offline);
-                }
-                else
-                {
-                    List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
-                    int num = 0;
-
-                    foreach (BreakOffline item in checkOffline)
-                    {
-                        if (item.BreakKey == currentBreak.Key)
-                        {
-                            num++;
-                        }
-                    }
-
-                    if (num == 0)
-                    {
-                        BreakOffline offline = new BreakOffline();
-
-                        offline.BreakKey = currentBreak.Key;
-                        db.Insert(offline);
-                    }
-                }
-
-                return true;
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Invalid Server Key", Resource.DisplayAlertOkay);
                 return false;
             }
+
+            var tbl = db.GetTableInfo("BreakOffline");
+
+            if (tbl == null)
+            {
+                db.CreateTable<BreakOffline>();
+                BreakOffline offline = new BreakOffline();
+
+                offline.BreakKey = currentBreak.Key;
+                offline.StartOffline = false;
+                offline.EndOffline = true;
+                db.Insert(offline);
+            }
+            else
+            {
+                List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
+                int num = 0;
+
+                foreach (BreakOffline item in checkOffline)
+                {
+                    if (item.BreakKey == currentBreak.Key)
+                    {
+                        item.EndOffline = true;
+                        db.Update(item);
+                        num++;
+                    }
+                }
+
+                if (num == 0)
+                {
+                    BreakOffline offline = new BreakOffline();
+
+                    offline.BreakKey = currentBreak.Key;
+                    offline.StartOffline = false;
+                    offline.EndOffline = true;
+                    db.Insert(offline);
+                }
+            }
+
+            return true;
         }
 
-        internal void InsertVehicle(VehicleTable vehicleToAdd)
+        internal VehicleTable InsertVehicle(VehicleTable vehicleToAdd)
         {
             db.Insert(vehicleToAdd);
+
+            return vehicleToAdd;
         }
 
         internal bool Login(UserTable user)
@@ -784,6 +818,8 @@ namespace Hubo
                 BreakOffline offline = new BreakOffline();
 
                 offline.BreakKey = newBreak.Key;
+                offline.StartOffline = true;
+                offline.EndOffline = false;
 
                 db.Insert(offline);
 
@@ -865,6 +901,8 @@ namespace Hubo
                 ShiftOffline offline = new ShiftOffline();
 
                 offline.ShiftKey = shift.Key;
+                offline.StartOffline = true;
+                offline.EndOffline = false;
 
                 db.Insert(offline);
             }
@@ -879,7 +917,7 @@ namespace Hubo
             return activeDrive;
         }
 
-        internal async void StopShift(DateTime date, double lat , double longitude)
+        internal async void StopShift(DateTime date, double lat, double longitude)
         {
             //Get current shift
             List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
@@ -903,43 +941,52 @@ namespace Hubo
                     RestAPI = new RestService();
                     var result = await RestAPI.QueryShift(activeShift, true);
 
-                    if (result < 0)
+                    if (result > 0)
                     {
-                        var tbl = db.GetTableInfo("ShiftOffline");
+                        MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
+                        return;
+                    }
+                }
 
-                        if (tbl == null)
+                var tbl = db.GetTableInfo("ShiftOffline");
+
+                if (tbl.Count == 0)
+                {
+                    db.CreateTable<ShiftOffline>();
+
+                    ShiftOffline offline = new ShiftOffline();
+
+                    offline.ShiftKey = activeShift.Key;
+                    offline.StartOffline = false;
+                    offline.EndOffline = true;
+                    db.Insert(offline);
+                }
+                else
+                {
+                    List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
+                    int num = 0;
+
+                    foreach (ShiftOffline item in checkOffline)
+                    {
+                        if (item.ShiftKey == activeShift.Key)
                         {
-                            db.CreateTable<ShiftOffline>();
-
-                            ShiftOffline offline = new ShiftOffline();
-
-                            offline.ShiftKey = activeShift.Key;
-                            db.Insert(offline);
-                        }
-                        else
-                        {
-                            List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
-                            int num = 0;
-
-                            foreach (ShiftOffline item in checkOffline)
-                            {
-                                if (item.ShiftKey == activeShift.Key)
-                                {
-                                    num++;
-                                }
-                            }
-
-                            if (num == 0)
-                            {
-                                ShiftOffline offline = new ShiftOffline();
-
-                                offline.ShiftKey = activeShift.Key;
-                                db.Insert(offline);
-                            }
+                            item.EndOffline = true;
+                            db.Update(item);
+                            num++;
                         }
                     }
-                    MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
+
+                    if (num == 0)
+                    {
+                        ShiftOffline offline = new ShiftOffline();
+
+                        offline.ShiftKey = activeShift.Key;
+                        offline.StartOffline = false;
+                        offline.EndOffline = true;
+                        db.Insert(offline);
+                    }
                 }
+
                 await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ErrorEndShift, Resource.DisplayAlertOkay);
             }
         }
@@ -1145,6 +1192,229 @@ namespace Hubo
             }
 
             return exportList;
+        }
+
+        internal async Task<bool> ReturnOffline()
+        {
+            var shiftExists = db.GetTableInfo("ShiftOffline");
+
+            if (shiftExists.Count > 0)
+            {
+                List<ShiftOffline> shifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+
+                if (shifts != null)
+                {
+                    int uploadErrors = 0;
+                    foreach (ShiftOffline item in shifts)
+                    {
+                        UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable]")[0];
+                        ShiftTable shift = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [Key] = " + item.ShiftKey)[0];
+                        DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + item.ShiftKey + " LIMIT 1")[0];
+
+                        if (item.StartOffline)
+                        {
+                            int result = await RestAPI.QueryShift(shift, false, user.DriverId, drive.Key);
+
+                            if (result > 0)
+                            {
+                                shift.ServerKey = result;
+                                db.Update(shift);
+                            }
+                            else
+                                uploadErrors++;
+                        }
+                        if (item.EndOffline)
+                        {
+                            int result = await RestAPI.QueryShift(shift, true);
+
+                            if (result != 0)
+                                uploadErrors++;
+                        }
+
+                        if (uploadErrors == 0)
+                            db.Query<ShiftOffline>("DELETE FROM [ShiftOffline] WHERE [ShiftKey] = " + shift.Key);
+                    }
+                }
+
+                List<ShiftOffline> empty = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<ShiftOffline>("DROP TABLE [ShiftOffline]");
+            }
+
+            var driveExists = db.GetTableInfo("DriveOffline");
+
+            if (driveExists.Count > 0)
+            {
+                List<DriveOffline> drives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+
+                if (drives != null)
+                {
+                    int uploadErrors = 0;
+                    foreach (DriveOffline item in drives)
+                    {
+                        DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [Key] = " + item.DriveKey)[0];
+
+                        if (item.StartOffline)
+                        {
+                            int result = await RestAPI.QueryDrive(false, drive);
+
+                            if (result > 0)
+                            {
+                                drive.ServerId = result;
+                                db.Update(drive);
+                            }
+                            else
+                                uploadErrors++;
+                        }
+                        if (item.EndOffline)
+                        {
+                            int result = await RestAPI.QueryDrive(true, drive);
+
+                            if (result != 0)
+                                uploadErrors++;
+                        }
+
+                        if (uploadErrors == 0)
+                            db.Query<DriveOffline>("DELETE FROM [DriveOffline] WHERE [DriveKey] = " + drive.Key);
+                    }
+                }
+
+                List<DriveOffline> empty = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<DriveOffline>("DROP TABLE [DriveOffline]");
+            }
+
+            var breakExists = db.GetTableInfo("BreakOffline");
+
+            if (breakExists.Count > 0)
+            {
+                List<BreakOffline> breaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
+
+                if (breaks != null)
+                {
+                    int uploadErrors = 0;
+
+                    foreach (BreakOffline item in breaks)
+                    {
+                        BreakTable breakValue = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [Key] = " + item.BreakKey)[0];
+
+                        if (item.StartOffline)
+                        {
+                            int result = await RestAPI.QueryBreak(false, breakValue);
+
+                            if (result > 0)
+                            {
+                                breakValue.ServerId = result;
+                                db.Update(result);
+                            }
+                            else
+                                uploadErrors++;
+                        }
+                        if (item.EndOffline)
+                        {
+                            int result = await RestAPI.QueryBreak(true, breakValue);
+
+                            if (result != 0)
+                                uploadErrors++;
+                        }
+
+                        if (uploadErrors == 0)
+                            db.Query<BreakOffline>("DELETE FROM [BreakOffline] WHERE [BreakKey] = " + breakValue.Key);
+                    }
+                }
+
+                List<BreakOffline> empty = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<BreakOffline>("DROP TABLE [BreakOffline]");
+            }
+
+            var noteExists = db.GetTableInfo("NoteOffline");
+
+            if (noteExists.Count > 0)
+            {
+                List<NoteOffline> notes = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
+
+                if (notes != null)
+                {
+                    foreach (NoteOffline item in notes)
+                    {
+                        NoteTable note = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + item.NoteKey)[0];
+
+                        int result = await RestAPI.InsertNote(note);
+
+                        if (result > 0)
+                        {
+                            db.Query<NoteOffline>("DELETE FROM [NoteOffline] WHERE [NoteKey] = " + note.Key);
+                        }
+                    }
+                }
+
+                List<NoteOffline> empty = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<NoteOffline>("DROP TABLE [NoteOffline]");
+            }
+
+            var vehicleExists = db.GetTableInfo("VehicleOffline");
+
+            if (vehicleExists.Count > 0)
+            {
+                List<VehicleOffline> vehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+
+                if (vehicles != null)
+                {
+                    foreach (VehicleOffline item in vehicles)
+                    {
+                        VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + item.VehicleKey)[0];
+
+                        bool result = await RestAPI.QueryAddVehicle(vehicle);
+
+                        if (result)
+                        {
+                            db.Query<VehicleOffline>("DELETE FROM [VehicleOffline] WHERE [VehicleKey] = " + vehicle.Key);
+                        }
+                    }
+                }
+
+                List<VehicleOffline> empty = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<VehicleOffline>("DROP TABLE [VehicleOffline]");
+            }
+
+            var userChangesExist = db.GetTableInfo("UserOffline");
+
+            if (userChangesExist.Count > 0)
+            {
+            List<UserOffline> userChanges = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
+
+                List<UserOffline> users = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
+
+                if (users != null)
+                {
+                    foreach (UserOffline item in users)
+                    {
+                        UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable] WHERE [Key] = " + item.UserKey)[0];
+
+                        bool result = await RestAPI.QueryUpdateProfile(user);
+
+                        if (result)
+                        {
+                            db.Query<UserOffline>("DELETE FROM [VehicleOffline] WHERE [UserKey] = " + user.Id);
+                        }
+                    }
+                }
+
+                List<UserOffline> empty = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
+
+                if (empty.Count == 0)
+                    db.Query<UserOffline>("DROP TABLE [VehicleOffline");
+            }
+
+            return true;
         }
     }
 }

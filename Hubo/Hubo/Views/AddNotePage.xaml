@@ -37,9 +37,9 @@
     <local:BaseEntry Text="{Binding Location}" IsVisible="{Binding LocationVisible}" x:Name="location" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand" VerticalOptions="Center"  />
 
     <Label Text="{Binding LocationGeoText}" IsVisible="{Binding LocationVisible}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    <local:BaseEntry Text="{Binding LocationLat}" IsVisible="{Binding LocationVisible}" x:Name="location" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" />
+    <local:BaseEntry Text="{Binding LocationLat}" IsVisible="{Binding LocationVisible}" x:Name="locationLat" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" />
     <Label Text="{Binding LocationDashText}" IsVisible="{Binding LocationVisible}" Grid.Row="4" Grid.Column="4" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    <local:BaseEntry Text="{Binding LocationLong}" IsVisible="{Binding LocationVisible}" x:Name="location" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" />
+    <local:BaseEntry Text="{Binding LocationLong}" IsVisible="{Binding LocationVisible}" x:Name="locationLong" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Keyboard="Numeric" />
     
     <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" />
     <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" />

@@ -21,9 +21,10 @@ namespace Hubo
             //CheckLoggedInStatus();
 
             //Run a scheduled task every minute
-            Device.StartTimer(TimeSpan.FromMinutes(1), () =>
+            Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                return ScheduledTasks.testTask();
+                ScheduledTasks.CheckOfflineData();
+                return true;
             });
         }
 

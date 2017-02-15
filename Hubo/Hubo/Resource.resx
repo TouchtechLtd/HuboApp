@@ -540,4 +540,7 @@
   <data name="LocationGeo" xml:space="preserve">
     <value>Coordinates:</value>
   </data>
+  <data name="FleetText" xml:space="preserve">
+    <value>Fleet Number:</value>
+  </data>
 </root>

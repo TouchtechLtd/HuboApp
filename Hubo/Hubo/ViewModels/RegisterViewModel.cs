@@ -49,6 +49,24 @@ namespace Hubo
                 if((Regex.IsMatch(Email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")))
                 {
                     //TODO: Code to send info to the webservice
+                    RestService restAPI = new RestService();
+
+                    UserTable user = new UserTable();
+                    user.FirstName = FirstName;
+                    user.LastName = LastName;
+                    user.Email = Email;
+
+                    int result = await restAPI.RegisterUser(user, Password);
+
+                    switch (result)
+                    {
+                        case -1:
+                            await Application.Current.MainPage.DisplayAlert(Resource.RegisterSuccessTitle, "Unable to register user", Resource.DisplayAlertOkay);
+                            return;
+                        default:
+                            break;
+                    }
+
                     await Application.Current.MainPage.DisplayAlert(Resource.RegisterSuccessTitle, Resource.RegisterSuccessText, Resource.DisplayAlertOkay);
                     Application.Current.MainPage = new NZTAMessagePage(1);
                 }

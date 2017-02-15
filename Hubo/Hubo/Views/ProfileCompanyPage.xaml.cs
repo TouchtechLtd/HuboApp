@@ -15,6 +15,15 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = profileVM;
+
+            companyList.ItemSelected += (sender, e) =>
+            {
+                if (((ListView)sender).SelectedItem == null)
+                {
+                    return;
+                }
+                ((ListView)sender).SelectedItem = null;
+            };
         }
     }
 }

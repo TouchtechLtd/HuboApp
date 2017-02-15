@@ -67,7 +67,7 @@ namespace Hubo
             }
             else if (menu.TargetType == "Vehicles")
             {
-                await Detail.Navigation.PushAsync(new VehiclesPage(1));
+                await Detail.Navigation.PushAsync(new VehiclesPage());
             }
             else if (menu.TargetType == "History")
             {

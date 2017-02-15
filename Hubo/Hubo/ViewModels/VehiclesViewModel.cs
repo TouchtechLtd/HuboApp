@@ -9,6 +9,7 @@ namespace Hubo
     class VehiclesViewModel : INotifyPropertyChanged
     {
         public List<VehicleTable> listOfVehicles;
+        public List<CompanyTable> listOfCompanies;
         public VehicleTable currentVehicle;
         DatabaseService DbService = new DatabaseService();
         RestService RestAPI = new RestService();
@@ -42,58 +43,39 @@ namespace Hubo
         }
 
         public INavigation Navigation { get; set; }
-        public string SearchVehiclesPlaceholder { get; set; }
-        public bool VehicleActive { get; set; }
         public string RegistrationText { get; set; }
         public string RegistrationEntry { get; set; }
-        public string AddRegistrationEntry { get; set; }
-        public string HuboText { get; set; }
-        public string HuboEntry { get; set; }
         public string MakeModelText { get; set; }
         public string MakeModelEntry { get; set; }
-        public string AddMakeModelEntry { get; set; }
         public string CompanyText { get; set; }
-        public int CompanyEntry { get; set; }
-        public string AddCompanyEntry { get; set; }
-        public string SwitchText { get; set; }
         public string EditVehicleText { get; set; }
         public string AddVehicleText { get; set; }
-        public string SaveText { get; set; }
-        public string CancelText { get; set; }
-        public string UseOrStopVehicleText { get; set; }
         public ICommand EditVehicleCommand { get; set; }
         public ICommand AddVehicleCommand { get; set; }
-        public ICommand SearchVehiclesCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
-        public ICommand AddCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
-        public ICommand ToggleVehicleUseCommand { get; set; }
-        public Color UseVehicleColor { get; set; }
         public bool UseVehicleButtonVisible { get; set; }
         public bool VehiclesPageFromMenu { get; set; }
-        public bool VehicleInUse { get; set; }
+        public bool VehicleSelected { get; set; }
+        public bool VehicleAddSelected { get; set; }
+        public bool VehicleEditSelected { get; set; }
+        public int SelectedCompany { get; set; }
+        public string FleetEntry { get; set; }
+        public string FleetText { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         public VehiclesViewModel(int instruction = 0)
         {
+            VehicleSelected = false;
+            VehicleAddSelected = false;
+            VehicleEditSelected = true;
             UpdateLabels();
             GetVehicles();
 
             currentVehicle = new VehicleTable();
 
             EditVehicleCommand = new Command(EditVehicle);
-
-            CancelText = Resource.Cancel;
-            SaveText = Resource.Save;
-
-            SaveCommand = new Command(SaveVehicleDetails);
-            AddVehicleCommand = new Command(AddVehicle);
-            AddCommand = new Command(InsertVehicle);
-            CancelCommand = new Command(Cancel);
-
-            ToggleVehicleUseCommand = new Command(ToggleVehicleUse);
+            AddVehicleCommand = new Command(InsertVehicle);
 
             if (instruction == 1)
             {
@@ -108,140 +90,118 @@ namespace Hubo
             OnPropertyChanged("VehiclesPageFromMenu");
             OnPropertyChanged("UseVehicleButtonVisible");
 
-            ToggleVehicleInUseVisuals();
-
-            if (DbService.VehicleActive())
-            {
-                VehicleActive = true;
-                currentVehicle = DbService.GetCurrentVehicle();
-                RegistrationText = "Registration: " + currentVehicle.Registration;
-                MakeModelText = "Make and Model: " + currentVehicle.MakeModel;
-                CompanyText = "Company: " + currentVehicle.CompanyId;
-                SwitchText = Resource.SwitchTextActive;
-                OnPropertyChanged("RegistrationText");
-                OnPropertyChanged("MakeText");
-                OnPropertyChanged("ModelText");
-                OnPropertyChanged("CompanyText");
-            }
-            MessagingCenter.Subscribe<string>("UpdateVehicleInUse", "UpdateVehicleInUse", (sender) =>
-            {
-                ToggleVehicleInUseVisuals();
-            });
-
             IsBusy = false;
-        }
-
-        private void ToggleVehicleInUseVisuals()
-        {
-            if (DbService.VehicleActive())
-            {
-                UseVehicleColor = Color.Red;
-                UseOrStopVehicleText = Resource.StopUsingVehicle;
-                VehicleInUse = true;
-            }
-            else
-            {
-                UseVehicleColor = Color.Green;
-                UseOrStopVehicleText = Resource.UseVehicle;
-                VehicleInUse = false;
-            }
-            OnPropertyChanged("VehicleInUse");
-            OnPropertyChanged("UseOrStopVehicleText");
-            OnPropertyChanged("UseVehicleColor");
-        }
-
-        private void ToggleVehicleUse(object obj)
-        {
-            if (currentVehicle.Registration != null)
-            {
-                if (VehicleInUse)
-                {
-                    // Code to switch used vehicle off. 1) change visual elements, 2) code to toggle active off, 3)Code to open new page to input rego information
-                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
-                }
-                else
-                {
-                    //Code to switch vehicle on Reverse of previous Comment
-                    Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key));
-                }
-            }
-            else
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
-            }
-
-        }
-
-        private async void Cancel()
-        {
-            await Navigation.PopAsync();
         }
 
         public async void InsertVehicle()
         {
-            VehicleTable VehicleToAdd = new VehicleTable();
-            VehicleToAdd = BindXAMLToVehicle();
+            if (VehicleAddSelected)
+            {
+                VehicleTable VehicleToAdd = new VehicleTable();
+                VehicleToAdd = BindXAMLToVehicle();
 
-            IsBusy = true;
-            SetLoadingText();
-            if (await RestAPI.QueryAddVehicle(VehicleToAdd))
-            {
-                DbService.InsertVehicle(VehicleToAdd);
-                GetVehicles();
-                IsBusy = false;
-                await Navigation.PopAsync();
-            }
-            else
-            {
-                DbService.VehicleOffine(VehicleToAdd);
+                if (VehicleToAdd.Registration == "")
+                    return;
+
+                if (VehicleToAdd.MakeModel == "")
+                    return;
+
+                if (VehicleToAdd.FleetNumber == "")
+                    return;
+
+                IsBusy = true;
+                SetLoadingText();
+                if (await RestAPI.QueryAddVehicle(VehicleToAdd))
+                {
+                    VehicleToAdd = DbService.InsertVehicle(VehicleToAdd);
+                    GetVehicles();
+                    IsBusy = false;
+                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", VehicleToAdd.Key);
+                }
+                else
+                {
+                    VehicleToAdd = DbService.InsertVehicle(VehicleToAdd);
+                    DbService.VehicleOffine(VehicleToAdd);
+                    GetVehicles();
+                    IsBusy = false;
+                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", VehicleToAdd.Key);
+                }
             }
         }
 
-        private void AddVehicle()
+        public void UpdatePageAdd()
         {
-            Navigation.PushAsync(new AddVehiclePage());
+            RegistrationEntry = "";
+            MakeModelEntry = "";
+            FleetEntry = "";
+            VehicleSelected = true;
+            VehicleAddSelected = true;
+            VehicleEditSelected = false;
+
+            OnPropertyChanged("VehicleSelected");
+            OnPropertyChanged("VehicleAddSelected");
+            OnPropertyChanged("VehicleEditSelected");
+            OnPropertyChanged("RegistrationEntry");
+            OnPropertyChanged("MakeModelEntry");
+            OnPropertyChanged("FleetEntry");
         }
 
         public List<VehicleTable> GetVehicles()
         {
-            listOfVehicles = new List<VehicleTable>();
             listOfVehicles = DbService.GetVehicles();
+
             UpdateLabels();
             return listOfVehicles;
+        }
+
+        public List<CompanyTable> GetCompanies()
+        {
+            listOfCompanies = DbService.GetCompanies();
+
+            return listOfCompanies;
         }
 
         private VehicleTable BindXAMLToVehicle()
         {
             VehicleTable editedVehicle = new VehicleTable();
-            editedVehicle.CompanyId = CompanyEntry;
+            editedVehicle.CompanyId = SelectedCompany + 1;
             editedVehicle.MakeModel = MakeModelEntry;
             editedVehicle.Registration = RegistrationEntry;
+            editedVehicle.FleetNumber = FleetEntry;
             return editedVehicle;
         }
 
         public void SaveVehicleDetails()
         {
-            VehicleTable editedVehicle = new VehicleTable();
-            editedVehicle = BindXAMLToVehicle();
-            editedVehicle.Key = currentVehicle.Key;
-            DbService.UpdateVehicleInfo(editedVehicle);
+            if (VehicleEditSelected)
+            {
+                VehicleTable editedVehicle = new VehicleTable();
+                editedVehicle = BindXAMLToVehicle();
+                editedVehicle.Key = currentVehicle.Key;
+
+                if (editedVehicle.Registration != currentVehicle.Registration || editedVehicle.MakeModel != currentVehicle.MakeModel || editedVehicle.CompanyId != currentVehicle.CompanyId || editedVehicle.FleetNumber != currentVehicle.FleetNumber)
+                {
+                    DbService.UpdateVehicleInfo(editedVehicle);
+                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", editedVehicle.Key);
+                }
+            }
         }
 
         private void UpdateLabels()
         {
-            SearchVehiclesPlaceholder = Resource.SearchVehiclesPlaceholder;
             RegistrationText = Resource.RegistrationText;
             MakeModelText = Resource.MakeModelText;
             CompanyText = Resource.CompanyText;
-            SwitchText = Resource.SwitchTextInActive;
+            FleetText = Resource.FleetText;
             EditVehicleText = Resource.EditVehicleText;
             AddVehicleText = Resource.AddVehicleText;
-            HuboText = Resource.HuboEquals;
+
             OnPropertyChanged("HuboText");
             OnPropertyChanged("RegistrationText");
             OnPropertyChanged("MakeText");
             OnPropertyChanged("ModelText");
             OnPropertyChanged("CompanyText");
+            OnPropertyChanged("FleetText");
         }
 
         private void EditVehicle()
@@ -252,45 +212,31 @@ namespace Hubo
             }
             else
             {
-                Navigation.PushAsync(new EditVehiclePage(currentVehicle));
+                SaveVehicleDetails();
             }
         }
 
-        internal void UpdatePage(int selectedVehicle)
+        internal int UpdatePage(int selectedVehicle)
         {
             VehicleTable vehicle = listOfVehicles[selectedVehicle];
-            RegistrationText = "Registration: " + vehicle.Registration;
-            MakeModelText = "Make and Model: " + vehicle.MakeModel;
-            CompanyText = "Company: " + vehicle.CompanyId;
-            VehicleActive = false;
-            SwitchText = Resource.SwitchTextInActive;
-            OnPropertyChanged("RegistrationText");
-            OnPropertyChanged("MakeText");
-            OnPropertyChanged("ModelText");
-            OnPropertyChanged("CompanyText");
+
+            RegistrationEntry = vehicle.Registration;
+            MakeModelEntry = vehicle.MakeModel;
+            FleetEntry = vehicle.FleetNumber;
+
+            VehicleSelected = true;
+            VehicleAddSelected = false;
+            VehicleEditSelected = true;
+
+            OnPropertyChanged("RegistrationEntry");
+            OnPropertyChanged("MakeModelEntry");
+            OnPropertyChanged("FleetEntry");
             OnPropertyChanged("VehicleActive");
+            OnPropertyChanged("VehicleSelected");
             OnPropertyChanged("SwitchText");
             currentVehicle = vehicle;
-        }
 
-
-        internal void UpdateEditPage(string registration)
-        {
-            UpdateLabels();
-            foreach (VehicleTable vehicle in listOfVehicles)
-            {
-                if (registration == vehicle.Registration)
-                {
-                    RegistrationEntry = vehicle.Registration;
-                    MakeModelEntry = vehicle.MakeModel;
-                    CompanyEntry = vehicle.CompanyId;
-                    OnPropertyChanged("RegistrationEntry");
-                    OnPropertyChanged("MakeEntry");
-                    OnPropertyChanged("ModelEntry");
-                    OnPropertyChanged("CompanyEntry");
-                    currentVehicle = vehicle;
-                }
-            }
+            return vehicle.CompanyId;
         }
 
         private void SetLoadingText()

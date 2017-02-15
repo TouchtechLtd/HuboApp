@@ -27,6 +27,9 @@ namespace Hubo
             string url = GetBaseUrl() + Constants.REST_URL_LOGIN;
             string contentType = Constants.CONTENT_TYPE;
 
+            if (!db.ClearTablesForNewUser())
+                return false;
+
             LoginRequestModel loginModel = new LoginRequestModel();
             //loginModel.usernameOrEmailAddress = username;
             //loginModel.password = password;
@@ -265,9 +268,6 @@ namespace Hubo
             string urlUser = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
             string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
             string urlVehicle = GetBaseUrl() + Constants.REST_URL_GETVEHICLEDETAILS;
-
-            if (!db.ClearTablesForNewUser())
-                return -3;
 
             if (user.Id < 0)
                 return -2;
@@ -543,7 +543,7 @@ namespace Hubo
                 return -1;
         }
 
-        internal async Task<int> QueryBreak(bool breakStarted, int driveShiftId, BreakTable breakTable)
+        internal async Task<int> QueryBreak(bool breakStarted, BreakTable breakTable)
         {
             string url;
             string contentType = Constants.CONTENT_TYPE;
@@ -554,7 +554,7 @@ namespace Hubo
                 url = GetBaseUrl() + Constants.REST_URL_ADDBREAKSTART;
 
                 BreakStartModel breakModel = new BreakStartModel();
-                breakModel.shiftId = driveShiftId;
+                breakModel.shiftId = breakTable.DriveKey;
                 breakModel.startBreakDateTime = breakTable.StartDate;
                 breakModel.startBreakLocation = breakTable.StartLocation;
 
@@ -592,24 +592,30 @@ namespace Hubo
                         return 0;
                 }
                 else
-                    return -3;
+                    return -2;
             }
             else
                 return -1;
         }
 
-        internal async Task<int> InsertGeoData(int driveShiftId, DateTime date, Geolocation location)
+        internal async Task<int> InsertGeoData(List<GeolocationTable> geolocation)
         {
             string url = GetBaseUrl() + Constants.REST_URL_INSERTGEODATA;
             string contentType = Constants.CONTENT_TYPE;
 
-            InsertGeoModel geoModel = new InsertGeoModel();
-            geoModel.drivingShiftId = driveShiftId;
-            geoModel.timeStamp = date.ToString();
-            geoModel.latitude = location.Latitude;
-            geoModel.longitude = location.Longitude;
+            List<InsertGeoModel> modelList = new List<InsertGeoModel>();
 
-            string json = JsonConvert.SerializeObject(geoModel);
+            foreach (GeolocationTable item in geolocation) {
+                InsertGeoModel geoModel = new InsertGeoModel();
+                geoModel.drivingShiftId = item.DriveKey;
+                geoModel.timeStamp = item.TimeStamp;
+                geoModel.latitude = item.Longitude;
+                geoModel.longitude = item.Longitude;
+
+                modelList.Add(geoModel);
+            }
+
+            string json = JsonConvert.SerializeObject(modelList);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
             var response = await client.PostAsync(url, content);
 
@@ -677,6 +683,33 @@ namespace Hubo
             }
             else
                 return -2;
+        }
+
+        internal async Task<int> RegisterUser(UserTable newUser, string password)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_REGISTERUSER;
+            string contentType = Constants.CONTENT_TYPE;
+
+            RegisterModel register = new RegisterModel();
+            register.firstName = newUser.FirstName;
+            register.lastName = newUser.LastName;
+            register.email = newUser.Email;
+            register.password = password;
+
+            string json = JsonConvert.SerializeObject(register);
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+            var response = await client.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                RegisterResponse result = JsonConvert.DeserializeObject<RegisterResponse>(response.Content.ReadAsStringAsync().Result);
+
+                if (result.Success)
+                {
+
+                }
+            }
+            return -1;
         }
     }
 }
