@@ -18,7 +18,6 @@ namespace Hubo
             editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentShift);
             editShiftDetailsVM.Navigation = Navigation;
             BindingContext = editShiftDetailsVM;
-            //editShiftDetailsVM.Load(instruction, currentShift);
             picker.SelectedIndexChanged += Picker_SelectedIndexChanged;
 
             //Load details for Breaks
@@ -29,7 +28,8 @@ namespace Hubo
                 listOfBreaks = editShiftDetailsVM.LoadBreaks();
                 List<NoteTable> listOfNotes = new List<NoteTable>();
                 listOfNotes = editShiftDetailsVM.LoadNotes();
-                foreach(BreakTable breakItem in listOfBreaks)
+                //picker.Items.Add("2016-10-21 10:22 - 2016-10-21 14:32");
+                foreach (BreakTable breakItem in listOfBreaks)
                 {
                     string StartTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.StartDate));
                     string EndTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.EndDate));
@@ -43,7 +43,8 @@ namespace Hubo
                 Title = Resource.NotesText;
                 List<NoteTable> listOfNotes = new List<NoteTable>();
                 listOfNotes = editShiftDetailsVM.LoadNotes();
-                foreach(NoteTable note in listOfNotes)
+                //picker.Items.Add("2016-10-21 12:22 - Hit a Possom");
+                foreach (NoteTable note in listOfNotes)
                 {
                     picker.Items.Add(note.Date + " - " + note.Note.Remove(0, 20));
                 }
@@ -55,7 +56,8 @@ namespace Hubo
                 Title = Resource.VehiclesText;
                 List<DriveTable> usedVehicles = new List<DriveTable>();
                 usedVehicles = editShiftDetailsVM.LoadVehicles();
-                foreach(DriveTable vehicle in usedVehicles)
+                //picker.Items.Add("DB4501");
+                foreach (DriveTable vehicle in usedVehicles)
                 {
                     VehicleTable vehicleInfo = editShiftDetailsVM.LoadVehicleInfo(vehicle);
                     picker.Items.Add(vehicleInfo.Registration);

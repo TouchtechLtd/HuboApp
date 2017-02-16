@@ -45,8 +45,8 @@ namespace Hubo
 
         public EditShiftViewModel()
         {
-            ShiftEndTime = Resource.ShiftEndTime;
-            ShiftStartTime = Resource.ShiftStartTime;
+            //ShiftEndTime = Resource.ShiftEndTime;
+            ShiftStartTime = Resource.Shift;
             ShiftStartInfoVisible = false;
             ShiftEndInfoVisible = false;
             SaveCommand = new Command(Save);
@@ -115,17 +115,8 @@ namespace Hubo
             {
                 DbService.AddAmendments(listOfAmendments, currentShift);
             }
-        }
 
-        public List<ShiftTable> Load(DateTime selectedDate)
-        {
-            listOfShifts = DbService.GetShifts(selectedDate);
-            if (listOfShifts.Count == 0)
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoShiftsFound, Resource.DisplayAlertOkay);
-
-            }
-            return listOfShifts;
+            MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
         }
 
         internal void LoadInfoFromShift(ShiftTable shiftTable)

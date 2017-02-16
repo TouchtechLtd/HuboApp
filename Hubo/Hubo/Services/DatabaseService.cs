@@ -211,36 +211,6 @@ namespace Hubo
             db.Insert(drive);
         }
 
-        internal List<ShiftTable> GetShiftsWeek(DateTime selectedDate)
-        {
-            List<ShiftTable> returnShifts = new List<ShiftTable>();
-            int daysWithoutShifts = 0;
-            while ((returnShifts.Count < 8))
-            {
-                List<ShiftTable> listOfShifts = new List<ShiftTable>();
-                string dateString = selectedDate.Day + "/" + selectedDate.Month + "/" + selectedDate.Year;
-                listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '" + dateString + "%'");
-                foreach (ShiftTable shift in listOfShifts)
-                {
-                    returnShifts.Add(shift);
-                }
-                if (listOfShifts.Count == 0)
-                {
-                    daysWithoutShifts++;
-                }
-                else
-                {
-                    daysWithoutShifts = 0;
-                }
-                if (daysWithoutShifts == 8)
-                {
-                    break;
-                }
-                selectedDate = selectedDate.AddDays(-1);
-            }
-            return returnShifts;
-        }
-
         internal void InsertUserNotes(NoteTable note)
         {
             db.Insert(note);
@@ -360,7 +330,7 @@ namespace Hubo
             List<DateTime> listOfDates = new List<DateTime>();
             DateTime fromDate = selectedDate.AddDays(-7);
             selectedDate = selectedDate.AddDays(1);
-            while (fromDate != selectedDate)
+            while (fromDate.Date != selectedDate.Date)
             {
                 listOfDates.Add(fromDate);
                 fromDate = fromDate.AddDays(1);
@@ -368,11 +338,10 @@ namespace Hubo
 
             foreach (DateTime date in listOfDates)
             {
-                string dateString = date.Day + "/" + date.Month + "/" + date.Year;
-                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + dateString + "%'");
+                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd") + "%'");
                 if (listOfShiftsToAdd.Count != 0)
                 {
-                    listOfShifts.Add(listOfShiftsToAdd[0]);
+                    listOfShifts.AddRange(listOfShiftsToAdd);
                 }
             }
 
@@ -1389,8 +1358,6 @@ namespace Hubo
 
             if (userChangesExist.Count > 0)
             {
-            List<UserOffline> userChanges = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
-
                 List<UserOffline> users = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
 
                 if (users != null)

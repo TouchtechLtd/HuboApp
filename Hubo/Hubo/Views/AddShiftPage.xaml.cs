@@ -39,6 +39,7 @@ namespace Hubo
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
             string[] buttons = new string[] { Resource.Break, Resource.NoteText, Resource.DriveText };
+            
             var action = await DisplayActionSheet(Resource.AddBreakNote, Resource.Cancel, null, buttons);
 
             if (action != null && action != "Cancel")

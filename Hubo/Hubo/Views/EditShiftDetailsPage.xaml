@@ -32,12 +32,10 @@
       <Label Text="{Binding HuboStartText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
       <Entry Text="{Binding VehicleStartHubo}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}" Keyboard="Numeric"/>
       <Label Text="{Binding StartLocationText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
-      <!--<Entry Text="{Binding VehicleStartLocation}" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}"/>-->
 
       <Label Text="{Binding HuboEndText}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
       <Entry Text="{Binding VehicleEndHubo}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}" Keyboard="Numeric"/>
       <Label Text="{Binding EndLocationText}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
-      <!--<Entry Text="{Binding VehicleEndLocation}" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}"/>-->
 
       <!-- For editing breaks information-->
       <Label Text="{Binding StartTimeText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"  IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
@@ -49,11 +47,9 @@
       <DatePicker Date="{Binding BreakEndDate}" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndBreak}" />
 
       <Label Text="{Binding BreakStartLabel}" Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Center" Grid.ColumnSpan="2" IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
-      <!--<Entry Text="{Binding VehicleStartHubo}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding EditingStartBreak}" Keyboard="Numeric"/>-->
       <Entry Text="{Binding BreakStartLocation}" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" IsVisible="{Binding EditingStartBreak}" />
 
       <Label Text="{Binding BreakEndLabel}" Grid.Row="5" Grid.Column="0" HorizontalTextAlignment="Center" Grid.ColumnSpan="2" IsVisible="{Binding EditingEndBreak}" VerticalTextAlignment="Center"/>
-      <!--<Entry Text="{Binding VehicleEndHubo}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding EditingEndBreak}" Keyboard="Numeric"/>-->
       <Entry Text="{Binding BreakEndLocation}" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="4" IsVisible="{Binding EditingEndBreak}" />
 
 

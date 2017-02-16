@@ -80,7 +80,7 @@ namespace Hubo
             {
                 if (vehiclePicker.SelectedIndex == vehiclePicker.Items.Count - 1)
                 {
-                    Navigation.PushAsync(new AddVehiclePage());
+                    //Navigation.PushAsync(new AddVehiclePage());
                     vehiclePicker.SelectedIndex = -1;
                 }
                 else

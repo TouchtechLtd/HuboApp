@@ -34,6 +34,12 @@ namespace Hubo
                 NZTAButtonText = Resource.Continue;
                 NZTAButton = new Command(PopPage);
             }
+            else if (instruction == 3)
+            {
+                NZTAButtonText = Resource.NZTAButtonText;
+                NZTADisclaimer = Resource.NZTADisclaimer;
+                NZTAButton = new Command(PopPage);
+            }
         }
 
         private void PopPage()
@@ -53,9 +59,7 @@ namespace Hubo
                 Application.Current.MainPage = new NavigationPage(bottomBarPage);
             }
             else
-            {
                 Application.Current.MainPage = new RootPage();
-            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

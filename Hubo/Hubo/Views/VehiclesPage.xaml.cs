@@ -10,16 +10,15 @@ namespace Hubo
 {
     public partial class VehiclesPage : ContentPage
     {
-        VehiclesViewModel vehiclesVM;
+        VehiclesViewModel vehiclesVM = new VehiclesViewModel();
         List<VehicleTable> vehicles = new List<VehicleTable>();
         List<CompanyTable> companies = new List<CompanyTable>();
 
 
 
-        public VehiclesPage(int instruction)
+        public VehiclesPage()
         {
             InitializeComponent();
-            vehiclesVM = new VehiclesViewModel(instruction);
             vehiclesVM.Navigation = Navigation;
             BindingContext = vehiclesVM;
             UpdateList();

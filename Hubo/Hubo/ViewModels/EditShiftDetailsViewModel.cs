@@ -117,157 +117,127 @@ namespace Hubo
         {
             if (instruction == "Breaks")
             {
-                if (CheckValidHuboEntry())
-                {
-                    //Hubo Break start
-                    //if (VehicleStartHubo != currentBreak.StartHubo.ToString())
-                    //{
-                    //    AmendmentTable newAmendment = new AmendmentTable();
-                    //    newAmendment.BeforeValue = currentBreak.StartHubo.ToString();
-                    //    newAmendment.DriveId = currentBreak.DriveKey;
-                    //    newAmendment.Table = "BreakTable";
-                    //    newAmendment.Field = "StartHubo";
-                    //    newAmendment.TimeStamp = DateTime.Now.ToString();
-                    //    newAmendment.BeforeValue = currentBreak.StartHubo.ToString();
-                    //    newAmendment.AfterValue = VehicleStartHubo;
-                    //    currentBreak.StartHubo = Int32.Parse(VehicleStartHubo);
-                    //    listOfAmendments.Add(newAmendment);
-                    //}
+                //    if (CheckValidHuboEntry())
+                //    {
+                //        DateTime oldStartBreakDate = DateTime.Parse(currentBreak.StartDate).Date;
+                //        DateTime oldEndBreakDate = DateTime.Parse(currentBreak.EndDate).Date;
 
-                    ////Hubo Break end
-                    //if (VehicleEndHubo != currentBreak.EndHubo.ToString())
-                    //{
-                    //    AmendmentTable newAmendment = new AmendmentTable();
-                    //    newAmendment.BeforeValue = currentBreak.EndHubo.ToString();
-                    //    newAmendment.DriveId = currentDrive.Key;
-                    //    newAmendment.Table = "NoteTable";
-                    //    newAmendment.Field = "Hubo";
-                    //    newAmendment.TimeStamp = DateTime.Now.ToString();
-                    //    newAmendment.BeforeValue = currentBreak.EndHubo.ToString();
-                    //    newAmendment.AfterValue = VehicleEndHubo;
-                    //    currentBreak.EndHubo = Int32.Parse(VehicleEndHubo);
-                    //    listOfAmendments.Add(newAmendment);
-                    //}
+                //        TimeSpan oldStartBreakTime = DateTime.Parse(currentBreak.StartDate).TimeOfDay;
+                //        TimeSpan oldEndBreakTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
 
-                    DateTime oldStartBreakDate = DateTime.Parse(currentBreak.StartDate).Date;
-                    DateTime oldEndBreakDate = DateTime.Parse(currentBreak.EndDate).Date;
+                //        if ((BreakStartDate.Date != oldStartBreakDate) || (BreakStartTime != oldStartBreakTime))
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "StartDate";
+                //            newAmendment.DriveId = currentDrive.Key;
+                //            newAmendment.Table = "BreakTable";
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.BeforeValue = currentBreak.StartDate;
+                //            newAmendment.AfterValue = (BreakStartDate + BreakStartTime).ToString();
+                //            currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString();
+                //            listOfAmendments.Add(newAmendment);
+                //        }
 
-                    TimeSpan oldStartBreakTime = DateTime.Parse(currentBreak.StartDate).TimeOfDay;
-                    TimeSpan oldEndBreakTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
+                //        if ((BreakEndDate != oldEndBreakDate) || (BreakEndTime != oldEndBreakTime))
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "EndDate";
+                //            newAmendment.Table = "BreakTable";
+                //            newAmendment.DriveId = currentDrive.Key;
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            listOfAmendments.Add(newAmendment);
+                //            newAmendment.BeforeValue = currentBreak.EndDate;
+                //            newAmendment.AfterValue = (BreakEndDate + BreakEndTime).ToString();
+                //            currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString();
+                //        }
 
-                    if ((BreakStartDate.Date != oldStartBreakDate) || (BreakStartTime != oldStartBreakTime))
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "StartDate";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        newAmendment.BeforeValue = currentBreak.StartDate;
-                        newAmendment.AfterValue = (BreakStartDate + BreakStartTime).ToString();
-                        currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString();
-                        listOfAmendments.Add(newAmendment);
-                    }
+                //        if (listOfAmendments.Count > 0)
+                //        {
+                //            DbService.AddAmendments(listOfAmendments, null, currentDrive, currentBreak);
+                //        }
+                //        Navigation.PopAsync();
+                //    }
+                //}
+                //else if (instruction == "Notes")
+                //{
+                //    Regex regex = new Regex("^[0-9]+$");
+                //    if (regex.IsMatch(HuboEntry))
+                //    {
+                //        if (NoteEntry != currentNote.Note)
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "Note";
+                //            newAmendment.ShiftId = currentShift.Key;
+                //            newAmendment.Table = "NoteTable";
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.BeforeValue = currentNote.Note;
+                //            newAmendment.AfterValue = NoteEntry;
+                //            currentNote.Note = NoteEntry;
+                //            listOfAmendments.Add(newAmendment);
+                //        }
 
-                    if ((BreakEndDate != oldEndBreakDate) || (BreakEndTime != oldEndBreakTime))
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "EndDate";
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        listOfAmendments.Add(newAmendment);
-                        newAmendment.BeforeValue = currentBreak.EndDate;
-                        newAmendment.AfterValue = (BreakEndDate + BreakEndTime).ToString();
-                        currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString();
-                    }
-
-                    if (listOfAmendments.Count > 0)
-                    {
-                        DbService.AddAmendments(listOfAmendments, null, currentDrive, currentBreak);
-                    }
-                    Navigation.PopAsync();
-                }
-            }
-            else if (instruction == "Notes")
-            {
-                Regex regex = new Regex("^[0-9]+$");
-                if (regex.IsMatch(HuboEntry))
-                {
-                    if (NoteEntry != currentNote.Note)
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "Note";
-                        newAmendment.ShiftId = currentShift.Key;
-                        newAmendment.Table = "NoteTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        newAmendment.BeforeValue = currentNote.Note;
-                        newAmendment.AfterValue = NoteEntry;
-                        currentNote.Note = NoteEntry;
-                        listOfAmendments.Add(newAmendment);
-                    }
-
-                    DateTime oldDate = DateTime.Parse(currentNote.Date).Date;
-                    TimeSpan oldTime = DateTime.Parse(currentNote.Date).TimeOfDay;
+                //        DateTime oldDate = DateTime.Parse(currentNote.Date).Date;
+                //        TimeSpan oldTime = DateTime.Parse(currentNote.Date).TimeOfDay;
 
 
-                    if ((NoteDate != oldDate) || (NoteTime != oldTime))
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "Date";
-                        newAmendment.ShiftId = currentShift.Key;
-                        newAmendment.Table = "NoteTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        newAmendment.BeforeValue = currentNote.Date;
-                        newAmendment.AfterValue = (NoteDate + NoteTime).ToString();
-                        currentNote.Date = (NoteDate + NoteTime).ToString();
-                        listOfAmendments.Add(newAmendment);
-                    }
+                //        if ((NoteDate != oldDate) || (NoteTime != oldTime))
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "Date";
+                //            newAmendment.ShiftId = currentShift.Key;
+                //            newAmendment.Table = "NoteTable";
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.BeforeValue = currentNote.Date;
+                //            newAmendment.AfterValue = (NoteDate + NoteTime).ToString();
+                //            currentNote.Date = (NoteDate + NoteTime).ToString();
+                //            listOfAmendments.Add(newAmendment);
+                //        }
 
-                    if (listOfAmendments.Count > 0)
-                    {
-                        DbService.AddAmendments(listOfAmendments, currentShift, null, null, currentNote);
-                    }
-                }
-                else
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
-                }
-            }
-            else if (instruction == "Vehicles")
-            {
-                if (CheckValidHuboEntry() && EditingVehicle)
-                {
-                    if (VehicleStartHubo != currentVehicleInUse.StartHubo.ToString())
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "StartHubo";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.Table = "DriveTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        newAmendment.BeforeValue = currentVehicleInUse.StartHubo.ToString();
-                        newAmendment.AfterValue = VehicleStartHubo;
-                        currentVehicleInUse.StartHubo = int.Parse(VehicleStartHubo);
-                        listOfAmendments.Add(newAmendment);
-                    }
-                    if (VehicleEndHubo != currentVehicleInUse.EndHubo.ToString())
-                    {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "EndHubo";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.Table = "DriveTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString();
-                        newAmendment.BeforeValue = currentVehicleInUse.EndHubo.ToString();
-                        newAmendment.AfterValue = VehicleEndHubo;
-                        currentVehicleInUse.EndHubo = int.Parse(VehicleEndHubo);
-                        listOfAmendments.Add(newAmendment);
-                    }
+                //        if (listOfAmendments.Count > 0)
+                //        {
+                //            DbService.AddAmendments(listOfAmendments, currentShift, null, null, currentNote);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                //    }
+                //}
+                //else if (instruction == "Vehicles")
+                //{
+                //    if (CheckValidHuboEntry() && EditingVehicle)
+                //    {
+                //        if (VehicleStartHubo != currentVehicleInUse.StartHubo.ToString())
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "StartHubo";
+                //            newAmendment.DriveId = currentDrive.Key;
+                //            newAmendment.Table = "DriveTable";
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.BeforeValue = currentVehicleInUse.StartHubo.ToString();
+                //            newAmendment.AfterValue = VehicleStartHubo;
+                //            currentVehicleInUse.StartHubo = int.Parse(VehicleStartHubo);
+                //            listOfAmendments.Add(newAmendment);
+                //        }
+                //        if (VehicleEndHubo != currentVehicleInUse.EndHubo.ToString())
+                //        {
+                //            AmendmentTable newAmendment = new AmendmentTable();
+                //            newAmendment.Field = "EndHubo";
+                //            newAmendment.DriveId = currentDrive.Key;
+                //            newAmendment.Table = "DriveTable";
+                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.BeforeValue = currentVehicleInUse.EndHubo.ToString();
+                //            newAmendment.AfterValue = VehicleEndHubo;
+                //            currentVehicleInUse.EndHubo = int.Parse(VehicleEndHubo);
+                //            listOfAmendments.Add(newAmendment);
+                //        }
 
-                    if (listOfAmendments.Count > 0)
-                    {
-                        DbService.AddAmendments(listOfAmendments, null, currentVehicleInUse);
-                    }
-                    Navigation.PopAsync();
-                }
+                //        if (listOfAmendments.Count > 0)
+                //        {
+                //            DbService.AddAmendments(listOfAmendments, null, currentVehicleInUse);
+                //        }
+                //        Navigation.PopAsync();
+                //    }
             }
         }
 
@@ -321,12 +291,12 @@ namespace Hubo
                 BreakEndLabel = Resource.EndBreak;
                 currentBreak = listOfBreaks[selectedIndex];
 
-                BreakStartDate = DateTime.Parse(currentBreak.StartDate).Date;
-                BreakStartTime = DateTime.Parse(currentBreak.StartDate).TimeOfDay;
-                BreakEndDate = DateTime.Parse(currentBreak.EndDate).Date;
-                BreakEndTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
-                BreakStartLocation = currentBreak.StartLocation;
-                BreakEndLocation = currentBreak.EndLocation;
+                BreakStartDate = DateTime.Parse(currentBreak.StartDate).Date;//DateTime.Parse("2016-10-21 10:22").Date;
+                BreakStartTime = DateTime.Parse(currentBreak.StartDate).TimeOfDay;//DateTime.Parse("2016-10-21 10:22").TimeOfDay;
+                BreakEndDate = DateTime.Parse(currentBreak.EndDate).Date;//DateTime.Parse("2016-10-21 14:32").Date;
+                BreakEndTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;//DateTime.Parse("2016-10-21 14:32").TimeOfDay;
+                BreakStartLocation = currentBreak.StartLocation;//"Auckland";
+                BreakEndLocation = currentBreak.EndLocation;//"Wellington";
 
                 StartTimeText = Resource.StartTime;
                 EndTimeText = Resource.EndTime;
@@ -356,7 +326,7 @@ namespace Hubo
                 NoteEntry = currentNote.Note;
                 EditingNote = true;
 
-                NoteDate = DateTime.Parse(currentNote.Date);
+                NoteDate = DateTime.Parse(currentNote.Date);//DateTime.Parse("2016-10-21 12:22").Date;
                 NoteTime = NoteDate.TimeOfDay;
 
                 NoteText = Resource.Note;
@@ -377,8 +347,8 @@ namespace Hubo
             if (instruction == "Vehicles")
             {
                 currentVehicleInUse = listUsedVehicles[selectedIndex];
-                VehicleStartHubo = currentVehicleInUse.StartHubo.ToString();
-                VehicleEndHubo = currentVehicleInUse.EndHubo.ToString();
+                VehicleStartHubo = currentVehicleInUse.StartHubo.ToString();//"125405";
+                VehicleEndHubo = currentVehicleInUse.EndHubo.ToString();//"127022";
 
                 HuboStartText = Resource.HuboStart;
                 HuboEndText = Resource.HuboEnd;

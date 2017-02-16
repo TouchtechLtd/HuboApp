@@ -52,8 +52,6 @@ namespace Hubo
         public string AddVehicleText { get; set; }
         public ICommand EditVehicleCommand { get; set; }
         public ICommand AddVehicleCommand { get; set; }
-        public bool UseVehicleButtonVisible { get; set; }
-        public bool VehiclesPageFromMenu { get; set; }
         public bool VehicleSelected { get; set; }
         public bool VehicleAddSelected { get; set; }
         public bool VehicleEditSelected { get; set; }
@@ -64,7 +62,7 @@ namespace Hubo
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public VehiclesViewModel(int instruction = 0)
+        public VehiclesViewModel()
         {
             VehicleSelected = false;
             VehicleAddSelected = false;
@@ -77,16 +75,6 @@ namespace Hubo
             EditVehicleCommand = new Command(EditVehicle);
             AddVehicleCommand = new Command(InsertVehicle);
 
-            if (instruction == 1)
-            {
-                VehiclesPageFromMenu = true;
-                UseVehicleButtonVisible = false;
-            }
-            else if (instruction == 2)
-            {
-                VehiclesPageFromMenu = false;
-                UseVehicleButtonVisible = true;
-            }
             OnPropertyChanged("VehiclesPageFromMenu");
             OnPropertyChanged("UseVehicleButtonVisible");
 

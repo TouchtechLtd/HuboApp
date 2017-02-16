@@ -11,34 +11,32 @@ namespace Hubo
 {
     public partial class Application : Xamarin.Forms.Application
     {
-        DatabaseService DbService;
+        DatabaseService DbService = new DatabaseService();
 
         public Application()
         {
             InitializeComponent();
 
-            //Check for logged in status
-            //CheckLoggedInStatus();
-
             //Run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                ScheduledTasks.CheckOfflineData();
+                //ScheduledTasks.CheckOfflineData();
                 return true;
             });
         }
 
         private void CheckLoggedInStatus()
         {
-            DbService = new DatabaseService();
-            if (DbService.CheckLoggedIn())
-            {
-                MainPage = new NavigationPage(new NZTAMessagePage(1));
-            }
-            else
-            {
-                MainPage = new NavigationPage(new LandingPage());
-            }
+            MainPage = DbService.CheckLoggedIn() ? new NavigationPage(new NZTAMessagePage(1)) : new NavigationPage(new LandingPage());
+
+            //if (DbService.CheckLoggedIn())
+            //{
+            //    MainPage = new NavigationPage(new NZTAMessagePage(1));
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new LandingPage());
+            //}
         }
 
         protected override void OnStart()
@@ -59,7 +57,13 @@ namespace Hubo
         {
             //Implement check for logged in status
             base.OnResume();
-            CheckLoggedInStatus();
+
+            //CheckLoggedInStatus();
+
+            if (DbService.CheckLoggedIn())
+            {
+                MainPage.Navigation.PushModalAsync(new NZTAMessagePage(3));
+            }
         }
     }
 }

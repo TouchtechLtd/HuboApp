@@ -113,9 +113,6 @@
     <Compile Include="Views\AddShiftPage.xaml.cs">
       <DependentUpon>AddShiftPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddVehiclePage.xaml.cs">
-      <DependentUpon>AddVehiclePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\BottomNavBar.xaml.cs">
       <DependentUpon>BottomNavBar.xaml</DependentUpon>
     </Compile>
@@ -365,12 +362,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ProfileCompanyPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\AddVehiclePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
