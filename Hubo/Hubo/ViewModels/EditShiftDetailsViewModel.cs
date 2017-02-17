@@ -131,10 +131,10 @@ namespace Hubo
                 //            newAmendment.Field = "StartDate";
                 //            newAmendment.DriveId = currentDrive.Key;
                 //            newAmendment.Table = "BreakTable";
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentBreak.StartDate;
-                //            newAmendment.AfterValue = (BreakStartDate + BreakStartTime).ToString();
-                //            currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString();
+                //            newAmendment.AfterValue = (BreakStartDate + BreakStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                //            currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            listOfAmendments.Add(newAmendment);
                 //        }
 
@@ -144,11 +144,11 @@ namespace Hubo
                 //            newAmendment.Field = "EndDate";
                 //            newAmendment.Table = "BreakTable";
                 //            newAmendment.DriveId = currentDrive.Key;
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
-                //            listOfAmendments.Add(newAmendment);
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentBreak.EndDate;
-                //            newAmendment.AfterValue = (BreakEndDate + BreakEndTime).ToString();
-                //            currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString();
+                //            newAmendment.AfterValue = (BreakEndDate + BreakEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                //            currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                //            listOfAmendments.Add(newAmendment);
                 //        }
 
                 //        if (listOfAmendments.Count > 0)
@@ -169,7 +169,7 @@ namespace Hubo
                 //            newAmendment.Field = "Note";
                 //            newAmendment.ShiftId = currentShift.Key;
                 //            newAmendment.Table = "NoteTable";
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentNote.Note;
                 //            newAmendment.AfterValue = NoteEntry;
                 //            currentNote.Note = NoteEntry;
@@ -186,10 +186,10 @@ namespace Hubo
                 //            newAmendment.Field = "Date";
                 //            newAmendment.ShiftId = currentShift.Key;
                 //            newAmendment.Table = "NoteTable";
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentNote.Date;
-                //            newAmendment.AfterValue = (NoteDate + NoteTime).ToString();
-                //            currentNote.Date = (NoteDate + NoteTime).ToString();
+                //            newAmendment.AfterValue = (NoteDate + NoteTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                //            currentNote.Date = (NoteDate + NoteTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            listOfAmendments.Add(newAmendment);
                 //        }
 
@@ -213,7 +213,7 @@ namespace Hubo
                 //            newAmendment.Field = "StartHubo";
                 //            newAmendment.DriveId = currentDrive.Key;
                 //            newAmendment.Table = "DriveTable";
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentVehicleInUse.StartHubo.ToString();
                 //            newAmendment.AfterValue = VehicleStartHubo;
                 //            currentVehicleInUse.StartHubo = int.Parse(VehicleStartHubo);
@@ -225,7 +225,7 @@ namespace Hubo
                 //            newAmendment.Field = "EndHubo";
                 //            newAmendment.DriveId = currentDrive.Key;
                 //            newAmendment.Table = "DriveTable";
-                //            newAmendment.TimeStamp = DateTime.Now.ToString();
+                //            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 //            newAmendment.BeforeValue = currentVehicleInUse.EndHubo.ToString();
                 //            newAmendment.AfterValue = VehicleEndHubo;
                 //            currentVehicleInUse.EndHubo = int.Parse(VehicleEndHubo);

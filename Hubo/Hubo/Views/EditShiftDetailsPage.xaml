@@ -55,7 +55,7 @@
 
       <!-- For Editing notes information-->
       <Label Text="{Binding NoteText}" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
-      <Entry Text="{Binding NoteEntry}" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="2" IsVisible="{Binding EditingNote}" />
+      <Entry Text="{Binding NoteEntry}" Grid.Row="1" Grid.ColumnSpan="6" Grid.Column="2" IsVisible="{Binding EditingNote}" />
 
       <Label Text="{Binding DateText}" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
       <DatePicker Date="{Binding NoteDate}" Grid.Row="2" Grid.Column="2" IsVisible="{Binding EditingNote}"  Grid.ColumnSpan="3"/>

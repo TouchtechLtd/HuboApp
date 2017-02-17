@@ -20,6 +20,15 @@ namespace Hubo
             Title = Resource.EditShift;
             shiftPicker.Title = Resource.ShiftPickerTitle;
 
+            driveList.ItemSelected += (sender, e) =>
+            {
+                if (((ListView)sender).SelectedItem == null)
+                {
+                    return;
+                }
+                ((ListView)sender).SelectedItem = null;
+            };
+
             listOfShifts = shifts;
 
             foreach (ShiftTable shift in listOfShifts)

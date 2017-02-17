@@ -57,6 +57,7 @@
     <Compile Include="DatabaseModels\UserTable.cs" />
     <Compile Include="DatabaseModels\DriveTable.cs" />
     <Compile Include="DatabaseModels\VehicleTable.cs" />
+    <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Interfaces\ICloseApplication.cs" />
     <Compile Include="Interfaces\IEmail.cs" />

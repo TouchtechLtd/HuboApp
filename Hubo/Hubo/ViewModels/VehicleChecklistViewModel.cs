@@ -73,7 +73,7 @@ namespace Hubo
             {
                 DriveTable drive = new DriveTable();
                 drive.VehicleKey = CurrentVehicleKey;
-                drive.StartDate = DateTime.Now.ToString();
+                drive.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 drive.StartHubo = int.Parse(HuboEntry);
 
                 DbService.SaveDrive(false, DateTime.Now, int.Parse(HuboEntry), CurrentVehicleKey);

@@ -149,13 +149,17 @@ namespace Hubo
         {
             UserTable userChanges = new UserTable();
 
+            userChanges = user;
+
             userChanges.UserName = UserName.Trim();
             userChanges.FirstName = FirstName.Trim();
             userChanges.LastName = LastName.Trim();
             userChanges.Email = Email.Trim();
             userChanges.Address1 = Address1.Trim();
-            userChanges.Address2 = Address2.Trim();
-            userChanges.Address3 = Address3.Trim();
+            if (Address2 != null)
+                userChanges.Address2 = Address2.Trim();
+            if (Address3 != null)
+                userChanges.Address3 = Address3.Trim();
             userChanges.PostCode = PostCode.Trim();
             userChanges.City = City.Trim();
             userChanges.Country = Country.Trim();
@@ -165,7 +169,7 @@ namespace Hubo
             {
                 restService = new RestService();
                 IsBusy = true;
-                if (await restService.QueryUpdateProfile(user))
+                if (await restService.QueryUpdateProfile(userChanges))
                 {
                     IsBusy = false;
                     await Navigation.PopModalAsync();

@@ -46,7 +46,10 @@ namespace Hubo
                 //picker.Items.Add("2016-10-21 12:22 - Hit a Possom");
                 foreach (NoteTable note in listOfNotes)
                 {
-                    picker.Items.Add(note.Date + " - " + note.Note.Remove(0, 20));
+                    if (note.Note.Length > 20)
+                        picker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note.Remove(20));
+                    else
+                        picker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note);
                 }
                 picker.Title = Resource.SelectNote;
             }

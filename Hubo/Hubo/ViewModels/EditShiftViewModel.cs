@@ -31,22 +31,22 @@ namespace Hubo
         public bool ShiftStartInfoVisible { get; set; }
         public bool ShiftEndInfoVisible { get; set; }
         public bool ShiftSelected { get; set; }
+        public string DashText { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
         ShiftTable currentShift = new ShiftTable();
 
-        List<ShiftTable> listOfShifts = new List<ShiftTable>();
-        List<BreakTable> listOfBreaks = new List<BreakTable>();
-        List<NoteTable> listOfNotes = new List<NoteTable>();
-        List<DriveTable> listOfVehiclesUsed = new List<DriveTable>();
+        public List<DriveTable> Drives { get; set; }
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
 
         public EditShiftViewModel()
         {
             //ShiftEndTime = Resource.ShiftEndTime;
-            ShiftStartTime = Resource.Shift;
+            DashText = Resource.Dash;
+            ShiftStartTime = Resource.ShiftStartTime;
+            ShiftEndTime = Resource.ShiftEndTime;
             ShiftStartInfoVisible = false;
             ShiftEndInfoVisible = false;
             SaveCommand = new Command(Save);
@@ -87,10 +87,10 @@ namespace Hubo
                     newStopShift.Field = "EndDate";
                     newStopShift.ShiftId = currentShift.Key;
                     newStopShift.Table = "ShiftTable";
-                    newStopShift.TimeStamp = DateTime.Now.ToString();
+                    newStopShift.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                     newStopShift.BeforeValue = currentShift.EndDate;
-                    newStopShift.AfterValue = (ShiftEndDatePicker + ShiftEndTimePicker).ToString();
-                    currentShift.EndDate = (ShiftEndDatePicker + ShiftEndTimePicker).ToString();
+                    newStopShift.AfterValue = (ShiftEndDatePicker + ShiftEndTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    currentShift.EndDate = (ShiftEndDatePicker + ShiftEndTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     listOfAmendments.Add(newStopShift);
                 }
             }
@@ -104,11 +104,11 @@ namespace Hubo
                 newStartShift.Field = "StartTime";
                 newStartShift.ShiftId = currentShift.Key;
                 newStartShift.Table = "ShiftTable";
-                newStartShift.TimeStamp = DateTime.Now.ToString();
+                newStartShift.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 newStartShift.BeforeValue = currentShift.StartDate;
-                newStartShift.AfterValue = (ShiftStartDatePicker + ShiftStartTimePicker).ToString();
+                newStartShift.AfterValue = (ShiftStartDatePicker + ShiftStartTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
                 listOfAmendments.Add(newStartShift);
-                currentShift.StartDate = (ShiftStartDatePicker + ShiftStartTimePicker).ToString();
+                currentShift.StartDate = (ShiftStartDatePicker + ShiftStartTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
             }
 
             if (listOfAmendments.Count > 0)
@@ -135,6 +135,8 @@ namespace Hubo
 
             ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
 
+            Drives = DbService.GetDriveShifts(currentShift.Key);
+
             ShiftSelected = true;
 
             OnPropertyChanged("ShiftSelected");
@@ -144,6 +146,7 @@ namespace Hubo
             OnPropertyChanged("ShiftEndTimePicker");
             OnPropertyChanged("ShiftStartDatePicker");
             OnPropertyChanged("ShiftEndDatePicker");
+            OnPropertyChanged("Drives");
         }
         protected virtual void OnPropertyChanged(string propertyName)
         {

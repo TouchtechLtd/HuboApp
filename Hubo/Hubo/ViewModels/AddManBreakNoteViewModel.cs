@@ -92,8 +92,8 @@ namespace Hubo
 
                 BreakTable breakAdd = new BreakTable();
 
-                breakAdd.StartDate = BreakStart.ToString();
-                breakAdd.EndDate = BreakEnd.ToString();
+                breakAdd.StartDate = BreakStart.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                breakAdd.EndDate = BreakEnd.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 breakAdd.StartLocation = LocationStart;
                 breakAdd.EndLocation = LocationEnd;
 
@@ -102,7 +102,7 @@ namespace Hubo
             else if (instruction == "Note")
             {
                 NoteTable note = new NoteTable();
-                note.Date = NoteTime.ToString();
+                note.Date = NoteTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 note.Note = NoteDetail;
 
                 MessagingCenter.Send(this, "Note_Added", note);
@@ -116,8 +116,8 @@ namespace Hubo
                 List<VehicleTable> vehicleKey = GetVehicles();
 
                 DriveTable drive = new DriveTable();
-                drive.StartDate = DriveStartTime.ToString();
-                drive.EndDate = DriveEndTime.ToString();
+                drive.StartDate = DriveStartTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                drive.EndDate = DriveEndTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 drive.StartHubo = int.Parse(HuboStart);
                 drive.EndHubo = int.Parse(HuboEnd);
                 drive.ActiveVehicle = false;

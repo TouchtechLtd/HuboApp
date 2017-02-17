@@ -206,6 +206,14 @@ namespace Hubo
             return totalHours;
         }
 
+        internal List<DriveTable> GetDriveShifts(int key)
+        {
+            List<DriveTable> drives = new List<DriveTable>();
+            drives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + key);
+
+            return drives;
+        }
+
         internal void InsertUserDrives(DriveTable drive)
         {
             db.Insert(drive);
@@ -263,7 +271,7 @@ namespace Hubo
         {
             db.Insert(shift);
 
-            return shift.Key;
+            return shift.ServerKey;
         }
 
         internal void InsertUserBreaks(BreakTable breakTable)
@@ -338,7 +346,7 @@ namespace Hubo
 
             foreach (DateTime date in listOfDates)
             {
-                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd") + "%'");
+                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "%'");
                 if (listOfShiftsToAdd.Count != 0)
                 {
                     listOfShifts.AddRange(listOfShiftsToAdd);
@@ -352,7 +360,7 @@ namespace Hubo
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
-            newNote.Date = date.ToString();
+            newNote.Date = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
@@ -414,7 +422,7 @@ namespace Hubo
                 DriveTable drive = new DriveTable();
                 drive = listOfVehiclesInUse[0];
                 drive.ActiveVehicle = false;
-                drive.EndDate = date.ToString();
+                drive.EndDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 drive.EndHubo = hubo;
                 db.Update(drive);
 
@@ -510,7 +518,7 @@ namespace Hubo
                 DriveTable newDrive = new DriveTable();
                 newDrive.ActiveVehicle = true;
                 newDrive.ShiftKey = listOfShifts[0].Key;
-                newDrive.StartDate = date.ToString();
+                newDrive.StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 newDrive.VehicleKey = vehicleKey;
                 newDrive.StartHubo = hubo;
                 db.Insert(newDrive);
@@ -561,7 +569,7 @@ namespace Hubo
             geolocation = await GetLatAndLong();
 
             geoInsert.DriveKey = driveKey;
-            geoInsert.TimeStamp = DateTime.Now.ToString();
+            geoInsert.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             geoInsert.latitude = geolocation.Latitude;
             geoInsert.Longitude = geolocation.Longitude;
 
@@ -676,7 +684,7 @@ namespace Hubo
             }
 
             BreakTable currentBreak = currentBreaks[0];
-            currentBreak.EndDate = DateTime.Now.ToString();
+            currentBreak.EndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             currentBreak.ActiveBreak = false;
             currentBreak.EndLocation = location;
             db.Update(currentBreak);
@@ -765,7 +773,7 @@ namespace Hubo
             if (CheckActiveShiftIsCorrect(false, null, activeDrive))
             {
                 newBreak.DriveKey = activeDrive[0].Key;
-                newBreak.StartDate = DateTime.Now.ToString();
+                newBreak.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 newBreak.ActiveBreak = true;
                 newBreak.StartLocation = location;
                 db.Insert(newBreak);
@@ -842,7 +850,7 @@ namespace Hubo
         internal async void StartShift(DateTime date, double lat, double longitude)
         {
             ShiftTable shift = new ShiftTable();
-            shift.StartDate = date.ToString();
+            shift.StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
             shift.StartLat = lat;
             shift.StartLong = longitude;
             shift.ActiveShift = true;
@@ -880,7 +888,7 @@ namespace Hubo
 
         internal DriveTable GetCurrentDriveShift()
         {
-            List<DriveTable> activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == TRUE LIMIT 1");
+            List<DriveTable> activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] = 1");
 
             DriveTable activeDrive = activeDrives[0];
             return activeDrive;
@@ -899,7 +907,7 @@ namespace Hubo
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoActiveVehicles, Resource.DisplayAlertOkay);
                 }
                 ShiftTable activeShift = activeShifts[0];
-                activeShift.EndDate = date.ToString();
+                activeShift.EndDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 activeShift.ActiveShift = false;
                 activeShift.EndLat = lat;
                 activeShift.EndLong = longitude;
@@ -1008,12 +1016,8 @@ namespace Hubo
         {
             ShiftTable shift = new ShiftTable();
 
-            shift.StartDate = shiftStart.ToString();
-            shift.EndDate = shiftEnd.ToString();
-            //shift.StartLat = latStart;
-            //shift.StartLong = longStart;
-            //shift.EndLat = latEnd;
-            //shift.EndLong = longEnd;
+            shift.StartDate = shiftStart.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            shift.EndDate = shiftEnd.ToString("yyyy-MM-dd HH:mm:ss.fff");
             shift.ActiveShift = false;
             db.Insert(shift);
 
