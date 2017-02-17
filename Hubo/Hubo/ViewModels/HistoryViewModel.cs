@@ -17,19 +17,27 @@ namespace Hubo
     {
         DatabaseService DbService = new DatabaseService();
 
-        private ObservableCollection<ChartDataPoint> historyChartData;
-        private ObservableCollection<ChartDataPoint> historyChartData1;
+        private ObservableCollection<ChartDataPoint> _historyChartData;
+        private ObservableCollection<ChartDataPoint> _historyChartData1;
 
         public ObservableCollection<ChartDataPoint> HistoryChartData
         {
-            get { return historyChartData; }
-            set { historyChartData = value; }
+            get { return _historyChartData; }
+            set
+            {
+                _historyChartData = value;
+                OnPropertyChanged("HistoryChartData");
+            }
         }
 
         public ObservableCollection<ChartDataPoint> HistoryChartData1
         {
-            get { return historyChartData1; }
-            set { historyChartData1 = value; }
+            get { return _historyChartData1; }
+            set
+            {
+                _historyChartData1 = value;
+                OnPropertyChanged("HistoryChartData1");
+            }
         }
         List<ShiftTable> listOfShifts = new List<ShiftTable>();
 
@@ -56,7 +64,7 @@ namespace Hubo
 
             //Code to get shifts from the past week
             SelectedDate = DateTime.Now;
-            listOfShifts = DbService.GetShiftsWeek(SelectedDate);
+            listOfShifts = DbService.GetShifts(SelectedDate);
 
             foreach (ShiftTable shift in listOfShifts)
             {
@@ -77,6 +85,11 @@ namespace Hubo
                 }
             }
             MaximumDate = DateTime.Now;
+
+            MessagingCenter.Subscribe<string>("ShiftEdited", "ShiftEdited", (sender) =>
+            {
+                UpdateShift();
+            });
         }
 
         public void UpdateShift()
@@ -86,7 +99,7 @@ namespace Hubo
                 HistoryChartData = new ObservableCollection<ChartDataPoint>();
                 HistoryChartData1 = new ObservableCollection<ChartDataPoint>();
 
-                listOfShifts = DbService.GetShiftsWeek(SelectedDate);
+                listOfShifts = DbService.GetShifts(SelectedDate);
 
                 foreach (ShiftTable shift in listOfShifts)
                 {
@@ -110,8 +123,6 @@ namespace Hubo
                     }
                 }
 
-                OnPropertyChanged("HistoryChartData");
-                OnPropertyChanged("HistoryChartData1");
             });
         }
 
@@ -125,7 +136,12 @@ namespace Hubo
 
         private void EditShift()
         {
-            Navigation.PushAsync(new EditShiftPage(SelectedDate));
+            listOfShifts = DbService.GetShifts(SelectedDate);
+
+            if (listOfShifts.Count == 0)
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoShiftsFound, Resource.DisplayAlertOkay);
+            else
+                Navigation.PushAsync(new EditShiftPage(listOfShifts));
         }
 
         private void Export()

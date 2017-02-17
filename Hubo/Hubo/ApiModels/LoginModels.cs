@@ -98,6 +98,8 @@ namespace Hubo
 
     public class VehicleResponseModel
     {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
         [JsonProperty(PropertyName = "registrationNo")]
         public string Rego { get; set; }
 

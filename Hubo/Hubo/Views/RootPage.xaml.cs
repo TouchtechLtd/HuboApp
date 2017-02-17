@@ -61,13 +61,13 @@ namespace Hubo
             {
                 await Detail.Navigation.PopToRootAsync(true);
             }
-            else if(menu.TargetType == "Profile")
+            else if (menu.TargetType == "Profile")
             {
                 await Detail.Navigation.PushModalAsync(new ProfilePage());
             }
             else if (menu.TargetType == "Vehicles")
             {
-                await Detail.Navigation.PushAsync(new VehiclesPage(1));
+                await Detail.Navigation.PushAsync(new VehiclesPage());
             }
             else if (menu.TargetType == "History")
             {
@@ -87,8 +87,8 @@ namespace Hubo
                     Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }
-                IsPresented = false;
-                IsGestureEnabled = false;
+            IsPresented = false;
+            IsGestureEnabled = false;
         }
     }
 }

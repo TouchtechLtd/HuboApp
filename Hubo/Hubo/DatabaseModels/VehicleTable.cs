@@ -15,5 +15,6 @@ namespace Hubo
         public string MakeModel { get; set; }
         public string FleetNumber { get; set; }
         public int CompanyId { get; set; }
+        public int ServerKey { get; set; }
     }
 }

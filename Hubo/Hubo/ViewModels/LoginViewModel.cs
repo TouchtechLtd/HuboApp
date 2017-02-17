@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-
+using Acr.UserDialogs;
 namespace Hubo
 {
     class LoginViewModel : INotifyPropertyChanged
@@ -68,18 +68,26 @@ namespace Hubo
             if ((Username.Length != 0) && (Password.Length != 0))
             {
                 restService = new RestService();
-                IsBusy = true;
-                SetLoadingText();
-                //TODO: Check username & password against database.
-                if (await restService.Login(Username, Password))
+                bool loggedIn = false;
+                using (UserDialogs.Instance.Loading("Logging in....", null, null, true, MaskType.Gradient))
                 {
+                    //TODO: Check username & password against database.
+                    loggedIn = await restService.Login(Username, Password);
+                }
+                if (loggedIn)
+                {
+                    UserTable user = db.GetUserInfo();
+                    using (UserDialogs.Instance.Loading("Getting Details....", null, null, true, MaskType.Gradient))
+                    {
+                        await restService.GetUser(user);
+                    }
+                    using (UserDialogs.Instance.Loading("Getting Shifts....", null, null, true, MaskType.Gradient))
+                    {
+                        await restService.GetShifts(user.DriverId);
+                    }
                     Application.Current.MainPage = new NZTAMessagePage(1);
-                    IsBusy = false;
                 }
-                else
-                {
-                    IsBusy = false;
-                }
+
             }
             else
             {

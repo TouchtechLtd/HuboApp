@@ -39,13 +39,12 @@
     </syncfusion:SfLinearGauge>
 
     <Picker x:Name="vehiclePicker"  IsEnabled="{Binding PickerEnabled}" Title="{Binding VehiclePickerText}" IsVisible="{Binding ShiftStarted}" SelectedIndex="{Binding VehicleRego}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalOptions="Center"/>
-    <Button Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Command="{Binding VehicleCommand}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>
+    <!--<Button Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Command="{Binding VehicleCommand}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>-->
+    <Button x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>
 
     <syncfusion:SfCircularGauge  x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />
 
     <Button IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
-
-    <ActivityIndicator x:Name="activityIndicator" BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="5"/>
-    <Label x:Name="activityLabel" Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" Grid.RowSpan="5"/>
+    
   </Grid>
 </ContentPage>

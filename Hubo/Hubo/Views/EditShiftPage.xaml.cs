@@ -12,7 +12,7 @@ namespace Hubo
     {
         EditShiftViewModel editShiftVM = new EditShiftViewModel();
         List<ShiftTable> listOfShifts = new List<ShiftTable>();
-        public EditShiftPage(DateTime selectedDate)
+        public EditShiftPage(List<ShiftTable> shifts)
         {
             InitializeComponent();
             editShiftVM.Navigation = Navigation;
@@ -20,7 +20,7 @@ namespace Hubo
             Title = Resource.EditShift;
             shiftPicker.Title = Resource.ShiftPickerTitle;
 
-            listOfShifts = editShiftVM.Load(selectedDate);
+            listOfShifts = shifts;
 
             foreach (ShiftTable shift in listOfShifts)
             {

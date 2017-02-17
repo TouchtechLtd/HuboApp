@@ -19,15 +19,11 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="6*" />
         <RowDefinition Height="2*" />
-        <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       
       <DatePicker x:Name="picker" Format="D" Date="{Binding SelectedDate}" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" MaximumDate="{Binding MaximumDate}"/>
       
       <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
-        <!--<chart:SfChart.BindingContext>
-          <local:HistoryViewModel/>
-        </chart:SfChart.BindingContext>-->
 
         <chart:SfChart.Legend>
           <chart:ChartLegend/>
@@ -54,8 +50,8 @@
           <chart:StackingBarSeries Label="Hours Off" ItemsSource ="{Binding HistoryChartData1}" XBindingPath="Year" YBindingPath="Value" ListenPropertyChange="True" EnableAnimation="true" AnimationDuration="1"/>
         </chart:SfChart.Series>
       </chart:SfChart>
-      <Button Text="{Binding EditShiftText}" FontFamily="Helvetica" Command="{Binding EditShiftCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
-      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" />
+      <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+      <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" />
     </Grid>
   
   </ContentView>

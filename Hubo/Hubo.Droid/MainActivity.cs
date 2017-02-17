@@ -12,6 +12,8 @@ using Com.Syncfusion.Charts;
 using Com.Syncfusion.Gauges;
 using Syncfusion.SfAutoComplete.XForms.Droid;
 using Plugin.Permissions;
+using Acr.UserDialogs;
+using Xamarin.Forms;
 
 namespace Hubo.Droid
 {
@@ -25,7 +27,8 @@ namespace Hubo.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
+            UserDialogs.Init(() => (Activity)Forms.Context);
             new SfGaugeRenderer();
             new SfChartRenderer();
             new SfAutoCompleteRenderer();

@@ -13,7 +13,7 @@ namespace Hubo
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public bool Result { get; set; }
+        public int Result { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }
@@ -29,6 +29,21 @@ namespace Hubo
 
         [JsonProperty(PropertyName = "result")]
         public UserTable Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
+
+    class RegisterResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }

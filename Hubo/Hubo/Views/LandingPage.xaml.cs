@@ -17,6 +17,7 @@ namespace Hubo
             InitializeComponent();
             landingPageVM.Navigation = Navigation;
             BindingContext = landingPageVM;
+            string s = "";
         }
     }
 }

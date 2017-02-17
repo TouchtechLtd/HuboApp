@@ -11,26 +11,47 @@ namespace Hubo
         public int driverId { get; set; }
         public int companyId { get; set; }
         public string startDate { get; set; }
+        public double startLocationLat { get; set; }
+        public double startLocationLong { get; set; }
+        public string startLocation { get; set; }
     }
 
     class EndShiftModel
     {
         public int id { get; set; }
         public string endDate { get; set; }
+        public double endLocationLat { get; set; }
+        public double endLocationLong { get; set; }
+        public string endLocation { get; set; }
     }
 
-    class DriveModel
+    class DriveStartModel
     {
         public int shiftId { get; set; }
-        public string timeStamp { get; set; }
         public int vehicleId { get; set; }
+        public string startDrivingDateTime { get; set; }
+        public int startHubo { get; set; }
     }
 
-    class BreakModel
+    class DriveEndModel
     {
-        public int driveShiftId { get; set; }
-        public int geoDataId { get; set; }
-        public string timeStamp { get; set; }
+        public int id { get; set; }
+        public string stopDrivingDateTime { get; set; }
+        public int stopHubo { get; set; }
+    }
+
+    class BreakStartModel
+    {
+        public int shiftId { get; set; }
+        public string startBreakDateTime { get; set; }
+        public string startBreakLocation { get; set; }
+    }
+
+    class BreakEndModel
+    {
+        public int id { get; set; }
+        public string stopBreakDateTime { get; set; }
+        public string stopBreakLocation { get; set; }
     }
 
     class InsertGeoModel

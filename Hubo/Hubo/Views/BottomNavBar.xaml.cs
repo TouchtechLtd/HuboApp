@@ -39,7 +39,7 @@ namespace Hubo
                         bottomBarPage.Children.Add(home);
                         break;
                     case "Vehicles":
-                        VehiclesPage vehicle = new VehiclesPage(1);
+                        VehiclesPage vehicle = new VehiclesPage();
                         vehicle.AddToolBar();
                         FileImageSource vehicleIcon = (FileImageSource)FileImageSource.FromFile(string.Format(item.ImageSource, item.Title.ToLowerInvariant()));
 

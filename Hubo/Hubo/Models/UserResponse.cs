@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class UserResponse
+    class QueryShiftResponse
     {
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public string Result { get; set; }
+        public int Result { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }
@@ -39,6 +39,36 @@ namespace Hubo
     }
 
     public class InsertNoteResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
+
+    public class QueryDriveResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
+
+    public class QueryBreakResponse
     {
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }

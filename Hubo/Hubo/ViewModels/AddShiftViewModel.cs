@@ -441,7 +441,7 @@ namespace Hubo
                         }
 
                         DriveGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                        DriveGrid.Children.Add(new Label { Text = driveStart + ": " + driveStartHubo + " - " + driveEnd + ": " + driveEndHubo }, 1, NumDrives);
+                        DriveGrid.Children.Add(new Label { Text = driveStart + " (Hubo: " + driveStartHubo + ") - " + driveEnd + "(Hubo: " + driveEndHubo + ")" }, 1, NumDrives);
                         NumDrives++;
 
                         OnPropertyChanged("DriveText");

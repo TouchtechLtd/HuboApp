@@ -30,7 +30,7 @@ namespace Hubo
             InitializeComponent();
             BindingContext = vehiclesVM;
             this.currentVehicle = chosenVehicle;
-            vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
+            //vehiclesVM.UpdateEditPage(chosenVehicle.Registration);
 
             registration.ReturnType = ReturnType.Next;
             registration.Next = make;

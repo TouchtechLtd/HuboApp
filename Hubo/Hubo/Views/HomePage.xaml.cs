@@ -17,6 +17,7 @@ namespace Hubo
         new Scale Scale = new Scale();
         ObservableCollection<Scale> Scales = new ObservableCollection<Scale>();
         List<VehicleTable> vehicles = new List<VehicleTable>();
+        DatabaseService dbService = new DatabaseService();
 
         public HomePage()
         {
@@ -69,9 +70,19 @@ namespace Hubo
             Scales.Add(Scale);
 
             circleGauge.Scales = Scales;
+            driveButton.Clicked += DriveButton_Clicked;
+        }
 
-            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
-            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 4));
+        private void DriveButton_Clicked(object sender, EventArgs e)
+        {
+            if(!dbService.CheckActiveDriveShift())
+            {
+                vehiclePicker.Focus();
+            }
+            else
+            {
+                homeVM.ToggleDrive();
+            }         
         }
 
         private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -86,6 +97,7 @@ namespace Hubo
                 else
                 {
                     homeVM.currentVehicle = vehicles[vehiclePicker.SelectedIndex];
+                    homeVM.ToggleDrive();
                 }
             }
         }
