@@ -34,7 +34,7 @@ namespace Hubo
 
         private void NavigateToLoginPage()
         {
-            Navigation.PushAsync(new LoginPage(), false);
+            Navigation.PushModalAsync(new LoginPage(), false);
         }
     }
 }

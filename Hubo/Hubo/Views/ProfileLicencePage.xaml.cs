@@ -15,6 +15,14 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = profileVM;
+            //licenceList.ItemSelected += (sender, e) =>
+            //{
+            //    if (((ListView)sender).SelectedItem == null)
+            //    {
+            //        return;
+            //    }
+            //    ((ListView)sender).SelectedItem = null;
+            //};
         }
     }
 }

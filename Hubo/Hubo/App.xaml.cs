@@ -44,7 +44,7 @@ namespace Hubo
         protected override void OnStart()
         {
             //Handle when your app starts
-            Application.Current.MainPage = new NavigationPage(new LandingPage());
+            Application.Current.MainPage = new LandingPage();
             //CheckLoggedInStatus();
         }
 

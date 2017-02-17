@@ -445,7 +445,7 @@ namespace Hubo
             }
             if (CheckActiveDriveShift())
             {
-                await ReturnOffline();
+                //await ReturnOffline();
 
                 List<DriveTable> listOfVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
@@ -895,10 +895,12 @@ namespace Hubo
         {
             RestAPI = new RestService();
             Geolocation geoCords = new Geolocation();
-            geoCords = await GetLatAndLong();
-
-            string location = await RestAPI.GetLocation(geoCords);
-
+            string location = "";
+            using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
+            {
+                geoCords = await GetLatAndLong();
+                location = await RestAPI.GetLocation(geoCords);
+            }
             PromptConfig locationPrompt = new PromptConfig();
             locationPrompt.IsCancellable = true;
             locationPrompt.Title = "Current Location: ";
@@ -982,10 +984,12 @@ namespace Hubo
         {
             RestAPI = new RestService();
             Geolocation geoCords = new Geolocation();
-            geoCords = await GetLatAndLong();
-
-            string location = await RestAPI.GetLocation(geoCords);
-
+            string location = "";
+            using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
+            {
+                geoCords = await GetLatAndLong();
+                location = await RestAPI.GetLocation(geoCords);
+            }
             PromptConfig locationPrompt = new PromptConfig();
             locationPrompt.IsCancellable = true;
             locationPrompt.Title = "Current Location: ";

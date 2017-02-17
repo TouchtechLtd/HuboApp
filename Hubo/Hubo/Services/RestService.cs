@@ -62,61 +62,6 @@ namespace Hubo
                     user.FirstName = result.Result.FirstName;
                     user.LastName = result.Result.Surname;
                     db.InsertUser(user);
-
-                    //int totalDetails = await GetUser(user, user.Token);
-                    //switch (totalDetails)
-                    //{
-                    //    case -3:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to clear tables for new user", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case -2:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Invalid User Details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case -1:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get user, company and vehicle details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 1:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all vehicle details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 2:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all company and vehicle details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 3:
-                    //        break;
-                    //    default:
-                    //        return false;
-                    //}
-
-                    //int totalShifts = await GetShifts(user.DriverId, user.Token);
-                    //switch (totalShifts)
-                    //{
-                    //    case -4:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to process user shifts", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case -3:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to clear tables for new user", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case -2:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Invalid User Details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case -1:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get shift, note, drive shift and break details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 1:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all note, drive shift and break details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 2:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all drive shift and break details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 3:
-                    //        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get all break details", Resource.DisplayAlertOkay);
-                    //        return false;
-                    //    case 4:
-                    //        break;
-                    //    default:
-                    //        return false;
-                    //}
-
                     return true;
                 }
                 else
@@ -274,9 +219,12 @@ namespace Hubo
                     foreach (BreakResponseModel breakItem in breakDetails.Breaks)
                     {
                         breakTable.ShiftKey = breakItem.ShiftId;
-                        breakTable.ActiveBreak = breakItem.State;
+                        breakTable.ActiveBreak = breakItem.IsActive;
                         breakTable.StartDate = breakItem.StartBreakDateTime;
                         breakTable.EndDate = breakItem.StopBreakDateTime;
+                        breakTable.StartLocation = breakItem.StartBreakLocation;
+                        breakTable.EndLocation = breakItem.StopBreakLocation;
+                        breakTable.ServerId = breakItem.Id;
 
                         if (breakItem.StartBreakDateTime != null)
                             breakTable.StartLocation = breakItem.StartBreakDateTime;

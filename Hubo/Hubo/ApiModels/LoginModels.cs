@@ -137,11 +137,19 @@ namespace Hubo
 
     public class BreakResponseModel
     {
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
+        [JsonProperty(PropertyName = "shiftId")]
         public int ShiftId { get; set; }
+        [JsonProperty(PropertyName = "startBreakDateTime")]
         public string StartBreakDateTime { get; set; }
+        [JsonProperty(PropertyName = "stopBreakDateTime")]
         public string StopBreakDateTime { get; set; }
-        public int GeoDataId { get; set; }
-        public bool State { get; set; }
+        [JsonProperty(PropertyName = "startBreakLocation")]
+        public string StartBreakLocation { get; set; }
+        [JsonProperty(PropertyName = "stopBreakLocation")]
+        public string StopBreakLocation { get; set; }
+        [JsonProperty(PropertyName = "isActive")]
+        public bool IsActive { get; set; }
     }
 }
