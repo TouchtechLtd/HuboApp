@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,33 +13,31 @@ namespace Hubo
     {
         EditShiftDetailsViewModel editShiftDetailsVM;
 
-        public EditShiftDetailsPage(string instruction, ShiftTable currentShift)
+        public EditShiftDetailsPage(string instruction, DriveTable currentDrive = null, ShiftTable currentShift = null, BreakTable currentBreak = null)
         {
             InitializeComponent();
-            editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentShift);
+            editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentDrive, currentShift, currentBreak);
             editShiftDetailsVM.Navigation = Navigation;
             BindingContext = editShiftDetailsVM;
-            picker.SelectedIndexChanged += Picker_SelectedIndexChanged;
+            notePicker.SelectedIndexChanged += Picker_SelectedIndexChanged;
 
             //Load details for Breaks
-            if(instruction=="Breaks")
+            if (instruction == "Breaks")
             {
                 Title = Resource.BreaksText;
-                List<BreakTable> listOfBreaks = new List<BreakTable>();
-                listOfBreaks = editShiftDetailsVM.LoadBreaks();
-                List<NoteTable> listOfNotes = new List<NoteTable>();
-                listOfNotes = editShiftDetailsVM.LoadNotes();
-                //picker.Items.Add("2016-10-21 10:22 - 2016-10-21 14:32");
-                foreach (BreakTable breakItem in listOfBreaks)
-                {
-                    string StartTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.StartDate));
-                    string EndTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.EndDate));
-                    picker.Items.Add(StartTime + " - " + EndTime);
-                }
-                picker.Title = Resource.SelectBreak;
+                //List<BreakTable> listOfBreaks = new List<BreakTable>();
+                //listOfBreaks = editShiftDetailsVM.LoadBreaks();
+                ////picker.Items.Add("2016-10-21 10:22 - 2016-10-21 14:32");
+                //foreach (BreakTable breakItem in listOfBreaks)
+                //{
+                //    string StartTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.StartDate));
+                //    string EndTime = string.Format("{0:hh:mm tt}", DateTime.Parse(breakItem.EndDate));
+                //    picker.Items.Add(StartTime + " - " + EndTime);
+                //}
+                //picker.Title = Resource.SelectBreak;
             }
             //Load details for Notes
-            else if (instruction=="Notes")
+            if (instruction == "Notes")
             {
                 Title = Resource.NotesText;
                 List<NoteTable> listOfNotes = new List<NoteTable>();
@@ -47,31 +46,50 @@ namespace Hubo
                 foreach (NoteTable note in listOfNotes)
                 {
                     if (note.Note.Length > 20)
-                        picker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note.Remove(20));
+                        notePicker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note.Remove(20));
                     else
-                        picker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note);
+                        notePicker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note);
                 }
-                picker.Title = Resource.SelectNote;
+                notePicker.Title = Resource.SelectNote;
             }
-            //Load details for Vehicles
-            else if (instruction=="Vehicles")
+            else if (instruction == "Drives")
             {
-                Title = Resource.VehiclesText;
-                List<DriveTable> usedVehicles = new List<DriveTable>();
-                usedVehicles = editShiftDetailsVM.LoadVehicles();
-                //picker.Items.Add("DB4501");
-                foreach (DriveTable vehicle in usedVehicles)
+                Title = Resource.DriveText;
+                List<VehicleTable> vehicles = new List<VehicleTable>();
+                vehicles = editShiftDetailsVM.LoadVehicle();
+
+                foreach (VehicleTable vehicle in vehicles)
                 {
-                    VehicleTable vehicleInfo = editShiftDetailsVM.LoadVehicleInfo(vehicle);
-                    picker.Items.Add(vehicleInfo.Registration);
+                    vehiclePicker.Items.Add(vehicle.Registration);
                 }
-                picker.Title = Resource.SelectVehicle;
+                vehiclePicker.Title = Resource.SelectVehicle;
+
+                if (editShiftDetailsVM.VehicleId != -1)
+                    vehiclePicker.SelectedIndex = editShiftDetailsVM.VehicleId - 1;
+
+                vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
+
+                breakList.ItemSelected += (sender, e) =>
+                {
+                    if (((ListView)sender).SelectedItem == null)
+                        return;
+                    ((ListView)sender).SelectedItem = null;
+                    editShiftDetailsVM.SelectedBreak = (breakList.ItemsSource as ObservableCollection<BreakTable>).IndexOf(e.SelectedItem as BreakTable);
+                    editShiftDetailsVM.EditBreakDetails("Breaks");
+                };
+
+
             }
+        }
+
+        private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            editShiftDetailsVM.SelectedIndex = vehiclePicker.SelectedIndex;
         }
 
         private void Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            editShiftDetailsVM.DisplayDetails(picker.SelectedIndex);
+            editShiftDetailsVM.DisplayDetails(notePicker.SelectedIndex);
         }
     }
 }

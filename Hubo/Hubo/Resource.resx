@@ -312,9 +312,6 @@
   <data name="EditNotes" xml:space="preserve">
     <value>Edit Notes</value>
   </data>
-  <data name="EditVehiclesUsed" xml:space="preserve">
-    <value>Edit Vehicles Used</value>
-  </data>
   <data name="StartDriving" xml:space="preserve">
     <value>Start Driving</value>
   </data>

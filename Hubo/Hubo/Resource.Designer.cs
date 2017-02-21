@@ -332,15 +332,6 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Vehicles Used.
-        /// </summary>
-        internal static string EditVehiclesUsed {
-            get {
-                return ResourceManager.GetString("EditVehiclesUsed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit Vehicle.
         /// </summary>
         internal static string EditVehicleText {

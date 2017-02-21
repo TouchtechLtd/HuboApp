@@ -33,7 +33,7 @@ namespace Hubo
             LoginRequestModel loginModel = new LoginRequestModel();
             //loginModel.usernameOrEmailAddress = username;
             //loginModel.password = password;
-            loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
+            loginModel.usernameOrEmailAddress = "bsuarez";
             loginModel.password = "tazmania";
 
             string json = JsonConvert.SerializeObject(loginModel);

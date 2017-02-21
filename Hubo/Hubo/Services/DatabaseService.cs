@@ -55,15 +55,11 @@ namespace Hubo
             return listUser[0].FirstName + " " + listUser[0].LastName;
         }
 
-        internal VehicleTable LoadVehicleInfo(DriveTable vehicle)
+        internal List<VehicleTable> LoadVehicle()
         {
             List<VehicleTable> vehicleDetails = new List<VehicleTable>();
-            vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + vehicle.VehicleKey);
-            if ((vehicleDetails.Count == 0) || (vehicleDetails.Count > 1))
-            {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.GetMoreOneVehicle, Resource.DisplayAlertOkay);
-            }
-            return vehicleDetails[0];
+            vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
+            return vehicleDetails;
         }
 
         internal void HideTip(string tipName)
@@ -279,14 +275,6 @@ namespace Hubo
             db.Insert(breakTable);
         }
 
-        internal List<DriveTable> GetUsedVehicles(ShiftTable currentShift)
-        {
-            List<DriveTable> usedVehicles = new List<DriveTable>();
-            usedVehicles = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] == " + currentShift.Key);
-            return usedVehicles;
-        }
-
-
         internal void AddAmendments(List<AmendmentTable> listOfAmendments, ShiftTable currentShift = null, DriveTable currentVehicleInUse = null, BreakTable currentBreak = null, NoteTable currentNote = null)
         {
             if (currentNote != null)
@@ -346,7 +334,7 @@ namespace Hubo
 
             foreach (DateTime date in listOfDates)
             {
-                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "%'");
+                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd") + "%'");
                 if (listOfShiftsToAdd.Count != 0)
                 {
                     listOfShifts.AddRange(listOfShiftsToAdd);
@@ -559,6 +547,11 @@ namespace Hubo
 
             MessagingCenter.Send<string>("UpdateActiveVehicle", "UpdateActiveVehicle");
             MessagingCenter.Send<string>("UpdateVehicleInUse", "UpdateVehicleInUse");
+        }
+
+        internal void InsertDrive(DriveTable newDrive)
+        {
+            db.Insert(newDrive);
         }
 
         internal async void CollectGeolocation(int driveKey)

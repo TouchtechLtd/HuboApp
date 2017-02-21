@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -20,52 +21,65 @@ namespace Hubo
         public DateTime ShiftStartDatePicker { get; set; }
         public DateTime ShiftEndDatePicker { get; set; }
         public ICommand SaveCommand { get; set; }
-        public ICommand BreaksCommand { get; set; }
+        public ICommand DrivesCommand { get; set; }
         public ICommand NotesCommand { get; set; }
-        public ICommand VehiclesCommand { get; set; }
         public string SaveText { get; set; }
-        public string EditBreaksText { get; set; }
+        public string AddDrivesText { get; set; }
         public string EditNotesText { get; set; }
-        public string EditVehiclesText { get; set; }
+        public string CancelText { get; set; }
         public bool ChangesMade { get; set; }
         public bool ShiftStartInfoVisible { get; set; }
         public bool ShiftEndInfoVisible { get; set; }
         public bool ShiftSelected { get; set; }
         public string DashText { get; set; }
+        public int SelectedDrive { get; set; }
 
         DatabaseService DbService = new DatabaseService();
 
         ShiftTable currentShift = new ShiftTable();
+        List<DriveTable> driveList = new List<DriveTable>();
 
-        public List<DriveTable> Drives { get; set; }
+        public ObservableCollection<DriveTable> Drives { get; set; }
 
         List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
 
         public EditShiftViewModel()
         {
-            //ShiftEndTime = Resource.ShiftEndTime;
             DashText = Resource.Dash;
             ShiftStartTime = Resource.ShiftStartTime;
             ShiftEndTime = Resource.ShiftEndTime;
             ShiftStartInfoVisible = false;
             ShiftEndInfoVisible = false;
             SaveCommand = new Command(Save);
-            VehiclesCommand = new Command(EditShiftDetails);
             NotesCommand = new Command(EditShiftDetails);
-            BreaksCommand = new Command(EditShiftDetails);
+            DrivesCommand = new Command(EditShiftDetails);
             SaveText = Resource.Save;
-            EditBreaksText = Resource.EditBreaks;
+            AddDrivesText = Resource.AddDrive;
             EditNotesText = Resource.EditNotes;
-            EditVehiclesText = Resource.EditVehiclesUsed;
+            CancelText = Resource.Cancel;
             ChangesMade = false;
             ShiftSelected = false;
+            SelectedDrive = -1;
         }
 
-        private void EditShiftDetails(object obj)
+        public void EditShiftDetails(object obj)
         {
             if (currentShift.Key != 0)
             {
-                Navigation.PushAsync(new EditShiftDetailsPage(obj.ToString(), currentShift));
+                if (SelectedDrive > -1)
+                {
+                    Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), Drives[SelectedDrive]));
+
+                    driveList = DbService.GetDriveShifts(currentShift.Key);
+                    Drives = new ObservableCollection<DriveTable>(driveList);
+
+                    SelectedDrive = -1;
+
+                    OnPropertyChanged("Drives");
+                    OnPropertyChanged("SelectedDrive");
+                }
+                else if (SelectedDrive == -1)
+                    Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), null, currentShift));
             }
             else
             {
@@ -100,7 +114,7 @@ namespace Hubo
 
             if ((ShiftStartDatePicker != oldStartShiftDate) || (oldStartShiftTime != ShiftStartTimePicker))
             {
-                AmendmentTable newStartShift = new AmendmentTable();;
+                AmendmentTable newStartShift = new AmendmentTable(); ;
                 newStartShift.Field = "StartTime";
                 newStartShift.ShiftId = currentShift.Key;
                 newStartShift.Table = "ShiftTable";
@@ -125,17 +139,18 @@ namespace Hubo
             if (!(shiftTable.EndDate == "Current"))
             {
                 ShiftEndInfoVisible = true;
-                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate);
+                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate).Date;
                 ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
             }
 
             currentShift = shiftTable;
 
-            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate);
+            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate).Date;
 
             ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
 
-            Drives = DbService.GetDriveShifts(currentShift.Key);
+            driveList = DbService.GetDriveShifts(currentShift.Key);
+            Drives = new ObservableCollection<DriveTable>(driveList);
 
             ShiftSelected = true;
 

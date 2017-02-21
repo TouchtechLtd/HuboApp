@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.EditShiftDetailsPage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <local:Converter x:Key="Converter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
   <ScrollView>
     <Grid>
       <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.1*"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="*"/>
@@ -13,6 +22,7 @@
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="0.1*"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
@@ -25,44 +35,91 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <Picker x:Name="picker" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-
+      <Picker x:Name="notePicker" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding EditNote}" />
 
       <!-- For Editing vehicle information -->
-      <Label Text="{Binding HuboStartText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
+      <!--<Label Text="{Binding HuboStartText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
       <Entry Text="{Binding VehicleStartHubo}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}" Keyboard="Numeric"/>
       <Label Text="{Binding StartLocationText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
 
       <Label Text="{Binding HuboEndText}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
       <Entry Text="{Binding VehicleEndHubo}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="4" IsVisible="{Binding EditingVehicle}" Keyboard="Numeric"/>
-      <Label Text="{Binding EndLocationText}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>
+      <Label Text="{Binding EndLocationText}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding EditingVehicle}" XAlign="Center" YAlign="Center"/>-->
 
       <!-- For editing breaks information-->
-      <Label Text="{Binding StartTimeText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"  IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
-      <TimePicker Time="{Binding BreakStartTime}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartBreak}" />
-      <DatePicker Date="{Binding BreakStartDate}" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartBreak}" />
+      <Label Text="{Binding StartTimeText}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalTextAlignment="Start"  IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
+      <TimePicker Time="{Binding BreakStartTime}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartBreak}" />
+      <DatePicker Date="{Binding BreakStartDate}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartBreak}" />
 
-      <Label Text="{Binding EndTimeText}" Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding EditingEndBreak}" VerticalTextAlignment="Center"/>
-      <TimePicker Time="{Binding BreakEndTime}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndBreak}" />
-      <DatePicker Date="{Binding BreakEndDate}" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndBreak}" />
+      <Label Text="{Binding EndTimeText}" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="2" HorizontalTextAlignment="Start" IsVisible="{Binding EditingEndBreak}" VerticalTextAlignment="Center"/>
+      <TimePicker Time="{Binding BreakEndTime}" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndBreak}" />
+      <DatePicker Date="{Binding BreakEndDate}" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndBreak}" />
 
-      <Label Text="{Binding BreakStartLabel}" Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Center" Grid.ColumnSpan="2" IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
-      <Entry Text="{Binding BreakStartLocation}" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" IsVisible="{Binding EditingStartBreak}" />
+      <Label Text="{Binding BreakStartLabel}" Grid.Row="3" Grid.Column="1" HorizontalTextAlignment="Start" Grid.ColumnSpan="2" IsVisible="{Binding EditingStartBreak}" VerticalTextAlignment="Center"/>
+      <local:BaseEntry x:Name="breakStartLocation" Text="{Binding BreakStartLocation}" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" IsVisible="{Binding EditingStartBreak}" />
 
-      <Label Text="{Binding BreakEndLabel}" Grid.Row="5" Grid.Column="0" HorizontalTextAlignment="Center" Grid.ColumnSpan="2" IsVisible="{Binding EditingEndBreak}" VerticalTextAlignment="Center"/>
-      <Entry Text="{Binding BreakEndLocation}" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="4" IsVisible="{Binding EditingEndBreak}" />
-
+      <Label Text="{Binding BreakEndLabel}" Grid.Row="4" Grid.Column="1" HorizontalTextAlignment="Start" Grid.ColumnSpan="2" IsVisible="{Binding EditingEndBreak}" VerticalTextAlignment="Center"/>
+      <local:BaseEntry x:Name="breakEndLocation" Text="{Binding BreakEndLocation}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding EditingEndBreak}" />
 
       <!-- For Editing notes information-->
-      <Label Text="{Binding NoteText}" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
-      <Entry Text="{Binding NoteEntry}" Grid.Row="1" Grid.ColumnSpan="6" Grid.Column="2" IsVisible="{Binding EditingNote}" />
+      <Label Text="{Binding NoteText}" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" HorizontalTextAlignment="Start" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
+      <local:BaseEntry x:Name="noteEntry" Text="{Binding NoteEntry}" Grid.Row="1" Grid.ColumnSpan="6" Grid.Column="3" IsVisible="{Binding EditingNote}" />
 
-      <Label Text="{Binding DateText}" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
-      <DatePicker Date="{Binding NoteDate}" Grid.Row="2" Grid.Column="2" IsVisible="{Binding EditingNote}"  Grid.ColumnSpan="3"/>
-      <TimePicker Time="{Binding NoteTime}" Grid.Row="2" Grid.Column="5" IsVisible="{Binding EditingNote}"  Grid.ColumnSpan="3"/>
+      <Label Text="{Binding DateText}" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" HorizontalTextAlignment="Start" IsVisible="{Binding EditingNote}" VerticalTextAlignment="Center" />
+      <DatePicker Date="{Binding NoteDate}" Grid.Row="2" Grid.Column="3" IsVisible="{Binding EditingNote}"  Grid.ColumnSpan="3"/>
+      <TimePicker Time="{Binding NoteTime}" Grid.Row="2" Grid.Column="6" IsVisible="{Binding EditingNote}"  Grid.ColumnSpan="3"/>
+      
+      <!-- For Editing Drive Information -->
+      <Label Text="{Binding StartTimeText}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalTextAlignment="Start"  IsVisible="{Binding EditingStartDrive}" VerticalTextAlignment="Center"/>
+      <TimePicker Time="{Binding DriveStartTime}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartDrive}" />
+      <DatePicker Date="{Binding DriveStartDate}" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3" IsVisible="{Binding EditingStartDrive}" />
 
-      <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="4" IsVisible="{Binding ShowSaveButton}"/>
-      <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="4" />
+      <Label Text="{Binding EndTimeText}" Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="2" HorizontalTextAlignment="Start" IsVisible="{Binding EditingEndDrive}" VerticalTextAlignment="Center"/>
+      <TimePicker Time="{Binding DriveEndTime}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndDrive}" />
+      <DatePicker Date="{Binding DriveEndDate}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" IsVisible="{Binding EditingEndDrive}" />
+
+      <Picker x:Name="vehiclePicker" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding EditingStartDrive}" />
+
+      <Label Text="{Binding HuboText}" Grid.Row="3"  Grid.Column="1" HorizontalTextAlignment="Start" IsVisible="{Binding EditingStartDrive}" VerticalTextAlignment="Center" />
+      <local:BaseEntry x:Name="driveHuboStart" Text="{Binding DriveStartHubo}" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="2" IsVisible="{Binding EditingStartDrive}" Keyboard="Numeric" />
+      <Label Text="{Binding DashText}" Grid.Row="3"  Grid.Column="5" HorizontalTextAlignment="Center" IsVisible="{Binding EditingEndDrive}" VerticalTextAlignment="Center" />
+      <local:BaseEntry x:Name="driveHuboEnd" Text="{Binding DriveEndHubo}" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="6" IsVisible="{Binding EditingEndDrive}" Keyboard="Numeric" />
+
+      <ListView x:Name="breakList" ItemsSource="{Binding listOfBreaks}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.ColumnSpan="8" Grid.Row="4" Grid.RowSpan="3" IsVisible="{Binding EditingStartDrive}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.25*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter},  StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
+                  <Label BindingContext="{local:EditShiftViewModel}" Text="{Binding DashText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="3"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="4"/>
+                </Grid>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+
+      <Button Text="{Binding AddBreakText}" Command="{Binding BreakCommand}" CommandParameter="Breaks" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="10" IsVisible="{Binding EditingBreakList}"/>
+      <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" IsVisible="{Binding ShowSaveButton}"/>
+      <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="8" Grid.Column="5" Grid.ColumnSpan="5" />
     </Grid>
   </ScrollView>
 </ContentPage>

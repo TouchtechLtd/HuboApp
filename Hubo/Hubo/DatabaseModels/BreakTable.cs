@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class BreakTable
+    public class BreakTable
     {
         [PrimaryKey, AutoIncrement]
         public int Key { get; set; }

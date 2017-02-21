@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace Hubo
                 {
                     return;
                 }
+                editShiftVM.SelectedDrive = (driveList.ItemsSource as ObservableCollection<DriveTable>).IndexOf(e.SelectedItem as DriveTable);
+                editShiftVM.EditShiftDetails("Drives");
                 ((ListView)sender).SelectedItem = null;
             };
 
