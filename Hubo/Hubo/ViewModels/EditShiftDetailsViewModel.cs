@@ -110,7 +110,7 @@ namespace Hubo
 
         private void Cancel()
         {
-            Navigation.PopAsync();
+            Navigation.PopModalAsync();
         }
 
         private void Save()
@@ -323,8 +323,13 @@ namespace Hubo
 
             if (instruction == "Notes")
             {
+                NoteTable temp = new NoteTable();
+                temp.Date = "2016-10-21 12:22";
+                temp.Note = "Hit a Possum";
+                listOfNotes.Add(temp);
                 currentNote = listOfNotes[selectedIndex];
                 NoteEntry = currentNote.Note;
+                
                 EditingNote = true;
 
                 NoteDate = DateTime.Parse("2016-10-21 12:22").Date;//DateTime.Parse(currentNote.Date);
@@ -347,13 +352,21 @@ namespace Hubo
 
             if (instruction == "Vehicles")
             {
-                currentVehicleInUse = listUsedVehicles[selectedIndex];
+                DriveTable tempVehicle = new DriveTable();
+                tempVehicle.EndDate = "2016-10-21 18:22";
+                tempVehicle.StartDate = "2016-10-21 12:22";
+                                
+                //currentVehicleInUse = listUsedVehicles[selectedIndex];
                 VehicleStartHubo = "125405";//currentVehicleInUse.StartHubo.ToString();
                 VehicleEndHubo = "127022";//currentVehicleInUse.EndHubo.ToString();
 
                 HuboStartText = Resource.HuboStart;
                 HuboEndText = Resource.HuboEnd;
-                StartLocationText = Resource.StartLocation;
+                StartLocationText = "Start Time";
+                BreakStartTime = TimeSpan.Parse("12:22");
+                BreakEndTime = TimeSpan.Parse("18:22");
+
+
                 EndLocationText = Resource.EndLocation;
 
 
@@ -367,6 +380,8 @@ namespace Hubo
                 OnPropertyChanged("EndLocationText");
                 OnPropertyChanged("VehicleStartHubo");
                 OnPropertyChanged("VehicleEndHubo");
+                OnPropertyChanged("BreakStartTime");
+                OnPropertyChanged("BreakEndTime");
             }
 
             ShowSaveButton = true;

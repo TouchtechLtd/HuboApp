@@ -53,6 +53,8 @@ namespace Hubo
             }
         }
 
+        public FileImageSource ShiftImage { get; set; }
+
         public ICommand StartBreakCommand { get; set; }
 
         //public ICommand EndShiftCommand { get; set; }
@@ -295,6 +297,8 @@ namespace Hubo
             ShiftButtonColor = Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
+            ShiftImage = "Stop.png";
+            OnPropertyChanged("ShiftImage");
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
             OnPropertyChanged("StartShiftVisibility");
@@ -308,6 +312,8 @@ namespace Hubo
             StartShiftVisibility = true;
             ShiftStarted = false;
             DriveShiftRunning = false;
+            ShiftImage = "Play.png";
+            OnPropertyChanged("ShiftImage");
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("ShiftText");

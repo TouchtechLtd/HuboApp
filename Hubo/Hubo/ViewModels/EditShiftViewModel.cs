@@ -65,7 +65,7 @@ namespace Hubo
         {
             if (currentShift.Key != 0)
             {
-                Navigation.PushAsync(new EditShiftDetailsPage(obj.ToString(), currentShift));
+                Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), currentShift));
             }
             else
             {

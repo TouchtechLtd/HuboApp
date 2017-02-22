@@ -141,12 +141,13 @@ namespace Hubo
             if (listOfShifts.Count == 0)
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoShiftsFound, Resource.DisplayAlertOkay);
             else
-                Navigation.PushAsync(new EditShiftPage(listOfShifts));
+                Navigation.PushModalAsync(new EditShiftPage(listOfShifts));
         }
 
         private void Export()
         {
-            Navigation.PushAsync(new ExportPage());
+            //Navigation.PushAsync(new ExportPage());
+            Navigation.PushModalAsync(new ExportPage());
         }
     }
 }

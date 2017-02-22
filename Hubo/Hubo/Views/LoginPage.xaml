@@ -23,11 +23,11 @@
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <local:BaseEntry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username" AutomationId="Username"/>
-      <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password" IsPassword="true"/>
+      <local:BaseEntry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username" AutomationId="Username" VerticalOptions="Center"/>
+      <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password" IsPassword="true" VerticalOptions="Center"/>
       <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" AutomationId="LoginButton"/>
 
-      <ActivityIndicator BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="6"/>
+      <!--<ActivityIndicator BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="6"/>-->
       <Label x:Name="activityLabel" Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="6"/>
     </Grid>
   </ScrollView>

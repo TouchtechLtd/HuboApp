@@ -31,16 +31,16 @@
       <Label Text="{Binding BreakStartTimeText}" YAlign="End" Grid.Row="1" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakTimeText"/>
       <TimePicker Time="{Binding BreakStart}" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding LocationStartText}" YAlign="End" Grid.Row="3" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakLocationText"/>
-      <local:BaseEntry Text="{Binding LocationStart}" Grid.Row="3" x:Name="startBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <Label Text="{Binding LocationStartText}" YAlign="End" Grid.Row="2" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="startBreakLocationText"/>
+      <local:BaseEntry Text="{Binding LocationStart}" Grid.Row="2" x:Name="startBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding BreakEndText}" YAlign="End" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="endBreakText"/>
+      <Label Text="{Binding BreakEndText}" YAlign="End" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingBreak}" x:Name="endBreakText"/>
 
-      <Label Text="{Binding BreakEndTimeText}" YAlign="End" Grid.Row="5" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakTimeText"/>
-      <TimePicker Time="{Binding BreakEnd}" Grid.Row="5" x:Name="endBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <Label Text="{Binding BreakEndTimeText}" YAlign="End" Grid.Row="4" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakTimeText"/>
+      <TimePicker Time="{Binding BreakEnd}" Grid.Row="4" x:Name="endBreakPicker" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
-      <Label Text="{Binding LocationEndText}" YAlign="End" Grid.Row="6" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakLocationText"/>
-      <local:BaseEntry Text="{Binding LocationEnd}" Grid.Row="6" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
+      <Label Text="{Binding LocationEndText}" YAlign="End" Grid.Row="5" Grid.Column="1" IsVisible="{Binding AddingBreak}" x:Name="endBreakLocationText"/>
+      <local:BaseEntry Text="{Binding LocationEnd}" Grid.Row="5" x:Name="endBreakLocation" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding AddingBreak}" VerticalOptions="End"/>
 
       <!-- For adding a note to the shift -->
       <Label Text="{Binding NoteText}" YAlign="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding AddingNote}" x:Name="noteText"/>

@@ -29,7 +29,7 @@ namespace Hubo
 
         private void NavigateToRegisterPage()
         {
-            Navigation.PushAsync(new RegisterPage());
+            Navigation.PushModalAsync(new RegisterPage());
         }
 
         private void NavigateToLoginPage()

@@ -201,6 +201,7 @@ namespace Hubo
             else
             {
                 SaveVehicleDetails();
+                Application.Current.MainPage.DisplayAlert("Saved", "Changes have been saved", "Gotcha");
             }
         }
 

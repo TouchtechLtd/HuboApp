@@ -341,7 +341,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Vehicle.
+        ///   Looks up a localized string similar to Save Changes.
         /// </summary>
         internal static string EditVehicleText {
             get {

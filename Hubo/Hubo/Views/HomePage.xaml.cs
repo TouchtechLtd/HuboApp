@@ -1,4 +1,5 @@
-﻿using Syncfusion.SfChart.XForms;
+﻿using Acr.UserDialogs;
+using Syncfusion.SfChart.XForms;
 using Syncfusion.SfGauge.XForms;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XLabs.Forms.Controls;
 
 namespace Hubo
 {
@@ -18,7 +20,6 @@ namespace Hubo
         ObservableCollection<Scale> Scales = new ObservableCollection<Scale>();
         List<VehicleTable> vehicles = new List<VehicleTable>();
         DatabaseService dbService = new DatabaseService();
-
         public HomePage()
         {
             InitializeComponent();
@@ -36,6 +37,8 @@ namespace Hubo
             rangeGreen.Color = Color.FromHex("#009900");
             rangeGreen.Thickness = 30;
             Scale.Ranges.Add(rangeGreen);
+
+            //ImageButton dad = new ImageButton();
 
             Scale.Interval = 14;
             Scale.RimThickness = 30;
@@ -72,7 +75,10 @@ namespace Hubo
             circleGauge.Scales = Scales;
             driveButton.Clicked += DriveButton_Clicked;
         }
-
+        public void Test(object sender, EventArgs e)
+        {
+            DisplayAlert(" ", " ", " ");
+        }
         private void DriveButton_Clicked(object sender, EventArgs e)
         {
             if(!dbService.CheckActiveDriveShift())
@@ -85,16 +91,26 @@ namespace Hubo
             }         
         }
 
-        private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
+        private async void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (vehiclePicker.SelectedIndex != -1)
+            if (vehiclePicker.SelectedIndex != -1 || vehiclePicker.SelectedIndex != 1)
             {
                 if (vehiclePicker.SelectedIndex == vehiclePicker.Items.Count - 1)
                 {
-                    Navigation.PushAsync(new AddVehiclePage());
-                    vehiclePicker.SelectedIndex = -1;
+                    //Navigation.PushAsync(new AddVehiclePage());
+                    PromptConfig regoPrompt = new PromptConfig();
+                    regoPrompt.IsCancellable = true;
+                    regoPrompt.Title = "Rego: ";
+                    PromptResult promptResult = await UserDialogs.Instance.PromptAsync(regoPrompt);
+                    //vehiclePicker.SelectedIndex = -1;
+                    if (promptResult.Ok)
+                    {
+                        homeVM.currentVehicle = vehicles[1];
+                        homeVM.ToggleDrive();
+                    }
+
                 }
-                else
+                else if(vehiclePicker.SelectedIndex != 1)
                 {
                     homeVM.currentVehicle = vehicles[vehiclePicker.SelectedIndex];
                     homeVM.ToggleDrive();

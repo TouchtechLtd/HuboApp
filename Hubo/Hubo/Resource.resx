@@ -190,7 +190,7 @@
     <value>Company: </value>
   </data>
   <data name="EditVehicleText" xml:space="preserve">
-    <value>Edit Vehicle</value>
+    <value>Save Changes</value>
   </data>
   <data name="MakeModelText" xml:space="preserve">
     <value>Make and Model: </value>

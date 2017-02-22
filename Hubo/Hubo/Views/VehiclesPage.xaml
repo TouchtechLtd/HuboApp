@@ -35,8 +35,8 @@
     <Label Text="{Binding FleetText}" Grid.Row="5" Grid.Column="1" VerticalTextAlignment="Center" />
     <local:BaseEntry x:Name="fleet" IsEnabled="{Binding VehicleSelected}" Text="{Binding FleetEntry}" Grid.Row="5" Grid.Column="2" VerticalOptions="Center"/>
 
-    <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
-    <Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
+    <Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>
+    <!--<Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>-->
 
     <ActivityIndicator x:Name="activityIndicator" BackgroundColor="#000000" Opacity="0.5" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>
     <Label x:Name="activityLabel" Text="{Binding LoadingText}" TextColor="White" FontSize="24" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsBusy}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>

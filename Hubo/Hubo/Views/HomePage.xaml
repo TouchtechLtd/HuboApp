@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:Hubo;assembly=Hubo"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="Hubo.HomePage">
   <Grid Padding="-7">
     <Grid.ColumnDefinitions>
@@ -24,7 +25,47 @@
     </Grid.RowDefinitions>
 
     <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
+    <!--<controls:ImageButton Text="{Binding ShiftText}" TextColor ="White" FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Image="{Binding ShiftImage}" Orientation="ImageToLeft"  ImageHeightRequest="10" ImageWidthRequest="10" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" HeightRequest="20" WidthRequest="20"/>-->
+    <!--<StackLayout BackgroundColor="{Binding ShiftButtonColor}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Orientation="Horizontal">
+      <StackLayout.GestureRecognizers>
+          <TapGestureRecognizer Tapped="Test">
+                --><!--<Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>--><!--
 
+              </TapGestureRecognizer>
+        </StackLayout.GestureRecognizers>
+      <Grid>
+      <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+      <Image Source="{Binding ShiftImage}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3"/>
+      <Label Text="{Binding ShiftText}" FontSize="30" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" VerticalTextAlignment="Center"/>
+      </Grid>
+
+    </StackLayout>-->
     <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="{StaticResource pageBackgroundColour}">
       <syncfusion:SfLinearGauge.Scales>
         <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="13" ScaleBarColor="#faecec" LabelColor="Gray">
@@ -44,7 +85,7 @@
 
     <syncfusion:SfCircularGauge  x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />
 
-    <Button IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
+    <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
     
   </Grid>
 </ContentPage>
