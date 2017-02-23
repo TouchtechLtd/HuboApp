@@ -28,7 +28,7 @@ namespace Hubo
         {
             MessagingCenter.Subscribe<string>("PopAfterExport", "PopAfterExport", (sender) =>
             {
-                Navigation.PopAsync();
+                Navigation.PopModalAsync();
             });
             base.OnAppearing();
         }

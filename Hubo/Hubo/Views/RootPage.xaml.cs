@@ -61,7 +61,7 @@ namespace Hubo
             {
                 await Detail.Navigation.PopToRootAsync(true);
             }
-            else if(menu.TargetType == "Profile")
+            else if (menu.TargetType == "Profile")
             {
                 await Detail.Navigation.PushModalAsync(new ProfilePage());
             }
@@ -75,7 +75,7 @@ namespace Hubo
             }
             else if (menu.TargetType == "AddShift")
             {
-                await Detail.Navigation.PushAsync(new AddShiftPage());
+                await Detail.Navigation.PushModalAsync(new AddShiftPage());
             }
             else if (menu.TargetType == "SignOut")
             {
@@ -87,8 +87,8 @@ namespace Hubo
                     Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }
-                IsPresented = false;
-                IsGestureEnabled = false;
+            IsPresented = false;
+            IsGestureEnabled = false;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using Syncfusion.SfChart.XForms;
+﻿using Syncfusion.SfChart.XForms;
 using Syncfusion.SfGauge.XForms;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,6 @@ namespace Hubo
         new Scale Scale = new Scale();
         ObservableCollection<Scale> Scales = new ObservableCollection<Scale>();
         List<VehicleTable> vehicles = new List<VehicleTable>();
-        DatabaseService dbService = new DatabaseService();
 
         public HomePage()
         {
@@ -71,44 +69,23 @@ namespace Hubo
             Scales.Add(Scale);
 
             circleGauge.Scales = Scales;
-            //driveButton.Clicked += DriveButton_Clicked;
+
+            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
+            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 4));
         }
 
-        private void DriveButton_Clicked(object sender, EventArgs e)
+        private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!dbService.VehicleActive())
-            {
-                vehiclePicker.Focus();
-            }
-            else
-            {
-                homeVM.ToggleDrive();
-            }         
-        }
-
-        private async void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (vehiclePicker.SelectedIndex != -1 || vehiclePicker.SelectedIndex != 1)
+            if (vehiclePicker.SelectedIndex != -1)
             {
                 if (vehiclePicker.SelectedIndex == vehiclePicker.Items.Count - 1)
                 {
                     //Navigation.PushAsync(new AddVehiclePage());
-                    PromptConfig regoPrompt = new PromptConfig();
-                    regoPrompt.IsCancellable = true;
-                    regoPrompt.Title = "Rego: ";
-                    PromptResult promptResult = await UserDialogs.Instance.PromptAsync(regoPrompt);
                     vehiclePicker.SelectedIndex = -1;
-                    if (promptResult.Ok)
-                    {
-                        homeVM.currentVehicle = vehicles[1];
-                        homeVM.ToggleDrive();
-                    }
-
                 }
-                else if(vehiclePicker.SelectedIndex != 1)
+                else
                 {
                     homeVM.currentVehicle = vehicles[vehiclePicker.SelectedIndex];
-                    homeVM.ToggleDrive();
                 }
             }
         }

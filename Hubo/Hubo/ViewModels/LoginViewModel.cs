@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -68,46 +69,28 @@ namespace Hubo
             if ((Username.Length != 0) && (Password.Length != 0))
             {
                 restService = new RestService();
-                IsBusy = true;
-                SetLoadingText();
+                bool loggedIn = false;
                 //TODO: Check username & password against database.
-                if (await restService.Login(Username, Password))
+                using (UserDialogs.Instance.Loading("Logging In....", null, null, true, MaskType.Gradient))
+                    loggedIn = await restService.Login(Username, Password);
+
+                if (loggedIn)
                 {
+                    UserTable user = db.GetUserInfo();
+
+                    using (UserDialogs.Instance.Loading("Getting Details....", null, null, true, MaskType.Gradient))
+                        await restService.GetUser(user);
+
+                    using (UserDialogs.Instance.Loading("Getting Shifts....", null, null, true, MaskType.Gradient))
+                        await restService.GetShifts(user.DriverId);
+
                     Application.Current.MainPage = new NZTAMessagePage(1);
-                    IsBusy = false;
-                }
-                else
-                {
-                    IsBusy = false;
                 }
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.NoUsernameOrPasswordMessage, Resource.DisplayAlertOkay);
             }
-        }
-
-        private void SetLoadingText()
-        {
-            List<LoadTextTable> loadText = new List<LoadTextTable>();
-            loadText = db.GetLoadingText();
-
-            Random random = new Random();
-
-            int id = random.Next(1, loadText.Count);
-
-            LoadingText = loadText[id - 1].LoadText;
-
-            var sec = TimeSpan.FromSeconds(5);
-
-            Device.StartTimer(sec, () =>
-            {
-                id = random.Next(1, loadText.Count);
-
-                LoadingText = loadText[id - 1].LoadText;
-
-                return IsBusy;
-            });
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

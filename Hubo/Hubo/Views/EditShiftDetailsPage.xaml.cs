@@ -35,6 +35,11 @@ namespace Hubo
                 //    picker.Items.Add(StartTime + " - " + EndTime);
                 //}
                 //picker.Title = Resource.SelectBreak;
+
+                breakStartLocation.ReturnType = ReturnType.Next;
+                breakStartLocation.Next = breakEndLocation;
+
+                breakEndLocation.ReturnType = ReturnType.Done;
             }
             //Load details for Notes
             if (instruction == "Notes")
@@ -51,6 +56,8 @@ namespace Hubo
                         notePicker.Items.Add(DateTime.Parse(note.Date).Date.ToString() + " - " + note.Note);
                 }
                 notePicker.Title = Resource.SelectNote;
+
+                noteEntry.ReturnType = ReturnType.Done;
             }
             else if (instruction == "Drives")
             {
@@ -78,7 +85,10 @@ namespace Hubo
                     editShiftDetailsVM.EditBreakDetails("Breaks");
                 };
 
+                driveHuboStart.ReturnType = ReturnType.Next;
+                driveHuboStart.Next = driveHuboEnd;
 
+                driveHuboEnd.ReturnType = ReturnType.Done;
             }
         }
 

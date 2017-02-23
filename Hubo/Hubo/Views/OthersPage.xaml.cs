@@ -41,7 +41,7 @@ namespace Hubo
             }
             else if (menu.TargetType == "Settings")
             {
-                await Navigation.PushAsync(new SettingsPage());
+                await Navigation.PushModalAsync(new SettingsPage());
             }
             else if (menu.TargetType == "SignOut")
             {
@@ -51,7 +51,7 @@ namespace Hubo
                 {
                     DatabaseService dbService = new DatabaseService();
                     dbService.Logout();
-                    Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
+                    Xamarin.Forms.Application.Current.MainPage = new LandingPage();
                 }
             }
         }

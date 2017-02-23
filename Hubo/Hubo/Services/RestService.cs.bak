@@ -98,8 +98,8 @@ namespace Hubo
                         return address;
                     }
                 }
+                return "";
             }
-            return "";
         }
 
         public async Task<int> GetShifts(int id)
@@ -209,7 +209,7 @@ namespace Hubo
                                 foreach (BreakResponseModel breakItem in breakDetails.Breaks)
                                 {
                                     breakTable.DriveKey = breakItem.ShiftId;
-                                    breakTable.ActiveBreak = breakItem.IsActive;
+                                    breakTable.ActiveBreak = breakItem.State;
                                     breakTable.StartDate = breakItem.StartBreakDateTime;
                                     breakTable.EndDate = breakItem.StopBreakDateTime;
                                     breakTable.StartLocation = breakItem.StartBreakLocation;
@@ -424,7 +424,7 @@ namespace Hubo
             string url;
 
             string json;
-            client.DefaultRequestHeaders.Add("Authorization", _accessToken);
+            client.DefaultRequestHeaders("Authorization", _accessToken);
 
             if (shiftStarted)
             {
@@ -489,7 +489,7 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive, int serverShift = -1)
+        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive)
         {
             string url;
             string contentType = Constants.CONTENT_TYPE;
@@ -501,7 +501,7 @@ namespace Hubo
                 url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
 
                 DriveStartModel driveModel = new DriveStartModel();
-                driveModel.shiftId = serverShift;
+                driveModel.shiftId = drive.ShiftKey;
                 driveModel.startDrivingDateTime = drive.StartDate;
                 driveModel.vehicleId = drive.VehicleKey;
                 driveModel.startHubo = drive.StartHubo;

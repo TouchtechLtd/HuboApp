@@ -3,39 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.ProfileLicencePage">
-  <ScrollView>
-    <ListView x:Name="licenceList" ItemsSource="{Binding Licences}" HasUnevenRows="True" SeparatorVisibility="Default">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.View>
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="2*" />
-                  <ColumnDefinition Width="6*" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="*" />
-                  <RowDefinition Height="*" />
-                  <RowDefinition Height="*" />
-                  <RowDefinition Height="0.25*"/>
-                </Grid.RowDefinitions>
 
-                <Label BindingContext="{local:ProfileViewModel}" Text="{Binding LicenseNumberText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label Text="{Binding LicenceNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+  <ListView x:Name="licenceList" ItemsSource="{Binding Licences}" HasUnevenRows="True" SeparatorVisibility="Default">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.25*"/>
+              </Grid.RowDefinitions>
 
-                <Label BindingContext="{local:ProfileViewModel}" Text="{Binding LicenseVersionText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label Text="{Binding LicenceVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="1" YAlign="Center" XAlign="Center" />
+              <Label BindingContext="{local:ProfileViewModel}" Text="{Binding LicenseNumberText}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+              <Label Text="{Binding LicenceNumber}" x:Name="licenseNumber" Grid.Column="2" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
 
-                <Label BindingContext="{local:ProfileViewModel}" Text="{Binding EndorsementsText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                <Label Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-              </Grid>
-            </ViewCell.View>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </ScrollView>
+              <Label BindingContext="{local:ProfileViewModel}" Text="{Binding LicenseVersionText}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+              <Label Text="{Binding LicenceVersion}" x:Name="licenseVersion" Grid.Column="2" Grid.Row="1" YAlign="Center" XAlign="Center" />
+
+              <Label BindingContext="{local:ProfileViewModel}" Text="{Binding EndorsementsText}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+              <Label Text="{Binding Endorsements}" x:Name="endorsements" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            </Grid>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 </ContentPage>

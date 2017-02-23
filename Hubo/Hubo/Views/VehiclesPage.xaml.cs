@@ -39,9 +39,6 @@ namespace Hubo
             makeModel.Next = fleet;
 
             fleet.ReturnType = ReturnType.Done;
-
-            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
-            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 7));
         }
 
         private void CompanyPicker_SelectedIndexChanged(object sender, EventArgs e)

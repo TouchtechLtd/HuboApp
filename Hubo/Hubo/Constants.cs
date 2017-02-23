@@ -39,5 +39,7 @@ namespace Hubo
         public const string REST_URL_EXPORTDATA = "";
 
         public const string REST_URL_REGISTERUSER = "";
+
+        public const string REST_URL_GOOGLEAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
     }
 }

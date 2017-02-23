@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Hubo.Helpers;
+using Acr.UserDialogs;
 
 namespace Hubo
 {
@@ -20,7 +21,7 @@ namespace Hubo
             //Run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                //ScheduledTasks.CheckOfflineData();
+                ScheduledTasks.CheckOfflineData();
                 return true;
             });
         }

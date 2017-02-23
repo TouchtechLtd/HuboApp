@@ -19,5 +19,7 @@ namespace Hubo
         public double StartLong { get; set; }
         public double EndLat { get; set; }
         public double EndLong { get; set; }
+        public string StartLocation { get; set; }
+        public string EndLocation { get; set; }
     }
 }

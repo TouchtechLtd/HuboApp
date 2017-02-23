@@ -24,28 +24,15 @@
     <Label Text="{Binding DateText}" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1" />
     <DatePicker Date="{Binding Date}" x:Name="datePicker" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="Center"/>
     
-    <!--<Label Text="{Binding Vehicle}" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
-    <Picker x:Name="vehiclePicker" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" VerticalOptions="Center"/>-->
-    
     <Label Text="{Binding StartShiftText}" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1"/>
     <TimePicker Time="{Binding StartShift}" Grid.Row="1" Grid.Column="2" VerticalOptions="Center"/>
     <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="1" Grid.Column="3"/>
     <TimePicker Time="{Binding EndShift}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center"/>
 
-    <!--<Label Text="{Binding DriveText}" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1"/>
-    <TimePicker Time="{Binding DriveStart}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center"/>
-    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="3" Grid.Column="3"/>
-    <TimePicker Time="{Binding DriveEnd}" Grid.Row="3" Grid.Column="4" VerticalOptions="Center"/>-->
-
     <Label Text="{Binding LocationText}" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1"/>
     <local:BaseEntry Text="{Binding LocationStartData}" x:Name="startLocation" Grid.Row="2" Grid.Column="2" VerticalOptions="Center"/>
     <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="2" Grid.Column="3"/>
     <local:BaseEntry Text="{Binding LocationEndData}" Grid.Row="2"  x:Name="endLocation" Grid.Column="4" VerticalOptions="Center"/>
-
-    <!--<Label Text="{Binding HuboText}" VerticalTextAlignment="Center" Grid.Row="5" Grid.Column="1"/>
-    <local:BaseEntry Text="{Binding HuboStartData}" x:Name="startHubo" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" Keyboard="Numeric"/>
-    <Label Text="{Binding DashIcon}" VerticalTextAlignment="Center" XAlign="Center" Grid.Row="5" Grid.Column="3"/>
-    <local:BaseEntry Text="{Binding HuboEndData}" Grid.Row="5"  x:Name="endHubo" Grid.Column="4" VerticalOptions="Center" Keyboard="Numeric"/>-->
     
     <Button Text="{Binding AddText}" Command="{Binding AddButton}" x:Name="addButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}" />
     <Button Text="{Binding SaveText}" Command="{Binding SaveButton}" x:Name="saveButton" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}"/>

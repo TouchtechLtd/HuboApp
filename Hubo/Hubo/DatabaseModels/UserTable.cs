@@ -4,7 +4,8 @@ namespace Hubo
 {
     public class UserTable
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
+        public int Key { get; set; }
         public int Id { get; set; }
 
         public string UserName { get; set; }

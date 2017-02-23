@@ -23,7 +23,7 @@
       
       <DatePicker x:Name="picker" Format="D" Date="{Binding SelectedDate}" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" MaximumDate="{Binding MaximumDate}"/>
       
-      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4">
 
         <chart:SfChart.Legend>
           <chart:ChartLegend/>

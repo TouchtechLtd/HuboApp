@@ -19,5 +19,6 @@ namespace Hubo
         public int StartHubo { get; set; }
         public int EndHubo { get; set; }
         public int ServerId { get; set; }
+        public TimeSpan TimeSinceBreak { get; set; }
     }
 }

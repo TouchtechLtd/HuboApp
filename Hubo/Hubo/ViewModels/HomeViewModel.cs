@@ -1,4 +1,9 @@
-﻿using Syncfusion.SfGauge.XForms;
+﻿using Acr.UserDialogs;
+using Microsoft.ProjectOxford.Vision.Contract;
+using Plugin.Battery;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Syncfusion.SfGauge.XForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,9 +25,9 @@ namespace Hubo
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand ShiftButton { get; set; }
         public string ShiftText { get; set; }
-        public Color ShiftButtonColor { get; set; }
-        public Color BreakButtonColor { get; set; }
-        public Color VehicleTextColor { get; set; }
+        public Xamarin.Forms.Color ShiftButtonColor { get; set; }
+        public Xamarin.Forms.Color BreakButtonColor { get; set; }
+        public Xamarin.Forms.Color VehicleTextColor { get; set; }
         public double CompletedJourney { get; set; }
         public int RemainderOfJourney { get; set; }
         public int Break { get; set; }
@@ -52,6 +57,8 @@ namespace Hubo
             }
         }
 
+        public FileImageSource ShiftImage { get; set; }
+
         public ICommand StartBreakCommand { get; set; }
 
         //public ICommand EndShiftCommand { get; set; }
@@ -59,24 +66,7 @@ namespace Hubo
         //public ICommand AddNoteCommand { get; set; }
         public bool OnBreak { get; set; }
 
-        public Color MinorTickColor { get; set; }
-        public string UseOrStopVehicleText { get; set; }
-
         DatabaseService DbService = new DatabaseService();
-
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get
-            {
-                return _isBusy;
-            }
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged("IsBusy");
-            }
-        }
 
         private bool _driveShiftRunning;
         public bool DriveShiftRunning
@@ -129,16 +119,18 @@ namespace Hubo
             if (DbService.VehicleActive())
             {
                 VehicleText = Resource.StopDriving;
+                DriveShiftRunning = true;
+                GeoCollection();
             }
             else
             {
                 VehicleText = Resource.StartDriving;
+                DriveShiftRunning = false;
             }
 
             AddNoteText = Resource.AddNote;
-            StartBreakCommand = new Command(StartBreak);
-            VehicleCommand = new Command(Vehicle);
-            //AddNoteCommand = new Command(AddNote);
+            StartBreakCommand = new Command(ToggleBreak);
+            VehicleCommand = new Command(ToggleDrive);
             SetVehicleLabel();
             MessagingCenter.Subscribe<string>("UpdateActiveVehicle", "UpdateActiveVehicle", (sender) =>
             {
@@ -157,17 +149,6 @@ namespace Hubo
                 });
                 return true;
             });
-            IsBusy = false;
-
-            if (DbService.CheckActiveShift())
-            {
-                DriveShiftRunning = true;
-                GeoCollection();
-            }
-            else
-            {
-                DriveShiftRunning = false;
-            }
         }
 
         private void SetVehicleLabel()
@@ -189,7 +170,7 @@ namespace Hubo
                 }
                 VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
-                VehicleTextColor = Color.FromHex("#cc0000");
+                VehicleTextColor = Xamarin.Forms.Color.FromHex("#cc0000");
                 PickerEnabled = false;
                 VehicleInUse = true;
 
@@ -198,7 +179,7 @@ namespace Hubo
             {
                 VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
-                VehicleTextColor = Color.FromHex("#009900");
+                VehicleTextColor = Xamarin.Forms.Color.FromHex("#009900");
                 PickerEnabled = true;
                 VehicleInUse = false;
             }
@@ -228,107 +209,79 @@ namespace Hubo
             int onBreak = DbService.CheckOnBreak();
             if (onBreak == 1)
             {
-                BreakButtonColor = Color.FromHex("#cc0000");
+                BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
             }
             else if (onBreak == -1)
             {
-                BreakButtonColor = Color.FromHex("#009900");
+                BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
             }
         }
 
-        private void AddNote()
+        public async void ToggleDrive()
         {
-            Navigation.PushAsync(new AddNotePage(1));
-        }
-
-        private void Vehicle()
-        {
-            if (currentVehicle.Registration != null)
+            if (!DriveShiftRunning)
             {
-                Navigation.PushAsync(new AddNotePage(4, currentVehicle.Key, VehicleInUse));
-
-                SetVehicleLabel();
+                if (await DbService.SaveDrive(DateTime.Now))
+                {
+                    SetVehicleLabel();
+                    GeoCollection();
+                }
             }
             else
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "PLEASE SELECT A VEHICLE", Resource.DisplayAlertOkay);
+                if (await DbService.SaveDrive(DateTime.Now))
+                    SetVehicleLabel();
             }
         }
 
-        private void StartBreak()
+        private async void ToggleBreak()
         {
-
-
             if (OnBreak)
             {
-                MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
+                if (await DbService.StopBreak())
                 {
-                    //Add break was successful
-                    if (sender == "Success")
-                    {
-                        BreakButtonColor = Color.FromHex("#009900");
-                        StartBreakText = Resource.StartBreak;
-                        OnBreak = false;
-                        DriveShiftRunning = true;
-                        GeoCollection();
-                        OnPropertyChanged("BreakButtonColor");
-                        OnPropertyChanged("StartBreakText");
-                        OnPropertyChanged("OnBreak");
-                    }
-                    MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
-                });
-
-                Navigation.PushModalAsync(new AddNotePage(2));
+                    BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+                    StartBreakText = Resource.StartBreak;
+                    OnBreak = false;
+                    DriveShiftRunning = true;
+                    GeoCollection();
+                }
             }
             else
             {
                 //Implement ability to take note and hubo
-                MessagingCenter.Subscribe<string>("AddBreak", "AddBreak", (sender) =>
+                if (await DbService.StartBreak())
                 {
-                    //Add break was successful
-                    if (sender == "Success")
-                    {
-                        BreakButtonColor = Color.FromHex("#cc0000");
-                        StartBreakText = Resource.EndBreak;
-                        OnBreak = true;
-                        DriveShiftRunning = false;
-                        OnPropertyChanged("BreakButtonColor");
-                        OnPropertyChanged("StartBreakText");
-                        OnPropertyChanged("OnBreak");
-                    }
-                    MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
-                });
-
-                Navigation.PushModalAsync(new AddNotePage(3));
+                    BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
+                    StartBreakText = Resource.EndBreak;
+                    OnBreak = true;
+                    DriveShiftRunning = false;
+                }
             }
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
+            OnPropertyChanged("OnBreak");
+            OnPropertyChanged("DriveShiftRunning");
         }
 
         private async void ToggleShift()
         {
             if (!ShiftStarted)
             {
+                if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
+
+                if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
+
                 if (await StartShift())
                 {
-                    MessagingCenter.Subscribe<string>("ShiftStart", "ShiftStart", (sender) =>
-                    {
-                        if (sender == "Success")
-                        {
-                            IsBusy = false;
+                    if (await DbService.StartShift())
                             ShowEndShiftXAML();
-                        }
-                        MessagingCenter.Unsubscribe<string>("ShiftStart", "ShiftStart");
-                    });
-
-                    IsBusy = true;
-                    SetLoadingText();
-
-                    await Navigation.PushModalAsync(new AddNotePage(5));
                 }
             }
             else
@@ -337,73 +290,48 @@ namespace Hubo
                 {
                     if (!DbService.VehicleActive())
                     {
-                        MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (sender) =>
+                        if (await DbService.StopShift())
                         {
-                            if (sender == "Success")
-                            {
-                                await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                                IsBusy = false;
-                                ShowStartShiftXAML();
-                            }
-                            MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
-                        });
-
-                        IsBusy = true;
-                        SetLoadingText();
-
-                        await Navigation.PushModalAsync(new AddNotePage(6));
+                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                            ShowStartShiftXAML();
+                        }
+                        else
+                            await Application.Current.MainPage.DisplayAlert("ERROR", "There was a problem ending your shift", "Understood");
                     }
                     else
-                    {
-                        await Navigation.PushModalAsync(new VehicleChecklistPage(3, false));
-                        MessagingCenter.Subscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered", async (sender) =>
-                        {
-                            if (sender == "Success")
-                            {
-                                MessagingCenter.Subscribe<string>("ShiftEnd", "ShiftEnd", async (send) =>
-                                {
-                                    if (sender == "Success")
-                                    {
-                                        await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                                        IsBusy = false;
-                                        ShowStartShiftXAML();
-                                    }
-                                    MessagingCenter.Unsubscribe<string>("ShiftEnd", "ShiftEnd");
-                                });
-
-                                IsBusy = true;
-                                SetLoadingText();
-
-                                await Navigation.PushModalAsync(new AddNotePage(6));
-                            }
-                            MessagingCenter.Unsubscribe<string>("EndShiftRegoEntered", "EndShiftRegoEntered");
-                        });
-                    }
+                        await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
                 }
             }
-            OnPropertyChanged("StartShiftVisibility");
-            OnPropertyChanged("ShiftStarted");
-            OnPropertyChanged("ShiftText");
-            OnPropertyChanged("ShiftButtonColor");
         }
 
         private void ShowEndShiftXAML()
         {
             ShiftText = "End Shift";
-            ShiftButtonColor = Color.FromHex("#cc0000");
+            ShiftButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
-            DriveShiftRunning = true;
-            GeoCollection();
+            ShiftImage = "Stop.png";
+
+            OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftButtonColor");
+            OnPropertyChanged("StartShiftVisibility");
+            OnPropertyChanged("ShiftStarted");
+            OnPropertyChanged("ShiftImage");
         }
 
         private void ShowStartShiftXAML()
         {
             ShiftText = "Start Shift";
-            ShiftButtonColor = Color.FromHex("#009900");
+            ShiftButtonColor = Xamarin.Forms.Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
-            DriveShiftRunning = false;
+            ShiftImage = "Play.png";
+
+            OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftButtonColor");
+            OnPropertyChanged("StartShiftVisibility");
+            OnPropertyChanged("ShiftStarted");
+            OnPropertyChanged("ShiftImage");
         }
 
         private async Task<bool> StartShift()
@@ -425,15 +353,12 @@ namespace Hubo
 
         private void UpdateCircularGauge()
         {
-            if (DbService.CheckActiveShift())
+            if (DbService.VehicleActive())
             {
                 TotalBeforeBreak = DbService.TotalBeforeBreak();
 
                 CompletedJourney = TotalBeforeBreak;
                 TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
-
-                //if (this.CompletedJourney >= 13)
-                //    DependencyService.Get<INotifyService>().LocalNotification("Shift Limit Reached!", "You have reached the maximum allowed shift time for today.", DateTime.Now);
 
                 OnPropertyChanged("CompletedJourney");
                 OnPropertyChanged("TotalBeforeBreakText");
@@ -446,29 +371,6 @@ namespace Hubo
             listOfVehicles = new List<VehicleTable>();
             listOfVehicles = DbService.GetVehicles();
             return listOfVehicles;
-        }
-
-        private void SetLoadingText()
-        {
-            List<LoadTextTable> loadText = new List<LoadTextTable>();
-            loadText = DbService.GetLoadingText();
-
-            Random random = new Random();
-
-            int id = random.Next(1, loadText.Count);
-
-            LoadingText = loadText[id - 1].LoadText;
-
-            var sec = TimeSpan.FromSeconds(5);
-
-            Device.StartTimer(sec, () =>
-            {
-                id = random.Next(1, loadText.Count);
-
-                LoadingText = loadText[id - 1].LoadText;
-
-                return IsBusy;
-            });
         }
 
         private void GeoCollection()

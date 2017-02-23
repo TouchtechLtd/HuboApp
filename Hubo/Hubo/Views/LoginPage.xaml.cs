@@ -23,9 +23,6 @@ namespace Hubo
 
             password.ReturnType = ReturnType.Go;
             password.Completed += Password_Completed;
-
-            Device.OnPlatform(iOS: () => Grid.SetRow(activityLabel, 1));
-            Device.OnPlatform(iOS: () => Grid.SetRowSpan(activityLabel, 5));
         }
 
         private void Password_Completed(object sender, EventArgs e)

@@ -146,7 +146,7 @@ namespace Hubo
 
         private void Export()
         {
-            Navigation.PushAsync(new ExportPage());
+            Navigation.PushModalAsync(new ExportPage());
         }
     }
 }

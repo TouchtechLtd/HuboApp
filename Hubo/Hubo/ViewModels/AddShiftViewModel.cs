@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -85,45 +86,49 @@ namespace Hubo
             CreatedDrive = false;
         }
 
-        public void Save()
+        public async void Save()
         {
-            if (!CheckValidHuboEntry(HuboStartData))
-                return;
-            if (!CheckValidHuboEntry(HuboEndData))
-                return;
+            PromptConfig huboPrompt = new PromptConfig();
+            huboPrompt.IsCancellable = true;
+            huboPrompt.Title = "Shift Add Reason:";
+            huboPrompt.SetInputMode(InputType.Default);
+            PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
 
-            DateTime startShift = Date.Date + StartShift;
-            DateTime endShift = Date.Date + EndShift;
-
-            DateTime startDrive = Date.Date + DriveStart;
-            DateTime endDrive = Date.Date + DriveStart;
-
-            int result = DbService.SaveShift(startShift, endShift, listOfDrives);//, LocationStartData, LocationEndData);
-
-            if (result == -1)
+            if (promptResult.Ok && promptResult.Text != "")
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ShiftAddError, Resource.DisplayAlertOkay);
-                return;
-            }
+                DateTime startShift = Date.Date + StartShift;
+                DateTime endShift = Date.Date + EndShift;
 
-            if (listOfBreaks.Count != 0)
-            {
-                foreach (BreakTable breakItem in listOfBreaks)
+                DateTime startDrive = Date.Date + DriveStart;
+                DateTime endDrive = Date.Date + DriveStart;
+
+                int result = DbService.SaveShift(startShift, endShift, listOfDrives);//, LocationStartData, LocationEndData);
+
+                if (result == -1)
                 {
-                    DbService.SaveBreak(breakItem);
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ShiftAddError, Resource.DisplayAlertOkay);
+                    return;
                 }
-            }
-            else
-            {
-                if (listOfNotes.Count != 0)
+
+                if (listOfBreaks.Count != 0)
                 {
-                    foreach (NoteTable note in listOfNotes)
+                    foreach (BreakTable breakItem in listOfBreaks)
                     {
-                        DbService.SaveNote(note.Note, DateTime.Parse(note.Date));
+                        DbService.SaveBreak(breakItem);
                     }
                 }
+                else
+                {
+                    if (listOfNotes.Count != 0)
+                    {
+                        foreach (NoteTable note in listOfNotes)
+                        {
+                            DbService.SaveNote(note.Note, DateTime.Parse(note.Date));
+                        }
+                    }
+                }
+                await Navigation.PopModalAsync();
             }
-            Navigation.PopAsync();
         }
 
         private void AddBreakNote()

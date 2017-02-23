@@ -27,7 +27,7 @@ namespace Hubo
             startLocation.ReturnType = ReturnType.Next;
             startLocation.Next = endLocation;
 
-            endLocation.ReturnType = ReturnType.Next;
+            endLocation.ReturnType = ReturnType.Done;
             endLocation.Completed += EndLocation_Completed;
         }
 
