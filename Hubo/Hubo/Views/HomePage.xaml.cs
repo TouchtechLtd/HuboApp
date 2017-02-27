@@ -28,100 +28,87 @@ namespace Hubo
             BackgroundColor = Color.FromHex("#FCFFF5");
             Title = Resource.Hubo;
             UpdateList();
-            vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
+            //vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
 
-            Range rangeGreen = new Range();
-            rangeGreen.BindingContext = homeVM;
-            rangeGreen.StartValue = 0;
-            rangeGreen.EndValue = 14;
-            rangeGreen.Color = Color.FromHex("#009900");
-            rangeGreen.Thickness = 30;
-            Scale.Ranges.Add(rangeGreen);
+            //Range rangeGreen = new Range();
+            //rangeGreen.BindingContext = homeVM;
+            //rangeGreen.StartValue = 0;
+            //rangeGreen.EndValue = 14;
+            //rangeGreen.Color = Color.FromHex("");
+            //rangeGreen.Thickness = 30;
+            //Scale.Ranges.Add(rangeGreen);
 
-            Scale.Interval = 14;
-            Scale.RimThickness = 30;
-            Scale.StartAngle = 135;
-            Scale.SweepAngle = 270;
-            Scale.StartValue = 0;
-            Scale.EndValue = 14;
-            Scale.LabelColor = Color.Gray;
-            Scale.MinorTicksPerInterval = 13;
-            Scale.LabelOffset = -0.45;
-            Scale.LabelFontSize = 24;
+            //Scale.Interval = 14;
+            //Scale.RimThickness = 30;
+            //Scale.StartAngle = 135;
+            //Scale.SweepAngle = 270;
+            //Scale.StartValue = 0;
+            //Scale.EndValue = 14;
+            //Scale.LabelColor = Color.Gray;
+            //Scale.MinorTicksPerInterval = 13;
+            //Scale.LabelOffset = -0.45;
+            //Scale.LabelFontSize = 24;
 
-            TickSettings major = new TickSettings();
-            major.Length = 0;
-            major.Thickness = 3;
-            major.Color = Color.White;
-            major.Offset = 0;
-            Scale.MajorTickSettings = major;
+            //TickSettings major = new TickSettings();
+            //major.Length = 0;
+            //major.Thickness = 3;
+            //major.Color = Color.White;
+            //major.Offset = 0;
+            //Scale.MajorTickSettings = major;
 
-            List<Pointer> pointers = new List<Pointer>();
+            //List<Pointer> pointers = new List<Pointer>();
 
-            RangePointer blueRangepointer = new RangePointer();
-            blueRangepointer.BindingContext = homeVM;
-            blueRangepointer.Color = Color.FromHex("#0000cc");
-            blueRangepointer.Thickness = 60;
-            blueRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("CompletedJourney"));
-            blueRangepointer.EnableAnimation = true;
-            pointers.Add(blueRangepointer);
+            //RangePointer blueRangepointer = new RangePointer();
+            //blueRangepointer.BindingContext = homeVM;
+            //blueRangepointer.Color = Color.FromHex("");
+            //blueRangepointer.Thickness = 60;
+            //blueRangepointer.SetBinding(RangePointer.ValueProperty, new Binding("CompletedJourney"));
+            //blueRangepointer.EnableAnimation = true;
+            //pointers.Add(blueRangepointer);
 
-            Scale.Pointers = pointers;
+            //Scale.Pointers = pointers;
 
-            Scales.Add(Scale);
+            //Scales.Add(Scale);
 
-            circleGauge.Scales = Scales;
-            //driveButton.Clicked += DriveButton_Clicked;
+            //circleGauge.Scales = Scales;
         }
 
-        private void DriveButton_Clicked(object sender, EventArgs e)
-        {
-            if(!dbService.VehicleActive())
-            {
-                vehiclePicker.Focus();
-            }
-            else
-            {
-                homeVM.ToggleDrive();
-            }         
-        }
+        //private async void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (vehiclePicker.SelectedIndex != -1 || vehiclePicker.SelectedIndex != 1)
+        //    {
+        //        if (vehiclePicker.SelectedIndex == vehiclePicker.Items.Count - 1)
+        //        {
+        //            //Navigation.PushAsync(new AddVehiclePage());
+        //            PromptConfig regoPrompt = new PromptConfig();
+        //            regoPrompt.IsCancellable = true;
+        //            regoPrompt.Title = "Rego: ";
+        //            PromptResult promptResult = await UserDialogs.Instance.PromptAsync(regoPrompt);
+        //            vehiclePicker.SelectedIndex = -1;
+        //            if (promptResult.Ok)
+        //            {
+        //                homeVM.currentVehicle = vehicles[1];
+        //                homeVM.ToggleDrive();
+        //            }
 
-        private async void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (vehiclePicker.SelectedIndex != -1 || vehiclePicker.SelectedIndex != 1)
-            {
-                if (vehiclePicker.SelectedIndex == vehiclePicker.Items.Count - 1)
-                {
-                    //Navigation.PushAsync(new AddVehiclePage());
-                    PromptConfig regoPrompt = new PromptConfig();
-                    regoPrompt.IsCancellable = true;
-                    regoPrompt.Title = "Rego: ";
-                    PromptResult promptResult = await UserDialogs.Instance.PromptAsync(regoPrompt);
-                    vehiclePicker.SelectedIndex = -1;
-                    if (promptResult.Ok)
-                    {
-                        homeVM.currentVehicle = vehicles[1];
-                        homeVM.ToggleDrive();
-                    }
-
-                }
-                else if(vehiclePicker.SelectedIndex != 1)
-                {
-                    homeVM.currentVehicle = vehicles[vehiclePicker.SelectedIndex];
-                    homeVM.ToggleDrive();
-                }
-            }
-        }
+        //        }
+        //        else if(vehiclePicker.SelectedIndex != 1)
+        //        {
+        //            homeVM.currentVehicle = vehicles[vehiclePicker.SelectedIndex];
+        //            homeVM.ToggleDrive();
+        //        }
+        //    }
+        //}
 
         public void UpdateList()
         {
             vehicles = homeVM.GetVehicles();
-            vehiclePicker.Items.Clear();
-            foreach (VehicleTable vehicle in vehicles)
-            {
-                vehiclePicker.Items.Add(vehicle.Registration);
-            }
-            vehiclePicker.Items.Add("Add Vehicle...");
+            //vehiclePicker.Items.Clear();
+            //foreach (VehicleTable vehicle in vehicles)
+            //{
+            //    vehiclePicker.Items.Add(vehicle.Registration);
+            //}
+            //vehiclePicker.Items.Add("Add Vehicle...");
         }
     }
 }

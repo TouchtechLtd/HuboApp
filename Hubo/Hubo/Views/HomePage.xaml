@@ -3,24 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:Hubo;assembly=Hubo"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
+             xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
              x:Class="Hubo.HomePage">
   <Grid Padding="-7">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="4*" />
       <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="3*" />
       <RowDefinition Height="2*" />
       <RowDefinition Height="3*" />
-      <RowDefinition Height="1.5*" />
-      <RowDefinition Height="5*" />
-      <RowDefinition Height="2*" />
+      <RowDefinition Height="3*" />
     </Grid.RowDefinitions>
 
     <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
@@ -38,12 +41,31 @@
       </syncfusion:SfLinearGauge.Scales>
     </syncfusion:SfLinearGauge>
 
+    <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.95" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
+      <telerikGauges:RadRadialGauge.Axis>
+        <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="14" Step="1" StrokeThickness="1" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
+      </telerikGauges:RadRadialGauge.Axis>
+
+      <telerikGauges:RadRadialGauge.Indicators>
+        <telerikGauges:GaugeBarIndicator Value="{Binding CompletedJourney}" Fill="#0000cc" StartThickness="30" EndThickness="30" />
+        <telerikGauges:GaugeShapeIndicator Value="{Binding TotalBeforeBreak}" />
+      </telerikGauges:RadRadialGauge.Indicators>
+
+      <telerikGauges:RadRadialGauge.Ranges>
+        <telerikGauges:GaugeRangesDefinition StartThickness="30" EndThickness="30">
+          <telerikGauges:GaugeRange From="0" To="14" Color="#009900" />
+        </telerikGauges:GaugeRangesDefinition>
+      </telerikGauges:RadRadialGauge.Ranges>
+    </telerikGauges:RadRadialGauge>
+
     <!--<Picker x:Name="vehiclePicker"  IsEnabled="{Binding PickerEnabled}" Title="{Binding VehiclePickerText}" IsVisible="{Binding ShiftStarted}" SelectedIndex="{Binding VehicleRego}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalOptions="Center"/>-->
     <!--<Button Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Command="{Binding VehicleCommand}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>-->
-    <Button x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>
+    <Button x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" />
 
-    <syncfusion:SfCircularGauge  x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />
+    <Label Text="{Binding DriveTimes}" IsVisible="{Binding DriveShiftRunning}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="4" />
 
-    <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
+    <!--<syncfusion:SfCircularGauge  x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />-->
+
+    <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
   </Grid>
 </ContentPage>

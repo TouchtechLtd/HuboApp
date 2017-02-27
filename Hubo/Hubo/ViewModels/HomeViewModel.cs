@@ -33,7 +33,6 @@ namespace Hubo
         public int Break { get; set; }
         public double TotalBeforeBreak { get; set; }
         public string TotalBeforeBreakText { get; set; }
-        public int StartValue { get; set; }
         public bool StartShiftVisibility { get; set; }
         public bool ShiftStarted { get; set; }
         public string StartBreakText { get; set; }
@@ -45,17 +44,7 @@ namespace Hubo
         public bool VehicleInUse { get; set; }
         public string VehiclePickerText { get; set; }
         public bool PickerEnabled { get; set; }
-
-        private string _loadingText;
-        public string LoadingText
-        {
-            get { return _loadingText; }
-            set
-            {
-                _loadingText = value;
-                OnPropertyChanged("LoadingText");
-            }
-        }
+        public string DriveTimes { get; set; }
 
         public FileImageSource ShiftImage { get; set; }
 
@@ -94,61 +83,28 @@ namespace Hubo
             if (hoursTillReset == -1)
             {
                 HoursTillReset = Resource.NoShiftsDoneYet;
-                TotalBeforeBreak = DbService.TotalBeforeBreak();
+                //TotalBeforeBreak = DbService.TotalBeforeBreak();
             }
             else if (hoursTillReset == -2)
             {
                 HoursTillReset = Resource.FullyRested;
-                TotalBeforeBreak = 0;
+                //TotalBeforeBreak = 0;
             }
             else
             {
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
-                TotalBeforeBreak = DbService.TotalBeforeBreak();
+                //TotalBeforeBreak = DbService.TotalBeforeBreak();
             }
-
-
-            TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
 
             CheckActiveShift();
             CheckActiveBreak();
             ShiftButton = new Command(ToggleShift);
             EndShiftText = Resource.EndShift;
 
-            //Code to check if vehicle in use
-            if (DbService.VehicleActive())
-            {
-                VehicleText = Resource.StopDriving;
-                DriveShiftRunning = true;
-                GeoCollection();
-            }
-            else
-            {
-                VehicleText = Resource.StartDriving;
-                DriveShiftRunning = false;
-            }
-
             AddNoteText = Resource.AddNote;
             StartBreakCommand = new Command(ToggleBreak);
             VehicleCommand = new Command(ToggleDrive);
             SetVehicleLabel();
-            MessagingCenter.Subscribe<string>("UpdateActiveVehicle", "UpdateActiveVehicle", (sender) =>
-            {
-                SetVehicleLabel();
-            });
-
-            UpdateCircularGauge();
-
-            var minutes = TimeSpan.FromMinutes(10);
-
-            Device.StartTimer(minutes, () =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    UpdateCircularGauge();
-                });
-                return true;
-            });
         }
 
         private void SetVehicleLabel()
@@ -168,22 +124,28 @@ namespace Hubo
                     }
                     count++;
                 }
+
+                DriveTimes = DbService.GetDriveTimes();
                 VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
-                VehicleTextColor = Xamarin.Forms.Color.FromHex("#cc0000");
-                PickerEnabled = false;
+                VehicleTextColor = Xamarin.Forms.Color.FromHex("#F9D029");
                 VehicleInUse = true;
+                DriveShiftRunning = true;
 
+                UpdateCircularGauge();
+                GeoCollection();
             }
             else
             {
                 VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
                 VehicleTextColor = Xamarin.Forms.Color.FromHex("#009900");
-                PickerEnabled = true;
                 VehicleInUse = false;
+                DriveShiftRunning = false;
             }
 
+            OnPropertyChanged("DriveTimes");
+            OnPropertyChanged("DriveShiftRunning");
             OnPropertyChanged("VehicleRego");
             OnPropertyChanged("PickerEnabled");
             OnPropertyChanged("VehicleText");
@@ -207,13 +169,13 @@ namespace Hubo
         private void CheckActiveBreak()
         {
             int onBreak = DbService.CheckOnBreak();
-            if (onBreak == 1)
+            if (onBreak == -1)
             {
                 BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
             }
-            else if (onBreak == -1)
+            else if (onBreak == 1)
             {
                 BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
@@ -229,6 +191,7 @@ namespace Hubo
                 {
                     SetVehicleLabel();
                     GeoCollection();
+                    UpdateCircularGauge();
                 }
             }
             else
@@ -249,17 +212,23 @@ namespace Hubo
                     OnBreak = false;
                     DriveShiftRunning = true;
                     GeoCollection();
+                    UpdateCircularGauge();
                 }
             }
             else
             {
-                //Implement ability to take note and hubo
-                if (await DbService.StartBreak())
+                var result = await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Are you sure you want to go on a break?", "Yes", "No");
+
+                if (result)
                 {
-                    BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
-                    StartBreakText = Resource.EndBreak;
-                    OnBreak = true;
-                    DriveShiftRunning = false;
+                    //Implement ability to take note and hubo
+                    if (await DbService.StartBreak())
+                    {
+                        BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
+                        StartBreakText = Resource.EndBreak;
+                        OnBreak = true;
+                        DriveShiftRunning = false;
+                    }
                 }
             }
             OnPropertyChanged("BreakButtonColor");
@@ -281,14 +250,14 @@ namespace Hubo
                 if (await StartShift())
                 {
                     if (await DbService.StartShift())
-                            ShowEndShiftXAML();
+                        ShowEndShiftXAML();
                 }
             }
             else
             {
-                if (DbService.CheckOnBreak() == 1)
+                if (!DbService.VehicleActive())
                 {
-                    if (!DbService.VehicleActive())
+                    if (DbService.CheckOnBreak() == 1)
                     {
                         if (await DbService.StopShift())
                         {
@@ -299,8 +268,10 @@ namespace Hubo
                             await Application.Current.MainPage.DisplayAlert("ERROR", "There was a problem ending your shift", "Understood");
                     }
                     else
-                        await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
+                        await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your break before ending your work shift", "Gotcha");
                 }
+                else
+                    await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
             }
         }
 
@@ -353,17 +324,39 @@ namespace Hubo
 
         private void UpdateCircularGauge()
         {
-            if (DbService.VehicleActive())
+            CompletedJourney = DbService.TotalSinceStart();
+
+            if (CompletedJourney == -1)
             {
-                TotalBeforeBreak = DbService.TotalBeforeBreak();
-
-                CompletedJourney = TotalBeforeBreak;
-                TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
-
-                OnPropertyChanged("CompletedJourney");
-                OnPropertyChanged("TotalBeforeBreakText");
+                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "More Than One Active Shift!", Resource.DisplayAlertOkay);
+                return;
             }
 
+            TotalBeforeBreak = DbService.NextBreak();
+            //TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
+
+            OnPropertyChanged("CompletedJourney");
+            OnPropertyChanged("TotalBeforeBreak");
+            OnPropertyChanged("TotalBeforeBreakText");
+
+            Device.StartTimer(TimeSpan.FromMinutes(5), () =>
+            {
+                TotalBeforeBreak = DbService.TotalSinceStart();
+
+                if (TotalBeforeBreak == -1)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "More Than One Active Shift!", Resource.DisplayAlertOkay);
+                }
+                else
+                {
+                    CompletedJourney = TotalBeforeBreak;
+                    TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
+
+                    OnPropertyChanged("CompletedJourney");
+                    OnPropertyChanged("TotalBeforeBreakText");
+                }
+                return DriveShiftRunning;
+            });
         }
 
         public List<VehicleTable> GetVehicles()
