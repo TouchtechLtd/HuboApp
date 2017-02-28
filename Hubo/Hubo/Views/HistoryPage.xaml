@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.HistoryPage">
   <ContentView>
@@ -23,7 +24,7 @@
       
       <DatePicker x:Name="picker" Format="D" Date="{Binding SelectedDate}" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" MaximumDate="{Binding MaximumDate}"/>
       
-      <chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4">
+      <!--<chart:SfChart x:Name="chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4">
 
         <chart:SfChart.Legend>
           <chart:ChartLegend/>
@@ -49,7 +50,34 @@
           <chart:StackingBarSeries Label="Hours Worked" ItemsSource ="{Binding HistoryChartData}" XBindingPath="Year" YBindingPath="Value" ListenPropertyChange="True" EnableAnimation="true" AnimationDuration="1"/>
           <chart:StackingBarSeries Label="Hours Off" ItemsSource ="{Binding HistoryChartData1}" XBindingPath="Year" YBindingPath="Value" ListenPropertyChange="True" EnableAnimation="true" AnimationDuration="1"/>
         </chart:SfChart.Series>
-      </chart:SfChart>
+      </chart:SfChart>-->
+
+      <StackLayout HorizontalOptions="Center" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Orientation="Horizontal">
+        <BoxView Color="Green" WidthRequest="45" HeightRequest="5" />
+        <Label Text="Hours Worked" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+        <BoxView Color="Blue" WidthRequest="45" HeightRequest="5" />
+        <Label Text="Hours Off" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+      </StackLayout>
+
+      <telerikChart:RadCartesianChart x:Name="chart" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <telerikChart:RadCartesianChart.HorizontalAxis>
+          <telerikChart:NumericalAxis Minimum="0" Maximum="24" />
+        </telerikChart:RadCartesianChart.HorizontalAxis>
+
+        <telerikChart:RadCartesianChart.VerticalAxis>
+          <telerikChart:CategoricalAxis />
+        </telerikChart:RadCartesianChart.VerticalAxis>
+
+        <telerikChart:RadCartesianChart.Behaviors>
+          <telerikChart:ChartSelectionBehavior DataPointSelectionMode="None" SeriesSelectionMode="Single" SelectionChanged="SelectionChangedHandler" />
+        </telerikChart:RadCartesianChart.Behaviors>
+
+        <telerikChart:RadCartesianChart.Series>
+          <telerikChart:BarSeries DisplayName="Hours Worked" ItemsSource="{Binding HistoryChartData}" ValueBinding="Value" CategoryBinding="Category" CombineMode="Stack"/>
+          <telerikChart:BarSeries DisplayName="Hours Off" ItemsSource="{Binding HistoryChartData1}" ValueBinding="Value" CategoryBinding="Category" CombineMode="Stack"/>
+        </telerikChart:RadCartesianChart.Series>
+      </telerikChart:RadCartesianChart>
+      
       <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
       <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" />
     </Grid>

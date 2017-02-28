@@ -2,6 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Telerik.XamarinForms.Chart;
+using Xamarin.Forms;
+
 namespace Hubo
 {
     using System.Threading.Tasks;
@@ -25,6 +34,33 @@ namespace Hubo
             picker.DateSelected += Picker_DateSelected;
 
             // LoadTip();
+
+            ChartPalette basePalette = new ChartPalette();
+            basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
+            basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
+
+            chart.Palette = basePalette;
+
+            ChartPalette selectedPalette = new ChartPalette();
+            selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
+            selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
+
+            chart.SelectionPalette = selectedPalette;
+        }
+
+        private void SelectionChangedHandler(object sender, EventArgs e)
+        {
+            var selectedSeries = (sender as ChartSelectionBehavior).SelectedSeries.FirstOrDefault();
+
+            var selectedDetail = selectedSeries.ItemsSource.Cast<CategoryData>();
+
+            List<CategoryData> selectedDetails = new List<CategoryData>(selectedDetail);
+
+            string date = selectedDetails[0].Category.ToString();
+
+            DateTime now = DateTime.Now;
+
+            DateTime selectedDate = DateTime.Parse(date + "/" + now.Year);
         }
 
         private void Picker_DateSelected(object sender, DateChangedEventArgs e)
