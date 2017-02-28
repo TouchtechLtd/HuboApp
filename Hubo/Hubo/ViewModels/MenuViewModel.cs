@@ -1,23 +1,25 @@
-﻿using Hubo.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿// <copyright file="MenuViewModel.cs" company="Trio Technology LTD">
+// Copyright (c) Trio Technology LTD. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class MenuViewModel
+    using System.Collections.Generic;
+    using Hubo.Helpers;
+
+    public class MenuViewModel
     {
-        public List<MenuItem> MenuPageList { get; set; }
-        public string Name { get; set; }
-        DatabaseService DbService = new DatabaseService();
+        private readonly DatabaseService dbService = new DatabaseService();
+
         public MenuViewModel()
         {
             MenuPageList = PopulateMenuItems();
-            Name = DbService.GetName();
+            Name = dbService.GetName();
         }
+
+        public List<MenuItem> MenuPageList { get; set; }
+
+        public string Name { get; set; }
 
         private List<MenuItem> PopulateMenuItems()
         {
@@ -54,7 +56,10 @@ namespace Hubo
             signOut.ImageSource = "Exit96.png";
 
             if (Settings.HamburgerSettings != true)
+            {
                 items.Add(home);
+            }
+
             items.Add(profile);
             items.Add(vehicles);
             items.Add(history);

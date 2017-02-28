@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="AddManBreakNotePage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using Xamarin.Forms;
+
     public partial class AddManBreakNotePage : ContentPage
     {
-        AddManBreakNoteViewModel addBreakNoteVM;
+        private readonly AddManBreakNoteViewModel addBreakNoteVM;
+
         public AddManBreakNotePage(string instuction)
         {
             InitializeComponent();
@@ -58,8 +59,7 @@ namespace Hubo
 
         private void UpdateVehicleItems()
         {
-            List<VehicleTable> vehiclePickerItems = new List<VehicleTable>();
-            vehiclePickerItems = addBreakNoteVM.GetVehicles();
+            List<VehicleTable> vehiclePickerItems = addBreakNoteVM.GetVehicles();
             if (vehiclePickerItems != null)
             {
                 foreach (VehicleTable vehicle in vehiclePickerItems)

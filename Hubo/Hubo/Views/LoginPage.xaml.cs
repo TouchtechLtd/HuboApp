@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿// <copyright file="LoginPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using Xamarin.Forms;
+
     public partial class LoginPage : ContentPage
     {
-        LoginViewModel loginVM = new LoginViewModel();
+        private readonly LoginViewModel loginVM = new LoginViewModel();
 
         public LoginPage()
         {

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="HistoryPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+
     public partial class HistoryPage : ContentPage
     {
-        DatabaseService DbService = new DatabaseService();
-        HistoryViewModel historyVM;
+        private readonly DatabaseService dbService = new DatabaseService();
+        private readonly HistoryViewModel historyVM;
 
         public HistoryPage()
         {
@@ -24,7 +23,8 @@ namespace Hubo
             BindingContext = historyVM;
             Title = Resource.HistoryText;
             picker.DateSelected += Picker_DateSelected;
-            //LoadTip();
+
+            // LoadTip();
         }
 
         private void Picker_DateSelected(object sender, DateChangedEventArgs e)
@@ -32,14 +32,14 @@ namespace Hubo
             historyVM.UpdateShift();
         }
 
-        public async void LoadTip()
+        private async Task LoadTip()
         {
-            if (DbService.ShowTip("HistoryViewModel"))
+            if (dbService.ShowTip("HistoryViewModel"))
             {
                 bool tipResult = await DisplayAlert(Resource.Tip, Resource.HistoryTip, Resource.GotIt, Resource.DontShowAgain);
                 if (!tipResult)
                 {
-                    DbService.HideTip("HistoryViewModel");
+                    dbService.HideTip("HistoryViewModel");
                 }
             }
         }

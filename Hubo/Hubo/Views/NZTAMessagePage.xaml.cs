@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="NZTAMessagePage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class NZTAMessagePage : ContentPage
     {
-        NZTAMessageViewModel nztaMessageVM;
+        private readonly NZTAMessageViewModel nztaMessageVM;
 
         public NZTAMessagePage(int instruction)
         {

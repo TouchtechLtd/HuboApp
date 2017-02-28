@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="SettingsPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class SettingsPage : ContentPage
     {
-        SettingsViewModel settingsVM = new SettingsViewModel();
+        private readonly SettingsViewModel settingsVM = new SettingsViewModel();
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -27,7 +26,6 @@ namespace Hubo
         protected override void OnDisappearing()
         {
             MessagingCenter.Send<string>("Reset_Settings", "Reset_Settings");
-
             base.OnDisappearing();
         }
     }

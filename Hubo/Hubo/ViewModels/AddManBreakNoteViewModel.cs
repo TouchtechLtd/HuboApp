@@ -56,7 +56,7 @@ namespace Hubo
         public string Vehicle { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
         public AddManBreakNoteViewModel(string instructionCommand)
         {
@@ -191,12 +191,12 @@ namespace Hubo
         private bool CheckValidHuboEntry(string huboValue)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if ((huboValue.Length == 0) || (huboValue.Length == 0))
+            if (huboValue.Length == 0)
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;
             }
-            if (!(regex.IsMatch(huboValue)) || !(regex.IsMatch(huboValue)))
+            if (!regex.IsMatch(huboValue))
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;

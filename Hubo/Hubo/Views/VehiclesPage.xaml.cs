@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using Xamarin.Forms;
+
     public partial class VehiclesPage : ContentPage
     {
-        VehiclesViewModel vehiclesVM = new VehiclesViewModel();
-        List<VehicleTable> vehicles = new List<VehicleTable>();
-        List<CompanyTable> companies = new List<CompanyTable>();
-
-
+        private readonly VehiclesViewModel vehiclesVM = new VehiclesViewModel();
+        private List<VehicleTable> vehicles = new List<VehicleTable>();
+        private List<CompanyTable> companies = new List<CompanyTable>();
 
         public VehiclesPage()
         {
@@ -39,6 +33,13 @@ namespace Hubo
             makeModel.Next = fleet;
 
             fleet.ReturnType = ReturnType.Done;
+        }
+
+        internal void AddToolBar()
+        {
+            ToolbarItem topLeftText = new ToolbarItem();
+            topLeftText.Text = "Vehicle";
+            ToolbarItems.Add(topLeftText);
         }
 
         private void CompanyPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,13 +84,6 @@ namespace Hubo
 
                 companyPicker.SelectedIndex = 0;
             }
-        }
-
-        internal void AddToolBar()
-        {
-            ToolbarItem topLeftText = new ToolbarItem();
-            topLeftText.Text = "Vehicle";
-            ToolbarItems.Add(topLeftText);
         }
     }
 }

@@ -34,14 +34,14 @@ namespace Hubo
         public string DashText { get; set; }
         public int SelectedDrive { get; set; }
 
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
         ShiftTable currentShift = new ShiftTable();
         List<DriveTable> driveList = new List<DriveTable>();
 
         public ObservableCollection<DriveTable> Drives { get; set; }
 
-        List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
+        readonly List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
 
         public EditShiftViewModel()
         {
@@ -89,7 +89,7 @@ namespace Hubo
 
         private void Save()
         {
-            if (!(currentShift.EndDate == "Current"))
+            if (currentShift.EndDate != "Current")
             {
 
                 DateTime oldEndShiftDate = DateTime.Parse(currentShift.EndDate).Date;
@@ -114,7 +114,7 @@ namespace Hubo
 
             if ((ShiftStartDatePicker != oldStartShiftDate) || (oldStartShiftTime != ShiftStartTimePicker))
             {
-                AmendmentTable newStartShift = new AmendmentTable(); ;
+                AmendmentTable newStartShift = new AmendmentTable();
                 newStartShift.Field = "StartTime";
                 newStartShift.ShiftId = currentShift.Key;
                 newStartShift.Table = "ShiftTable";
@@ -136,7 +136,7 @@ namespace Hubo
         internal void LoadInfoFromShift(ShiftTable shiftTable)
         {
             ShiftStartInfoVisible = true;
-            if (!(shiftTable.EndDate == "Current"))
+            if (shiftTable.EndDate != "Current")
             {
                 ShiftEndInfoVisible = true;
                 ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate).Date;

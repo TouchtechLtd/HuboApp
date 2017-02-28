@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="ExportPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+
     public partial class ExportPage : ContentPage
     {
-        ExportViewModel exportVM = new ExportViewModel();
+        private readonly ExportViewModel exportVM = new ExportViewModel();
+
         public ExportPage()
         {
             InitializeComponent();
             BindingContext = exportVM;
             emailEntry.Completed += EmailEntry_Completed;
             Title = Resource.Export;
-        }
-
-        private void EmailEntry_Completed(object sender, EventArgs e)
-        {
-            exportVM.Export();
         }
 
         protected override void OnAppearing()
@@ -37,6 +33,11 @@ namespace Hubo
         {
             MessagingCenter.Unsubscribe<string>("PopAfterExport", "PopAfterExport");
             base.OnDisappearing();
+        }
+
+        private async void EmailEntry_Completed(object sender, EventArgs e)
+        {
+            await exportVM.Export();
         }
     }
 }

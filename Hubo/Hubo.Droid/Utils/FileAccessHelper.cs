@@ -13,7 +13,7 @@ using System.IO;
 
 namespace Hubo.Droid
 {
-    public class FileAccessHelper
+    public static class FileAccessHelper
     {
         public static string GetLocalFilePath(string filename)
         {
@@ -34,7 +34,7 @@ namespace Hubo.Droid
                     using (var bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create)))
                     {
                         byte[] buffer = new byte[2048];
-                        int length = 0;
+                        int length;
                         while ((length = br.Read(buffer, 0, buffer.Length)) > 0)
                         {
                             bw.Write(buffer, 0, length);

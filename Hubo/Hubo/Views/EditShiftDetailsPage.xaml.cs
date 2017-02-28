@@ -25,8 +25,7 @@ namespace Hubo
             if (instruction == "Breaks")
             {
                 Title = Resource.BreaksText;
-                //List<BreakTable> listOfBreaks = new List<BreakTable>();
-                //listOfBreaks = editShiftDetailsVM.LoadBreaks();
+                //List<BreakTable> listOfBreaks = editShiftDetailsVM.LoadBreaks();
                 ////picker.Items.Add("2016-10-21 10:22 - 2016-10-21 14:32");
                 //foreach (BreakTable breakItem in listOfBreaks)
                 //{
@@ -45,8 +44,7 @@ namespace Hubo
             if (instruction == "Notes")
             {
                 Title = Resource.NotesText;
-                List<NoteTable> listOfNotes = new List<NoteTable>();
-                listOfNotes = editShiftDetailsVM.LoadNotes();
+                List<NoteTable> listOfNotes = editShiftDetailsVM.LoadNotes();
                 //picker.Items.Add("2016-10-21 12:22 - Hit a Possom");
                 foreach (NoteTable note in listOfNotes)
                 {

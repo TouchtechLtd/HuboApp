@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="ProfileCompanyPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class ProfileCompanyPage : ContentPage
     {
-        ProfileViewModel profileVM = new ProfileViewModel();
+        private readonly ProfileViewModel profileVM = new ProfileViewModel();
+
         public ProfileCompanyPage()
         {
             InitializeComponent();
@@ -22,6 +21,7 @@ namespace Hubo
                 {
                     return;
                 }
+
                 ((ListView)sender).SelectedItem = null;
             };
         }

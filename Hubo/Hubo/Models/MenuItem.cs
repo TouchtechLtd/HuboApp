@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class MenuItem
+    public class MenuItem
     {
         public string Title { get; set; }
         public string TargetType { get; set; }

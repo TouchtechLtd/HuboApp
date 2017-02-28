@@ -15,7 +15,7 @@ namespace Hubo
 {
     class HistoryViewModel : INotifyPropertyChanged
     {
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
         private ObservableCollection<ChartDataPoint> _historyChartData;
         private ObservableCollection<ChartDataPoint> _historyChartData1;
@@ -68,7 +68,7 @@ namespace Hubo
 
             foreach (ShiftTable shift in listOfShifts)
             {
-                if (!(shift.EndDate == null))
+                if (shift.EndDate != null)
                 {
                     DateTime start = DateTime.Parse(shift.StartDate);
                     DateTime end = DateTime.Parse(shift.EndDate);
@@ -103,13 +103,10 @@ namespace Hubo
 
                 foreach (ShiftTable shift in listOfShifts)
                 {
-                    if (!(shift.EndDate == null))
+                    if (shift.EndDate != null)
                     {
-                        DateTime start = new DateTime();
-                        DateTime end = new DateTime();
-
-                        start = DateTime.Parse(shift.StartDate);
-                        end = DateTime.Parse(shift.EndDate);
+                        DateTime start = DateTime.Parse(shift.StartDate);
+                        DateTime end = DateTime.Parse(shift.EndDate);
 
                         TimeSpan amountHoursWork = end - start;
                         int hoursWork = amountHoursWork.Hours;

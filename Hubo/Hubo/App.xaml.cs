@@ -29,15 +29,6 @@ namespace Hubo
         private void CheckLoggedInStatus()
         {
             MainPage = DbService.CheckLoggedIn() ? new NavigationPage(new NZTAMessagePage(1)) : new NavigationPage(new LandingPage());
-
-            //if (DbService.CheckLoggedIn())
-            //{
-            //    MainPage = new NavigationPage(new NZTAMessagePage(1));
-            //}
-            //else
-            //{
-            //    MainPage = new NavigationPage(new LandingPage());
-            //}
         }
 
         protected override void OnStart()
@@ -58,8 +49,6 @@ namespace Hubo
         {
             //Implement check for logged in status
             base.OnResume();
-
-            //CheckLoggedInStatus();
 
             if (DbService.CheckLoggedIn())
             {

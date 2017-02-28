@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+
     public partial class OthersPage : ContentPage
     {
-        OthersViewModel othersVM = new OthersViewModel();
+        private readonly OthersViewModel othersVM = new OthersViewModel();
 
         public OthersPage()
         {
@@ -22,18 +17,19 @@ namespace Hubo
             Icon = "Menu25.png";
             BindingContext = othersVM;
 
-            othersList.ItemSelected += (sender, e) =>
+            othersList.ItemSelected += async (sender, e) =>
             {
                 if (((ListView)sender).SelectedItem == null)
                 {
                     return;
                 }
+
                 ((ListView)sender).SelectedItem = null;
-                NavigateTo(e.SelectedItem as MenuItem);
+                await NavigateTo(e.SelectedItem as MenuItem);
             };
         }
 
-        async void NavigateTo(MenuItem menu)
+        private async Task NavigateTo(MenuItem menu)
         {
             if (menu.TargetType == "Profile")
             {
@@ -45,7 +41,6 @@ namespace Hubo
             }
             else if (menu.TargetType == "SignOut")
             {
-                //await DisplayAlert("Logout Error", "Unable to logout at this time", "OK");
                 bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
                 if (result)
                 {

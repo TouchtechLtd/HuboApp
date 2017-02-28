@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿// <copyright file="OthersViewModel.cs" company="Trio Technology LTD">
+// Copyright (c) Trio Technology LTD. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class OthersViewModel
+    using System.Collections.Generic;
+
+    public class OthersViewModel
     {
-        public List<MenuItem> OthersPageList { get; set; }
-        public string Name { get; set; }
-        DatabaseService DbService = new DatabaseService();
-        
+        private readonly DatabaseService dbService = new DatabaseService();
+
         public OthersViewModel()
         {
             OthersPageList = PopulateMenuItems();
-            Name = DbService.GetName();
+            Name = dbService.GetName();
         }
+
+        public List<MenuItem> OthersPageList { get; set; }
+
+        public string Name { get; set; }
 
         private List<MenuItem> PopulateMenuItems()
         {

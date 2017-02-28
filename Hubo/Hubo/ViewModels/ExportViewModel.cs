@@ -9,12 +9,13 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using CsvHelper;
 using PCLStorage;
+using XLabs;
 
 namespace Hubo
 {
     class ExportViewModel
     {
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
         public string ExportDisclaimerText { get; set; }
         public string EmailText { get; set; }
@@ -27,11 +28,11 @@ namespace Hubo
             ExportDisclaimerText = Resource.ExportDisclaimer;
             EmailText = Resource.Email;
             ExportText = Resource.Export;
-            ExportCommand = new Command(Export);
+            ExportCommand = new RelayCommand(async () => await Export());
             EmailEntry = "";
         }
 
-        public async void Export()
+        public async Task Export()
         {
             EmailEntry = EmailEntry.Trim();
             if(Regex.IsMatch(EmailEntry, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"))

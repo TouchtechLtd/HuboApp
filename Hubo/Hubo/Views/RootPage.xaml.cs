@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+
     public partial class RootPage : MasterDetailPage
     {
         public RootPage()
         {
             var menuPage = new MenuPage();
-            menuPage.CopyList.ItemSelected += (sender, e) =>
+            menuPage.CopyList.ItemSelected += async (sender, e) =>
             {
                 if (((ListView)sender).SelectedItem == null)
                 {
                     return;
                 }
+
                 ((ListView)sender).SelectedItem = null;
-                NavigateTo(e.SelectedItem as MenuItem);
+                await NavigateTo(e.SelectedItem as MenuItem);
             };
             Master = menuPage;
             Detail = new NavigationPage(new HomePage())
@@ -28,20 +24,20 @@ namespace Hubo
                 BarTextColor = Color.White
             };
             this.PropertyChanged += RootPage_PropertyChanged;
-            ToolbarItem Settings = new ToolbarItem();
-            Settings.Icon = "Settings96.png";
-            Settings.Text = "Settings";
-            Settings.Command = new Command(NavigateToSettingsPage);
-            ToolbarItems.Add(Settings);
+            ToolbarItem settings = new ToolbarItem();
+            settings.Icon = "Settings96.png";
+            settings.Text = "Settings";
+            settings.Command = new Command(NavigateToSettingsPage);
+            ToolbarItems.Add(settings);
 
             MessagingCenter.Subscribe<string>("Remove_Settings", "Remove_Settings", (sender) =>
             {
-                ToolbarItems.Remove(Settings);
+                ToolbarItems.Remove(settings);
             });
 
             MessagingCenter.Subscribe<string>("Reset_Settings", "Reset_Settings", (sender) =>
             {
-                ToolbarItems.Add(Settings);
+                ToolbarItems.Add(settings);
             });
         }
 
@@ -55,7 +51,7 @@ namespace Hubo
             IsGestureEnabled = true;
         }
 
-        async void NavigateTo(MenuItem menu)
+        private async Task NavigateTo(MenuItem menu)
         {
             if (menu.TargetType == "Home")
             {
@@ -87,6 +83,7 @@ namespace Hubo
                     Xamarin.Forms.Application.Current.MainPage = new NavigationPage(new LandingPage());
                 }
             }
+
             IsPresented = false;
             IsGestureEnabled = false;
         }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Hubo
+{
+    using Xamarin.Forms;
 
-using Xamarin.Forms;
-
-namespace Hubo
-{ 
     public partial class ProfileLicencePage : ContentPage
     {
-        ProfileViewModel profileVM = new ProfileViewModel();
+        private readonly ProfileViewModel profileVM = new ProfileViewModel();
+
         public ProfileLicencePage()
         {
             InitializeComponent();
@@ -21,6 +16,7 @@ namespace Hubo
                 {
                     return;
                 }
+
                 ((ListView)sender).SelectedItem = null;
             };
         }

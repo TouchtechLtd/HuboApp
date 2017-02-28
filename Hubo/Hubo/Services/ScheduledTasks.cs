@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    class ScheduledTasks
+    public static class ScheduledTasks
     {
         public static Boolean testTask()
         {

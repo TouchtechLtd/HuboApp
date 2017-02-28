@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="EditShiftPage.xaml.cs" company="Trio Technology LTD">
+// Copyright (c) Trio Technology LTD. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using Xamarin.Forms;
+
     public partial class EditShiftPage : ContentPage
     {
-        EditShiftViewModel editShiftVM = new EditShiftViewModel();
-        List<ShiftTable> listOfShifts = new List<ShiftTable>();
+        private readonly EditShiftViewModel editShiftVM = new EditShiftViewModel();
+        private readonly List<ShiftTable> listOfShifts = new List<ShiftTable>();
+
         public EditShiftPage(List<ShiftTable> shifts)
         {
             InitializeComponent();
@@ -36,11 +37,12 @@ namespace Hubo
 
             foreach (ShiftTable shift in listOfShifts)
             {
-                //Format and add shifts to picker
+                // Format and add shifts to picker
                 if (shift.EndDate == null)
                 {
                     shift.EndDate = "Current";
                 }
+
                 DateTime shiftStart = DateTime.Parse(shift.StartDate);
                 DateTime shiftEnd = DateTime.Parse(shift.EndDate);
 

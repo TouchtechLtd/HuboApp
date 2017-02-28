@@ -1,91 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿// <copyright file="ProfileViewModel.cs" company="Trio Technology LTD">
+// Copyright (c) Trio Technology LTD. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ProfileViewModel : INotifyPropertyChanged
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+    using XLabs;
+
+    public class ProfileViewModel : INotifyPropertyChanged
     {
-        public ICommand SaveAndExit { get; set; }
-        public ICommand CancelAndExit { get; set; }
-        public INavigation Navigation { get; set; }
+        private DatabaseService dbService = new DatabaseService();
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private RestService restService;
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string Phone { get; set; }
-        public string FirstNameText { get; set; }
-        public string LastNameText { get; set; }
-        public string EmailText { get; set; }
-        public string PasswordText { get; set; }
-        public string LicenseNumberText { get; set; }
-        public string LicenseVersionText { get; set; }
-        public string EndorsementsText { get; set; }
-        public string CompanyNameText { get; set; }
-        public string AddressText { get; set; }
-        public string CompanyEmailText { get; set; }
-        public string PhoneText { get; set; }
-        public string UserName { get; set; }
-        public string PostCode { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string SuburbText { get; set; }
-        public string CityText { get; set; }
-        public string CountryText { get; set; }
-        public string UserNameText { get; set; }
-        public string PostCodeText { get; set; }
-
-        public List<CompanyTable> Companies { get; set; }
-        public List<LicenceTable> Licences { get; set; }
-
-        DatabaseService dbService = new DatabaseService();
-
-        RestService restService;
-
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get
-            {
-                return _isBusy;
-            }
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged("IsBusy");
-            }
-        }
-        private string _loadingText;
-        public string LoadingText
-        {
-            get
-            {
-                return _loadingText;
-            }
-
-            set
-            {
-                _loadingText = value;
-                OnPropertyChanged("LoadingText");
-            }
-        }
-
-        UserTable user = new UserTable();
+        private UserTable user = new UserTable();
 
         public ProfileViewModel()
         {
-            SaveAndExit = new Command(SaveAndPop);
-            CancelAndExit = new Command(CancelAndPop);
+            SaveAndExit = new RelayCommand(async () => await SaveAndPop());
+            CancelAndExit = new RelayCommand(async () => await CancelAndPop());
 
             UserNameText = Resource.UserName;
             FirstNameText = Resource.FirstName;
@@ -107,6 +44,81 @@ namespace Hubo
             GetUserInfo();
             Companies = dbService.GetCompanyInfo(user.DriverId);
             Licences = dbService.GetLicenceInfo(user.DriverId);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand SaveAndExit { get; set; }
+
+        public ICommand CancelAndExit { get; set; }
+
+        public INavigation Navigation { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        public string Address3 { get; set; }
+
+        public string Phone { get; set; }
+
+        public string FirstNameText { get; set; }
+
+        public string LastNameText { get; set; }
+
+        public string EmailText { get; set; }
+
+        public string PasswordText { get; set; }
+
+        public string LicenseNumberText { get; set; }
+
+        public string LicenseVersionText { get; set; }
+
+        public string EndorsementsText { get; set; }
+
+        public string CompanyNameText { get; set; }
+
+        public string AddressText { get; set; }
+
+        public string CompanyEmailText { get; set; }
+
+        public string PhoneText { get; set; }
+
+        public string UserName { get; set; }
+
+        public string PostCode { get; set; }
+
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
+        public string SuburbText { get; set; }
+
+        public string CityText { get; set; }
+
+        public string CountryText { get; set; }
+
+        public string UserNameText { get; set; }
+
+        public string PostCodeText { get; set; }
+
+        public List<CompanyTable> Companies { get; set; }
+
+        public List<LicenceTable> Licences { get; set; }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (changed != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         private void GetUserInfo()
@@ -140,12 +152,7 @@ namespace Hubo
             OnPropertyChanged("Phone");
         }
 
-        private void CancelAndPop()
-        {
-            Navigation.PopModalAsync();
-        }
-
-        private async void SaveAndPop()
+        private async Task SaveAndPop()
         {
             UserTable userChanges = new UserTable();
 
@@ -157,60 +164,24 @@ namespace Hubo
             userChanges.Email = Email.Trim();
             userChanges.Address1 = Address1.Trim();
             if (Address2 != null)
+            {
                 userChanges.Address2 = Address2.Trim();
+            }
+
             if (Address3 != null)
+            {
                 userChanges.Address3 = Address3.Trim();
+            }
+
             userChanges.PostCode = PostCode.Trim();
             userChanges.City = City.Trim();
             userChanges.Country = Country.Trim();
             userChanges.Phone = int.Parse(Phone.Trim());
-
-            if (userChanges != user)
-            {
-                restService = new RestService();
-                IsBusy = true;
-                if (await restService.QueryUpdateProfile(userChanges))
-                {
-                    IsBusy = false;
-                    await Navigation.PopModalAsync();
-                }
-                else
-                {
-                    IsBusy = false;
-                }
-            }
         }
 
-        private void SetLoadingText()
+        private async Task CancelAndPop()
         {
-            List<LoadTextTable> loadText = new List<LoadTextTable>();
-            loadText = dbService.GetLoadingText();
-
-            Random random = new Random();
-
-            int id = random.Next(1, loadText.Count);
-
-            LoadingText = loadText[id - 1].LoadText;
-
-            var sec = TimeSpan.FromSeconds(5);
-
-            Device.StartTimer(sec, () =>
-            {
-                id = random.Next(1, loadText.Count);
-
-                LoadingText = loadText[id - 1].LoadText;
-
-                return IsBusy;
-            });
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var changed = PropertyChanged;
-            if (changed != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            await Navigation.PopModalAsync();
         }
     }
 }

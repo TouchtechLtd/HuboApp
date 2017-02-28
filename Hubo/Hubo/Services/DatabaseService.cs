@@ -52,9 +52,7 @@ namespace Hubo
 
         internal List<LoadTextTable> GetLoadingText()
         {
-            List<LoadTextTable> loadList = new List<LoadTextTable>();
-            loadList = db.Query<LoadTextTable>("SELECT * FROM [LoadTextTable]");
-
+            List<LoadTextTable> loadList = db.Query<LoadTextTable>("SELECT * FROM [LoadTextTable]");
             return loadList;
         }
 
@@ -65,8 +63,7 @@ namespace Hubo
 
         internal string GetName()
         {
-            List<UserTable> listUser = new List<UserTable>();
-            listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            List<UserTable> listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
             if ((listUser.Count == 0) || (listUser.Count > 1))
             {
                 return "ERROR";
@@ -76,15 +73,13 @@ namespace Hubo
 
         internal List<VehicleTable> LoadVehicle()
         {
-            List<VehicleTable> vehicleDetails = new List<VehicleTable>();
-            vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
+            List<VehicleTable> vehicleDetails = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
             return vehicleDetails;
         }
 
         internal void HideTip(string tipName)
         {
-            List<TipTable> listOfTips = new List<TipTable>();
-            listOfTips = db.Query<TipTable>("SELECT * FROM [TipTable] WHERE [TipName] == '" + tipName + "'");
+            List<TipTable> listOfTips = db.Query<TipTable>("SELECT * FROM [TipTable] WHERE [TipName] == '" + tipName + "'");
             TipTable tip = listOfTips[0];
             tip.ActiveTip = 0;
             db.Update(tip);
@@ -92,8 +87,7 @@ namespace Hubo
 
         internal bool ShowTip(string tipName)
         {
-            List<TipTable> listOfTips = new List<TipTable>();
-            listOfTips = db.Query<TipTable>("SELECT * FROM [TipTable] WHERE [TipName] == '" + tipName + "'");
+            List<TipTable> listOfTips = db.Query<TipTable>("SELECT * FROM [TipTable] WHERE [TipName] == '" + tipName + "'");
             if (listOfTips[0].ActiveTip == 1)
             {
                 return true;
@@ -267,20 +261,15 @@ namespace Hubo
 
         internal double TotalBeforeBreak()
         {
-            //TODO: Code to retrieve hours since last gap of 24 hours
             List<ShiftTable> listOfShiftsForAmount = new List<ShiftTable>();
             listOfShiftsForAmount = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY Key DESC LIMIT 20");
             double totalHours = 0;
             for (int i = 1; i < listOfShiftsForAmount.Count; i++)
             {
-                DateTime previous = new DateTime();
-                DateTime current = new DateTime();
+                DateTime previous = DateTime.Parse(listOfShiftsForAmount[i - 1].StartDate);
+                DateTime current = DateTime.Parse(listOfShiftsForAmount[i].EndDate);
 
-                previous = DateTime.Parse(listOfShiftsForAmount[i - 1].StartDate);
-                current = DateTime.Parse(listOfShiftsForAmount[i].EndDate);
-
-                TimeSpan difference = new TimeSpan();
-                difference = previous - current;
+                TimeSpan difference = previous - current;
                 if (difference.TotalHours > 24)
                 {
                     if (listOfShiftsForAmount[i].EndDate == null)
@@ -295,7 +284,7 @@ namespace Hubo
                 }
                 else
                 {
-                    TimeSpan amountOfTime = new TimeSpan();
+                    TimeSpan amountOfTime;
                     if (listOfShiftsForAmount[i].EndDate == null)
                     {
                         amountOfTime = DateTime.Now - DateTime.Parse(listOfShiftsForAmount[i - 1].StartDate);
@@ -332,25 +321,21 @@ namespace Hubo
 
         internal int HoursTillReset()
         {
-            //TODO: Code to retrieve time since last shift (Once it hits 24 hours, 70 hour a week will reset
-            List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
+            List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM[ShiftTable] ORDER BY Key DESC LIMIT 2");
             if (listOfShifts.Count == 0)
             {
                 return -1;
             }
             ShiftTable lastShift = listOfShifts[0];
             DateTime dateNow = DateTime.Now;
-            DateTime dateOnLastShift = new DateTime();
 
             if (lastShift.EndDate == null)
             {
                 //Shift is still occuring, thus 0
                 return 0;
             }
-            dateOnLastShift = DateTime.Parse(lastShift.EndDate);
-            TimeSpan time = new TimeSpan();
-            time = dateNow - dateOnLastShift;
+            DateTime dateOnLastShift = DateTime.Parse(lastShift.EndDate);
+            TimeSpan time = dateNow - dateOnLastShift;
             if (time.TotalDays >= 1)
             {
                 //Have rested for longer/as long as 24 hours
@@ -431,7 +416,6 @@ namespace Hubo
 
         internal List<ShiftTable> GetShifts(DateTime selectedDate)
         {
-            List<ShiftTable> listOfShiftsToAdd = new List<ShiftTable>();
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
             List<DateTime> listOfDates = new List<DateTime>();
             DateTime fromDate = selectedDate.AddDays(-7);
@@ -444,7 +428,7 @@ namespace Hubo
 
             foreach (DateTime date in listOfDates)
             {
-                listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd") + "%'");
+                List<ShiftTable> listOfShiftsToAdd = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.Date.ToString("yyyy-MM-dd") + "%'");
                 if (listOfShiftsToAdd.Count != 0)
                 {
                     listOfShifts.AddRange(listOfShiftsToAdd);
@@ -454,7 +438,7 @@ namespace Hubo
             return listOfShifts;
         }
 
-        internal async void SaveNote(string note, DateTime date)
+        internal async Task SaveNote(string note, DateTime date)
         {
             NoteTable newNote = new NoteTable();
             newNote.Note = note;
@@ -620,8 +604,7 @@ namespace Hubo
                     return false;
                 }
 
-                DriveTable drive = new DriveTable();
-                drive = listOfVehiclesInUse[0];
+                DriveTable drive = listOfVehiclesInUse[0];
                 drive.ActiveVehicle = false;
                 drive.EndDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 drive.EndHubo = hubo;
@@ -790,12 +773,11 @@ namespace Hubo
             db.Insert(newDrive);
         }
 
-        internal async void CollectGeolocation(int driveKey)
+        internal async Task CollectGeolocation(int driveKey)
         {
             GeolocationTable geoInsert = new GeolocationTable();
-            Geolocation geolocation = new Geolocation();
 
-            geolocation = await GetLatAndLong();
+            Geolocation geolocation = await GetLatAndLong().ConfigureAwait(false);
 
             geoInsert.DriveKey = driveKey;
             geoInsert.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
@@ -807,17 +789,13 @@ namespace Hubo
 
         internal List<NoteTable> GetNotes()
         {
-            List<NoteTable> listOfNotes = new List<NoteTable>();
-            listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable]");
-
+            List<NoteTable> listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable]");
             return listOfNotes;
         }
 
         internal List<BreakTable> GetBreaks(DriveTable drive)
         {
-            List<BreakTable> listOfBreaks = new List<BreakTable>();
-            listOfBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [DriveKey] == " + drive.Key);
-
+            List<BreakTable> listOfBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [DriveKey] == " + drive.Key);
             return listOfBreaks;
         }
 
@@ -876,13 +854,10 @@ namespace Hubo
         internal VehicleTable GetCurrentVehicle()
         {
             //Retrieve currently used vehicle
-            List<DriveTable> currentVehicleInUseList = new List<DriveTable>();
-            currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
+            List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
             //Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = new List<VehicleTable>();
-            vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey + "");
-
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey + "");
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;
@@ -906,12 +881,11 @@ namespace Hubo
 
         internal async Task<bool> StopBreak()
         {
-            Geolocation geoCoords = new Geolocation();
-            string location = "";
+            string location;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
                 RestAPI = new RestService();
-                geoCoords = await GetLatAndLong();
+                Geolocation geoCoords = await GetLatAndLong().ConfigureAwait(false);
                 location = await RestAPI.GetLocation(geoCoords);
             }
 
@@ -1018,12 +992,11 @@ namespace Hubo
 
         internal async Task<bool> StartBreak()
         {
-            Geolocation geoCoords = new Geolocation();
-            string location = "";
+            string location;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
                 RestAPI = new RestService();
-                geoCoords = await GetLatAndLong();
+                Geolocation geoCoords = await GetLatAndLong().ConfigureAwait(false);
                 location = await RestAPI.GetLocation(geoCoords);
             }
 
@@ -1120,12 +1093,11 @@ namespace Hubo
         {
             RestAPI = new RestService();
 
-            Geolocation geoCoords = new Geolocation();
-            string location = "";
-
+            string location;
+            Geolocation geoCoords;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
-                geoCoords = await GetLatAndLong();
+                geoCoords = await GetLatAndLong().ConfigureAwait(false);
                 location = await RestAPI.GetLocation(geoCoords);
             }
 
@@ -1195,12 +1167,12 @@ namespace Hubo
         {
             RestAPI = new RestService();
 
-            Geolocation geoCoords = new Geolocation();
-            string location = "";
+            Geolocation geoCoords;
+            string location;
 
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
-                geoCoords = await GetLatAndLong();
+                geoCoords = await GetLatAndLong().ConfigureAwait(false);
                 location = await RestAPI.GetLocation(geoCoords);
             }
 
@@ -1358,11 +1330,9 @@ namespace Hubo
         internal List<ExportShift> GetExportShift()
         {
             ExportShift exportData = new ExportShift();
-
-            List<ShiftTable> shiftList = new List<ShiftTable>();
             List<ExportShift> exportList = new List<ExportShift>();
 
-            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
+            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
@@ -1385,15 +1355,13 @@ namespace Hubo
         {
             ExportBreak exportData = new ExportBreak();
 
-            List<BreakTable> breakList = new List<BreakTable>();
-            List<ShiftTable> shiftList = new List<ShiftTable>();
             List<ExportBreak> exportList = new List<ExportBreak>();
 
-            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
+            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
-                breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shiftData.Key);
+                List<BreakTable> breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shiftData.Key);
 
                 foreach (BreakTable breakData in breakList)
                 {
@@ -1421,16 +1389,12 @@ namespace Hubo
         internal List<ExportNote> GetExportNote()
         {
             ExportNote exportData = new ExportNote();
-
-            List<NoteTable> noteList = new List<NoteTable>();
-            List<ShiftTable> shiftList = new List<ShiftTable>();
             List<ExportNote> exportList = new List<ExportNote>();
-
-            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
+            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
-                noteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] = " + shiftData.Key);
+                List<NoteTable> noteList = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] = " + shiftData.Key);
 
                 foreach (NoteTable noteData in noteList)
                 {
@@ -1456,19 +1420,16 @@ namespace Hubo
         {
             ExportVehicle exportData = new ExportVehicle();
 
-            List<DriveTable> driveList = new List<DriveTable>();
-            List<VehicleTable> vehicleList = new List<VehicleTable>();
-            List<ShiftTable> shiftList = new List<ShiftTable>();
             List<ExportVehicle> exportList = new List<ExportVehicle>();
-            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
+            List<ShiftTable>  shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
-                driveList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + shiftData.Key);
+                List<DriveTable> driveList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + shiftData.Key);
 
                 foreach (DriveTable driveData in driveList)
                 {
-                    vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + driveData.VehicleKey);
+                    List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + driveData.VehicleKey);
                     foreach (VehicleTable vehicleData in vehicleList)
                     {
                         exportData.vehicleMakeModel = vehicleData.MakeModel;

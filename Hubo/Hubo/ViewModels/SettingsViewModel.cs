@@ -45,7 +45,7 @@ namespace Hubo
 
         }
 
-        public async void Restart()
+        public async Task Restart()
         {
             await Application.Current.MainPage.DisplayAlert("Layout Change", "For this setting to take affect a restart is required, the app will now close", "OK");
             var closer = DependencyService.Get<ICloseApplication>();

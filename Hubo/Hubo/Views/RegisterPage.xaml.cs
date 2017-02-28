@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hubo;
-using Xamarin.Forms;
+﻿// <copyright file="RegisterPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using Xamarin.Forms;
+
     public partial class RegisterPage : ContentPage
     {
-        RegisterViewModel registerVM = new RegisterViewModel();
+        private readonly RegisterViewModel registerVM = new RegisterViewModel();
 
         public RegisterPage()
         {
@@ -32,15 +31,9 @@ namespace Hubo
             password.Completed += Password_Completed;
         }
 
-        private void Password_Completed(object sender, EventArgs e)
+        private async void Password_Completed(object sender, EventArgs e)
         {
-            registerVM.ProceedToRegister();
-        }
-
-        protected override void OnDisappearing()
-        {
-
-            base.OnDisappearing();
+            await registerVM.ProceedToRegister();
         }
     }
 }

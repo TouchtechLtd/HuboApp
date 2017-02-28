@@ -1,54 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
-    class RegisterViewModel
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+    using XLabs;
+
+    public class RegisterViewModel
     {
-        public INavigation Navigation { get; set; }
-        public ICommand RegisterButton { get; set; }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string FirstNamePlaceholder { get; set; }
-        public string LastNamePlaceholder { get; set; }
-        public string EmailPlaceholder { get; set; }
-        public string PasswordPlaceholder { get; set; }
-        public string RegisterButtonText { get; set; }
-
         public RegisterViewModel()
         {
-            RegisterButton = new Command(ProceedToRegister);
+            RegisterButton = new RelayCommand(async () => await ProceedToRegister());
             RegisterButtonText = Resource.RegisterText;
             FirstNamePlaceholder = Resource.FirstName;
             LastNamePlaceholder = Resource.LastName;
             EmailPlaceholder = Resource.Email;
             PasswordPlaceholder = Resource.Password;
-            FirstName = "";
-            LastName = "";
-            Email = "";
-            Password = "";
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
         }
 
-        public async void ProceedToRegister()
+        public INavigation Navigation { get; set; }
+
+        public ICommand RegisterButton { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public string FirstNamePlaceholder { get; set; }
+
+        public string LastNamePlaceholder { get; set; }
+
+        public string EmailPlaceholder { get; set; }
+
+        public string PasswordPlaceholder { get; set; }
+
+        public string RegisterButtonText { get; set; }
+
+        public async Task ProceedToRegister()
         {
-            //TODO: Check if email is in legit style
             FirstName = FirstName.Trim();
             LastName = LastName.Trim();
             Email = Email.Trim();
             if ((FirstName.Length != 0) && (LastName.Length != 0) && (Email.Length != 0) && (Password.Length != 0))
             {
-                if((Regex.IsMatch(Email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$")))
+                if (Regex.IsMatch(Email, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"))
                 {
-                    //TODO: Code to send info to the webservice
                     RestService restAPI = new RestService();
 
                     UserTable user = new UserTable();
@@ -74,7 +78,6 @@ namespace Hubo
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
                 }
-                
             }
             else
             {

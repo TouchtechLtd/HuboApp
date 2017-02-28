@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hubo
 {
-    public class Constants
+    public static class Constants
     {
         public const string CONTENT_TYPE = "application/json";
 

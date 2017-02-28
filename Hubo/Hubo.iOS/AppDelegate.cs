@@ -35,29 +35,23 @@ namespace Hubo.iOS
             manager.Configure(Configuration.HockeyAppIdIOS);
             manager.StartManager();
 
-            //String that contains the path and loads to the preloaded database
-            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
-
             if (UIDevice.CurrentDevice.CheckSystemVersion(8,0))
             {
                 var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
                 UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
             }
 
-            if (options != null)
+            if (options != null && options.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
             {
-                if (options.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
+                var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
+                if (localNotification != null)
                 {
-                    var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
-                    if (localNotification != null)
-                    {
-                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
-                        okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default,  null));
+                    UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+                    okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default,  null));
 
-                        Window.RootViewController.PresentViewController(okayAlertController, true, null);
+                    Window.RootViewController.PresentViewController(okayAlertController, true, null);
 
-                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
-                    }
+                    UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
                 }
             }
 

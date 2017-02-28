@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class ProfilePage : TabbedPage
     {
 
-        ProfileViewModel profileVM = new ProfileViewModel();
+        private readonly ProfileViewModel profileVM = new ProfileViewModel();
 
         public ProfilePage()
         {
             InitializeComponent();
             profileVM.Navigation = Navigation;
             BindingContext = profileVM;
-            ToolbarItem Done = new ToolbarItem();
-            ToolbarItem Cancel = new ToolbarItem();
-            Done.Text = Resource.Save;
-            Cancel.Text = Resource.Cancel;
-            Done.Command = profileVM.SaveAndExit;
-            Cancel.Command = profileVM.CancelAndExit;
-            ToolbarItems.Add(Done);
-            ToolbarItems.Add(Cancel);
+            ToolbarItem done = new ToolbarItem();
+            ToolbarItem cancel = new ToolbarItem();
+            done.Text = Resource.Save;
+            cancel.Text = Resource.Cancel;
+            done.Command = profileVM.SaveAndExit;
+            cancel.Command = profileVM.CancelAndExit;
+            ToolbarItems.Add(done);
+            ToolbarItems.Add(cancel);
             Title = Resource.ProfileText;
         }
 

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XLabs;
 
 namespace Hubo
 {
@@ -50,12 +51,10 @@ namespace Hubo
 
         public ICommand StartBreakCommand { get; set; }
 
-        //public ICommand EndShiftCommand { get; set; }
         public ICommand VehicleCommand { get; set; }
-        //public ICommand AddNoteCommand { get; set; }
         public bool OnBreak { get; set; }
 
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
         private bool _driveShiftRunning;
         public bool DriveShiftRunning
@@ -98,12 +97,11 @@ namespace Hubo
 
             CheckActiveShift();
             CheckActiveBreak();
-            ShiftButton = new Command(ToggleShift);
+            ShiftButton = new RelayCommand(async () => await ToggleShift());
             EndShiftText = Resource.EndShift;
-
             AddNoteText = Resource.AddNote;
-            StartBreakCommand = new Command(ToggleBreak);
-            VehicleCommand = new Command(ToggleDrive);
+            StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
+            VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
         }
 
@@ -183,7 +181,7 @@ namespace Hubo
             }
         }
 
-        public async void ToggleDrive()
+        public async Task ToggleDrive()
         {
             if (!DriveShiftRunning)
             {
@@ -201,7 +199,7 @@ namespace Hubo
             }
         }
 
-        private async void ToggleBreak()
+        private async Task ToggleBreak()
         {
             if (OnBreak)
             {
@@ -237,7 +235,7 @@ namespace Hubo
             OnPropertyChanged("DriveShiftRunning");
         }
 
-        private async void ToggleShift()
+        private async Task ToggleShift()
         {
             if (!ShiftStarted)
             {
@@ -247,7 +245,7 @@ namespace Hubo
                 if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
 
-                if (await StartShift())
+                if (await StartShift().ConfigureAwait(false))
                 {
                     if (await DbService.StartShift())
                         ShowEndShiftXAML();
@@ -307,8 +305,7 @@ namespace Hubo
 
         private async Task<bool> StartShift()
         {
-            List<string> checklistQuestions = new List<string>();
-            checklistQuestions = DbService.GetChecklist();
+            List<string> checklistQuestions = DbService.GetChecklist();
             int count = 0;
             foreach (string question in checklistQuestions)
             {
@@ -366,13 +363,13 @@ namespace Hubo
             return listOfVehicles;
         }
 
-        private void GeoCollection()
+        private async Task GeoCollection()
         {
             var min = TimeSpan.FromMinutes(1);
 
             int driveKey = DbService.GetCurrentDriveShift().Key;
 
-            DbService.CollectGeolocation(driveKey);
+            await DbService.CollectGeolocation(driveKey);
 
             Device.StartTimer(min, () =>
             {

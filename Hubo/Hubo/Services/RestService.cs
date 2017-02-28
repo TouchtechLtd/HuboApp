@@ -17,8 +17,8 @@ namespace Hubo
 {
     class RestService
     {
-        HttpClient client;
-        DatabaseService db;
+        readonly HttpClient client;
+        readonly DatabaseService db;
         private readonly string _accessToken;
 
         public RestService()
@@ -50,8 +50,7 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                LoginUserResponse result = new LoginUserResponse();
-                result = JsonConvert.DeserializeObject<LoginUserResponse>(response.Content.ReadAsStringAsync().Result);
+                LoginUserResponse result = JsonConvert.DeserializeObject<LoginUserResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
                 {
@@ -86,7 +85,7 @@ namespace Hubo
             {
                 var googleGet = new HttpRequestMessage(HttpMethod.Get, Constants.REST_URL_GOOGLEAPI + "latlng=" + geoCoordinates.Latitude + "," + geoCoordinates.Longitude + "&key=" + Configuration.GoogleMapsApiKey);
                 var googleResponse = await client.SendAsync(googleGet);
-                string address = "";
+                string address;
 
                 if (googleResponse.IsSuccessStatusCode)
                 {
@@ -104,7 +103,6 @@ namespace Hubo
 
         public async Task<int> GetShifts(int id)
         {
-            string token = db.GetUserToken();
             string urlShift = GetBaseUrl() + Constants.REST_URL_GETSHIFTDETAILS;
             string urlDrive = GetBaseUrl() + Constants.REST_URL_GETDRIVEDETAILS;
             string urlBreak = GetBaseUrl() + Constants.REST_URL_GETBREAKDETAILS;
@@ -123,12 +121,9 @@ namespace Hubo
 
             if (shiftResponse.IsSuccessStatusCode)
             {
-                LoginShiftResponse shiftDetails = new LoginShiftResponse();
-                shiftDetails = JsonConvert.DeserializeObject<LoginShiftResponse>(shiftResponse.Content.ReadAsStringAsync().Result);
+                LoginShiftResponse shiftDetails = JsonConvert.DeserializeObject<LoginShiftResponse>(shiftResponse.Content.ReadAsStringAsync().Result);
 
                 ShiftTable shift = new ShiftTable();
-                NoteTable startNote = new NoteTable();
-                NoteTable endNote = new NoteTable();
 
                 foreach (ShiftResponseModel shiftItem in shiftDetails.Shifts)
                 {
@@ -153,8 +148,7 @@ namespace Hubo
 
                     if (noteResponse.IsSuccessStatusCode)
                     {
-                        LoginNoteResponse noteDetails = new LoginNoteResponse();
-                        noteDetails = JsonConvert.DeserializeObject<LoginNoteResponse>(noteResponse.Content.ReadAsStringAsync().Result);
+                        LoginNoteResponse noteDetails = JsonConvert.DeserializeObject<LoginNoteResponse>(noteResponse.Content.ReadAsStringAsync().Result);
 
                         NoteTable note = new NoteTable();
 
@@ -177,8 +171,7 @@ namespace Hubo
 
                     if (driveResponse.IsSuccessStatusCode)
                     {
-                        LoginDriveResponse driveDetails = new LoginDriveResponse();
-                        driveDetails = JsonConvert.DeserializeObject<LoginDriveResponse>(driveResponse.Content.ReadAsStringAsync().Result);
+                        LoginDriveResponse driveDetails = JsonConvert.DeserializeObject<LoginDriveResponse>(driveResponse.Content.ReadAsStringAsync().Result);
 
                         DriveTable drive = new DriveTable();
 
@@ -201,8 +194,7 @@ namespace Hubo
 
                             if (breakResponse.IsSuccessStatusCode)
                             {
-                                LoginBreakResponse breakDetails = new LoginBreakResponse();
-                                breakDetails = JsonConvert.DeserializeObject<LoginBreakResponse>(breakResponse.Content.ReadAsStringAsync().Result);
+                                LoginBreakResponse breakDetails = JsonConvert.DeserializeObject<LoginBreakResponse>(breakResponse.Content.ReadAsStringAsync().Result);
 
                                 BreakTable breakTable = new BreakTable();
 
@@ -241,7 +233,6 @@ namespace Hubo
 
         internal async Task<int> GetUser(UserTable user)
         {
-            string token = db.GetUserToken();
             string urlUser = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
             string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
             string urlVehicle = GetBaseUrl() + Constants.REST_URL_GETVEHICLEDETAILS;
@@ -251,17 +242,13 @@ namespace Hubo
 
             var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
             userGet.Headers.Add("UserId", user.Id.ToString());
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
 
             var userResponse = await client.SendAsync(userGet);
 
             if (userResponse.IsSuccessStatusCode)
             {
-                LoginUserDetailsResponse userDetails = new LoginUserDetailsResponse();
-                userDetails = JsonConvert.DeserializeObject<LoginUserDetailsResponse>(userResponse.Content.ReadAsStringAsync().Result);
-
-                CompanyTable userCompany = new CompanyTable();
-                VehicleTable userVehicles = new VehicleTable();
+                LoginUserDetailsResponse userDetails = JsonConvert.DeserializeObject<LoginUserDetailsResponse>(userResponse.Content.ReadAsStringAsync().Result);
 
                 user.Phone = userDetails.Result.DriverInfo.PhoneNumber;
                 user.LicenceNumber = userDetails.Result.DriverInfo.LicenceNumber;
@@ -291,8 +278,7 @@ namespace Hubo
 
                 if (companyResponse.IsSuccessStatusCode)
                 {
-                    LoginCompanyResponse companyDetails = new LoginCompanyResponse();
-                    companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
+                    LoginCompanyResponse companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
 
                     foreach (CompanyTable companyItem in companyDetails.Companies)
                     {
@@ -310,8 +296,7 @@ namespace Hubo
 
                 if (vehicleResponse.IsSuccessStatusCode)
                 {
-                    LoginVehicleResponse vehicleDetails = new LoginVehicleResponse();
-                    vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+                    LoginVehicleResponse vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
 
                     foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
                     {
@@ -361,7 +346,6 @@ namespace Hubo
 
         internal async Task<bool> QueryUpdateProfile(UserTable user)
         {
-            //TODO: Code to communicate with server to update user info
             string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
             string contentType = Constants.CONTENT_TYPE;
 
@@ -400,8 +384,7 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                QueryShiftResponse result = new QueryShiftResponse();
-                result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
+                QueryShiftResponse result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
                     return true;
@@ -688,29 +671,6 @@ namespace Hubo
             }
             else
                 return -2;
-        }
-
-        private async Task<Geolocation> GetLatAndLong()
-        {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
-
-            Geolocation results = new Geolocation();
-
-            try
-            {
-                var position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
-
-                results.Longitude = position.Longitude;
-                results.Latitude = position.Latitude;
-                return results;
-            }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, e.ToString(), Resource.DisplayAlertOkay);
-                results = null;
-                return results;
-            }
         }
 
         internal async Task<int> RegisterUser(UserTable newUser, string password)

@@ -7,7 +7,7 @@ using UIKit;
 
 namespace Hubo.iOS
 {
-    public class Application
+    public static class Application
     {
         // This is the main entry point of the application.
         static void Main(string[] args)

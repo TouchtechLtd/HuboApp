@@ -54,14 +54,11 @@ namespace Hubo
         public Grid DriveGrid { get; set; }
         public int NumDrives { get; set; }
 
-        DatabaseService DbService = new DatabaseService();
+        readonly DatabaseService DbService = new DatabaseService();
 
-        NoteTable AddNoteTable = new NoteTable();
-        BreakTable AddBreakTable = new BreakTable();
-
-        List<NoteTable> listOfNotes = new List<NoteTable>();
-        List<BreakTable> listOfBreaks = new List<BreakTable>();
-        List<DriveTable> listOfDrives = new List<DriveTable>();
+        readonly List<NoteTable> listOfNotes = new List<NoteTable>();
+        readonly List<BreakTable> listOfBreaks = new List<BreakTable>();
+        readonly List<DriveTable> listOfDrives = new List<DriveTable>();
 
         public AddShiftViewModel()
         {
@@ -99,10 +96,7 @@ namespace Hubo
                 DateTime startShift = Date.Date + StartShift;
                 DateTime endShift = Date.Date + EndShift;
 
-                DateTime startDrive = Date.Date + DriveStart;
-                DateTime endDrive = Date.Date + DriveStart;
-
-                int result = DbService.SaveShift(startShift, endShift, listOfDrives);//, LocationStartData, LocationEndData);
+                int result = DbService.SaveShift(startShift, endShift, listOfDrives);
 
                 if (result == -1)
                 {
@@ -464,12 +458,12 @@ namespace Hubo
         private bool CheckValidHuboEntry(string huboValue)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if ((huboValue.Length == 0) || (huboValue.Length == 0))
+            if (huboValue.Length == 0)
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;
             }
-            if (!(regex.IsMatch(huboValue)) || !(regex.IsMatch(huboValue)))
+            if (!(regex.IsMatch(huboValue)))
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;

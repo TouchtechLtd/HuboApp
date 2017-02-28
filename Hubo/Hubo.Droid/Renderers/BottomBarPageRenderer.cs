@@ -43,7 +43,6 @@ namespace Hubo.Droid
             SwitchContent(Element.Children[position]);
             var bottomBarPage = Element as BottomBarPage;
             bottomBarPage.CurrentPage = Element.Children[position];
-            //bottomBarPage.RaiseCurrentPageChanged();
         }
 
         public void OnTabReSelected(int position)
@@ -68,8 +67,6 @@ namespace Hubo.Droid
                         pageRenderer.ViewGroup.RemoveFromParent();
                         pageRenderer.Dispose();
                     }
-
-                    // pageToRemove.ClearValue (Platform.RendererProperty);
                 }
 
                 if (_bottomBar != null)
@@ -84,10 +81,6 @@ namespace Hubo.Droid
                     _frameLayout.Dispose();
                     _frameLayout = null;
                 }
-
-                /*if (Element != null) {
-					PageController.InternalChildren.CollectionChanged -= OnChildrenCollectionChanged;
-				}*/
             }
 
             base.Dispose(disposing);
@@ -223,10 +216,6 @@ namespace Hubo.Droid
 
                     IVisualElementRenderer renderer = Platform.GetRenderer(child);
                     var navigationRenderer = renderer as NavigationPageRenderer;
-                    if (navigationRenderer != null)
-                    {
-                        // navigationRenderer.ContainerPadding = tabsHeight;
-                    }
                 }
 
                 _bottomBar.Measure(MeasureSpecFactory.MakeMeasureSpec(width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(tabsHeight, MeasureSpecMode.Exactly));

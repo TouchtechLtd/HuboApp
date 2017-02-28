@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hubo;
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System;
+    using Xamarin.Forms;
+
     public partial class AddShiftPage : ContentPage
     {
-        AddShiftViewModel addShiftVM = new AddShiftViewModel();
+        private readonly AddShiftViewModel addShiftVM = new AddShiftViewModel();
 
         public AddShiftPage()
         {
@@ -39,7 +34,7 @@ namespace Hubo
         private async void AddButton_Clicked(object sender, EventArgs e)
         {
             string[] buttons = new string[] { Resource.Break, Resource.NoteText, Resource.DriveText };
-            
+
             var action = await DisplayActionSheet(Resource.AddBreakNote, Resource.Cancel, null, buttons);
 
             if (action != null && action != "Cancel")

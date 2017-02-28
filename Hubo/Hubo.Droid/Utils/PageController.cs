@@ -16,7 +16,7 @@ namespace Hubo.Droid
 {
     public class PageController : IPageController
     {
-        private ReflectedProxy<Page> _proxy;
+        private readonly ReflectedProxy<Page> _proxy;
 
         public static IPageController Create(Page page)
         {

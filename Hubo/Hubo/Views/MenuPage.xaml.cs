@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿// <copyright file="MenuPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class MenuPage : ContentPage
     {
-        public ListView CopyList { get; }
-
-        MenuViewModel menuVM = new MenuViewModel();
+        private readonly MenuViewModel menuVM = new MenuViewModel();
 
         public MenuPage()
         {
@@ -22,5 +18,7 @@ namespace Hubo
             BindingContext = menuVM;
             CopyList = MenuList;
         }
+
+        public ListView CopyList { get; }
     }
 }
