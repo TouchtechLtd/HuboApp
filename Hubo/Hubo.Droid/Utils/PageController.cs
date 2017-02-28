@@ -69,12 +69,12 @@ namespace Hubo.Droid
 
         public void SendAppearing()
         {
-            _proxy.Call();
+            // _proxy.Call();
         }
 
         public void SendDisappearing()
         {
-            _proxy.Call();
+            // _proxy.Call();
         }
     }
 }
