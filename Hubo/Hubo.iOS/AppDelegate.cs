@@ -6,6 +6,10 @@ using HockeyApp.iOS;
 using UIKit;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfGauge.XForms.iOS;
+using Telerik.XamarinForms.Common.iOS;
+using Xamarin.Forms;
+
+[assembly: ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer))]
 
 namespace Hubo.iOS
 {
@@ -29,6 +33,7 @@ namespace Hubo.iOS
             #endif
 
             global::Xamarin.Forms.Forms.Init();
+            TelerikForms.Init();
             new SfChartRenderer();
             new SfGaugeRenderer();
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;

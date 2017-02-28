@@ -13,14 +13,20 @@ using Xamarin.Forms;
 
 namespace Hubo
 {
+    public class CategoryData
+    {
+        public object Category { get; set; }
+        public double Value { get; set; }
+    }
+
     class HistoryViewModel : INotifyPropertyChanged
     {
         DatabaseService DbService = new DatabaseService();
 
-        private ObservableCollection<ChartDataPoint> _historyChartData;
-        private ObservableCollection<ChartDataPoint> _historyChartData1;
+        private ObservableCollection<CategoryData> _historyChartData;
+        private ObservableCollection<CategoryData> _historyChartData1;
 
-        public ObservableCollection<ChartDataPoint> HistoryChartData
+        public ObservableCollection<CategoryData> HistoryChartData
         {
             get { return _historyChartData; }
             set
@@ -30,7 +36,7 @@ namespace Hubo
             }
         }
 
-        public ObservableCollection<ChartDataPoint> HistoryChartData1
+        public ObservableCollection<CategoryData> HistoryChartData1
         {
             get { return _historyChartData1; }
             set
@@ -53,8 +59,8 @@ namespace Hubo
 
         public HistoryViewModel()
         {
-            HistoryChartData = new ObservableCollection<ChartDataPoint>();
-            HistoryChartData1 = new ObservableCollection<ChartDataPoint>();
+            HistoryChartData = new ObservableCollection<CategoryData>();
+            HistoryChartData1 = new ObservableCollection<CategoryData>();
             //And time spent at work
 
             EditShiftText = Resource.EditShift;
@@ -80,8 +86,8 @@ namespace Hubo
                     minsWork = minsWork / 100;
                     string datePoint = start.Day + "/" + start.Month;
 
-                    HistoryChartData.Add(new ChartDataPoint(datePoint, hoursWork + minsWork));
-                    HistoryChartData1.Add(new ChartDataPoint(datePoint, (24 - hoursWork) + (0.6 - minsWork)));
+                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = (hoursWork + minsWork) });
+                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = ((24 - hoursWork) + (0.6 - minsWork)) });
                 }
             }
             MaximumDate = DateTime.Now;
@@ -94,36 +100,35 @@ namespace Hubo
 
         public void UpdateShift()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            HistoryChartData = new ObservableCollection<CategoryData>();
+            HistoryChartData1 = new ObservableCollection<CategoryData>();
+
+            listOfShifts = DbService.GetShifts(SelectedDate);
+
+            foreach (ShiftTable shift in listOfShifts)
             {
-                HistoryChartData = new ObservableCollection<ChartDataPoint>();
-                HistoryChartData1 = new ObservableCollection<ChartDataPoint>();
-
-                listOfShifts = DbService.GetShifts(SelectedDate);
-
-                foreach (ShiftTable shift in listOfShifts)
+                if (!(shift.EndDate == null))
                 {
-                    if (!(shift.EndDate == null))
-                    {
-                        DateTime start = new DateTime();
-                        DateTime end = new DateTime();
+                    DateTime start = new DateTime();
+                    DateTime end = new DateTime();
 
-                        start = DateTime.Parse(shift.StartDate);
-                        end = DateTime.Parse(shift.EndDate);
+                    start = DateTime.Parse(shift.StartDate);
+                    end = DateTime.Parse(shift.EndDate);
 
-                        TimeSpan amountHoursWork = end - start;
-                        int hoursWork = amountHoursWork.Hours;
+                    TimeSpan amountHoursWork = end - start;
+                    int hoursWork = amountHoursWork.Hours;
 
-                        int minsWork = amountHoursWork.Minutes;
-                        minsWork = minsWork / 100;
-                        string datePoint = start.Day + "/" + start.Month;
+                    int minsWork = amountHoursWork.Minutes;
+                    minsWork = minsWork / 100;
+                    string datePoint = start.Day + "/" + start.Month;
 
-                        HistoryChartData.Add(new ChartDataPoint(datePoint, hoursWork + minsWork));
-                        HistoryChartData1.Add(new ChartDataPoint(datePoint, (24 - hoursWork) + (0.6 - minsWork)));
-                    }
+                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = (hoursWork + minsWork) });
+                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = ((24 - hoursWork) + (0.6 - minsWork)) });
                 }
+            }
 
-            });
+            OnPropertyChanged("HistoryChartData");
+            OnPropertyChanged("HistoryChartData1");
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

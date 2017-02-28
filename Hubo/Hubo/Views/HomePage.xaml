@@ -62,7 +62,7 @@
     <!--<Button Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" Command="{Binding VehicleCommand}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"/>-->
     <Button x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" />
 
-    <Label Text="{Binding DriveTimes}" IsVisible="{Binding DriveShiftRunning}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="4" />
+    <Label FontSize="16" Text="{Binding DriveTimes}" IsVisible="{Binding DriveShiftRunning}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="4" />
 
     <!--<syncfusion:SfCircularGauge  x:Name="circleGauge" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" />-->
 

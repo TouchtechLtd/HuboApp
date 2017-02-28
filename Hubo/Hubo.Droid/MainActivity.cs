@@ -15,6 +15,8 @@ using Plugin.Permissions;
 using Acr.UserDialogs;
 using Xamarin.Forms;
 
+[assembly: ExportRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(Telerik.XamarinForms.ChartRenderer.Android.CartesianChartRenderer))]
+
 namespace Hubo.Droid
 {
     [Activity(Label = "Hubo", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation =ScreenOrientation.Portrait)]
