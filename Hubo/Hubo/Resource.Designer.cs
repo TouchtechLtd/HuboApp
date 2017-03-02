@@ -206,6 +206,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string CloseText {
+            get {
+                return ResourceManager.GetString("CloseText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company: .
         /// </summary>
         internal static string CompanyText {
@@ -490,6 +499,15 @@ namespace Hubo {
         internal static string FullyRested {
             get {
                 return ResourceManager.GetString("FullyRested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to Get User Details.
+        /// </summary>
+        internal static string GetDetailsError {
+            get {
+                return ResourceManager.GetString("GetDetailsError", resourceCulture);
             }
         }
         

@@ -1,5 +1,5 @@
-﻿// <copyright file="LoginViewModel.cs" company="Trio Technology LTD">
-// Copyright (c) Trio Technology LTD. All rights reserved.
+﻿// <copyright file="LoginViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -13,7 +13,6 @@ namespace Hubo
 
     public class LoginViewModel : INotifyPropertyChanged
     {
-
         private readonly DatabaseService db = new DatabaseService();
 
         private RestService restService;
@@ -54,18 +53,36 @@ namespace Hubo
                 if (loggedIn)
                 {
                     UserTable user = db.GetUserInfo();
+                    int userResult;
+                    int shiftResult;
 
                     using (UserDialogs.Instance.Loading("Getting Details....", null, null, true, MaskType.Gradient))
                     {
-                        await restService.GetUser(user);
+                        userResult = await restService.GetUser(user);
                     }
 
-                    using (UserDialogs.Instance.Loading("Getting Shifts....", null, null, true, MaskType.Gradient))
+                    if (userResult == 3)
                     {
-                        await restService.GetShifts(user.DriverId);
-                    }
+                        using (UserDialogs.Instance.Loading("Getting Shifts....", null, null, true, MaskType.Gradient))
+                        {
+                            shiftResult = await restService.GetShifts(user.DriverId);
+                        }
 
-                    Application.Current.MainPage = new NZTAMessagePage(1);
+                        if (shiftResult == 4)
+                        {
+                            Application.Current.MainPage = new NZTAMessagePage(1);
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.GetDetailsError, Resource.DisplayAlertOkay);
+                            db.ClearTablesForUserShifts();
+                        }
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert(Resource.NoUsernameOrPasswordTitle, Resource.GetDetailsError, Resource.DisplayAlertOkay);
+                        db.ClearTablesForUserShifts();
+                    }
                 }
             }
             else

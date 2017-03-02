@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-
+﻿// <copyright file="LandingPageViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class LandingPageViewModel
+    using System.Windows.Input;
+    using Xamarin.Forms;
+
+    internal class LandingPageViewModel
     {
-        public INavigation Navigation { get; set; }
-        public ICommand LoginButton { get; set; }
-        public ICommand RegisterButton { get; set; }
-
-        public string Login { get; set; }
-        public string Register { get; set; }
-
         public LandingPageViewModel()
         {
             Login = Resource.LoginText;
@@ -27,14 +18,24 @@ namespace Hubo
             RegisterButton = new Command(NavigateToRegisterPage);
         }
 
+        public INavigation Navigation { get; set; }
+
+        public ICommand LoginButton { get; set; }
+
+        public ICommand RegisterButton { get; set; }
+
+        public string Login { get; set; }
+
+        public string Register { get; set; }
+
         private void NavigateToRegisterPage()
         {
-            Navigation.PushAsync(new RegisterPage());
+            Navigation.PushModalAsync(new RegisterPage());
         }
 
         private void NavigateToLoginPage()
         {
-            Navigation.PushAsync(new LoginPage(), false);
+            Navigation.PushModalAsync(new LoginPage(), false);
         }
     }
 }

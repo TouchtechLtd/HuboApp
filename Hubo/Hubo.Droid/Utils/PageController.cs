@@ -16,7 +16,7 @@ namespace Hubo.Droid
 {
     public class PageController : IPageController
     {
-        private readonly ReflectedProxy<Page> _proxy;
+        private ReflectedProxy<Page> _proxy;
 
         public static IPageController Create(Page page)
         {
@@ -69,12 +69,12 @@ namespace Hubo.Droid
 
         public void SendAppearing()
         {
-            // _proxy.Call();
+            _proxy.Call();
         }
 
         public void SendDisappearing()
         {
-            // _proxy.Call();
+           _proxy.Call();
         }
     }
 }

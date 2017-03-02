@@ -16,7 +16,7 @@ namespace Hubo.Droid
 {
     public class ReflectedProxy<T> where T : class
     {
-        private readonly object _target;
+        private object _target;
 
         private readonly Dictionary<string, PropertyInfo> _cachedPropertyInfo;
         private readonly Dictionary<string, MethodInfo> _cachedMethodInfo;
@@ -46,11 +46,6 @@ namespace Hubo.Droid
             return (TPropertyValue)GetPropertyInfo(propertyName).GetValue(_target);
         }
 
-        public object Call([CallerMemberName] string methodName = "")
-        {
-            return this.Call(methodName, null);
-        }
-
         public object Call([CallerMemberName] string methodName = "", object[] parameters = null)
         {
 
@@ -61,8 +56,6 @@ namespace Hubo.Droid
 
             return _cachedMethodInfo[methodName].Invoke(_target, parameters);
         }
-
-
 
         PropertyInfo GetPropertyInfo(string propertyName)
         {

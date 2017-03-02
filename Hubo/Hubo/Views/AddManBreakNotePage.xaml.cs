@@ -53,7 +53,7 @@ namespace Hubo
         {
             if (vehiclePicker.SelectedIndex != -1)
             {
-                addBreakNoteVM.selectedVehicle = vehiclePicker.SelectedIndex;
+                addBreakNoteVM.SelectedVehicle = vehiclePicker.SelectedIndex;
             }
         }
 

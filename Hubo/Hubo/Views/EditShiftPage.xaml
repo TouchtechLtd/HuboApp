@@ -19,15 +19,19 @@
       <ColumnDefinition Width="0.1*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
+      <RowDefinition Height="1.8*" />
+      <RowDefinition Height="0.72*" />
       <RowDefinition Height="2*" />
+      <RowDefinition Height="0.72*" />
       <RowDefinition Height="2*" />
-      <RowDefinition Height="2*" />
-      <RowDefinition Height="2*" />
+      <RowDefinition Height="0.72*" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="0.72*" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="0.72*" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="3*" />
     </Grid.RowDefinitions>
 
     <Picker Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="6" x:Name="shiftPicker" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"/>
@@ -40,41 +44,112 @@
     <TimePicker Time="{Binding ShiftEndTimePicker}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
     <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding ShiftEndDatePicker}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
 
-    <ListView x:Name="driveList" ItemsSource="{Binding Drives}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="5" Grid.RowSpan="2" IsVisible="{Binding ShiftStartInfoVisible}">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.View>
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="1.5*" />
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="0.1*" />
-                  <ColumnDefinition Width="1.5*" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="6" Grid.RowSpan="2" IsVisible="{Binding DrivesAvailable}">
+      <ListView x:Name="driveList" ItemsSource="{Binding Drives}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="*" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
 
-                <Label Text="{Binding StartDate, Converter={StaticResource Converter},  StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
-                <Label Text="{Binding StartDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
-                <Label BindingContext="{local:EditShiftViewModel}" Text="{Binding DashText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2"/>
-                <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="3"/>
-                <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="4"/>
-              </Grid>
-            </ViewCell.View>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter},  StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
+                  <Label BindingContext="{local:EditShiftViewModel}" Text="{Binding DashText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="3"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="4"/>
+                </Grid>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
 
-    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
-    <Button Text="{Binding EditNotesText}" Command="{Binding NotesCommand}" CommandParameter="Notes" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
-    <Button Text="{Binding AddDrivesText}" Command="{Binding DrivesCommand}" CommandParameter="Drives" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
-    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
+    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8" IsVisible="{Binding BreaksAvailable}">
+      <ListView x:Name="breakList" ItemsSource="{Binding Breaks}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.25*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter},  StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+                  <Label Text="{Binding StartDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
+                  <Label BindingContext="{local:EditShiftViewModel}" Text="{Binding DashText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="3"/>
+                  <Label Text="{Binding EndDate, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="4"/>
+                </Grid>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+
+    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="10" IsVisible="{Binding NotesAvailable}">
+      <ListView x:Name="noteList" ItemsSource="{Binding Notes}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.View>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.25*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+
+                  <Label Text="{Binding Date, Converter={StaticResource Converter},  StringFormat='{0:d}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+                  <Label Text="{Binding Date, Converter={StaticResource Converter}, StringFormat='{0:t}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1"/>
+                  <Label BindingContext="{local:EditShiftViewModel}" Text="{Binding DashText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="2"/>
+                  <Label Text="{Binding Note}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="3"/>
+                </Grid>
+              </ViewCell.View>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+
+    <Button Text="{Binding SaveText}" Command="{Binding SaveCommand}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />
+    <!--<Button Text="{Binding EditNotesText}" Command="{Binding NotesCommand}" CommandParameter="Notes" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />-->
+    <!--<Button Text="{Binding AddDrivesText}" Command="{Binding DrivesCommand}" CommandParameter="Drives" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" IsVisible="{Binding ShiftSelected}" />-->
+    <Button Text="{Binding CancelText}" Command="{Binding CancelCommand}" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="6" IsVisible="{Binding ShiftSelected}" />
   </Grid>
 </ContentPage>

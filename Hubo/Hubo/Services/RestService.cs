@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.IO;
-using System.Net;
-using ModernHttpClient;
-using System.Net.Http;
-using System.Text;
-using System.Dynamic;
-using Microsoft.ProjectOxford.Vision.Contract;
-using Plugin.Media.Abstractions;
-using Microsoft.ProjectOxford.Vision;
-using Plugin.Geolocator;
+﻿// <copyright file="RestService.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class RestService
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.ProjectOxford.Vision;
+    using Microsoft.ProjectOxford.Vision.Contract;
+    using ModernHttpClient;
+    using Newtonsoft.Json;
+    using Plugin.Media.Abstractions;
+
+    internal class RestService
     {
-        readonly HttpClient client;
-        readonly DatabaseService db;
-        private readonly string _accessToken;
+        private readonly HttpClient client;
+        private readonly DatabaseService db;
+        private string accessToken;
 
         public RestService()
         {
             client = new HttpClient(new NativeMessageHandler());
             this.db = new DatabaseService();
-            _accessToken = "Bearer " + db.GetUserToken();
+            accessToken = "Bearer " + db.GetUserToken();
         }
 
         internal async Task<bool> Login(string username, string password)
@@ -34,11 +34,14 @@ namespace Hubo
             string contentType = Constants.CONTENT_TYPE;
 
             if (!db.ClearTablesForNewUser())
+            {
                 return false;
+            }
 
             LoginRequestModel loginModel = new LoginRequestModel();
-            //loginModel.usernameOrEmailAddress = username;
-            //loginModel.password = password;
+
+            // loginModel.usernameOrEmailAddress = username;
+            // loginModel.password = password;
             loginModel.usernameOrEmailAddress = "bsuarez";
             loginModel.password = "tazmania";
 
@@ -63,6 +66,8 @@ namespace Hubo
                     user.FirstName = result.Result.FirstName;
                     user.LastName = result.Result.Surname;
                     db.InsertUser(user);
+
+                    accessToken = "Bearer " + db.GetUserToken();
 
                     return true;
                 }
@@ -98,10 +103,11 @@ namespace Hubo
                     }
                 }
             }
-            return "";
+
+            return string.Empty;
         }
 
-        public async Task<int> GetShifts(int id)
+        internal async Task<int> GetShifts(int id)
         {
             string urlShift = GetBaseUrl() + Constants.REST_URL_GETSHIFTDETAILS;
             string urlDrive = GetBaseUrl() + Constants.REST_URL_GETDRIVEDETAILS;
@@ -109,10 +115,14 @@ namespace Hubo
             string urlNote = GetBaseUrl() + Constants.REST_URL_GETNOTEDETAILS;
 
             if (!db.ClearTablesForUserShifts())
+            {
                 return -3;
+            }
 
             if (id < 0)
+            {
                 return -2;
+            }
 
             var shiftGet = new HttpRequestMessage(HttpMethod.Get, urlShift);
             shiftGet.Headers.Add("DriverId", id.ToString());
@@ -123,84 +133,113 @@ namespace Hubo
             {
                 LoginShiftResponse shiftDetails = JsonConvert.DeserializeObject<LoginShiftResponse>(shiftResponse.Content.ReadAsStringAsync().Result);
 
-                ShiftTable shift = new ShiftTable();
-
-                foreach (ShiftResponseModel shiftItem in shiftDetails.Shifts)
+                if (shiftDetails.Success)
                 {
-                    shift.ServerKey = shiftItem.Id;
-                    shift.StartDate = shiftItem.StartDate;
-                    shift.EndDate = shiftItem.EndDate;
-                    shift.StartLat = shiftItem.StartLocationLat;
-                    shift.StartLong = shiftItem.StartLocationLong;
-                    shift.EndLat = shiftItem.EndLocationLat;
-                    shift.EndLong = shiftItem.EndLocationLong;
-                    shift.ActiveShift = shiftItem.IsActive;
+                    ShiftTable shift = new ShiftTable();
 
-                    int shiftId = db.InsertUserShifts(shift);
-
-                    if (shiftId < 0)
-                        return -4;
-
-                    var noteGet = new HttpRequestMessage(HttpMethod.Get, urlNote);
-                    noteGet.Headers.Add("ShiftId", shiftId.ToString());
-
-                    var noteResponse = await client.SendAsync(noteGet);
-
-                    if (noteResponse.IsSuccessStatusCode)
+                    foreach (ShiftResponseModel shiftItem in shiftDetails.Shifts)
                     {
-                        LoginNoteResponse noteDetails = JsonConvert.DeserializeObject<LoginNoteResponse>(noteResponse.Content.ReadAsStringAsync().Result);
+                        shift.ServerKey = shiftItem.Id;
+                        shift.StartDate = shiftItem.StartDate;
+                        shift.EndDate = shiftItem.EndDate;
+                        shift.StartLat = shiftItem.StartLocationLat;
+                        shift.StartLong = shiftItem.StartLocationLong;
+                        shift.EndLat = shiftItem.EndLocationLat;
+                        shift.EndLong = shiftItem.EndLocationLong;
+                        shift.ActiveShift = shiftItem.IsActive;
 
-                        NoteTable note = new NoteTable();
+                        ShiftTable shiftId = new ShiftTable();
+                        shiftId = db.InsertUserShifts(shift);
 
-                        foreach (NoteResponseModel noteItem in noteDetails.Notes)
+                        if (shiftId == null)
                         {
-                            note.Note = noteItem.NoteText;
-                            note.Date = noteItem.TimeStamp;
-                            note.ShiftKey = noteItem.ShiftId;
-
-                            db.InsertUserNotes(note);
+                            return -4;
                         }
-                    }
-                    else
-                        return 1;
 
-                    var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
-                    driveGet.Headers.Add("ShiftId", shiftId.ToString());
+                        var noteGet = new HttpRequestMessage(HttpMethod.Get, urlNote);
+                        noteGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
 
-                    var driveResponse = await client.SendAsync(driveGet);
+                        var noteResponse = await client.SendAsync(noteGet);
 
-                    if (driveResponse.IsSuccessStatusCode)
-                    {
-                        LoginDriveResponse driveDetails = JsonConvert.DeserializeObject<LoginDriveResponse>(driveResponse.Content.ReadAsStringAsync().Result);
-
-                        DriveTable drive = new DriveTable();
-
-                        foreach (DriveResponseModel driveItem in driveDetails.Drives)
+                        if (noteResponse.IsSuccessStatusCode)
                         {
-                            drive.ServerId = driveItem.Id;
-                            drive.ShiftKey = driveItem.ShiftId;
-                            drive.StartDate = driveItem.StartDrivingDateTime;
-                            drive.EndDate = driveItem.StopDrivingDateTime;
-                            drive.StartHubo = driveItem.StartHubo;
-                            drive.EndHubo = driveItem.StopHubo;
-                            drive.ActiveVehicle = driveItem.IsActive;
-                            drive.VehicleKey = driveItem.VehicleId;
-                            int driveId = db.InsertUserDrives(drive);
+                            LoginNoteResponse noteDetails = JsonConvert.DeserializeObject<LoginNoteResponse>(noteResponse.Content.ReadAsStringAsync().Result);
 
-                            var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
-                            breakGet.Headers.Add("DriverId", id.ToString());
-
-                            var breakResponse = await client.SendAsync(breakGet);
-
-                            if (breakResponse.IsSuccessStatusCode)
+                            if (noteDetails.Success)
                             {
-                                LoginBreakResponse breakDetails = JsonConvert.DeserializeObject<LoginBreakResponse>(breakResponse.Content.ReadAsStringAsync().Result);
+                                NoteTable note = new NoteTable();
 
+                                foreach (NoteResponseModel noteItem in noteDetails.Notes)
+                                {
+                                    note.Note = noteItem.NoteText;
+                                    note.Date = noteItem.TimeStamp;
+                                    note.ShiftKey = shiftId.Key;
+
+                                    db.InsertUserNotes(note);
+                                }
+                            }
+                            else
+                            {
+                                return 1;
+                            }
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+
+                        var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
+                        driveGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
+
+                        var driveResponse = await client.SendAsync(driveGet);
+
+                        if (driveResponse.IsSuccessStatusCode)
+                        {
+                            LoginDriveResponse driveDetails = JsonConvert.DeserializeObject<LoginDriveResponse>(driveResponse.Content.ReadAsStringAsync().Result);
+
+                            if (driveDetails.Success)
+                            {
+                                DriveTable drive = new DriveTable();
+
+                                foreach (DriveResponseModel driveItem in driveDetails.Drives)
+                                {
+                                    drive.ServerId = driveItem.Id;
+                                    drive.ShiftKey = shiftId.Key;
+                                    drive.StartDate = driveItem.StartDrivingDateTime;
+                                    drive.EndDate = driveItem.StopDrivingDateTime;
+                                    drive.StartHubo = driveItem.StartHubo;
+                                    drive.EndHubo = driveItem.StopHubo;
+                                    drive.ActiveVehicle = driveItem.IsActive;
+                                    drive.VehicleKey = driveItem.VehicleId;
+                                    db.InsertUserDrives(drive);
+                                }
+                            }
+                            else
+                            {
+                                return 2;
+                            }
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+
+                        var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
+                        breakGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
+
+                        var breakResponse = await client.SendAsync(breakGet);
+
+                        if (breakResponse.IsSuccessStatusCode)
+                        {
+                            LoginBreakResponse breakDetails = JsonConvert.DeserializeObject<LoginBreakResponse>(breakResponse.Content.ReadAsStringAsync().Result);
+
+                            if (breakDetails.Success)
+                            {
                                 BreakTable breakTable = new BreakTable();
 
                                 foreach (BreakResponseModel breakItem in breakDetails.Breaks)
                                 {
-                                    breakTable.DriveKey = breakItem.ShiftId;
+                                    breakTable.ShiftKey = shiftId.Key;
                                     breakTable.ActiveBreak = breakItem.IsActive;
                                     breakTable.StartDate = breakItem.StartBreakDateTime;
                                     breakTable.EndDate = breakItem.StopBreakDateTime;
@@ -208,27 +247,31 @@ namespace Hubo
                                     breakTable.EndLocation = breakItem.StopBreakLocation;
                                     breakTable.ServerId = breakItem.Id;
 
-                                    if (breakItem.StartBreakDateTime != null)
-                                        breakTable.StartLocation = breakItem.StartBreakDateTime;
-
-                                    if (breakItem.StopBreakDateTime != null)
-                                        breakTable.EndLocation = breakItem.StopBreakDateTime;
-
                                     db.InsertUserBreaks(breakTable);
                                 }
                             }
                             else
+                            {
                                 return 3;
+                            }
+                        }
+                        else
+                        {
+                            return 3;
                         }
                     }
-                    else
-                        return 2;
-                }
 
-                return 4;
+                    return 4;
+                }
+                else
+                {
+                    return -1;
+                }
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<int> GetUser(UserTable user)
@@ -238,11 +281,13 @@ namespace Hubo
             string urlVehicle = GetBaseUrl() + Constants.REST_URL_GETVEHICLEDETAILS;
 
             if (user.Id < 0)
+            {
                 return -2;
+            }
 
             var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
             userGet.Headers.Add("UserId", user.Id.ToString());
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", accessToken);
 
             var userResponse = await client.SendAsync(userGet);
 
@@ -250,72 +295,99 @@ namespace Hubo
             {
                 LoginUserDetailsResponse userDetails = JsonConvert.DeserializeObject<LoginUserDetailsResponse>(userResponse.Content.ReadAsStringAsync().Result);
 
-                user.Phone = userDetails.Result.DriverInfo.PhoneNumber;
-                user.LicenceNumber = userDetails.Result.DriverInfo.LicenceNumber;
-                user.Address1 = userDetails.Result.DriverInfo.Address1;
-                user.Address2 = userDetails.Result.DriverInfo.Address2;
-                user.Address3 = userDetails.Result.DriverInfo.Address3;
-                user.PostCode = userDetails.Result.DriverInfo.PostCode;
-                user.City = userDetails.Result.DriverInfo.City;
-                user.Country = userDetails.Result.DriverInfo.Country;
-                db.UpdateUser(user);
-
-                foreach (LicenceResponseModel licenceItem in userDetails.Result.ListOfLicences)
+                if (userDetails.Success)
                 {
-                    LicenceTable licence = new LicenceTable();
-                    licence.DriverId = user.DriverId;
-                    licence.LicenceNumber = user.LicenceNumber;
-                    licence.LicenceVersion = int.Parse(licenceItem.Class);
-                    licence.Endorsements = licenceItem.Endorsement;
+                    user.Phone = userDetails.Result.DriverInfo.PhoneNumber;
+                    user.LicenceNumber = userDetails.Result.DriverInfo.LicenceNumber;
+                    user.Address1 = userDetails.Result.DriverInfo.Address1;
+                    user.Address2 = userDetails.Result.DriverInfo.Address2;
+                    user.Address3 = userDetails.Result.DriverInfo.Address3;
+                    user.PostCode = userDetails.Result.DriverInfo.PostCode;
+                    user.City = userDetails.Result.DriverInfo.City;
+                    user.Country = userDetails.Result.DriverInfo.Country;
+                    db.UpdateUser(user);
 
-                    db.InsertUserLicence(licence);
-                }
-
-                var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
-                companyGet.Headers.Add("DriverId", user.DriverId.ToString());
-
-                var companyResponse = await client.SendAsync(companyGet);
-
-                if (companyResponse.IsSuccessStatusCode)
-                {
-                    LoginCompanyResponse companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
-
-                    foreach (CompanyTable companyItem in companyDetails.Companies)
+                    foreach (LicenceResponseModel licenceItem in userDetails.Result.ListOfLicences)
                     {
-                        companyItem.DriverId = user.DriverId;
-                        db.InsertUserComapany(companyItem);
+                        LicenceTable licence = new LicenceTable();
+                        licence.DriverId = user.DriverId;
+                        licence.LicenceNumber = user.LicenceNumber;
+                        licence.LicenceVersion = int.Parse(licenceItem.Class);
+                        licence.Endorsements = licenceItem.Endorsement;
+
+                        db.InsertUserLicence(licence);
                     }
+
+                    var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
+                    companyGet.Headers.Add("DriverId", user.DriverId.ToString());
+
+                    var companyResponse = await client.SendAsync(companyGet);
+
+                    if (companyResponse.IsSuccessStatusCode)
+                    {
+                        LoginCompanyResponse companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
+
+                        if (companyDetails.Success)
+                        {
+                            foreach (CompanyTable companyItem in companyDetails.Companies)
+                            {
+                                companyItem.DriverId = user.DriverId;
+                                db.InsertUserComapany(companyItem);
+                            }
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+
+                    var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
+                    vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
+
+                    var vehicleResponse = await client.SendAsync(vehicleGet);
+
+                    if (vehicleResponse.IsSuccessStatusCode)
+                    {
+                        LoginVehicleResponse vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+
+                        if (vehicleDetails.Success)
+                        {
+                            foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
+                            {
+                                VehicleTable vehicle = new VehicleTable();
+                                vehicle.Registration = vehicleItem.Rego;
+                                vehicle.MakeModel = vehicleItem.MakeModel;
+                                vehicle.FleetNumber = vehicleItem.FleetNumber;
+                                vehicle.CompanyId = vehicleItem.CompanyId;
+                                vehicle.ServerKey = vehicleItem.Id;
+                                db.InsertUserVehicles(vehicle);
+                            }
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+
+                    return 3;
                 }
                 else
-                    return 2;
-
-                var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
-                vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
-
-                var vehicleResponse = await client.SendAsync(vehicleGet);
-
-                if (vehicleResponse.IsSuccessStatusCode)
                 {
-                    LoginVehicleResponse vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
-
-                    foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
-                    {
-                        VehicleTable vehicle = new VehicleTable();
-                        vehicle.Registration = vehicleItem.Rego;
-                        vehicle.MakeModel = vehicleItem.MakeModel;
-                        vehicle.FleetNumber = vehicleItem.FleetNumber;
-                        vehicle.CompanyId = vehicleItem.CompanyId;
-                        vehicle.ServerKey = vehicleItem.Id;
-                        db.InsertUserVehicles(vehicle);
-                    }
+                    return -1;
                 }
-                else
-                    return 1;
-
-                return 3;
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<OcrResults> GetRegoText(MediaFile photo)
@@ -339,11 +411,6 @@ namespace Hubo
             }
         }
 
-        private string GetBaseUrl()
-        {
-            return "http://test.triotech.co.nz/huboportal/api";
-        }
-
         internal async Task<bool> QueryUpdateProfile(UserTable user)
         {
             string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
@@ -356,12 +423,12 @@ namespace Hubo
 
             if (response.IsSuccessStatusCode)
             {
-                //db.UpdateUserInfo();
+                // db.UpdateUserInfo();
                 return true;
             }
             else
             {
-                //db.UserOffline();
+                // db.UserOffline();
                 return false;
             }
         }
@@ -387,7 +454,9 @@ namespace Hubo
                 QueryShiftResponse result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
+                {
                     return true;
+                }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register vehicle, please try again", Resource.DisplayAlertOkay);
@@ -407,7 +476,7 @@ namespace Hubo
             string url;
 
             string json;
-            client.DefaultRequestHeaders.Add("Authorization", _accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", accessToken);
 
             if (shiftStarted)
             {
@@ -449,7 +518,9 @@ namespace Hubo
                     if (!shiftStarted)
                     {
                         if (result.Result > 0)
+                        {
                             return result.Result;
+                        }
                         else
                         {
                             await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
@@ -457,7 +528,9 @@ namespace Hubo
                         }
                     }
                     else
+                    {
                         return 0;
+                    }
                 }
                 else
                 {
@@ -477,7 +550,7 @@ namespace Hubo
             string url;
             string contentType = Constants.CONTENT_TYPE;
             string json;
-            client.DefaultRequestHeaders.Add("Authorization", _accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", accessToken);
 
             if (!driveStarted)
             {
@@ -515,23 +588,33 @@ namespace Hubo
                     if (!driveStarted)
                     {
                         if (result.Result > 0)
+                        {
                             return result.Result;
+                        }
                         else
+                        {
                             return -2;
+                        }
                     }
                     else
+                    {
                         return 0;
+                    }
                 }
                 else
+                {
                     return -2;
+                }
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<int> QueryBreak(bool breakStarted, BreakTable breakTable)
         {
-            client.DefaultRequestHeaders.Add("Authorization", _accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", accessToken);
             string url;
             string contentType = Constants.CONTENT_TYPE;
             string json;
@@ -541,7 +624,7 @@ namespace Hubo
                 url = GetBaseUrl() + Constants.REST_URL_ADDBREAKSTART;
 
                 BreakStartModel breakModel = new BreakStartModel();
-                breakModel.shiftId = breakTable.DriveKey;
+                breakModel.shiftId = breakTable.ShiftKey;
                 breakModel.startBreakDateTime = breakTable.StartDate;
                 breakModel.startBreakLocation = breakTable.StartLocation;
 
@@ -571,18 +654,28 @@ namespace Hubo
                     if (!breakStarted)
                     {
                         if (result.Result > 0)
+                        {
                             return result.Result;
+                        }
                         else
+                        {
                             return -2;
+                        }
                     }
                     else
+                    {
                         return 0;
+                    }
                 }
                 else
+                {
                     return -2;
+                }
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<int> InsertGeoData(List<GeolocationTable> geolocation)
@@ -612,12 +705,18 @@ namespace Hubo
                 InsertGeoResponse result = JsonConvert.DeserializeObject<InsertGeoResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
+                {
                     return result.Result;
+                }
                 else
+                {
                     return -2;
+                }
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<int> InsertNote(NoteTable note)
@@ -639,12 +738,18 @@ namespace Hubo
                 InsertNoteResponse result = JsonConvert.DeserializeObject<InsertNoteResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
+                {
                     return result.Result;
+                }
                 else
+                {
                     return -2;
+                }
             }
             else
+            {
                 return -1;
+            }
         }
 
         internal async Task<int> ExportData(string emailAddress, string emailBody)
@@ -665,12 +770,18 @@ namespace Hubo
                 ExportResponse result = JsonConvert.DeserializeObject<ExportResponse>(response.Content.ReadAsStringAsync().Result);
 
                 if (result.Success)
+                {
                     return result.Result;
+                }
                 else
+                {
                     return -1;
+                }
             }
             else
+            {
                 return -2;
+            }
         }
 
         internal async Task<int> RegisterUser(UserTable newUser, string password)
@@ -694,10 +805,15 @@ namespace Hubo
 
                 if (result.Success)
                 {
-
                 }
             }
+
             return -1;
+        }
+
+        private string GetBaseUrl()
+        {
+            return "http://test.triotech.co.nz/huboportal/api";
         }
     }
 }

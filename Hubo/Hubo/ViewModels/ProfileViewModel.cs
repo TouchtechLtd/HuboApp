@@ -15,8 +15,6 @@ namespace Hubo
     {
         private DatabaseService dbService = new DatabaseService();
 
-        private RestService restService;
-
         private UserTable user = new UserTable();
 
         public ProfileViewModel()

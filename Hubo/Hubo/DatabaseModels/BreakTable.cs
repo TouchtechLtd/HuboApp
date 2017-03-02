@@ -1,22 +1,29 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="BreakTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using SQLite.Net.Attributes;
+
     public class BreakTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
-        public string  StartDate { get; set; }
+
+        public string StartDate { get; set; }
+
         public string EndDate { get; set; }
-        public int DriveKey { get; set; }
+
+        public int ShiftKey { get; set; }
+
         public bool ActiveBreak { get; set; }
+
         public string StartLocation { get; set; }
+
         public string EndLocation { get; set; }
+
         public int ServerId { get; set; }
     }
 }

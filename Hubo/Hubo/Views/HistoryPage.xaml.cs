@@ -1,19 +1,14 @@
-﻿// <copyright file="HistoryPage.xaml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="HistoryPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
-
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.XamarinForms.Chart;
-using Xamarin.Forms;
 
 namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Telerik.XamarinForms.Chart;
     using Xamarin.Forms;
 
     public partial class HistoryPage : ContentPage
@@ -34,7 +29,6 @@ namespace Hubo
             picker.DateSelected += Picker_DateSelected;
 
             // LoadTip();
-
             ChartPalette basePalette = new ChartPalette();
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
@@ -48,19 +42,17 @@ namespace Hubo
             chart.SelectionPalette = selectedPalette;
         }
 
-        private void SelectionChangedHandler(object sender, EventArgs e)
+        private async void SelectionChangedHandler(object sender, EventArgs e)
         {
-            var selectedSeries = (sender as ChartSelectionBehavior).SelectedSeries.FirstOrDefault();
+            var selectedPoint = (sender as ChartSelectionBehavior).SelectedPoints.FirstOrDefault();
 
-            var selectedDetail = selectedSeries.ItemsSource.Cast<CategoryData>();
-
-            List<CategoryData> selectedDetails = new List<CategoryData>(selectedDetail);
-
-            string date = selectedDetails[0].Category.ToString();
+            var date = (CategoryData)selectedPoint.DataItem;
 
             DateTime now = DateTime.Now;
 
-            DateTime selectedDate = DateTime.Parse(date + "/" + now.Year);
+            DateTime selectedDate = DateTime.Parse(date.Category + "/" + now.Year);
+
+            await Navigation.PushModalAsync(new DisplayShiftPage(selectedDate));
         }
 
         private void Picker_DateSelected(object sender, DateChangedEventArgs e)

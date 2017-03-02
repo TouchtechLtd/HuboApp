@@ -1,76 +1,45 @@
-﻿using Syncfusion.SfChart.XForms;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿// <copyright file="HistoryViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+
     public class CategoryData
     {
         public object Category { get; set; }
+
         public double Value { get; set; }
     }
 
-    class HistoryViewModel : INotifyPropertyChanged
+    public class HistoryViewModel : INotifyPropertyChanged
     {
-        readonly DatabaseService DbService = new DatabaseService();
+        private readonly DatabaseService dbService = new DatabaseService();
 
-        private ObservableCollection<CategoryData> _historyChartData;
-        private ObservableCollection<CategoryData> _historyChartData1;
-
-        public ObservableCollection<CategoryData> HistoryChartData
-        {
-            get { return _historyChartData; }
-            set
-            {
-                _historyChartData = value;
-                OnPropertyChanged("HistoryChartData");
-            }
-        }
-
-        public ObservableCollection<CategoryData> HistoryChartData1
-        {
-            get { return _historyChartData1; }
-            set
-            {
-                _historyChartData1 = value;
-                OnPropertyChanged("HistoryChartData1");
-            }
-        }
-        List<ShiftTable> listOfShifts = new List<ShiftTable>();
-
-        public string EditShiftText { get; set; }
-        public string ExportText { get; set; }
-        public ICommand EditShiftCommand { get; set; }
-        public ICommand ExportCommand { get; set; }
-        public INavigation Navigation { get; set; }
-        public DateTime SelectedDate { get; set; }
-        public DateTime MaximumDate { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private List<ShiftTable> listOfShifts = new List<ShiftTable>();
+        private ObservableCollection<CategoryData> historyChartData;
+        private ObservableCollection<CategoryData> historyChartData1;
 
         public HistoryViewModel()
         {
             HistoryChartData = new ObservableCollection<CategoryData>();
             HistoryChartData1 = new ObservableCollection<CategoryData>();
-            //And time spent at work
 
+            // And time spent at work
             EditShiftText = Resource.EditShift;
             ExportText = Resource.Export;
             ExportCommand = new Command(Export);
             EditShiftCommand = new Command(EditShift);
 
-            //Code to get shifts from the past week
+            // Code to get shifts from the past week
             SelectedDate = DateTime.Now;
-            listOfShifts = DbService.GetShifts(SelectedDate);
+            listOfShifts = dbService.GetShifts(SelectedDate);
 
             foreach (ShiftTable shift in listOfShifts)
             {
@@ -86,10 +55,11 @@ namespace Hubo
                     minsWork = minsWork / 100;
                     string datePoint = start.Day + "/" + start.Month;
 
-                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = (hoursWork + minsWork) });
-                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = ((24 - hoursWork) + (0.6 - minsWork)) });
+                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = hoursWork + minsWork });
+                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = (24 - hoursWork) + (0.6 - minsWork) });
                 }
             }
+
             MaximumDate = DateTime.Now;
 
             MessagingCenter.Subscribe<string>("ShiftEdited", "ShiftEdited", (sender) =>
@@ -98,19 +68,63 @@ namespace Hubo
             });
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<CategoryData> HistoryChartData
+        {
+            get
+            {
+                return historyChartData;
+            }
+
+            set
+            {
+                historyChartData = value;
+                OnPropertyChanged("HistoryChartData");
+            }
+        }
+
+        public ObservableCollection<CategoryData> HistoryChartData1
+        {
+            get
+            {
+                return historyChartData1;
+            }
+
+            set
+            {
+                historyChartData1 = value;
+                OnPropertyChanged("HistoryChartData1");
+            }
+        }
+
+        public string EditShiftText { get; set; }
+
+        public string ExportText { get; set; }
+
+        public ICommand EditShiftCommand { get; set; }
+
+        public ICommand ExportCommand { get; set; }
+
+        public INavigation Navigation { get; set; }
+
+        public DateTime SelectedDate { get; set; }
+
+        public DateTime MaximumDate { get; set; }
+
         public void UpdateShift()
         {
             HistoryChartData = new ObservableCollection<CategoryData>();
             HistoryChartData1 = new ObservableCollection<CategoryData>();
 
-            listOfShifts = DbService.GetShifts(SelectedDate);
+            listOfShifts = dbService.GetShifts(SelectedDate);
 
             foreach (ShiftTable shift in listOfShifts)
             {
                     if (shift.EndDate != null)
                     {
-                    DateTime start = new DateTime();
-                    DateTime end = new DateTime();
+                    DateTime start = default(DateTime);
+                    DateTime end = default(DateTime);
 
                     start = DateTime.Parse(shift.StartDate);
                     end = DateTime.Parse(shift.EndDate);
@@ -122,8 +136,8 @@ namespace Hubo
                     minsWork = minsWork / 100;
                     string datePoint = start.Day + "/" + start.Month;
 
-                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = (hoursWork + minsWork) });
-                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = ((24 - hoursWork) + (0.6 - minsWork)) });
+                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = hoursWork + minsWork });
+                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = (24 - hoursWork) + (0.6 - minsWork) });
                 }
             }
 
@@ -141,12 +155,16 @@ namespace Hubo
 
         private void EditShift()
         {
-            listOfShifts = DbService.GetShifts(SelectedDate);
+            listOfShifts = dbService.GetShifts(SelectedDate);
 
             if (listOfShifts.Count == 0)
+            {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoShiftsFound, Resource.DisplayAlertOkay);
+            }
             else
+            {
                 Navigation.PushModalAsync(new EditShiftPage(listOfShifts));
+            }
         }
 
         private void Export()

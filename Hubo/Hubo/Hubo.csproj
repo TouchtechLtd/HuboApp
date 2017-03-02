@@ -91,6 +91,7 @@
     <Compile Include="Services\RestService.cs" />
     <Compile Include="ViewModels\AddManBreakNoteViewModel.cs" />
     <Compile Include="ViewModels\AddShiftViewModel.cs" />
+    <Compile Include="ViewModels\DisplayShiftViewModel.cs" />
     <Compile Include="ViewModels\EditShiftDetailsViewModel.cs" />
     <Compile Include="ViewModels\EditShiftViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
@@ -114,8 +115,8 @@
     <Compile Include="Views\BottomNavBar.xaml.cs">
       <DependentUpon>BottomNavBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DisplayShift.xaml.cs">
-      <DependentUpon>DisplayShift.xaml</DependentUpon>
+    <Compile Include="Views\DisplayShiftPage.xaml.cs">
+      <DependentUpon>DisplayShiftPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditShiftDetailsPage.xaml.cs">
       <DependentUpon>EditShiftDetailsPage.xaml</DependentUpon>
@@ -355,7 +356,7 @@
     <None Include="app.config" />
     <None Include="Hubo.ruleset" />
     <None Include="packages.config" />
-    <None Include="stylecop.json" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource.resx">
@@ -507,7 +508,7 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-    <EmbeddedResource Include="Views\DisplayShift.xaml">
+    <EmbeddedResource Include="Views\DisplayShiftPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

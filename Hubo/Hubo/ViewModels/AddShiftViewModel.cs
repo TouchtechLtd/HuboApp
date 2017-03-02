@@ -1,64 +1,24 @@
-﻿using Acr.UserDialogs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿// <copyright file="AddShiftViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class AddShiftViewModel : INotifyPropertyChanged
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Text.RegularExpressions;
+    using System.Windows.Input;
+    using Acr.UserDialogs;
+    using Xamarin.Forms;
+
+    internal class AddShiftViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly DatabaseService dbService = new DatabaseService();
 
-        public INavigation Navigation { get; set; }
-        public ICommand AddButton { get; set; }
-        public ICommand SaveButton { get; set; }
-        public string StartShiftText { get; set; }
-        public TimeSpan StartShift { get; set; }
-        public TimeSpan EndShift { get; set; }
-        public string DashIcon { get; set; }
-        public string AddText { get; set; }
-        public string SaveText { get; set; }
-        public string DateText { get; set; }
-        public DateTime Date { get; set; }
-        public string LocationText { get; set; }
-        public string LocationStartData { get; set; }
-        public string LocationEndData { get; set; }
-        public string DriveText { get; set; }
-        public TimeSpan DriveStart { get; set; }
-        public TimeSpan DriveEnd { get; set; }
-        public string HuboText { get; set; }
-        public string HuboStartData { get; set; }
-        public string HuboEndData { get; set; }
-        public string Add { get; set; }
-        public string NoteText { get; set; }
-        public string BreakText { get; set; }
-        public bool BreakDetails { get; set; }
-        public bool NoteDetails { get; set; }
-        public Grid BreakGrid { get; set; }
-        public Grid NoteGrid { get; set; }
-        public Grid FullGrid { get; set; }
-        public int NumBreaks { get; set; }
-        public int NumNotes { get; set; }
-        public int selectedVehicle { get; set; }
-        public int ButtonRow { get; set; }
-        public bool CreatedBreak { get; set; }
-        public bool CreatedNote { get; set; }
-        public bool CreatedDrive { get; set; }
-        public bool DriveDetails { get; set; }
-        public Grid DriveGrid { get; set; }
-        public int NumDrives { get; set; }
-
-        readonly DatabaseService DbService = new DatabaseService();
-
-        readonly List<NoteTable> listOfNotes = new List<NoteTable>();
-        readonly List<BreakTable> listOfBreaks = new List<BreakTable>();
-        readonly List<DriveTable> listOfDrives = new List<DriveTable>();
+        private readonly List<NoteTable> listOfNotes = new List<NoteTable>();
+        private readonly List<BreakTable> listOfBreaks = new List<BreakTable>();
+        private readonly List<DriveTable> listOfDrives = new List<DriveTable>();
 
         public AddShiftViewModel()
         {
@@ -83,6 +43,82 @@ namespace Hubo
             CreatedDrive = false;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public INavigation Navigation { get; set; }
+
+        public ICommand AddButton { get; set; }
+
+        public ICommand SaveButton { get; set; }
+
+        public string StartShiftText { get; set; }
+
+        public TimeSpan StartShift { get; set; }
+
+        public TimeSpan EndShift { get; set; }
+
+        public string DashIcon { get; set; }
+
+        public string AddText { get; set; }
+
+        public string SaveText { get; set; }
+
+        public string DateText { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string LocationText { get; set; }
+
+        public string LocationStartData { get; set; }
+
+        public string LocationEndData { get; set; }
+
+        public string DriveText { get; set; }
+
+        public TimeSpan DriveStart { get; set; }
+
+        public TimeSpan DriveEnd { get; set; }
+
+        public string HuboText { get; set; }
+
+        public string HuboStartData { get; set; }
+
+        public string HuboEndData { get; set; }
+
+        public string Add { get; set; }
+
+        public string NoteText { get; set; }
+
+        public string BreakText { get; set; }
+
+        public bool BreakDetails { get; set; }
+
+        public bool NoteDetails { get; set; }
+
+        public Grid BreakGrid { get; set; }
+
+        public Grid NoteGrid { get; set; }
+
+        public Grid FullGrid { get; set; }
+
+        public int NumBreaks { get; set; }
+
+        public int NumNotes { get; set; }
+
+        public int ButtonRow { get; set; }
+
+        public bool CreatedBreak { get; set; }
+
+        public bool CreatedNote { get; set; }
+
+        public bool CreatedDrive { get; set; }
+
+        public bool DriveDetails { get; set; }
+
+        public Grid DriveGrid { get; set; }
+
+        public int NumDrives { get; set; }
+
         public async void Save()
         {
             PromptConfig huboPrompt = new PromptConfig();
@@ -91,12 +127,12 @@ namespace Hubo
             huboPrompt.SetInputMode(InputType.Default);
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
 
-            if (promptResult.Ok && promptResult.Text != "")
+            if (promptResult.Ok && promptResult.Text != string.Empty)
             {
                 DateTime startShift = Date.Date + StartShift;
                 DateTime endShift = Date.Date + EndShift;
 
-                int result = DbService.SaveShift(startShift, endShift, listOfDrives);
+                int result = dbService.SaveShift(startShift, endShift, listOfDrives);
 
                 if (result == -1)
                 {
@@ -108,7 +144,10 @@ namespace Hubo
                 {
                     foreach (BreakTable breakItem in listOfBreaks)
                     {
-                        DbService.SaveBreak(breakItem);
+                        breakItem.ShiftKey = result;
+                        breakItem.ActiveBreak = false;
+
+                        dbService.SaveBreak(breakItem);
                     }
                 }
                 else
@@ -117,11 +156,23 @@ namespace Hubo
                     {
                         foreach (NoteTable note in listOfNotes)
                         {
-                            DbService.SaveNote(note.Note, DateTime.Parse(note.Date));
+                            note.ShiftKey = result;
+
+                            await dbService.SaveNote(note.Note, DateTime.Parse(note.Date));
                         }
                     }
                 }
+
                 await Navigation.PopModalAsync();
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (changed != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -142,19 +193,25 @@ namespace Hubo
                         string breakStartLocation = breakAdd.StartLocation;
                         string breakEndLocation = breakAdd.EndLocation;
 
-                        if (String.Compare(breakStartTime, "12:00:00") > 0)
+                        if (string.Compare(breakStartTime, "12:00:00") > 0)
                         {
                             TimeSpan temp = TimeSpan.Parse(breakStartTime);
                             int temphour = temp.Hours - 12;
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            }
                             else
+                            {
                                 breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
                         }
                         else
                         {
@@ -163,27 +220,39 @@ namespace Hubo
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 breakStartTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            }
                             else
+                            {
                                 breakStartTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
                         }
 
-                        if (String.Compare(breakEndTime, "12:00:00") > 0)
+                        if (string.Compare(breakEndTime, "12:00:00") > 0)
                         {
                             TimeSpan temp = TimeSpan.Parse(breakEndTime);
                             int temphour = temp.Hours - 12;
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            }
                             else
+                            {
                                 breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
                         }
                         else
                         {
@@ -192,12 +261,18 @@ namespace Hubo
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 breakEndTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            }
                             else
+                            {
                                 breakEndTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
                         }
 
                         if (BreakDetails && !CreatedBreak)
@@ -208,7 +283,7 @@ namespace Hubo
                             {
                                 ColumnDefinitions =
                                         {
-                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                            new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) },
                                             new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
                                             new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
                                         }
@@ -260,19 +335,25 @@ namespace Hubo
                             string noteTime = note.Date;
                             string noteDetails = note.Note;
 
-                            if (String.Compare(noteTime, "12:00:00") > 0)
+                            if (string.Compare(noteTime, "12:00:00") > 0)
                             {
                                 TimeSpan temp = TimeSpan.Parse(noteTime);
                                 int temphour = temp.Hours - 12;
                                 int tempMin = temp.Minutes;
 
                                 if (temphour == 00)
+                                {
                                     temphour = 12;
+                                }
 
                                 if (tempMin < 10)
+                                {
                                     noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                                }
                                 else
+                                {
                                     noteTime = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                                }
                             }
                             else
                             {
@@ -281,12 +362,18 @@ namespace Hubo
                                 int tempMin = temp.Minutes;
 
                                 if (temphour == 00)
+                                {
                                     temphour = 12;
+                                }
 
                                 if (tempMin < 10)
+                                {
                                     noteTime = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                                }
                                 else
+                                {
                                     noteTime = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                                }
                             }
 
                             if (NoteDetails && !CreatedNote)
@@ -297,7 +384,7 @@ namespace Hubo
                                 {
                                     ColumnDefinitions =
                                 {
-                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) },
                                     new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
                                     new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
                                 }
@@ -352,19 +439,25 @@ namespace Hubo
                         string driveStartHubo = drive.StartHubo.ToString();
                         string driveEndHubo = drive.EndHubo.ToString();
 
-                        if (String.Compare(driveStart, "12:00:00") > 0)
+                        if (string.Compare(driveStart, "12:00:00") > 0)
                         {
                             TimeSpan temp = TimeSpan.Parse(driveStart);
                             int temphour = temp.Hours - 12;
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 driveStart = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            }
                             else
+                            {
                                 driveStart = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
                         }
                         else
                         {
@@ -373,27 +466,39 @@ namespace Hubo
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 driveStart = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            }
                             else
+                            {
                                 driveStart = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
                         }
 
-                        if (String.Compare(driveEnd, "12:00:00") > 0)
+                        if (string.Compare(driveEnd, "12:00:00") > 0)
                         {
                             TimeSpan temp = TimeSpan.Parse(driveEnd);
                             int temphour = temp.Hours - 12;
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 driveEnd = temphour.ToString() + ":" + "0" + tempMin.ToString() + " PM";
+                            }
                             else
+                            {
                                 driveEnd = temphour.ToString() + ":" + tempMin.ToString() + " PM";
+                            }
                         }
                         else
                         {
@@ -402,12 +507,18 @@ namespace Hubo
                             int tempMin = temp.Minutes;
 
                             if (temphour == 00)
+                            {
                                 temphour = 12;
+                            }
 
                             if (tempMin < 10)
+                            {
                                 driveEnd = temphour.ToString() + ":" + "0" + tempMin.ToString() + " AM";
+                            }
                             else
+                            {
                                 driveEnd = temphour.ToString() + ":" + tempMin.ToString() + " AM";
+                            }
                         }
 
                         if (DriveDetails && !CreatedDrive)
@@ -418,7 +529,7 @@ namespace Hubo
                             {
                                 ColumnDefinitions =
                                 {
-                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star)},
+                                    new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) },
                                     new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
                                     new ColumnDefinition { Width = new GridLength(.1, GridUnitType.Star) }
                                 }
@@ -463,7 +574,8 @@ namespace Hubo
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;
             }
-            if (!(regex.IsMatch(huboValue)))
+
+            if (!regex.IsMatch(huboValue))
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
                 return false;
@@ -471,15 +583,5 @@ namespace Hubo
 
             return true;
         }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var changed = PropertyChanged;
-            if (changed != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
     }
 }

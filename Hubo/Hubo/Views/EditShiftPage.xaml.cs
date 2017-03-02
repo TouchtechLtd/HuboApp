@@ -1,5 +1,5 @@
-﻿// <copyright file="EditShiftPage.xaml.cs" company="Trio Technology LTD">
-// Copyright (c) Trio Technology LTD. All rights reserved.
+﻿// <copyright file="EditShiftPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -28,8 +28,33 @@ namespace Hubo
                 {
                     return;
                 }
+
                 editShiftVM.SelectedDrive = (driveList.ItemsSource as ObservableCollection<DriveTable>).IndexOf(e.SelectedItem as DriveTable);
                 editShiftVM.EditShiftDetails("Drives");
+                ((ListView)sender).SelectedItem = null;
+            };
+
+            breakList.ItemSelected += (sender, e) =>
+            {
+                if (((ListView)sender).SelectedItem == null)
+                {
+                    return;
+                }
+
+                editShiftVM.SelectedBreak = (breakList.ItemsSource as ObservableCollection<BreakTable>).IndexOf(e.SelectedItem as BreakTable);
+                editShiftVM.EditShiftDetails("Breaks");
+                ((ListView)sender).SelectedItem = null;
+            };
+
+            noteList.ItemSelected += (sender, e) =>
+            {
+                if (((ListView)sender).SelectedItem == null)
+                {
+                    return;
+                }
+
+                editShiftVM.SelectedNote = (noteList.ItemsSource as ObservableCollection<NoteTable>).IndexOf(e.SelectedItem as NoteTable);
+                editShiftVM.EditShiftDetails("Notes");
                 ((ListView)sender).SelectedItem = null;
             };
 

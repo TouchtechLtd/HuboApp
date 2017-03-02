@@ -1,18 +1,21 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="NoteTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class NoteTable
+    using SQLite.Net.Attributes;
+
+    public class NoteTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public string Note { get; set; }
+
         public string Date { get; set; }
+
         public int ShiftKey { get; set; }
     }
 }

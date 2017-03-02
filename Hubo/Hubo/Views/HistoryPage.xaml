@@ -69,7 +69,7 @@
         </telerikChart:RadCartesianChart.VerticalAxis>
 
         <telerikChart:RadCartesianChart.Behaviors>
-          <telerikChart:ChartSelectionBehavior DataPointSelectionMode="None" SeriesSelectionMode="Single" SelectionChanged="SelectionChangedHandler" />
+          <telerikChart:ChartSelectionBehavior x:Name="selectionHandler" DataPointSelectionMode="Single" SeriesSelectionMode="None" SelectionChanged="SelectionChangedHandler"/>
         </telerikChart:RadCartesianChart.Behaviors>
 
         <telerikChart:RadCartesianChart.Series>

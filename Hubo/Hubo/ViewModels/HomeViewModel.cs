@@ -1,74 +1,27 @@
-﻿using Acr.UserDialogs;
-using Microsoft.ProjectOxford.Vision.Contract;
-using Plugin.Battery;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
-using Syncfusion.SfGauge.XForms;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-using XLabs;
+﻿// <copyright file="HomeViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class HomeViewModel : INotifyPropertyChanged
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using Plugin.Battery;
+    using Xamarin.Forms;
+    using XLabs;
+
+    internal class HomeViewModel : INotifyPropertyChanged
     {
-        public INavigation Navigation { get; set; }
-        public List<VehicleTable> listOfVehicles;
-        public VehicleTable currentVehicle;
+        private readonly DatabaseService dbService = new DatabaseService();
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand ShiftButton { get; set; }
-        public string ShiftText { get; set; }
-        public Xamarin.Forms.Color ShiftButtonColor { get; set; }
-        public Xamarin.Forms.Color BreakButtonColor { get; set; }
-        public Xamarin.Forms.Color VehicleTextColor { get; set; }
-        public double CompletedJourney { get; set; }
-        public int RemainderOfJourney { get; set; }
-        public int Break { get; set; }
-        public double TotalBeforeBreak { get; set; }
-        public string TotalBeforeBreakText { get; set; }
-        public bool StartShiftVisibility { get; set; }
-        public bool ShiftStarted { get; set; }
-        public string StartBreakText { get; set; }
-        public string EndShiftText { get; set; }
-        public string VehicleText { get; set; }
-        public string AddNoteText { get; set; }
-        public int VehicleRego { get; set; }
-        public string HoursTillReset { get; set; }
-        public bool VehicleInUse { get; set; }
-        public string VehiclePickerText { get; set; }
-        public bool PickerEnabled { get; set; }
-        public string DriveTimes { get; set; }
+        private List<VehicleTable> listOfVehicles;
 
-        public FileImageSource ShiftImage { get; set; }
+        private VehicleTable currentVehicle;
 
-        public ICommand StartBreakCommand { get; set; }
-
-        public ICommand VehicleCommand { get; set; }
-        public bool OnBreak { get; set; }
-
-        readonly DatabaseService DbService = new DatabaseService();
-
-        private bool _driveShiftRunning;
-        public bool DriveShiftRunning
-        {
-            get
-            {
-                return _driveShiftRunning;
-            }
-            set
-            {
-                _driveShiftRunning = value;
-                OnPropertyChanged("ShiftRunning");
-            }
-        }
+        private bool driveShiftRunning;
 
         public HomeViewModel()
         {
@@ -78,21 +31,18 @@ namespace Hubo
 
             currentVehicle = new VehicleTable();
 
-            int hoursTillReset = DbService.HoursTillReset();
+            int hoursTillReset = dbService.HoursTillReset();
             if (hoursTillReset == -1)
             {
                 HoursTillReset = Resource.NoShiftsDoneYet;
-                //TotalBeforeBreak = DbService.TotalBeforeBreak();
             }
             else if (hoursTillReset == -2)
             {
                 HoursTillReset = Resource.FullyRested;
-                //TotalBeforeBreak = 0;
             }
             else
             {
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
-                //TotalBeforeBreak = DbService.TotalBeforeBreak();
             }
 
             CheckActiveShift();
@@ -105,11 +55,97 @@ namespace Hubo
             SetVehicleLabel();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public INavigation Navigation { get; set; }
+
+        public ICommand ShiftButton { get; set; }
+
+        public string ShiftText { get; set; }
+
+        public Xamarin.Forms.Color ShiftButtonColor { get; set; }
+
+        public Xamarin.Forms.Color BreakButtonColor { get; set; }
+
+        public Xamarin.Forms.Color VehicleTextColor { get; set; }
+
+        public double CompletedJourney { get; set; }
+
+        public int RemainderOfJourney { get; set; }
+
+        public int Break { get; set; }
+
+        public double TotalBeforeBreak { get; set; }
+
+        public string TotalBeforeBreakText { get; set; }
+
+        public bool StartShiftVisibility { get; set; }
+
+        public bool ShiftStarted { get; set; }
+
+        public string StartBreakText { get; set; }
+
+        public string EndShiftText { get; set; }
+
+        public string VehicleText { get; set; }
+
+        public string AddNoteText { get; set; }
+
+        public int VehicleRego { get; set; }
+
+        public string HoursTillReset { get; set; }
+
+        public bool VehicleInUse { get; set; }
+
+        public string VehiclePickerText { get; set; }
+
+        public bool PickerEnabled { get; set; }
+
+        public string DriveTimes { get; set; }
+
+        public FileImageSource ShiftImage { get; set; }
+
+        public ICommand StartBreakCommand { get; set; }
+
+        public ICommand VehicleCommand { get; set; }
+
+        public bool OnBreak { get; set; }
+
+        public bool DriveShiftRunning
+        {
+            get
+            {
+                return driveShiftRunning;
+            }
+
+            set
+            {
+                driveShiftRunning = value;
+                OnPropertyChanged("ShiftRunning");
+            }
+        }
+
+        public List<VehicleTable> GetVehicles()
+        {
+            listOfVehicles = new List<VehicleTable>();
+            listOfVehicles = dbService.GetVehicles();
+            return listOfVehicles;
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (changed != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         private void SetVehicleLabel()
         {
-            if (DbService.VehicleActive())
+            if (dbService.VehicleActive())
             {
-                currentVehicle = DbService.GetCurrentVehicle();
+                currentVehicle = dbService.GetCurrentVehicle();
                 GetVehicles();
 
                 int count = 0;
@@ -120,24 +156,24 @@ namespace Hubo
                         VehicleRego = count;
                         break;
                     }
+
                     count++;
                 }
 
-                DriveTimes = DbService.GetDriveTimes();
+                DriveTimes = dbService.GetDriveTimes();
                 VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
-                VehicleTextColor = Xamarin.Forms.Color.FromHex("#F9D029");
+                VehicleTextColor = Color.FromHex("#F9D029");
                 VehicleInUse = true;
                 DriveShiftRunning = true;
 
-                UpdateCircularGauge();
                 GeoCollection();
             }
             else
             {
                 VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
-                VehicleTextColor = Xamarin.Forms.Color.FromHex("#009900");
+                VehicleTextColor = Color.FromHex("#009900");
                 VehicleInUse = false;
                 DriveShiftRunning = false;
             }
@@ -153,7 +189,7 @@ namespace Hubo
 
         private void CheckActiveShift()
         {
-            if (DbService.CheckActiveShift())
+            if (dbService.CheckActiveShift())
             {
                 ShowEndShiftXAML();
             }
@@ -161,41 +197,41 @@ namespace Hubo
             {
                 ShowStartShiftXAML();
             }
-
         }
 
         private void CheckActiveBreak()
         {
-            int onBreak = DbService.CheckOnBreak();
+            int onBreak = dbService.CheckOnBreak();
             if (onBreak == -1)
             {
-                BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
+                BreakButtonColor = Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
             }
             else if (onBreak == 1)
             {
-                BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+                BreakButtonColor = Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
             }
         }
 
-        public async Task ToggleDrive()
+        private async Task ToggleDrive()
         {
             if (!DriveShiftRunning)
             {
-                if (await DbService.SaveDrive(DateTime.Now))
+                if (await dbService.SaveDrive(DateTime.Now))
                 {
                     SetVehicleLabel();
                     GeoCollection();
-                    UpdateCircularGauge();
                 }
             }
             else
             {
-                if (await DbService.SaveDrive(DateTime.Now))
+                if (await dbService.SaveDrive(DateTime.Now))
+                {
                     SetVehicleLabel();
+                }
             }
         }
 
@@ -203,12 +239,13 @@ namespace Hubo
         {
             if (OnBreak)
             {
-                if (await DbService.StopBreak())
+                if (await dbService.StopBreak())
                 {
                     BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
                     StartBreakText = Resource.StartBreak;
                     OnBreak = false;
                     DriveShiftRunning = true;
+                    ShiftStarted = true;
                     GeoCollection();
                     UpdateCircularGauge();
                 }
@@ -219,16 +256,19 @@ namespace Hubo
 
                 if (result)
                 {
-                    //Implement ability to take note and hubo
-                    if (await DbService.StartBreak())
+                    // Implement ability to take note and hubo
+                    if (await dbService.StartBreak())
                     {
                         BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
                         StartBreakText = Resource.EndBreak;
                         OnBreak = true;
                         DriveShiftRunning = false;
+                        ShiftStarted = false;
                     }
                 }
             }
+
+            OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
             OnPropertyChanged("OnBreak");
@@ -240,36 +280,48 @@ namespace Hubo
             if (!ShiftStarted)
             {
                 if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
+                {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
+                }
 
                 if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
+                {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
+                }
 
                 if (await StartShift().ConfigureAwait(false))
                 {
-                    if (await DbService.StartShift())
+                    if (await dbService.StartShift())
+                    {
                         ShowEndShiftXAML();
+                    }
                 }
             }
             else
             {
-                if (!DbService.VehicleActive())
+                if (!dbService.VehicleActive())
                 {
-                    if (DbService.CheckOnBreak() == 1)
+                    if (dbService.CheckOnBreak() == 1)
                     {
-                        if (await DbService.StopShift())
+                        if (await dbService.StopShift())
                         {
                             await Navigation.PushModalAsync(new NZTAMessagePage(2));
                             ShowStartShiftXAML();
                         }
                         else
+                        {
                             await Application.Current.MainPage.DisplayAlert("ERROR", "There was a problem ending your shift", "Understood");
+                        }
                     }
                     else
+                    {
                         await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your break before ending your work shift", "Gotcha");
+                    }
                 }
                 else
+                {
                     await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
+                }
             }
         }
 
@@ -280,6 +332,8 @@ namespace Hubo
             StartShiftVisibility = false;
             ShiftStarted = true;
             ShiftImage = "Stop.png";
+
+            UpdateCircularGauge();
 
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftButtonColor");
@@ -305,7 +359,7 @@ namespace Hubo
 
         private async Task<bool> StartShift()
         {
-            List<string> checklistQuestions = DbService.GetChecklist();
+            List<string> checklistQuestions = dbService.GetChecklist();
             int count = 0;
             foreach (string question in checklistQuestions)
             {
@@ -316,12 +370,13 @@ namespace Hubo
                     return false;
                 }
             }
+
             return true;
         }
 
         private void UpdateCircularGauge()
         {
-            CompletedJourney = DbService.TotalSinceStart();
+            CompletedJourney = dbService.TotalSinceStart();
 
             if (CompletedJourney == -1)
             {
@@ -329,16 +384,16 @@ namespace Hubo
                 return;
             }
 
-            TotalBeforeBreak = DbService.NextBreak();
-            //TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
+            TotalBeforeBreak = dbService.NextBreak();
 
+            // TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
             OnPropertyChanged("CompletedJourney");
             OnPropertyChanged("TotalBeforeBreak");
             OnPropertyChanged("TotalBeforeBreakText");
 
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                TotalBeforeBreak = DbService.TotalSinceStart();
+                TotalBeforeBreak = dbService.TotalSinceStart();
 
                 if (TotalBeforeBreak == -1)
                 {
@@ -352,39 +407,23 @@ namespace Hubo
                     OnPropertyChanged("CompletedJourney");
                     OnPropertyChanged("TotalBeforeBreakText");
                 }
-                return DriveShiftRunning;
+                return ShiftStarted;
             });
         }
 
-        public List<VehicleTable> GetVehicles()
-        {
-            listOfVehicles = new List<VehicleTable>();
-            listOfVehicles = DbService.GetVehicles();
-            return listOfVehicles;
-        }
-
-        private async Task GeoCollection()
+        private void GeoCollection()
         {
             var min = TimeSpan.FromMinutes(1);
 
-            int driveKey = DbService.GetCurrentDriveShift().Key;
+            int driveKey = dbService.GetCurrentDriveShift().Key;
 
-            await DbService.CollectGeolocation(driveKey);
+            dbService.CollectGeolocation(driveKey);
 
             Device.StartTimer(min, () =>
             {
-                DbService.CollectGeolocation(driveKey);
+                dbService.CollectGeolocation(driveKey);
                 return DriveShiftRunning;
             });
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var changed = PropertyChanged;
-            if (changed != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

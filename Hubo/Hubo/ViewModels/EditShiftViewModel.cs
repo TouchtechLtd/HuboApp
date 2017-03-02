@@ -1,47 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿// <copyright file="EditShiftViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class EditShiftViewModel : INotifyPropertyChanged
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+
+    internal class EditShiftViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public INavigation Navigation { get; set; }
-        public string ShiftStartTime { get; set; }
-        public string ShiftEndTime { get; set; }
-        public TimeSpan ShiftStartTimePicker { get; set; }
-        public TimeSpan ShiftEndTimePicker { get; set; }
-        public DateTime ShiftStartDatePicker { get; set; }
-        public DateTime ShiftEndDatePicker { get; set; }
-        public ICommand SaveCommand { get; set; }
-        public ICommand DrivesCommand { get; set; }
-        public ICommand NotesCommand { get; set; }
-        public string SaveText { get; set; }
-        public string AddDrivesText { get; set; }
-        public string EditNotesText { get; set; }
-        public string CancelText { get; set; }
-        public bool ChangesMade { get; set; }
-        public bool ShiftStartInfoVisible { get; set; }
-        public bool ShiftEndInfoVisible { get; set; }
-        public bool ShiftSelected { get; set; }
-        public string DashText { get; set; }
-        public int SelectedDrive { get; set; }
+        private readonly DatabaseService dbService = new DatabaseService();
+        private readonly List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
 
-        readonly DatabaseService DbService = new DatabaseService();
-
-        ShiftTable currentShift = new ShiftTable();
-        List<DriveTable> driveList = new List<DriveTable>();
-
-        public ObservableCollection<DriveTable> Drives { get; set; }
-
-        readonly List<AmendmentTable> listOfAmendments = new List<AmendmentTable>();
+        private ShiftTable currentShift = new ShiftTable();
+        private List<DriveTable> driveList = new List<DriveTable>();
+        private List<BreakTable> breakList = new List<BreakTable>();
+        private List<NoteTable> noteList = new List<NoteTable>();
 
         public EditShiftViewModel()
         {
@@ -50,6 +28,9 @@ namespace Hubo
             ShiftEndTime = Resource.ShiftEndTime;
             ShiftStartInfoVisible = false;
             ShiftEndInfoVisible = false;
+            DrivesAvailable = false;
+            BreaksAvailable = false;
+            NotesAvailable = false;
             SaveCommand = new Command(Save);
             NotesCommand = new Command(EditShiftDetails);
             DrivesCommand = new Command(EditShiftDetails);
@@ -60,7 +41,67 @@ namespace Hubo
             ChangesMade = false;
             ShiftSelected = false;
             SelectedDrive = -1;
+            SelectedBreak = -1;
+            SelectedNote = -1;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public INavigation Navigation { get; set; }
+
+        public string ShiftStartTime { get; set; }
+
+        public string ShiftEndTime { get; set; }
+
+        public TimeSpan ShiftStartTimePicker { get; set; }
+
+        public TimeSpan ShiftEndTimePicker { get; set; }
+
+        public DateTime ShiftStartDatePicker { get; set; }
+
+        public DateTime ShiftEndDatePicker { get; set; }
+
+        public ICommand SaveCommand { get; set; }
+
+        public ICommand DrivesCommand { get; set; }
+
+        public ICommand NotesCommand { get; set; }
+
+        public string SaveText { get; set; }
+
+        public string AddDrivesText { get; set; }
+
+        public string EditNotesText { get; set; }
+
+        public string CancelText { get; set; }
+
+        public bool ChangesMade { get; set; }
+
+        public bool ShiftStartInfoVisible { get; set; }
+
+        public bool ShiftEndInfoVisible { get; set; }
+
+        public bool DrivesAvailable { get; set; }
+
+        public bool BreaksAvailable { get; set; }
+
+        public bool NotesAvailable { get; set; }
+
+        public bool ShiftSelected { get; set; }
+
+        public string DashText { get; set; }
+
+        public int SelectedDrive { get; set; }
+
+        public int SelectedBreak { get; set; }
+
+        public int SelectedNote { get; set; }
+
+        public ObservableCollection<DriveTable> Drives { get; set; }
+
+        public ObservableCollection<BreakTable> Breaks { get; set; }
+
+        public ObservableCollection<NoteTable> Notes { get; set; }
 
         public void EditShiftDetails(object obj)
         {
@@ -70,7 +111,7 @@ namespace Hubo
                 {
                     Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), Drives[SelectedDrive]));
 
-                    driveList = DbService.GetDriveShifts(currentShift.Key);
+                    driveList = dbService.GetDriveShifts(currentShift.Key);
                     Drives = new ObservableCollection<DriveTable>(driveList);
 
                     SelectedDrive = -1;
@@ -78,8 +119,34 @@ namespace Hubo
                     OnPropertyChanged("Drives");
                     OnPropertyChanged("SelectedDrive");
                 }
-                else if (SelectedDrive == -1)
+                else if (SelectedBreak > -1)
+                {
+                    Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), null, null, Breaks[SelectedBreak]));
+
+                    breakList = dbService.GetBreaks(currentShift);
+                    Breaks = new ObservableCollection<BreakTable>(breakList);
+
+                    SelectedBreak = -1;
+
+                    OnPropertyChanged("Breaks");
+                    OnPropertyChanged("SelectedBreak");
+                }
+                else if (SelectedNote > -1)
+                {
+                    Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), null, null, null, Notes[SelectedNote]));
+
+                    noteList = dbService.GetNotes(currentShift.Key);
+                    Notes = new ObservableCollection<NoteTable>(noteList);
+
+                    SelectedNote = -1;
+
+                    OnPropertyChanged("Notes");
+                    OnPropertyChanged("SelectedNote");
+                }
+                else
+                {
                     Navigation.PushModalAsync(new EditShiftDetailsPage(obj.ToString(), null, currentShift));
+                }
             }
             else
             {
@@ -87,11 +154,76 @@ namespace Hubo
             }
         }
 
+        internal void LoadInfoFromShift(ShiftTable shiftTable)
+        {
+            ShiftStartInfoVisible = true;
+            if (shiftTable.EndDate != "Current")
+            {
+                ShiftEndInfoVisible = true;
+                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate).Date;
+                ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
+            }
+
+            currentShift = shiftTable;
+
+            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate).Date;
+
+            ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
+
+            driveList = dbService.GetDriveShifts(currentShift.Key);
+            Drives = new ObservableCollection<DriveTable>(driveList);
+
+            if (Drives.Count != 0)
+            {
+                DrivesAvailable = true;
+            }
+
+            breakList = dbService.GetBreaks(currentShift);
+            Breaks = new ObservableCollection<BreakTable>(breakList);
+
+            if (Breaks.Count != 0)
+            {
+                BreaksAvailable = true;
+            }
+
+            noteList = dbService.GetNotes(currentShift.Key);
+            Notes = new ObservableCollection<NoteTable>(noteList);
+
+            if (Notes.Count != 0)
+            {
+                NotesAvailable = true;
+            }
+
+            ShiftSelected = true;
+
+            OnPropertyChanged("ShiftSelected");
+            OnPropertyChanged("ShiftStartInfoVisible");
+            OnPropertyChanged("ShiftEndInfoVisible");
+            OnPropertyChanged("ShiftStartTimePicker");
+            OnPropertyChanged("ShiftEndTimePicker");
+            OnPropertyChanged("ShiftStartDatePicker");
+            OnPropertyChanged("ShiftEndDatePicker");
+            OnPropertyChanged("Drives");
+            OnPropertyChanged("DrivesAvailable");
+            OnPropertyChanged("Breaks");
+            OnPropertyChanged("BreaksAvailable");
+            OnPropertyChanged("Notes");
+            OnPropertyChanged("NotesAvailable");
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var changed = PropertyChanged;
+            if (changed != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         private void Save()
         {
             if (currentShift.EndDate != "Current")
             {
-
                 DateTime oldEndShiftDate = DateTime.Parse(currentShift.EndDate).Date;
                 TimeSpan oldEndShiftTime = DateTime.Parse(currentShift.EndDate).TimeOfDay;
 
@@ -127,49 +259,10 @@ namespace Hubo
 
             if (listOfAmendments.Count > 0)
             {
-                DbService.AddAmendments(listOfAmendments, currentShift);
+                dbService.AddAmendments(listOfAmendments, currentShift);
             }
 
             MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
-        }
-
-        internal void LoadInfoFromShift(ShiftTable shiftTable)
-        {
-            ShiftStartInfoVisible = true;
-            if (shiftTable.EndDate != "Current")
-            {
-                ShiftEndInfoVisible = true;
-                ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate).Date;
-                ShiftEndTimePicker = ShiftEndDatePicker.TimeOfDay;
-            }
-
-            currentShift = shiftTable;
-
-            ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate).Date;
-
-            ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
-
-            driveList = DbService.GetDriveShifts(currentShift.Key);
-            Drives = new ObservableCollection<DriveTable>(driveList);
-
-            ShiftSelected = true;
-
-            OnPropertyChanged("ShiftSelected");
-            OnPropertyChanged("ShiftStartInfoVisible");
-            OnPropertyChanged("ShiftEndInfoVisible");
-            OnPropertyChanged("ShiftStartTimePicker");
-            OnPropertyChanged("ShiftEndTimePicker");
-            OnPropertyChanged("ShiftStartDatePicker");
-            OnPropertyChanged("ShiftEndDatePicker");
-            OnPropertyChanged("Drives");
-        }
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var changed = PropertyChanged;
-            if (changed != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

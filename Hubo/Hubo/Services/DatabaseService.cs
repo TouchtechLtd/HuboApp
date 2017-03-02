@@ -1,23 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite.Net;
-using Xamarin.Forms;
-using Plugin.Geolocator;
-using Acr.UserDialogs;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
-using Microsoft.ProjectOxford.Vision.Contract;
-using System.Linq;
+﻿// <copyright file="DatabaseService.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Acr.UserDialogs;
+    using Microsoft.ProjectOxford.Vision.Contract;
+    using Plugin.Geolocator;
+    using Plugin.Media;
+    using Plugin.Media.Abstractions;
+    using SQLite.Net;
+    using Xamarin.Forms;
+
     public class DatabaseService
     {
-        public SQLiteConnection db;
-        RestService RestAPI;
+        private SQLiteConnection db;
+        private RestService restAPI;
 
         public DatabaseService()
         {
@@ -39,13 +43,24 @@ namespace Hubo
             db.CreateTable<BreakOffline>();
         }
 
+        internal List<ShiftTable> GetDayShifts(DateTime date)
+        {
+            List<ShiftTable> shifts = new List<ShiftTable>();
+
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] LIKE '%" + date.ToString("yyyy-MM-dd") + "%'");
+
+            return shifts;
+        }
+
         internal string GetUserToken()
         {
             List<UserTable> listUsers = db.Query<UserTable>("SELECT * FROM [UserTable]");
-            string token = "";
+            string token = string.Empty;
 
             if (listUsers.Count != 0)
+            {
                 token = listUsers[0].Token;
+            }
 
             return token;
         }
@@ -68,6 +83,7 @@ namespace Hubo
             {
                 return "ERROR";
             }
+
             return listUser[0].FirstName + " " + listUser[0].LastName;
         }
 
@@ -92,6 +108,7 @@ namespace Hubo
             {
                 return true;
             }
+
             return false;
         }
 
@@ -139,13 +156,16 @@ namespace Hubo
             activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
             if (activeDrives.Count > 1)
+            {
                 return null;
+            }
+
             DriveTable activeDrive = new DriveTable();
             activeDrive = activeDrives[0];
             string driveTimes;
 
-            DateTime startTime = new DateTime();
-            DateTime endTime = new DateTime();
+            DateTime startTime = default(DateTime);
+            DateTime endTime = default(DateTime);
 
             startTime = DateTime.Parse(activeDrive.StartDate);
             endTime = startTime + TimeSpan.FromHours(14);
@@ -184,7 +204,9 @@ namespace Hubo
             var tbl = db.GetTableInfo("VehicleOffline");
 
             if (tbl.Count == 0)
+            {
                 db.CreateTable<VehicleOffline>();
+            }
 
             VehicleOffline offline = new VehicleOffline();
 
@@ -195,44 +217,52 @@ namespace Hubo
 
         internal double TotalSinceStart()
         {
-            List<DriveTable> listOfActiveDrives = new List<DriveTable>();
-            listOfActiveDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] = 1");
+            List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
+            listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
-            if (listOfActiveDrives.Count > 1)
+            if (listOfActiveShifts.Count > 1)
+            {
                 return -1;
+            }
 
-            TimeSpan previous = new TimeSpan();
+            TimeSpan previous = default(TimeSpan);
             TimeSpan current = DateTime.Now.TimeOfDay;
 
-            previous = DateTime.Parse(listOfActiveDrives[0].StartDate).TimeOfDay;
+            previous = DateTime.Parse(listOfActiveShifts[0].StartDate).TimeOfDay;
 
             TimeSpan totalTime = current - previous;
 
             if (totalTime.TotalHours > 0)
+            {
                 return totalTime.TotalHours;
+            }
             else
+            {
                 return 0;
+            }
         }
 
         internal double NextBreak()
         {
             double nextBreak = 0.00;
 
-            List<DriveTable> activeDrives = new List<DriveTable>();
-            activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
+            List<ShiftTable> activeShifts = new List<ShiftTable>();
+            activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
 
-            if (activeDrives.Count != 1)
+            if (activeShifts.Count != 1)
+            {
                 return -1;
+            }
 
-            DriveTable activeDrive = new DriveTable();
-            activeDrive = activeDrives[0];
+            ShiftTable activeShift = new ShiftTable();
+            activeShift = activeShifts[0];
 
             List<BreakTable> breaks = new List<BreakTable>();
-            breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [DriveKey] == " + activeDrive.Key + " ORDER BY [Key] DESC");
+            breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + activeShift.Key + " ORDER BY [Key] DESC");
 
             if (breaks.Count == 0)
             {
-                TimeSpan hoursSinceStart = new TimeSpan();
+                TimeSpan hoursSinceStart = default(TimeSpan);
 
                 hoursSinceStart = TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
 
@@ -244,13 +274,13 @@ namespace Hubo
             BreakTable lastBreak = new BreakTable();
             lastBreak = breaks[0];
 
-            TimeSpan driveStart = new TimeSpan();
-            driveStart = DateTime.Parse(activeDrive.StartDate).TimeOfDay;
+            TimeSpan driveStart = default(TimeSpan);
+            driveStart = DateTime.Parse(activeShift.StartDate).TimeOfDay;
 
-            TimeSpan breakEnd = new TimeSpan();
+            TimeSpan breakEnd = default(TimeSpan);
             breakEnd = DateTime.Parse(lastBreak.EndDate).TimeOfDay;
 
-            TimeSpan hoursSinceBreak = new TimeSpan();
+            TimeSpan hoursSinceBreak = default(TimeSpan);
 
             hoursSinceBreak = (breakEnd - driveStart) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
 
@@ -280,6 +310,7 @@ namespace Hubo
                     {
                         totalHours = (DateTime.Parse(listOfShiftsForAmount[i].EndDate).TimeOfDay - DateTime.Parse(listOfShiftsForAmount[i - 1].StartDate).TimeOfDay).TotalHours + totalHours;
                     }
+
                     return totalHours;
                 }
                 else
@@ -293,9 +324,11 @@ namespace Hubo
                     {
                         amountOfTime = DateTime.Parse(listOfShiftsForAmount[i].EndDate) - DateTime.Parse(listOfShiftsForAmount[i - 1].StartDate);
                     }
+
                     totalHours = totalHours + amountOfTime.TotalHours;
                 }
             }
+
             return totalHours;
         }
 
@@ -307,11 +340,9 @@ namespace Hubo
             return drives;
         }
 
-        internal int InsertUserDrives(DriveTable drive)
+        internal void InsertUserDrives(DriveTable drive)
         {
             db.Insert(drive);
-
-            return drive.ServerId;
         }
 
         internal void InsertUserNotes(NoteTable note)
@@ -326,22 +357,25 @@ namespace Hubo
             {
                 return -1;
             }
+
             ShiftTable lastShift = listOfShifts[0];
             DateTime dateNow = DateTime.Now;
 
             if (lastShift.EndDate == null)
             {
-                //Shift is still occuring, thus 0
+                // Shift is still occuring, thus 0
                 return 0;
             }
+
             DateTime dateOnLastShift = DateTime.Parse(lastShift.EndDate);
             TimeSpan time = dateNow - dateOnLastShift;
             if (time.TotalDays >= 1)
             {
-                //Have rested for longer/as long as 24 hours
+                // Have rested for longer/as long as 24 hours
                 return -2;
             }
-            int timeSinceReset = Int32.Parse(time.ToString().Remove(2));
+
+            int timeSinceReset = int.Parse(time.ToString().Remove(2));
             return timeSinceReset;
         }
 
@@ -350,19 +384,22 @@ namespace Hubo
             List<CompanyTable> companies;
 
             if (id == 0)
+            {
                 companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
+            }
             else
+            {
                 companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable] WHERE [Key] = " + id);
-
+            }
 
             return companies;
         }
 
-        internal int InsertUserShifts(ShiftTable shift)
+        internal ShiftTable InsertUserShifts(ShiftTable shift)
         {
             db.Insert(shift);
 
-            return shift.ServerKey;
+            return shift;
         }
 
         internal void InsertUserBreaks(BreakTable breakTable)
@@ -376,14 +413,17 @@ namespace Hubo
             {
                 db.Update(currentNote);
             }
+
             if (currentBreak != null)
             {
                 db.Update(currentBreak);
             }
+
             if (currentShift != null)
             {
                 db.Update(currentShift);
             }
+
             if (currentVehicleInUse != null)
             {
                 db.Update(currentVehicleInUse);
@@ -405,7 +445,9 @@ namespace Hubo
             var tbl = db.GetTableInfo("UserOffline");
 
             if (tbl.Count == 0)
+            {
                 db.CreateTable<UserOffline>();
+            }
 
             UserOffline offline = new UserOffline();
 
@@ -455,8 +497,8 @@ namespace Hubo
                 newNote.ShiftKey = currentShift.Key;
                 db.Insert(newNote);
 
-                RestAPI = new RestService();
-                int result = await RestAPI.InsertNote(newNote);
+                restAPI = new RestService();
+                int result = await restAPI.InsertNote(newNote);
 
                 switch (result)
                 {
@@ -473,7 +515,9 @@ namespace Hubo
                 var tbl = db.GetTableInfo("NoteOffline");
 
                 if (tbl.Count == 0)
+                {
                     db.CreateTable<NoteOffline>();
+                }
 
                 NoteOffline offline = new NoteOffline();
 
@@ -488,7 +532,7 @@ namespace Hubo
             db.Insert(licence);
         }
 
-        private async Task<int> GetRego()
+        internal async Task<int> GetRego()
         {
             await CrossMedia.Current.Initialize();
 
@@ -524,12 +568,14 @@ namespace Hubo
             }
 
             OcrResults rego;
-            RestAPI = new RestService();
+            restAPI = new RestService();
 
-            rego = await RestAPI.GetRegoText(photo);
+            rego = await restAPI.GetRegoText(photo);
 
             if (rego == null)
+            {
                 return -1;
+            }
 
             List<string> regoList = new List<string>();
             foreach (Region region in rego.Regions)
@@ -537,7 +583,9 @@ namespace Hubo
                 foreach (Line line in region.Lines)
                 {
                     foreach (Word word in line.Words)
+                    {
                         regoList.Add(word.Text.ToString());
+                    }
                 }
             }
 
@@ -565,9 +613,14 @@ namespace Hubo
             return -1;
         }
 
+        internal void InsertNote(NoteTable newNote)
+        {
+            db.Insert(newNote);
+        }
+
         internal async Task<bool> SaveDrive(DateTime date)
         {
-            RestAPI = new RestService();
+            restAPI = new RestService();
 
             bool invalidFormat = true;
             int hubo = 0;
@@ -585,10 +638,14 @@ namespace Hubo
                 bool isNumeric = int.TryParse(promptResult.Text, out hubo);
 
                 if (promptResult.Ok && isNumeric)
+                {
                     invalidFormat = false;
+                }
 
                 if (!promptResult.Ok)
+                {
                     return false;
+                }
 
                 promptTitle = "Please enter a VALID odometer reading: ";
             }
@@ -614,7 +671,7 @@ namespace Hubo
 
                 if (locationUpload != null)
                 {
-                    int locationResult = await RestAPI.InsertGeoData(locationUpload);
+                    int locationResult = await restAPI.InsertGeoData(locationUpload);
 
                     switch (locationResult)
                     {
@@ -632,7 +689,7 @@ namespace Hubo
 
                 if (drive.ServerId > 0)
                 {
-                    int result = await RestAPI.QueryDrive(true, drive);
+                    int result = await restAPI.QueryDrive(true, drive);
 
                     switch (result)
                     {
@@ -703,13 +760,14 @@ namespace Hubo
                 VehicleTable vehicle = new VehicleTable();
 
                 if (vehicleResult == "Add Vehicle...")
+                {
                     vehicleKey = -1;
+                }
                 else
                 {
                     vehicle = vehicles.Where(v => v.Registration == vehicleResult).First();
                     vehicleKey = vehicle.Key;
                 }
-
 
                 int regoKey;
 
@@ -724,7 +782,9 @@ namespace Hubo
                     }
                 }
                 else
+                {
                     regoKey = vehicleKey;
+                }
 
                 DriveTable newDrive = new DriveTable();
                 newDrive.ActiveVehicle = true;
@@ -734,7 +794,7 @@ namespace Hubo
                 newDrive.StartHubo = hubo;
                 db.Insert(newDrive);
 
-                int result = await RestAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
+                int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
 
                 switch (result)
                 {
@@ -754,7 +814,9 @@ namespace Hubo
                 var tbl = db.GetTableInfo("DriveOffline");
 
                 if (tbl == null)
+                {
                     db.CreateTable<DriveOffline>();
+                }
 
                 DriveOffline offline = new DriveOffline();
 
@@ -773,7 +835,7 @@ namespace Hubo
             db.Insert(newDrive);
         }
 
-        internal async Task CollectGeolocation(int driveKey)
+        internal async void CollectGeolocation(int driveKey)
         {
             GeolocationTable geoInsert = new GeolocationTable();
 
@@ -787,30 +849,35 @@ namespace Hubo
             db.Insert(geoInsert);
         }
 
-        internal List<NoteTable> GetNotes()
+        internal List<NoteTable> GetNotes(int shiftKey)
         {
-            List<NoteTable> listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable]");
+            List<NoteTable> listOfNotes = new List<NoteTable>();
+            listOfNotes = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [ShiftKey] = " + shiftKey);
             return listOfNotes;
         }
 
-        internal List<BreakTable> GetBreaks(DriveTable drive)
+        internal List<BreakTable> GetBreaks(ShiftTable shift)
         {
-            List<BreakTable> listOfBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [DriveKey] == " + drive.Key);
+            List<BreakTable> listOfBreaks = new List<BreakTable>();
+            listOfBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + shift.Key);
             return listOfBreaks;
         }
 
-
         internal bool CheckLoggedIn()
         {
-            List<UserTable> list = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            List<UserTable> list = new List<UserTable>();
+            list = db.Query<UserTable>("SELECT * FROM [UserTable]");
             if (list.Count == 1)
+            {
                 return true;
+            }
             else if (list.Count > 1)
             {
                 Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ErrorMoreOneUser, Resource.DisplayAlertOkay);
 
                 ClearTablesForNewUser();
             }
+
             return false;
         }
 
@@ -831,14 +898,15 @@ namespace Hubo
             {
                 return true;
             }
+
             Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveShift, Resource.DisplayAlertOkay);
             return false;
-
         }
 
         internal int CheckOnBreak()
         {
-            List<BreakTable> breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+            List<BreakTable> breakList = new List<BreakTable>();
+            breakList = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
             if (breakList.Count == 0)
             {
                 return 1;
@@ -847,17 +915,18 @@ namespace Hubo
             {
                 return -1;
             }
+
             Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveBreak, Resource.DisplayAlertOkay);
             return -2;
         }
 
         internal VehicleTable GetCurrentVehicle()
         {
-            //Retrieve currently used vehicle
+            // Retrieve currently used vehicle
             List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
-            //Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey + "");
+            // Retrieve vehicle details using currentvehicles key
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;
@@ -875,6 +944,7 @@ namespace Hubo
             {
                 return true;
             }
+
             Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveVehicle, Resource.DisplayAlertOkay);
             return false;
         }
@@ -884,9 +954,9 @@ namespace Hubo
             string location;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
-                RestAPI = new RestService();
+                restAPI = new RestService();
                 Geolocation geoCoords = await GetLatAndLong().ConfigureAwait(false);
-                location = await RestAPI.GetLocation(geoCoords);
+                location = await restAPI.GetLocation(geoCoords);
             }
 
             PromptConfig locationPrompt = new PromptConfig();
@@ -895,10 +965,10 @@ namespace Hubo
             locationPrompt.Text = location;
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-            if (promptResult.Ok && promptResult.Text != "")
+            if (promptResult.Ok && promptResult.Text != string.Empty)
             {
-
-                List<BreakTable> currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+                List<BreakTable> currentBreaks = new List<BreakTable>();
+                currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
                 if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
                 {
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.UnableToGetBreak, Resource.DisplayAlertOkay);
@@ -913,8 +983,8 @@ namespace Hubo
 
                 if (currentBreak.ServerId > 0)
                 {
-                    RestAPI = new RestService();
-                    int result = await RestAPI.QueryBreak(true, currentBreak);
+                    restAPI = new RestService();
+                    int result = await restAPI.QueryBreak(true, currentBreak);
 
                     switch (result)
                     {
@@ -974,6 +1044,7 @@ namespace Hubo
 
                 return true;
             }
+
             return false;
         }
 
@@ -995,9 +1066,9 @@ namespace Hubo
             string location;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
-                RestAPI = new RestService();
+                restAPI = new RestService();
                 Geolocation geoCoords = await GetLatAndLong().ConfigureAwait(false);
-                location = await RestAPI.GetLocation(geoCoords);
+                location = await restAPI.GetLocation(geoCoords);
             }
 
             PromptConfig locationPrompt = new PromptConfig();
@@ -1006,20 +1077,22 @@ namespace Hubo
             locationPrompt.Text = location;
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-            if (promptResult.Ok && promptResult.Text != "")
+            if (promptResult.Ok && promptResult.Text != string.Empty)
             {
                 BreakTable newBreak = new BreakTable();
-                List<DriveTable> activeDrive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
-                if (CheckActiveShiftIsCorrect(false, null, activeDrive))
+                List<ShiftTable> activeShift = new List<ShiftTable>();
+                activeShift = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+
+                if (CheckActiveShiftIsCorrect(true, activeShift))
                 {
-                    newBreak.DriveKey = activeDrive[0].Key;
+                    newBreak.ShiftKey = activeShift[0].Key;
                     newBreak.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                     newBreak.ActiveBreak = true;
                     newBreak.StartLocation = location;
                     db.Insert(newBreak);
 
-                    RestAPI = new RestService();
-                    int result = await RestAPI.QueryBreak(false, newBreak);
+                    restAPI = new RestService();
+                    int result = await restAPI.QueryBreak(false, newBreak);
 
                     if (result > 0)
                     {
@@ -1030,7 +1103,9 @@ namespace Hubo
                     var tbl = db.GetTableInfo("BreakOffline");
 
                     if (tbl == null)
+                    {
                         db.CreateTable<BreakOffline>();
+                    }
 
                     BreakOffline offline = new BreakOffline();
 
@@ -1042,12 +1117,14 @@ namespace Hubo
 
                     return true;
                 }
+
                 return false;
             }
+
             return false;
         }
 
-        public async Task<Geolocation> GetLatAndLong()
+        internal async Task<Geolocation> GetLatAndLong()
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
@@ -1091,14 +1168,14 @@ namespace Hubo
 
         internal async Task<bool> StartShift()
         {
-            RestAPI = new RestService();
+            restAPI = new RestService();
 
             string location;
             Geolocation geoCoords;
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
                 geoCoords = await GetLatAndLong().ConfigureAwait(false);
-                location = await RestAPI.GetLocation(geoCoords);
+                location = await restAPI.GetLocation(geoCoords);
             }
 
             PromptConfig locationPrompt = new PromptConfig();
@@ -1107,7 +1184,7 @@ namespace Hubo
             locationPrompt.Text = location;
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-            if (promptResult.Ok && promptResult.Text != "")
+            if (promptResult.Ok && promptResult.Text != string.Empty)
             {
                 using (UserDialogs.Instance.Loading("Starting Shift...", null, null, true, MaskType.Gradient))
                 {
@@ -1125,7 +1202,7 @@ namespace Hubo
                     user = db.Query<UserTable>("SELECT * FROM [UserTable]");
                     company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
 
-                    var result = await RestAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
+                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
 
                     if (result > 0)
                     {
@@ -1137,7 +1214,9 @@ namespace Hubo
                         var tbl = db.GetTableInfo("ShiftOffline");
 
                         if (tbl.Count == 0)
+                        {
                             db.CreateTable<ShiftOffline>();
+                        }
 
                         ShiftOffline offline = new ShiftOffline();
 
@@ -1147,6 +1226,7 @@ namespace Hubo
 
                         db.Insert(offline);
                     }
+
                     return true;
                 }
             }
@@ -1165,7 +1245,7 @@ namespace Hubo
 
         internal async Task<bool> StopShift()
         {
-            RestAPI = new RestService();
+            restAPI = new RestService();
 
             Geolocation geoCoords;
             string location;
@@ -1173,7 +1253,7 @@ namespace Hubo
             using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
             {
                 geoCoords = await GetLatAndLong().ConfigureAwait(false);
-                location = await RestAPI.GetLocation(geoCoords);
+                location = await restAPI.GetLocation(geoCoords);
             }
 
             PromptConfig locationPrompt = new PromptConfig();
@@ -1182,11 +1262,11 @@ namespace Hubo
             locationPrompt.Text = location;
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-            if (promptResult.Ok && promptResult.Text != "")
+            if (promptResult.Ok && promptResult.Text != string.Empty)
             {
                 using (UserDialogs.Instance.Loading("Stopping Shift...", null, null, true, MaskType.Gradient))
                 {
-                    //Get current shift
+                    // Get current shift
                     List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
                     if (CheckActiveShiftIsCorrect(true, activeShifts, null))
                     {
@@ -1200,8 +1280,8 @@ namespace Hubo
 
                         if (activeShift.ServerKey > 0)
                         {
-                            RestAPI = new RestService();
-                            var result = await RestAPI.QueryShift(activeShift, true);
+                            restAPI = new RestService();
+                            var result = await restAPI.QueryShift(activeShift, true);
 
                             if (result > 0)
                             {
@@ -1257,39 +1337,8 @@ namespace Hubo
                     }
                 }
             }
-            return false;
-        }
 
-        private bool CheckActiveShiftIsCorrect(bool isShift, List<ShiftTable> activeShifts = null, List<DriveTable> activeDrives = null)
-        {
-            if (isShift)
-            {
-                if (activeShifts.Count == 0)
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoActiveShifts, Resource.DisplayAlertOkay);
-                    return false;
-                }
-                else if (activeShifts.Count > 1)
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveShift, Resource.DisplayAlertOkay);
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                if (activeDrives.Count == 0)
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoActiveDrives, Resource.DisplayAlertOkay);
-                    return false;
-                }
-                else if (activeDrives.Count > 1)
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveDrive, Resource.DisplayAlertOkay);
-                    return false;
-                }
-                return true;
-            }
+            return false;
         }
 
         internal UserTable GetUserInfo()
@@ -1304,7 +1353,7 @@ namespace Hubo
             db.Insert(user);
         }
 
-        internal int SaveShift(DateTime shiftStart, DateTime shiftEnd, List<DriveTable> driveList)//, double latStart, double longStart, double latEnd, double longEnd)
+        internal int SaveShift(DateTime shiftStart, DateTime shiftEnd, List<DriveTable> driveList) // , double latStart, double longStart, double latEnd, double longEnd)
         {
             ShiftTable shift = new ShiftTable();
 
@@ -1421,7 +1470,7 @@ namespace Hubo
             ExportVehicle exportData = new ExportVehicle();
 
             List<ExportVehicle> exportList = new List<ExportVehicle>();
-            List<ShiftTable>  shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
+            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] <= (SELECT DATE('now', '-7 day'))");
 
             foreach (ShiftTable shiftData in shiftList)
             {
@@ -1467,7 +1516,7 @@ namespace Hubo
 
                         if (item.StartOffline)
                         {
-                            int result = await RestAPI.QueryShift(shift, false, user.DriverId, drive.Key);
+                            int result = await restAPI.QueryShift(shift, false, user.DriverId, drive.Key);
 
                             if (result > 0)
                             {
@@ -1475,25 +1524,34 @@ namespace Hubo
                                 db.Update(shift);
                             }
                             else
+                            {
                                 uploadErrors++;
+                            }
                         }
+
                         if (item.EndOffline)
                         {
-                            int result = await RestAPI.QueryShift(shift, true);
+                            int result = await restAPI.QueryShift(shift, true);
 
                             if (result != 0)
+                            {
                                 uploadErrors++;
+                            }
                         }
 
                         if (uploadErrors == 0)
+                        {
                             db.Query<ShiftOffline>("DELETE FROM [ShiftOffline] WHERE [ShiftKey] = " + shift.Key);
+                        }
                     }
                 }
 
                 List<ShiftOffline> empty = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<ShiftOffline>("DROP TABLE [ShiftOffline]");
+                }
             }
 
             var driveExists = db.GetTableInfo("DriveOffline");
@@ -1511,7 +1569,7 @@ namespace Hubo
 
                         if (item.StartOffline)
                         {
-                            int result = await RestAPI.QueryDrive(false, drive);
+                            int result = await restAPI.QueryDrive(false, drive);
 
                             if (result > 0)
                             {
@@ -1519,25 +1577,34 @@ namespace Hubo
                                 db.Update(drive);
                             }
                             else
+                            {
                                 uploadErrors++;
+                            }
                         }
+
                         if (item.EndOffline)
                         {
-                            int result = await RestAPI.QueryDrive(true, drive);
+                            int result = await restAPI.QueryDrive(true, drive);
 
                             if (result != 0)
+                            {
                                 uploadErrors++;
+                            }
                         }
 
                         if (uploadErrors == 0)
+                        {
                             db.Query<DriveOffline>("DELETE FROM [DriveOffline] WHERE [DriveKey] = " + drive.Key);
+                        }
                     }
                 }
 
                 List<DriveOffline> empty = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<DriveOffline>("DROP TABLE [DriveOffline]");
+                }
             }
 
             var breakExists = db.GetTableInfo("BreakOffline");
@@ -1556,7 +1623,7 @@ namespace Hubo
 
                         if (item.StartOffline)
                         {
-                            int result = await RestAPI.QueryBreak(false, breakValue);
+                            int result = await restAPI.QueryBreak(false, breakValue);
 
                             if (result > 0)
                             {
@@ -1564,25 +1631,34 @@ namespace Hubo
                                 db.Update(result);
                             }
                             else
+                            {
                                 uploadErrors++;
+                            }
                         }
+
                         if (item.EndOffline)
                         {
-                            int result = await RestAPI.QueryBreak(true, breakValue);
+                            int result = await restAPI.QueryBreak(true, breakValue);
 
                             if (result != 0)
+                            {
                                 uploadErrors++;
+                            }
                         }
 
                         if (uploadErrors == 0)
+                        {
                             db.Query<BreakOffline>("DELETE FROM [BreakOffline] WHERE [BreakKey] = " + breakValue.Key);
+                        }
                     }
                 }
 
                 List<BreakOffline> empty = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<BreakOffline>("DROP TABLE [BreakOffline]");
+                }
             }
 
             var noteExists = db.GetTableInfo("NoteOffline");
@@ -1597,7 +1673,7 @@ namespace Hubo
                     {
                         NoteTable note = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + item.NoteKey)[0];
 
-                        int result = await RestAPI.InsertNote(note);
+                        int result = await restAPI.InsertNote(note);
 
                         if (result > 0)
                         {
@@ -1609,7 +1685,9 @@ namespace Hubo
                 List<NoteOffline> empty = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<NoteOffline>("DROP TABLE [NoteOffline]");
+                }
             }
 
             var vehicleExists = db.GetTableInfo("VehicleOffline");
@@ -1624,7 +1702,7 @@ namespace Hubo
                     {
                         VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + item.VehicleKey)[0];
 
-                        bool result = await RestAPI.QueryAddVehicle(vehicle);
+                        bool result = await restAPI.QueryAddVehicle(vehicle);
 
                         if (result)
                         {
@@ -1636,7 +1714,9 @@ namespace Hubo
                 List<VehicleOffline> empty = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<VehicleOffline>("DROP TABLE [VehicleOffline]");
+                }
             }
 
             var userChangesExist = db.GetTableInfo("UserOffline");
@@ -1651,7 +1731,7 @@ namespace Hubo
                     {
                         UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable] WHERE [Key] = " + item.UserKey)[0];
 
-                        bool result = await RestAPI.QueryUpdateProfile(user);
+                        bool result = await restAPI.QueryUpdateProfile(user);
 
                         if (result)
                         {
@@ -1663,10 +1743,46 @@ namespace Hubo
                 List<UserOffline> empty = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
 
                 if (empty.Count == 0)
+                {
                     db.Query<UserOffline>("DROP TABLE [VehicleOffline");
+                }
             }
 
             return true;
+        }
+
+        private bool CheckActiveShiftIsCorrect(bool isShift, List<ShiftTable> activeShifts = null, List<DriveTable> activeDrives = null)
+        {
+            if (isShift)
+            {
+                if (activeShifts.Count == 0)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoActiveShifts, Resource.DisplayAlertOkay);
+                    return false;
+                }
+                else if (activeShifts.Count > 1)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveShift, Resource.DisplayAlertOkay);
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                if (activeDrives.Count == 0)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoActiveDrives, Resource.DisplayAlertOkay);
+                    return false;
+                }
+                else if (activeDrives.Count > 1)
+                {
+                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MoreOneActiveDrive, Resource.DisplayAlertOkay);
+                    return false;
+                }
+
+                return true;
+            }
         }
     }
 }
