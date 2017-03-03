@@ -1,12 +1,10 @@
-﻿// <copyright file="HomePage.xaml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="HomePage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using Syncfusion.SfGauge.XForms;
     using Xamarin.Forms;
 
     public partial class HomePage : ContentPage

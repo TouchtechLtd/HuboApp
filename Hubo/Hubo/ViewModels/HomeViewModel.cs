@@ -17,6 +17,8 @@ namespace Hubo
     {
         private readonly DatabaseService dbService = new DatabaseService();
 
+        private readonly Countdown countdown = new Countdown();
+
         private List<VehicleTable> listOfVehicles;
 
         private VehicleTable currentVehicle;
@@ -63,11 +65,11 @@ namespace Hubo
 
         public string ShiftText { get; set; }
 
-        public Xamarin.Forms.Color ShiftButtonColor { get; set; }
+        public Color ShiftButtonColor { get; set; }
 
-        public Xamarin.Forms.Color BreakButtonColor { get; set; }
+        public Color BreakButtonColor { get; set; }
 
-        public Xamarin.Forms.Color VehicleTextColor { get; set; }
+        public Color VehicleTextColor { get; set; }
 
         public double CompletedJourney { get; set; }
 
@@ -248,6 +250,8 @@ namespace Hubo
                     ShiftStarted = true;
                     GeoCollection();
                     UpdateCircularGauge();
+
+                    countdown.StopUpdating();
                 }
             }
             else
@@ -264,6 +268,8 @@ namespace Hubo
                         OnBreak = true;
                         DriveShiftRunning = false;
                         ShiftStarted = false;
+
+                        countdown.StartUpdating(30 * 60);
                     }
                 }
             }
