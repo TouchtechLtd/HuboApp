@@ -49,6 +49,12 @@ namespace Hubo
 
             CheckActiveShift();
             CheckActiveBreak();
+
+            if (!OnBreak && dbService.CheckActiveShift())
+            {
+                UpdateCircularGauge();
+            }
+
             ShiftButton = new RelayCommand(async () => await ToggleShift());
             EndShiftText = Resource.EndShift;
             AddNoteText = Resource.AddNote;
@@ -79,11 +85,11 @@ namespace Hubo
 
         public double TotalBeforeBreak { get; set; }
 
-        public string TotalBeforeBreakText { get; set; }
-
         public bool StartShiftVisibility { get; set; }
 
         public bool ShiftStarted { get; set; }
+
+        public bool ShiftRunning { get; set; }
 
         public string StartBreakText { get; set; }
 
@@ -136,8 +142,7 @@ namespace Hubo
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            var changed = PropertyChanged;
-            if (changed != null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
@@ -209,12 +214,18 @@ namespace Hubo
                 BreakButtonColor = Color.FromHex("#cc0000");
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
+                ShiftRunning = false;
+
+                DateTime startTime = dbService.GetBreakStart();
+
+                countdown.Restart(30 * 60, startTime);
             }
             else if (onBreak == 1)
             {
                 BreakButtonColor = Color.FromHex("#009900");
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
+                ShiftRunning = true;
             }
         }
 
@@ -247,11 +258,16 @@ namespace Hubo
                     StartBreakText = Resource.StartBreak;
                     OnBreak = false;
                     DriveShiftRunning = true;
-                    ShiftStarted = true;
-                    GeoCollection();
+                    ShiftRunning = true;
+
+                    if (dbService.VehicleActive())
+                    {
+                        GeoCollection();
+                    }
+
                     UpdateCircularGauge();
 
-                    countdown.StopUpdating();
+                    countdown.Stop();
                 }
             }
             else
@@ -267,9 +283,9 @@ namespace Hubo
                         StartBreakText = Resource.EndBreak;
                         OnBreak = true;
                         DriveShiftRunning = false;
-                        ShiftStarted = false;
+                        ShiftRunning = false;
 
-                        countdown.StartUpdating(30 * 60);
+                        countdown.Start(30 * 60);
                     }
                 }
             }
@@ -300,6 +316,7 @@ namespace Hubo
                     if (await dbService.StartShift())
                     {
                         ShowEndShiftXAML();
+                        UpdateCircularGauge();
                     }
                 }
             }
@@ -337,11 +354,11 @@ namespace Hubo
             ShiftButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
+            ShiftRunning = true;
             ShiftImage = "Stop.png";
 
-            UpdateCircularGauge();
-
             OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftRunning");
             OnPropertyChanged("ShiftButtonColor");
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
@@ -354,9 +371,11 @@ namespace Hubo
             ShiftButtonColor = Xamarin.Forms.Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
+            ShiftRunning = false;
             ShiftImage = "Play.png";
 
             OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftRunning");
             OnPropertyChanged("ShiftButtonColor");
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
@@ -390,30 +409,25 @@ namespace Hubo
                 return;
             }
 
-            TotalBeforeBreak = dbService.NextBreak();
+            if (!OnBreak)
+            {
+                TotalBeforeBreak = dbService.NextBreak();
+            }
+            else
+            {
+                TotalBeforeBreak = CompletedJourney;
+            }
 
-            // TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
             OnPropertyChanged("CompletedJourney");
             OnPropertyChanged("TotalBeforeBreak");
-            OnPropertyChanged("TotalBeforeBreakText");
 
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                TotalBeforeBreak = dbService.TotalSinceStart();
+                CompletedJourney = dbService.TotalSinceStart();
 
-                if (TotalBeforeBreak == -1)
-                {
-                    Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "More Than One Active Shift!", Resource.DisplayAlertOkay);
-                }
-                else
-                {
-                    CompletedJourney = TotalBeforeBreak;
-                    TotalBeforeBreakText = ((int)TotalBeforeBreak).ToString() + Resource.HoursTotalText;
+                OnPropertyChanged("CompletedJourney");
 
-                    OnPropertyChanged("CompletedJourney");
-                    OnPropertyChanged("TotalBeforeBreakText");
-                }
-                return ShiftStarted;
+                return ShiftRunning;
             });
         }
 

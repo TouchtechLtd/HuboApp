@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resource="clr-namespace:Hubo;assembly=Hubo"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
              xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
              xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
              x:Class="Hubo.HomePage">
-  <Grid Padding="-7">
+  <Grid x:Name="grid" Padding="-7">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
@@ -41,7 +41,7 @@
       </syncfusion:SfLinearGauge.Scales>
     </syncfusion:SfLinearGauge>
 
-    <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.95" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
+    <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.8" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
       <telerikGauges:RadRadialGauge.Axis>
         <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="14" Step="1" StrokeThickness="1" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
       </telerikGauges:RadRadialGauge.Axis>
@@ -64,22 +64,18 @@
 
     <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
 
-    <telerikGauges:RadRadialGauge StartAngle="90" SweepAngle="360" AxisRadiusFactor="0.95" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="4" IsVisible="{Binding OnBreak}">
-      <telerikGauges:RadCartesianChart.BindingContext>
-        <resource:Countdown/>
-      </telerikGauges:RadCartesianChart.BindingContext>
-      
+    <telerikGauges:RadRadialGauge x:Name="breakGauge" StartAngle="90" SweepAngle="360" AxisRadiusFactor="0.75" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="5" IsVisible="{Binding IsRunning}">
       <telerikGauges:RadRadialGauge.Axis>
-        <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="{Binding TotalTime}" Step="1" StrokeThickness="1" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
+        <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="{Binding TotalTime}" Step="120" StrokeThickness="1" Stroke="#000000" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
       </telerikGauges:RadRadialGauge.Axis>
 
       <telerikGauges:RadRadialGauge.Indicators>
-        <telerikGauges:GaugeBarIndicator Value="{Binding RemainTime}" Fill="#0000cc" StartThickness="30" EndThickness="30" />
+        <telerikGauges:GaugeBarIndicator Value="{Binding RemainTime}" Fill="#6666e0" StartThickness="7" EndThickness="7" />
       </telerikGauges:RadRadialGauge.Indicators>
 
       <telerikGauges:RadRadialGauge.Ranges>
-        <telerikGauges:GaugeRangesDefinition StartThickness="30" EndThickness="30">
-          <telerikGauges:GaugeRange From="0" To="{Binding TotalTime}" Color="#009900" />
+        <telerikGauges:GaugeRangesDefinition StartThickness="12" EndThickness="12">
+          <telerikGauges:GaugeRange From="0" To="{Binding TotalTime}" Color="#000000" />
         </telerikGauges:GaugeRangesDefinition>
       </telerikGauges:RadRadialGauge.Ranges>
     </telerikGauges:RadRadialGauge>

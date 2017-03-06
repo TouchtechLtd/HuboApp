@@ -215,6 +215,23 @@ namespace Hubo
             db.Insert(offline);
         }
 
+        internal DateTime GetBreakStart()
+        {
+            List<BreakTable> breaks = new List<BreakTable>();
+
+            breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] = 1");
+
+            if (breaks.Count > 1)
+            {
+                return DateTime.Now;
+            }
+
+            BreakTable breakItem = new BreakTable();
+            breakItem = breaks[0];
+
+            return DateTime.Parse(breakItem.StartDate);
+        }
+
         internal double TotalSinceStart()
         {
             List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
@@ -274,11 +291,11 @@ namespace Hubo
             BreakTable lastBreak = new BreakTable();
             lastBreak = breaks[0];
 
-            TimeSpan driveStart = default(TimeSpan);
-            driveStart = DateTime.Parse(activeShift.StartDate).TimeOfDay;
+            DateTime driveStart = default(DateTime);
+            driveStart = DateTime.Parse(activeShift.StartDate);
 
-            TimeSpan breakEnd = default(TimeSpan);
-            breakEnd = DateTime.Parse(lastBreak.EndDate).TimeOfDay;
+            DateTime breakEnd = default(DateTime);
+            breakEnd = DateTime.Parse(lastBreak.EndDate);
 
             TimeSpan hoursSinceBreak = default(TimeSpan);
 

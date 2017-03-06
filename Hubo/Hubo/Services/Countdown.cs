@@ -1,81 +1,139 @@
-//
-//  Countdown.cs
-//  Created by Alexey Kinev on 11 Jan 2015.
-//
-//    Licensed under The MIT License (MIT)
-//    http://opensource.org/licenses/MIT
-//
-//    Copyright (c) 2015 Alexey Kinev <alexey.rudy@gmail.com>
-//
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Xamarin.Forms;
+// <copyright file="Countdown.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Runtime.CompilerServices;
+    using Xamarin.Forms;
+
     /// <summary>
     /// Countdown timer with periodical ticks.
     /// </summary>
-    public class Countdown : INotifyPropertyChanged
+    internal class Countdown : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Gets the start date time.
-        /// </summary>
-        public DateTime StartDateTime { get; private set; }
-
-        public static Stopwatch sw = new Stopwatch();
-
-        /// <summary>
-        /// Gets the remain time in seconds.
-        /// </summary>
-        public double RemainTime
-        {
-            get { return remainTime; }
-
-            private set
-            {
-                remainTime = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double TotalTime
-        {
-            get { return remainTimeTotal; }
-            private set
-            {
-                remainTimeTotal = value;
-                OnPropertyChanged();
-            }
-        }
+        private static Stopwatch sw = new Stopwatch();
 
         /// <summary>
         /// The remain time.
         /// </summary>
-        double remainTime;
+        private double remainTime;
 
         /// <summary>
         /// The remain time total.
         /// </summary>
-        double remainTimeTotal;
+        private double remainTimeTotal;
+
+        private DateTime startDateTime;
+
+        private bool isRunning;
+
+        private bool warningGiven;
 
         public Countdown()
         {
             RemainTime = 0;
 
             TotalTime = 10;
+
+            IsRunning = false;
+
+            WarningGiven = false;
+        }
+
+        /// <summary>
+        /// Occurs when property changed.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets gets the start date time.
+        /// </summary>
+        public DateTime StartDateTime
+        {
+            get
+            {
+                return startDateTime;
+            }
+
+            private set
+            {
+                startDateTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets the remain time in seconds.
+        /// </summary>
+        public double RemainTime
+        {
+            get
+            {
+                return remainTime;
+            }
+
+             private set
+            {
+                remainTime = value;
+                OnPropertyChanged("RemainTime");
+            }
+        }
+
+        public double TotalTime
+        {
+            get
+            {
+                return remainTimeTotal;
+            }
+
+            private set
+            {
+                remainTimeTotal = value;
+                OnPropertyChanged("TotalTime");
+            }
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return isRunning;
+            }
+
+            private set
+            {
+                isRunning = value;
+                OnPropertyChanged("IsRunning");
+            }
+        }
+
+        public bool WarningGiven
+        {
+            get
+            {
+                return warningGiven;
+            }
+
+            private set
+            {
+                warningGiven = value;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
         /// Starts the updating with specified period, total time and period are specified in seconds.
         /// </summary>
-        public void StartUpdating(double total)
+        /// <param name="total"> the total time for the timer</param>
+        public void Start(double total)
         {
-            if (sw.IsRunning)
+            if (IsRunning)
             {
-                StopUpdating();
+                Stop();
                 return;
             }
 
@@ -86,22 +144,51 @@ namespace Hubo
 
             sw.Start();
 
+            IsRunning = sw.IsRunning;
+
             Device.StartTimer(TimeSpan.FromMilliseconds(200), () =>
             {
                 Tick();
-                return sw.IsRunning;
+                return IsRunning;
+            });
+        }
+
+        public void Restart(double total, DateTime startTime)
+        {
+            if (IsRunning)
+            {
+                Stop();
+                return;
+            }
+
+            TotalTime = total;
+
+            StartDateTime = startTime;
+
+            RemainTime = total - startTime.TimeOfDay.TotalMinutes;
+
+            sw.Start();
+
+            IsRunning = sw.IsRunning;
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(200), () =>
+            {
+                Tick();
+                return IsRunning;
             });
         }
 
         /// <summary>
         /// Stops the updating.
         /// </summary>
-        public void StopUpdating()
+        public void Stop()
         {
-            if (sw.IsRunning)
+            if (IsRunning)
             {
                 sw.Stop();
                 sw.Reset();
+
+                IsRunning = sw.IsRunning;
             }
         }
 
@@ -112,9 +199,9 @@ namespace Hubo
         {
             var delta = (DateTime.Now - StartDateTime).TotalSeconds;
 
-            if (delta < remainTimeTotal)
+            if (delta < TotalTime)
             {
-                RemainTime = remainTimeTotal - delta;
+                RemainTime = TotalTime - delta;
             }
             else
             {
@@ -122,29 +209,27 @@ namespace Hubo
 
                 sw.Stop();
                 sw.Reset();
+
+                IsRunning = sw.IsRunning;
+            }
+
+            if (RemainTime < (5 * 60) && !WarningGiven)
+            {
+                Application.Current.MainPage.DisplayAlert("Break End", "You have less than 5 min left in your break", Resource.DisplayAlertOkay);
+                WarningGiven = true;
             }
         }
-
-        #region INotifyPropertyChanged implementation
-
-        /// <summary>
-        /// Occurs when property changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Raises the property changed event.
         /// </summary>
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        /// <param name="propertyName">Name of the property changed</param>
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
+            if (PropertyChanged != null)
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion
     }
 }
-
