@@ -1,23 +1,18 @@
-﻿using Plugin.Geolocator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Hubo.Helpers;
-using Acr.UserDialogs;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System;
+    using Plugin.Geolocator;
+    using Plugin.Geolocator.Abstractions;
+    using Xamarin.Forms;
+
     public partial class Application : Xamarin.Forms.Application
     {
+        public static IGeolocator locator = CrossGeolocator.Current;
         DatabaseService DbService = new DatabaseService();
 
         public Application()
         {
             InitializeComponent();
-
             //Run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
@@ -50,11 +45,10 @@ namespace Hubo
             //Implement check for logged in status
             base.OnResume();
 
-            if (DbService.CheckLoggedIn())
-            {
-                MainPage.Navigation.PushModalAsync(new NZTAMessagePage(3));
-            }
+            //if (DbService.CheckLoggedIn())
+            //{
+            //    MainPage.Navigation.PushModalAsync(new NZTAMessagePage(3));
+            //}
         }
     }
 }
-

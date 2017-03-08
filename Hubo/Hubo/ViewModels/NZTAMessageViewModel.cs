@@ -1,20 +1,18 @@
-﻿using Hubo.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using Hubo.Helpers;
+    using Xamarin.Forms;
+
     class NZTAMessageViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
+
         public string NZTADisclaimer { get; set; }
+
         public string NZTAButtonText { get; set; }
+
         public ICommand NZTAButton { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

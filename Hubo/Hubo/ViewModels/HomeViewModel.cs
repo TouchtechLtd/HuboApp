@@ -250,24 +250,31 @@ namespace Hubo
 
         private async Task ToggleBreak()
         {
+            await Application.locator.StartListeningAsync(2000, 0, true);
+
             if (OnBreak)
             {
-                if (await dbService.StopBreak())
+                var result = await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Are you sure you want to end your break?", "Yes", "No");
+
+                if (result)
                 {
-                    BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
-                    StartBreakText = Resource.StartBreak;
-                    OnBreak = false;
-                    DriveShiftRunning = true;
-                    ShiftRunning = true;
-
-                    if (dbService.VehicleActive())
+                    if (await dbService.StopBreak())
                     {
-                        GeoCollection();
+                        BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+                        StartBreakText = Resource.StartBreak;
+                        OnBreak = false;
+                        DriveShiftRunning = true;
+                        ShiftRunning = true;
+
+                        if (dbService.VehicleActive())
+                        {
+                            GeoCollection();
+                        }
+
+                        UpdateCircularGauge();
+
+                        countdown.Stop();
                     }
-
-                    UpdateCircularGauge();
-
-                    countdown.Stop();
                 }
             }
             else
@@ -290,6 +297,8 @@ namespace Hubo
                 }
             }
 
+            await Application.locator.StopListeningAsync();
+
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
@@ -299,6 +308,7 @@ namespace Hubo
 
         private async Task ToggleShift()
         {
+            await Application.locator.StartListeningAsync(2000, 0, true);
             if (!ShiftStarted)
             {
                 if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
@@ -311,12 +321,15 @@ namespace Hubo
                     await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
                 }
 
-                if (await StartShift().ConfigureAwait(false))
+                if (await Application.Current.MainPage.DisplayAlert("Confirmation", "Would you like to start your shift?", "Yes", "No"))
                 {
-                    if (await dbService.StartShift())
+                    if (await StartShift().ConfigureAwait(false))
                     {
-                        ShowEndShiftXAML();
-                        UpdateCircularGauge();
+                        if (await dbService.StartShift())
+                        {
+                            ShowEndShiftXAML();
+                            UpdateCircularGauge();
+                        }
                     }
                 }
             }
@@ -326,14 +339,13 @@ namespace Hubo
                 {
                     if (dbService.CheckOnBreak() == 1)
                     {
-                        if (await dbService.StopShift())
+                        if (await Application.Current.MainPage.DisplayAlert("Confirmation", "Would you like to end your shift?", "Yes", "No"))
                         {
-                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                            ShowStartShiftXAML();
-                        }
-                        else
-                        {
-                            await Application.Current.MainPage.DisplayAlert("ERROR", "There was a problem ending your shift", "Understood");
+                            if (await dbService.StopShift())
+                            {
+                                await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                                ShowStartShiftXAML();
+                            }
                         }
                     }
                     else
@@ -346,6 +358,8 @@ namespace Hubo
                     await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
                 }
             }
+
+            await Application.locator.StopListeningAsync();
         }
 
         private void ShowEndShiftXAML()

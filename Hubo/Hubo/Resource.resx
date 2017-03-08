@@ -544,6 +544,6 @@
     <value>Close</value>
   </data>
   <data name="GetDetailsError" xml:space="preserve">
-    <value>Unable to Get User Details</value>
+    <value>GUnable to Get User Details</value>
   </data>
 </root>

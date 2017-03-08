@@ -17,13 +17,11 @@ namespace Hubo
 
     internal class RestService
     {
-        private readonly HttpClient client;
         private readonly DatabaseService db;
         private string accessToken;
 
         public RestService()
         {
-            client = new HttpClient(new NativeMessageHandler());
             this.db = new DatabaseService();
             accessToken = "Bearer " + db.GetUserToken();
         }
@@ -49,7 +47,12 @@ namespace Hubo
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
-            var response = await client.PostAsync(url, content);
+            HttpResponseMessage response;
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -89,8 +92,13 @@ namespace Hubo
             if (geoCoordinates != null)
             {
                 var googleGet = new HttpRequestMessage(HttpMethod.Get, Constants.REST_URL_GOOGLEAPI + "latlng=" + geoCoordinates.Latitude + "," + geoCoordinates.Longitude + "&key=" + Configuration.GoogleMapsApiKey);
-                var googleResponse = await client.SendAsync(googleGet);
-                string address;
+
+                HttpResponseMessage googleResponse;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    googleResponse = await client.SendAsync(googleGet);
+                }
 
                 if (googleResponse.IsSuccessStatusCode)
                 {
@@ -98,8 +106,10 @@ namespace Hubo
 
                     if (geoResponse.Results[0] != null)
                     {
-                        address = geoResponse.Results[0].FormattedAddress;
-                        return address;
+                        List<GoogleAddressComponents> addressComponents = geoResponse.Results[0].GoogleAddressComponents;
+
+                        // Number + Street Name + City
+                        return addressComponents[0].ShortName + " " + addressComponents[1].ShortName + ", " + addressComponents[2].ShortName;
                     }
                 }
             }
@@ -113,6 +123,10 @@ namespace Hubo
             string urlDrive = GetBaseUrl() + Constants.REST_URL_GETDRIVEDETAILS;
             string urlBreak = GetBaseUrl() + Constants.REST_URL_GETBREAKDETAILS;
             string urlNote = GetBaseUrl() + Constants.REST_URL_GETNOTEDETAILS;
+            HttpResponseMessage shiftResponse;
+            HttpResponseMessage noteResponse;
+            HttpResponseMessage driveResponse;
+            HttpResponseMessage breakResponse;
 
             if (!db.ClearTablesForUserShifts())
             {
@@ -127,7 +141,11 @@ namespace Hubo
             var shiftGet = new HttpRequestMessage(HttpMethod.Get, urlShift);
             shiftGet.Headers.Add("DriverId", id.ToString());
 
-            var shiftResponse = await client.SendAsync(shiftGet);
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                shiftResponse = await client.SendAsync(shiftGet);
+            }
 
             if (shiftResponse.IsSuccessStatusCode)
             {
@@ -159,7 +177,11 @@ namespace Hubo
                         var noteGet = new HttpRequestMessage(HttpMethod.Get, urlNote);
                         noteGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
 
-                        var noteResponse = await client.SendAsync(noteGet);
+                        using (HttpClient client = new HttpClient())
+                        {
+                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                            noteResponse = await client.SendAsync(noteGet);
+                        }
 
                         if (noteResponse.IsSuccessStatusCode)
                         {
@@ -191,7 +213,11 @@ namespace Hubo
                         var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
                         driveGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
 
-                        var driveResponse = await client.SendAsync(driveGet);
+                        using (HttpClient client = new HttpClient())
+                        {
+                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                            driveResponse = await client.SendAsync(driveGet);
+                        }
 
                         if (driveResponse.IsSuccessStatusCode)
                         {
@@ -227,7 +253,11 @@ namespace Hubo
                         var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
                         breakGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
 
-                        var breakResponse = await client.SendAsync(breakGet);
+                        using (HttpClient client = new HttpClient())
+                        {
+                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                            breakResponse = await client.SendAsync(breakGet);
+                        }
 
                         if (breakResponse.IsSuccessStatusCode)
                         {
@@ -287,9 +317,14 @@ namespace Hubo
 
             var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
             userGet.Headers.Add("UserId", user.Id.ToString());
-            client.DefaultRequestHeaders.Add("Authorization", accessToken);
 
-            var userResponse = await client.SendAsync(userGet);
+            HttpResponseMessage userResponse;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                userResponse = await client.SendAsync(userGet);
+            }
 
             if (userResponse.IsSuccessStatusCode)
             {
@@ -321,7 +356,13 @@ namespace Hubo
                     var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
                     companyGet.Headers.Add("DriverId", user.DriverId.ToString());
 
-                    var companyResponse = await client.SendAsync(companyGet);
+                    HttpResponseMessage companyResponse;
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                        companyResponse = await client.SendAsync(companyGet);
+                    }
 
                     if (companyResponse.IsSuccessStatusCode)
                     {
@@ -348,7 +389,13 @@ namespace Hubo
                     var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
                     vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
 
-                    var vehicleResponse = await client.SendAsync(vehicleGet);
+                    HttpResponseMessage vehicleResponse;
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                        vehicleResponse = await client.SendAsync(vehicleGet);
+                    }
 
                     if (vehicleResponse.IsSuccessStatusCode)
                     {
@@ -419,7 +466,12 @@ namespace Hubo
             string json = JsonConvert.SerializeObject(user);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
-            var response = await client.PostAsync(url, content);
+            HttpResponseMessage response;
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -447,7 +499,12 @@ namespace Hubo
             string json = JsonConvert.SerializeObject(vehicleModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
-            var response = await client.PostAsync(url, content);
+            HttpResponseMessage response;
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -476,7 +533,6 @@ namespace Hubo
             string url;
 
             string json;
-            client.DefaultRequestHeaders.Add("Authorization", accessToken);
 
             if (shiftStarted)
             {
@@ -508,7 +564,14 @@ namespace Hubo
             }
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            HttpResponseMessage response;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -550,8 +613,7 @@ namespace Hubo
             string url;
             string contentType = Constants.CONTENT_TYPE;
             string json;
-            client.DefaultRequestHeaders.Add("Authorization", accessToken);
-
+            HttpResponseMessage response;
             if (!driveStarted)
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
@@ -577,7 +639,12 @@ namespace Hubo
             }
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -614,10 +681,10 @@ namespace Hubo
 
         internal async Task<int> QueryBreak(bool breakStarted, BreakTable breakTable)
         {
-            client.DefaultRequestHeaders.Add("Authorization", accessToken);
             string url;
             string contentType = Constants.CONTENT_TYPE;
             string json;
+            HttpResponseMessage response;
 
             if (!breakStarted)
             {
@@ -643,7 +710,12 @@ namespace Hubo
             }
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -682,6 +754,7 @@ namespace Hubo
         {
             string url = GetBaseUrl() + Constants.REST_URL_INSERTGEODATA;
             string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
 
             List<InsertGeoModel> modelList = new List<InsertGeoModel>();
 
@@ -698,7 +771,12 @@ namespace Hubo
 
             string json = JsonConvert.SerializeObject(modelList);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -723,6 +801,7 @@ namespace Hubo
         {
             string url = GetBaseUrl() + Constants.REST_URL_INSERTNOTE;
             string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
 
             InsertNoteModel noteModel = new InsertNoteModel();
             noteModel.shiftId = note.ShiftKey;
@@ -731,7 +810,11 @@ namespace Hubo
 
             string json = JsonConvert.SerializeObject(noteModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -756,6 +839,7 @@ namespace Hubo
         {
             string url = GetBaseUrl() + Constants.REST_URL_EXPORTDATA;
             string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
 
             ExportModel export = new ExportModel();
             export.email = emailAddress;
@@ -763,7 +847,11 @@ namespace Hubo
 
             string json = JsonConvert.SerializeObject(export);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {
@@ -788,6 +876,7 @@ namespace Hubo
         {
             string url = GetBaseUrl() + Constants.REST_URL_REGISTERUSER;
             string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
 
             RegisterModel register = new RegisterModel();
             register.firstName = newUser.FirstName;
@@ -797,7 +886,11 @@ namespace Hubo
 
             string json = JsonConvert.SerializeObject(register);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
-            var response = await client.PostAsync(url, content);
+
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.PostAsync(url, content);
+            }
 
             if (response.IsSuccessStatusCode)
             {

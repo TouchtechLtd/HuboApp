@@ -503,7 +503,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to Get User Details.
+        ///   Looks up a localized string similar to GUnable to Get User Details.
         /// </summary>
         internal static string GetDetailsError {
             get {

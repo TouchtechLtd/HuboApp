@@ -37,6 +37,8 @@
     <CodeAnalysisRuleSet>Hubo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\AddressComponents.cs" />
+    <Compile Include="ApiModels\GoogleGeoLocationResponse.cs" />
     <Compile Include="ApiModels\GoogleGeoResponse.cs" />
     <Compile Include="ApiModels\LoginModels.cs" />
     <Compile Include="ApiModels\OtherModels.cs" />

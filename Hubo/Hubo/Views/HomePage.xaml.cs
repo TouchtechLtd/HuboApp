@@ -34,7 +34,7 @@ namespace Hubo
             Title = Resource.Hubo;
             UpdateList();
 
-            breakGauge.PropertyChanged += (sender, args) => Application.Current.MainPage.DisplayAlert("test", args.PropertyName, "ok");
+            //breakGauge.PropertyChanged += (sender, args) => Application.Current.MainPage.DisplayAlert("test", args.PropertyName, "ok");
         }
 
         public void UpdateList()

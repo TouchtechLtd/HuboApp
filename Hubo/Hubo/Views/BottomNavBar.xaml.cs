@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using Xamarin.Forms;
+
     public partial class BottomNavBar : ContentPage
     {
         public BottomNavBar()
         {
             InitializeComponent();
             Title = "BottomBar";
-
         }
 
         public BottomBarPage GetBottomBar()
