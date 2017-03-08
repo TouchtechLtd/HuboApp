@@ -5,17 +5,19 @@
 namespace Hubo
 {
     using System;
-    using System.ComponentModel;
     using System.Diagnostics;
-    using System.Runtime.CompilerServices;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     /// <summary>
     /// Countdown timer with periodical ticks.
     /// </summary>
-    internal class Countdown : INotifyPropertyChanged
+    internal class Countdown
     {
         private static Stopwatch sw = new Stopwatch();
+        private MessagingModel message = new MessagingModel();
+        private ToastConfig toastConfig;
+        private int notificationId;
 
         /// <summary>
         /// The remain time.
@@ -39,15 +41,12 @@ namespace Hubo
 
             TotalTime = 10;
 
-            IsRunning = false;
+            IsRunning = sw.IsRunning;
 
-            WarningGiven = false;
+            warningGiven = false;
+
+            notificationId = 10;
         }
-
-        /// <summary>
-        /// Occurs when property changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Gets gets the start date time.
@@ -62,7 +61,6 @@ namespace Hubo
             private set
             {
                 startDateTime = value;
-                OnPropertyChanged();
             }
         }
 
@@ -76,10 +74,15 @@ namespace Hubo
                 return remainTime;
             }
 
-             private set
+            private set
             {
                 remainTime = value;
-                OnPropertyChanged("RemainTime");
+
+                message = new MessagingModel();
+                message.PropertyName = "RemainTime";
+                message.PropertyValue = remainTime;
+
+                MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
 
@@ -93,7 +96,12 @@ namespace Hubo
             private set
             {
                 remainTimeTotal = value;
-                OnPropertyChanged("TotalTime");
+
+                message = new MessagingModel();
+                message.PropertyName = "TotalTime";
+                message.PropertyValue = remainTimeTotal;
+
+                MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
 
@@ -107,21 +115,12 @@ namespace Hubo
             private set
             {
                 isRunning = value;
-                OnPropertyChanged("IsRunning");
-            }
-        }
 
-        public bool WarningGiven
-        {
-            get
-            {
-                return warningGiven;
-            }
+                message = new MessagingModel();
+                message.PropertyName = "IsRunning";
+                message.PropertyBool = isRunning;
 
-            private set
-            {
-                warningGiven = value;
-                OnPropertyChanged();
+                MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
 
@@ -144,7 +143,11 @@ namespace Hubo
 
             sw.Start();
 
+            CountdownConverter convert = new CountdownConverter();
+            DependencyService.Get<INotifyService>().LocalNotification("Break End", "You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break", DateTime.Now + TimeSpan.FromSeconds(total), notificationId);
+
             IsRunning = sw.IsRunning;
+            warningGiven = false;
 
             Device.StartTimer(TimeSpan.FromMilliseconds(200), () =>
             {
@@ -157,7 +160,7 @@ namespace Hubo
         {
             if (IsRunning)
             {
-                Stop();
+                warningGiven = false;
                 return;
             }
 
@@ -170,6 +173,7 @@ namespace Hubo
             sw.Start();
 
             IsRunning = sw.IsRunning;
+            warningGiven = false;
 
             Device.StartTimer(TimeSpan.FromMilliseconds(200), () =>
             {
@@ -189,6 +193,8 @@ namespace Hubo
                 sw.Reset();
 
                 IsRunning = sw.IsRunning;
+
+                DependencyService.Get<INotifyService>().CancelNotification(notificationId);
             }
         }
 
@@ -213,22 +219,13 @@ namespace Hubo
                 IsRunning = sw.IsRunning;
             }
 
-            if (RemainTime < (5 * 60) && !WarningGiven)
+            if (RemainTime < (5 * 60) && !warningGiven)
             {
-                Application.Current.MainPage.DisplayAlert("Break End", "You have less than 5 min left in your break", Resource.DisplayAlertOkay);
-                WarningGiven = true;
-            }
-        }
+                CountdownConverter convert = new CountdownConverter();
+                toastConfig = new ToastConfig("You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break");
+                UserDialogs.Instance.Toast(toastConfig);
 
-        /// <summary>
-        /// Raises the property changed event.
-        /// </summary>
-        /// <param name="propertyName">Name of the property changed</param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                warningGiven = true;
             }
         }
     }

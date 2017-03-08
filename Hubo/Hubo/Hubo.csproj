@@ -72,6 +72,7 @@
     <Compile Include="Models\BottomBarPageExtensions.cs" />
     <Compile Include="Models\Geolocation.cs" />
     <Compile Include="Models\LoginResponse.cs" />
+    <Compile Include="Models\MessagingModel.cs" />
     <Compile Include="Models\OtherResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Models\ExportNote.cs" />

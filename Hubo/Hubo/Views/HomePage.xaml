@@ -6,6 +6,13 @@
              xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
              xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
              x:Class="Hubo.HomePage">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <local:CountdownConverter x:Key="Converter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
   <Grid x:Name="grid" Padding="-7">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
@@ -64,13 +71,15 @@
 
     <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
 
+    <Label FontSize="18" TextColor="White" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" />
+
     <telerikGauges:RadRadialGauge x:Name="breakGauge" StartAngle="90" SweepAngle="360" AxisRadiusFactor="0.75" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="5" IsVisible="{Binding IsRunning}">
       <telerikGauges:RadRadialGauge.Axis>
         <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="{Binding TotalTime}" Step="120" StrokeThickness="1" Stroke="#000000" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
       </telerikGauges:RadRadialGauge.Axis>
 
       <telerikGauges:RadRadialGauge.Indicators>
-        <telerikGauges:GaugeBarIndicator Value="{Binding RemainTime}" Fill="#6666e0" StartThickness="7" EndThickness="7" />
+        <telerikGauges:GaugeBarIndicator Value="{Binding RemainTime}" Fill="#0000cc" StartThickness="12" EndThickness="12" />
       </telerikGauges:RadRadialGauge.Indicators>
 
       <telerikGauges:RadRadialGauge.Ranges>

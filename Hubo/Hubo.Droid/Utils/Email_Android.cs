@@ -1,28 +1,24 @@
-using System;
+// <copyright file="Email_Android.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
+using Android.Support.V4.Content;
 using Android.Widget;
+using Hubo.Droid;
 using Java.IO;
 using Xamarin.Forms;
-using Hubo.Droid;
-using Android.Support.V4.Content;
 
 [assembly: Dependency(typeof(Email_Android))]
 
 namespace Hubo.Droid
 {
-
-    class Email_Android : IEmail
+    internal class Email_Android : IEmail
     {
         public Email_Android()
         {
-
         }
 
         public bool Email(string mailTo, string subject, List<string> filePaths)

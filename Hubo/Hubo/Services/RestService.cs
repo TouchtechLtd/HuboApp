@@ -754,6 +754,7 @@ namespace Hubo
 
         internal async Task<int> ExportData(string emailAddress, string emailBody)
         {
+            // TODO: make sure offline data is synced first
             string url = GetBaseUrl() + Constants.REST_URL_EXPORTDATA;
             string contentType = Constants.CONTENT_TYPE;
 
