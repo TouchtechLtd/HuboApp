@@ -12,6 +12,7 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
+    using Acr.UserDialogs;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -25,8 +26,32 @@ namespace Hubo
 
         private bool driveShiftRunning;
 
+        private bool isRunning;
+        private double totalTime;
+        private double remainTime;
+        private int notificationId;
+        private bool notifyReady;
+
         public HomeViewModel()
         {
+            MessagingCenter.Subscribe<string, MessagingModel>("Countdown Update", "CountDown Update", (s, sentValues) =>
+            {
+                switch (sentValues.PropertyName)
+                {
+                    case "IsRunning":
+                        IsRunning = sentValues.PropertyBool;
+                        break;
+                    case "TotalTime":
+                        TotalTime = sentValues.PropertyValue;
+                        break;
+                    case "RemainTime":
+                        RemainTime = sentValues.PropertyValue;
+                        break;
+                    default:
+                        break;
+                }
+            });
+
             CompletedJourney = 0;
             RemainderOfJourney = 0;
             Break = 0;
@@ -50,7 +75,7 @@ namespace Hubo
             CheckActiveShift();
             CheckActiveBreak();
 
-            if (!OnBreak && dbService.CheckActiveShift())
+            if (dbService.CheckActiveShift())
             {
                 UpdateCircularGauge();
             }
@@ -130,6 +155,48 @@ namespace Hubo
             {
                 driveShiftRunning = value;
                 OnPropertyChanged("ShiftRunning");
+            }
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return isRunning;
+            }
+
+            set
+            {
+                isRunning = value;
+                OnPropertyChanged("IsRunning");
+            }
+        }
+
+        public double TotalTime
+        {
+            get
+            {
+                return totalTime;
+            }
+
+            set
+            {
+                totalTime = value;
+                OnPropertyChanged("TotalTime");
+            }
+        }
+
+        public double RemainTime
+        {
+            get
+            {
+                return remainTime;
+            }
+
+            set
+            {
+                remainTime = value;
+                OnPropertyChanged("RemainTime");
             }
         }
 
@@ -330,6 +397,13 @@ namespace Hubo
                             ShowEndShiftXAML();
                             UpdateCircularGauge();
                         }
+                        ShowEndShiftXAML();
+                        UpdateCircularGauge();
+
+                        CountdownConverter convert = new CountdownConverter();
+
+                        notificationId = 5;
+                        DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now + TimeSpan.FromHours(13), notificationId);
                     }
                 }
             }
@@ -340,6 +414,13 @@ namespace Hubo
                     if (dbService.CheckOnBreak() == 1)
                     {
                         if (await Application.Current.MainPage.DisplayAlert("Confirmation", "Would you like to end your shift?", "Yes", "No"))
+                        if (await dbService.StopShift())
+                        {
+                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
+                            ShowStartShiftXAML();
+                            DependencyService.Get<INotifyService>().CancelNotification(notificationId);
+                        }
+                        else
                         {
                             if (await dbService.StopShift())
                             {
@@ -415,6 +496,7 @@ namespace Hubo
 
         private void UpdateCircularGauge()
         {
+            notifyReady = false;
             CompletedJourney = dbService.TotalSinceStart();
 
             if (CompletedJourney == -1)
@@ -435,11 +517,32 @@ namespace Hubo
             OnPropertyChanged("CompletedJourney");
             OnPropertyChanged("TotalBeforeBreak");
 
+            CountdownConverter convert = new CountdownConverter();
+            ToastConfig toast = new ToastConfig("You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift");
+
+            if ((14 - CompletedJourney) < 1)
+            {
+                UserDialogs.Instance.Toast(toast);
+
+                // notificationId = 5;
+                // DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now, notificationId);
+                notifyReady = true;
+            }
+
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
                 CompletedJourney = dbService.TotalSinceStart();
 
                 OnPropertyChanged("CompletedJourney");
+
+                if ((14 - CompletedJourney) < 1)
+                {
+                    UserDialogs.Instance.Toast(toast);
+
+                    // notificationId = 5;
+                    // DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now, notificationId);
+                    notifyReady = true;
+                }
 
                 return ShiftRunning;
             });

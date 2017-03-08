@@ -14,7 +14,7 @@ namespace Hubo.Droid
         public SQLite_Android()
         {
         }
-        
+
         public SQLiteConnection GetConnection()
         {
             SQLitePlatformAndroidN platform = new SQLitePlatformAndroidN();
@@ -22,8 +22,8 @@ namespace Hubo.Droid
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
             string path = Path.Combine(documentsPath, sqliteFilename);
 
-            //FOR DEBUG REASON, REMOVE WHEN PUSHING TO USERS
-            //path = path.Replace("data/user/0/triotech.hubo.droid/files/", "sdcard/Download/");
+            // FOR DEBUG REASON, REMOVE WHEN PUSHING TO USERS
+            // path = path.Replace("data/user/0/triotech.hubo.droid/files/", "sdcard/Download/");
 
             return new SQLiteConnection(platform, path);
         }

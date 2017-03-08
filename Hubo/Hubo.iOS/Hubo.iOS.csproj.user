@@ -20,5 +20,6 @@
 &lt;/plist&gt;
 </TargetiOSDevice>
     <ProjectView>ProjectFiles</ProjectView>
+    <SelectedDevice>Triotech.iPad.Mini</SelectedDevice>
   </PropertyGroup>
 </Project>

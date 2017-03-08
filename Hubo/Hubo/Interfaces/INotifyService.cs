@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="INotifyService.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+
     public interface INotifyService
     {
-        void LocalNotification(string title, string text, DateTime time);
+        void LocalNotification(string title, string text, DateTime time, int id);
+
+        void CancelNotification(int notificationId);
     }
 }

@@ -1,38 +1,46 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+// <copyright file="NotifyService.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Graphics;
+using Hubo.Droid;
 using Xamarin.Forms;
+
+[assembly: Dependency(typeof(NotifyService))]
 
 namespace Hubo.Droid
 {
+    using System;
+    using Android.App;
+    using Android.Content;
+
     public class NotifyService : INotifyService
     {
-        public void LocalNotification(string title, string text, DateTime time)
+        public NotifyService()
+        {
+        }
+
+        public void LocalNotification(string title, string text, DateTime time, int id)
         {
             Notification.Builder builder = new Notification.Builder(Forms.Context)
                 .SetContentTitle(title)
                 .SetContentText(text)
                 .SetSmallIcon(Resource.Drawable.icon)
                 .SetPriority((int)NotificationPriority.High)
+                .SetWhen(time.Millisecond)
+                .SetCategory(Notification.CategoryAlarm)
                 .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate | NotificationDefaults.Lights);
 
             Notification notification = builder.Build();
 
             NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
 
-            const int notifyId = 0;
-            notifyManager.Notify(notifyId, notification);
+            notifyManager.Notify(id, notification);
+        }
 
-            builder.SetWhen(time.Millisecond);
+        public void CancelNotification(int notificationId)
+        {
+            NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            notifyManager.Cancel(notificationId);
         }
     }
 }

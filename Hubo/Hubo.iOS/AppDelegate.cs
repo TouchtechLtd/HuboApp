@@ -28,14 +28,19 @@ namespace Hubo.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            #if ENABLE_TEST_CLOUD
+#if ENABLE_TEST_CLOUD
                 Xamarin.Calabash.Start();
-            #endif
+#endif
+
+            new Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer();
 
             global::Xamarin.Forms.Forms.Init();
             TelerikForms.Init();
             new SfChartRenderer();
             new SfGaugeRenderer();
+
+            Telerik.XamarinForms.Common.iOS.TelerikForms.Init();
+
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppIdIOS);
             manager.StartManager();
@@ -54,13 +59,13 @@ namespace Hubo.iOS
                     UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
                     okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default,  null));
 
-                    Window.RootViewController.PresentViewController(okayAlertController, true, null);
+                    this.Window.RootViewController.PresentViewController(okayAlertController, true, null);
 
                     UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
                 }
             }
 
-            LoadApplication(new Hubo.Application());
+            this.LoadApplication(new Hubo.Application());
 
             return base.FinishedLaunching(app, options);
         }
@@ -70,7 +75,7 @@ namespace Hubo.iOS
             UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
             okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-            Window.RootViewController.PresentViewController(okayAlertController, true, null);
+            this.Window.RootViewController.PresentViewController(okayAlertController, true, null);
 
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
