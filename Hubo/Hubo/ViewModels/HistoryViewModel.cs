@@ -155,7 +155,7 @@ namespace Hubo
 
         private void EditShift()
         {
-            listOfShifts = dbService.GetShifts(SelectedDate);
+            listOfShifts = dbService.GetEditableShifts();
 
             if (listOfShifts.Count == 0)
             {

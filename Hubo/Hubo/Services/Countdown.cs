@@ -8,6 +8,7 @@ namespace Hubo
     using System.Diagnostics;
     using Acr.UserDialogs;
     using Xamarin.Forms;
+    using System.Threading;
 
     /// <summary>
     /// Countdown timer with periodical ticks.
@@ -18,6 +19,7 @@ namespace Hubo
         private MessagingModel message = new MessagingModel();
         private ToastConfig toastConfig;
         private int notificationId;
+        private CancellationTokenSource cancel;
 
         /// <summary>
         /// The remain time.
@@ -46,6 +48,8 @@ namespace Hubo
             warningGiven = false;
 
             notificationId = 10;
+
+            cancel = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -78,9 +82,11 @@ namespace Hubo
             {
                 remainTime = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "RemainTime";
-                message.PropertyValue = remainTime;
+                message = new MessagingModel()
+                {
+                    PropertyName = "RemainTime",
+                    PropertyValue = remainTime
+                };
 
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
@@ -97,10 +103,11 @@ namespace Hubo
             {
                 remainTimeTotal = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "TotalTime";
-                message.PropertyValue = remainTimeTotal;
-
+                message = new MessagingModel()
+                {
+                    PropertyName = "TotalTime",
+                    PropertyValue = remainTimeTotal
+                };
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
@@ -116,10 +123,11 @@ namespace Hubo
             {
                 isRunning = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "IsRunning";
-                message.PropertyBool = isRunning;
-
+                message = new MessagingModel()
+                {
+                    PropertyName = "IsRunning",
+                    PropertyBool = isRunning
+                };
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
@@ -143,8 +151,17 @@ namespace Hubo
 
             sw.Start();
 
-            CountdownConverter convert = new CountdownConverter();
-            DependencyService.Get<INotifyService>().LocalNotification("Break End", "You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break", DateTime.Now + TimeSpan.FromSeconds(total), notificationId);
+            notificationId = 5;
+            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", true);
+
+            CancellationTokenSource cts = this.cancel;
+
+            Device.StartTimer(TimeSpan.FromMinutes(25), () =>
+            {
+                notificationId = 5;
+                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 5 mins left in your break", true);
+                return false;
+            });
 
             IsRunning = sw.IsRunning;
             warningGiven = false;
@@ -194,7 +211,9 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
-                DependencyService.Get<INotifyService>().CancelNotification(notificationId);
+                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", true);
+
+                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
             }
         }
 

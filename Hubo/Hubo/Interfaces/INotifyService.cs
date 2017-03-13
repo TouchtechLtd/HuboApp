@@ -8,8 +8,10 @@ namespace Hubo
 
     public interface INotifyService
     {
-        void LocalNotification(string title, string text, DateTime time, int id);
+        void PresentNotification(string title, string text);
 
-        void CancelNotification(int notificationId);
+        void UpdateNotification(string title, string text, bool endCounter);
+
+        void CancelNotification();
     }
 }

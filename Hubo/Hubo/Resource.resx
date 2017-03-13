@@ -361,7 +361,7 @@
     <value>Please input a location</value>
   </data>
   <data name="NoShiftsFound" xml:space="preserve">
-    <value>No shifts found for this date</value>
+    <value>No shifts found for the last 24 hours</value>
   </data>
   <data name="SelectAShift" xml:space="preserve">
     <value>Please select a shift</value>

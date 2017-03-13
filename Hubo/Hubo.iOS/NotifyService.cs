@@ -13,12 +13,23 @@ namespace Hubo.iOS
 
     public class NotifyService : INotifyService
     {
-        public void LocalNotification(string title, string text, DateTime time, int notifyId)
+        private const int NotifyId = 5;
+
+        public NotifyService()
         {
-            NSString id = (NSString)notifyId.ToString();
+        }
+
+        public void PresentNotification(string title, string text)
+        {
+
+        }
+
+        public void UpdateNotification(string title, string text, bool endCounter)
+        {
+            NSString id = (NSString)NotifyId.ToString();
 
             UILocalNotification notification = new UILocalNotification();
-            notification.FireDate = NSDate.FromTimeIntervalSinceNow(time.Second);
+            notification.FireDate = NSDate.FromTimeIntervalSinceNow(DateTime.Now.TimeOfDay.Seconds);
             notification.AlertTitle = title;
             notification.AlertAction = title;
             notification.AlertBody = text;
@@ -29,14 +40,14 @@ namespace Hubo.iOS
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
 
-        public void CancelNotification(int notifyId)
+        public void CancelNotification()
         {
             UNUserNotificationCenter notifications = UNUserNotificationCenter.Current;
             var pending = notifications.GetPendingNotificationRequestsAsync().Result;
 
             foreach (var item in pending)
             {
-                if (item.Identifier == notifyId.ToString())
+                if (item.Identifier == NotifyId.ToString())
                 {
                     string notificationtest = item.Identifier;
 

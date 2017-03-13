@@ -40,8 +40,8 @@ namespace Hubo
 
             // loginModel.usernameOrEmailAddress = username;
             // loginModel.password = password;
-            loginModel.usernameOrEmailAddress = "bsuarez";
-            loginModel.password = "tazmania";
+            loginModel.UsernameOrEmailAddress = "bensuarez";
+            loginModel.Password = "tazmania";
 
             string json = JsonConvert.SerializeObject(loginModel);
 

@@ -1,16 +1,21 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="LoginModels.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class LoginRequestModel
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+
+    public class LoginRequestModel
     {
-        public string usernameOrEmailAddress { get; set; }
-        public string password { get; set; }
+        public string UsernameOrEmailAddress { get; set; }
+
+        public string Password { get; set; }
     }
 
     public class LoginResponseModel
@@ -85,14 +90,23 @@ namespace Hubo
     public class ShiftResponseModel
     {
         public int Id { get; set; }
+
         public int DriverId { get; set; }
+
         public int CompanyId { get; set; }
+
         public string StartDate { get; set; }
+
         public string EndDate { get; set; }
+
         public double StartLocationLat { get; set; }
+
         public double StartLocationLong { get; set; }
+
         public double EndLocationLat { get; set; }
+
         public double EndLocationLong { get; set; }
+
         public bool IsActive { get; set; }
     }
 
@@ -117,22 +131,34 @@ namespace Hubo
     public class DriveResponseModel
     {
         public int Id { get; set; }
+
         public int ShiftId { get; set; }
+
         public string StartDrivingDateTime { get; set; }
+
         public string StopDrivingDateTime { get; set; }
+
         public int StartHubo { get; set; }
+
         public int StopHubo { get; set; }
+
         public bool IsActive { get; set; }
+
         public int VehicleId { get; set; }
     }
 
     public class NoteResponseModel
     {
         public int Id { get; set; }
+
         public int ShiftId { get; set; }
+
         public int BreakId { get; set; }
+
         public int DrivingShiftId { get; set; }
+
         public string NoteText { get; set; }
+
         public string TimeStamp { get; set; }
     }
 

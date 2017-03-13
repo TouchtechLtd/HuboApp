@@ -172,6 +172,17 @@ namespace Hubo
             return driveTimes;
         }
 
+        internal List<ShiftTable> GetEditableShifts()
+        {
+            List<ShiftTable> shifts = new List<ShiftTable>();
+            DateTime date = default(DateTime);
+            date = DateTime.Now - TimeSpan.FromHours(24);
+
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] < '%" + date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "%'");
+
+            return shifts;
+        }
+
         internal List<LicenceTable> GetLicenceInfo(int driverId)
         {
             List<LicenceTable> licenceList = db.Query<LicenceTable>("SELECT * FROM [LicenceTable] WHERE [DriverId] = " + driverId);

@@ -2,30 +2,31 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.Application">
-  <Application.Resources>
-    <ResourceDictionary>
-      <Color x:Key="pageBackgroundColour">#FCFFF5</Color>
-      <Color x:Key="barBackgroundColour">#193441</Color>
-      <Color x:Key="entryBackgroundColour">#FCFFF5</Color>
-      <Color x:Key="entryTextColour">#3E606F</Color>
-      <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
-      <Color x:Key="buttonTextColour">#FCFFF5</Color>
-      <Style TargetType="NavigationPage">
-        <Setter Property="BackgroundColor" Value="{StaticResource pageBackgroundColour}" />
-        <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
-      </Style>
-      <Style TargetType="Entry">
-        <Setter Property="TextColor"  Value="{StaticResource entryTextColour}" />
-        <!--<Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />-->
-        <Setter Property="FontFamily" Value="ComicSans" />
-      </Style>
-      <Style TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
-        <Setter Property="BackgroundColor"  Value="{StaticResource buttonBackgroundColour}" />
-      </Style>
-      <Style TargetType="Label">
-        <Setter Property="FontFamily" Value="Helvetica" />
-      </Style>
-    </ResourceDictionary>
-  </Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
+            <Image x:Key="pageBackgroundImage" Source="DesertRoadjpg.png"/>
+            <Color x:Key="pageBackgroundColour">#FCFFF5</Color>
+            <Color x:Key="barBackgroundColour">#193441</Color>
+            <Color x:Key="entryBackgroundColour">#FCFFF5</Color>
+            <Color x:Key="entryTextColour">#3E606F</Color>
+            <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
+            <Color x:Key="buttonTextColour">#FCFFF5</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BackgroundImage" Value="{StaticResource pageBackgroundImage}" />
+                <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor"  Value="{StaticResource entryTextColour}" />
+                <!--<Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />-->
+                <Setter Property="FontFamily" Value="ComicSans" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
+                <Setter Property="BackgroundColor"  Value="{StaticResource buttonBackgroundColour}" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Helvetica" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

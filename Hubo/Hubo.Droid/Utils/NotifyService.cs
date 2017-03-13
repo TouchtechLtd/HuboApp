@@ -10,37 +10,83 @@ using Xamarin.Forms;
 namespace Hubo.Droid
 {
     using System;
+    using System.Threading;
     using Android.App;
     using Android.Content;
 
     public class NotifyService : INotifyService
     {
+        private const int Id = 5;
+        private NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+        private Notification.Builder builder = new Notification.Builder(Forms.Context);
+
+        private TaskStackBuilder stackBuilder = TaskStackBuilder.Create(Forms.Context);
+
         public NotifyService()
         {
         }
 
-        public void LocalNotification(string title, string text, DateTime time, int id)
+        public void PresentNotification(string title, string text)
         {
-            Notification.Builder builder = new Notification.Builder(Forms.Context)
-                .SetContentTitle(title)
-                .SetContentText(text)
-                .SetSmallIcon(Resource.Drawable.icon)
-                .SetPriority((int)NotificationPriority.High)
-                .SetWhen(time.Millisecond)
-                .SetCategory(Notification.CategoryAlarm)
-                .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate | NotificationDefaults.Lights);
+            this.builder.SetVisibility(NotificationVisibility.Public);
+            this.builder.SetContentTitle(title);
+            this.builder.SetContentText(text);
+            this.builder.SetSmallIcon(Resource.Drawable.icon);
+            this.builder.SetPriority((int)NotificationPriority.Min);
+            this.builder.SetDefaults(NotificationDefaults.Vibrate);
+            this.builder.SetCategory(Notification.CategoryEvent);
+            this.builder.SetOngoing(true);
+            this.builder.SetAutoCancel(false);
 
-            Notification notification = builder.Build();
+            //Intent resultIntent = new Intent(Forms.Context, typeof(HomePage));
 
-            NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            //this.stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(HomePage)));
+            //this.stackBuilder.AddNextIntent(resultIntent);
 
-            notifyManager.Notify(id, notification);
+            //PendingIntent pending = this.stackBuilder.GetPendingIntent(0, PendingIntentFlags.OneShot);
+
+            //this.builder.SetContentIntent(pending);
+
+            Notification notification = this.builder.Build();
+            this.notifyManager.Notify(Id, notification);
         }
 
-        public void CancelNotification(int notificationId)
+        public void UpdateNotification(string title, string text, bool endCounter)
         {
-            NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-            notifyManager.Cancel(notificationId);
+            this.builder.SetContentTitle(title);
+            this.builder.SetContentText(text);
+
+            if (endCounter)
+            {
+                this.builder.SetPriority((int)NotificationPriority.High);
+                this.builder.SetDefaults(NotificationDefaults.All);
+            }
+            else
+            {
+                this.builder.SetPriority((int)NotificationPriority.Min);
+                this.builder.SetDefaults(NotificationDefaults.Vibrate);
+            }
+
+            //Intent resultIntent = new Intent(Forms.Context, typeof(HomePage));
+
+            //this.stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(HomePage)));
+            //this.stackBuilder.AddNextIntent(resultIntent);
+
+            //PendingIntent pending = this.stackBuilder.GetPendingIntent(0, PendingIntentFlags.OneShot);
+
+            //this.builder.SetContentIntent(pending);
+
+            //Notification.Action action = new Notification.Action.Builder(Resource.Drawable.icon, "Test", pending).Build();
+
+            //builder.AddAction(action);
+
+            Notification notification = this.builder.Build();
+            this.notifyManager.Notify(Id, notification);
+        }
+
+        public void CancelNotification()
+        {
+            return;
         }
     }
 }

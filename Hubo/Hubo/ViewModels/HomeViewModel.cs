@@ -7,12 +7,13 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
-    using Acr.UserDialogs;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -31,6 +32,8 @@ namespace Hubo
         private double remainTime;
         private int notificationId;
         private bool notifyReady;
+
+        private CancellationTokenSource cancel;
 
         public HomeViewModel()
         {
@@ -78,6 +81,19 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 UpdateCircularGauge();
+
+                if (dbService.CheckOnBreak() == -1)
+                {
+                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break");
+                }
+                else
+                {
+                    DependencyService.Get<INotifyService>().PresentNotification("Working", "You are currently working");
+                }
+            }
+            else
+            {
+                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift");
             }
 
             ShiftButton = new RelayCommand(async () => await ToggleShift());
@@ -86,6 +102,7 @@ namespace Hubo
             StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
             VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
+            cancel = new CancellationTokenSource();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -266,6 +283,7 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 ShowEndShiftXAML();
+                notificationId = 5;
             }
             else
             {
@@ -327,7 +345,7 @@ namespace Hubo
                 {
                     if (await dbService.StopBreak())
                     {
-                        BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+                        BreakButtonColor = Color.FromHex("#009900");
                         StartBreakText = Resource.StartBreak;
                         OnBreak = false;
                         DriveShiftRunning = true;
@@ -353,7 +371,7 @@ namespace Hubo
                     // Implement ability to take note and hubo
                     if (await dbService.StartBreak())
                     {
-                        BreakButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
+                        BreakButtonColor = Color.FromHex("#cc0000");
                         StartBreakText = Resource.EndBreak;
                         OnBreak = true;
                         DriveShiftRunning = false;
@@ -396,14 +414,17 @@ namespace Hubo
                         {
                             ShowEndShiftXAML();
                             UpdateCircularGauge();
+
+                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
+
+                            CancellationTokenSource cts = this.cancel;
+
+                            Device.StartTimer(TimeSpan.FromHours(13), () =>
+                            {
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
+                                return false;
+                            });
                         }
-                        ShowEndShiftXAML();
-                        UpdateCircularGauge();
-
-                        CountdownConverter convert = new CountdownConverter();
-
-                        notificationId = 5;
-                        DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now + TimeSpan.FromHours(13), notificationId);
                     }
                 }
             }
@@ -414,29 +435,26 @@ namespace Hubo
                     if (dbService.CheckOnBreak() == 1)
                     {
                         if (await Application.Current.MainPage.DisplayAlert("Confirmation", "Would you like to end your shift?", "Yes", "No"))
-                        if (await dbService.StopShift())
-                        {
-                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                            ShowStartShiftXAML();
-                            DependencyService.Get<INotifyService>().CancelNotification(notificationId);
-                        }
-                        else
                         {
                             if (await dbService.StopShift())
                             {
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
                                 ShowStartShiftXAML();
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
+
+                                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
                             }
                         }
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your break before ending your work shift", "Gotcha");
+                        await Application.Current.MainPage.DisplayAlert("ERROR", "Please end your break before ending your work shift", "Gotcha");
                     }
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("ERROR", "Pleas end your driving shift before ending your work shift", "Gotcha");
+                    await Application.Current.MainPage.DisplayAlert("ERROR", "Please end your driving shift before ending your work shift", "Gotcha");
                 }
             }
 
@@ -446,7 +464,7 @@ namespace Hubo
         private void ShowEndShiftXAML()
         {
             ShiftText = "End Shift";
-            ShiftButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
+            ShiftButtonColor = Color.FromHex("#cc0000");
             StartShiftVisibility = false;
             ShiftStarted = true;
             ShiftRunning = true;
@@ -463,7 +481,7 @@ namespace Hubo
         private void ShowStartShiftXAML()
         {
             ShiftText = "Start Shift";
-            ShiftButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+            ShiftButtonColor = Color.FromHex("#009900");
             StartShiftVisibility = true;
             ShiftStarted = false;
             ShiftRunning = false;
@@ -524,8 +542,6 @@ namespace Hubo
             {
                 UserDialogs.Instance.Toast(toast);
 
-                // notificationId = 5;
-                // DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now, notificationId);
                 notifyReady = true;
             }
 
@@ -535,12 +551,11 @@ namespace Hubo
 
                 OnPropertyChanged("CompletedJourney");
 
-                if ((14 - CompletedJourney) < 1)
+                if ((14 - CompletedJourney) < 1 && !notifyReady)
                 {
+                    toast = new ToastConfig("You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift");
                     UserDialogs.Instance.Toast(toast);
 
-                    // notificationId = 5;
-                    // DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now, notificationId);
                     notifyReady = true;
                 }
 
