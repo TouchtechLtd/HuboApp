@@ -2,6 +2,11 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
+using Hubo.iOS;
+using Xamarin.Forms;
+
+[assembly: Dependency(typeof(NotifyService))]
+
 namespace Hubo.iOS
 {
     using System;
@@ -13,55 +18,42 @@ namespace Hubo.iOS
 
     public class NotifyService : INotifyService
     {
-        private const int NotifyId = 5;
-
         public NotifyService()
         {
         }
 
-        public void PresentNotification(string title, string text)
+        public void PresentNotification(string title, string text, bool endCounter, bool endButton)
         {
-
-        }
-
-        public void UpdateNotification(string title, string text, bool endCounter)
-        {
-            NSString id = (NSString)NotifyId.ToString();
-
-            UILocalNotification notification = new UILocalNotification();
-            notification.FireDate = NSDate.FromTimeIntervalSinceNow(DateTime.Now.TimeOfDay.Seconds);
-            notification.AlertTitle = title;
-            notification.AlertAction = title;
-            notification.AlertBody = text;
-            notification.SetValueForKey(notification, id);
-            notification.ApplicationIconBadgeNumber = 1;
+            UILocalNotification notification = new UILocalNotification()
+            {
+                FireDate = NSDate.Now,
+                AlertTitle = title,
+                AlertAction = title,
+                AlertBody = text
+            };
+            notification.ApplicationIconBadgeNumber = 0;
             notification.SoundName = UILocalNotification.DefaultSoundName;
 
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
 
-        public void CancelNotification()
+        public void UpdateNotification(string title, string text, bool endCounter, bool endButton)
         {
             UNUserNotificationCenter notifications = UNUserNotificationCenter.Current;
-            var pending = notifications.GetPendingNotificationRequestsAsync().Result;
+            notifications.RemoveAllPendingNotificationRequests();
+            notifications.RemoveAllDeliveredNotifications();
 
-            foreach (var item in pending)
+            UILocalNotification notification = new UILocalNotification()
             {
-                if (item.Identifier == NotifyId.ToString())
-                {
-                    string notificationtest = item.Identifier;
+                FireDate = NSDate.Now,
+                AlertTitle = title,
+                AlertAction = title,
+                AlertBody = text
+            };
+            notification.ApplicationIconBadgeNumber = 0;
+            notification.SoundName = UILocalNotification.DefaultSoundName;
 
-                    string[] idtest = { notificationtest };
-
-                    // notifications.RemovePendingNotificationRequests(idtest);
-                }
-            }
-
-            string notification = pending[pending.Length - 1].Identifier;
-
-            string[] id = { notification };
-
-            // notifications.RemovePendingNotificationRequests(id);
+            UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
     }
 }

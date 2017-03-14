@@ -1,32 +1,36 @@
-using System;
-
-using Android.App;
-using Android.OS;
-using Android.Runtime;
-using Plugin.CurrentActivity;
+// <copyright file="MainApplication.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.Droid
 {
-	//You can specify additional application information in this attribute
+    using System;
+    using Android.App;
+    using Android.OS;
+    using Android.Runtime;
+    using Plugin.CurrentActivity;
+
+    // You can specify additional application information in this attribute
     [Application]
     public class MainApplication : Android.App.Application, Android.App.Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
-          :base(handle, transer)
+            : base(handle, transer)
         {
         }
 
         public override void OnCreate()
         {
             base.OnCreate();
-            RegisterActivityLifecycleCallbacks(this);
-            //A great place to initialize Xamarin.Insights and Dependency Services!
+            this.RegisterActivityLifecycleCallbacks(this);
+
+            // A great place to initialize Xamarin.Insights and Dependency Services!
         }
 
         public override void OnTerminate()
         {
             base.OnTerminate();
-            UnregisterActivityLifecycleCallbacks(this);
+            this.UnregisterActivityLifecycleCallbacks(this);
         }
 
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)

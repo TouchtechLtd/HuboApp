@@ -30,7 +30,6 @@ namespace Hubo
         private bool isRunning;
         private double totalTime;
         private double remainTime;
-        private int notificationId;
         private bool notifyReady;
 
         private CancellationTokenSource cancel;
@@ -59,6 +58,9 @@ namespace Hubo
             RemainderOfJourney = 0;
             Break = 0;
 
+            CheckActiveShift();
+            CheckActiveBreak();
+
             currentVehicle = new VehicleTable();
 
             int hoursTillReset = dbService.HoursTillReset();
@@ -75,25 +77,22 @@ namespace Hubo
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
             }
 
-            CheckActiveShift();
-            CheckActiveBreak();
-
             if (dbService.CheckActiveShift())
             {
                 UpdateCircularGauge();
 
                 if (dbService.CheckOnBreak() == -1)
                 {
-                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break");
+                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break", false, true);
                 }
                 else
                 {
-                    DependencyService.Get<INotifyService>().PresentNotification("Working", "You are currently working");
+                    DependencyService.Get<INotifyService>().PresentNotification("Shift Running", "You are currently working", false, true);
                 }
             }
             else
             {
-                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift");
+                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift", false, false);
             }
 
             ShiftButton = new RelayCommand(async () => await ToggleShift());
@@ -283,7 +282,6 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 ShowEndShiftXAML();
-                notificationId = 5;
             }
             else
             {
@@ -415,13 +413,18 @@ namespace Hubo
                             ShowEndShiftXAML();
                             UpdateCircularGauge();
 
-                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
+                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false, true);
 
                             CancellationTokenSource cts = this.cancel;
 
                             Device.StartTimer(TimeSpan.FromHours(13), () =>
                             {
-                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
+                                if (this.cancel.IsCancellationRequested)
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true, true);
                                 return false;
                             });
                         }
@@ -441,7 +444,7 @@ namespace Hubo
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
                                 ShowStartShiftXAML();
 
-                                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
+                                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false, false);
 
                                 Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
                             }

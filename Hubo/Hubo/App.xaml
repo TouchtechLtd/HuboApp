@@ -12,9 +12,13 @@
             <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
             <Color x:Key="buttonTextColour">#FCFFF5</Color>
             <Style TargetType="NavigationPage">
-                <Setter Property="BackgroundImage" Value="{StaticResource pageBackgroundImage}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource pageBackgroundColour}" />
                 <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
             </Style>
+            <!--<Style TargetType="Page">
+                <Setter Property="BackgroundImage" Value="{StaticResource pageBackgroundImage}" />
+                <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
+            </Style>-->
             <Style TargetType="Entry">
                 <Setter Property="TextColor"  Value="{StaticResource entryTextColour}" />
                 <!--<Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />-->

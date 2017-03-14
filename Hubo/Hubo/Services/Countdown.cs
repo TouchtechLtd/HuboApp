@@ -151,15 +151,20 @@ namespace Hubo
 
             sw.Start();
 
-            notificationId = 5;
-            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", true);
-
             CancellationTokenSource cts = this.cancel;
 
-            Device.StartTimer(TimeSpan.FromMinutes(25), () =>
+            double criticalTime = TotalTime * 0.9;
+
+            DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false, true);
+
+            Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
             {
-                notificationId = 5;
-                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 5 mins left in your break", true);
+                if (this.cancel.IsCancellationRequested)
+                {
+                    return false;
+                }
+
+                DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true, true);
                 return false;
             });
 
@@ -211,7 +216,7 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
-                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", true);
+                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false, true);
 
                 Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
             }
@@ -238,7 +243,7 @@ namespace Hubo
                 IsRunning = sw.IsRunning;
             }
 
-            if (RemainTime < (5 * 60) && !warningGiven)
+            if (((RemainTime / TotalTime) * 100) < 10 && !warningGiven)
             {
                 CountdownConverter convert = new CountdownConverter();
                 toastConfig = new ToastConfig("You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break");
