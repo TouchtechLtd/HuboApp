@@ -836,7 +836,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No shifts found for this date.
+        ///   Looks up a localized string similar to No shifts found for the last 24 hours.
         /// </summary>
         internal static string NoShiftsFound {
             get {

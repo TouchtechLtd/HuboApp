@@ -12,6 +12,7 @@ namespace Hubo
     using Acr.UserDialogs;
     using Microsoft.ProjectOxford.Vision;
     using Microsoft.ProjectOxford.Vision.Contract;
+    using ModernHttpClient;
     using Newtonsoft.Json;
     using Plugin.Media.Abstractions;
 
@@ -41,6 +42,7 @@ namespace Hubo
             // loginModel.usernameOrEmailAddress = username;
             // loginModel.password = password;
             loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
+            loginModel.Password = "tazmania";
             loginModel.password = "tazmania";
 
             string json = JsonConvert.SerializeObject(loginModel);
@@ -523,6 +525,27 @@ namespace Hubo
             else
             {
                 await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                return false;
+            }
+        }
+
+        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
+        {
+            string contentType = Constants.CONTENT_TYPE;
+            string url;
+
+            string json;
+
+            if (shiftStarted)
+            {
+                url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
+                EndShiftModel shiftModel = new EndShiftModel();
+
+                shiftModel.id = shift.ServerKey;
+                shiftModel.endDate = shift.EndDate;
+                shiftModel.endLocationLat = shift.EndLat;
+                shiftModel.endLocationLong = shift.EndLong;
+                shiftModel.endLocation = shift.EndLocation;
                 return false;
             }
         }

@@ -8,6 +8,7 @@ namespace Hubo
     using System.Diagnostics;
     using Acr.UserDialogs;
     using Xamarin.Forms;
+    using System.Threading;
 
     /// <summary>
     /// Countdown timer with periodical ticks.
@@ -18,6 +19,7 @@ namespace Hubo
         private MessagingModel message = new MessagingModel();
         private ToastConfig toastConfig;
         private int notificationId;
+        private CancellationTokenSource cancel;
 
         /// <summary>
         /// The remain time.
@@ -46,6 +48,8 @@ namespace Hubo
             warningGiven = false;
 
             notificationId = 10;
+
+            cancel = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -78,9 +82,11 @@ namespace Hubo
             {
                 remainTime = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "RemainTime";
-                message.PropertyValue = remainTime;
+                message = new MessagingModel()
+                {
+                    PropertyName = "RemainTime",
+                    PropertyValue = remainTime
+                };
 
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
@@ -97,10 +103,11 @@ namespace Hubo
             {
                 remainTimeTotal = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "TotalTime";
-                message.PropertyValue = remainTimeTotal;
-
+                message = new MessagingModel()
+                {
+                    PropertyName = "TotalTime",
+                    PropertyValue = remainTimeTotal
+                };
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
@@ -116,10 +123,11 @@ namespace Hubo
             {
                 isRunning = value;
 
-                message = new MessagingModel();
-                message.PropertyName = "IsRunning";
-                message.PropertyBool = isRunning;
-
+                message = new MessagingModel()
+                {
+                    PropertyName = "IsRunning",
+                    PropertyBool = isRunning
+                };
                 MessagingCenter.Send<string, MessagingModel>("Countdown Update", "CountDown Update", message);
             }
         }
@@ -143,8 +151,22 @@ namespace Hubo
 
             sw.Start();
 
-            CountdownConverter convert = new CountdownConverter();
-            DependencyService.Get<INotifyService>().LocalNotification("Break End", "You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break", DateTime.Now + TimeSpan.FromSeconds(total), notificationId);
+            CancellationTokenSource cts = this.cancel;
+
+            double criticalTime = TotalTime * 0.9;
+
+            DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false, true);
+
+            Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
+            {
+                if (this.cancel.IsCancellationRequested)
+                {
+                    return false;
+                }
+
+                DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true, true);
+                return false;
+            });
 
             IsRunning = sw.IsRunning;
             warningGiven = false;
@@ -194,7 +216,9 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
-                DependencyService.Get<INotifyService>().CancelNotification(notificationId);
+                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false, true);
+
+                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
             }
         }
 
@@ -219,7 +243,7 @@ namespace Hubo
                 IsRunning = sw.IsRunning;
             }
 
-            if (RemainTime < (5 * 60) && !warningGiven)
+            if (((RemainTime / TotalTime) * 100) < 10 && !warningGiven)
             {
                 CountdownConverter convert = new CountdownConverter();
                 toastConfig = new ToastConfig("You have " + convert.Convert(RemainTime, null, null, null) + " min left in your break");

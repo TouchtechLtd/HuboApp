@@ -12,13 +12,12 @@ namespace Hubo
         private readonly HomeViewModel homeVM = new HomeViewModel();
 
         private List<VehicleTable> vehicles = new List<VehicleTable>();
-        private DatabaseService dbService = new DatabaseService();
 
         public HomePage()
         {
             InitializeComponent();
-            BindingContext = homeVM;
             homeVM.Navigation = Navigation;
+            BindingContext = homeVM;
             BackgroundColor = Color.FromHex("#FCFFF5");
             Title = Resource.Hubo;
             UpdateList();
