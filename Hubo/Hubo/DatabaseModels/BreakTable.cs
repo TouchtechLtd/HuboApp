@@ -25,5 +25,9 @@ namespace Hubo
         public string EndLocation { get; set; }
 
         public int ServerId { get; set; }
+
+        public string StartNote { get; set; }
+
+        public string EndNote { get; set; }
     }
 }

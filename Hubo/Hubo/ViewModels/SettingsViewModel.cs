@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Hubo.Helpers;
+using Acr.UserDialogs;
 
 namespace Hubo
 {
@@ -47,7 +48,7 @@ namespace Hubo
 
         public async Task Restart()
         {
-            await Application.Current.MainPage.DisplayAlert("Layout Change", "For this setting to take affect a restart is required, the app will now close", "OK");
+            await UserDialogs.Instance.ConfirmAsync("For this setting to take affect a restart is required, the app will now close", "Layout Change", "OK");
             var closer = DependencyService.Get<ICloseApplication>();
             if (closer != null)
                 closer.closeApplication();

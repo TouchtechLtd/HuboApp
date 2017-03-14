@@ -62,19 +62,23 @@ namespace Hubo
 
             foreach (ShiftTable shift in listOfShifts)
             {
+                DateTime shiftStart = DateTime.Parse(shift.StartDate);
+
                 // Format and add shifts to picker
                 if (shift.EndDate == null)
                 {
                     shift.EndDate = "Current";
                 }
+                else
+                {
+                    DateTime shiftEnd = DateTime.Parse(shift.EndDate);
 
-                DateTime shiftStart = DateTime.Parse(shift.StartDate);
-                DateTime shiftEnd = DateTime.Parse(shift.EndDate);
-
-                shiftPicker.Items.Add(string.Format("{0:dd/MM}", shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
+                    shiftPicker.Items.Add(string.Format("{0:dd/MM}", shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
+                }
             }
 
             shiftPicker.SelectedIndexChanged += ShiftPicker_SelectedIndexChanged;
+            editShiftVM.LoadInfoFromShift(shifts[0]);
         }
 
         private void ShiftPicker_SelectedIndexChanged(object sender, EventArgs e)

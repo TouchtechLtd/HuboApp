@@ -12,9 +12,11 @@
 
         public BottomBarPage GetBottomBar()
         {
-            BottomBarPage bottomBarPage = new BottomBarPage();
-            bottomBarPage.BarTextColor = Color.Black;
-            bottomBarPage.FixedMode = false;
+            BottomBarPage bottomBarPage = new BottomBarPage()
+            {
+                FixedMode = true,
+                BarTextColor = Color.Black
+            };
 
             MenuViewModel menuVM = new MenuViewModel();
 

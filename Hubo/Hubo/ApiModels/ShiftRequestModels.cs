@@ -14,6 +14,7 @@ namespace Hubo
         public double startLocationLat { get; set; }
         public double startLocationLong { get; set; }
         public string startLocation { get; set; }
+        public string startNote { get; set; }
     }
 
     class EndShiftModel
@@ -23,6 +24,7 @@ namespace Hubo
         public double endLocationLat { get; set; }
         public double endLocationLong { get; set; }
         public string endLocation { get; set; }
+        public string endNote { get; set; }
     }
 
     class DriveStartModel
@@ -31,6 +33,7 @@ namespace Hubo
         public int vehicleId { get; set; }
         public string startDrivingDateTime { get; set; }
         public int startHubo { get; set; }
+        public string startNote { get; set; }
     }
 
     class DriveEndModel
@@ -38,6 +41,7 @@ namespace Hubo
         public int id { get; set; }
         public string stopDrivingDateTime { get; set; }
         public int stopHubo { get; set; }
+        public string endNote { get; set; }
     }
 
     class BreakStartModel

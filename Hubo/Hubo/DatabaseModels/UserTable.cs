@@ -1,11 +1,13 @@
-﻿using SQLite.Net.Attributes;
-
-namespace Hubo
+﻿namespace Hubo
 {
+    using SQLite.Net.Attributes;
+
     public class UserTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int Id { get; set; }
 
         public string UserName { get; set; }

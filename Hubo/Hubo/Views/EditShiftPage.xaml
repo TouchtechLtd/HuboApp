@@ -44,7 +44,7 @@
     <TimePicker Time="{Binding ShiftEndTimePicker}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
     <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding ShiftEndDatePicker}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding ShiftEndInfoVisible}"/>
 
-    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <Label Text="{Binding DriveText}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding DrivesAvailable}"/>
     <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="6" Grid.RowSpan="2" IsVisible="{Binding DrivesAvailable}">
       <ListView x:Name="driveList" ItemsSource="{Binding Drives}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ListView.ItemTemplate>
@@ -79,7 +79,7 @@
       </ListView>
     </StackLayout>
 
-    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <Label Text="{Binding BreakText}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding BreaksAvailable}"/>
     <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8" IsVisible="{Binding BreaksAvailable}">
       <ListView x:Name="breakList" ItemsSource="{Binding Breaks}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ListView.ItemTemplate>
@@ -114,7 +114,7 @@
       </ListView>
     </StackLayout>
 
-    <Label Text="{Binding ShiftStartTime}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding ShiftStartInfoVisible}"/>
+    <Label Text="{Binding NoteText}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" IsVisible="{Binding NotesAvailable}"/>
     <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="10" IsVisible="{Binding NotesAvailable}">
       <ListView x:Name="noteList" ItemsSource="{Binding Notes}" HasUnevenRows="True" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ListView.ItemTemplate>

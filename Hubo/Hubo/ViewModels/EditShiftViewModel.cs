@@ -4,6 +4,7 @@
 
 namespace Hubo
 {
+    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -52,6 +53,12 @@ namespace Hubo
         public string ShiftStartTime { get; set; }
 
         public string ShiftEndTime { get; set; }
+
+        public string DriveText { get; set; }
+
+        public string BreakText { get; set; }
+
+        public string NoteText { get; set; }
 
         public TimeSpan ShiftStartTimePicker { get; set; }
 
@@ -105,6 +112,10 @@ namespace Hubo
 
         public void EditShiftDetails(object obj)
         {
+            BreakText = "Breaks";
+            DriveText = "Drives";
+            NoteText = "Notes";
+
             if (currentShift.Key != 0)
             {
                 if (SelectedDrive > -1)
@@ -150,14 +161,14 @@ namespace Hubo
             }
             else
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.SelectAShift, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.SelectAShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
             }
         }
 
         internal void LoadInfoFromShift(ShiftTable shiftTable)
         {
             ShiftStartInfoVisible = true;
-            if (shiftTable.EndDate != "Current")
+            if (shiftTable.EndLocation != null)
             {
                 ShiftEndInfoVisible = true;
                 ShiftEndDatePicker = DateTime.Parse(shiftTable.EndDate).Date;
@@ -168,7 +179,7 @@ namespace Hubo
 
             ShiftStartDatePicker = DateTime.Parse(shiftTable.StartDate).Date;
 
-            ShiftStartTimePicker = ShiftStartDatePicker.TimeOfDay;
+            ShiftStartTimePicker = DateTime.Parse(shiftTable.StartDate).TimeOfDay;
 
             driveList = dbService.GetDriveShifts(currentShift.Key);
             Drives = new ObservableCollection<DriveTable>(driveList);

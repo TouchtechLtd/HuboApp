@@ -4,6 +4,7 @@
 
 namespace Hubo
 {
+    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -191,21 +192,20 @@ namespace Hubo
                 if (currentBreak != null)
                 {
                     BreakStartLabel = Resource.StartLocation;
-                    BreakEndLabel = Resource.EndLocation;
-
                     BreakStartDate = DateTime.Parse(currentBreak.StartDate).Date;
                     BreakStartTime = DateTime.Parse(currentBreak.StartDate).TimeOfDay;
-                    BreakEndDate = DateTime.Parse(currentBreak.EndDate).Date;
-                    BreakEndTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
                     BreakStartLocation = currentBreak.StartLocation;
-                    BreakEndLocation = currentBreak.EndLocation;
-
                     StartTimeText = Resource.StartTime;
-                    EndTimeText = Resource.EndTime;
 
                     if (currentBreak.EndDate != null)
                     {
+                        BreakEndDate = DateTime.Parse(currentBreak.EndDate).Date;
+                        BreakEndTime = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
+                        BreakEndLocation = currentBreak.EndLocation;
+                        EndTimeText = Resource.EndTime;
+                        BreakEndLabel = Resource.EndLocation;
                         EditingEndBreak = true;
+
                     }
                 }
                 else
@@ -275,21 +275,22 @@ namespace Hubo
                 {
                     DriveStartDate = DateTime.Parse(currentDrive.StartDate).Date;
                     DriveStartTime = DateTime.Parse(currentDrive.StartDate).TimeOfDay;
-                    DriveEndDate = DateTime.Parse(currentDrive.EndDate).Date;
-                    DriveEndTime = DateTime.Parse(currentDrive.EndDate).TimeOfDay;
                     DriveStartHubo = currentDrive.StartHubo.ToString();
-                    DriveEndHubo = currentDrive.EndHubo.ToString();
-                    VehicleId = currentDrive.VehicleKey;
 
+                    if (currentDrive.EndDate != null)
+                    {
+                        DriveEndDate = DateTime.Parse(currentDrive.EndDate).Date;
+                        DriveEndTime = DateTime.Parse(currentDrive.EndDate).TimeOfDay;
+                        DriveEndHubo = currentDrive.EndHubo.ToString();
+                        EditingEndDrive = true;
+
+                    }
+
+                    VehicleId = currentDrive.VehicleKey;
                     StartTimeText = Resource.StartTime;
                     EndTimeText = Resource.EndTime;
                     HuboText = Resource.HuboEquals;
                     AddBreakText = Resource.AddBreak;
-
-                    if (currentDrive.EndDate != null)
-                    {
-                        EditingEndDrive = true;
-                    }
                 }
                 else
                 {
@@ -580,13 +581,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if ((DriveStartHubo.Length == 0) || (DriveEndHubo.Length == 0))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(DriveStartHubo) || !regex.IsMatch(DriveEndHubo))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 

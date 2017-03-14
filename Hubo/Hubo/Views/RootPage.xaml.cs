@@ -1,5 +1,6 @@
 ﻿namespace Hubo
 {
+    using Acr.UserDialogs;
     using System.Threading.Tasks;
     using Xamarin.Forms;
 
@@ -75,7 +76,7 @@
             }
             else if (menu.TargetType == "SignOut")
             {
-                bool result = await DisplayAlert(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
+                bool result = await UserDialogs.Instance.ConfirmAsync(Resource.LogOut, Resource.LogOutMessage, Resource.Yes, Resource.No);
                 if (result)
                 {
                     DatabaseService dbService = new DatabaseService();

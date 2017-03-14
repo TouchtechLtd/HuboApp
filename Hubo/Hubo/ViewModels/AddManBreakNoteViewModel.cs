@@ -4,6 +4,7 @@
 
 namespace Hubo
 {
+    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -248,13 +249,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 

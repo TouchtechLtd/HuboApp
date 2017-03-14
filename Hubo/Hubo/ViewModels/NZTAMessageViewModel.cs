@@ -1,21 +1,18 @@
-﻿namespace Hubo
+﻿// <copyright file="NZTAMessageViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
     using System.ComponentModel;
     using System.Windows.Input;
-    using Hubo.Helpers;
     using Xamarin.Forms;
 
-    class NZTAMessageViewModel : INotifyPropertyChanged
+    internal class NZTAMessageViewModel : INotifyPropertyChanged
     {
-        public INavigation Navigation { get; set; }
+        private BottomNavBar navBar = new BottomNavBar();
 
-        public string NZTADisclaimer { get; set; }
-
-        public string NZTAButtonText { get; set; }
-
-        public ICommand NZTAButton { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private BottomBarPage bottomBarPage;
 
         public NZTAMessageViewModel(int instruction)
         {
@@ -24,8 +21,9 @@
                 NZTAButtonText = Resource.NZTAButtonText;
                 NZTADisclaimer = Resource.NZTADisclaimer;
                 NZTAButton = new Command(ProceedToHomePage);
+                this.bottomBarPage = navBar.GetBottomBar();
+                NavigationPage.SetHasNavigationBar(bottomBarPage, false);
             }
-
             else if (instruction == 2)
             {
                 NZTADisclaimer = Resource.EndShiftDisclaimer;
@@ -40,25 +38,15 @@
             }
         }
 
-        private void PopPage()
-        {
-            Navigation.PopModalAsync();
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private void ProceedToHomePage()
-        {
-            if (Settings.HamburgerSettings == false)
-            {
-                BottomNavBar navBar = new BottomNavBar();
+        public INavigation Navigation { get; set; }
 
-                BottomBarPage bottomBarPage = navBar.GetBottomBar();
+        public string NZTADisclaimer { get; set; }
 
-                NavigationPage.SetHasNavigationBar(bottomBarPage, false);
-                Application.Current.MainPage = new NavigationPage(bottomBarPage);
-            }
-            else
-                Application.Current.MainPage = new RootPage();
-        }
+        public string NZTAButtonText { get; set; }
+
+        public ICommand NZTAButton { get; set; }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -67,6 +55,16 @@
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        private void PopPage()
+        {
+            Navigation.PopModalAsync();
+        }
+
+        private void ProceedToHomePage()
+        {
+            Application.Current.MainPage = new NavigationPage(bottomBarPage);
         }
     }
 }

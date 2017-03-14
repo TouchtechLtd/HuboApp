@@ -1,5 +1,6 @@
 ﻿namespace Hubo
 {
+    using Acr.UserDialogs;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -65,23 +66,23 @@
                     switch (result)
                     {
                         case -1:
-                            await Application.Current.MainPage.DisplayAlert(Resource.RegisterSuccessTitle, "Unable to register user", Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync("Unable to register user", Resource.RegisterSuccessTitle, Resource.DisplayAlertOkay);
                             return;
                         default:
                             break;
                     }
 
-                    await Application.Current.MainPage.DisplayAlert(Resource.RegisterSuccessTitle, Resource.RegisterSuccessText, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterSuccessText, Resource.RegisterSuccessTitle, Resource.DisplayAlertOkay);
                     Application.Current.MainPage = new NZTAMessagePage(1);
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.MissingText, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.MissingText, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
             }
         }
     }

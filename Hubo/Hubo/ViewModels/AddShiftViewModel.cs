@@ -136,7 +136,7 @@ namespace Hubo
 
                 if (result == -1)
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ShiftAddError, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.ShiftAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     return;
                 }
 
@@ -318,7 +318,7 @@ namespace Hubo
                     }
                     else
                     {
-                        Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.BreakAddError, Resource.DisplayAlertOkay);
+                        UserDialogs.Instance.ConfirmAsync(Resource.BreakAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     }
                 });
             }
@@ -419,7 +419,7 @@ namespace Hubo
                         }
                         else
                         {
-                            Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoteAddError, Resource.DisplayAlertOkay);
+                            UserDialogs.Instance.ConfirmAsync(Resource.NoteAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                         }
                     });
             }
@@ -571,13 +571,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidHubo, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
 

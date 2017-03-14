@@ -11,8 +11,13 @@ namespace Hubo
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var date = DateTime.Parse(value.ToString());
-            return date;
+            if (value != null)
+            {
+                var date = DateTime.Parse(value.ToString());
+                return date;
+            }
+
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using CsvHelper;
 using PCLStorage;
 using XLabs;
+using Acr.UserDialogs;
 
 namespace Hubo
 {
@@ -101,13 +102,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Send Error", "Unable to send email!", "OK");
+                    await UserDialogs.Instance.ConfirmAsync("Unable to send email!", "Send Error", "OK");
                     return;
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.InvalidEmail, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
             }
         }
     }

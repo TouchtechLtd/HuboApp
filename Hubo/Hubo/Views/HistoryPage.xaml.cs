@@ -4,6 +4,7 @@
 
 namespace Hubo
 {
+    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -64,7 +65,7 @@ namespace Hubo
         {
             if (dbService.ShowTip("HistoryViewModel"))
             {
-                bool tipResult = await DisplayAlert(Resource.Tip, Resource.HistoryTip, Resource.GotIt, Resource.DontShowAgain);
+                bool tipResult = await UserDialogs.Instance.ConfirmAsync(Resource.Tip, Resource.HistoryTip, Resource.GotIt, Resource.DontShowAgain);
                 if (!tipResult)
                 {
                     dbService.HideTip("HistoryViewModel");

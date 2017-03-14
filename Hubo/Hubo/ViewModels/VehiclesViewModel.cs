@@ -4,6 +4,7 @@
 
 namespace Hubo
 {
+    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -213,7 +214,7 @@ namespace Hubo
         {
             if (currentVehicle.Registration == null)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.ChooseVehicleToEdit, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.ChooseVehicleToEdit, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
             }
             else
             {

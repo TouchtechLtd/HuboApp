@@ -31,5 +31,9 @@ namespace Hubo
         public string StartLocation { get; set; }
 
         public string EndLocation { get; set; }
+
+        public string StartNote { get; set; }
+
+        public string EndNote { get; set; }
     }
 }

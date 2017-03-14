@@ -8,7 +8,9 @@ namespace Hubo
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     public class CategoryData
@@ -25,6 +27,7 @@ namespace Hubo
         private List<ShiftTable> listOfShifts = new List<ShiftTable>();
         private ObservableCollection<CategoryData> historyChartData;
         private ObservableCollection<CategoryData> historyChartData1;
+        private bool isShiftActive;
 
         public HistoryViewModel()
         {
@@ -35,7 +38,7 @@ namespace Hubo
             EditShiftText = Resource.EditShift;
             ExportText = Resource.Export;
             ExportCommand = new Command(Export);
-            EditShiftCommand = new Command(EditShift);
+            EditShiftCommand = new Command(async () => await EditShift(), () => IsShiftActive);
 
             // Code to get shifts from the past week
             SelectedDate = DateTime.Now;
@@ -57,6 +60,15 @@ namespace Hubo
 
                     HistoryChartData.Add(new CategoryData { Category = datePoint, Value = hoursWork + minsWork });
                     HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = (24 - hoursWork) + (0.6 - minsWork) });
+                }
+
+                if (shift.ActiveShift)
+                {
+                    IsShiftActive = true;
+                }
+                else
+                {
+                    IsShiftActive = false;
                 }
             }
 
@@ -84,6 +96,30 @@ namespace Hubo
             }
         }
 
+        internal void CheckActiveShift()
+        {
+            listOfShifts = dbService.GetShifts(SelectedDate);
+
+            foreach (ShiftTable shift in listOfShifts)
+            {
+                if (shift.EndDate != null)
+                {
+                    DateTime start = DateTime.Parse(shift.StartDate);
+                    DateTime end = DateTime.Parse(shift.EndDate);
+
+                    TimeSpan amountHoursWork = end - start;
+                    int hoursWork = amountHoursWork.Hours;
+
+                    int minsWork = amountHoursWork.Minutes;
+                    minsWork = minsWork / 100;
+                    string datePoint = start.Day + "/" + start.Month;
+
+                    HistoryChartData.Add(new CategoryData { Category = datePoint, Value = hoursWork + minsWork });
+                    HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = (24 - hoursWork) + (0.6 - minsWork) });
+                }
+            }
+        }
+
         public ObservableCollection<CategoryData> HistoryChartData1
         {
             get
@@ -101,6 +137,21 @@ namespace Hubo
         public string EditShiftText { get; set; }
 
         public string ExportText { get; set; }
+
+        public bool IsShiftActive
+        {
+            get
+            {
+                return isShiftActive;
+            }
+
+            set
+            {
+                isShiftActive = value;
+                OnPropertyChanged("IsShiftActive");
+                ((Command)EditShiftCommand).ChangeCanExecute();
+            }
+        }
 
         public ICommand EditShiftCommand { get; set; }
 
@@ -139,6 +190,15 @@ namespace Hubo
                     HistoryChartData.Add(new CategoryData { Category = datePoint, Value = hoursWork + minsWork });
                     HistoryChartData1.Add(new CategoryData { Category = datePoint, Value = (24 - hoursWork) + (0.6 - minsWork) });
                 }
+
+                if (shift.ActiveShift)
+                {
+                    IsShiftActive = true;
+                }
+                else
+                {
+                    IsShiftActive = false;
+                }
             }
 
             OnPropertyChanged("HistoryChartData");
@@ -153,17 +213,19 @@ namespace Hubo
             }
         }
 
-        private void EditShift()
+        private async Task EditShift()
         {
-            listOfShifts = dbService.GetShifts(SelectedDate);
-
-            if (listOfShifts.Count == 0)
+            //listOfShifts = dbService.GetShifts(SelectedDate);
+            ShiftTable currentShift = dbService.GetCurrentShift();
+            listOfShifts = new List<ShiftTable>();
+            listOfShifts.Add(currentShift);
+            if (currentShift == null)
             {
-                Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, Resource.NoShiftsFound, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.NoShiftsFound, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
             }
             else
             {
-                Navigation.PushModalAsync(new EditShiftPage(listOfShifts));
+                await Navigation.PushModalAsync(new EditShiftPage(listOfShifts));
             }
         }
 

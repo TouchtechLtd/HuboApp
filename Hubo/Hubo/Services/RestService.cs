@@ -9,9 +9,9 @@ namespace Hubo
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using Acr.UserDialogs;
     using Microsoft.ProjectOxford.Vision;
     using Microsoft.ProjectOxford.Vision.Contract;
-    using ModernHttpClient;
     using Newtonsoft.Json;
     using Plugin.Media.Abstractions;
 
@@ -40,7 +40,7 @@ namespace Hubo
 
             // loginModel.usernameOrEmailAddress = username;
             // loginModel.password = password;
-            loginModel.usernameOrEmailAddress = "bsuarez";
+            loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
             loginModel.password = "tazmania";
 
             string json = JsonConvert.SerializeObject(loginModel);
@@ -76,13 +76,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Username/Password is incorrect, please try again", Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync("Username/Password is incorrect, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     return false;
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "There was an error communicating with the server", Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
         }
@@ -450,7 +450,7 @@ namespace Hubo
                 }
                 catch (Exception e)
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, e.Message.ToString(), Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     return null;
                 }
 
@@ -516,13 +516,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register vehicle, please try again", Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync("Unable to register vehicle, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     return false;
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "There was an error communicating with the server", Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
         }
@@ -544,6 +544,7 @@ namespace Hubo
                 shiftModel.endLocationLat = shift.EndLat;
                 shiftModel.endLocationLong = shift.EndLong;
                 shiftModel.endLocation = shift.EndLocation;
+                shiftModel.endNote = shift.EndNote;
 
                 json = JsonConvert.SerializeObject(shiftModel);
             }
@@ -559,6 +560,7 @@ namespace Hubo
                 shiftModel.startLocationLat = shift.StartLat;
                 shiftModel.startLocationLong = shift.StartLong;
                 shiftModel.startLocation = shift.StartLocation;
+                shiftModel.startNote = shift.StartNote;
 
                 json = JsonConvert.SerializeObject(shiftModel);
             }
@@ -586,7 +588,7 @@ namespace Hubo
                         }
                         else
                         {
-                            await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                             return -2;
                         }
                     }
@@ -597,13 +599,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to register shift, please try again", Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                     return -2;
                 }
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "There was an error communicating with the server", Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return -2;
             }
         }
@@ -618,23 +620,27 @@ namespace Hubo
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDDRIVESTART;
 
-                DriveStartModel driveModel = new DriveStartModel();
-                driveModel.shiftId = serverShift;
-                driveModel.startDrivingDateTime = drive.StartDate;
-                driveModel.vehicleId = drive.VehicleKey;
-                driveModel.startHubo = drive.StartHubo;
-
+                DriveStartModel driveModel = new DriveStartModel()
+                {
+                    shiftId = serverShift,
+                    startDrivingDateTime = drive.StartDate,
+                    vehicleId = drive.VehicleKey,
+                    startHubo = drive.StartHubo,
+                    startNote = drive.StartNote
+                };
                 json = JsonConvert.SerializeObject(driveModel);
             }
             else
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDDRIVEEND;
 
-                DriveEndModel driveModel = new DriveEndModel();
-                driveModel.id = drive.ServerId;
-                driveModel.stopDrivingDateTime = drive.EndDate;
-                driveModel.stopHubo = drive.EndHubo;
-
+                DriveEndModel driveModel = new DriveEndModel()
+                {
+                    id = drive.ServerId,
+                    stopDrivingDateTime = drive.EndDate,
+                    stopHubo = drive.EndHubo,
+                    endNote = drive.EndNote
+                };
                 json = JsonConvert.SerializeObject(driveModel);
             }
 
@@ -908,6 +914,27 @@ namespace Hubo
         private string GetBaseUrl()
         {
             return "http://test.triotech.co.nz/huboportal/api";
+        }
+
+        internal async Task<Geolocation> GetLatAndLong()
+        {
+            Application.locator.DesiredAccuracy = 100;
+
+            Geolocation results = new Geolocation();
+
+            try
+            {
+                var position = await Application.locator.GetPositionAsync(timeoutMilliseconds: 6000);
+
+                results.Longitude = position.Longitude;
+                results.Latitude = position.Latitude;
+                return results;
+            }
+            catch (Exception e)
+            {
+                //await UserDialogs.Instance.ConfirmAsync(Resource.DisplayAlertTitle, e.ToString(), Resource.DisplayAlertOkay);
+                return results;
+            }
         }
     }
 }
