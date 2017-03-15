@@ -17559,61 +17559,72 @@ namespace Hubo.Droid
 			public const int InterstateTruck96 = 2130837681;
 			
 			// aapt resource value: 0x7f0200b2
-			public const int Menu25 = 2130837682;
+			public const int lightDesertRoad = 2130837682;
 			
 			// aapt resource value: 0x7f0200b3
-			public const int mr_dialog_material_background_dark = 2130837683;
+			public const int Menu25 = 2130837683;
 			
 			// aapt resource value: 0x7f0200b4
-			public const int mr_dialog_material_background_light = 2130837684;
+			public const int mr_dialog_material_background_dark = 2130837684;
 			
 			// aapt resource value: 0x7f0200b5
-			public const int mr_ic_audiotrack_light = 2130837685;
+			public const int mr_dialog_material_background_light = 2130837685;
 			
 			// aapt resource value: 0x7f0200b6
-			public const int mr_ic_cast_dark = 2130837686;
+			public const int mr_ic_audiotrack_light = 2130837686;
 			
 			// aapt resource value: 0x7f0200b7
-			public const int mr_ic_cast_light = 2130837687;
+			public const int mr_ic_cast_dark = 2130837687;
 			
 			// aapt resource value: 0x7f0200b8
-			public const int mr_ic_close_dark = 2130837688;
+			public const int mr_ic_cast_light = 2130837688;
 			
 			// aapt resource value: 0x7f0200b9
-			public const int mr_ic_close_light = 2130837689;
+			public const int mr_ic_close_dark = 2130837689;
 			
 			// aapt resource value: 0x7f0200ba
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837690;
+			public const int mr_ic_close_light = 2130837690;
 			
 			// aapt resource value: 0x7f0200bb
-			public const int mr_ic_media_route_connecting_mono_light = 2130837691;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837691;
 			
 			// aapt resource value: 0x7f0200bc
-			public const int mr_ic_media_route_mono_dark = 2130837692;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837692;
 			
 			// aapt resource value: 0x7f0200bd
-			public const int mr_ic_media_route_mono_light = 2130837693;
+			public const int mr_ic_media_route_mono_dark = 2130837693;
 			
 			// aapt resource value: 0x7f0200be
-			public const int mr_ic_pause_dark = 2130837694;
+			public const int mr_ic_media_route_mono_light = 2130837694;
 			
 			// aapt resource value: 0x7f0200bf
-			public const int mr_ic_pause_light = 2130837695;
+			public const int mr_ic_pause_dark = 2130837695;
 			
 			// aapt resource value: 0x7f0200c0
-			public const int mr_ic_play_dark = 2130837696;
+			public const int mr_ic_pause_light = 2130837696;
 			
 			// aapt resource value: 0x7f0200c1
+<<<<<<< Updated upstream
 			public const int mr_ic_play_light = 2130837697;
 			
 			// aapt resource value: 0x7f0200d7
 			public const int notification_template_icon_bg = 2130837719;
+=======
+			public const int mr_ic_play_dark = 2130837697;
+>>>>>>> Stashed changes
 			
 			// aapt resource value: 0x7f0200c2
-			public const int Ok = 2130837698;
+			public const int mr_ic_play_light = 2130837698;
+			
+			// aapt resource value: 0x7f0200d7
+			public const int notification_template_icon_bg = 2130837719;
 			
 			// aapt resource value: 0x7f0200c3
+<<<<<<< Updated upstream
 			public const int openroad = 2130837699;
+=======
+			public const int Ok = 2130837699;
+>>>>>>> Stashed changes
 			
 			// aapt resource value: 0x7f0200c4
 			public const int Play = 2130837700;
