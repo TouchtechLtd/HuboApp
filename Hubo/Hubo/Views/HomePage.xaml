@@ -6,7 +6,6 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
              xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
              xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
-             BackgroundImage="openroad.jpg"
              x:Class="Hubo.HomePage">
 
   <ContentPage.Resources>

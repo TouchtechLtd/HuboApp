@@ -17604,14 +17604,7 @@ namespace Hubo.Droid
 			public const int mr_ic_pause_light = 2130837696;
 			
 			// aapt resource value: 0x7f0200c1
-<<<<<<< Updated upstream
-			public const int mr_ic_play_light = 2130837697;
-			
-			// aapt resource value: 0x7f0200d7
-			public const int notification_template_icon_bg = 2130837719;
-=======
 			public const int mr_ic_play_dark = 2130837697;
->>>>>>> Stashed changes
 			
 			// aapt resource value: 0x7f0200c2
 			public const int mr_ic_play_light = 2130837698;
@@ -17620,11 +17613,7 @@ namespace Hubo.Droid
 			public const int notification_template_icon_bg = 2130837719;
 			
 			// aapt resource value: 0x7f0200c3
-<<<<<<< Updated upstream
-			public const int openroad = 2130837699;
-=======
 			public const int Ok = 2130837699;
->>>>>>> Stashed changes
 			
 			// aapt resource value: 0x7f0200c4
 			public const int Play = 2130837700;
