@@ -475,7 +475,7 @@ namespace Hubo
 
         private async Task StartBreak()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Are you sure you want to go on a break?", Resource.DisplayAlertTitle,  "Yes", "No"))
+            if (await UserDialogs.Instance.ConfirmAsync("Are you sure you want to go on a break?", Resource.DisplayAlertTitle, "Yes", "No"))
             {
                 Geolocation geoCoords;
                 string location;
@@ -495,7 +495,7 @@ namespace Hubo
 
                 if (await dbService.StartBreak(location, note))
                 {
-                        BreakButtonColor = Color.FromHex("#cc0000");
+                    BreakButtonColor = Color.FromHex("#cc0000");
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
                     DriveShiftRunning = false;
@@ -582,38 +582,38 @@ namespace Hubo
                 }
                 else
                 {
-					if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
-                {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
-                }
+                    if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
+                    {
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
+                    }
 
-                if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
-                {
-                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
-                }
+                    if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
+                    {
+                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
+                    }
                     ShiftStarted = true;
                 }
 
                 OnPropertyChanged("ShiftStarted");
-				
+
                 ToggleShiftXaml();
-				
-                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
-                            CancellationTokenSource cts = this.cancel;
+                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
-            await Application.locator.StopListeningAsync();
-                            Device.StartTimer(TimeSpan.FromHours(13), () =>
-                            {
-                                if (this.cancel.IsCancellationRequested)
-                                {
-                                    return false;
-                                }
+                CancellationTokenSource cts = this.cancel;
 
-                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
-                                return false;
-                            });
-                        }
+                await Application.locator.StopListeningAsync();
+                Device.StartTimer(TimeSpan.FromHours(13), () =>
+                {
+                    if (this.cancel.IsCancellationRequested)
+                    {
+                        return false;
+                    }
+
+                    DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
+                    return false;
+                });
+            }
         }
 
         private async Task<string> GetLocation(Geolocation geoCoords)
@@ -649,41 +649,42 @@ namespace Hubo
                             geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
                             location = await GetLocation(geoCoords);
 
-                        if (location == string.Empty)
-                        {
+                            if (location == string.Empty)
+                            {
+                                return false;
+                            }
+
+                            string note = await NotePrompt();
+
+                            if (await dbService.StopShift(location, note, geoCoords))
+                            {
+                                UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
+                                MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
+                                await Navigation.PushModalAsync(new NZTAMessagePage(2));
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
+
+                                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
+                                return true;
+                            }
+
                             return false;
                         }
-
-                        string note = await NotePrompt();
-
-                        if (await dbService.StopShift(location, note, geoCoords))
-                        {
-                            UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
-                            MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
-                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                            
-                            DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
-
-                            Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
-							return true;
-                        }
-
+                    }
+                    else
+                    {
+                        await UserDialogs.Instance.ConfirmAsync("Please end your break before ending your work shift", "ERROR", "Gotcha");
                         return false;
                     }
-
-                    return false;
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Please end your break before ending your work shift", "ERROR", "Gotcha");
+                    await UserDialogs.Instance.ConfirmAsync("Please end your driving shift before ending your work shift", "ERROR", "Gotcha");
                     return false;
                 }
             }
-            else
-            {
-                await UserDialogs.Instance.ConfirmAsync("Please end your driving shift before ending your work shift", "ERROR", "Gotcha");
-                return false;
-            }
+
+            return false;
         }
 
         private void ToggleShiftXaml()
