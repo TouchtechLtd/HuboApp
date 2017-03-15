@@ -69,6 +69,8 @@ namespace Hubo
         public string startBreakDateTime { get; set; }
 
         public string startBreakLocation { get; set; }
+
+        public string startNote { get; set; }
     }
 
     internal class BreakEndModel
@@ -78,6 +80,7 @@ namespace Hubo
         public string stopBreakDateTime { get; set; }
 
         public string stopBreakLocation { get; set; }
+        public string endNote { get; set; }
     }
 
     internal class InsertGeoModel

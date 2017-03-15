@@ -147,29 +147,23 @@ namespace Hubo
             }
         }
 
-        internal string GetDriveTimes()
+        internal string GetShiftTimes()
         {
-            List<DriveTable> activeDrives = new List<DriveTable>();
-            activeDrives = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
-
-            if (activeDrives.Count > 1)
+            List<ShiftTable> activeShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if (activeShifts.Count == 0 || activeShifts.Count > 1)
             {
                 return null;
             }
 
-            DriveTable activeDrive = new DriveTable();
-            activeDrive = activeDrives[0];
-            string driveTimes;
+            ShiftTable currentShift = activeShifts[0];
 
             DateTime startTime = default(DateTime);
             DateTime endTime = default(DateTime);
 
-            startTime = DateTime.Parse(activeDrive.StartDate);
+            startTime = DateTime.Parse(currentShift.StartDate);
             endTime = startTime + TimeSpan.FromHours(14);
 
-            driveTimes = startTime.ToString("h:mm tt") + " - " + endTime.ToString("h:mm tt");
-
-            return driveTimes;
+            return endTime.ToString("h:mm tt");
         }
 
         internal List<ShiftTable> GetEditableShifts()
@@ -990,51 +984,75 @@ namespace Hubo
 
         internal async Task<bool> StopBreak(string location, string note)
         {
-                using (UserDialogs.Instance.Loading("Stopping Break...", null, null, true, MaskType.Gradient))
+            using (UserDialogs.Instance.Loading("Stopping Break...", null, null, true, MaskType.Gradient))
+            {
+                List<BreakTable> currentBreaks = new List<BreakTable>();
+                currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
+                if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
                 {
-                    List<BreakTable> currentBreaks = new List<BreakTable>();
-                    currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
-                    if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
+                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetBreak, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    return false;
+                }
+
+                BreakTable currentBreak = currentBreaks[0];
+                currentBreak.EndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                currentBreak.ActiveBreak = false;
+                currentBreak.EndLocation = location;
+                currentBreak.EndNote = note;
+                db.Update(currentBreak);
+
+                if (currentBreak.ServerId > 0)
+                {
+                    restAPI = new RestService();
+                    int result = await restAPI.QueryBreak(true, currentBreak);
+
+                    switch (result)
                     {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetBreak, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                        return false;
+                        case -1:
+                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            break;
+                        case -2:
+                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            break;
+                        default:
+                            return true;
                     }
+                }
+                else
+                {
+                    await UserDialogs.Instance.ConfirmAsync("Invalid Server Key", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    return false;
+                }
 
-                    BreakTable currentBreak = currentBreaks[0];
-                    currentBreak.EndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    currentBreak.ActiveBreak = false;
-                    currentBreak.EndLocation = location;
-                    currentBreak.EndNote = note;
-                    db.Update(currentBreak);
+                var tbl = db.GetTableInfo("BreakOffline");
 
-                    if (currentBreak.ServerId > 0)
+                if (tbl.Count == 0)
+                {
+                    db.CreateTable<BreakOffline>();
+                    BreakOffline offline = new BreakOffline();
+
+                    offline.BreakKey = currentBreak.Key;
+                    offline.StartOffline = false;
+                    offline.EndOffline = true;
+                    db.Insert(offline);
+                }
+                else
+                {
+                    List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
+                    int num = 0;
+
+                    foreach (BreakOffline item in checkOffline)
                     {
-                        restAPI = new RestService();
-                        int result = await restAPI.QueryBreak(true, currentBreak);
-
-                        switch (result)
+                        if (item.BreakKey == currentBreak.Key)
                         {
-                            case -1:
-                                await UserDialogs.Instance.ConfirmAsync("Unable to connect to the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                                break;
-                            case -2:
-                                await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                                break;
-                            default:
-                                return true;
+                            item.EndOffline = true;
+                            db.Update(item);
+                            num++;
                         }
                     }
-                    else
-                    {
-                        await UserDialogs.Instance.ConfirmAsync("Invalid Server Key", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                        return false;
-                    }
 
-                    var tbl = db.GetTableInfo("BreakOffline");
-
-                    if (tbl.Count == 0)
+                    if (num == 0)
                     {
-                        db.CreateTable<BreakOffline>();
                         BreakOffline offline = new BreakOffline();
 
                         offline.BreakKey = currentBreak.Key;
@@ -1042,34 +1060,10 @@ namespace Hubo
                         offline.EndOffline = true;
                         db.Insert(offline);
                     }
-                    else
-                    {
-                        List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
-                        int num = 0;
-
-                        foreach (BreakOffline item in checkOffline)
-                        {
-                            if (item.BreakKey == currentBreak.Key)
-                            {
-                                item.EndOffline = true;
-                                db.Update(item);
-                                num++;
-                            }
-                        }
-
-                        if (num == 0)
-                        {
-                            BreakOffline offline = new BreakOffline();
-
-                            offline.BreakKey = currentBreak.Key;
-                            offline.StartOffline = false;
-                            offline.EndOffline = true;
-                            db.Insert(offline);
-                        }
-                    }
-
-                    return true;
                 }
+
+                return true;
+            }
 
             return false;
         }
@@ -1097,7 +1091,7 @@ namespace Hubo
 
                 if (CheckActiveShiftIsCorrect(true, activeShift))
                 {
-                    newBreak.ShiftKey = activeShift[0].Key;
+                    newBreak.ShiftKey = activeShift[0].ServerKey;
                     newBreak.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                     newBreak.ActiveBreak = true;
                     newBreak.StartLocation = location;

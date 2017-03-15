@@ -63,1597 +63,6 @@ namespace Hubo.Droid
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::Hubo.Droid.Resource.Styleable.ProgressWheel_ahText;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::Hubo.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::Hubo.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
-			global::BottomNavigationBar.Resource.Animation.abc_fade_in = global::Hubo.Droid.Resource.Animation.abc_fade_in;
-			global::BottomNavigationBar.Resource.Animation.abc_fade_out = global::Hubo.Droid.Resource.Animation.abc_fade_out;
-			global::BottomNavigationBar.Resource.Animation.abc_grow_fade_in_from_bottom = global::Hubo.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
-			global::BottomNavigationBar.Resource.Animation.abc_popup_enter = global::Hubo.Droid.Resource.Animation.abc_popup_enter;
-			global::BottomNavigationBar.Resource.Animation.abc_popup_exit = global::Hubo.Droid.Resource.Animation.abc_popup_exit;
-			global::BottomNavigationBar.Resource.Animation.abc_shrink_fade_out_from_bottom = global::Hubo.Droid.Resource.Animation.abc_shrink_fade_out_from_bottom;
-			global::BottomNavigationBar.Resource.Animation.abc_slide_in_bottom = global::Hubo.Droid.Resource.Animation.abc_slide_in_bottom;
-			global::BottomNavigationBar.Resource.Animation.abc_slide_in_top = global::Hubo.Droid.Resource.Animation.abc_slide_in_top;
-			global::BottomNavigationBar.Resource.Animation.abc_slide_out_bottom = global::Hubo.Droid.Resource.Animation.abc_slide_out_bottom;
-			global::BottomNavigationBar.Resource.Animation.abc_slide_out_top = global::Hubo.Droid.Resource.Animation.abc_slide_out_top;
-			global::BottomNavigationBar.Resource.Animation.design_bottom_sheet_slide_in = global::Hubo.Droid.Resource.Animation.design_bottom_sheet_slide_in;
-			global::BottomNavigationBar.Resource.Animation.design_bottom_sheet_slide_out = global::Hubo.Droid.Resource.Animation.design_bottom_sheet_slide_out;
-			global::BottomNavigationBar.Resource.Animation.design_fab_in = global::Hubo.Droid.Resource.Animation.design_fab_in;
-			global::BottomNavigationBar.Resource.Animation.design_fab_out = global::Hubo.Droid.Resource.Animation.design_fab_out;
-			global::BottomNavigationBar.Resource.Animation.design_snackbar_in = global::Hubo.Droid.Resource.Animation.design_snackbar_in;
-			global::BottomNavigationBar.Resource.Animation.design_snackbar_out = global::Hubo.Droid.Resource.Animation.design_snackbar_out;
-			global::BottomNavigationBar.Resource.Attribute.actionBarDivider = global::Hubo.Droid.Resource.Attribute.actionBarDivider;
-			global::BottomNavigationBar.Resource.Attribute.actionBarItemBackground = global::Hubo.Droid.Resource.Attribute.actionBarItemBackground;
-			global::BottomNavigationBar.Resource.Attribute.actionBarPopupTheme = global::Hubo.Droid.Resource.Attribute.actionBarPopupTheme;
-			global::BottomNavigationBar.Resource.Attribute.actionBarSize = global::Hubo.Droid.Resource.Attribute.actionBarSize;
-			global::BottomNavigationBar.Resource.Attribute.actionBarSplitStyle = global::Hubo.Droid.Resource.Attribute.actionBarSplitStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionBarStyle = global::Hubo.Droid.Resource.Attribute.actionBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionBarTabBarStyle = global::Hubo.Droid.Resource.Attribute.actionBarTabBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionBarTabStyle = global::Hubo.Droid.Resource.Attribute.actionBarTabStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionBarTabTextStyle = global::Hubo.Droid.Resource.Attribute.actionBarTabTextStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionBarTheme = global::Hubo.Droid.Resource.Attribute.actionBarTheme;
-			global::BottomNavigationBar.Resource.Attribute.actionBarWidgetTheme = global::Hubo.Droid.Resource.Attribute.actionBarWidgetTheme;
-			global::BottomNavigationBar.Resource.Attribute.actionButtonStyle = global::Hubo.Droid.Resource.Attribute.actionButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionDropDownStyle = global::Hubo.Droid.Resource.Attribute.actionDropDownStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionLayout = global::Hubo.Droid.Resource.Attribute.actionLayout;
-			global::BottomNavigationBar.Resource.Attribute.actionMenuTextAppearance = global::Hubo.Droid.Resource.Attribute.actionMenuTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.actionMenuTextColor = global::Hubo.Droid.Resource.Attribute.actionMenuTextColor;
-			global::BottomNavigationBar.Resource.Attribute.actionModeBackground = global::Hubo.Droid.Resource.Attribute.actionModeBackground;
-			global::BottomNavigationBar.Resource.Attribute.actionModeCloseButtonStyle = global::Hubo.Droid.Resource.Attribute.actionModeCloseButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionModeCloseDrawable = global::Hubo.Droid.Resource.Attribute.actionModeCloseDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModeCopyDrawable = global::Hubo.Droid.Resource.Attribute.actionModeCopyDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModeCutDrawable = global::Hubo.Droid.Resource.Attribute.actionModeCutDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModeFindDrawable = global::Hubo.Droid.Resource.Attribute.actionModeFindDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModePasteDrawable = global::Hubo.Droid.Resource.Attribute.actionModePasteDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModePopupWindowStyle = global::Hubo.Droid.Resource.Attribute.actionModePopupWindowStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionModeSelectAllDrawable = global::Hubo.Droid.Resource.Attribute.actionModeSelectAllDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModeShareDrawable = global::Hubo.Droid.Resource.Attribute.actionModeShareDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionModeSplitBackground = global::Hubo.Droid.Resource.Attribute.actionModeSplitBackground;
-			global::BottomNavigationBar.Resource.Attribute.actionModeStyle = global::Hubo.Droid.Resource.Attribute.actionModeStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionModeWebSearchDrawable = global::Hubo.Droid.Resource.Attribute.actionModeWebSearchDrawable;
-			global::BottomNavigationBar.Resource.Attribute.actionOverflowButtonStyle = global::Hubo.Droid.Resource.Attribute.actionOverflowButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionOverflowMenuStyle = global::Hubo.Droid.Resource.Attribute.actionOverflowMenuStyle;
-			global::BottomNavigationBar.Resource.Attribute.actionProviderClass = global::Hubo.Droid.Resource.Attribute.actionProviderClass;
-			global::BottomNavigationBar.Resource.Attribute.actionViewClass = global::Hubo.Droid.Resource.Attribute.actionViewClass;
-			global::BottomNavigationBar.Resource.Attribute.activityChooserViewStyle = global::Hubo.Droid.Resource.Attribute.activityChooserViewStyle;
-			global::BottomNavigationBar.Resource.Attribute.alertDialogButtonGroupStyle = global::Hubo.Droid.Resource.Attribute.alertDialogButtonGroupStyle;
-			global::BottomNavigationBar.Resource.Attribute.alertDialogCenterButtons = global::Hubo.Droid.Resource.Attribute.alertDialogCenterButtons;
-			global::BottomNavigationBar.Resource.Attribute.alertDialogStyle = global::Hubo.Droid.Resource.Attribute.alertDialogStyle;
-			global::BottomNavigationBar.Resource.Attribute.alertDialogTheme = global::Hubo.Droid.Resource.Attribute.alertDialogTheme;
-			global::BottomNavigationBar.Resource.Attribute.allowStacking = global::Hubo.Droid.Resource.Attribute.allowStacking;
-			global::BottomNavigationBar.Resource.Attribute.arrowHeadLength = global::Hubo.Droid.Resource.Attribute.arrowHeadLength;
-			global::BottomNavigationBar.Resource.Attribute.arrowShaftLength = global::Hubo.Droid.Resource.Attribute.arrowShaftLength;
-			global::BottomNavigationBar.Resource.Attribute.autoCompleteTextViewStyle = global::Hubo.Droid.Resource.Attribute.autoCompleteTextViewStyle;
-			global::BottomNavigationBar.Resource.Attribute.background = global::Hubo.Droid.Resource.Attribute.background;
-			global::BottomNavigationBar.Resource.Attribute.backgroundSplit = global::Hubo.Droid.Resource.Attribute.backgroundSplit;
-			global::BottomNavigationBar.Resource.Attribute.backgroundStacked = global::Hubo.Droid.Resource.Attribute.backgroundStacked;
-			global::BottomNavigationBar.Resource.Attribute.backgroundTint = global::Hubo.Droid.Resource.Attribute.backgroundTint;
-			global::BottomNavigationBar.Resource.Attribute.backgroundTintMode = global::Hubo.Droid.Resource.Attribute.backgroundTintMode;
-			global::BottomNavigationBar.Resource.Attribute.barLength = global::Hubo.Droid.Resource.Attribute.barLength;
-			global::BottomNavigationBar.Resource.Attribute.behavior_hideable = global::Hubo.Droid.Resource.Attribute.behavior_hideable;
-			global::BottomNavigationBar.Resource.Attribute.behavior_overlapTop = global::Hubo.Droid.Resource.Attribute.behavior_overlapTop;
-			global::BottomNavigationBar.Resource.Attribute.behavior_peekHeight = global::Hubo.Droid.Resource.Attribute.behavior_peekHeight;
-			global::BottomNavigationBar.Resource.Attribute.borderWidth = global::Hubo.Droid.Resource.Attribute.borderWidth;
-			global::BottomNavigationBar.Resource.Attribute.borderlessButtonStyle = global::Hubo.Droid.Resource.Attribute.borderlessButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.bottomSheetDialogTheme = global::Hubo.Droid.Resource.Attribute.bottomSheetDialogTheme;
-			global::BottomNavigationBar.Resource.Attribute.bottomSheetStyle = global::Hubo.Droid.Resource.Attribute.bottomSheetStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonBarButtonStyle = global::Hubo.Droid.Resource.Attribute.buttonBarButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonBarNegativeButtonStyle = global::Hubo.Droid.Resource.Attribute.buttonBarNegativeButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonBarNeutralButtonStyle = global::Hubo.Droid.Resource.Attribute.buttonBarNeutralButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonBarPositiveButtonStyle = global::Hubo.Droid.Resource.Attribute.buttonBarPositiveButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonBarStyle = global::Hubo.Droid.Resource.Attribute.buttonBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonPanelSideLayout = global::Hubo.Droid.Resource.Attribute.buttonPanelSideLayout;
-			global::BottomNavigationBar.Resource.Attribute.buttonStyle = global::Hubo.Droid.Resource.Attribute.buttonStyle;
-			global::BottomNavigationBar.Resource.Attribute.buttonStyleSmall = global::Hubo.Droid.Resource.Attribute.buttonStyleSmall;
-			global::BottomNavigationBar.Resource.Attribute.buttonTint = global::Hubo.Droid.Resource.Attribute.buttonTint;
-			global::BottomNavigationBar.Resource.Attribute.buttonTintMode = global::Hubo.Droid.Resource.Attribute.buttonTintMode;
-			global::BottomNavigationBar.Resource.Attribute.checkboxStyle = global::Hubo.Droid.Resource.Attribute.checkboxStyle;
-			global::BottomNavigationBar.Resource.Attribute.checkedTextViewStyle = global::Hubo.Droid.Resource.Attribute.checkedTextViewStyle;
-			global::BottomNavigationBar.Resource.Attribute.closeIcon = global::Hubo.Droid.Resource.Attribute.closeIcon;
-			global::BottomNavigationBar.Resource.Attribute.closeItemLayout = global::Hubo.Droid.Resource.Attribute.closeItemLayout;
-			global::BottomNavigationBar.Resource.Attribute.collapseContentDescription = global::Hubo.Droid.Resource.Attribute.collapseContentDescription;
-			global::BottomNavigationBar.Resource.Attribute.collapseIcon = global::Hubo.Droid.Resource.Attribute.collapseIcon;
-			global::BottomNavigationBar.Resource.Attribute.collapsedTitleGravity = global::Hubo.Droid.Resource.Attribute.collapsedTitleGravity;
-			global::BottomNavigationBar.Resource.Attribute.collapsedTitleTextAppearance = global::Hubo.Droid.Resource.Attribute.collapsedTitleTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.color = global::Hubo.Droid.Resource.Attribute.color;
-			global::BottomNavigationBar.Resource.Attribute.colorAccent = global::Hubo.Droid.Resource.Attribute.colorAccent;
-			global::BottomNavigationBar.Resource.Attribute.colorButtonNormal = global::Hubo.Droid.Resource.Attribute.colorButtonNormal;
-			global::BottomNavigationBar.Resource.Attribute.colorControlActivated = global::Hubo.Droid.Resource.Attribute.colorControlActivated;
-			global::BottomNavigationBar.Resource.Attribute.colorControlHighlight = global::Hubo.Droid.Resource.Attribute.colorControlHighlight;
-			global::BottomNavigationBar.Resource.Attribute.colorControlNormal = global::Hubo.Droid.Resource.Attribute.colorControlNormal;
-			global::BottomNavigationBar.Resource.Attribute.colorPrimary = global::Hubo.Droid.Resource.Attribute.colorPrimary;
-			global::BottomNavigationBar.Resource.Attribute.colorPrimaryDark = global::Hubo.Droid.Resource.Attribute.colorPrimaryDark;
-			global::BottomNavigationBar.Resource.Attribute.colorSwitchThumbNormal = global::Hubo.Droid.Resource.Attribute.colorSwitchThumbNormal;
-			global::BottomNavigationBar.Resource.Attribute.commitIcon = global::Hubo.Droid.Resource.Attribute.commitIcon;
-			global::BottomNavigationBar.Resource.Attribute.contentInsetEnd = global::Hubo.Droid.Resource.Attribute.contentInsetEnd;
-			global::BottomNavigationBar.Resource.Attribute.contentInsetLeft = global::Hubo.Droid.Resource.Attribute.contentInsetLeft;
-			global::BottomNavigationBar.Resource.Attribute.contentInsetRight = global::Hubo.Droid.Resource.Attribute.contentInsetRight;
-			global::BottomNavigationBar.Resource.Attribute.contentInsetStart = global::Hubo.Droid.Resource.Attribute.contentInsetStart;
-			global::BottomNavigationBar.Resource.Attribute.contentScrim = global::Hubo.Droid.Resource.Attribute.contentScrim;
-			global::BottomNavigationBar.Resource.Attribute.controlBackground = global::Hubo.Droid.Resource.Attribute.controlBackground;
-			global::BottomNavigationBar.Resource.Attribute.counterEnabled = global::Hubo.Droid.Resource.Attribute.counterEnabled;
-			global::BottomNavigationBar.Resource.Attribute.counterMaxLength = global::Hubo.Droid.Resource.Attribute.counterMaxLength;
-			global::BottomNavigationBar.Resource.Attribute.counterOverflowTextAppearance = global::Hubo.Droid.Resource.Attribute.counterOverflowTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.counterTextAppearance = global::Hubo.Droid.Resource.Attribute.counterTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.customNavigationLayout = global::Hubo.Droid.Resource.Attribute.customNavigationLayout;
-			global::BottomNavigationBar.Resource.Attribute.defaultQueryHint = global::Hubo.Droid.Resource.Attribute.defaultQueryHint;
-			global::BottomNavigationBar.Resource.Attribute.dialogPreferredPadding = global::Hubo.Droid.Resource.Attribute.dialogPreferredPadding;
-			global::BottomNavigationBar.Resource.Attribute.dialogTheme = global::Hubo.Droid.Resource.Attribute.dialogTheme;
-			global::BottomNavigationBar.Resource.Attribute.displayOptions = global::Hubo.Droid.Resource.Attribute.displayOptions;
-			global::BottomNavigationBar.Resource.Attribute.divider = global::Hubo.Droid.Resource.Attribute.divider;
-			global::BottomNavigationBar.Resource.Attribute.dividerHorizontal = global::Hubo.Droid.Resource.Attribute.dividerHorizontal;
-			global::BottomNavigationBar.Resource.Attribute.dividerPadding = global::Hubo.Droid.Resource.Attribute.dividerPadding;
-			global::BottomNavigationBar.Resource.Attribute.dividerVertical = global::Hubo.Droid.Resource.Attribute.dividerVertical;
-			global::BottomNavigationBar.Resource.Attribute.drawableSize = global::Hubo.Droid.Resource.Attribute.drawableSize;
-			global::BottomNavigationBar.Resource.Attribute.drawerArrowStyle = global::Hubo.Droid.Resource.Attribute.drawerArrowStyle;
-			global::BottomNavigationBar.Resource.Attribute.dropDownListViewStyle = global::Hubo.Droid.Resource.Attribute.dropDownListViewStyle;
-			global::BottomNavigationBar.Resource.Attribute.dropdownListPreferredItemHeight = global::Hubo.Droid.Resource.Attribute.dropdownListPreferredItemHeight;
-			global::BottomNavigationBar.Resource.Attribute.editTextBackground = global::Hubo.Droid.Resource.Attribute.editTextBackground;
-			global::BottomNavigationBar.Resource.Attribute.editTextColor = global::Hubo.Droid.Resource.Attribute.editTextColor;
-			global::BottomNavigationBar.Resource.Attribute.editTextStyle = global::Hubo.Droid.Resource.Attribute.editTextStyle;
-			global::BottomNavigationBar.Resource.Attribute.elevation = global::Hubo.Droid.Resource.Attribute.elevation;
-			global::BottomNavigationBar.Resource.Attribute.errorEnabled = global::Hubo.Droid.Resource.Attribute.errorEnabled;
-			global::BottomNavigationBar.Resource.Attribute.errorTextAppearance = global::Hubo.Droid.Resource.Attribute.errorTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.expandActivityOverflowButtonDrawable = global::Hubo.Droid.Resource.Attribute.expandActivityOverflowButtonDrawable;
-			global::BottomNavigationBar.Resource.Attribute.expanded = global::Hubo.Droid.Resource.Attribute.expanded;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleGravity = global::Hubo.Droid.Resource.Attribute.expandedTitleGravity;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleMargin = global::Hubo.Droid.Resource.Attribute.expandedTitleMargin;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleMarginBottom = global::Hubo.Droid.Resource.Attribute.expandedTitleMarginBottom;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleMarginEnd = global::Hubo.Droid.Resource.Attribute.expandedTitleMarginEnd;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleMarginStart = global::Hubo.Droid.Resource.Attribute.expandedTitleMarginStart;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleMarginTop = global::Hubo.Droid.Resource.Attribute.expandedTitleMarginTop;
-			global::BottomNavigationBar.Resource.Attribute.expandedTitleTextAppearance = global::Hubo.Droid.Resource.Attribute.expandedTitleTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.fabSize = global::Hubo.Droid.Resource.Attribute.fabSize;
-			global::BottomNavigationBar.Resource.Attribute.foregroundInsidePadding = global::Hubo.Droid.Resource.Attribute.foregroundInsidePadding;
-			global::BottomNavigationBar.Resource.Attribute.gapBetweenBars = global::Hubo.Droid.Resource.Attribute.gapBetweenBars;
-			global::BottomNavigationBar.Resource.Attribute.goIcon = global::Hubo.Droid.Resource.Attribute.goIcon;
-			global::BottomNavigationBar.Resource.Attribute.headerLayout = global::Hubo.Droid.Resource.Attribute.headerLayout;
-			global::BottomNavigationBar.Resource.Attribute.height = global::Hubo.Droid.Resource.Attribute.height;
-			global::BottomNavigationBar.Resource.Attribute.hideOnContentScroll = global::Hubo.Droid.Resource.Attribute.hideOnContentScroll;
-			global::BottomNavigationBar.Resource.Attribute.hintAnimationEnabled = global::Hubo.Droid.Resource.Attribute.hintAnimationEnabled;
-			global::BottomNavigationBar.Resource.Attribute.hintEnabled = global::Hubo.Droid.Resource.Attribute.hintEnabled;
-			global::BottomNavigationBar.Resource.Attribute.hintTextAppearance = global::Hubo.Droid.Resource.Attribute.hintTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.homeAsUpIndicator = global::Hubo.Droid.Resource.Attribute.homeAsUpIndicator;
-			global::BottomNavigationBar.Resource.Attribute.homeLayout = global::Hubo.Droid.Resource.Attribute.homeLayout;
-			global::BottomNavigationBar.Resource.Attribute.icon = global::Hubo.Droid.Resource.Attribute.icon;
-			global::BottomNavigationBar.Resource.Attribute.iconifiedByDefault = global::Hubo.Droid.Resource.Attribute.iconifiedByDefault;
-			global::BottomNavigationBar.Resource.Attribute.imageButtonStyle = global::Hubo.Droid.Resource.Attribute.imageButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.indeterminateProgressStyle = global::Hubo.Droid.Resource.Attribute.indeterminateProgressStyle;
-			global::BottomNavigationBar.Resource.Attribute.initialActivityCount = global::Hubo.Droid.Resource.Attribute.initialActivityCount;
-			global::BottomNavigationBar.Resource.Attribute.insetForeground = global::Hubo.Droid.Resource.Attribute.insetForeground;
-			global::BottomNavigationBar.Resource.Attribute.isLightTheme = global::Hubo.Droid.Resource.Attribute.isLightTheme;
-			global::BottomNavigationBar.Resource.Attribute.itemBackground = global::Hubo.Droid.Resource.Attribute.itemBackground;
-			global::BottomNavigationBar.Resource.Attribute.itemIconTint = global::Hubo.Droid.Resource.Attribute.itemIconTint;
-			global::BottomNavigationBar.Resource.Attribute.itemPadding = global::Hubo.Droid.Resource.Attribute.itemPadding;
-			global::BottomNavigationBar.Resource.Attribute.itemTextAppearance = global::Hubo.Droid.Resource.Attribute.itemTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.itemTextColor = global::Hubo.Droid.Resource.Attribute.itemTextColor;
-			global::BottomNavigationBar.Resource.Attribute.keylines = global::Hubo.Droid.Resource.Attribute.keylines;
-			global::BottomNavigationBar.Resource.Attribute.layout = global::Hubo.Droid.Resource.Attribute.layout;
-			global::BottomNavigationBar.Resource.Attribute.layoutManager = global::Hubo.Droid.Resource.Attribute.layoutManager;
-			global::BottomNavigationBar.Resource.Attribute.layout_anchor = global::Hubo.Droid.Resource.Attribute.layout_anchor;
-			global::BottomNavigationBar.Resource.Attribute.layout_anchorGravity = global::Hubo.Droid.Resource.Attribute.layout_anchorGravity;
-			global::BottomNavigationBar.Resource.Attribute.layout_behavior = global::Hubo.Droid.Resource.Attribute.layout_behavior;
-			global::BottomNavigationBar.Resource.Attribute.layout_collapseMode = global::Hubo.Droid.Resource.Attribute.layout_collapseMode;
-			global::BottomNavigationBar.Resource.Attribute.layout_collapseParallaxMultiplier = global::Hubo.Droid.Resource.Attribute.layout_collapseParallaxMultiplier;
-			global::BottomNavigationBar.Resource.Attribute.layout_keyline = global::Hubo.Droid.Resource.Attribute.layout_keyline;
-			global::BottomNavigationBar.Resource.Attribute.layout_scrollFlags = global::Hubo.Droid.Resource.Attribute.layout_scrollFlags;
-			global::BottomNavigationBar.Resource.Attribute.layout_scrollInterpolator = global::Hubo.Droid.Resource.Attribute.layout_scrollInterpolator;
-			global::BottomNavigationBar.Resource.Attribute.listChoiceBackgroundIndicator = global::Hubo.Droid.Resource.Attribute.listChoiceBackgroundIndicator;
-			global::BottomNavigationBar.Resource.Attribute.listDividerAlertDialog = global::Hubo.Droid.Resource.Attribute.listDividerAlertDialog;
-			global::BottomNavigationBar.Resource.Attribute.listItemLayout = global::Hubo.Droid.Resource.Attribute.listItemLayout;
-			global::BottomNavigationBar.Resource.Attribute.listLayout = global::Hubo.Droid.Resource.Attribute.listLayout;
-			global::BottomNavigationBar.Resource.Attribute.listPopupWindowStyle = global::Hubo.Droid.Resource.Attribute.listPopupWindowStyle;
-			global::BottomNavigationBar.Resource.Attribute.listPreferredItemHeight = global::Hubo.Droid.Resource.Attribute.listPreferredItemHeight;
-			global::BottomNavigationBar.Resource.Attribute.listPreferredItemHeightLarge = global::Hubo.Droid.Resource.Attribute.listPreferredItemHeightLarge;
-			global::BottomNavigationBar.Resource.Attribute.listPreferredItemHeightSmall = global::Hubo.Droid.Resource.Attribute.listPreferredItemHeightSmall;
-			global::BottomNavigationBar.Resource.Attribute.listPreferredItemPaddingLeft = global::Hubo.Droid.Resource.Attribute.listPreferredItemPaddingLeft;
-			global::BottomNavigationBar.Resource.Attribute.listPreferredItemPaddingRight = global::Hubo.Droid.Resource.Attribute.listPreferredItemPaddingRight;
-			global::BottomNavigationBar.Resource.Attribute.logo = global::Hubo.Droid.Resource.Attribute.logo;
-			global::BottomNavigationBar.Resource.Attribute.logoDescription = global::Hubo.Droid.Resource.Attribute.logoDescription;
-			global::BottomNavigationBar.Resource.Attribute.maxActionInlineWidth = global::Hubo.Droid.Resource.Attribute.maxActionInlineWidth;
-			global::BottomNavigationBar.Resource.Attribute.maxButtonHeight = global::Hubo.Droid.Resource.Attribute.maxButtonHeight;
-			global::BottomNavigationBar.Resource.Attribute.measureWithLargestChild = global::Hubo.Droid.Resource.Attribute.measureWithLargestChild;
-			global::BottomNavigationBar.Resource.Attribute.menu = global::Hubo.Droid.Resource.Attribute.menu;
-			global::BottomNavigationBar.Resource.Attribute.multiChoiceItemLayout = global::Hubo.Droid.Resource.Attribute.multiChoiceItemLayout;
-			global::BottomNavigationBar.Resource.Attribute.navigationContentDescription = global::Hubo.Droid.Resource.Attribute.navigationContentDescription;
-			global::BottomNavigationBar.Resource.Attribute.navigationIcon = global::Hubo.Droid.Resource.Attribute.navigationIcon;
-			global::BottomNavigationBar.Resource.Attribute.navigationMode = global::Hubo.Droid.Resource.Attribute.navigationMode;
-			global::BottomNavigationBar.Resource.Attribute.overlapAnchor = global::Hubo.Droid.Resource.Attribute.overlapAnchor;
-			global::BottomNavigationBar.Resource.Attribute.paddingEnd = global::Hubo.Droid.Resource.Attribute.paddingEnd;
-			global::BottomNavigationBar.Resource.Attribute.paddingStart = global::Hubo.Droid.Resource.Attribute.paddingStart;
-			global::BottomNavigationBar.Resource.Attribute.panelBackground = global::Hubo.Droid.Resource.Attribute.panelBackground;
-			global::BottomNavigationBar.Resource.Attribute.panelMenuListTheme = global::Hubo.Droid.Resource.Attribute.panelMenuListTheme;
-			global::BottomNavigationBar.Resource.Attribute.panelMenuListWidth = global::Hubo.Droid.Resource.Attribute.panelMenuListWidth;
-			global::BottomNavigationBar.Resource.Attribute.popupMenuStyle = global::Hubo.Droid.Resource.Attribute.popupMenuStyle;
-			global::BottomNavigationBar.Resource.Attribute.popupTheme = global::Hubo.Droid.Resource.Attribute.popupTheme;
-			global::BottomNavigationBar.Resource.Attribute.popupWindowStyle = global::Hubo.Droid.Resource.Attribute.popupWindowStyle;
-			global::BottomNavigationBar.Resource.Attribute.preserveIconSpacing = global::Hubo.Droid.Resource.Attribute.preserveIconSpacing;
-			global::BottomNavigationBar.Resource.Attribute.pressedTranslationZ = global::Hubo.Droid.Resource.Attribute.pressedTranslationZ;
-			global::BottomNavigationBar.Resource.Attribute.progressBarPadding = global::Hubo.Droid.Resource.Attribute.progressBarPadding;
-			global::BottomNavigationBar.Resource.Attribute.progressBarStyle = global::Hubo.Droid.Resource.Attribute.progressBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.queryBackground = global::Hubo.Droid.Resource.Attribute.queryBackground;
-			global::BottomNavigationBar.Resource.Attribute.queryHint = global::Hubo.Droid.Resource.Attribute.queryHint;
-			global::BottomNavigationBar.Resource.Attribute.radioButtonStyle = global::Hubo.Droid.Resource.Attribute.radioButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.ratingBarStyle = global::Hubo.Droid.Resource.Attribute.ratingBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.ratingBarStyleIndicator = global::Hubo.Droid.Resource.Attribute.ratingBarStyleIndicator;
-			global::BottomNavigationBar.Resource.Attribute.ratingBarStyleSmall = global::Hubo.Droid.Resource.Attribute.ratingBarStyleSmall;
-			global::BottomNavigationBar.Resource.Attribute.reverseLayout = global::Hubo.Droid.Resource.Attribute.reverseLayout;
-			global::BottomNavigationBar.Resource.Attribute.rippleColor = global::Hubo.Droid.Resource.Attribute.rippleColor;
-			global::BottomNavigationBar.Resource.Attribute.searchHintIcon = global::Hubo.Droid.Resource.Attribute.searchHintIcon;
-			global::BottomNavigationBar.Resource.Attribute.searchIcon = global::Hubo.Droid.Resource.Attribute.searchIcon;
-			global::BottomNavigationBar.Resource.Attribute.searchViewStyle = global::Hubo.Droid.Resource.Attribute.searchViewStyle;
-			global::BottomNavigationBar.Resource.Attribute.seekBarStyle = global::Hubo.Droid.Resource.Attribute.seekBarStyle;
-			global::BottomNavigationBar.Resource.Attribute.selectableItemBackground = global::Hubo.Droid.Resource.Attribute.selectableItemBackground;
-			global::BottomNavigationBar.Resource.Attribute.selectableItemBackgroundBorderless = global::Hubo.Droid.Resource.Attribute.selectableItemBackgroundBorderless;
-			global::BottomNavigationBar.Resource.Attribute.showAsAction = global::Hubo.Droid.Resource.Attribute.showAsAction;
-			global::BottomNavigationBar.Resource.Attribute.showDividers = global::Hubo.Droid.Resource.Attribute.showDividers;
-			global::BottomNavigationBar.Resource.Attribute.showText = global::Hubo.Droid.Resource.Attribute.showText;
-			global::BottomNavigationBar.Resource.Attribute.singleChoiceItemLayout = global::Hubo.Droid.Resource.Attribute.singleChoiceItemLayout;
-			global::BottomNavigationBar.Resource.Attribute.spanCount = global::Hubo.Droid.Resource.Attribute.spanCount;
-			global::BottomNavigationBar.Resource.Attribute.spinBars = global::Hubo.Droid.Resource.Attribute.spinBars;
-			global::BottomNavigationBar.Resource.Attribute.spinnerDropDownItemStyle = global::Hubo.Droid.Resource.Attribute.spinnerDropDownItemStyle;
-			global::BottomNavigationBar.Resource.Attribute.spinnerStyle = global::Hubo.Droid.Resource.Attribute.spinnerStyle;
-			global::BottomNavigationBar.Resource.Attribute.splitTrack = global::Hubo.Droid.Resource.Attribute.splitTrack;
-			global::BottomNavigationBar.Resource.Attribute.srcCompat = global::Hubo.Droid.Resource.Attribute.srcCompat;
-			global::BottomNavigationBar.Resource.Attribute.stackFromEnd = global::Hubo.Droid.Resource.Attribute.stackFromEnd;
-			global::BottomNavigationBar.Resource.Attribute.state_above_anchor = global::Hubo.Droid.Resource.Attribute.state_above_anchor;
-			global::BottomNavigationBar.Resource.Attribute.statusBarBackground = global::Hubo.Droid.Resource.Attribute.statusBarBackground;
-			global::BottomNavigationBar.Resource.Attribute.statusBarScrim = global::Hubo.Droid.Resource.Attribute.statusBarScrim;
-			global::BottomNavigationBar.Resource.Attribute.submitBackground = global::Hubo.Droid.Resource.Attribute.submitBackground;
-			global::BottomNavigationBar.Resource.Attribute.subtitle = global::Hubo.Droid.Resource.Attribute.subtitle;
-			global::BottomNavigationBar.Resource.Attribute.subtitleTextAppearance = global::Hubo.Droid.Resource.Attribute.subtitleTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.subtitleTextColor = global::Hubo.Droid.Resource.Attribute.subtitleTextColor;
-			global::BottomNavigationBar.Resource.Attribute.subtitleTextStyle = global::Hubo.Droid.Resource.Attribute.subtitleTextStyle;
-			global::BottomNavigationBar.Resource.Attribute.suggestionRowLayout = global::Hubo.Droid.Resource.Attribute.suggestionRowLayout;
-			global::BottomNavigationBar.Resource.Attribute.switchMinWidth = global::Hubo.Droid.Resource.Attribute.switchMinWidth;
-			global::BottomNavigationBar.Resource.Attribute.switchPadding = global::Hubo.Droid.Resource.Attribute.switchPadding;
-			global::BottomNavigationBar.Resource.Attribute.switchStyle = global::Hubo.Droid.Resource.Attribute.switchStyle;
-			global::BottomNavigationBar.Resource.Attribute.switchTextAppearance = global::Hubo.Droid.Resource.Attribute.switchTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.tabBackground = global::Hubo.Droid.Resource.Attribute.tabBackground;
-			global::BottomNavigationBar.Resource.Attribute.tabContentStart = global::Hubo.Droid.Resource.Attribute.tabContentStart;
-			global::BottomNavigationBar.Resource.Attribute.tabGravity = global::Hubo.Droid.Resource.Attribute.tabGravity;
-			global::BottomNavigationBar.Resource.Attribute.tabIndicatorColor = global::Hubo.Droid.Resource.Attribute.tabIndicatorColor;
-			global::BottomNavigationBar.Resource.Attribute.tabIndicatorHeight = global::Hubo.Droid.Resource.Attribute.tabIndicatorHeight;
-			global::BottomNavigationBar.Resource.Attribute.tabMaxWidth = global::Hubo.Droid.Resource.Attribute.tabMaxWidth;
-			global::BottomNavigationBar.Resource.Attribute.tabMinWidth = global::Hubo.Droid.Resource.Attribute.tabMinWidth;
-			global::BottomNavigationBar.Resource.Attribute.tabMode = global::Hubo.Droid.Resource.Attribute.tabMode;
-			global::BottomNavigationBar.Resource.Attribute.tabPadding = global::Hubo.Droid.Resource.Attribute.tabPadding;
-			global::BottomNavigationBar.Resource.Attribute.tabPaddingBottom = global::Hubo.Droid.Resource.Attribute.tabPaddingBottom;
-			global::BottomNavigationBar.Resource.Attribute.tabPaddingEnd = global::Hubo.Droid.Resource.Attribute.tabPaddingEnd;
-			global::BottomNavigationBar.Resource.Attribute.tabPaddingStart = global::Hubo.Droid.Resource.Attribute.tabPaddingStart;
-			global::BottomNavigationBar.Resource.Attribute.tabPaddingTop = global::Hubo.Droid.Resource.Attribute.tabPaddingTop;
-			global::BottomNavigationBar.Resource.Attribute.tabSelectedTextColor = global::Hubo.Droid.Resource.Attribute.tabSelectedTextColor;
-			global::BottomNavigationBar.Resource.Attribute.tabTextAppearance = global::Hubo.Droid.Resource.Attribute.tabTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.tabTextColor = global::Hubo.Droid.Resource.Attribute.tabTextColor;
-			global::BottomNavigationBar.Resource.Attribute.textAllCaps = global::Hubo.Droid.Resource.Attribute.textAllCaps;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceLargePopupMenu = global::Hubo.Droid.Resource.Attribute.textAppearanceLargePopupMenu;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceListItem = global::Hubo.Droid.Resource.Attribute.textAppearanceListItem;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceListItemSmall = global::Hubo.Droid.Resource.Attribute.textAppearanceListItemSmall;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceSearchResultSubtitle = global::Hubo.Droid.Resource.Attribute.textAppearanceSearchResultSubtitle;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceSearchResultTitle = global::Hubo.Droid.Resource.Attribute.textAppearanceSearchResultTitle;
-			global::BottomNavigationBar.Resource.Attribute.textAppearanceSmallPopupMenu = global::Hubo.Droid.Resource.Attribute.textAppearanceSmallPopupMenu;
-			global::BottomNavigationBar.Resource.Attribute.textColorAlertDialogListItem = global::Hubo.Droid.Resource.Attribute.textColorAlertDialogListItem;
-			global::BottomNavigationBar.Resource.Attribute.textColorError = global::Hubo.Droid.Resource.Attribute.textColorError;
-			global::BottomNavigationBar.Resource.Attribute.textColorSearchUrl = global::Hubo.Droid.Resource.Attribute.textColorSearchUrl;
-			global::BottomNavigationBar.Resource.Attribute.theme = global::Hubo.Droid.Resource.Attribute.theme;
-			global::BottomNavigationBar.Resource.Attribute.thickness = global::Hubo.Droid.Resource.Attribute.thickness;
-			global::BottomNavigationBar.Resource.Attribute.thumbTextPadding = global::Hubo.Droid.Resource.Attribute.thumbTextPadding;
-			global::BottomNavigationBar.Resource.Attribute.title = global::Hubo.Droid.Resource.Attribute.title;
-			global::BottomNavigationBar.Resource.Attribute.titleEnabled = global::Hubo.Droid.Resource.Attribute.titleEnabled;
-			global::BottomNavigationBar.Resource.Attribute.titleMarginBottom = global::Hubo.Droid.Resource.Attribute.titleMarginBottom;
-			global::BottomNavigationBar.Resource.Attribute.titleMarginEnd = global::Hubo.Droid.Resource.Attribute.titleMarginEnd;
-			global::BottomNavigationBar.Resource.Attribute.titleMarginStart = global::Hubo.Droid.Resource.Attribute.titleMarginStart;
-			global::BottomNavigationBar.Resource.Attribute.titleMarginTop = global::Hubo.Droid.Resource.Attribute.titleMarginTop;
-			global::BottomNavigationBar.Resource.Attribute.titleMargins = global::Hubo.Droid.Resource.Attribute.titleMargins;
-			global::BottomNavigationBar.Resource.Attribute.titleTextAppearance = global::Hubo.Droid.Resource.Attribute.titleTextAppearance;
-			global::BottomNavigationBar.Resource.Attribute.titleTextColor = global::Hubo.Droid.Resource.Attribute.titleTextColor;
-			global::BottomNavigationBar.Resource.Attribute.titleTextStyle = global::Hubo.Droid.Resource.Attribute.titleTextStyle;
-			global::BottomNavigationBar.Resource.Attribute.toolbarId = global::Hubo.Droid.Resource.Attribute.toolbarId;
-			global::BottomNavigationBar.Resource.Attribute.toolbarNavigationButtonStyle = global::Hubo.Droid.Resource.Attribute.toolbarNavigationButtonStyle;
-			global::BottomNavigationBar.Resource.Attribute.toolbarStyle = global::Hubo.Droid.Resource.Attribute.toolbarStyle;
-			global::BottomNavigationBar.Resource.Attribute.track = global::Hubo.Droid.Resource.Attribute.track;
-			global::BottomNavigationBar.Resource.Attribute.useCompatPadding = global::Hubo.Droid.Resource.Attribute.useCompatPadding;
-			global::BottomNavigationBar.Resource.Attribute.voiceIcon = global::Hubo.Droid.Resource.Attribute.voiceIcon;
-			global::BottomNavigationBar.Resource.Attribute.windowActionBar = global::Hubo.Droid.Resource.Attribute.windowActionBar;
-			global::BottomNavigationBar.Resource.Attribute.windowActionBarOverlay = global::Hubo.Droid.Resource.Attribute.windowActionBarOverlay;
-			global::BottomNavigationBar.Resource.Attribute.windowActionModeOverlay = global::Hubo.Droid.Resource.Attribute.windowActionModeOverlay;
-			global::BottomNavigationBar.Resource.Attribute.windowFixedHeightMajor = global::Hubo.Droid.Resource.Attribute.windowFixedHeightMajor;
-			global::BottomNavigationBar.Resource.Attribute.windowFixedHeightMinor = global::Hubo.Droid.Resource.Attribute.windowFixedHeightMinor;
-			global::BottomNavigationBar.Resource.Attribute.windowFixedWidthMajor = global::Hubo.Droid.Resource.Attribute.windowFixedWidthMajor;
-			global::BottomNavigationBar.Resource.Attribute.windowFixedWidthMinor = global::Hubo.Droid.Resource.Attribute.windowFixedWidthMinor;
-			global::BottomNavigationBar.Resource.Attribute.windowMinWidthMajor = global::Hubo.Droid.Resource.Attribute.windowMinWidthMajor;
-			global::BottomNavigationBar.Resource.Attribute.windowMinWidthMinor = global::Hubo.Droid.Resource.Attribute.windowMinWidthMinor;
-			global::BottomNavigationBar.Resource.Attribute.windowNoTitle = global::Hubo.Droid.Resource.Attribute.windowNoTitle;
-			global::BottomNavigationBar.Resource.Boolean.abc_action_bar_embed_tabs = global::Hubo.Droid.Resource.Boolean.abc_action_bar_embed_tabs;
-			global::BottomNavigationBar.Resource.Boolean.abc_action_bar_embed_tabs_pre_jb = global::Hubo.Droid.Resource.Boolean.abc_action_bar_embed_tabs_pre_jb;
-			global::BottomNavigationBar.Resource.Boolean.abc_action_bar_expanded_action_views_exclusive = global::Hubo.Droid.Resource.Boolean.abc_action_bar_expanded_action_views_exclusive;
-			global::BottomNavigationBar.Resource.Boolean.abc_allow_stacked_button_bar = global::Hubo.Droid.Resource.Boolean.abc_allow_stacked_button_bar;
-			global::BottomNavigationBar.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::Hubo.Droid.Resource.Boolean.abc_config_actionMenuItemAllCaps;
-			global::BottomNavigationBar.Resource.Boolean.abc_config_allowActionMenuItemTextWithIcon = global::Hubo.Droid.Resource.Boolean.abc_config_allowActionMenuItemTextWithIcon;
-			global::BottomNavigationBar.Resource.Boolean.abc_config_closeDialogWhenTouchOutside = global::Hubo.Droid.Resource.Boolean.abc_config_closeDialogWhenTouchOutside;
-			global::BottomNavigationBar.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent = global::Hubo.Droid.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent;
-			global::BottomNavigationBar.Resource.Boolean.bb_bottom_bar_is_tablet_mode = global::Hubo.Droid.Resource.Boolean.bb_bottom_bar_is_tablet_mode;
-			global::BottomNavigationBar.Resource.Color.abc_background_cache_hint_selector_material_dark = global::Hubo.Droid.Resource.Color.abc_background_cache_hint_selector_material_dark;
-			global::BottomNavigationBar.Resource.Color.abc_background_cache_hint_selector_material_light = global::Hubo.Droid.Resource.Color.abc_background_cache_hint_selector_material_light;
-			global::BottomNavigationBar.Resource.Color.abc_color_highlight_material = global::Hubo.Droid.Resource.Color.abc_color_highlight_material;
-			global::BottomNavigationBar.Resource.Color.abc_input_method_navigation_guard = global::Hubo.Droid.Resource.Color.abc_input_method_navigation_guard;
-			global::BottomNavigationBar.Resource.Color.abc_primary_text_disable_only_material_dark = global::Hubo.Droid.Resource.Color.abc_primary_text_disable_only_material_dark;
-			global::BottomNavigationBar.Resource.Color.abc_primary_text_disable_only_material_light = global::Hubo.Droid.Resource.Color.abc_primary_text_disable_only_material_light;
-			global::BottomNavigationBar.Resource.Color.abc_primary_text_material_dark = global::Hubo.Droid.Resource.Color.abc_primary_text_material_dark;
-			global::BottomNavigationBar.Resource.Color.abc_primary_text_material_light = global::Hubo.Droid.Resource.Color.abc_primary_text_material_light;
-			global::BottomNavigationBar.Resource.Color.abc_search_url_text = global::Hubo.Droid.Resource.Color.abc_search_url_text;
-			global::BottomNavigationBar.Resource.Color.abc_search_url_text_normal = global::Hubo.Droid.Resource.Color.abc_search_url_text_normal;
-			global::BottomNavigationBar.Resource.Color.abc_search_url_text_pressed = global::Hubo.Droid.Resource.Color.abc_search_url_text_pressed;
-			global::BottomNavigationBar.Resource.Color.abc_search_url_text_selected = global::Hubo.Droid.Resource.Color.abc_search_url_text_selected;
-			global::BottomNavigationBar.Resource.Color.abc_secondary_text_material_dark = global::Hubo.Droid.Resource.Color.abc_secondary_text_material_dark;
-			global::BottomNavigationBar.Resource.Color.abc_secondary_text_material_light = global::Hubo.Droid.Resource.Color.abc_secondary_text_material_light;
-			global::BottomNavigationBar.Resource.Color.accent_material_dark = global::Hubo.Droid.Resource.Color.accent_material_dark;
-			global::BottomNavigationBar.Resource.Color.accent_material_light = global::Hubo.Droid.Resource.Color.accent_material_light;
-			global::BottomNavigationBar.Resource.Color.background_floating_material_dark = global::Hubo.Droid.Resource.Color.background_floating_material_dark;
-			global::BottomNavigationBar.Resource.Color.background_floating_material_light = global::Hubo.Droid.Resource.Color.background_floating_material_light;
-			global::BottomNavigationBar.Resource.Color.background_material_dark = global::Hubo.Droid.Resource.Color.background_material_dark;
-			global::BottomNavigationBar.Resource.Color.background_material_light = global::Hubo.Droid.Resource.Color.background_material_light;
-			global::BottomNavigationBar.Resource.Color.bb_darkBackgroundColor = global::Hubo.Droid.Resource.Color.bb_darkBackgroundColor;
-			global::BottomNavigationBar.Resource.Color.bb_inActiveBottomBarItemColor = global::Hubo.Droid.Resource.Color.bb_inActiveBottomBarItemColor;
-			global::BottomNavigationBar.Resource.Color.bb_tabletRightBorderDark = global::Hubo.Droid.Resource.Color.bb_tabletRightBorderDark;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_disabled_material_dark = global::Hubo.Droid.Resource.Color.bright_foreground_disabled_material_dark;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_disabled_material_light = global::Hubo.Droid.Resource.Color.bright_foreground_disabled_material_light;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_inverse_material_dark = global::Hubo.Droid.Resource.Color.bright_foreground_inverse_material_dark;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_inverse_material_light = global::Hubo.Droid.Resource.Color.bright_foreground_inverse_material_light;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_material_dark = global::Hubo.Droid.Resource.Color.bright_foreground_material_dark;
-			global::BottomNavigationBar.Resource.Color.bright_foreground_material_light = global::Hubo.Droid.Resource.Color.bright_foreground_material_light;
-			global::BottomNavigationBar.Resource.Color.button_material_dark = global::Hubo.Droid.Resource.Color.button_material_dark;
-			global::BottomNavigationBar.Resource.Color.button_material_light = global::Hubo.Droid.Resource.Color.button_material_light;
-			global::BottomNavigationBar.Resource.Color.design_fab_shadow_end_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_end_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_shadow_mid_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_mid_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_shadow_start_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_start_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_stroke_end_inner_color = global::Hubo.Droid.Resource.Color.design_fab_stroke_end_inner_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_stroke_end_outer_color = global::Hubo.Droid.Resource.Color.design_fab_stroke_end_outer_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_stroke_top_inner_color = global::Hubo.Droid.Resource.Color.design_fab_stroke_top_inner_color;
-			global::BottomNavigationBar.Resource.Color.design_fab_stroke_top_outer_color = global::Hubo.Droid.Resource.Color.design_fab_stroke_top_outer_color;
-			global::BottomNavigationBar.Resource.Color.design_snackbar_background_color = global::Hubo.Droid.Resource.Color.design_snackbar_background_color;
-			global::BottomNavigationBar.Resource.Color.design_textinput_error_color_dark = global::Hubo.Droid.Resource.Color.design_textinput_error_color_dark;
-			global::BottomNavigationBar.Resource.Color.design_textinput_error_color_light = global::Hubo.Droid.Resource.Color.design_textinput_error_color_light;
-			global::BottomNavigationBar.Resource.Color.dim_foreground_disabled_material_dark = global::Hubo.Droid.Resource.Color.dim_foreground_disabled_material_dark;
-			global::BottomNavigationBar.Resource.Color.dim_foreground_disabled_material_light = global::Hubo.Droid.Resource.Color.dim_foreground_disabled_material_light;
-			global::BottomNavigationBar.Resource.Color.dim_foreground_material_dark = global::Hubo.Droid.Resource.Color.dim_foreground_material_dark;
-			global::BottomNavigationBar.Resource.Color.dim_foreground_material_light = global::Hubo.Droid.Resource.Color.dim_foreground_material_light;
-			global::BottomNavigationBar.Resource.Color.foreground_material_dark = global::Hubo.Droid.Resource.Color.foreground_material_dark;
-			global::BottomNavigationBar.Resource.Color.foreground_material_light = global::Hubo.Droid.Resource.Color.foreground_material_light;
-			global::BottomNavigationBar.Resource.Color.highlighted_text_material_dark = global::Hubo.Droid.Resource.Color.highlighted_text_material_dark;
-			global::BottomNavigationBar.Resource.Color.highlighted_text_material_light = global::Hubo.Droid.Resource.Color.highlighted_text_material_light;
-			global::BottomNavigationBar.Resource.Color.hint_foreground_material_dark = global::Hubo.Droid.Resource.Color.hint_foreground_material_dark;
-			global::BottomNavigationBar.Resource.Color.hint_foreground_material_light = global::Hubo.Droid.Resource.Color.hint_foreground_material_light;
-			global::BottomNavigationBar.Resource.Color.material_blue_grey_800 = global::Hubo.Droid.Resource.Color.material_blue_grey_800;
-			global::BottomNavigationBar.Resource.Color.material_blue_grey_900 = global::Hubo.Droid.Resource.Color.material_blue_grey_900;
-			global::BottomNavigationBar.Resource.Color.material_blue_grey_950 = global::Hubo.Droid.Resource.Color.material_blue_grey_950;
-			global::BottomNavigationBar.Resource.Color.material_deep_teal_200 = global::Hubo.Droid.Resource.Color.material_deep_teal_200;
-			global::BottomNavigationBar.Resource.Color.material_deep_teal_500 = global::Hubo.Droid.Resource.Color.material_deep_teal_500;
-			global::BottomNavigationBar.Resource.Color.material_grey_100 = global::Hubo.Droid.Resource.Color.material_grey_100;
-			global::BottomNavigationBar.Resource.Color.material_grey_300 = global::Hubo.Droid.Resource.Color.material_grey_300;
-			global::BottomNavigationBar.Resource.Color.material_grey_50 = global::Hubo.Droid.Resource.Color.material_grey_50;
-			global::BottomNavigationBar.Resource.Color.material_grey_600 = global::Hubo.Droid.Resource.Color.material_grey_600;
-			global::BottomNavigationBar.Resource.Color.material_grey_800 = global::Hubo.Droid.Resource.Color.material_grey_800;
-			global::BottomNavigationBar.Resource.Color.material_grey_850 = global::Hubo.Droid.Resource.Color.material_grey_850;
-			global::BottomNavigationBar.Resource.Color.material_grey_900 = global::Hubo.Droid.Resource.Color.material_grey_900;
-			global::BottomNavigationBar.Resource.Color.primary_dark_material_dark = global::Hubo.Droid.Resource.Color.primary_dark_material_dark;
-			global::BottomNavigationBar.Resource.Color.primary_dark_material_light = global::Hubo.Droid.Resource.Color.primary_dark_material_light;
-			global::BottomNavigationBar.Resource.Color.primary_material_dark = global::Hubo.Droid.Resource.Color.primary_material_dark;
-			global::BottomNavigationBar.Resource.Color.primary_material_light = global::Hubo.Droid.Resource.Color.primary_material_light;
-			global::BottomNavigationBar.Resource.Color.primary_text_default_material_dark = global::Hubo.Droid.Resource.Color.primary_text_default_material_dark;
-			global::BottomNavigationBar.Resource.Color.primary_text_default_material_light = global::Hubo.Droid.Resource.Color.primary_text_default_material_light;
-			global::BottomNavigationBar.Resource.Color.primary_text_disabled_material_dark = global::Hubo.Droid.Resource.Color.primary_text_disabled_material_dark;
-			global::BottomNavigationBar.Resource.Color.primary_text_disabled_material_light = global::Hubo.Droid.Resource.Color.primary_text_disabled_material_light;
-			global::BottomNavigationBar.Resource.Color.ripple_material_dark = global::Hubo.Droid.Resource.Color.ripple_material_dark;
-			global::BottomNavigationBar.Resource.Color.ripple_material_light = global::Hubo.Droid.Resource.Color.ripple_material_light;
-			global::BottomNavigationBar.Resource.Color.secondary_text_default_material_dark = global::Hubo.Droid.Resource.Color.secondary_text_default_material_dark;
-			global::BottomNavigationBar.Resource.Color.secondary_text_default_material_light = global::Hubo.Droid.Resource.Color.secondary_text_default_material_light;
-			global::BottomNavigationBar.Resource.Color.secondary_text_disabled_material_dark = global::Hubo.Droid.Resource.Color.secondary_text_disabled_material_dark;
-			global::BottomNavigationBar.Resource.Color.secondary_text_disabled_material_light = global::Hubo.Droid.Resource.Color.secondary_text_disabled_material_light;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_disabled_material_dark = global::Hubo.Droid.Resource.Color.switch_thumb_disabled_material_dark;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_disabled_material_light = global::Hubo.Droid.Resource.Color.switch_thumb_disabled_material_light;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_material_dark = global::Hubo.Droid.Resource.Color.switch_thumb_material_dark;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_material_light = global::Hubo.Droid.Resource.Color.switch_thumb_material_light;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_normal_material_dark = global::Hubo.Droid.Resource.Color.switch_thumb_normal_material_dark;
-			global::BottomNavigationBar.Resource.Color.switch_thumb_normal_material_light = global::Hubo.Droid.Resource.Color.switch_thumb_normal_material_light;
-			global::BottomNavigationBar.Resource.Color.white = global::Hubo.Droid.Resource.Color.white;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_content_inset_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_content_inset_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_default_height_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_default_height_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_default_padding_end_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_default_padding_end_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_default_padding_start_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_default_padding_start_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_progress_bar_size = global::Hubo.Droid.Resource.Dimension.abc_action_bar_progress_bar_size;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_stacked_max_height = global::Hubo.Droid.Resource.Dimension.abc_action_bar_stacked_max_height;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::Hubo.Droid.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_button_min_height_material = global::Hubo.Droid.Resource.Dimension.abc_action_button_min_height_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_button_min_width_material = global::Hubo.Droid.Resource.Dimension.abc_action_button_min_width_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_action_button_min_width_overflow_material = global::Hubo.Droid.Resource.Dimension.abc_action_button_min_width_overflow_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_alert_dialog_button_bar_height = global::Hubo.Droid.Resource.Dimension.abc_alert_dialog_button_bar_height;
-			global::BottomNavigationBar.Resource.Dimension.abc_button_inset_horizontal_material = global::Hubo.Droid.Resource.Dimension.abc_button_inset_horizontal_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_button_inset_vertical_material = global::Hubo.Droid.Resource.Dimension.abc_button_inset_vertical_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_button_padding_horizontal_material = global::Hubo.Droid.Resource.Dimension.abc_button_padding_horizontal_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_button_padding_vertical_material = global::Hubo.Droid.Resource.Dimension.abc_button_padding_vertical_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_config_prefDialogWidth = global::Hubo.Droid.Resource.Dimension.abc_config_prefDialogWidth;
-			global::BottomNavigationBar.Resource.Dimension.abc_control_corner_material = global::Hubo.Droid.Resource.Dimension.abc_control_corner_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_control_inset_material = global::Hubo.Droid.Resource.Dimension.abc_control_inset_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_control_padding_material = global::Hubo.Droid.Resource.Dimension.abc_control_padding_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_fixed_height_major = global::Hubo.Droid.Resource.Dimension.abc_dialog_fixed_height_major;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_fixed_height_minor = global::Hubo.Droid.Resource.Dimension.abc_dialog_fixed_height_minor;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_fixed_width_major = global::Hubo.Droid.Resource.Dimension.abc_dialog_fixed_width_major;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_fixed_width_minor = global::Hubo.Droid.Resource.Dimension.abc_dialog_fixed_width_minor;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_list_padding_vertical_material = global::Hubo.Droid.Resource.Dimension.abc_dialog_list_padding_vertical_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_min_width_major = global::Hubo.Droid.Resource.Dimension.abc_dialog_min_width_major;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_min_width_minor = global::Hubo.Droid.Resource.Dimension.abc_dialog_min_width_minor;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_padding_material = global::Hubo.Droid.Resource.Dimension.abc_dialog_padding_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_dialog_padding_top_material = global::Hubo.Droid.Resource.Dimension.abc_dialog_padding_top_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_disabled_alpha_material_dark = global::Hubo.Droid.Resource.Dimension.abc_disabled_alpha_material_dark;
-			global::BottomNavigationBar.Resource.Dimension.abc_disabled_alpha_material_light = global::Hubo.Droid.Resource.Dimension.abc_disabled_alpha_material_light;
-			global::BottomNavigationBar.Resource.Dimension.abc_dropdownitem_icon_width = global::Hubo.Droid.Resource.Dimension.abc_dropdownitem_icon_width;
-			global::BottomNavigationBar.Resource.Dimension.abc_dropdownitem_text_padding_left = global::Hubo.Droid.Resource.Dimension.abc_dropdownitem_text_padding_left;
-			global::BottomNavigationBar.Resource.Dimension.abc_dropdownitem_text_padding_right = global::Hubo.Droid.Resource.Dimension.abc_dropdownitem_text_padding_right;
-			global::BottomNavigationBar.Resource.Dimension.abc_edit_text_inset_bottom_material = global::Hubo.Droid.Resource.Dimension.abc_edit_text_inset_bottom_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::Hubo.Droid.Resource.Dimension.abc_edit_text_inset_horizontal_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_edit_text_inset_top_material = global::Hubo.Droid.Resource.Dimension.abc_edit_text_inset_top_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_floating_window_z = global::Hubo.Droid.Resource.Dimension.abc_floating_window_z;
-			global::BottomNavigationBar.Resource.Dimension.abc_list_item_padding_horizontal_material = global::Hubo.Droid.Resource.Dimension.abc_list_item_padding_horizontal_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_panel_menu_list_width = global::Hubo.Droid.Resource.Dimension.abc_panel_menu_list_width;
-			global::BottomNavigationBar.Resource.Dimension.abc_search_view_preferred_width = global::Hubo.Droid.Resource.Dimension.abc_search_view_preferred_width;
-			global::BottomNavigationBar.Resource.Dimension.abc_search_view_text_min_width = global::Hubo.Droid.Resource.Dimension.abc_search_view_text_min_width;
-			global::BottomNavigationBar.Resource.Dimension.abc_seekbar_track_background_height_material = global::Hubo.Droid.Resource.Dimension.abc_seekbar_track_background_height_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_seekbar_track_progress_height_material = global::Hubo.Droid.Resource.Dimension.abc_seekbar_track_progress_height_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_select_dialog_padding_start_material = global::Hubo.Droid.Resource.Dimension.abc_select_dialog_padding_start_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_switch_padding = global::Hubo.Droid.Resource.Dimension.abc_switch_padding;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_body_1_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_body_1_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_body_2_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_body_2_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_button_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_button_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_caption_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_caption_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_display_1_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_display_1_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_display_2_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_display_2_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_display_3_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_display_3_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_display_4_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_display_4_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_headline_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_headline_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_large_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_large_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_medium_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_medium_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_menu_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_menu_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_small_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_small_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_subhead_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_subhead_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::Hubo.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_title_material = global::Hubo.Droid.Resource.Dimension.abc_text_size_title_material;
-			global::BottomNavigationBar.Resource.Dimension.abc_text_size_title_material_toolbar = global::Hubo.Droid.Resource.Dimension.abc_text_size_title_material_toolbar;
-			global::BottomNavigationBar.Resource.Dimension.activity_horizontal_margin = global::Hubo.Droid.Resource.Dimension.activity_horizontal_margin;
-			global::BottomNavigationBar.Resource.Dimension.activity_vertical_margin = global::Hubo.Droid.Resource.Dimension.activity_vertical_margin;
-			global::BottomNavigationBar.Resource.Dimension.bb_height = global::Hubo.Droid.Resource.Dimension.bb_height;
-			global::BottomNavigationBar.Resource.Dimension.bottom_bar_elevation = global::Hubo.Droid.Resource.Dimension.bottom_bar_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_appbar_elevation = global::Hubo.Droid.Resource.Dimension.design_appbar_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_bottom_sheet_modal_elevation = global::Hubo.Droid.Resource.Dimension.design_bottom_sheet_modal_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_bottom_sheet_modal_peek_height = global::Hubo.Droid.Resource.Dimension.design_bottom_sheet_modal_peek_height;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_border_width = global::Hubo.Droid.Resource.Dimension.design_fab_border_width;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_elevation = global::Hubo.Droid.Resource.Dimension.design_fab_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_image_size = global::Hubo.Droid.Resource.Dimension.design_fab_image_size;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_size_mini = global::Hubo.Droid.Resource.Dimension.design_fab_size_mini;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_size_normal = global::Hubo.Droid.Resource.Dimension.design_fab_size_normal;
-			global::BottomNavigationBar.Resource.Dimension.design_fab_translation_z_pressed = global::Hubo.Droid.Resource.Dimension.design_fab_translation_z_pressed;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_elevation = global::Hubo.Droid.Resource.Dimension.design_navigation_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_icon_padding = global::Hubo.Droid.Resource.Dimension.design_navigation_icon_padding;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_icon_size = global::Hubo.Droid.Resource.Dimension.design_navigation_icon_size;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_max_width = global::Hubo.Droid.Resource.Dimension.design_navigation_max_width;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_padding_bottom = global::Hubo.Droid.Resource.Dimension.design_navigation_padding_bottom;
-			global::BottomNavigationBar.Resource.Dimension.design_navigation_separator_vertical_padding = global::Hubo.Droid.Resource.Dimension.design_navigation_separator_vertical_padding;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_action_inline_max_width = global::Hubo.Droid.Resource.Dimension.design_snackbar_action_inline_max_width;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_background_corner_radius = global::Hubo.Droid.Resource.Dimension.design_snackbar_background_corner_radius;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_elevation = global::Hubo.Droid.Resource.Dimension.design_snackbar_elevation;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::Hubo.Droid.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_max_width = global::Hubo.Droid.Resource.Dimension.design_snackbar_max_width;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_min_width = global::Hubo.Droid.Resource.Dimension.design_snackbar_min_width;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_padding_horizontal = global::Hubo.Droid.Resource.Dimension.design_snackbar_padding_horizontal;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_padding_vertical = global::Hubo.Droid.Resource.Dimension.design_snackbar_padding_vertical;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::Hubo.Droid.Resource.Dimension.design_snackbar_padding_vertical_2lines;
-			global::BottomNavigationBar.Resource.Dimension.design_snackbar_text_size = global::Hubo.Droid.Resource.Dimension.design_snackbar_text_size;
-			global::BottomNavigationBar.Resource.Dimension.design_tab_max_width = global::Hubo.Droid.Resource.Dimension.design_tab_max_width;
-			global::BottomNavigationBar.Resource.Dimension.design_tab_scrollable_min_width = global::Hubo.Droid.Resource.Dimension.design_tab_scrollable_min_width;
-			global::BottomNavigationBar.Resource.Dimension.design_tab_text_size = global::Hubo.Droid.Resource.Dimension.design_tab_text_size;
-			global::BottomNavigationBar.Resource.Dimension.design_tab_text_size_2line = global::Hubo.Droid.Resource.Dimension.design_tab_text_size_2line;
-			global::BottomNavigationBar.Resource.Dimension.disabled_alpha_material_dark = global::Hubo.Droid.Resource.Dimension.disabled_alpha_material_dark;
-			global::BottomNavigationBar.Resource.Dimension.disabled_alpha_material_light = global::Hubo.Droid.Resource.Dimension.disabled_alpha_material_light;
-			global::BottomNavigationBar.Resource.Dimension.highlight_alpha_material_colored = global::Hubo.Droid.Resource.Dimension.highlight_alpha_material_colored;
-			global::BottomNavigationBar.Resource.Dimension.highlight_alpha_material_dark = global::Hubo.Droid.Resource.Dimension.highlight_alpha_material_dark;
-			global::BottomNavigationBar.Resource.Dimension.highlight_alpha_material_light = global::Hubo.Droid.Resource.Dimension.highlight_alpha_material_light;
-			global::BottomNavigationBar.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::Hubo.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
-			global::BottomNavigationBar.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::Hubo.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
-			global::BottomNavigationBar.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::Hubo.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
-			global::BottomNavigationBar.Resource.Dimension.notification_large_icon_height = global::Hubo.Droid.Resource.Dimension.notification_large_icon_height;
-			global::BottomNavigationBar.Resource.Dimension.notification_large_icon_width = global::Hubo.Droid.Resource.Dimension.notification_large_icon_width;
-			global::BottomNavigationBar.Resource.Dimension.notification_subtext_size = global::Hubo.Droid.Resource.Dimension.notification_subtext_size;
-			global::BottomNavigationBar.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_action_bar_item_background_material = global::Hubo.Droid.Resource.Drawable.abc_action_bar_item_background_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_borderless_material = global::Hubo.Droid.Resource.Drawable.abc_btn_borderless_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_check_material = global::Hubo.Droid.Resource.Drawable.abc_btn_check_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::Hubo.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::Hubo.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_colored_material = global::Hubo.Droid.Resource.Drawable.abc_btn_colored_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_default_mtrl_shape = global::Hubo.Droid.Resource.Drawable.abc_btn_default_mtrl_shape;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_radio_material = global::Hubo.Droid.Resource.Drawable.abc_btn_radio_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::Hubo.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::Hubo.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_rating_star_off_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_btn_rating_star_off_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_rating_star_on_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_btn_rating_star_on_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::Hubo.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
-			global::BottomNavigationBar.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::Hubo.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
-			global::BottomNavigationBar.Resource.Drawable.abc_cab_background_internal_bg = global::Hubo.Droid.Resource.Drawable.abc_cab_background_internal_bg;
-			global::BottomNavigationBar.Resource.Drawable.abc_cab_background_top_material = global::Hubo.Droid.Resource.Drawable.abc_cab_background_top_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_control_background_material = global::Hubo.Droid.Resource.Drawable.abc_control_background_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_dialog_material_background_dark = global::Hubo.Droid.Resource.Drawable.abc_dialog_material_background_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_dialog_material_background_light = global::Hubo.Droid.Resource.Drawable.abc_dialog_material_background_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_edit_text_material = global::Hubo.Droid.Resource.Drawable.abc_edit_text_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_clear_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_clear_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_go_search_api_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_go_search_api_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_moreoverflow_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_moreoverflow_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_search_api_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_search_api_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_star_black_16dp = global::Hubo.Droid.Resource.Drawable.abc_ic_star_black_16dp;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_star_black_36dp = global::Hubo.Droid.Resource.Drawable.abc_ic_star_black_36dp;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_star_half_black_16dp = global::Hubo.Droid.Resource.Drawable.abc_ic_star_half_black_16dp;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_star_half_black_36dp = global::Hubo.Droid.Resource.Drawable.abc_ic_star_half_black_36dp;
-			global::BottomNavigationBar.Resource.Drawable.abc_ic_voice_search_api_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_ic_voice_search_api_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_item_background_holo_dark = global::Hubo.Droid.Resource.Drawable.abc_item_background_holo_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_item_background_holo_light = global::Hubo.Droid.Resource.Drawable.abc_item_background_holo_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_divider_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_list_divider_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_focused_holo = global::Hubo.Droid.Resource.Drawable.abc_list_focused_holo;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_longpressed_holo = global::Hubo.Droid.Resource.Drawable.abc_list_longpressed_holo;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_pressed_holo_dark = global::Hubo.Droid.Resource.Drawable.abc_list_pressed_holo_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_pressed_holo_light = global::Hubo.Droid.Resource.Drawable.abc_list_pressed_holo_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::Hubo.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::Hubo.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::Hubo.Droid.Resource.Drawable.abc_list_selector_disabled_holo_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_disabled_holo_light = global::Hubo.Droid.Resource.Drawable.abc_list_selector_disabled_holo_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_holo_dark = global::Hubo.Droid.Resource.Drawable.abc_list_selector_holo_dark;
-			global::BottomNavigationBar.Resource.Drawable.abc_list_selector_holo_light = global::Hubo.Droid.Resource.Drawable.abc_list_selector_holo_light;
-			global::BottomNavigationBar.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::Hubo.Droid.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
-			global::BottomNavigationBar.Resource.Drawable.abc_popup_background_mtrl_mult = global::Hubo.Droid.Resource.Drawable.abc_popup_background_mtrl_mult;
-			global::BottomNavigationBar.Resource.Drawable.abc_ratingbar_full_material = global::Hubo.Droid.Resource.Drawable.abc_ratingbar_full_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_ratingbar_indicator_material = global::Hubo.Droid.Resource.Drawable.abc_ratingbar_indicator_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_ratingbar_small_material = global::Hubo.Droid.Resource.Drawable.abc_ratingbar_small_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::Hubo.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
-			global::BottomNavigationBar.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::Hubo.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
-			global::BottomNavigationBar.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_seekbar_thumb_material = global::Hubo.Droid.Resource.Drawable.abc_seekbar_thumb_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_seekbar_track_material = global::Hubo.Droid.Resource.Drawable.abc_seekbar_track_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::Hubo.Droid.Resource.Drawable.abc_spinner_mtrl_am_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_spinner_textfield_background_material = global::Hubo.Droid.Resource.Drawable.abc_spinner_textfield_background_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_switch_thumb_material = global::Hubo.Droid.Resource.Drawable.abc_switch_thumb_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_switch_track_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_switch_track_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_tab_indicator_material = global::Hubo.Droid.Resource.Drawable.abc_tab_indicator_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_text_cursor_material = global::Hubo.Droid.Resource.Drawable.abc_text_cursor_material;
-			global::BottomNavigationBar.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_default_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
-			global::BottomNavigationBar.Resource.Drawable.abc_textfield_search_material = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_material;
-			global::BottomNavigationBar.Resource.Drawable.bb_bottom_bar_top_shadow = global::Hubo.Droid.Resource.Drawable.bb_bottom_bar_top_shadow;
-			global::BottomNavigationBar.Resource.Drawable.design_fab_background = global::Hubo.Droid.Resource.Drawable.design_fab_background;
-			global::BottomNavigationBar.Resource.Drawable.design_snackbar_background = global::Hubo.Droid.Resource.Drawable.design_snackbar_background;
-			global::BottomNavigationBar.Resource.Drawable.notification_template_icon_bg = global::Hubo.Droid.Resource.Drawable.notification_template_icon_bg;
-			global::BottomNavigationBar.Resource.Id.action0 = global::Hubo.Droid.Resource.Id.action0;
-			global::BottomNavigationBar.Resource.Id.action_bar = global::Hubo.Droid.Resource.Id.action_bar;
-			global::BottomNavigationBar.Resource.Id.action_bar_activity_content = global::Hubo.Droid.Resource.Id.action_bar_activity_content;
-			global::BottomNavigationBar.Resource.Id.action_bar_container = global::Hubo.Droid.Resource.Id.action_bar_container;
-			global::BottomNavigationBar.Resource.Id.action_bar_root = global::Hubo.Droid.Resource.Id.action_bar_root;
-			global::BottomNavigationBar.Resource.Id.action_bar_spinner = global::Hubo.Droid.Resource.Id.action_bar_spinner;
-			global::BottomNavigationBar.Resource.Id.action_bar_subtitle = global::Hubo.Droid.Resource.Id.action_bar_subtitle;
-			global::BottomNavigationBar.Resource.Id.action_bar_title = global::Hubo.Droid.Resource.Id.action_bar_title;
-			global::BottomNavigationBar.Resource.Id.action_context_bar = global::Hubo.Droid.Resource.Id.action_context_bar;
-			global::BottomNavigationBar.Resource.Id.action_divider = global::Hubo.Droid.Resource.Id.action_divider;
-			global::BottomNavigationBar.Resource.Id.action_menu_divider = global::Hubo.Droid.Resource.Id.action_menu_divider;
-			global::BottomNavigationBar.Resource.Id.action_menu_presenter = global::Hubo.Droid.Resource.Id.action_menu_presenter;
-			global::BottomNavigationBar.Resource.Id.action_mode_bar = global::Hubo.Droid.Resource.Id.action_mode_bar;
-			global::BottomNavigationBar.Resource.Id.action_mode_bar_stub = global::Hubo.Droid.Resource.Id.action_mode_bar_stub;
-			global::BottomNavigationBar.Resource.Id.action_mode_close_button = global::Hubo.Droid.Resource.Id.action_mode_close_button;
-			global::BottomNavigationBar.Resource.Id.activity_chooser_view_content = global::Hubo.Droid.Resource.Id.activity_chooser_view_content;
-			global::BottomNavigationBar.Resource.Id.alertTitle = global::Hubo.Droid.Resource.Id.alertTitle;
-			global::BottomNavigationBar.Resource.Id.always = global::Hubo.Droid.Resource.Id.always;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_background_overlay = global::Hubo.Droid.Resource.Id.bb_bottom_bar_background_overlay;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_background_view = global::Hubo.Droid.Resource.Id.bb_bottom_bar_background_view;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_icon = global::Hubo.Droid.Resource.Id.bb_bottom_bar_icon;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_item_container = global::Hubo.Droid.Resource.Id.bb_bottom_bar_item_container;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_outer_container = global::Hubo.Droid.Resource.Id.bb_bottom_bar_outer_container;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_shadow = global::Hubo.Droid.Resource.Id.bb_bottom_bar_shadow;
-			global::BottomNavigationBar.Resource.Id.bb_bottom_bar_title = global::Hubo.Droid.Resource.Id.bb_bottom_bar_title;
-			global::BottomNavigationBar.Resource.Id.bb_tablet_right_border = global::Hubo.Droid.Resource.Id.bb_tablet_right_border;
-			global::BottomNavigationBar.Resource.Id.bb_user_content_container = global::Hubo.Droid.Resource.Id.bb_user_content_container;
-			global::BottomNavigationBar.Resource.Id.beginning = global::Hubo.Droid.Resource.Id.beginning;
-			global::BottomNavigationBar.Resource.Id.bottom = global::Hubo.Droid.Resource.Id.bottom;
-			global::BottomNavigationBar.Resource.Id.buttonPanel = global::Hubo.Droid.Resource.Id.buttonPanel;
-			global::BottomNavigationBar.Resource.Id.cancel_action = global::Hubo.Droid.Resource.Id.cancel_action;
-			global::BottomNavigationBar.Resource.Id.center = global::Hubo.Droid.Resource.Id.center;
-			global::BottomNavigationBar.Resource.Id.center_horizontal = global::Hubo.Droid.Resource.Id.center_horizontal;
-			global::BottomNavigationBar.Resource.Id.center_vertical = global::Hubo.Droid.Resource.Id.center_vertical;
-			global::BottomNavigationBar.Resource.Id.checkbox = global::Hubo.Droid.Resource.Id.checkbox;
-			global::BottomNavigationBar.Resource.Id.chronometer = global::Hubo.Droid.Resource.Id.chronometer;
-			global::BottomNavigationBar.Resource.Id.clip_horizontal = global::Hubo.Droid.Resource.Id.clip_horizontal;
-			global::BottomNavigationBar.Resource.Id.clip_vertical = global::Hubo.Droid.Resource.Id.clip_vertical;
-			global::BottomNavigationBar.Resource.Id.collapseActionView = global::Hubo.Droid.Resource.Id.collapseActionView;
-			global::BottomNavigationBar.Resource.Id.contentPanel = global::Hubo.Droid.Resource.Id.contentPanel;
-			global::BottomNavigationBar.Resource.Id.custom = global::Hubo.Droid.Resource.Id.custom;
-			global::BottomNavigationBar.Resource.Id.customPanel = global::Hubo.Droid.Resource.Id.customPanel;
-			global::BottomNavigationBar.Resource.Id.decor_content_parent = global::Hubo.Droid.Resource.Id.decor_content_parent;
-			global::BottomNavigationBar.Resource.Id.default_activity_button = global::Hubo.Droid.Resource.Id.default_activity_button;
-			global::BottomNavigationBar.Resource.Id.design_bottom_sheet = global::Hubo.Droid.Resource.Id.design_bottom_sheet;
-			global::BottomNavigationBar.Resource.Id.design_menu_item_action_area = global::Hubo.Droid.Resource.Id.design_menu_item_action_area;
-			global::BottomNavigationBar.Resource.Id.design_menu_item_action_area_stub = global::Hubo.Droid.Resource.Id.design_menu_item_action_area_stub;
-			global::BottomNavigationBar.Resource.Id.design_menu_item_text = global::Hubo.Droid.Resource.Id.design_menu_item_text;
-			global::BottomNavigationBar.Resource.Id.design_navigation_view = global::Hubo.Droid.Resource.Id.design_navigation_view;
-			global::BottomNavigationBar.Resource.Id.disableHome = global::Hubo.Droid.Resource.Id.disableHome;
-			global::BottomNavigationBar.Resource.Id.edit_query = global::Hubo.Droid.Resource.Id.edit_query;
-			global::BottomNavigationBar.Resource.Id.end = global::Hubo.Droid.Resource.Id.end;
-			global::BottomNavigationBar.Resource.Id.end_padder = global::Hubo.Droid.Resource.Id.end_padder;
-			global::BottomNavigationBar.Resource.Id.enterAlways = global::Hubo.Droid.Resource.Id.enterAlways;
-			global::BottomNavigationBar.Resource.Id.enterAlwaysCollapsed = global::Hubo.Droid.Resource.Id.enterAlwaysCollapsed;
-			global::BottomNavigationBar.Resource.Id.exitUntilCollapsed = global::Hubo.Droid.Resource.Id.exitUntilCollapsed;
-			global::BottomNavigationBar.Resource.Id.expand_activities_button = global::Hubo.Droid.Resource.Id.expand_activities_button;
-			global::BottomNavigationBar.Resource.Id.expanded_menu = global::Hubo.Droid.Resource.Id.expanded_menu;
-			global::BottomNavigationBar.Resource.Id.fill = global::Hubo.Droid.Resource.Id.fill;
-			global::BottomNavigationBar.Resource.Id.fill_horizontal = global::Hubo.Droid.Resource.Id.fill_horizontal;
-			global::BottomNavigationBar.Resource.Id.fill_vertical = global::Hubo.Droid.Resource.Id.fill_vertical;
-			global::BottomNavigationBar.Resource.Id.@fixed = global::Hubo.Droid.Resource.Id.@fixed;
-			global::BottomNavigationBar.Resource.Id.home = global::Hubo.Droid.Resource.Id.home;
-			global::BottomNavigationBar.Resource.Id.homeAsUp = global::Hubo.Droid.Resource.Id.homeAsUp;
-			global::BottomNavigationBar.Resource.Id.icon = global::Hubo.Droid.Resource.Id.icon;
-			global::BottomNavigationBar.Resource.Id.ifRoom = global::Hubo.Droid.Resource.Id.ifRoom;
-			global::BottomNavigationBar.Resource.Id.image = global::Hubo.Droid.Resource.Id.image;
-			global::BottomNavigationBar.Resource.Id.info = global::Hubo.Droid.Resource.Id.info;
-			global::BottomNavigationBar.Resource.Id.item_touch_helper_previous_elevation = global::Hubo.Droid.Resource.Id.item_touch_helper_previous_elevation;
-			global::BottomNavigationBar.Resource.Id.left = global::Hubo.Droid.Resource.Id.left;
-			global::BottomNavigationBar.Resource.Id.line1 = global::Hubo.Droid.Resource.Id.line1;
-			global::BottomNavigationBar.Resource.Id.line3 = global::Hubo.Droid.Resource.Id.line3;
-			global::BottomNavigationBar.Resource.Id.listMode = global::Hubo.Droid.Resource.Id.listMode;
-			global::BottomNavigationBar.Resource.Id.list_item = global::Hubo.Droid.Resource.Id.list_item;
-			global::BottomNavigationBar.Resource.Id.media_actions = global::Hubo.Droid.Resource.Id.media_actions;
-			global::BottomNavigationBar.Resource.Id.middle = global::Hubo.Droid.Resource.Id.middle;
-			global::BottomNavigationBar.Resource.Id.mini = global::Hubo.Droid.Resource.Id.mini;
-			global::BottomNavigationBar.Resource.Id.multiply = global::Hubo.Droid.Resource.Id.multiply;
-			global::BottomNavigationBar.Resource.Id.navigation_header_container = global::Hubo.Droid.Resource.Id.navigation_header_container;
-			global::BottomNavigationBar.Resource.Id.never = global::Hubo.Droid.Resource.Id.never;
-			global::BottomNavigationBar.Resource.Id.none = global::Hubo.Droid.Resource.Id.none;
-			global::BottomNavigationBar.Resource.Id.normal = global::Hubo.Droid.Resource.Id.normal;
-			global::BottomNavigationBar.Resource.Id.parallax = global::Hubo.Droid.Resource.Id.parallax;
-			global::BottomNavigationBar.Resource.Id.parentPanel = global::Hubo.Droid.Resource.Id.parentPanel;
-			global::BottomNavigationBar.Resource.Id.pin = global::Hubo.Droid.Resource.Id.pin;
-			global::BottomNavigationBar.Resource.Id.progress_circular = global::Hubo.Droid.Resource.Id.progress_circular;
-			global::BottomNavigationBar.Resource.Id.progress_horizontal = global::Hubo.Droid.Resource.Id.progress_horizontal;
-			global::BottomNavigationBar.Resource.Id.radio = global::Hubo.Droid.Resource.Id.radio;
-			global::BottomNavigationBar.Resource.Id.right = global::Hubo.Droid.Resource.Id.right;
-			global::BottomNavigationBar.Resource.Id.screen = global::Hubo.Droid.Resource.Id.screen;
-			global::BottomNavigationBar.Resource.Id.scroll = global::Hubo.Droid.Resource.Id.scroll;
-			global::BottomNavigationBar.Resource.Id.scrollIndicatorDown = global::Hubo.Droid.Resource.Id.scrollIndicatorDown;
-			global::BottomNavigationBar.Resource.Id.scrollIndicatorUp = global::Hubo.Droid.Resource.Id.scrollIndicatorUp;
-			global::BottomNavigationBar.Resource.Id.scrollView = global::Hubo.Droid.Resource.Id.scrollView;
-			global::BottomNavigationBar.Resource.Id.scrollable = global::Hubo.Droid.Resource.Id.scrollable;
-			global::BottomNavigationBar.Resource.Id.search_badge = global::Hubo.Droid.Resource.Id.search_badge;
-			global::BottomNavigationBar.Resource.Id.search_bar = global::Hubo.Droid.Resource.Id.search_bar;
-			global::BottomNavigationBar.Resource.Id.search_button = global::Hubo.Droid.Resource.Id.search_button;
-			global::BottomNavigationBar.Resource.Id.search_close_btn = global::Hubo.Droid.Resource.Id.search_close_btn;
-			global::BottomNavigationBar.Resource.Id.search_edit_frame = global::Hubo.Droid.Resource.Id.search_edit_frame;
-			global::BottomNavigationBar.Resource.Id.search_go_btn = global::Hubo.Droid.Resource.Id.search_go_btn;
-			global::BottomNavigationBar.Resource.Id.search_mag_icon = global::Hubo.Droid.Resource.Id.search_mag_icon;
-			global::BottomNavigationBar.Resource.Id.search_plate = global::Hubo.Droid.Resource.Id.search_plate;
-			global::BottomNavigationBar.Resource.Id.search_src_text = global::Hubo.Droid.Resource.Id.search_src_text;
-			global::BottomNavigationBar.Resource.Id.search_voice_btn = global::Hubo.Droid.Resource.Id.search_voice_btn;
-			global::BottomNavigationBar.Resource.Id.select_dialog_listview = global::Hubo.Droid.Resource.Id.select_dialog_listview;
-			global::BottomNavigationBar.Resource.Id.shortcut = global::Hubo.Droid.Resource.Id.shortcut;
-			global::BottomNavigationBar.Resource.Id.showCustom = global::Hubo.Droid.Resource.Id.showCustom;
-			global::BottomNavigationBar.Resource.Id.showHome = global::Hubo.Droid.Resource.Id.showHome;
-			global::BottomNavigationBar.Resource.Id.showTitle = global::Hubo.Droid.Resource.Id.showTitle;
-			global::BottomNavigationBar.Resource.Id.snackbar_action = global::Hubo.Droid.Resource.Id.snackbar_action;
-			global::BottomNavigationBar.Resource.Id.snackbar_text = global::Hubo.Droid.Resource.Id.snackbar_text;
-			global::BottomNavigationBar.Resource.Id.snap = global::Hubo.Droid.Resource.Id.snap;
-			global::BottomNavigationBar.Resource.Id.spacer = global::Hubo.Droid.Resource.Id.spacer;
-			global::BottomNavigationBar.Resource.Id.split_action_bar = global::Hubo.Droid.Resource.Id.split_action_bar;
-			global::BottomNavigationBar.Resource.Id.src_atop = global::Hubo.Droid.Resource.Id.src_atop;
-			global::BottomNavigationBar.Resource.Id.src_in = global::Hubo.Droid.Resource.Id.src_in;
-			global::BottomNavigationBar.Resource.Id.src_over = global::Hubo.Droid.Resource.Id.src_over;
-			global::BottomNavigationBar.Resource.Id.start = global::Hubo.Droid.Resource.Id.start;
-			global::BottomNavigationBar.Resource.Id.status_bar_latest_event_content = global::Hubo.Droid.Resource.Id.status_bar_latest_event_content;
-			global::BottomNavigationBar.Resource.Id.submit_area = global::Hubo.Droid.Resource.Id.submit_area;
-			global::BottomNavigationBar.Resource.Id.tabMode = global::Hubo.Droid.Resource.Id.tabMode;
-			global::BottomNavigationBar.Resource.Id.text = global::Hubo.Droid.Resource.Id.text;
-			global::BottomNavigationBar.Resource.Id.text2 = global::Hubo.Droid.Resource.Id.text2;
-			global::BottomNavigationBar.Resource.Id.textSpacerNoButtons = global::Hubo.Droid.Resource.Id.textSpacerNoButtons;
-			global::BottomNavigationBar.Resource.Id.time = global::Hubo.Droid.Resource.Id.time;
-			global::BottomNavigationBar.Resource.Id.title = global::Hubo.Droid.Resource.Id.title;
-			global::BottomNavigationBar.Resource.Id.title_template = global::Hubo.Droid.Resource.Id.title_template;
-			global::BottomNavigationBar.Resource.Id.top = global::Hubo.Droid.Resource.Id.top;
-			global::BottomNavigationBar.Resource.Id.topPanel = global::Hubo.Droid.Resource.Id.topPanel;
-			global::BottomNavigationBar.Resource.Id.touch_outside = global::Hubo.Droid.Resource.Id.touch_outside;
-			global::BottomNavigationBar.Resource.Id.up = global::Hubo.Droid.Resource.Id.up;
-			global::BottomNavigationBar.Resource.Id.useLogo = global::Hubo.Droid.Resource.Id.useLogo;
-			global::BottomNavigationBar.Resource.Id.view_offset_helper = global::Hubo.Droid.Resource.Id.view_offset_helper;
-			global::BottomNavigationBar.Resource.Id.withText = global::Hubo.Droid.Resource.Id.withText;
-			global::BottomNavigationBar.Resource.Id.wrap_content = global::Hubo.Droid.Resource.Id.wrap_content;
-			global::BottomNavigationBar.Resource.Integer.abc_config_activityDefaultDur = global::Hubo.Droid.Resource.Integer.abc_config_activityDefaultDur;
-			global::BottomNavigationBar.Resource.Integer.abc_config_activityShortDur = global::Hubo.Droid.Resource.Integer.abc_config_activityShortDur;
-			global::BottomNavigationBar.Resource.Integer.abc_max_action_buttons = global::Hubo.Droid.Resource.Integer.abc_max_action_buttons;
-			global::BottomNavigationBar.Resource.Integer.bottom_sheet_slide_duration = global::Hubo.Droid.Resource.Integer.bottom_sheet_slide_duration;
-			global::BottomNavigationBar.Resource.Integer.cancel_button_image_alpha = global::Hubo.Droid.Resource.Integer.cancel_button_image_alpha;
-			global::BottomNavigationBar.Resource.Integer.design_snackbar_text_max_lines = global::Hubo.Droid.Resource.Integer.design_snackbar_text_max_lines;
-			global::BottomNavigationBar.Resource.Integer.status_bar_notification_info_maxnum = global::Hubo.Droid.Resource.Integer.status_bar_notification_info_maxnum;
-			global::BottomNavigationBar.Resource.Layout.abc_action_bar_title_item = global::Hubo.Droid.Resource.Layout.abc_action_bar_title_item;
-			global::BottomNavigationBar.Resource.Layout.abc_action_bar_up_container = global::Hubo.Droid.Resource.Layout.abc_action_bar_up_container;
-			global::BottomNavigationBar.Resource.Layout.abc_action_bar_view_list_nav_layout = global::Hubo.Droid.Resource.Layout.abc_action_bar_view_list_nav_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_action_menu_item_layout = global::Hubo.Droid.Resource.Layout.abc_action_menu_item_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_action_menu_layout = global::Hubo.Droid.Resource.Layout.abc_action_menu_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_action_mode_bar = global::Hubo.Droid.Resource.Layout.abc_action_mode_bar;
-			global::BottomNavigationBar.Resource.Layout.abc_action_mode_close_item_material = global::Hubo.Droid.Resource.Layout.abc_action_mode_close_item_material;
-			global::BottomNavigationBar.Resource.Layout.abc_activity_chooser_view = global::Hubo.Droid.Resource.Layout.abc_activity_chooser_view;
-			global::BottomNavigationBar.Resource.Layout.abc_activity_chooser_view_list_item = global::Hubo.Droid.Resource.Layout.abc_activity_chooser_view_list_item;
-			global::BottomNavigationBar.Resource.Layout.abc_alert_dialog_button_bar_material = global::Hubo.Droid.Resource.Layout.abc_alert_dialog_button_bar_material;
-			global::BottomNavigationBar.Resource.Layout.abc_alert_dialog_material = global::Hubo.Droid.Resource.Layout.abc_alert_dialog_material;
-			global::BottomNavigationBar.Resource.Layout.abc_dialog_title_material = global::Hubo.Droid.Resource.Layout.abc_dialog_title_material;
-			global::BottomNavigationBar.Resource.Layout.abc_expanded_menu_layout = global::Hubo.Droid.Resource.Layout.abc_expanded_menu_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_list_menu_item_checkbox = global::Hubo.Droid.Resource.Layout.abc_list_menu_item_checkbox;
-			global::BottomNavigationBar.Resource.Layout.abc_list_menu_item_icon = global::Hubo.Droid.Resource.Layout.abc_list_menu_item_icon;
-			global::BottomNavigationBar.Resource.Layout.abc_list_menu_item_layout = global::Hubo.Droid.Resource.Layout.abc_list_menu_item_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_list_menu_item_radio = global::Hubo.Droid.Resource.Layout.abc_list_menu_item_radio;
-			global::BottomNavigationBar.Resource.Layout.abc_popup_menu_item_layout = global::Hubo.Droid.Resource.Layout.abc_popup_menu_item_layout;
-			global::BottomNavigationBar.Resource.Layout.abc_screen_content_include = global::Hubo.Droid.Resource.Layout.abc_screen_content_include;
-			global::BottomNavigationBar.Resource.Layout.abc_screen_simple = global::Hubo.Droid.Resource.Layout.abc_screen_simple;
-			global::BottomNavigationBar.Resource.Layout.abc_screen_simple_overlay_action_mode = global::Hubo.Droid.Resource.Layout.abc_screen_simple_overlay_action_mode;
-			global::BottomNavigationBar.Resource.Layout.abc_screen_toolbar = global::Hubo.Droid.Resource.Layout.abc_screen_toolbar;
-			global::BottomNavigationBar.Resource.Layout.abc_search_dropdown_item_icons_2line = global::Hubo.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line;
-			global::BottomNavigationBar.Resource.Layout.abc_search_view = global::Hubo.Droid.Resource.Layout.abc_search_view;
-			global::BottomNavigationBar.Resource.Layout.abc_select_dialog_material = global::Hubo.Droid.Resource.Layout.abc_select_dialog_material;
-			global::BottomNavigationBar.Resource.Layout.bb_bottom_bar_item_container = global::Hubo.Droid.Resource.Layout.bb_bottom_bar_item_container;
-			global::BottomNavigationBar.Resource.Layout.bb_bottom_bar_item_container_tablet = global::Hubo.Droid.Resource.Layout.bb_bottom_bar_item_container_tablet;
-			global::BottomNavigationBar.Resource.Layout.bb_bottom_bar_item_fixed = global::Hubo.Droid.Resource.Layout.bb_bottom_bar_item_fixed;
-			global::BottomNavigationBar.Resource.Layout.bb_bottom_bar_item_fixed_tablet = global::Hubo.Droid.Resource.Layout.bb_bottom_bar_item_fixed_tablet;
-			global::BottomNavigationBar.Resource.Layout.bb_bottom_bar_item_shifting = global::Hubo.Droid.Resource.Layout.bb_bottom_bar_item_shifting;
-			global::BottomNavigationBar.Resource.Layout.design_bottom_sheet_dialog = global::Hubo.Droid.Resource.Layout.design_bottom_sheet_dialog;
-			global::BottomNavigationBar.Resource.Layout.design_layout_snackbar = global::Hubo.Droid.Resource.Layout.design_layout_snackbar;
-			global::BottomNavigationBar.Resource.Layout.design_layout_snackbar_include = global::Hubo.Droid.Resource.Layout.design_layout_snackbar_include;
-			global::BottomNavigationBar.Resource.Layout.design_layout_tab_icon = global::Hubo.Droid.Resource.Layout.design_layout_tab_icon;
-			global::BottomNavigationBar.Resource.Layout.design_layout_tab_text = global::Hubo.Droid.Resource.Layout.design_layout_tab_text;
-			global::BottomNavigationBar.Resource.Layout.design_menu_item_action_area = global::Hubo.Droid.Resource.Layout.design_menu_item_action_area;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_item = global::Hubo.Droid.Resource.Layout.design_navigation_item;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_item_header = global::Hubo.Droid.Resource.Layout.design_navigation_item_header;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_item_separator = global::Hubo.Droid.Resource.Layout.design_navigation_item_separator;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_item_subheader = global::Hubo.Droid.Resource.Layout.design_navigation_item_subheader;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_menu = global::Hubo.Droid.Resource.Layout.design_navigation_menu;
-			global::BottomNavigationBar.Resource.Layout.design_navigation_menu_item = global::Hubo.Droid.Resource.Layout.design_navigation_menu_item;
-			global::BottomNavigationBar.Resource.Layout.notification_media_action = global::Hubo.Droid.Resource.Layout.notification_media_action;
-			global::BottomNavigationBar.Resource.Layout.notification_media_cancel_action = global::Hubo.Droid.Resource.Layout.notification_media_cancel_action;
-			global::BottomNavigationBar.Resource.Layout.notification_template_big_media = global::Hubo.Droid.Resource.Layout.notification_template_big_media;
-			global::BottomNavigationBar.Resource.Layout.notification_template_big_media_narrow = global::Hubo.Droid.Resource.Layout.notification_template_big_media_narrow;
-			global::BottomNavigationBar.Resource.Layout.notification_template_lines = global::Hubo.Droid.Resource.Layout.notification_template_lines;
-			global::BottomNavigationBar.Resource.Layout.notification_template_media = global::Hubo.Droid.Resource.Layout.notification_template_media;
-			global::BottomNavigationBar.Resource.Layout.notification_template_part_chronometer = global::Hubo.Droid.Resource.Layout.notification_template_part_chronometer;
-			global::BottomNavigationBar.Resource.Layout.notification_template_part_time = global::Hubo.Droid.Resource.Layout.notification_template_part_time;
-			global::BottomNavigationBar.Resource.Layout.select_dialog_item_material = global::Hubo.Droid.Resource.Layout.select_dialog_item_material;
-			global::BottomNavigationBar.Resource.Layout.select_dialog_multichoice_material = global::Hubo.Droid.Resource.Layout.select_dialog_multichoice_material;
-			global::BottomNavigationBar.Resource.Layout.select_dialog_singlechoice_material = global::Hubo.Droid.Resource.Layout.select_dialog_singlechoice_material;
-			global::BottomNavigationBar.Resource.Layout.support_simple_spinner_dropdown_item = global::Hubo.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
-			global::BottomNavigationBar.Resource.String.abc_action_bar_home_description = global::Hubo.Droid.Resource.String.abc_action_bar_home_description;
-			global::BottomNavigationBar.Resource.String.abc_action_bar_home_description_format = global::Hubo.Droid.Resource.String.abc_action_bar_home_description_format;
-			global::BottomNavigationBar.Resource.String.abc_action_bar_home_subtitle_description_format = global::Hubo.Droid.Resource.String.abc_action_bar_home_subtitle_description_format;
-			global::BottomNavigationBar.Resource.String.abc_action_bar_up_description = global::Hubo.Droid.Resource.String.abc_action_bar_up_description;
-			global::BottomNavigationBar.Resource.String.abc_action_menu_overflow_description = global::Hubo.Droid.Resource.String.abc_action_menu_overflow_description;
-			global::BottomNavigationBar.Resource.String.abc_action_mode_done = global::Hubo.Droid.Resource.String.abc_action_mode_done;
-			global::BottomNavigationBar.Resource.String.abc_activity_chooser_view_see_all = global::Hubo.Droid.Resource.String.abc_activity_chooser_view_see_all;
-			global::BottomNavigationBar.Resource.String.abc_activitychooserview_choose_application = global::Hubo.Droid.Resource.String.abc_activitychooserview_choose_application;
-			global::BottomNavigationBar.Resource.String.abc_capital_off = global::Hubo.Droid.Resource.String.abc_capital_off;
-			global::BottomNavigationBar.Resource.String.abc_capital_on = global::Hubo.Droid.Resource.String.abc_capital_on;
-			global::BottomNavigationBar.Resource.String.abc_search_hint = global::Hubo.Droid.Resource.String.abc_search_hint;
-			global::BottomNavigationBar.Resource.String.abc_searchview_description_clear = global::Hubo.Droid.Resource.String.abc_searchview_description_clear;
-			global::BottomNavigationBar.Resource.String.abc_searchview_description_query = global::Hubo.Droid.Resource.String.abc_searchview_description_query;
-			global::BottomNavigationBar.Resource.String.abc_searchview_description_search = global::Hubo.Droid.Resource.String.abc_searchview_description_search;
-			global::BottomNavigationBar.Resource.String.abc_searchview_description_submit = global::Hubo.Droid.Resource.String.abc_searchview_description_submit;
-			global::BottomNavigationBar.Resource.String.abc_searchview_description_voice = global::Hubo.Droid.Resource.String.abc_searchview_description_voice;
-			global::BottomNavigationBar.Resource.String.abc_shareactionprovider_share_with = global::Hubo.Droid.Resource.String.abc_shareactionprovider_share_with;
-			global::BottomNavigationBar.Resource.String.abc_shareactionprovider_share_with_application = global::Hubo.Droid.Resource.String.abc_shareactionprovider_share_with_application;
-			global::BottomNavigationBar.Resource.String.abc_toolbar_collapse_description = global::Hubo.Droid.Resource.String.abc_toolbar_collapse_description;
-			global::BottomNavigationBar.Resource.String.app_name = global::Hubo.Droid.Resource.String.app_name;
-			global::BottomNavigationBar.Resource.String.appbar_scrolling_view_behavior = global::Hubo.Droid.Resource.String.appbar_scrolling_view_behavior;
-			global::BottomNavigationBar.Resource.String.bottom_sheet_behavior = global::Hubo.Droid.Resource.String.bottom_sheet_behavior;
-			global::BottomNavigationBar.Resource.String.character_counter_pattern = global::Hubo.Droid.Resource.String.character_counter_pattern;
-			global::BottomNavigationBar.Resource.String.status_bar_notification_info_overflow = global::Hubo.Droid.Resource.String.status_bar_notification_info_overflow;
-			global::BottomNavigationBar.Resource.Style.AlertDialog_AppCompat = global::Hubo.Droid.Resource.Style.AlertDialog_AppCompat;
-			global::BottomNavigationBar.Resource.Style.AlertDialog_AppCompat_Light = global::Hubo.Droid.Resource.Style.AlertDialog_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Animation_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Animation_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Animation_AppCompat_DropDownUp = global::Hubo.Droid.Resource.Style.Animation_AppCompat_DropDownUp;
-			global::BottomNavigationBar.Resource.Style.Animation_Design_BottomSheetDialog = global::Hubo.Droid.Resource.Style.Animation_Design_BottomSheetDialog;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarBadge_Text = global::Hubo.Droid.Resource.Style.BB_BottomBarBadge_Text;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem = global::Hubo.Droid.Resource.Style.BB_BottomBarItem;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_Fixed = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_Fixed;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_Fixed_TitleAppearance = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_Fixed_TitleAppearance;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_Shifting = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_Shifting;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_Shifting_TitleAppearance = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_Shifting_TitleAppearance;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_Tablet = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_Tablet;
-			global::BottomNavigationBar.Resource.Style.BB_BottomBarItem_TitleStyle = global::Hubo.Droid.Resource.Style.BB_BottomBarItem_TitleStyle;
-			global::BottomNavigationBar.Resource.Style.Base_AlertDialog_AppCompat = global::Hubo.Droid.Resource.Style.Base_AlertDialog_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_AlertDialog_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_AlertDialog_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_Animation_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Base_Animation_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::Hubo.Droid.Resource.Style.Base_Animation_AppCompat_DropDownUp;
-			global::BottomNavigationBar.Resource.Style.Base_DialogWindowTitle_AppCompat = global::Hubo.Droid.Resource.Style.Base_DialogWindowTitle_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::Hubo.Droid.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body1;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body2;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Button = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Button;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Caption;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display1;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display2;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display3;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display4;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Headline;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Large = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Menu;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Small = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Title = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::Hubo.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::Hubo.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::Hubo.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
-			global::BottomNavigationBar.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::Hubo.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_CompactMenu;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
-			global::BottomNavigationBar.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::Hubo.Droid.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
-			global::BottomNavigationBar.Resource.Style.Base_ThemeOverlay_AppCompat = global::Hubo.Droid.Resource.Style.Base_ThemeOverlay_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::Hubo.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::Hubo.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
-			global::BottomNavigationBar.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::Hubo.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_V11_Theme_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Base_V11_Theme_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog = global::Hubo.Droid.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView = global::Hubo.Droid.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView;
-			global::BottomNavigationBar.Resource.Style.Base_V12_Widget_AppCompat_EditText = global::Hubo.Droid.Resource.Style.Base_V12_Widget_AppCompat_EditText;
-			global::BottomNavigationBar.Resource.Style.Base_V21_Theme_AppCompat = global::Hubo.Droid.Resource.Style.Base_V21_Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V21_Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::Hubo.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V22_Theme_AppCompat = global::Hubo.Droid.Resource.Style.Base_V22_Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_V22_Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_V22_Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_V23_Theme_AppCompat = global::Hubo.Droid.Resource.Style.Base_V23_Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_V23_Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_V23_Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Theme_AppCompat = global::Hubo.Droid.Resource.Style.Base_V7_Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::Hubo.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::Hubo.Droid.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
-			global::BottomNavigationBar.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::Hubo.Droid.Resource.Style.Base_V7_Widget_AppCompat_EditText;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionButton = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActionMode = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActionMode;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button_Colored;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Button_Small = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Button_Small;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_EditText = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_EditText;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ImageButton = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ImageButton;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ListView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ListView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_PopupWindow;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_RatingBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_SearchView = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_SearchView;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_SeekBar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Spinner = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Spinner;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Toolbar = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::Hubo.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
-			global::BottomNavigationBar.Resource.Style.Base_Widget_Design_TabLayout = global::Hubo.Droid.Resource.Style.Base_Widget_Design_TabLayout;
-			global::BottomNavigationBar.Resource.Style.Platform_AppCompat = global::Hubo.Droid.Resource.Style.Platform_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Platform_AppCompat_Light = global::Hubo.Droid.Resource.Style.Platform_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Platform_ThemeOverlay_AppCompat = global::Hubo.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::Hubo.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
-			global::BottomNavigationBar.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::Hubo.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Platform_V11_AppCompat = global::Hubo.Droid.Resource.Style.Platform_V11_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Platform_V11_AppCompat_Light = global::Hubo.Droid.Resource.Style.Platform_V11_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Platform_V14_AppCompat = global::Hubo.Droid.Resource.Style.Platform_V14_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Platform_V14_AppCompat_Light = global::Hubo.Droid.Resource.Style.Platform_V14_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Platform_Widget_AppCompat_Spinner = global::Hubo.Droid.Resource.Style.Platform_Widget_AppCompat_Spinner;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::Hubo.Droid.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
-			global::BottomNavigationBar.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::Hubo.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
-			global::BottomNavigationBar.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::Hubo.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
-			global::BottomNavigationBar.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::Hubo.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Body1 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Body1;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Body2 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Body2;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Button = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Button;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Caption = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Caption;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Display1 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Display1;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Display2 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Display2;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Display3 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Display3;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Display4 = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Display4;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Headline = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Headline;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Large = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Large;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Medium = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Medium;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Menu = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Menu;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Small = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Small;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Subhead = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Subhead;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Title = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::Hubo.Droid.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::Hubo.Droid.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Counter = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Counter;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Counter_Overflow = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Counter_Overflow;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Error = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Error;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Hint = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Hint;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Snackbar_Message = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Snackbar_Message;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Design_Tab = global::Hubo.Droid.Resource.Style.TextAppearance_Design_Tab;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_StatusBar_EventContent = global::Hubo.Droid.Resource.Style.TextAppearance_StatusBar_EventContent;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_StatusBar_EventContent_Info = global::Hubo.Droid.Resource.Style.TextAppearance_StatusBar_EventContent_Info;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_StatusBar_EventContent_Line2 = global::Hubo.Droid.Resource.Style.TextAppearance_StatusBar_EventContent_Line2;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_StatusBar_EventContent_Time = global::Hubo.Droid.Resource.Style.TextAppearance_StatusBar_EventContent_Time;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_StatusBar_EventContent_Title = global::Hubo.Droid.Resource.Style.TextAppearance_StatusBar_EventContent_Title;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::Hubo.Droid.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::Hubo.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
-			global::BottomNavigationBar.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::Hubo.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat = global::Hubo.Droid.Resource.Style.Theme_AppCompat;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_CompactMenu = global::Hubo.Droid.Resource.Style.Theme_AppCompat_CompactMenu;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Dialog = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Dialog;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Dialog_Alert = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Dialog_Alert;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::Hubo.Droid.Resource.Style.Theme_AppCompat_DialogWhenLarge;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_Dialog = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_Dialog;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::Hubo.Droid.Resource.Style.Theme_AppCompat_Light_NoActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_AppCompat_NoActionBar = global::Hubo.Droid.Resource.Style.Theme_AppCompat_NoActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_Design = global::Hubo.Droid.Resource.Style.Theme_Design;
-			global::BottomNavigationBar.Resource.Style.Theme_Design_BottomSheetDialog = global::Hubo.Droid.Resource.Style.Theme_Design_BottomSheetDialog;
-			global::BottomNavigationBar.Resource.Style.Theme_Design_Light = global::Hubo.Droid.Resource.Style.Theme_Design_Light;
-			global::BottomNavigationBar.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::Hubo.Droid.Resource.Style.Theme_Design_Light_BottomSheetDialog;
-			global::BottomNavigationBar.Resource.Style.Theme_Design_Light_NoActionBar = global::Hubo.Droid.Resource.Style.Theme_Design_Light_NoActionBar;
-			global::BottomNavigationBar.Resource.Style.Theme_Design_NoActionBar = global::Hubo.Droid.Resource.Style.Theme_Design_NoActionBar;
-			global::BottomNavigationBar.Resource.Style.ThemeOverlay_AppCompat = global::Hubo.Droid.Resource.Style.ThemeOverlay_AppCompat;
-			global::BottomNavigationBar.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::Hubo.Droid.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
-			global::BottomNavigationBar.Resource.Style.ThemeOverlay_AppCompat_Dark = global::Hubo.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark;
-			global::BottomNavigationBar.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::Hubo.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
-			global::BottomNavigationBar.Resource.Style.ThemeOverlay_AppCompat_Light = global::Hubo.Droid.Resource.Style.ThemeOverlay_AppCompat_Light;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionBar_Solid;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabText;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionButton = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionButton;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActionMode = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActionMode;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ActivityChooserView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ActivityChooserView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button_Borderless = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button_Borderless;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button_Colored = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button_Colored;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Button_Small = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Button_Small;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ButtonBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ButtonBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::Hubo.Droid.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::Hubo.Droid.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::Hubo.Droid.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::Hubo.Droid.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::Hubo.Droid.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_EditText = global::Hubo.Droid.Resource.Style.Widget_AppCompat_EditText;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ImageButton = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ImageButton;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionButton = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_SearchView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_SearchView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ListPopupWindow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ListPopupWindow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ListView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ListView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ListView_DropDown = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ListView_DropDown;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ListView_Menu = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ListView_Menu;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_PopupMenu = global::Hubo.Droid.Resource.Style.Widget_AppCompat_PopupMenu;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_PopupWindow = global::Hubo.Droid.Resource.Style.Widget_AppCompat_PopupWindow;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ProgressBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ProgressBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::Hubo.Droid.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_RatingBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_RatingBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::Hubo.Droid.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_RatingBar_Small = global::Hubo.Droid.Resource.Style.Widget_AppCompat_RatingBar_Small;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_SearchView = global::Hubo.Droid.Resource.Style.Widget_AppCompat_SearchView;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_SeekBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_SeekBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Spinner = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Spinner;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Spinner_Underlined;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::Hubo.Droid.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Toolbar = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Toolbar;
-			global::BottomNavigationBar.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::Hubo.Droid.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_AppBarLayout = global::Hubo.Droid.Resource.Style.Widget_Design_AppBarLayout;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_BottomSheet_Modal = global::Hubo.Droid.Resource.Style.Widget_Design_BottomSheet_Modal;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_CollapsingToolbar = global::Hubo.Droid.Resource.Style.Widget_Design_CollapsingToolbar;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_CoordinatorLayout = global::Hubo.Droid.Resource.Style.Widget_Design_CoordinatorLayout;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_FloatingActionButton = global::Hubo.Droid.Resource.Style.Widget_Design_FloatingActionButton;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_NavigationView = global::Hubo.Droid.Resource.Style.Widget_Design_NavigationView;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::Hubo.Droid.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_Snackbar = global::Hubo.Droid.Resource.Style.Widget_Design_Snackbar;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_TabLayout = global::Hubo.Droid.Resource.Style.Widget_Design_TabLayout;
-			global::BottomNavigationBar.Resource.Style.Widget_Design_TextInputLayout = global::Hubo.Droid.Resource.Style.Widget_Design_TextInputLayout;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar = global::Hubo.Droid.Resource.Styleable.ActionBar;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_background = global::Hubo.Droid.Resource.Styleable.ActionBar_background;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_backgroundSplit = global::Hubo.Droid.Resource.Styleable.ActionBar_backgroundSplit;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_backgroundStacked = global::Hubo.Droid.Resource.Styleable.ActionBar_backgroundStacked;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_contentInsetEnd = global::Hubo.Droid.Resource.Styleable.ActionBar_contentInsetEnd;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_contentInsetLeft = global::Hubo.Droid.Resource.Styleable.ActionBar_contentInsetLeft;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_contentInsetRight = global::Hubo.Droid.Resource.Styleable.ActionBar_contentInsetRight;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_contentInsetStart = global::Hubo.Droid.Resource.Styleable.ActionBar_contentInsetStart;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_customNavigationLayout = global::Hubo.Droid.Resource.Styleable.ActionBar_customNavigationLayout;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_displayOptions = global::Hubo.Droid.Resource.Styleable.ActionBar_displayOptions;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_divider = global::Hubo.Droid.Resource.Styleable.ActionBar_divider;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_elevation = global::Hubo.Droid.Resource.Styleable.ActionBar_elevation;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_height = global::Hubo.Droid.Resource.Styleable.ActionBar_height;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_hideOnContentScroll = global::Hubo.Droid.Resource.Styleable.ActionBar_hideOnContentScroll;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_homeAsUpIndicator = global::Hubo.Droid.Resource.Styleable.ActionBar_homeAsUpIndicator;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_homeLayout = global::Hubo.Droid.Resource.Styleable.ActionBar_homeLayout;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_icon = global::Hubo.Droid.Resource.Styleable.ActionBar_icon;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::Hubo.Droid.Resource.Styleable.ActionBar_indeterminateProgressStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_itemPadding = global::Hubo.Droid.Resource.Styleable.ActionBar_itemPadding;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_logo = global::Hubo.Droid.Resource.Styleable.ActionBar_logo;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_navigationMode = global::Hubo.Droid.Resource.Styleable.ActionBar_navigationMode;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_popupTheme = global::Hubo.Droid.Resource.Styleable.ActionBar_popupTheme;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_progressBarPadding = global::Hubo.Droid.Resource.Styleable.ActionBar_progressBarPadding;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_progressBarStyle = global::Hubo.Droid.Resource.Styleable.ActionBar_progressBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_subtitle = global::Hubo.Droid.Resource.Styleable.ActionBar_subtitle;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_subtitleTextStyle = global::Hubo.Droid.Resource.Styleable.ActionBar_subtitleTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_title = global::Hubo.Droid.Resource.Styleable.ActionBar_title;
-			global::BottomNavigationBar.Resource.Styleable.ActionBar_titleTextStyle = global::Hubo.Droid.Resource.Styleable.ActionBar_titleTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActionBarLayout = global::Hubo.Droid.Resource.Styleable.ActionBarLayout;
-			global::BottomNavigationBar.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::Hubo.Droid.Resource.Styleable.ActionBarLayout_android_layout_gravity;
-			global::BottomNavigationBar.Resource.Styleable.ActionMenuItemView = global::Hubo.Droid.Resource.Styleable.ActionMenuItemView;
-			global::BottomNavigationBar.Resource.Styleable.ActionMenuItemView_android_minWidth = global::Hubo.Droid.Resource.Styleable.ActionMenuItemView_android_minWidth;
-			global::BottomNavigationBar.Resource.Styleable.ActionMenuView = global::Hubo.Droid.Resource.Styleable.ActionMenuView;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode = global::Hubo.Droid.Resource.Styleable.ActionMode;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_background = global::Hubo.Droid.Resource.Styleable.ActionMode_background;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_backgroundSplit = global::Hubo.Droid.Resource.Styleable.ActionMode_backgroundSplit;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_closeItemLayout = global::Hubo.Droid.Resource.Styleable.ActionMode_closeItemLayout;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_height = global::Hubo.Droid.Resource.Styleable.ActionMode_height;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_subtitleTextStyle = global::Hubo.Droid.Resource.Styleable.ActionMode_subtitleTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActionMode_titleTextStyle = global::Hubo.Droid.Resource.Styleable.ActionMode_titleTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.ActivityChooserView = global::Hubo.Droid.Resource.Styleable.ActivityChooserView;
-			global::BottomNavigationBar.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::Hubo.Droid.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
-			global::BottomNavigationBar.Resource.Styleable.ActivityChooserView_initialActivityCount = global::Hubo.Droid.Resource.Styleable.ActivityChooserView_initialActivityCount;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog = global::Hubo.Droid.Resource.Styleable.AlertDialog;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_android_layout = global::Hubo.Droid.Resource.Styleable.AlertDialog_android_layout;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::Hubo.Droid.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_listItemLayout = global::Hubo.Droid.Resource.Styleable.AlertDialog_listItemLayout;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_listLayout = global::Hubo.Droid.Resource.Styleable.AlertDialog_listLayout;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::Hubo.Droid.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
-			global::BottomNavigationBar.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::Hubo.Droid.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout = global::Hubo.Droid.Resource.Styleable.AppBarLayout;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_android_background = global::Hubo.Droid.Resource.Styleable.AppBarLayout_android_background;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_elevation = global::Hubo.Droid.Resource.Styleable.AppBarLayout_elevation;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_expanded = global::Hubo.Droid.Resource.Styleable.AppBarLayout_expanded;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_LayoutParams = global::Hubo.Droid.Resource.Styleable.AppBarLayout_LayoutParams;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_LayoutParams_layout_scrollFlags = global::Hubo.Droid.Resource.Styleable.AppBarLayout_LayoutParams_layout_scrollFlags;
-			global::BottomNavigationBar.Resource.Styleable.AppBarLayout_LayoutParams_layout_scrollInterpolator = global::Hubo.Droid.Resource.Styleable.AppBarLayout_LayoutParams_layout_scrollInterpolator;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatImageView = global::Hubo.Droid.Resource.Styleable.AppCompatImageView;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatImageView_android_src = global::Hubo.Droid.Resource.Styleable.AppCompatImageView_android_src;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatImageView_srcCompat = global::Hubo.Droid.Resource.Styleable.AppCompatImageView_srcCompat;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTextView = global::Hubo.Droid.Resource.Styleable.AppCompatTextView;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTextView_android_textAppearance = global::Hubo.Droid.Resource.Styleable.AppCompatTextView_android_textAppearance;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTextView_textAllCaps = global::Hubo.Droid.Resource.Styleable.AppCompatTextView_textAllCaps;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarDivider = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarDivider;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarSize = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarSize;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_alertDialogStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_alertDialogTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_checkboxStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_checkboxStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorAccent = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorAccent;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorButtonNormal;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorControlActivated = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorControlActivated;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorControlHighlight;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorControlNormal = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorControlNormal;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorPrimary = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorPrimary;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_controlBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_controlBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dialogTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dialogTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dividerHorizontal;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dividerVertical = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dividerVertical;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_editTextBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_editTextBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_editTextColor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_editTextColor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_editTextStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_editTextStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_imageButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_panelBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_panelBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_popupMenuStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_popupWindowStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_radioButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_searchViewStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_searchViewStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_seekBarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_seekBarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackground;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_spinnerStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_spinnerStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_switchStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_switchStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_toolbarStyle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_toolbarStyle;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowActionBar = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowActionBar;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
-			global::BottomNavigationBar.Resource.Styleable.AppCompatTheme_windowNoTitle = global::Hubo.Droid.Resource.Styleable.AppCompatTheme_windowNoTitle;
-			global::BottomNavigationBar.Resource.Styleable.BottomSheetBehavior_Params = global::Hubo.Droid.Resource.Styleable.BottomSheetBehavior_Params;
-			global::BottomNavigationBar.Resource.Styleable.BottomSheetBehavior_Params_behavior_hideable = global::Hubo.Droid.Resource.Styleable.BottomSheetBehavior_Params_behavior_hideable;
-			global::BottomNavigationBar.Resource.Styleable.BottomSheetBehavior_Params_behavior_peekHeight = global::Hubo.Droid.Resource.Styleable.BottomSheetBehavior_Params_behavior_peekHeight;
-			global::BottomNavigationBar.Resource.Styleable.ButtonBarLayout = global::Hubo.Droid.Resource.Styleable.ButtonBarLayout;
-			global::BottomNavigationBar.Resource.Styleable.ButtonBarLayout_allowStacking = global::Hubo.Droid.Resource.Styleable.ButtonBarLayout_allowStacking;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingAppBarLayout_LayoutParams = global::Hubo.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseMode = global::Hubo.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseMode;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseParallaxMultiplier = global::Hubo.Droid.Resource.Styleable.CollapsingAppBarLayout_LayoutParams_layout_collapseParallaxMultiplier;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_title = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_title;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
-			global::BottomNavigationBar.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::Hubo.Droid.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
-			global::BottomNavigationBar.Resource.Styleable.CompoundButton = global::Hubo.Droid.Resource.Styleable.CompoundButton;
-			global::BottomNavigationBar.Resource.Styleable.CompoundButton_android_button = global::Hubo.Droid.Resource.Styleable.CompoundButton_android_button;
-			global::BottomNavigationBar.Resource.Styleable.CompoundButton_buttonTint = global::Hubo.Droid.Resource.Styleable.CompoundButton_buttonTint;
-			global::BottomNavigationBar.Resource.Styleable.CompoundButton_buttonTintMode = global::Hubo.Droid.Resource.Styleable.CompoundButton_buttonTintMode;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_keylines = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_keylines;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams_android_layout_gravity = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams_android_layout_gravity;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_anchor = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_anchor;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_anchorGravity = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_anchorGravity;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_behavior = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_behavior;
-			global::BottomNavigationBar.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_keyline = global::Hubo.Droid.Resource.Styleable.CoordinatorLayout_LayoutParams_layout_keyline;
-			global::BottomNavigationBar.Resource.Styleable.DesignTheme = global::Hubo.Droid.Resource.Styleable.DesignTheme;
-			global::BottomNavigationBar.Resource.Styleable.DesignTheme_bottomSheetDialogTheme = global::Hubo.Droid.Resource.Styleable.DesignTheme_bottomSheetDialogTheme;
-			global::BottomNavigationBar.Resource.Styleable.DesignTheme_bottomSheetStyle = global::Hubo.Droid.Resource.Styleable.DesignTheme_bottomSheetStyle;
-			global::BottomNavigationBar.Resource.Styleable.DesignTheme_textColorError = global::Hubo.Droid.Resource.Styleable.DesignTheme_textColorError;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_barLength = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_barLength;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_color = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_color;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_drawableSize = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_drawableSize;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_spinBars = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_spinBars;
-			global::BottomNavigationBar.Resource.Styleable.DrawerArrowToggle_thickness = global::Hubo.Droid.Resource.Styleable.DrawerArrowToggle_thickness;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton = global::Hubo.Droid.Resource.Styleable.FloatingActionButton;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_backgroundTint = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_backgroundTint;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_backgroundTintMode;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_borderWidth = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_borderWidth;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_elevation = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_elevation;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_fabSize = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_fabSize;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_rippleColor = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_rippleColor;
-			global::BottomNavigationBar.Resource.Styleable.FloatingActionButton_useCompatPadding = global::Hubo.Droid.Resource.Styleable.FloatingActionButton_useCompatPadding;
-			global::BottomNavigationBar.Resource.Styleable.ForegroundLinearLayout = global::Hubo.Droid.Resource.Styleable.ForegroundLinearLayout;
-			global::BottomNavigationBar.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::Hubo.Droid.Resource.Styleable.ForegroundLinearLayout_android_foreground;
-			global::BottomNavigationBar.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::Hubo.Droid.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
-			global::BottomNavigationBar.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::Hubo.Droid.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_android_gravity = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_android_gravity;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_android_orientation = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_android_orientation;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_android_weightSum;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_divider = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_divider;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_dividerPadding;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_showDividers = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_showDividers;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_Layout = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_Layout;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
-			global::BottomNavigationBar.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::Hubo.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
-			global::BottomNavigationBar.Resource.Styleable.ListPopupWindow = global::Hubo.Droid.Resource.Styleable.ListPopupWindow;
-			global::BottomNavigationBar.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::Hubo.Droid.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
-			global::BottomNavigationBar.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::Hubo.Droid.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup = global::Hubo.Droid.Resource.Styleable.MenuGroup;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_checkableBehavior = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_checkableBehavior;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_enabled = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_enabled;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_id = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_id;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_menuCategory = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_menuCategory;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_orderInCategory = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_orderInCategory;
-			global::BottomNavigationBar.Resource.Styleable.MenuGroup_android_visible = global::Hubo.Droid.Resource.Styleable.MenuGroup_android_visible;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem = global::Hubo.Droid.Resource.Styleable.MenuItem;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_actionLayout = global::Hubo.Droid.Resource.Styleable.MenuItem_actionLayout;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_actionProviderClass = global::Hubo.Droid.Resource.Styleable.MenuItem_actionProviderClass;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_actionViewClass = global::Hubo.Droid.Resource.Styleable.MenuItem_actionViewClass;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::Hubo.Droid.Resource.Styleable.MenuItem_android_alphabeticShortcut;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_checkable = global::Hubo.Droid.Resource.Styleable.MenuItem_android_checkable;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_checked = global::Hubo.Droid.Resource.Styleable.MenuItem_android_checked;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_enabled = global::Hubo.Droid.Resource.Styleable.MenuItem_android_enabled;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_icon = global::Hubo.Droid.Resource.Styleable.MenuItem_android_icon;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_id = global::Hubo.Droid.Resource.Styleable.MenuItem_android_id;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_menuCategory = global::Hubo.Droid.Resource.Styleable.MenuItem_android_menuCategory;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_numericShortcut = global::Hubo.Droid.Resource.Styleable.MenuItem_android_numericShortcut;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_onClick = global::Hubo.Droid.Resource.Styleable.MenuItem_android_onClick;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_orderInCategory = global::Hubo.Droid.Resource.Styleable.MenuItem_android_orderInCategory;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_title = global::Hubo.Droid.Resource.Styleable.MenuItem_android_title;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_titleCondensed = global::Hubo.Droid.Resource.Styleable.MenuItem_android_titleCondensed;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_android_visible = global::Hubo.Droid.Resource.Styleable.MenuItem_android_visible;
-			global::BottomNavigationBar.Resource.Styleable.MenuItem_showAsAction = global::Hubo.Droid.Resource.Styleable.MenuItem_showAsAction;
-			global::BottomNavigationBar.Resource.Styleable.MenuView = global::Hubo.Droid.Resource.Styleable.MenuView;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_headerBackground = global::Hubo.Droid.Resource.Styleable.MenuView_android_headerBackground;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_horizontalDivider = global::Hubo.Droid.Resource.Styleable.MenuView_android_horizontalDivider;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_itemBackground = global::Hubo.Droid.Resource.Styleable.MenuView_android_itemBackground;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::Hubo.Droid.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_itemTextAppearance = global::Hubo.Droid.Resource.Styleable.MenuView_android_itemTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_verticalDivider = global::Hubo.Droid.Resource.Styleable.MenuView_android_verticalDivider;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_android_windowAnimationStyle = global::Hubo.Droid.Resource.Styleable.MenuView_android_windowAnimationStyle;
-			global::BottomNavigationBar.Resource.Styleable.MenuView_preserveIconSpacing = global::Hubo.Droid.Resource.Styleable.MenuView_preserveIconSpacing;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView = global::Hubo.Droid.Resource.Styleable.NavigationView;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_android_background = global::Hubo.Droid.Resource.Styleable.NavigationView_android_background;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::Hubo.Droid.Resource.Styleable.NavigationView_android_fitsSystemWindows;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_android_maxWidth = global::Hubo.Droid.Resource.Styleable.NavigationView_android_maxWidth;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_elevation = global::Hubo.Droid.Resource.Styleable.NavigationView_elevation;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_headerLayout = global::Hubo.Droid.Resource.Styleable.NavigationView_headerLayout;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_itemBackground = global::Hubo.Droid.Resource.Styleable.NavigationView_itemBackground;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_itemIconTint = global::Hubo.Droid.Resource.Styleable.NavigationView_itemIconTint;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_itemTextAppearance = global::Hubo.Droid.Resource.Styleable.NavigationView_itemTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_itemTextColor = global::Hubo.Droid.Resource.Styleable.NavigationView_itemTextColor;
-			global::BottomNavigationBar.Resource.Styleable.NavigationView_menu = global::Hubo.Droid.Resource.Styleable.NavigationView_menu;
-			global::BottomNavigationBar.Resource.Styleable.PopupWindow = global::Hubo.Droid.Resource.Styleable.PopupWindow;
-			global::BottomNavigationBar.Resource.Styleable.PopupWindow_android_popupBackground = global::Hubo.Droid.Resource.Styleable.PopupWindow_android_popupBackground;
-			global::BottomNavigationBar.Resource.Styleable.PopupWindow_overlapAnchor = global::Hubo.Droid.Resource.Styleable.PopupWindow_overlapAnchor;
-			global::BottomNavigationBar.Resource.Styleable.PopupWindowBackgroundState = global::Hubo.Droid.Resource.Styleable.PopupWindowBackgroundState;
-			global::BottomNavigationBar.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::Hubo.Droid.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView = global::Hubo.Droid.Resource.Styleable.RecyclerView;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView_android_orientation = global::Hubo.Droid.Resource.Styleable.RecyclerView_android_orientation;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView_layoutManager = global::Hubo.Droid.Resource.Styleable.RecyclerView_layoutManager;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView_reverseLayout = global::Hubo.Droid.Resource.Styleable.RecyclerView_reverseLayout;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView_spanCount = global::Hubo.Droid.Resource.Styleable.RecyclerView_spanCount;
-			global::BottomNavigationBar.Resource.Styleable.RecyclerView_stackFromEnd = global::Hubo.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
-			global::BottomNavigationBar.Resource.Styleable.ScrimInsetsFrameLayout = global::Hubo.Droid.Resource.Styleable.ScrimInsetsFrameLayout;
-			global::BottomNavigationBar.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::Hubo.Droid.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
-			global::BottomNavigationBar.Resource.Styleable.ScrollingViewBehavior_Params = global::Hubo.Droid.Resource.Styleable.ScrollingViewBehavior_Params;
-			global::BottomNavigationBar.Resource.Styleable.ScrollingViewBehavior_Params_behavior_overlapTop = global::Hubo.Droid.Resource.Styleable.ScrollingViewBehavior_Params_behavior_overlapTop;
-			global::BottomNavigationBar.Resource.Styleable.SearchView = global::Hubo.Droid.Resource.Styleable.SearchView;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_android_focusable = global::Hubo.Droid.Resource.Styleable.SearchView_android_focusable;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_android_imeOptions = global::Hubo.Droid.Resource.Styleable.SearchView_android_imeOptions;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_android_inputType = global::Hubo.Droid.Resource.Styleable.SearchView_android_inputType;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_android_maxWidth = global::Hubo.Droid.Resource.Styleable.SearchView_android_maxWidth;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_closeIcon = global::Hubo.Droid.Resource.Styleable.SearchView_closeIcon;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_commitIcon = global::Hubo.Droid.Resource.Styleable.SearchView_commitIcon;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_defaultQueryHint = global::Hubo.Droid.Resource.Styleable.SearchView_defaultQueryHint;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_goIcon = global::Hubo.Droid.Resource.Styleable.SearchView_goIcon;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_iconifiedByDefault = global::Hubo.Droid.Resource.Styleable.SearchView_iconifiedByDefault;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_layout = global::Hubo.Droid.Resource.Styleable.SearchView_layout;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_queryBackground = global::Hubo.Droid.Resource.Styleable.SearchView_queryBackground;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_queryHint = global::Hubo.Droid.Resource.Styleable.SearchView_queryHint;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_searchHintIcon = global::Hubo.Droid.Resource.Styleable.SearchView_searchHintIcon;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_searchIcon = global::Hubo.Droid.Resource.Styleable.SearchView_searchIcon;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_submitBackground = global::Hubo.Droid.Resource.Styleable.SearchView_submitBackground;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_suggestionRowLayout = global::Hubo.Droid.Resource.Styleable.SearchView_suggestionRowLayout;
-			global::BottomNavigationBar.Resource.Styleable.SearchView_voiceIcon = global::Hubo.Droid.Resource.Styleable.SearchView_voiceIcon;
-			global::BottomNavigationBar.Resource.Styleable.SnackbarLayout = global::Hubo.Droid.Resource.Styleable.SnackbarLayout;
-			global::BottomNavigationBar.Resource.Styleable.SnackbarLayout_android_maxWidth = global::Hubo.Droid.Resource.Styleable.SnackbarLayout_android_maxWidth;
-			global::BottomNavigationBar.Resource.Styleable.SnackbarLayout_elevation = global::Hubo.Droid.Resource.Styleable.SnackbarLayout_elevation;
-			global::BottomNavigationBar.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::Hubo.Droid.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
-			global::BottomNavigationBar.Resource.Styleable.Spinner = global::Hubo.Droid.Resource.Styleable.Spinner;
-			global::BottomNavigationBar.Resource.Styleable.Spinner_android_dropDownWidth = global::Hubo.Droid.Resource.Styleable.Spinner_android_dropDownWidth;
-			global::BottomNavigationBar.Resource.Styleable.Spinner_android_entries = global::Hubo.Droid.Resource.Styleable.Spinner_android_entries;
-			global::BottomNavigationBar.Resource.Styleable.Spinner_android_popupBackground = global::Hubo.Droid.Resource.Styleable.Spinner_android_popupBackground;
-			global::BottomNavigationBar.Resource.Styleable.Spinner_android_prompt = global::Hubo.Droid.Resource.Styleable.Spinner_android_prompt;
-			global::BottomNavigationBar.Resource.Styleable.Spinner_popupTheme = global::Hubo.Droid.Resource.Styleable.Spinner_popupTheme;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat = global::Hubo.Droid.Resource.Styleable.SwitchCompat;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_android_textOff = global::Hubo.Droid.Resource.Styleable.SwitchCompat_android_textOff;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_android_textOn = global::Hubo.Droid.Resource.Styleable.SwitchCompat_android_textOn;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_android_thumb = global::Hubo.Droid.Resource.Styleable.SwitchCompat_android_thumb;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_showText = global::Hubo.Droid.Resource.Styleable.SwitchCompat_showText;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_splitTrack = global::Hubo.Droid.Resource.Styleable.SwitchCompat_splitTrack;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_switchMinWidth = global::Hubo.Droid.Resource.Styleable.SwitchCompat_switchMinWidth;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_switchPadding = global::Hubo.Droid.Resource.Styleable.SwitchCompat_switchPadding;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_switchTextAppearance = global::Hubo.Droid.Resource.Styleable.SwitchCompat_switchTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_thumbTextPadding = global::Hubo.Droid.Resource.Styleable.SwitchCompat_thumbTextPadding;
-			global::BottomNavigationBar.Resource.Styleable.SwitchCompat_track = global::Hubo.Droid.Resource.Styleable.SwitchCompat_track;
-			global::BottomNavigationBar.Resource.Styleable.TabItem = global::Hubo.Droid.Resource.Styleable.TabItem;
-			global::BottomNavigationBar.Resource.Styleable.TabItem_android_icon = global::Hubo.Droid.Resource.Styleable.TabItem_android_icon;
-			global::BottomNavigationBar.Resource.Styleable.TabItem_android_layout = global::Hubo.Droid.Resource.Styleable.TabItem_android_layout;
-			global::BottomNavigationBar.Resource.Styleable.TabItem_android_text = global::Hubo.Droid.Resource.Styleable.TabItem_android_text;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout = global::Hubo.Droid.Resource.Styleable.TabLayout;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabBackground = global::Hubo.Droid.Resource.Styleable.TabLayout_tabBackground;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabContentStart = global::Hubo.Droid.Resource.Styleable.TabLayout_tabContentStart;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabGravity = global::Hubo.Droid.Resource.Styleable.TabLayout_tabGravity;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabIndicatorColor = global::Hubo.Droid.Resource.Styleable.TabLayout_tabIndicatorColor;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabIndicatorHeight = global::Hubo.Droid.Resource.Styleable.TabLayout_tabIndicatorHeight;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabMaxWidth = global::Hubo.Droid.Resource.Styleable.TabLayout_tabMaxWidth;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabMinWidth = global::Hubo.Droid.Resource.Styleable.TabLayout_tabMinWidth;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabMode = global::Hubo.Droid.Resource.Styleable.TabLayout_tabMode;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabPadding = global::Hubo.Droid.Resource.Styleable.TabLayout_tabPadding;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabPaddingBottom = global::Hubo.Droid.Resource.Styleable.TabLayout_tabPaddingBottom;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabPaddingEnd = global::Hubo.Droid.Resource.Styleable.TabLayout_tabPaddingEnd;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabPaddingStart = global::Hubo.Droid.Resource.Styleable.TabLayout_tabPaddingStart;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabPaddingTop = global::Hubo.Droid.Resource.Styleable.TabLayout_tabPaddingTop;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabSelectedTextColor = global::Hubo.Droid.Resource.Styleable.TabLayout_tabSelectedTextColor;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabTextAppearance = global::Hubo.Droid.Resource.Styleable.TabLayout_tabTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.TabLayout_tabTextColor = global::Hubo.Droid.Resource.Styleable.TabLayout_tabTextColor;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance = global::Hubo.Droid.Resource.Styleable.TextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_shadowColor = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_shadowColor;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_shadowDx = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_shadowDx;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_shadowDy = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_shadowDy;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_shadowRadius = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_shadowRadius;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_textColor = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_textColor;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_textSize = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_textSize;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_textStyle = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_textStyle;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_android_typeface = global::Hubo.Droid.Resource.Styleable.TextAppearance_android_typeface;
-			global::BottomNavigationBar.Resource.Styleable.TextAppearance_textAllCaps = global::Hubo.Droid.Resource.Styleable.TextAppearance_textAllCaps;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout = global::Hubo.Droid.Resource.Styleable.TextInputLayout;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_android_hint = global::Hubo.Droid.Resource.Styleable.TextInputLayout_android_hint;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_android_textColorHint = global::Hubo.Droid.Resource.Styleable.TextInputLayout_android_textColorHint;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_counterEnabled = global::Hubo.Droid.Resource.Styleable.TextInputLayout_counterEnabled;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_counterMaxLength = global::Hubo.Droid.Resource.Styleable.TextInputLayout_counterMaxLength;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::Hubo.Droid.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_counterTextAppearance = global::Hubo.Droid.Resource.Styleable.TextInputLayout_counterTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_errorEnabled = global::Hubo.Droid.Resource.Styleable.TextInputLayout_errorEnabled;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_errorTextAppearance = global::Hubo.Droid.Resource.Styleable.TextInputLayout_errorTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::Hubo.Droid.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_hintEnabled = global::Hubo.Droid.Resource.Styleable.TextInputLayout_hintEnabled;
-			global::BottomNavigationBar.Resource.Styleable.TextInputLayout_hintTextAppearance = global::Hubo.Droid.Resource.Styleable.TextInputLayout_hintTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar = global::Hubo.Droid.Resource.Styleable.Toolbar;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_android_gravity = global::Hubo.Droid.Resource.Styleable.Toolbar_android_gravity;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_android_minHeight = global::Hubo.Droid.Resource.Styleable.Toolbar_android_minHeight;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_collapseContentDescription = global::Hubo.Droid.Resource.Styleable.Toolbar_collapseContentDescription;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_collapseIcon = global::Hubo.Droid.Resource.Styleable.Toolbar_collapseIcon;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_contentInsetEnd = global::Hubo.Droid.Resource.Styleable.Toolbar_contentInsetEnd;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_contentInsetLeft = global::Hubo.Droid.Resource.Styleable.Toolbar_contentInsetLeft;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_contentInsetRight = global::Hubo.Droid.Resource.Styleable.Toolbar_contentInsetRight;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_contentInsetStart = global::Hubo.Droid.Resource.Styleable.Toolbar_contentInsetStart;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_logo = global::Hubo.Droid.Resource.Styleable.Toolbar_logo;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_logoDescription = global::Hubo.Droid.Resource.Styleable.Toolbar_logoDescription;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_maxButtonHeight = global::Hubo.Droid.Resource.Styleable.Toolbar_maxButtonHeight;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_navigationContentDescription = global::Hubo.Droid.Resource.Styleable.Toolbar_navigationContentDescription;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_navigationIcon = global::Hubo.Droid.Resource.Styleable.Toolbar_navigationIcon;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_popupTheme = global::Hubo.Droid.Resource.Styleable.Toolbar_popupTheme;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_subtitle = global::Hubo.Droid.Resource.Styleable.Toolbar_subtitle;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_subtitleTextAppearance = global::Hubo.Droid.Resource.Styleable.Toolbar_subtitleTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_subtitleTextColor = global::Hubo.Droid.Resource.Styleable.Toolbar_subtitleTextColor;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_title = global::Hubo.Droid.Resource.Styleable.Toolbar_title;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleMarginBottom = global::Hubo.Droid.Resource.Styleable.Toolbar_titleMarginBottom;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleMarginEnd = global::Hubo.Droid.Resource.Styleable.Toolbar_titleMarginEnd;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleMarginStart = global::Hubo.Droid.Resource.Styleable.Toolbar_titleMarginStart;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleMarginTop = global::Hubo.Droid.Resource.Styleable.Toolbar_titleMarginTop;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleMargins = global::Hubo.Droid.Resource.Styleable.Toolbar_titleMargins;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleTextAppearance = global::Hubo.Droid.Resource.Styleable.Toolbar_titleTextAppearance;
-			global::BottomNavigationBar.Resource.Styleable.Toolbar_titleTextColor = global::Hubo.Droid.Resource.Styleable.Toolbar_titleTextColor;
-			global::BottomNavigationBar.Resource.Styleable.View = global::Hubo.Droid.Resource.Styleable.View;
-			global::BottomNavigationBar.Resource.Styleable.View_android_focusable = global::Hubo.Droid.Resource.Styleable.View_android_focusable;
-			global::BottomNavigationBar.Resource.Styleable.View_android_theme = global::Hubo.Droid.Resource.Styleable.View_android_theme;
-			global::BottomNavigationBar.Resource.Styleable.View_paddingEnd = global::Hubo.Droid.Resource.Styleable.View_paddingEnd;
-			global::BottomNavigationBar.Resource.Styleable.View_paddingStart = global::Hubo.Droid.Resource.Styleable.View_paddingStart;
-			global::BottomNavigationBar.Resource.Styleable.View_theme = global::Hubo.Droid.Resource.Styleable.View_theme;
-			global::BottomNavigationBar.Resource.Styleable.ViewBackgroundHelper = global::Hubo.Droid.Resource.Styleable.ViewBackgroundHelper;
-			global::BottomNavigationBar.Resource.Styleable.ViewBackgroundHelper_android_background = global::Hubo.Droid.Resource.Styleable.ViewBackgroundHelper_android_background;
-			global::BottomNavigationBar.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::Hubo.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
-			global::BottomNavigationBar.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::Hubo.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
-			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat = global::Hubo.Droid.Resource.Styleable.ViewStubCompat;
-			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_id = global::Hubo.Droid.Resource.Styleable.ViewStubCompat_android_id;
-			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_inflatedId = global::Hubo.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
-			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_layout = global::Hubo.Droid.Resource.Styleable.ViewStubCompat_android_layout;
 			global::HockeyApp.Resource.Color.hockeyapp_background_header = global::Hubo.Droid.Resource.Color.hockeyapp_background_header;
 			global::HockeyApp.Resource.Color.hockeyapp_background_light = global::Hubo.Droid.Resource.Color.hockeyapp_background_light;
 			global::HockeyApp.Resource.Color.hockeyapp_background_white = global::Hubo.Droid.Resource.Color.hockeyapp_background_white;
@@ -14366,9 +12775,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0d0007
 			public const int abc_config_showMenuShortcutsWhenKeyboardPresent = 2131558407;
 			
-			// aapt resource value: 0x7f0d0008
-			public const int bb_bottom_bar_is_tablet_mode = 2131558408;
-			
 			static Boolean()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -14382,32 +12788,32 @@ namespace Hubo.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0c0074
-			public const int abc_background_cache_hint_selector_material_dark = 2131492980;
+			// aapt resource value: 0x7f0c0071
+			public const int abc_background_cache_hint_selector_material_dark = 2131492977;
 			
-			// aapt resource value: 0x7f0c0075
-			public const int abc_background_cache_hint_selector_material_light = 2131492981;
+			// aapt resource value: 0x7f0c0072
+			public const int abc_background_cache_hint_selector_material_light = 2131492978;
 			
-			// aapt resource value: 0x7f0c0076
-			public const int abc_color_highlight_material = 2131492982;
+			// aapt resource value: 0x7f0c0073
+			public const int abc_color_highlight_material = 2131492979;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int abc_input_method_navigation_guard = 2131492868;
 			
+			// aapt resource value: 0x7f0c0074
+			public const int abc_primary_text_disable_only_material_dark = 2131492980;
+			
+			// aapt resource value: 0x7f0c0075
+			public const int abc_primary_text_disable_only_material_light = 2131492981;
+			
+			// aapt resource value: 0x7f0c0076
+			public const int abc_primary_text_material_dark = 2131492982;
+			
 			// aapt resource value: 0x7f0c0077
-			public const int abc_primary_text_disable_only_material_dark = 2131492983;
+			public const int abc_primary_text_material_light = 2131492983;
 			
 			// aapt resource value: 0x7f0c0078
-			public const int abc_primary_text_disable_only_material_light = 2131492984;
-			
-			// aapt resource value: 0x7f0c0079
-			public const int abc_primary_text_material_dark = 2131492985;
-			
-			// aapt resource value: 0x7f0c007a
-			public const int abc_primary_text_material_light = 2131492986;
-			
-			// aapt resource value: 0x7f0c007b
-			public const int abc_search_url_text = 2131492987;
+			public const int abc_search_url_text = 2131492984;
 			
 			// aapt resource value: 0x7f0c0005
 			public const int abc_search_url_text_normal = 2131492869;
@@ -14418,11 +12824,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0007
 			public const int abc_search_url_text_selected = 2131492871;
 			
-			// aapt resource value: 0x7f0c007c
-			public const int abc_secondary_text_material_dark = 2131492988;
+			// aapt resource value: 0x7f0c0079
+			public const int abc_secondary_text_material_dark = 2131492985;
 			
-			// aapt resource value: 0x7f0c007d
-			public const int abc_secondary_text_material_light = 2131492989;
+			// aapt resource value: 0x7f0c007a
+			public const int abc_secondary_text_material_light = 2131492986;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int accent_material_dark = 2131492872;
@@ -14444,15 +12850,6 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f0c000d
 			public const int background_material_light = 2131492877;
-			
-			// aapt resource value: 0x7f0c0072
-			public const int bb_darkBackgroundColor = 2131492978;
-			
-			// aapt resource value: 0x7f0c0071
-			public const int bb_inActiveBottomBarItemColor = 2131492977;
-			
-			// aapt resource value: 0x7f0c0073
-			public const int bb_tabletRightBorderDark = 2131492979;
 			
 			// aapt resource value: 0x7f0c0065
 			public const int black = 2131492965;
@@ -14511,8 +12908,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0051
 			public const int calendar_text_selected = 2131492945;
 			
-			// aapt resource value: 0x7f0c007e
-			public const int calendar_text_selector = 2131492990;
+			// aapt resource value: 0x7f0c007b
+			public const int calendar_text_selector = 2131492987;
 			
 			// aapt resource value: 0x7f0c0052
 			public const int calendar_text_unselectable = 2131492946;
@@ -14745,11 +13142,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c003b
 			public const int switch_thumb_disabled_material_light = 2131492923;
 			
-			// aapt resource value: 0x7f0c007f
-			public const int switch_thumb_material_dark = 2131492991;
+			// aapt resource value: 0x7f0c007c
+			public const int switch_thumb_material_dark = 2131492988;
 			
-			// aapt resource value: 0x7f0c0080
-			public const int switch_thumb_material_light = 2131492992;
+			// aapt resource value: 0x7f0c007d
+			public const int switch_thumb_material_light = 2131492989;
 			
 			// aapt resource value: 0x7f0c003c
 			public const int switch_thumb_normal_material_dark = 2131492924;
@@ -14982,18 +13379,6 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f070010
 			public const int abc_text_size_title_material_toolbar = 2131165200;
-			
-			// aapt resource value: 0x7f070085
-			public const int activity_horizontal_margin = 2131165317;
-			
-			// aapt resource value: 0x7f070086
-			public const int activity_vertical_margin = 2131165318;
-			
-			// aapt resource value: 0x7f070088
-			public const int bb_height = 2131165320;
-			
-			// aapt resource value: 0x7f070087
-			public const int bottom_bar_elevation = 2131165319;
 			
 			// aapt resource value: 0x7f070074
 			public const int calendar_day_headers_paddingbottom = 2131165300;
@@ -15441,415 +13826,412 @@ namespace Hubo.Droid
 			public const int autocomplete_default_backgound = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int bb_bottom_bar_top_shadow = 2130837582;
+			public const int calendar_bg_selector = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int calendar_bg_selector = 2130837583;
+			public const int Cancel = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int Cancel = 2130837584;
+			public const int Clock96 = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int Clock96 = 2130837585;
+			public const int data_form_invalid_background = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int data_form_invalid_background = 2130837586;
+			public const int data_form_invalid_icon = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int data_form_invalid_icon = 2130837587;
+			public const int data_form_list_item_states = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int data_form_list_item_states = 2130837588;
+			public const int data_form_segment_checked = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int data_form_segment_checked = 2130837589;
+			public const int data_form_segment_item = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int data_form_segment_item = 2130837590;
+			public const int data_form_segment_unchecked = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int data_form_segment_unchecked = 2130837591;
+			public const int data_form_valid_background = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int data_form_valid_background = 2130837592;
+			public const int data_form_valid_icon = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int data_form_valid_icon = 2130837593;
+			public const int dataform_number_picker_background = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int dataform_number_picker_background = 2130837594;
+			public const int DesertRoadjpg = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int DesertRoadjpg = 2130837595;
+			public const int design_fab_background = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int design_fab_background = 2130837596;
+			public const int design_snackbar_background = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int design_snackbar_background = 2130837597;
+			public const int events_popup_bg = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int events_popup_bg = 2130837598;
+			public const int Exit96 = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int Exit96 = 2130837599;
+			public const int gingerbread_background = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int gingerbread_background = 2130837600;
+			public const int hamburger = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int hamburger = 2130837601;
+			public const int hmb = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int hmb = 2130837602;
+			public const int hockeyapp_btn_background = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int hockeyapp_btn_background = 2130837603;
+			public const int Home96 = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int Home96 = 2130837604;
+			public const int ic_audiotrack = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int ic_audiotrack = 2130837605;
+			public const int ic_audiotrack_light = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int ic_audiotrack_light = 2130837606;
+			public const int ic_bluetooth_grey = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int ic_bluetooth_grey = 2130837607;
+			public const int ic_bluetooth_white = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int ic_bluetooth_white = 2130837608;
+			public const int ic_cast_dark = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int ic_cast_dark = 2130837609;
+			public const int ic_cast_disabled_light = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ic_cast_disabled_light = 2130837610;
+			public const int ic_cast_grey = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int ic_cast_grey = 2130837611;
+			public const int ic_cast_light = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int ic_cast_light = 2130837612;
+			public const int ic_cast_off_light = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int ic_cast_off_light = 2130837613;
+			public const int ic_cast_on_0_light = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int ic_cast_on_0_light = 2130837614;
+			public const int ic_cast_on_1_light = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int ic_cast_on_1_light = 2130837615;
+			public const int ic_cast_on_2_light = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int ic_cast_on_2_light = 2130837616;
+			public const int ic_cast_on_light = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int ic_cast_on_light = 2130837617;
+			public const int ic_cast_white = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int ic_cast_white = 2130837618;
+			public const int ic_clear = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int ic_clear = 2130837619;
+			public const int ic_close_dark = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int ic_close_dark = 2130837620;
+			public const int ic_close_light = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int ic_close_light = 2130837621;
+			public const int ic_collapse = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int ic_collapse = 2130837622;
+			public const int ic_collapse_00000 = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int ic_collapse_00000 = 2130837623;
+			public const int ic_collapse_00001 = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int ic_collapse_00001 = 2130837624;
+			public const int ic_collapse_00002 = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int ic_collapse_00002 = 2130837625;
+			public const int ic_collapse_00003 = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int ic_collapse_00003 = 2130837626;
+			public const int ic_collapse_00004 = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int ic_collapse_00004 = 2130837627;
+			public const int ic_collapse_00005 = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int ic_collapse_00005 = 2130837628;
+			public const int ic_collapse_00006 = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int ic_collapse_00006 = 2130837629;
+			public const int ic_collapse_00007 = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int ic_collapse_00007 = 2130837630;
+			public const int ic_collapse_00008 = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int ic_collapse_00008 = 2130837631;
+			public const int ic_collapse_00009 = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int ic_collapse_00009 = 2130837632;
+			public const int ic_collapse_00010 = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int ic_collapse_00010 = 2130837633;
+			public const int ic_collapse_00011 = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int ic_collapse_00011 = 2130837634;
+			public const int ic_collapse_00012 = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int ic_collapse_00012 = 2130837635;
+			public const int ic_collapse_00013 = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int ic_collapse_00013 = 2130837636;
+			public const int ic_collapse_00014 = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int ic_collapse_00014 = 2130837637;
+			public const int ic_collapse_00015 = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int ic_collapse_00015 = 2130837638;
+			public const int ic_collapse_dataform_group = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int ic_collapse_dataform_group = 2130837639;
+			public const int ic_errorstatus = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int ic_errorstatus = 2130837640;
+			public const int ic_expand = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int ic_expand = 2130837641;
+			public const int ic_expand_00000 = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int ic_expand_00000 = 2130837642;
+			public const int ic_expand_00001 = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int ic_expand_00001 = 2130837643;
+			public const int ic_expand_00002 = 2130837643;
 			
 			// aapt resource value: 0x7f02008c
-			public const int ic_expand_00002 = 2130837644;
+			public const int ic_expand_00003 = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int ic_expand_00003 = 2130837645;
+			public const int ic_expand_00004 = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int ic_expand_00004 = 2130837646;
+			public const int ic_expand_00005 = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int ic_expand_00005 = 2130837647;
+			public const int ic_expand_00006 = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int ic_expand_00006 = 2130837648;
+			public const int ic_expand_00007 = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int ic_expand_00007 = 2130837649;
+			public const int ic_expand_00008 = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int ic_expand_00008 = 2130837650;
+			public const int ic_expand_00009 = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int ic_expand_00009 = 2130837651;
+			public const int ic_expand_00010 = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ic_expand_00010 = 2130837652;
+			public const int ic_expand_00011 = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ic_expand_00011 = 2130837653;
+			public const int ic_expand_00012 = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int ic_expand_00012 = 2130837654;
+			public const int ic_expand_00013 = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int ic_expand_00013 = 2130837655;
+			public const int ic_expand_00014 = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int ic_expand_00014 = 2130837656;
+			public const int ic_expand_00015 = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int ic_expand_00015 = 2130837657;
+			public const int ic_expand_dataform_group = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int ic_expand_dataform_group = 2130837658;
+			public const int ic_media_pause = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int ic_media_pause = 2130837659;
+			public const int ic_media_play = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int ic_media_play = 2130837660;
+			public const int ic_media_route_disabled_mono_dark = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int ic_media_route_disabled_mono_dark = 2130837661;
+			public const int ic_media_route_off_mono_dark = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int ic_media_route_off_mono_dark = 2130837662;
+			public const int ic_media_route_on_0_mono_dark = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int ic_media_route_on_0_mono_dark = 2130837663;
+			public const int ic_media_route_on_1_mono_dark = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int ic_media_route_on_1_mono_dark = 2130837664;
+			public const int ic_media_route_on_2_mono_dark = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int ic_media_route_on_2_mono_dark = 2130837665;
+			public const int ic_media_route_on_mono_dark = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int ic_media_route_on_mono_dark = 2130837666;
+			public const int ic_pause_dark = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int ic_pause_dark = 2130837667;
+			public const int ic_pause_light = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int ic_pause_light = 2130837668;
+			public const int ic_play_dark = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int ic_play_dark = 2130837669;
+			public const int ic_play_light = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int ic_play_light = 2130837670;
+			public const int ic_speaker_dark = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int ic_speaker_dark = 2130837671;
+			public const int ic_speaker_group_dark = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int ic_speaker_group_dark = 2130837672;
+			public const int ic_speaker_group_light = 2130837672;
 			
 			// aapt resource value: 0x7f0200a9
-			public const int ic_speaker_group_light = 2130837673;
+			public const int ic_speaker_light = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int ic_speaker_light = 2130837674;
+			public const int ic_successstatus = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int ic_successstatus = 2130837675;
+			public const int ic_token_remove = 2130837675;
 			
 			// aapt resource value: 0x7f0200ac
-			public const int ic_token_remove = 2130837676;
+			public const int ic_token_remove_pressed = 2130837676;
 			
 			// aapt resource value: 0x7f0200ad
-			public const int ic_token_remove_pressed = 2130837677;
+			public const int ic_tv_dark = 2130837677;
 			
 			// aapt resource value: 0x7f0200ae
-			public const int ic_tv_dark = 2130837678;
+			public const int ic_tv_light = 2130837678;
 			
 			// aapt resource value: 0x7f0200af
-			public const int ic_tv_light = 2130837679;
+			public const int icon = 2130837679;
 			
 			// aapt resource value: 0x7f0200b0
-			public const int icon = 2130837680;
+			public const int InterstateTruck96 = 2130837680;
 			
 			// aapt resource value: 0x7f0200b1
-			public const int InterstateTruck96 = 2130837681;
+			public const int Menu25 = 2130837681;
 			
 			// aapt resource value: 0x7f0200b2
-			public const int Menu25 = 2130837682;
+			public const int mr_dialog_material_background_dark = 2130837682;
 			
 			// aapt resource value: 0x7f0200b3
-			public const int mr_dialog_material_background_dark = 2130837683;
+			public const int mr_dialog_material_background_light = 2130837683;
 			
 			// aapt resource value: 0x7f0200b4
-			public const int mr_dialog_material_background_light = 2130837684;
+			public const int mr_ic_audiotrack_light = 2130837684;
 			
 			// aapt resource value: 0x7f0200b5
-			public const int mr_ic_audiotrack_light = 2130837685;
+			public const int mr_ic_cast_dark = 2130837685;
 			
 			// aapt resource value: 0x7f0200b6
-			public const int mr_ic_cast_dark = 2130837686;
+			public const int mr_ic_cast_light = 2130837686;
 			
 			// aapt resource value: 0x7f0200b7
-			public const int mr_ic_cast_light = 2130837687;
+			public const int mr_ic_close_dark = 2130837687;
 			
 			// aapt resource value: 0x7f0200b8
-			public const int mr_ic_close_dark = 2130837688;
+			public const int mr_ic_close_light = 2130837688;
 			
 			// aapt resource value: 0x7f0200b9
-			public const int mr_ic_close_light = 2130837689;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837689;
 			
 			// aapt resource value: 0x7f0200ba
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837690;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837690;
 			
 			// aapt resource value: 0x7f0200bb
-			public const int mr_ic_media_route_connecting_mono_light = 2130837691;
+			public const int mr_ic_media_route_mono_dark = 2130837691;
 			
 			// aapt resource value: 0x7f0200bc
-			public const int mr_ic_media_route_mono_dark = 2130837692;
+			public const int mr_ic_media_route_mono_light = 2130837692;
 			
 			// aapt resource value: 0x7f0200bd
-			public const int mr_ic_media_route_mono_light = 2130837693;
+			public const int mr_ic_pause_dark = 2130837693;
 			
 			// aapt resource value: 0x7f0200be
-			public const int mr_ic_pause_dark = 2130837694;
+			public const int mr_ic_pause_light = 2130837694;
 			
 			// aapt resource value: 0x7f0200bf
-			public const int mr_ic_pause_light = 2130837695;
+			public const int mr_ic_play_dark = 2130837695;
 			
 			// aapt resource value: 0x7f0200c0
-			public const int mr_ic_play_dark = 2130837696;
-			
-			// aapt resource value: 0x7f0200c1
-			public const int mr_ic_play_light = 2130837697;
-			
-			// aapt resource value: 0x7f0200d6
-			public const int notification_template_icon_bg = 2130837718;
-			
-			// aapt resource value: 0x7f0200c2
-			public const int Ok = 2130837698;
-			
-			// aapt resource value: 0x7f0200c3
-			public const int Play = 2130837699;
-			
-			// aapt resource value: 0x7f0200c4
-			public const int pressable_item_background = 2130837700;
-			
-			// aapt resource value: 0x7f0200c5
-			public const int roundedbg = 2130837701;
-			
-			// aapt resource value: 0x7f0200c6
-			public const int roundedbgdark = 2130837702;
-			
-			// aapt resource value: 0x7f0200c7
-			public const int selectable_item_background = 2130837703;
-			
-			// aapt resource value: 0x7f0200c8
-			public const int Settings25 = 2130837704;
-			
-			// aapt resource value: 0x7f0200c9
-			public const int Settings96 = 2130837705;
-			
-			// aapt resource value: 0x7f0200ca
-			public const int sfclosebutton = 2130837706;
-			
-			// aapt resource value: 0x7f0200cb
-			public const int shade_bottom = 2130837707;
-			
-			// aapt resource value: 0x7f0200cc
-			public const int shade_corner = 2130837708;
-			
-			// aapt resource value: 0x7f0200cd
-			public const int shade_right = 2130837709;
-			
-			// aapt resource value: 0x7f0200ce
-			public const int Stop = 2130837710;
-			
-			// aapt resource value: 0x7f0200cf
-			public const int styleinfo = 2130837711;
-			
-			// aapt resource value: 0x7f0200d0
-			public const int tab_view_popup_background = 2130837712;
-			
-			// aapt resource value: 0x7f0200d1
-			public const int token_bg = 2130837713;
-			
-			// aapt resource value: 0x7f0200d2
-			public const int token_default = 2130837714;
-			
-			// aapt resource value: 0x7f0200d3
-			public const int token_selected = 2130837715;
-			
-			// aapt resource value: 0x7f0200d4
-			public const int token_text_color = 2130837716;
+			public const int mr_ic_play_light = 2130837696;
 			
 			// aapt resource value: 0x7f0200d5
-			public const int User96 = 2130837717;
+			public const int notification_template_icon_bg = 2130837717;
+			
+			// aapt resource value: 0x7f0200c1
+			public const int Ok = 2130837697;
+			
+			// aapt resource value: 0x7f0200c2
+			public const int Play = 2130837698;
+			
+			// aapt resource value: 0x7f0200c3
+			public const int pressable_item_background = 2130837699;
+			
+			// aapt resource value: 0x7f0200c4
+			public const int roundedbg = 2130837700;
+			
+			// aapt resource value: 0x7f0200c5
+			public const int roundedbgdark = 2130837701;
+			
+			// aapt resource value: 0x7f0200c6
+			public const int selectable_item_background = 2130837702;
+			
+			// aapt resource value: 0x7f0200c7
+			public const int Settings25 = 2130837703;
+			
+			// aapt resource value: 0x7f0200c8
+			public const int Settings96 = 2130837704;
+			
+			// aapt resource value: 0x7f0200c9
+			public const int sfclosebutton = 2130837705;
+			
+			// aapt resource value: 0x7f0200ca
+			public const int shade_bottom = 2130837706;
+			
+			// aapt resource value: 0x7f0200cb
+			public const int shade_corner = 2130837707;
+			
+			// aapt resource value: 0x7f0200cc
+			public const int shade_right = 2130837708;
+			
+			// aapt resource value: 0x7f0200cd
+			public const int Stop = 2130837709;
+			
+			// aapt resource value: 0x7f0200ce
+			public const int styleinfo = 2130837710;
+			
+			// aapt resource value: 0x7f0200cf
+			public const int tab_view_popup_background = 2130837711;
+			
+			// aapt resource value: 0x7f0200d0
+			public const int token_bg = 2130837712;
+			
+			// aapt resource value: 0x7f0200d1
+			public const int token_default = 2130837713;
+			
+			// aapt resource value: 0x7f0200d2
+			public const int token_selected = 2130837714;
+			
+			// aapt resource value: 0x7f0200d3
+			public const int token_text_color = 2130837715;
+			
+			// aapt resource value: 0x7f0200d4
+			public const int User96 = 2130837716;
 			
 			static Drawable()
 			{
@@ -15900,8 +14282,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080043
 			public const int Inline = 2131230787;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int Itemname = 2131230892;
+			// aapt resource value: 0x7f0800a3
+			public const int Itemname = 2131230883;
 			
 			// aapt resource value: 0x7f080054
 			public const int Left = 2131230804;
@@ -15969,8 +14351,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080041
 			public const int Year = 2131230785;
 			
-			// aapt resource value: 0x7f080125
-			public const int action0 = 2131231013;
+			// aapt resource value: 0x7f08011c
+			public const int action0 = 2131231004;
 			
 			// aapt resource value: 0x7f080082
 			public const int action_bar = 2131230850;
@@ -15996,8 +14378,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080083
 			public const int action_context_bar = 2131230851;
 			
-			// aapt resource value: 0x7f080129
-			public const int action_divider = 2131231017;
+			// aapt resource value: 0x7f080120
+			public const int action_divider = 2131231008;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -16023,38 +14405,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08001e
 			public const int always = 2131230750;
 			
-			// aapt resource value: 0x7f0800d2
-			public const int areaText = 2131230930;
+			// aapt resource value: 0x7f0800c9
+			public const int areaText = 2131230921;
 			
-			// aapt resource value: 0x7f0800a5
-			public const int axisLayout = 2131230885;
-			
-			// aapt resource value: 0x7f080095
-			public const int bb_bottom_bar_background_overlay = 2131230869;
-			
-			// aapt resource value: 0x7f080094
-			public const int bb_bottom_bar_background_view = 2131230868;
-			
-			// aapt resource value: 0x7f080098
-			public const int bb_bottom_bar_icon = 2131230872;
-			
-			// aapt resource value: 0x7f080096
-			public const int bb_bottom_bar_item_container = 2131230870;
-			
-			// aapt resource value: 0x7f080092
-			public const int bb_bottom_bar_outer_container = 2131230866;
-			
-			// aapt resource value: 0x7f080093
-			public const int bb_bottom_bar_shadow = 2131230867;
-			
-			// aapt resource value: 0x7f080099
-			public const int bb_bottom_bar_title = 2131230873;
-			
-			// aapt resource value: 0x7f080097
-			public const int bb_tablet_right_border = 2131230871;
-			
-			// aapt resource value: 0x7f080091
-			public const int bb_user_content_container = 2131230865;
+			// aapt resource value: 0x7f08009c
+			public const int axisLayout = 2131230876;
 			
 			// aapt resource value: 0x7f08001b
 			public const int beginning = 2131230747;
@@ -16062,38 +14417,38 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08002a
 			public const int bottom = 2131230762;
 			
-			// aapt resource value: 0x7f08013d
-			public const int bottom_labels = 2131231037;
+			// aapt resource value: 0x7f080134
+			public const int bottom_labels = 2131231028;
 			
 			// aapt resource value: 0x7f08006c
 			public const int buttonPanel = 2131230828;
 			
-			// aapt resource value: 0x7f0800f1
-			public const int button_add_response = 2131230961;
+			// aapt resource value: 0x7f0800e8
+			public const int button_add_response = 2131230952;
 			
-			// aapt resource value: 0x7f0800ec
-			public const int button_attachment = 2131230956;
-			
-			// aapt resource value: 0x7f0800f6
-			public const int button_login = 2131230966;
-			
-			// aapt resource value: 0x7f0800f2
-			public const int button_refresh = 2131230962;
+			// aapt resource value: 0x7f0800e3
+			public const int button_attachment = 2131230947;
 			
 			// aapt resource value: 0x7f0800ed
-			public const int button_send = 2131230957;
+			public const int button_login = 2131230957;
 			
-			// aapt resource value: 0x7f0800fa
-			public const int button_update = 2131230970;
+			// aapt resource value: 0x7f0800e9
+			public const int button_refresh = 2131230953;
 			
-			// aapt resource value: 0x7f080109
-			public const int calendar_grid = 2131230985;
+			// aapt resource value: 0x7f0800e4
+			public const int button_send = 2131230948;
 			
-			// aapt resource value: 0x7f08009a
-			public const int calendar_view = 2131230874;
+			// aapt resource value: 0x7f0800f1
+			public const int button_update = 2131230961;
 			
-			// aapt resource value: 0x7f080126
-			public const int cancel_action = 2131231014;
+			// aapt resource value: 0x7f080100
+			public const int calendar_grid = 2131230976;
+			
+			// aapt resource value: 0x7f080091
+			public const int calendar_view = 2131230865;
+			
+			// aapt resource value: 0x7f08011d
+			public const int cancel_action = 2131231005;
 			
 			// aapt resource value: 0x7f08002b
 			public const int center = 2131230763;
@@ -16104,38 +14459,38 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08002d
 			public const int center_vertical = 2131230765;
 			
-			// aapt resource value: 0x7f08009f
-			public const int chartAreaLayout = 2131230879;
+			// aapt resource value: 0x7f080096
+			public const int chartAreaLayout = 2131230870;
 			
-			// aapt resource value: 0x7f08009e
-			public const int chartTitle = 2131230878;
+			// aapt resource value: 0x7f080095
+			public const int chartTitle = 2131230869;
 			
-			// aapt resource value: 0x7f08014f
-			public const int chart_data_point_content_container = 2131231055;
+			// aapt resource value: 0x7f080146
+			public const int chart_data_point_content_container = 2131231046;
 			
-			// aapt resource value: 0x7f080138
-			public const int chart_layout_root = 2131231032;
+			// aapt resource value: 0x7f08012f
+			public const int chart_layout_root = 2131231023;
+			
+			// aapt resource value: 0x7f0800c1
+			public const int chart_tooltip_category = 2131230913;
+			
+			// aapt resource value: 0x7f080145
+			public const int chart_tooltip_pointer = 2131231045;
+			
+			// aapt resource value: 0x7f0800c2
+			public const int chart_tooltip_value = 2131230914;
 			
 			// aapt resource value: 0x7f0800ca
-			public const int chart_tooltip_category = 2131230922;
+			public const int chart_trackball_category = 2131230922;
 			
-			// aapt resource value: 0x7f08014e
-			public const int chart_tooltip_pointer = 2131231054;
-			
-			// aapt resource value: 0x7f0800cb
-			public const int chart_tooltip_value = 2131230923;
-			
-			// aapt resource value: 0x7f0800d3
-			public const int chart_trackball_category = 2131230931;
-			
-			// aapt resource value: 0x7f0800d5
-			public const int chart_trackball_value = 2131230933;
+			// aapt resource value: 0x7f0800cc
+			public const int chart_trackball_value = 2131230924;
 			
 			// aapt resource value: 0x7f08007a
 			public const int checkbox = 2131230842;
 			
-			// aapt resource value: 0x7f08012c
-			public const int chronometer = 2131231020;
+			// aapt resource value: 0x7f080123
+			public const int chronometer = 2131231011;
 			
 			// aapt resource value: 0x7f080033
 			public const int clip_horizontal = 2131230771;
@@ -16143,14 +14498,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080034
 			public const int clip_vertical = 2131230772;
 			
-			// aapt resource value: 0x7f0800ce
-			public const int closeText = 2131230926;
+			// aapt resource value: 0x7f0800c5
+			public const int closeText = 2131230917;
 			
 			// aapt resource value: 0x7f08001f
 			public const int collapseActionView = 2131230751;
 			
-			// aapt resource value: 0x7f08013e
-			public const int content = 2131231038;
+			// aapt resource value: 0x7f080135
+			public const int content = 2131231029;
 			
 			// aapt resource value: 0x7f080072
 			public const int contentPanel = 2131230834;
@@ -16161,92 +14516,92 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080077
 			public const int customPanel = 2131230839;
 			
-			// aapt resource value: 0x7f0800a3
-			public const int dataMarkerLayout = 2131230883;
+			// aapt resource value: 0x7f08009a
+			public const int dataMarkerLayout = 2131230874;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int data_form_autocomplete_editor = 2131230893;
+			// aapt resource value: 0x7f0800a4
+			public const int data_form_autocomplete_editor = 2131230884;
 			
-			// aapt resource value: 0x7f0800ae
-			public const int data_form_checkbox_editor = 2131230894;
+			// aapt resource value: 0x7f0800a5
+			public const int data_form_checkbox_editor = 2131230885;
+			
+			// aapt resource value: 0x7f0800a6
+			public const int data_form_date_editor = 2131230886;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int data_form_decimal_editor = 2131230887;
 			
 			// aapt resource value: 0x7f0800af
-			public const int data_form_date_editor = 2131230895;
+			public const int data_form_editor_container = 2131230895;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int data_form_decimal_editor = 2131230896;
+			// aapt resource value: 0x7f0800aa
+			public const int data_form_editor_group_container = 2131230890;
 			
-			// aapt resource value: 0x7f0800b8
-			public const int data_form_editor_container = 2131230904;
-			
-			// aapt resource value: 0x7f0800b3
-			public const int data_form_editor_group_container = 2131230899;
-			
-			// aapt resource value: 0x7f0800b5
-			public const int data_form_editor_image = 2131230901;
-			
-			// aapt resource value: 0x7f0800bb
-			public const int data_form_expandable_group_expand_button = 2131230907;
+			// aapt resource value: 0x7f0800ac
+			public const int data_form_editor_image = 2131230892;
 			
 			// aapt resource value: 0x7f0800b2
-			public const int data_form_group_header = 2131230898;
+			public const int data_form_expandable_group_expand_button = 2131230898;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int data_form_group_header_container = 2131230897;
+			// aapt resource value: 0x7f0800a9
+			public const int data_form_group_header = 2131230889;
 			
-			// aapt resource value: 0x7f0800b6
-			public const int data_form_header_container = 2131230902;
+			// aapt resource value: 0x7f0800a8
+			public const int data_form_group_header_container = 2131230888;
 			
-			// aapt resource value: 0x7f0800bc
-			public const int data_form_integer_editor = 2131230908;
+			// aapt resource value: 0x7f0800ad
+			public const int data_form_header_container = 2131230893;
 			
-			// aapt resource value: 0x7f0800bd
-			public const int data_form_list_editor = 2131230909;
-			
-			// aapt resource value: 0x7f0800be
-			public const int data_form_number_picker_editor = 2131230910;
-			
-			// aapt resource value: 0x7f0800bf
-			public const int data_form_rad_autocomplete_editor = 2131230911;
-			
-			// aapt resource value: 0x7f0800c0
-			public const int data_form_radio_group = 2131230912;
-			
-			// aapt resource value: 0x7f0800c1
-			public const int data_form_root_layout = 2131230913;
-			
-			// aapt resource value: 0x7f0800c2
-			public const int data_form_seekbar_editor = 2131230914;
-			
-			// aapt resource value: 0x7f0800c3
-			public const int data_form_spinner_editor = 2131230915;
-			
-			// aapt resource value: 0x7f0800c4
-			public const int data_form_switch_editor = 2131230916;
-			
-			// aapt resource value: 0x7f0800c5
-			public const int data_form_text_editor = 2131230917;
-			
-			// aapt resource value: 0x7f0800c6
-			public const int data_form_text_viewer = 2131230918;
+			// aapt resource value: 0x7f0800b3
+			public const int data_form_integer_editor = 2131230899;
 			
 			// aapt resource value: 0x7f0800b4
-			public const int data_form_text_viewer_header = 2131230900;
+			public const int data_form_list_editor = 2131230900;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int data_form_time_editor = 2131230919;
+			// aapt resource value: 0x7f0800b5
+			public const int data_form_number_picker_editor = 2131230901;
 			
-			// aapt resource value: 0x7f0800c8
-			public const int data_form_toggle_editor = 2131230920;
-			
-			// aapt resource value: 0x7f0800b9
-			public const int data_form_validation_container = 2131230905;
+			// aapt resource value: 0x7f0800b6
+			public const int data_form_rad_autocomplete_editor = 2131230902;
 			
 			// aapt resource value: 0x7f0800b7
-			public const int data_form_validation_icon = 2131230903;
+			public const int data_form_radio_group = 2131230903;
+			
+			// aapt resource value: 0x7f0800b8
+			public const int data_form_root_layout = 2131230904;
+			
+			// aapt resource value: 0x7f0800b9
+			public const int data_form_seekbar_editor = 2131230905;
 			
 			// aapt resource value: 0x7f0800ba
-			public const int data_form_validation_message_view = 2131230906;
+			public const int data_form_spinner_editor = 2131230906;
+			
+			// aapt resource value: 0x7f0800bb
+			public const int data_form_switch_editor = 2131230907;
+			
+			// aapt resource value: 0x7f0800bc
+			public const int data_form_text_editor = 2131230908;
+			
+			// aapt resource value: 0x7f0800bd
+			public const int data_form_text_viewer = 2131230909;
+			
+			// aapt resource value: 0x7f0800ab
+			public const int data_form_text_viewer_header = 2131230891;
+			
+			// aapt resource value: 0x7f0800be
+			public const int data_form_time_editor = 2131230910;
+			
+			// aapt resource value: 0x7f0800bf
+			public const int data_form_toggle_editor = 2131230911;
+			
+			// aapt resource value: 0x7f0800b0
+			public const int data_form_validation_container = 2131230896;
+			
+			// aapt resource value: 0x7f0800ae
+			public const int data_form_validation_icon = 2131230894;
+			
+			// aapt resource value: 0x7f0800b1
+			public const int data_form_validation_message_view = 2131230897;
 			
 			// aapt resource value: 0x7f080080
 			public const int decor_content_parent = 2131230848;
@@ -16254,20 +14609,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080068
 			public const int default_activity_button = 2131230824;
 			
-			// aapt resource value: 0x7f0800d7
-			public const int design_bottom_sheet = 2131230935;
+			// aapt resource value: 0x7f0800ce
+			public const int design_bottom_sheet = 2131230926;
 			
-			// aapt resource value: 0x7f0800de
-			public const int design_menu_item_action_area = 2131230942;
+			// aapt resource value: 0x7f0800d5
+			public const int design_menu_item_action_area = 2131230933;
 			
-			// aapt resource value: 0x7f0800dd
-			public const int design_menu_item_action_area_stub = 2131230941;
+			// aapt resource value: 0x7f0800d4
+			public const int design_menu_item_action_area_stub = 2131230932;
 			
-			// aapt resource value: 0x7f0800dc
-			public const int design_menu_item_text = 2131230940;
+			// aapt resource value: 0x7f0800d3
+			public const int design_menu_item_text = 2131230931;
 			
-			// aapt resource value: 0x7f0800db
-			public const int design_navigation_view = 2131230939;
+			// aapt resource value: 0x7f0800d2
+			public const int design_navigation_view = 2131230930;
 			
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
@@ -16278,17 +14633,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080084
 			public const int edit_query = 2131230852;
 			
-			// aapt resource value: 0x7f0800e0
-			public const int eightsegment = 2131230944;
+			// aapt resource value: 0x7f0800d7
+			public const int eightsegment = 2131230935;
 			
-			// aapt resource value: 0x7f080139
-			public const int emptyContent = 2131231033;
+			// aapt resource value: 0x7f080130
+			public const int emptyContent = 2131231024;
 			
 			// aapt resource value: 0x7f08001c
 			public const int end = 2131230748;
 			
-			// aapt resource value: 0x7f080131
-			public const int end_padder = 2131231025;
+			// aapt resource value: 0x7f080128
+			public const int end_padder = 2131231016;
 			
 			// aapt resource value: 0x7f080023
 			public const int enterAlways = 2131230755;
@@ -16317,23 +14672,23 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080038
 			public const int @fixed = 2131230776;
 			
-			// aapt resource value: 0x7f0800e1
-			public const int fourteensegment = 2131230945;
+			// aapt resource value: 0x7f0800d8
+			public const int fourteensegment = 2131230936;
 			
-			// aapt resource value: 0x7f0800a0
-			public const int gridLineLayout = 2131230880;
+			// aapt resource value: 0x7f080097
+			public const int gridLineLayout = 2131230871;
 			
-			// aapt resource value: 0x7f08013f
-			public const int gridLinesLayout = 2131231039;
+			// aapt resource value: 0x7f080136
+			public const int gridLinesLayout = 2131231030;
 			
-			// aapt resource value: 0x7f080141
-			public const int groupHeaderCollapseImage = 2131231041;
+			// aapt resource value: 0x7f080138
+			public const int groupHeaderCollapseImage = 2131231032;
 			
-			// aapt resource value: 0x7f080142
-			public const int groupHeaderText = 2131231042;
+			// aapt resource value: 0x7f080139
+			public const int groupHeaderText = 2131231033;
 			
-			// aapt resource value: 0x7f0800cc
-			public const int highText = 2131230924;
+			// aapt resource value: 0x7f0800c3
+			public const int highText = 2131230915;
 			
 			// aapt resource value: 0x7f080005
 			public const int home = 2131230725;
@@ -16347,8 +14702,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08006a
 			public const int icon = 2131230826;
 			
-			// aapt resource value: 0x7f0800aa
-			public const int iconView = 2131230890;
+			// aapt resource value: 0x7f0800a1
+			public const int iconView = 2131230881;
 			
 			// aapt resource value: 0x7f080020
 			public const int ifRoom = 2131230752;
@@ -16356,125 +14711,125 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080067
 			public const int image = 2131230823;
 			
-			// aapt resource value: 0x7f0800e3
-			public const int imageView = 2131230947;
+			// aapt resource value: 0x7f0800da
+			public const int imageView = 2131230938;
 			
-			// aapt resource value: 0x7f080130
-			public const int info = 2131231024;
+			// aapt resource value: 0x7f080127
+			public const int info = 2131231015;
 			
-			// aapt resource value: 0x7f080101
-			public const int inline_event_end = 2131230977;
+			// aapt resource value: 0x7f0800f8
+			public const int inline_event_end = 2131230968;
 			
-			// aapt resource value: 0x7f080100
-			public const int inline_event_start = 2131230976;
+			// aapt resource value: 0x7f0800f7
+			public const int inline_event_start = 2131230967;
 			
-			// aapt resource value: 0x7f080102
-			public const int inline_event_title = 2131230978;
+			// aapt resource value: 0x7f0800f9
+			public const int inline_event_title = 2131230969;
 			
 			// aapt resource value: 0x7f080045
 			public const int inner = 2131230789;
 			
-			// aapt resource value: 0x7f0800e8
-			public const int input_email = 2131230952;
+			// aapt resource value: 0x7f0800df
+			public const int input_email = 2131230943;
 			
-			// aapt resource value: 0x7f0800ea
-			public const int input_message = 2131230954;
+			// aapt resource value: 0x7f0800e1
+			public const int input_message = 2131230945;
 			
-			// aapt resource value: 0x7f0800e7
-			public const int input_name = 2131230951;
+			// aapt resource value: 0x7f0800de
+			public const int input_name = 2131230942;
 			
-			// aapt resource value: 0x7f0800f5
-			public const int input_password = 2131230965;
+			// aapt resource value: 0x7f0800ec
+			public const int input_password = 2131230956;
 			
-			// aapt resource value: 0x7f0800e9
-			public const int input_subject = 2131230953;
+			// aapt resource value: 0x7f0800e0
+			public const int input_subject = 2131230944;
 			
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
-			// aapt resource value: 0x7f0800ab
-			public const int label = 2131230891;
+			// aapt resource value: 0x7f0800a2
+			public const int label = 2131230882;
 			
-			// aapt resource value: 0x7f0800fc
-			public const int label_author = 2131230972;
+			// aapt resource value: 0x7f0800f3
+			public const int label_author = 2131230963;
 			
-			// aapt resource value: 0x7f0800fd
-			public const int label_date = 2131230973;
+			// aapt resource value: 0x7f0800f4
+			public const int label_date = 2131230964;
+			
+			// aapt resource value: 0x7f0800e6
+			public const int label_last_updated = 2131230950;
+			
+			// aapt resource value: 0x7f0800db
+			public const int label_message = 2131230939;
+			
+			// aapt resource value: 0x7f0800f5
+			public const int label_text = 2131230965;
 			
 			// aapt resource value: 0x7f0800ef
-			public const int label_last_updated = 2131230959;
+			public const int label_title = 2131230959;
 			
-			// aapt resource value: 0x7f0800e4
-			public const int label_message = 2131230948;
-			
-			// aapt resource value: 0x7f0800fe
-			public const int label_text = 2131230974;
-			
-			// aapt resource value: 0x7f0800f8
-			public const int label_title = 2131230968;
-			
-			// aapt resource value: 0x7f0800f9
-			public const int label_version = 2131230969;
+			// aapt resource value: 0x7f0800f0
+			public const int label_version = 2131230960;
 			
 			// aapt resource value: 0x7f08002f
 			public const int left = 2131230767;
 			
-			// aapt resource value: 0x7f08009c
-			public const int left_arrow = 2131230876;
+			// aapt resource value: 0x7f080093
+			public const int left_arrow = 2131230867;
 			
-			// aapt resource value: 0x7f0800a7
-			public const int legendHeader = 2131230887;
+			// aapt resource value: 0x7f08009e
+			public const int legendHeader = 2131230878;
 			
-			// aapt resource value: 0x7f080103
-			public const int legendItemIconView = 2131230979;
+			// aapt resource value: 0x7f0800fa
+			public const int legendItemIconView = 2131230970;
 			
-			// aapt resource value: 0x7f080104
-			public const int legendItemTitleView = 2131230980;
+			// aapt resource value: 0x7f0800fb
+			public const int legendItemTitleView = 2131230971;
 			
-			// aapt resource value: 0x7f0800a9
-			public const int legendItemsLayout = 2131230889;
+			// aapt resource value: 0x7f0800a0
+			public const int legendItemsLayout = 2131230880;
 			
-			// aapt resource value: 0x7f08013b
-			public const int legendListView = 2131231035;
+			// aapt resource value: 0x7f080132
+			public const int legendListView = 2131231026;
 			
-			// aapt resource value: 0x7f0800a8
-			public const int legendScrollView = 2131230888;
+			// aapt resource value: 0x7f08009f
+			public const int legendScrollView = 2131230879;
 			
-			// aapt resource value: 0x7f0800a6
-			public const int legendViewGroup = 2131230886;
+			// aapt resource value: 0x7f08009d
+			public const int legendViewGroup = 2131230877;
 			
-			// aapt resource value: 0x7f08012a
-			public const int line1 = 2131231018;
+			// aapt resource value: 0x7f080121
+			public const int line1 = 2131231009;
 			
-			// aapt resource value: 0x7f08012e
-			public const int line3 = 2131231022;
+			// aapt resource value: 0x7f080125
+			public const int line3 = 2131231013;
 			
 			// aapt resource value: 0x7f08000b
 			public const int listMode = 2131230731;
 			
-			// aapt resource value: 0x7f0800ff
-			public const int list_attachments = 2131230975;
+			// aapt resource value: 0x7f0800f6
+			public const int list_attachments = 2131230966;
 			
-			// aapt resource value: 0x7f0800f3
-			public const int list_feedback_messages = 2131230963;
+			// aapt resource value: 0x7f0800ea
+			public const int list_feedback_messages = 2131230954;
 			
 			// aapt resource value: 0x7f080069
 			public const int list_item = 2131230825;
 			
-			// aapt resource value: 0x7f080107
-			public const int loadingImage = 2131230983;
+			// aapt resource value: 0x7f0800fe
+			public const int loadingImage = 2131230974;
 			
-			// aapt resource value: 0x7f080105
-			public const int loadingProgressBar = 2131230981;
+			// aapt resource value: 0x7f0800fc
+			public const int loadingProgressBar = 2131230972;
 			
-			// aapt resource value: 0x7f080108
-			public const int loadingProgressWheel = 2131230984;
+			// aapt resource value: 0x7f0800ff
+			public const int loadingProgressWheel = 2131230975;
 			
-			// aapt resource value: 0x7f0800cf
-			public const int lowText = 2131230927;
+			// aapt resource value: 0x7f0800c6
+			public const int lowText = 2131230918;
 			
-			// aapt resource value: 0x7f080128
-			public const int media_actions = 2131231016;
+			// aapt resource value: 0x7f08011f
+			public const int media_actions = 2131231007;
 			
 			// aapt resource value: 0x7f08001d
 			public const int middle = 2131230749;
@@ -16482,92 +14837,92 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080037
 			public const int mini = 2131230775;
 			
-			// aapt resource value: 0x7f080115
-			public const int mr_art = 2131230997;
-			
-			// aapt resource value: 0x7f08010a
-			public const int mr_chooser_list = 2131230986;
-			
-			// aapt resource value: 0x7f08010d
-			public const int mr_chooser_route_desc = 2131230989;
-			
-			// aapt resource value: 0x7f08010b
-			public const int mr_chooser_route_icon = 2131230987;
-			
 			// aapt resource value: 0x7f08010c
-			public const int mr_chooser_route_name = 2131230988;
+			public const int mr_art = 2131230988;
 			
-			// aapt resource value: 0x7f080112
-			public const int mr_close = 2131230994;
+			// aapt resource value: 0x7f080101
+			public const int mr_chooser_list = 2131230977;
 			
-			// aapt resource value: 0x7f080118
-			public const int mr_control_divider = 2131231000;
+			// aapt resource value: 0x7f080104
+			public const int mr_chooser_route_desc = 2131230980;
 			
-			// aapt resource value: 0x7f08011e
-			public const int mr_control_play_pause = 2131231006;
+			// aapt resource value: 0x7f080102
+			public const int mr_chooser_route_icon = 2131230978;
 			
-			// aapt resource value: 0x7f080121
-			public const int mr_control_subtitle = 2131231009;
+			// aapt resource value: 0x7f080103
+			public const int mr_chooser_route_name = 2131230979;
 			
-			// aapt resource value: 0x7f080120
-			public const int mr_control_title = 2131231008;
-			
-			// aapt resource value: 0x7f08011f
-			public const int mr_control_title_container = 2131231007;
-			
-			// aapt resource value: 0x7f080113
-			public const int mr_custom_control = 2131230995;
-			
-			// aapt resource value: 0x7f080114
-			public const int mr_default_control = 2131230996;
+			// aapt resource value: 0x7f080109
+			public const int mr_close = 2131230985;
 			
 			// aapt resource value: 0x7f08010f
-			public const int mr_dialog_area = 2131230991;
+			public const int mr_control_divider = 2131230991;
 			
-			// aapt resource value: 0x7f08010e
-			public const int mr_expandable_area = 2131230990;
+			// aapt resource value: 0x7f080115
+			public const int mr_control_play_pause = 2131230997;
 			
-			// aapt resource value: 0x7f080122
-			public const int mr_group_expand_collapse = 2131231010;
-			
-			// aapt resource value: 0x7f080116
-			public const int mr_media_main_control = 2131230998;
-			
-			// aapt resource value: 0x7f080111
-			public const int mr_name = 2131230993;
+			// aapt resource value: 0x7f080118
+			public const int mr_control_subtitle = 2131231000;
 			
 			// aapt resource value: 0x7f080117
-			public const int mr_playback_control = 2131230999;
+			public const int mr_control_title = 2131230999;
 			
-			// aapt resource value: 0x7f080110
-			public const int mr_title_bar = 2131230992;
+			// aapt resource value: 0x7f080116
+			public const int mr_control_title_container = 2131230998;
+			
+			// aapt resource value: 0x7f08010a
+			public const int mr_custom_control = 2131230986;
+			
+			// aapt resource value: 0x7f08010b
+			public const int mr_default_control = 2131230987;
+			
+			// aapt resource value: 0x7f080106
+			public const int mr_dialog_area = 2131230982;
+			
+			// aapt resource value: 0x7f080105
+			public const int mr_expandable_area = 2131230981;
 			
 			// aapt resource value: 0x7f080119
-			public const int mr_volume_control = 2131231001;
+			public const int mr_group_expand_collapse = 2131231001;
 			
-			// aapt resource value: 0x7f08011a
-			public const int mr_volume_group_list = 2131231002;
+			// aapt resource value: 0x7f08010d
+			public const int mr_media_main_control = 2131230989;
 			
-			// aapt resource value: 0x7f08011c
-			public const int mr_volume_item_icon = 2131231004;
+			// aapt resource value: 0x7f080108
+			public const int mr_name = 2131230984;
 			
-			// aapt resource value: 0x7f08011d
-			public const int mr_volume_slider = 2131231005;
+			// aapt resource value: 0x7f08010e
+			public const int mr_playback_control = 2131230990;
+			
+			// aapt resource value: 0x7f080107
+			public const int mr_title_bar = 2131230983;
+			
+			// aapt resource value: 0x7f080110
+			public const int mr_volume_control = 2131230992;
+			
+			// aapt resource value: 0x7f080111
+			public const int mr_volume_group_list = 2131230993;
+			
+			// aapt resource value: 0x7f080113
+			public const int mr_volume_item_icon = 2131230995;
+			
+			// aapt resource value: 0x7f080114
+			public const int mr_volume_slider = 2131230996;
 			
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080149
-			public const int name = 2131231049;
+			// aapt resource value: 0x7f080140
+			public const int name = 2131231040;
 			
-			// aapt resource value: 0x7f080123
-			public const int navItemsLayout = 2131231011;
+			// aapt resource value: 0x7f08011a
+			public const int navItemsLayout = 2131231002;
 			
-			// aapt resource value: 0x7f080124
-			public const int navigationItemText = 2131231012;
+			// aapt resource value: 0x7f08011b
+			public const int navigationItemText = 2131231003;
 			
-			// aapt resource value: 0x7f0800da
-			public const int navigation_header_container = 2131230938;
+			// aapt resource value: 0x7f0800d1
+			public const int navigation_header_container = 2131230929;
 			
 			// aapt resource value: 0x7f080021
 			public const int never = 2131230753;
@@ -16578,20 +14933,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08000c
 			public const int normal = 2131230732;
 			
-			// aapt resource value: 0x7f080133
-			public const int number_picker_minus = 2131231027;
+			// aapt resource value: 0x7f08012a
+			public const int number_picker_minus = 2131231018;
 			
-			// aapt resource value: 0x7f080135
-			public const int number_picker_plus = 2131231029;
+			// aapt resource value: 0x7f08012c
+			public const int number_picker_plus = 2131231020;
 			
-			// aapt resource value: 0x7f080132
-			public const int number_picker_root = 2131231026;
+			// aapt resource value: 0x7f080129
+			public const int number_picker_root = 2131231017;
 			
-			// aapt resource value: 0x7f080134
-			public const int number_picker_view = 2131231028;
+			// aapt resource value: 0x7f08012b
+			public const int number_picker_view = 2131231019;
 			
-			// aapt resource value: 0x7f0800cd
-			public const int openText = 2131230925;
+			// aapt resource value: 0x7f0800c4
+			public const int openText = 2131230916;
 			
 			// aapt resource value: 0x7f080046
 			public const int outer = 2131230790;
@@ -16605,11 +14960,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080029
 			public const int pin = 2131230761;
 			
-			// aapt resource value: 0x7f080136
-			public const int popup_event_time = 2131231030;
+			// aapt resource value: 0x7f08012d
+			public const int popup_event_time = 2131231021;
 			
-			// aapt resource value: 0x7f080137
-			public const int popup_event_title = 2131231031;
+			// aapt resource value: 0x7f08012e
+			public const int popup_event_title = 2131231022;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -16620,17 +14975,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08007c
 			public const int radio = 2131230844;
 			
-			// aapt resource value: 0x7f08013a
-			public const int renderSurface = 2131231034;
+			// aapt resource value: 0x7f080131
+			public const int renderSurface = 2131231025;
 			
 			// aapt resource value: 0x7f080030
 			public const int right = 2131230768;
 			
-			// aapt resource value: 0x7f08009b
-			public const int right_arrow = 2131230875;
+			// aapt resource value: 0x7f080092
+			public const int right_arrow = 2131230866;
 			
-			// aapt resource value: 0x7f08009d
-			public const int rootLayout = 2131230877;
+			// aapt resource value: 0x7f080094
+			public const int rootLayout = 2131230868;
 			
 			// aapt resource value: 0x7f080048
 			public const int round = 2131230792;
@@ -16686,11 +15041,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080090
 			public const int select_dialog_listview = 2131230864;
 			
-			// aapt resource value: 0x7f0800a2
-			public const int seriesLayout = 2131230882;
+			// aapt resource value: 0x7f080099
+			public const int seriesLayout = 2131230873;
 			
-			// aapt resource value: 0x7f0800df
-			public const int sevensegment = 2131230943;
+			// aapt resource value: 0x7f0800d6
+			public const int sevensegment = 2131230934;
 			
 			// aapt resource value: 0x7f08007b
 			public const int shortcut = 2131230843;
@@ -16704,17 +15059,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080013
 			public const int showTitle = 2131230739;
 			
-			// aapt resource value: 0x7f0800e2
-			public const int sixteensegment = 2131230946;
-			
-			// aapt resource value: 0x7f080148
-			public const int sliding_tabs = 2131231048;
-			
 			// aapt resource value: 0x7f0800d9
-			public const int snackbar_action = 2131230937;
+			public const int sixteensegment = 2131230937;
 			
-			// aapt resource value: 0x7f0800d8
-			public const int snackbar_text = 2131230936;
+			// aapt resource value: 0x7f08013f
+			public const int sliding_tabs = 2131231039;
+			
+			// aapt resource value: 0x7f0800d0
+			public const int snackbar_action = 2131230928;
+			
+			// aapt resource value: 0x7f0800cf
+			public const int snackbar_text = 2131230927;
 			
 			// aapt resource value: 0x7f080027
 			public const int snap = 2131230759;
@@ -16737,56 +15092,56 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080031
 			public const int start = 2131230769;
 			
-			// aapt resource value: 0x7f080127
-			public const int status_bar_latest_event_content = 2131231015;
+			// aapt resource value: 0x7f08011e
+			public const int status_bar_latest_event_content = 2131231006;
 			
-			// aapt resource value: 0x7f0800a1
-			public const int stripLinesLayout = 2131230881;
+			// aapt resource value: 0x7f080098
+			public const int stripLinesLayout = 2131230872;
 			
 			// aapt resource value: 0x7f08008d
 			public const int submit_area = 2131230861;
 			
-			// aapt resource value: 0x7f080144
-			public const int suggestion_img = 2131231044;
+			// aapt resource value: 0x7f08013b
+			public const int suggestion_img = 2131231035;
 			
-			// aapt resource value: 0x7f080145
-			public const int suggestion_text = 2131231045;
+			// aapt resource value: 0x7f08013c
+			public const int suggestion_text = 2131231036;
 			
-			// aapt resource value: 0x7f080147
-			public const int tabItemImageView = 2131231047;
+			// aapt resource value: 0x7f08013e
+			public const int tabItemImageView = 2131231038;
 			
-			// aapt resource value: 0x7f080146
-			public const int tabItemTextView = 2131231046;
+			// aapt resource value: 0x7f08013d
+			public const int tabItemTextView = 2131231037;
 			
 			// aapt resource value: 0x7f08000d
 			public const int tabMode = 2131230733;
 			
-			// aapt resource value: 0x7f0800a4
-			public const int technicalIndicatorLayout = 2131230884;
+			// aapt resource value: 0x7f08009b
+			public const int technicalIndicatorLayout = 2131230875;
 			
-			// aapt resource value: 0x7f08012f
-			public const int text = 2131231023;
+			// aapt resource value: 0x7f080126
+			public const int text = 2131231014;
 			
-			// aapt resource value: 0x7f080143
-			public const int text1 = 2131231043;
+			// aapt resource value: 0x7f08013a
+			public const int text1 = 2131231034;
 			
-			// aapt resource value: 0x7f08012d
-			public const int text2 = 2131231021;
+			// aapt resource value: 0x7f080124
+			public const int text2 = 2131231012;
 			
 			// aapt resource value: 0x7f080075
 			public const int textSpacerNoButtons = 2131230837;
 			
-			// aapt resource value: 0x7f080106
-			public const int textViewStatus = 2131230982;
+			// aapt resource value: 0x7f0800fd
+			public const int textViewStatus = 2131230973;
 			
-			// aapt resource value: 0x7f0800f4
-			public const int text_headline = 2131230964;
+			// aapt resource value: 0x7f0800eb
+			public const int text_headline = 2131230955;
 			
-			// aapt resource value: 0x7f080140
-			public const int thumbLayout = 2131231040;
+			// aapt resource value: 0x7f080137
+			public const int thumbLayout = 2131231031;
 			
-			// aapt resource value: 0x7f08012b
-			public const int time = 2131231019;
+			// aapt resource value: 0x7f080122
+			public const int time = 2131231010;
 			
 			// aapt resource value: 0x7f08006b
 			public const int title = 2131230827;
@@ -16794,17 +15149,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080070
 			public const int title_template = 2131230832;
 			
-			// aapt resource value: 0x7f08014a
-			public const int tokenimage = 2131231050;
+			// aapt resource value: 0x7f080141
+			public const int tokenimage = 2131231041;
 			
-			// aapt resource value: 0x7f08014b
-			public const int tokentext = 2131231051;
+			// aapt resource value: 0x7f080142
+			public const int tokentext = 2131231042;
 			
-			// aapt resource value: 0x7f08014d
-			public const int toolbar = 2131231053;
+			// aapt resource value: 0x7f080144
+			public const int toolbar = 2131231044;
 			
-			// aapt resource value: 0x7f0800c9
-			public const int tooltip_content_container = 2131230921;
+			// aapt resource value: 0x7f0800c0
+			public const int tooltip_content_container = 2131230912;
 			
 			// aapt resource value: 0x7f080032
 			public const int top = 2131230770;
@@ -16812,14 +15167,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08006f
 			public const int topPanel = 2131230831;
 			
-			// aapt resource value: 0x7f08013c
-			public const int top_labels = 2131231036;
+			// aapt resource value: 0x7f080133
+			public const int top_labels = 2131231027;
 			
-			// aapt resource value: 0x7f0800d6
-			public const int touch_outside = 2131230934;
+			// aapt resource value: 0x7f0800cd
+			public const int touch_outside = 2131230925;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int trackball_points_list = 2131230932;
+			// aapt resource value: 0x7f0800cb
+			public const int trackball_points_list = 2131230923;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -16830,17 +15185,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08003b
 			public const int vertical = 2131230779;
 			
-			// aapt resource value: 0x7f0800f7
-			public const int view_header = 2131230967;
+			// aapt resource value: 0x7f0800ee
+			public const int view_header = 2131230958;
 			
 			// aapt resource value: 0x7f08000a
 			public const int view_offset_helper = 2131230730;
 			
-			// aapt resource value: 0x7f08011b
-			public const int volume_item_container = 2131231003;
+			// aapt resource value: 0x7f080112
+			public const int volume_item_container = 2131230994;
 			
-			// aapt resource value: 0x7f0800fb
-			public const int web_update_details = 2131230971;
+			// aapt resource value: 0x7f0800f2
+			public const int web_update_details = 2131230962;
 			
 			// aapt resource value: 0x7f080022
 			public const int withText = 2131230754;
@@ -16848,29 +15203,29 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080015
 			public const int wrap_content = 2131230741;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int wrapper_attachments = 2131230955;
+			// aapt resource value: 0x7f0800e2
+			public const int wrapper_attachments = 2131230946;
 			
-			// aapt resource value: 0x7f0800e6
-			public const int wrapper_feedback = 2131230950;
+			// aapt resource value: 0x7f0800dd
+			public const int wrapper_feedback = 2131230941;
+			
+			// aapt resource value: 0x7f0800dc
+			public const int wrapper_feedback_scroll = 2131230940;
 			
 			// aapt resource value: 0x7f0800e5
-			public const int wrapper_feedback_scroll = 2131230949;
+			public const int wrapper_messages = 2131230949;
 			
-			// aapt resource value: 0x7f0800ee
-			public const int wrapper_messages = 2131230958;
+			// aapt resource value: 0x7f0800e7
+			public const int wrapper_messages_buttons = 2131230951;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int wrapper_messages_buttons = 2131230960;
+			// aapt resource value: 0x7f0800c7
+			public const int xText = 2131230919;
 			
-			// aapt resource value: 0x7f0800d0
-			public const int xText = 2131230928;
+			// aapt resource value: 0x7f080143
+			public const int xview = 2131231043;
 			
-			// aapt resource value: 0x7f08014c
-			public const int xview = 2131231052;
-			
-			// aapt resource value: 0x7f0800d1
-			public const int yText = 2131230929;
+			// aapt resource value: 0x7f0800c8
+			public const int yText = 2131230920;
 			
 			static Id()
 			{
@@ -17023,361 +15378,346 @@ namespace Hubo.Droid
 			public const int abc_select_dialog_material = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int bb_bottom_bar_item_container = 2130903065;
+			public const int calendar_pager_layout = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int bb_bottom_bar_item_container_tablet = 2130903066;
+			public const int calendar_picker = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int bb_bottom_bar_item_fixed = 2130903067;
+			public const int chart_layout = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int bb_bottom_bar_item_fixed_tablet = 2130903068;
+			public const int chart_legend = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int bb_bottom_bar_item_shifting = 2130903069;
+			public const int chart_legend_item = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int calendar_pager_layout = 2130903070;
+			public const int circulargauge_layout = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int calendar_picker = 2130903071;
+			public const int customizedview = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int chart_layout = 2130903072;
+			public const int customizedview1 = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int chart_legend = 2130903073;
+			public const int data_form_autocomplete_editor = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int chart_legend_item = 2130903074;
+			public const int data_form_checkbox_editor = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int circulargauge_layout = 2130903075;
+			public const int data_form_date_editor = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int customizedview = 2130903076;
+			public const int data_form_decimal_editor = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int customizedview1 = 2130903077;
+			public const int data_form_default_group_layout = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int data_form_autocomplete_editor = 2130903078;
+			public const int data_form_editor_header_layout_1 = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int data_form_checkbox_editor = 2130903079;
+			public const int data_form_editor_header_layout_2 = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int data_form_date_editor = 2130903080;
+			public const int data_form_editor_layout_1 = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int data_form_decimal_editor = 2130903081;
+			public const int data_form_editor_layout_2 = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int data_form_default_group_layout = 2130903082;
+			public const int data_form_editor_validation_layout_1 = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int data_form_editor_header_layout_1 = 2130903083;
+			public const int data_form_expandable_group_layout = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int data_form_editor_header_layout_2 = 2130903084;
+			public const int data_form_group_layout = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int data_form_editor_layout_1 = 2130903085;
+			public const int data_form_integer_editor = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int data_form_editor_layout_2 = 2130903086;
+			public const int data_form_linear_layout = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int data_form_editor_validation_layout_1 = 2130903087;
+			public const int data_form_list_editor = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int data_form_expandable_group_layout = 2130903088;
+			public const int data_form_list_editor_item = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int data_form_group_layout = 2130903089;
+			public const int data_form_number_picker = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int data_form_integer_editor = 2130903090;
+			public const int data_form_rad_autocomplete_editor = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int data_form_linear_layout = 2130903091;
+			public const int data_form_radio_group_editor = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int data_form_list_editor = 2130903092;
+			public const int data_form_root_layout = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int data_form_list_editor_item = 2130903093;
+			public const int data_form_seek_bar_editor = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int data_form_number_picker = 2130903094;
+			public const int data_form_segmented_editor = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int data_form_rad_autocomplete_editor = 2130903095;
+			public const int data_form_spinner_editor = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int data_form_radio_group_editor = 2130903096;
+			public const int data_form_spinner_item = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int data_form_root_layout = 2130903097;
+			public const int data_form_switch_editor = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int data_form_seek_bar_editor = 2130903098;
+			public const int data_form_text_editor = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int data_form_segmented_editor = 2130903099;
+			public const int data_form_text_viewer = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int data_form_spinner_editor = 2130903100;
+			public const int data_form_time_editor = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int data_form_spinner_item = 2130903101;
+			public const int data_form_toggle_button_editor = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int data_form_switch_editor = 2130903102;
+			public const int default_tooltip_content = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int data_form_text_editor = 2130903103;
+			public const int default_tooltip_ohlc_content = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int data_form_text_viewer = 2130903104;
+			public const int default_tooltip_scatter_bubble_content = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int data_form_time_editor = 2130903105;
+			public const int default_tooltip_scatter_content = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int data_form_toggle_button_editor = 2130903106;
+			public const int default_trackball_content = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int default_tooltip_content = 2130903107;
+			public const int default_trackball_item_content = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int default_tooltip_ohlc_content = 2130903108;
+			public const int design_bottom_sheet_dialog = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int default_tooltip_scatter_bubble_content = 2130903109;
+			public const int design_layout_snackbar = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int default_tooltip_scatter_content = 2130903110;
+			public const int design_layout_snackbar_include = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int default_trackball_content = 2130903111;
+			public const int design_layout_tab_icon = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int default_trackball_item_content = 2130903112;
+			public const int design_layout_tab_text = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int design_bottom_sheet_dialog = 2130903113;
+			public const int design_menu_item_action_area = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int design_layout_snackbar = 2130903114;
+			public const int design_navigation_item = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int design_layout_snackbar_include = 2130903115;
+			public const int design_navigation_item_header = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int design_layout_tab_icon = 2130903116;
+			public const int design_navigation_item_separator = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int design_layout_tab_text = 2130903117;
+			public const int design_navigation_item_subheader = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int design_menu_item_action_area = 2130903118;
+			public const int design_navigation_menu = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int design_navigation_item = 2130903119;
+			public const int design_navigation_menu_item = 2130903119;
 			
 			// aapt resource value: 0x7f030050
-			public const int design_navigation_item_header = 2130903120;
+			public const int dialog = 2130903120;
 			
 			// aapt resource value: 0x7f030051
-			public const int design_navigation_item_separator = 2130903121;
+			public const int digitalgauge_layout = 2130903121;
 			
 			// aapt resource value: 0x7f030052
-			public const int design_navigation_item_subheader = 2130903122;
+			public const int drawer_blur_fade_layer = 2130903122;
 			
 			// aapt resource value: 0x7f030053
-			public const int design_navigation_menu = 2130903123;
+			public const int hockeyapp_activity_expiry_info = 2130903123;
 			
 			// aapt resource value: 0x7f030054
-			public const int design_navigation_menu_item = 2130903124;
+			public const int hockeyapp_activity_feedback = 2130903124;
 			
 			// aapt resource value: 0x7f030055
-			public const int dialog = 2130903125;
+			public const int hockeyapp_activity_login = 2130903125;
 			
 			// aapt resource value: 0x7f030056
-			public const int digitalgauge_layout = 2130903126;
+			public const int hockeyapp_activity_update = 2130903126;
 			
 			// aapt resource value: 0x7f030057
-			public const int drawer_blur_fade_layer = 2130903127;
+			public const int hockeyapp_fragment_update = 2130903127;
 			
 			// aapt resource value: 0x7f030058
-			public const int hockeyapp_activity_expiry_info = 2130903128;
+			public const int hockeyapp_view_feedback_message = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int hockeyapp_activity_feedback = 2130903129;
+			public const int inline_event = 2130903129;
 			
 			// aapt resource value: 0x7f03005a
-			public const int hockeyapp_activity_login = 2130903130;
+			public const int legend_item_view = 2130903130;
 			
 			// aapt resource value: 0x7f03005b
-			public const int hockeyapp_activity_update = 2130903131;
+			public const int linear_layout = 2130903131;
 			
 			// aapt resource value: 0x7f03005c
-			public const int hockeyapp_fragment_update = 2130903132;
+			public const int loading = 2130903132;
 			
 			// aapt resource value: 0x7f03005d
-			public const int hockeyapp_view_feedback_message = 2130903133;
+			public const int loadingimage = 2130903133;
 			
 			// aapt resource value: 0x7f03005e
-			public const int inline_event = 2130903134;
+			public const int loadingprogress = 2130903134;
 			
 			// aapt resource value: 0x7f03005f
-			public const int legend_item_view = 2130903135;
+			public const int month = 2130903135;
 			
 			// aapt resource value: 0x7f030060
-			public const int linear_layout = 2130903136;
+			public const int mr_chooser_dialog = 2130903136;
 			
 			// aapt resource value: 0x7f030061
-			public const int loading = 2130903137;
+			public const int mr_chooser_list_item = 2130903137;
 			
 			// aapt resource value: 0x7f030062
-			public const int loadingimage = 2130903138;
+			public const int mr_controller_material_dialog_b = 2130903138;
 			
 			// aapt resource value: 0x7f030063
-			public const int loadingprogress = 2130903139;
+			public const int mr_controller_volume_item = 2130903139;
 			
 			// aapt resource value: 0x7f030064
-			public const int month = 2130903140;
+			public const int mr_playback_control = 2130903140;
 			
 			// aapt resource value: 0x7f030065
-			public const int mr_chooser_dialog = 2130903141;
+			public const int mr_volume_control = 2130903141;
 			
 			// aapt resource value: 0x7f030066
-			public const int mr_chooser_list_item = 2130903142;
+			public const int navigation_drawer_content = 2130903142;
 			
 			// aapt resource value: 0x7f030067
-			public const int mr_controller_material_dialog_b = 2130903143;
+			public const int navigation_item_view = 2130903143;
 			
 			// aapt resource value: 0x7f030068
-			public const int mr_controller_volume_item = 2130903144;
+			public const int notification_media_action = 2130903144;
 			
 			// aapt resource value: 0x7f030069
-			public const int mr_playback_control = 2130903145;
+			public const int notification_media_cancel_action = 2130903145;
 			
 			// aapt resource value: 0x7f03006a
-			public const int mr_volume_control = 2130903146;
+			public const int notification_template_big_media = 2130903146;
 			
 			// aapt resource value: 0x7f03006b
-			public const int navigation_drawer_content = 2130903147;
+			public const int notification_template_big_media_narrow = 2130903147;
 			
 			// aapt resource value: 0x7f03006c
-			public const int navigation_item_view = 2130903148;
+			public const int notification_template_lines = 2130903148;
 			
 			// aapt resource value: 0x7f03006d
-			public const int notification_media_action = 2130903149;
+			public const int notification_template_media = 2130903149;
 			
 			// aapt resource value: 0x7f03006e
-			public const int notification_media_cancel_action = 2130903150;
+			public const int notification_template_part_chronometer = 2130903150;
 			
 			// aapt resource value: 0x7f03006f
-			public const int notification_template_big_media = 2130903151;
+			public const int notification_template_part_time = 2130903151;
 			
 			// aapt resource value: 0x7f030070
-			public const int notification_template_big_media_narrow = 2130903152;
+			public const int number_picker = 2130903152;
 			
 			// aapt resource value: 0x7f030071
-			public const int notification_template_lines = 2130903153;
+			public const int ohlc_trackball_item_content = 2130903153;
 			
 			// aapt resource value: 0x7f030072
-			public const int notification_template_media = 2130903154;
+			public const int on_demand_automatic = 2130903154;
 			
 			// aapt resource value: 0x7f030073
-			public const int notification_template_part_chronometer = 2130903155;
+			public const int on_demand_manual = 2130903155;
 			
 			// aapt resource value: 0x7f030074
-			public const int notification_template_part_time = 2130903156;
+			public const int popup_event = 2130903156;
 			
 			// aapt resource value: 0x7f030075
-			public const int number_picker = 2130903157;
+			public const int radchartbase = 2130903157;
 			
 			// aapt resource value: 0x7f030076
-			public const int ohlc_trackball_item_content = 2130903158;
+			public const int radlegendcontrol = 2130903158;
 			
 			// aapt resource value: 0x7f030077
-			public const int on_demand_automatic = 2130903159;
+			public const int range_navigator_layout = 2130903159;
 			
 			// aapt resource value: 0x7f030078
-			public const int on_demand_manual = 2130903160;
+			public const int range_trackball_item_content = 2130903160;
 			
 			// aapt resource value: 0x7f030079
-			public const int popup_event = 2130903161;
+			public const int select_dialog_item_material = 2130903161;
 			
 			// aapt resource value: 0x7f03007a
-			public const int radchartbase = 2130903162;
+			public const int select_dialog_multichoice_material = 2130903162;
 			
 			// aapt resource value: 0x7f03007b
-			public const int radlegendcontrol = 2130903163;
+			public const int select_dialog_singlechoice_material = 2130903163;
 			
 			// aapt resource value: 0x7f03007c
-			public const int range_navigator_layout = 2130903164;
+			public const int sfautocomplete_layout = 2130903164;
 			
 			// aapt resource value: 0x7f03007d
-			public const int range_trackball_item_content = 2130903165;
+			public const int simple_empty_content = 2130903165;
 			
 			// aapt resource value: 0x7f03007e
-			public const int select_dialog_item_material = 2130903166;
+			public const int simple_group_header_item = 2130903166;
 			
 			// aapt resource value: 0x7f03007f
-			public const int select_dialog_multichoice_material = 2130903167;
+			public const int simple_list_item = 2130903167;
 			
 			// aapt resource value: 0x7f030080
-			public const int select_dialog_singlechoice_material = 2130903168;
+			public const int suggestion_item_layout = 2130903168;
 			
 			// aapt resource value: 0x7f030081
-			public const int sfautocomplete_layout = 2130903169;
+			public const int support_simple_spinner_dropdown_item = 2130903169;
 			
 			// aapt resource value: 0x7f030082
-			public const int simple_empty_content = 2130903170;
+			public const int tab_item_view = 2130903170;
 			
 			// aapt resource value: 0x7f030083
-			public const int simple_group_header_item = 2130903171;
+			public const int Tabbar = 2130903171;
 			
 			// aapt resource value: 0x7f030084
-			public const int simple_list_item = 2130903172;
+			public const int table_layout = 2130903172;
 			
 			// aapt resource value: 0x7f030085
-			public const int suggestion_item_layout = 2130903173;
+			public const int token = 2130903173;
 			
 			// aapt resource value: 0x7f030086
-			public const int support_simple_spinner_dropdown_item = 2130903174;
+			public const int Toolbar = 2130903174;
 			
 			// aapt resource value: 0x7f030087
-			public const int tab_item_view = 2130903175;
+			public const int tooltip_container = 2130903175;
 			
 			// aapt resource value: 0x7f030088
-			public const int Tabbar = 2130903176;
+			public const int trackball_container = 2130903176;
 			
 			// aapt resource value: 0x7f030089
-			public const int table_layout = 2130903177;
+			public const int trial_message = 2130903177;
 			
 			// aapt resource value: 0x7f03008a
-			public const int token = 2130903178;
-			
-			// aapt resource value: 0x7f03008b
-			public const int Toolbar = 2130903179;
-			
-			// aapt resource value: 0x7f03008c
-			public const int tooltip_container = 2130903180;
-			
-			// aapt resource value: 0x7f03008d
-			public const int trackball_container = 2130903181;
-			
-			// aapt resource value: 0x7f03008e
-			public const int trial_message = 2130903182;
-			
-			// aapt resource value: 0x7f03008f
-			public const int week = 2130903183;
+			public const int week = 2130903178;
 			
 			static Layout()
 			{
@@ -17798,8 +16138,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b015a
 			public const int Animation_Design_BottomSheetDialog = 2131427674;
 			
-			// aapt resource value: 0x7f0b019a
-			public const int AppCompatDialogStyle = 2131427738;
+			// aapt resource value: 0x7f0b0192
+			public const int AppCompatDialogStyle = 2131427730;
 			
 			// aapt resource value: 0x7f0b0178
 			public const int AppTheme = 2131427704;
@@ -17824,30 +16164,6 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f0b0187
 			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_DateTimeContinuousAxisStyle = 2131427719;
-			
-			// aapt resource value: 0x7f0b0197
-			public const int BB_BottomBarBadge_Text = 2131427735;
-			
-			// aapt resource value: 0x7f0b0190
-			public const int BB_BottomBarItem = 2131427728;
-			
-			// aapt resource value: 0x7f0b0191
-			public const int BB_BottomBarItem_Fixed = 2131427729;
-			
-			// aapt resource value: 0x7f0b0193
-			public const int BB_BottomBarItem_Fixed_TitleAppearance = 2131427731;
-			
-			// aapt resource value: 0x7f0b0194
-			public const int BB_BottomBarItem_Shifting = 2131427732;
-			
-			// aapt resource value: 0x7f0b0195
-			public const int BB_BottomBarItem_Shifting_TitleAppearance = 2131427733;
-			
-			// aapt resource value: 0x7f0b0196
-			public const int BB_BottomBarItem_Tablet = 2131427734;
-			
-			// aapt resource value: 0x7f0b0192
-			public const int BB_BottomBarItem_TitleStyle = 2131427730;
 			
 			// aapt resource value: 0x7f0b00a5
 			public const int Base_AlertDialog_AppCompat = 2131427493;
@@ -18344,11 +16660,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b018f
 			public const int HockeyApp_SingleLineInputStyle = 2131427727;
 			
-			// aapt resource value: 0x7f0b0198
-			public const int MainTheme = 2131427736;
+			// aapt resource value: 0x7f0b0190
+			public const int MainTheme = 2131427728;
 			
-			// aapt resource value: 0x7f0b0199
-			public const int MainTheme_Base = 2131427737;
+			// aapt resource value: 0x7f0b0191
+			public const int MainTheme_Base = 2131427729;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int Platform_AppCompat = 2131427378;

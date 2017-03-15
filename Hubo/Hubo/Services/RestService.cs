@@ -41,9 +41,8 @@ namespace Hubo
 
             // loginModel.usernameOrEmailAddress = username;
             // loginModel.password = password;
-            loginModel.usernameOrEmailAddress = "ben@triotech.co.nz";
+            loginModel.UsernameOrEmailAddress = "ben@triotech.co.nz";
             loginModel.Password = "tazmania";
-            loginModel.password = "tazmania";
 
             string json = JsonConvert.SerializeObject(loginModel);
 
@@ -546,27 +545,6 @@ namespace Hubo
                 shiftModel.endLocationLat = shift.EndLat;
                 shiftModel.endLocationLong = shift.EndLong;
                 shiftModel.endLocation = shift.EndLocation;
-                return false;
-            }
-        }
-
-        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
-        {
-            string contentType = Constants.CONTENT_TYPE;
-            string url;
-
-            string json;
-
-            if (shiftStarted)
-            {
-                url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
-                EndShiftModel shiftModel = new EndShiftModel();
-
-                shiftModel.id = shift.ServerKey;
-                shiftModel.endDate = shift.EndDate;
-                shiftModel.endLocationLat = shift.EndLat;
-                shiftModel.endLocationLong = shift.EndLong;
-                shiftModel.endLocation = shift.EndLocation;
                 shiftModel.endNote = shift.EndNote;
 
                 json = JsonConvert.SerializeObject(shiftModel);
@@ -719,22 +697,26 @@ namespace Hubo
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDBREAKSTART;
 
-                BreakStartModel breakModel = new BreakStartModel();
-                breakModel.shiftId = breakTable.ShiftKey;
-                breakModel.startBreakDateTime = breakTable.StartDate;
-                breakModel.startBreakLocation = breakTable.StartLocation;
-
+                BreakStartModel breakModel = new BreakStartModel()
+                {
+                    shiftId = breakTable.ShiftKey,
+                    startBreakDateTime = breakTable.StartDate,
+                    startBreakLocation = breakTable.StartLocation,
+                    startNote = breakTable.StartNote
+                };
                 json = JsonConvert.SerializeObject(breakModel);
             }
             else
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDBREAKEND;
 
-                BreakEndModel breakModel = new BreakEndModel();
-                breakModel.id = breakTable.ServerId;
-                breakModel.stopBreakDateTime = breakTable.EndDate;
-                breakModel.stopBreakLocation = breakTable.EndLocation;
-
+                BreakEndModel breakModel = new BreakEndModel()
+                {
+                    id = breakTable.ServerId,
+                    stopBreakDateTime = breakTable.EndDate,
+                    stopBreakLocation = breakTable.EndLocation,
+                    endNote = breakTable.EndNote
+                };
                 json = JsonConvert.SerializeObject(breakModel);
             }
 

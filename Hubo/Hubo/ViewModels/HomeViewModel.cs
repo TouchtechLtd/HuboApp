@@ -171,7 +171,7 @@ namespace Hubo
 
         public bool PickerEnabled { get; set; }
 
-        public string DriveTimes { get; set; }
+        public string ShiftTimes { get; set; }
 
         public FileImageSource ShiftImage { get; set; }
 
@@ -271,7 +271,6 @@ namespace Hubo
                     count++;
                 }
 
-                DriveTimes = dbService.GetDriveTimes();
                 VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
                 VehicleTextColor = Color.FromHex("#F9D029");
