@@ -303,13 +303,49 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 ShiftStarted = true;
-                ToggleShiftXaml();
+                ShowEndShiftXAML();
             }
             else
             {
                 ShiftStarted = false;
-                ToggleShiftXaml();
+                ShowStartShiftXAML();
             }
+        }
+		
+		
+        private void ShowEndShiftXAML()
+        {
+            ShiftText = "End Shift";
+            ShiftButtonColor = Color.FromHex("#cc0000");
+            StartShiftVisibility = false;
+            ShiftStarted = true;
+            ShiftRunning = true;
+            ShiftImage = "Stop.png";
+
+            OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftRunning");
+            OnPropertyChanged("ShiftButtonColor");
+            OnPropertyChanged("StartShiftVisibility");
+            OnPropertyChanged("ShiftStarted");
+            OnPropertyChanged("ShiftImage");
+            OnPropertyChanged("ShiftTimes");
+        }
+
+        private void ShowStartShiftXAML()
+        {
+            ShiftText = "Start Shift";
+            ShiftButtonColor = Color.FromHex("#009900");
+            StartShiftVisibility = true;
+            ShiftStarted = false;
+            ShiftRunning = false;
+            ShiftImage = "Play.png";
+
+            OnPropertyChanged("ShiftText");
+            OnPropertyChanged("ShiftRunning");
+            OnPropertyChanged("ShiftButtonColor");
+            OnPropertyChanged("StartShiftVisibility");
+            OnPropertyChanged("ShiftStarted");
+            OnPropertyChanged("ShiftImage");
         }
 
         private void CheckActiveBreak()
@@ -347,9 +383,19 @@ namespace Hubo
                     location = await GetLocation(await restApi.GetLatAndLong().ConfigureAwait(false));
                 }
 
+                if (location == string.Empty)
+                {
+                    return false;
+                }
+
                 int hubo = await HuboPrompt();
 
-                string note = await NotePrompt();
+                if (hubo == 0)
+                {
+                    return false;
+                }
+
+                string note = await NotePromptAsync();
 
                 if ((location == string.Empty) || (hubo == 0))
                 {
@@ -367,6 +413,28 @@ namespace Hubo
 
             return false;
         }
+		
+		        private async Task<string> NotePromptAsync()
+        {
+            if (await UserDialogs.Instance.ConfirmAsync("Would you like to add a note?", "Alert", "I would", "Nope"))
+            {
+                PromptConfig notePrompt = new PromptConfig()
+                {
+                    CancelText = "Cancel",
+                    IsCancellable = true,
+                    OkText = "Okay",
+                    Message = "Note: "
+                };
+
+                PromptResult result = await UserDialogs.Instance.PromptAsync(notePrompt);
+                if (result.Ok && result.Text != string.Empty)
+                {
+                    return result.Text;
+                }
+            }
+
+            return string.Empty;
+        }
 
         private async Task<bool> StopDrive()
         {
@@ -379,14 +447,19 @@ namespace Hubo
                     location = await GetLocation(await restApi.GetLatAndLong().ConfigureAwait(false));
                 }
 
-                int hubo = await HuboPrompt();
-
-                string note = await NotePrompt();
-
-                if ((location == string.Empty) || (hubo == 0))
+                if (location == string.Empty)
                 {
                     return false;
                 }
+
+                int hubo = await HuboPrompt();
+
+                if (hubo == 0)
+                {
+                    return false;
+                }
+
+                string note = await NotePromptAsync();
 
                 if (await dbService.StopDrive(hubo, note, location))
                 {
@@ -510,9 +583,11 @@ namespace Hubo
 
         private async Task StopBreak()
         {
-            if (TotalTime > 0)
+            if (RemainTime > 0)
             {
-                if (!await UserDialogs.Instance.ConfirmAsync("You have not had a full 30 minute break, this will not count as a break if you continue. Would you like to end it anyway?", "WARNING", "Yes", "No"))
+                TimeSpan time = TimeSpan.FromSeconds(TotalTime - RemainTime);
+                string remainTimeString = time.ToString(@"mm\:ss");
+                if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", "WARNING", "Yes", "No"))
                 {
                     return;
                 }
@@ -658,6 +733,8 @@ namespace Hubo
 
                             if (await dbService.StopShift(location, note, geoCoords))
                             {
+								ShiftStarted = false;
+                                ShowStartShiftXAML();
                                 UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
                                 MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
@@ -755,6 +832,9 @@ namespace Hubo
 
                 if (await dbService.StartShift(location, note, geoCoords))
                 {
+					ShiftStarted = true;
+                    ShiftTimes = "End Shift by: " + dbService.GetShiftTimes();
+                    ShowEndShiftXAML();
                     UpdateCircularGauge();
                     MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                     UserDialogs.Instance.ShowSuccess("Shift Started!", 1500);
