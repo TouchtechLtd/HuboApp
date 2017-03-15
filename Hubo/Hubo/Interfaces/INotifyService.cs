@@ -8,8 +8,8 @@ namespace Hubo
 
     public interface INotifyService
     {
-        void PresentNotification(string title, string text, bool endCounter, bool endButton);
+        void PresentNotification(string title, string text, bool endCounter);
 
-        void UpdateNotification(string title, string text, bool endCounter, bool endButton);
+        void UpdateNotification(string title, string text, bool endCounter);
     }
 }

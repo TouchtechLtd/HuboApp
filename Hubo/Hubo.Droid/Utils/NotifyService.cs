@@ -11,26 +11,25 @@ namespace Hubo.Droid
 {
     using Android.App;
     using Android.Content;
-    using System;
+    using Android.Support.V4.App;
 
     public class NotifyService : INotifyService
     {
         private const int Id = 5;
         private NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-        private Notification.Builder builder = new Notification.Builder(Forms.Context);
+        private NotificationCompat.Builder builder = new NotificationCompat.Builder(Forms.Context);
 
-        private static string KEY_SHIFT_END = "key_shift_end";
-        private static string KEY_BREAK_END = "key_break_end";
-
-        private TaskStackBuilder stackBuilder = TaskStackBuilder.Create(Forms.Context);
+        public const string KEY_TOGGLE_SHIFT = "triotech.hubo.droid.SHIFT";
+        public const string KEY_TOGGLE_BREAK = "triotech.hubo.droid.BREAK";
+        public const string KEY_TOGGLE_DRIVE = "triotech.hubo.droid.Drive";
 
         public NotifyService()
         {
         }
 
-        public void PresentNotification(string title, string text, bool endCounter, bool endButton)
+        public void PresentNotification(string title, string text, bool endCounter)
         {
-            this.builder.SetVisibility(NotificationVisibility.Public);
+            this.builder.SetVisibility((int)NotificationVisibility.Public);
             this.builder.SetContentTitle(title);
             this.builder.SetContentText(text);
             this.builder.SetSmallIcon(Resource.Drawable.icon);
@@ -42,44 +41,74 @@ namespace Hubo.Droid
             if (endCounter)
             {
                 this.builder.SetPriority((int)NotificationPriority.High);
-                this.builder.SetDefaults(NotificationDefaults.All);
+                this.builder.SetDefaults((int)NotificationDefaults.All);
             }
             else
             {
                 this.builder.SetPriority((int)NotificationPriority.Min);
-                this.builder.SetDefaults(NotificationDefaults.Vibrate);
+                this.builder.SetDefaults((int)NotificationDefaults.Vibrate);
             }
 
-            Intent resultIntent = new Intent(Forms.Context, typeof(MainActivity));
-            resultIntent.AddFlags(ActivityFlags.SingleTop);
-
-            PendingIntent pending = PendingIntent.GetActivity(Forms.Context, 0, resultIntent, PendingIntentFlags.OneShot);
-
-            if (endButton)
+            if (title.Contains("Ready"))
             {
-                if (title.Contains("Shift"))
-                {
-                    RemoteInput remote = new RemoteInput.Builder(KEY_SHIFT_END).SetLabel("End Shift").Build();
-                    Notification.Action action = new Notification.Action.Builder(Resource.Drawable.icon, "End Shift", pending).AddRemoteInput(remote).Build();
+                Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
+                PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
 
-                    this.builder.AddAction(action);
-                }
-                else if (title.Contains("Break"))
-                {
-                    RemoteInput remote = new RemoteInput.Builder(KEY_BREAK_END).SetLabel("End Break").Build();
-                    Notification.Action action = new Notification.Action.Builder(Resource.Drawable.icon, "End Break", pending).AddRemoteInput(remote).Build();
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Shift", shiftPending).Build();
 
-                    this.builder.AddAction(action);
-                }
+                this.builder.AddAction(action);
             }
+            else if (title.Contains("Shift"))
+            {
+                Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
+                PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
 
-            //this.builder.SetContentIntent(pending);
+                Intent driveIntent = new Intent(KEY_TOGGLE_DRIVE);
+                PendingIntent drivePending = PendingIntent.GetBroadcast(Forms.Context, 0, driveIntent, PendingIntentFlags.UpdateCurrent);
+
+                Intent breakIntent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent breakPending = PendingIntent.GetBroadcast(Forms.Context, 1, breakIntent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Shift", shiftPending).Build();
+
+                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+
+                NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
+
+                this.builder.AddAction(action);
+                this.builder.AddAction(actionDrive);
+                this.builder.AddAction(actionBreak);
+            }
+            else if (title.Contains("Drive"))
+            {
+                Intent driveIntent = new Intent(KEY_TOGGLE_DRIVE);
+                PendingIntent drivePending = PendingIntent.GetBroadcast(Forms.Context, 0, driveIntent, PendingIntentFlags.UpdateCurrent);
+
+                Intent breakIntent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent breakPending = PendingIntent.GetBroadcast(Forms.Context, 1, breakIntent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+
+                NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
+
+                this.builder.AddAction(action);
+                this.builder.AddAction(actionBreak);
+            }
+            else if (title.Contains("Break"))
+            {
+                Intent intent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent pending = PendingIntent.GetBroadcast(Forms.Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Break", pending).Build();
+
+                this.builder.AddAction(action);
+            }
 
             Notification notification = this.builder.Build();
             this.notifyManager.Notify(Id, notification);
         }
 
-        public void UpdateNotification(string title, string text, bool endCounter, bool endButton)
+        public void UpdateNotification(string title, string text, bool endCounter)
         {
             this.builder.SetContentTitle(title);
             this.builder.SetContentText(text);
@@ -87,20 +116,76 @@ namespace Hubo.Droid
             if (endCounter)
             {
                 this.builder.SetPriority((int)NotificationPriority.High);
-                this.builder.SetDefaults(NotificationDefaults.All);
+                this.builder.SetDefaults((int)NotificationDefaults.All);
             }
             else
             {
                 this.builder.SetPriority((int)NotificationPriority.Min);
-                this.builder.SetDefaults(NotificationDefaults.Vibrate);
+                this.builder.SetDefaults((int)NotificationDefaults.Vibrate);
             }
 
-            Intent resultIntent = new Intent(Forms.Context, typeof(MainActivity));
-            resultIntent.AddFlags(ActivityFlags.SingleTop);
+            if (title.Contains("Ready"))
+            {
+                this.builder.MActions.Clear();
 
-            PendingIntent pending = PendingIntent.GetActivity(Forms.Context, 0, resultIntent, PendingIntentFlags.UpdateCurrent);
+                Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
+                PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
 
-            this.builder.SetContentIntent(pending);
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Shift", shiftPending).Build();
+
+                this.builder.AddAction(action);
+            }
+            else if (title.Contains("Shift"))
+            {
+                this.builder.MActions.Clear();
+
+                Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
+                PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
+
+                Intent driveIntent = new Intent(KEY_TOGGLE_DRIVE);
+                PendingIntent drivePending = PendingIntent.GetBroadcast(Forms.Context, 0, driveIntent, PendingIntentFlags.UpdateCurrent);
+
+                Intent breakIntent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent breakPending = PendingIntent.GetBroadcast(Forms.Context, 1, breakIntent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Shift", shiftPending).Build();
+
+                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+
+                NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
+
+                this.builder.AddAction(action);
+                this.builder.AddAction(actionDrive);
+                this.builder.AddAction(actionBreak);
+            }
+            else if (title.Contains("Drive"))
+            {
+                this.builder.MActions.Clear();
+
+                Intent driveIntent = new Intent(KEY_TOGGLE_DRIVE);
+                PendingIntent drivePending = PendingIntent.GetBroadcast(Forms.Context, 0, driveIntent, PendingIntentFlags.UpdateCurrent);
+
+                Intent breakIntent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent breakPending = PendingIntent.GetBroadcast(Forms.Context, 1, breakIntent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+
+                NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
+
+                this.builder.AddAction(action);
+                this.builder.AddAction(actionBreak);
+            }
+            else if (title.Contains("Break"))
+            {
+                this.builder.MActions.Clear();
+
+                Intent intent = new Intent(KEY_TOGGLE_BREAK);
+                PendingIntent pending = PendingIntent.GetBroadcast(Forms.Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+
+                NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Break", pending).Build();
+
+                this.builder.AddAction(action);
+            }
 
             Notification notification = this.builder.Build();
             this.notifyManager.Notify(Id, notification);

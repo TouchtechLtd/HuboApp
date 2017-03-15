@@ -22,7 +22,7 @@ namespace Hubo.iOS
         {
         }
 
-        public void PresentNotification(string title, string text, bool endCounter, bool endButton)
+        public void PresentNotification(string title, string text, bool endCounter)
         {
             UILocalNotification notification = new UILocalNotification()
             {
@@ -37,7 +37,7 @@ namespace Hubo.iOS
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
 
-        public void UpdateNotification(string title, string text, bool endCounter, bool endButton)
+        public void UpdateNotification(string title, string text, bool endCounter)
         {
             UNUserNotificationCenter notifications = UNUserNotificationCenter.Current;
             notifications.RemoveAllPendingNotificationRequests();

@@ -57,6 +57,21 @@ namespace Hubo
                 }
             });
 
+            MessagingCenter.Subscribe<string>("Toggle Shift", "Toggle Shift", async (s) =>
+            {
+                await ToggleShift();
+            });
+
+            MessagingCenter.Subscribe<string>("Toggle Drive", "Toggle Drive", async (s) =>
+            {
+                await ToggleDrive();
+            });
+
+            MessagingCenter.Subscribe<string>("Toggle Break", "Toggle Break", async (s) =>
+            {
+                await ToggleBreak();
+            });
+
             CompletedJourney = 0;
             RemainderOfJourney = 0;
             Break = 0;
@@ -89,16 +104,16 @@ namespace Hubo
 
                 if (dbService.CheckOnBreak() == -1)
                 {
-                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break", false, true);
+                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break", false);
                 }
                 else
                 {
-                    DependencyService.Get<INotifyService>().PresentNotification("Shift Running", "You are currently working", false, true);
+                    DependencyService.Get<INotifyService>().PresentNotification("Shift Running", "You are currently working", false);
                 }
             }
             else
             {
-                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift", false, false);
+                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift", false);
             }
 
             ShiftButton = new RelayCommand(async () => await ToggleShift());
@@ -567,17 +582,24 @@ namespace Hubo
                 }
                 else
                 {
+					if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
+                {
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
+                }
+
+                if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
+                {
+                    await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
+                }
                     ShiftStarted = true;
                 }
 
                 OnPropertyChanged("ShiftStarted");
-                        CountdownConverter convert = new CountdownConverter();
-                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false, true);
+				
                 ToggleShiftXaml();
-            }
+				
+                            DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
-                        notificationId = 5;
-                        DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now + TimeSpan.FromHours(13), notificationId);
                             CancellationTokenSource cts = this.cancel;
 
             await Application.locator.StopListeningAsync();
@@ -588,7 +610,7 @@ namespace Hubo
                                     return false;
                                 }
 
-                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true, true);
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
                                 return false;
                             });
                         }
@@ -639,11 +661,11 @@ namespace Hubo
                             UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
                             MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                             await Navigation.PushModalAsync(new NZTAMessagePage(2));
-                            DependencyService.Get<INotifyService>().CancelNotification(notificationId);
-                            return true;
-                                DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false, false);
+                            
+                            DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
 
-                                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
+                            Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
+							return true;
                         }
 
                         return false;
@@ -735,10 +757,6 @@ namespace Hubo
                     UpdateCircularGauge();
                     MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                     UserDialogs.Instance.ShowSuccess("Shift Started!", 1500);
-                    CountdownConverter convert = new CountdownConverter();
-
-                    //notificationId = 5;
-                    //DependencyService.Get<INotifyService>().LocalNotification("Shift End", "You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift", DateTime.Now + TimeSpan.FromHours(13), notificationId);
 
                     return true;
                 }

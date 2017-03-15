@@ -403,6 +403,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Utils\IPageController.cs" />
     <Compile Include="Utils\MeasureSpecFactory.cs" />
+    <Compile Include="Utils\NotificationReply.cs" />
     <Compile Include="Utils\NotifyService.cs" />
     <Compile Include="Utils\PageController.cs" />
     <Compile Include="Utils\ReflectedProxy.cs" />
