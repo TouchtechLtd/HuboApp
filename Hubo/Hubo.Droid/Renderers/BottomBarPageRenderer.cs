@@ -231,7 +231,6 @@ namespace Hubo.Droid
             {
                 return;
             }
-
             _bottomBar.SetBackgroundColor(Element.BarBackgroundColor.ToAndroid());
         }
 

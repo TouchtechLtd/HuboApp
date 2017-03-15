@@ -310,12 +310,11 @@ namespace Hubo
                 ShowStartShiftXAML();
             }
         }
-		
-		
+
         private void ShowEndShiftXAML()
         {
             ShiftText = "End Shift";
-            ShiftButtonColor = Color.FromHex("#cc0000");
+            ShiftButtonColor = Color.FromHex("#dd4136");
             StartShiftVisibility = false;
             ShiftStarted = true;
             ShiftRunning = true;
@@ -404,6 +403,7 @@ namespace Hubo
                 if (await dbService.StartDrive(hubo, note, location))
                 {
                     UserDialogs.Instance.ShowSuccess("Drive Started!", 1500);
+                    
                     SetVehicleLabel();
                     GeoCollection();
                     return true;
@@ -647,47 +647,6 @@ namespace Hubo
             {
                 success = await StopShift();
             }
-
-            if (success)
-            {
-                if (ShiftStarted)
-                {
-                    ShiftStarted = false;
-                }
-                else
-                {
-                    if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
-                    {
-                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Unable to get battery status, Please use another device!", Resource.DisplayAlertOkay);
-                    }
-
-                    if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
-                    {
-                        await Application.Current.MainPage.DisplayAlert(Resource.DisplayAlertTitle, "Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertOkay);
-                    }
-                    ShiftStarted = true;
-                }
-
-                OnPropertyChanged("ShiftStarted");
-
-                ToggleShiftXaml();
-
-                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
-
-                CancellationTokenSource cts = this.cancel;
-
-                await Application.locator.StopListeningAsync();
-                Device.StartTimer(TimeSpan.FromHours(13), () =>
-                {
-                    if (this.cancel.IsCancellationRequested)
-                    {
-                        return false;
-                    }
-
-                    DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
-                    return false;
-                });
-            }
         }
 
         private async Task<string> GetLocation(Geolocation geoCoords)
@@ -831,10 +790,25 @@ namespace Hubo
 
                 if (await dbService.StartShift(location, note, geoCoords))
                 {
-					ShiftStarted = true;
+                    ShiftStarted = true;
                     ShiftTimes = "End Shift by: " + dbService.GetShiftTimes();
                     ShowEndShiftXAML();
                     UpdateCircularGauge();
+                    DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
+
+                    CancellationTokenSource cts = this.cancel;
+
+                    await Application.locator.StopListeningAsync();
+                    Device.StartTimer(TimeSpan.FromHours(13), () =>
+                    {
+                        if (this.cancel.IsCancellationRequested)
+                        {
+                            return false;
+                        }
+
+                        DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
+                        return false;
+                    });
                     MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                     UserDialogs.Instance.ShowSuccess("Shift Started!", 1500);
 

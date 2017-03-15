@@ -15,7 +15,8 @@
             BottomBarPage bottomBarPage = new BottomBarPage()
             {
                 FixedMode = true,
-                BarTextColor = Color.Black
+                BarTextColor = Color.White,
+                BarTheme = BottomBarPage.BarThemeTypes.DarkWithoutAlpha
             };
 
             MenuViewModel menuVM = new MenuViewModel();

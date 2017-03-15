@@ -5,7 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
              xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
              xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
-             BackgroundImage="DesertRoadjpg.png"
+             BackgroundImage="openroad.jpg"
              x:Class="Hubo.HomePage">
 
   <ContentPage.Resources>
@@ -36,11 +36,11 @@
 
     <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
 
-    <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="{StaticResource pageBackgroundColour}">
+    <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >
       <syncfusion:SfLinearGauge.Scales>
-        <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="13" ScaleBarColor="#faecec" LabelColor="Gray">
+        <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="15" ScaleBarColor="White" LabelColor="White">
           <syncfusion:LinearScale.MajorTickSettings>
-            <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="Black" />
+            <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="White" />
           </syncfusion:LinearScale.MajorTickSettings>
           <syncfusion:LinearScale.Pointers>
             <syncfusion:BarPointer Value="{Binding CompletedJourney}" Thickness="23" Color="Black"/>
@@ -68,7 +68,7 @@
 
     <Button x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" />
 
-    <Label FontSize="16" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="4" />
+    <Label FontSize="16" TextColor="White" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="4" />
 
     <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
 
