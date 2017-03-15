@@ -18,7 +18,6 @@ namespace Hubo
         private static Stopwatch sw = new Stopwatch();
         private MessagingModel message = new MessagingModel();
         private ToastConfig toastConfig;
-        private int notificationId;
         private CancellationTokenSource cancel;
 
         /// <summary>
@@ -46,8 +45,6 @@ namespace Hubo
             IsRunning = sw.IsRunning;
 
             warningGiven = false;
-
-            notificationId = 10;
 
             cancel = new CancellationTokenSource();
         }
@@ -155,7 +152,7 @@ namespace Hubo
 
             double criticalTime = TotalTime * 0.9;
 
-            DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false, true);
+            DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false);
 
             Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
             {
@@ -164,7 +161,7 @@ namespace Hubo
                     return false;
                 }
 
-                DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true, true);
+                DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true);
                 return false;
             });
 
@@ -216,7 +213,7 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
-                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false, true);
+                DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
                 Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
             }
