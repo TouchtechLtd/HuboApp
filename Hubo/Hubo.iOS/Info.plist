@@ -66,5 +66,9 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SAGNEL.tff</string>
+	</array>
 </dict>
 </plist>

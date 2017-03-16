@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-using Hubo.Helpers;
-using Acr.UserDialogs;
+﻿// <copyright file="SettingsViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class SettingsViewModel : INotifyPropertyChanged
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+    using Acr.UserDialogs;
+    using Hubo.Helpers;
+    using Xamarin.Forms;
+
+    internal class SettingsViewModel : INotifyPropertyChanged
     {
+        public SettingsViewModel()
+        {
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool HamburgerSettings
         {
-            get { return Settings.HamburgerSettings; }
+            get
+            {
+                return Settings.HamburgerSettings;
+            }
+
             set
             {
                 if (Settings.HamburgerSettings == value)
+                {
                     return;
+                }
 
                 Settings.HamburgerSettings = value;
                 OnPropertyChanged("HamburgerSettings");
@@ -30,39 +39,43 @@ namespace Hubo
 
         public bool DarkLightSetting
         {
-            get { return Settings.DarkLightSetting; }
+            get
+            {
+                return Settings.DarkLightSetting;
+            }
+
             set
             {
                 if (Settings.DarkLightSetting == value)
+                {
                     return;
+                }
 
                 Settings.DarkLightSetting = value;
                 OnPropertyChanged("DarkLightSetting");
             }
         }
 
-        public SettingsViewModel()
-        {
-
-        }
-
         public async Task Restart()
         {
-            await UserDialogs.Instance.ConfirmAsync("For this setting to take affect a restart is required, the app will now close", "Layout Change", "OK");
+            await UserDialogs.Instance.ConfirmAsync(Resource.LayoutSettingText, Resource.LayoutSettingTitle, Resource.DisplayAlertOkay);
             var closer = DependencyService.Get<ICloseApplication>();
             if (closer != null)
-                closer.closeApplication();
+            {
+                closer.CloseApplication();
+            }
         }
 
-
-        public void OnPropertyChanged(string name)
+        public async void OnPropertyChanged(string name)
         {
             var changed = PropertyChanged;
             if (changed != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
                 if (name == "HamburgerSettings")
-                    Restart();
+                {
+                    await Restart();
+                }
             }
         }
     }

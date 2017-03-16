@@ -1,5 +1,5 @@
-﻿// <copyright file="LoginPage.xaml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="LoginPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -25,9 +25,9 @@ namespace Hubo
             password.Completed += Password_Completed;
         }
 
-        private void Password_Completed(object sender, EventArgs e)
+        private async void Password_Completed(object sender, EventArgs e)
         {
-            loginVM.NavigateToNZTAMessage();
+            await loginVM.NavigateToNZTAMessage();
         }
     }
 }

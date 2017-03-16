@@ -1,26 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
+// <copyright file="IPageController.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.Droid
 {
+    using System.Collections.ObjectModel;
+    using Xamarin.Forms;
+
     public interface IPageController
     {
-        Rectangle ContainerArea { get; set; }
-
         bool IgnoresContainerArea { get; set; }
 
         ObservableCollection<Element> InternalChildren { get; }
+
+        Rectangle GetContainerArea();
+
+        void SetContainerArea(Rectangle value);
 
         void SendAppearing();
 

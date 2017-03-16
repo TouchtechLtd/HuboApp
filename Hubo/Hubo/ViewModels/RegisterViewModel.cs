@@ -1,9 +1,13 @@
-﻿namespace Hubo
+﻿// <copyright file="RegisterViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
-    using Acr.UserDialogs;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
     using XLabs;
 
@@ -56,17 +60,18 @@
                 {
                     RestService restAPI = new RestService();
 
-                    UserTable user = new UserTable();
-                    user.FirstName = FirstName;
-                    user.LastName = LastName;
-                    user.Email = Email;
-
+                    UserTable user = new UserTable()
+                    {
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Email = Email
+                    };
                     int result = await restAPI.RegisterUser(user, Password);
 
                     switch (result)
                     {
                         case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to register user", Resource.RegisterSuccessTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.RegisterUserError, Resource.RegisterFailTitle, Resource.DisplayAlertOkay);
                             return;
                         default:
                             break;
@@ -77,12 +82,12 @@
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.Alert, Resource.DisplayAlertOkay);
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.MissingText, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.MissingText, Resource.Alert, Resource.DisplayAlertOkay);
             }
         }
     }

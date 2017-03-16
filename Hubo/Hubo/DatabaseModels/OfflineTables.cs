@@ -1,64 +1,87 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="OfflineTables.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ShiftOffline
+    using SQLite.Net.Attributes;
+
+    internal class OfflineTables
     {
-        [PrimaryKey, AutoIncrement]
+    }
+
+    internal class ShiftOffline
+    {
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int ShiftKey { get; set; }
+
         public bool StartOffline { get; set; }
+
         public bool EndOffline { get; set; }
     }
 
-    class DriveOffline
+    internal class DriveOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int DriveKey { get; set; }
+
         public bool StartOffline { get; set; }
+
         public bool EndOffline { get; set; }
     }
 
-    class BreakOffline
+    internal class BreakOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int BreakKey { get; set; }
+
         public bool StartOffline { get; set; }
+
         public bool EndOffline { get; set; }
     }
 
-    class NoteOffline
+    internal class NoteOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int NoteKey { get; set; }
     }
 
-    class VehicleOffline
+    internal class VehicleOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int VehicleKey { get; set; }
     }
 
-    class UserOffline
+    internal class UserOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int UserKey { get; set; }
     }
 
-    class CompanyOffline
+    internal class CompanyOffline
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int CompanyKey { get; set; }
     }
 }

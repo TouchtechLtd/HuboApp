@@ -4,12 +4,12 @@
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Text.RegularExpressions;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     internal class AddManBreakNoteViewModel : INotifyPropertyChanged
@@ -173,10 +173,7 @@ namespace Hubo
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private async void Cancel()
@@ -198,21 +195,22 @@ namespace Hubo
                     return;
                 }
 
-                BreakTable breakAdd = new BreakTable();
-
-                breakAdd.StartDate = BreakStart.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                breakAdd.EndDate = BreakEnd.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                breakAdd.StartLocation = LocationStart;
-                breakAdd.EndLocation = LocationEnd;
-
+                BreakTable breakAdd = new BreakTable()
+                {
+                    StartDate = BreakStart.ToString(Resource.DatabaseDateFormat),
+                    EndDate = BreakEnd.ToString(Resource.DatabaseDateFormat),
+                    StartLocation = LocationStart,
+                    EndLocation = LocationEnd
+                };
                 MessagingCenter.Send(this, "Break_Added", breakAdd);
             }
             else if (Instruction == "Note")
             {
-                NoteTable note = new NoteTable();
-                note.Date = NoteTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                note.Note = NoteDetail;
-
+                NoteTable note = new NoteTable()
+                {
+                    Date = NoteTime.ToString(Resource.DatabaseDateFormat),
+                    Note = NoteDetail
+                };
                 MessagingCenter.Send(this, "Note_Added", note);
             }
             else if (Instruction == "Drive Shift")
@@ -230,14 +228,15 @@ namespace Hubo
                 List<VehicleTable> vehicleKey = new List<VehicleTable>();
                 vehicleKey = GetVehicles();
 
-                DriveTable drive = new DriveTable();
-                drive.StartDate = DriveStartTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                drive.EndDate = DriveEndTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                drive.StartHubo = int.Parse(HuboStart);
-                drive.EndHubo = int.Parse(HuboEnd);
-                drive.ActiveVehicle = false;
-                drive.VehicleKey = vehicleKey[SelectedVehicle].Key;
-
+                DriveTable drive = new DriveTable()
+                {
+                    StartDate = DriveStartTime.ToString(Resource.DatabaseDateFormat),
+                    EndDate = DriveEndTime.ToString(Resource.DatabaseDateFormat),
+                    StartHubo = int.Parse(HuboStart),
+                    EndHubo = int.Parse(HuboEnd),
+                    ActiveVehicle = false,
+                    VehicleKey = vehicleKey[SelectedVehicle].Key
+                };
                 MessagingCenter.Send(this, "Drive_Added", drive);
             }
 
@@ -249,13 +248,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 

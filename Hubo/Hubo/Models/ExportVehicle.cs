@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ExportVehicle.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ExportVehicle
+    internal class ExportVehicle
     {
-        public string shiftCode { get; set; }
-        public string vehicleMakeModel { get; set; }
-        public string vehicleRego { get; set; }
-        public string vehicleCompany { get; set; }
-        public string currentVehicle { get; set; }
-        public string huboStart { get; set; }
-        public string huboEnd { get; set; }
+        public string ShiftCode { get; set; }
+
+        public string VehicleMakeModel { get; set; }
+
+        public string VehicleRego { get; set; }
+
+        public string VehicleCompany { get; set; }
+
+        public string CurrentVehicle { get; set; }
+
+        public string HuboStart { get; set; }
+
+        public string HuboEnd { get; set; }
     }
 }

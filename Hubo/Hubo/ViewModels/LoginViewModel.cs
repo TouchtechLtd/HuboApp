@@ -74,20 +74,20 @@ namespace Hubo
                         }
                         else
                         {
-                            await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.NoUsernameOrPasswordTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.DisplayAlertOkay);
                             db.ClearTablesForUserShifts();
                         }
                     }
                     else
                     {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.NoUsernameOrPasswordTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.DisplayAlertOkay);
                         db.ClearTablesForUserShifts();
                     }
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.NoUsernameOrPasswordMessage, Resource.NoUsernameOrPasswordTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.NoUsernameOrPasswordMessage, Resource.Alert, Resource.DisplayAlertOkay);
             }
         }
 

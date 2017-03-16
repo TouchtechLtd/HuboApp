@@ -4,13 +4,13 @@
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Text.RegularExpressions;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     public class EditShiftDetailsViewModel : INotifyPropertyChanged
@@ -205,7 +205,6 @@ namespace Hubo
                         EndTimeText = Resource.EndTime;
                         BreakEndLabel = Resource.EndLocation;
                         EditingEndBreak = true;
-
                     }
                 }
                 else
@@ -283,7 +282,6 @@ namespace Hubo
                         DriveEndTime = DateTime.Parse(currentDrive.EndDate).TimeOfDay;
                         DriveEndHubo = currentDrive.EndHubo.ToString();
                         EditingEndDrive = true;
-
                     }
 
                     VehicleId = currentDrive.VehicleKey;
@@ -350,52 +348,60 @@ namespace Hubo
 
                     if ((BreakStartDate.Date != oldStartBreakDate) || (BreakStartTime != oldStartBreakTime))
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "StartDate";
-                        newAmendment.ShiftId = currentShift.Key;
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentBreak.StartDate;
-                        newAmendment.AfterValue = (BreakStartDate + BreakStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "StartDate",
+                            ShiftId = currentShift.Key,
+                            Table = "BreakTable",
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentBreak.StartDate,
+                            AfterValue = (BreakStartDate + BreakStartTime).ToString(Resource.DatabaseDateFormat)
+                        };
+                        currentBreak.StartDate = (BreakStartDate + BreakStartTime).ToString(Resource.DatabaseDateFormat);
                         listOfAmendments.Add(newAmendment);
                     }
 
                     if ((BreakEndDate != oldEndBreakDate) || (BreakEndTime != oldEndBreakTime))
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "EndDate";
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentBreak.EndDate;
-                        newAmendment.AfterValue = (BreakEndDate + BreakEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "EndDate",
+                            Table = "BreakTable",
+                            DriveId = currentDrive.Key,
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentBreak.EndDate,
+                            AfterValue = (BreakEndDate + BreakEndTime).ToString(Resource.DatabaseDateFormat)
+                        };
+                        currentBreak.EndDate = (BreakEndDate + BreakEndTime).ToString(Resource.DatabaseDateFormat);
                         listOfAmendments.Add(newAmendment);
                     }
 
                     if (BreakStartLocation != currentBreak.StartLocation)
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "StartLocation";
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentBreak.StartLocation;
-                        newAmendment.AfterValue = BreakStartLocation;
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "StartLocation",
+                            Table = "BreakTable",
+                            DriveId = currentDrive.Key,
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentBreak.StartLocation,
+                            AfterValue = BreakStartLocation
+                        };
                         currentBreak.EndDate = BreakStartLocation;
                         listOfAmendments.Add(newAmendment);
                     }
 
                     if (BreakEndLocation != currentBreak.EndLocation)
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "EndLocation";
-                        newAmendment.Table = "BreakTable";
-                        newAmendment.DriveId = currentDrive.Key;
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentBreak.EndLocation;
-                        newAmendment.AfterValue = BreakEndLocation;
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "EndLocation",
+                            Table = "BreakTable",
+                            DriveId = currentDrive.Key,
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentBreak.EndLocation,
+                            AfterValue = BreakEndLocation
+                        };
                         currentBreak.EndDate = BreakEndLocation;
                         listOfAmendments.Add(newAmendment);
                     }
@@ -407,14 +413,15 @@ namespace Hubo
                 }
                 else
                 {
-                    BreakTable newBreak = new BreakTable();
-                    newBreak.ShiftKey = currentDrive.Key;
-                    newBreak.ActiveBreak = false;
-                    newBreak.StartDate = (BreakStartDate + BreakStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    newBreak.EndDate = (BreakEndDate + BreakEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    newBreak.StartLocation = BreakStartLocation;
-                    newBreak.EndLocation = BreakEndLocation;
-
+                    BreakTable newBreak = new BreakTable()
+                    {
+                        ShiftKey = currentDrive.Key,
+                        ActiveBreak = false,
+                        StartDate = (BreakStartDate + BreakStartTime).ToString(Resource.DatabaseDateFormat),
+                        EndDate = (BreakEndDate + BreakEndTime).ToString(Resource.DatabaseDateFormat),
+                        StartLocation = BreakStartLocation,
+                        EndLocation = BreakEndLocation
+                    };
                     dbService.SaveBreak(newBreak);
                 }
 
@@ -426,13 +433,15 @@ namespace Hubo
                 {
                     if (NoteEntry != currentNote.Note)
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "Note";
-                        newAmendment.ShiftId = currentShift.Key;
-                        newAmendment.Table = "NoteTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentNote.Note;
-                        newAmendment.AfterValue = NoteEntry;
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "Note",
+                            ShiftId = currentShift.Key,
+                            Table = "NoteTable",
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentNote.Note,
+                            AfterValue = NoteEntry
+                        };
                         currentNote.Note = NoteEntry;
                         listOfAmendments.Add(newAmendment);
                     }
@@ -442,14 +451,16 @@ namespace Hubo
 
                     if ((NoteDate != oldDate) || (NoteTime != oldTime))
                     {
-                        AmendmentTable newAmendment = new AmendmentTable();
-                        newAmendment.Field = "Date";
-                        newAmendment.ShiftId = currentShift.Key;
-                        newAmendment.Table = "NoteTable";
-                        newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newAmendment.BeforeValue = currentNote.Date;
-                        newAmendment.AfterValue = (NoteDate + NoteTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        currentNote.Date = (NoteDate + NoteTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                        AmendmentTable newAmendment = new AmendmentTable()
+                        {
+                            Field = "Date",
+                            ShiftId = currentShift.Key,
+                            Table = "NoteTable",
+                            TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                            BeforeValue = currentNote.Date,
+                            AfterValue = (NoteDate + NoteTime).ToString(Resource.DatabaseDateFormat)
+                        };
+                        currentNote.Date = (NoteDate + NoteTime).ToString(Resource.DatabaseDateFormat);
                         listOfAmendments.Add(newAmendment);
                     }
 
@@ -460,11 +471,12 @@ namespace Hubo
                 }
                 else
                 {
-                    NoteTable newNote = new NoteTable();
-                    newNote.Date = (NoteDate + NoteTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    newNote.Note = NoteEntry;
-                    newNote.ShiftKey = currentShift.Key;
-
+                    NoteTable newNote = new NoteTable()
+                    {
+                        Date = (NoteDate + NoteTime).ToString(Resource.DatabaseDateFormat),
+                        Note = NoteEntry,
+                        ShiftKey = currentShift.Key
+                    };
                     dbService.InsertNote(newNote);
                 }
 
@@ -484,65 +496,75 @@ namespace Hubo
 
                         if ((DriveStartDate.Date != oldStartDriveDate) || (DriveStartTime != oldStartDriveTime))
                         {
-                            AmendmentTable newAmendment = new AmendmentTable();
-                            newAmendment.Field = "StartDate";
-                            newAmendment.DriveId = currentDrive.Key;
-                            newAmendment.Table = "DriveTable";
-                            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            newAmendment.BeforeValue = currentDrive.StartDate;
-                            newAmendment.AfterValue = (DriveStartDate + DriveStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            currentDrive.StartDate = (DriveStartDate + DriveStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                            AmendmentTable newAmendment = new AmendmentTable()
+                            {
+                                Field = "StartDate",
+                                DriveId = currentDrive.Key,
+                                Table = "DriveTable",
+                                TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                                BeforeValue = currentDrive.StartDate,
+                                AfterValue = (DriveStartDate + DriveStartTime).ToString(Resource.DatabaseDateFormat)
+                            };
+                            currentDrive.StartDate = (DriveStartDate + DriveStartTime).ToString(Resource.DatabaseDateFormat);
                             listOfAmendments.Add(newAmendment);
                         }
 
                         if ((DriveEndDate != oldEndDriveDate) || (DriveEndTime != oldEndDriveTime))
                         {
-                            AmendmentTable newAmendment = new AmendmentTable();
-                            newAmendment.Field = "EndDate";
-                            newAmendment.Table = "DriveTable";
-                            newAmendment.DriveId = currentDrive.Key;
-                            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            newAmendment.BeforeValue = currentDrive.EndDate;
-                            newAmendment.AfterValue = (DriveEndDate + DriveEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            currentDrive.EndDate = (DriveEndDate + DriveEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                            AmendmentTable newAmendment = new AmendmentTable()
+                            {
+                                Field = "EndDate",
+                                Table = "DriveTable",
+                                DriveId = currentDrive.Key,
+                                TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                                BeforeValue = currentDrive.EndDate,
+                                AfterValue = (DriveEndDate + DriveEndTime).ToString(Resource.DatabaseDateFormat)
+                            };
+                            currentDrive.EndDate = (DriveEndDate + DriveEndTime).ToString(Resource.DatabaseDateFormat);
                             listOfAmendments.Add(newAmendment);
                         }
 
                         if ((VehicleId - 1) != SelectedIndex)
                         {
-                            AmendmentTable newAmendment = new AmendmentTable();
-                            newAmendment.Field = "VehicleKey";
-                            newAmendment.Table = "DriveTable";
-                            newAmendment.DriveId = currentDrive.Key;
-                            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            newAmendment.BeforeValue = VehicleId.ToString();
-                            newAmendment.AfterValue = (SelectedIndex + 1).ToString();
+                            AmendmentTable newAmendment = new AmendmentTable()
+                            {
+                                Field = "VehicleKey",
+                                Table = "DriveTable",
+                                DriveId = currentDrive.Key,
+                                TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                                BeforeValue = VehicleId.ToString(),
+                                AfterValue = (SelectedIndex + 1).ToString()
+                            };
                             currentDrive.StartHubo = SelectedIndex + 1;
                             listOfAmendments.Add(newAmendment);
                         }
 
                         if (int.Parse(DriveStartHubo) != currentDrive.StartHubo)
                         {
-                            AmendmentTable newAmendment = new AmendmentTable();
-                            newAmendment.Field = "StartHubo";
-                            newAmendment.Table = "DriveTable";
-                            newAmendment.DriveId = currentDrive.Key;
-                            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            newAmendment.BeforeValue = currentDrive.StartHubo.ToString();
-                            newAmendment.AfterValue = DriveStartHubo.ToString();
+                            AmendmentTable newAmendment = new AmendmentTable()
+                            {
+                                Field = "StartHubo",
+                                Table = "DriveTable",
+                                DriveId = currentDrive.Key,
+                                TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                                BeforeValue = currentDrive.StartHubo.ToString(),
+                                AfterValue = DriveStartHubo.ToString()
+                            };
                             currentDrive.StartHubo = int.Parse(DriveStartHubo);
                             listOfAmendments.Add(newAmendment);
                         }
 
                         if (int.Parse(DriveEndHubo) != currentDrive.EndHubo)
                         {
-                            AmendmentTable newAmendment = new AmendmentTable();
-                            newAmendment.Field = "EndHubo";
-                            newAmendment.Table = "DriveTable";
-                            newAmendment.DriveId = currentDrive.Key;
-                            newAmendment.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                            newAmendment.BeforeValue = currentDrive.EndHubo.ToString();
-                            newAmendment.AfterValue = DriveEndHubo.ToString();
+                            AmendmentTable newAmendment = new AmendmentTable()
+                            {
+                                Field = "EndHubo",
+                                Table = "DriveTable",
+                                DriveId = currentDrive.Key,
+                                TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                                BeforeValue = currentDrive.EndHubo.ToString(),
+                                AfterValue = DriveEndHubo.ToString()
+                            };
                             currentDrive.EndHubo = int.Parse(DriveEndHubo);
                             listOfAmendments.Add(newAmendment);
                         }
@@ -554,15 +576,16 @@ namespace Hubo
                     }
                     else
                     {
-                        DriveTable newDrive = new DriveTable();
-                        newDrive.ShiftKey = currentShift.Key;
-                        newDrive.ActiveVehicle = false;
-                        newDrive.VehicleKey = SelectedIndex + 1;
-                        newDrive.StartDate = (DriveStartDate + DriveStartTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newDrive.EndDate = (DriveEndDate + DriveEndTime).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                        newDrive.StartHubo = int.Parse(DriveStartHubo);
-                        newDrive.EndHubo = int.Parse(DriveEndHubo);
-
+                        DriveTable newDrive = new DriveTable()
+                        {
+                            ShiftKey = currentShift.Key,
+                            ActiveVehicle = false,
+                            VehicleKey = SelectedIndex + 1,
+                            StartDate = (DriveStartDate + DriveStartTime).ToString(Resource.DatabaseDateFormat),
+                            EndDate = (DriveEndDate + DriveEndTime).ToString(Resource.DatabaseDateFormat),
+                            StartHubo = int.Parse(DriveStartHubo),
+                            EndHubo = int.Parse(DriveEndHubo)
+                        };
                         dbService.InsertDrive(newDrive);
                     }
 
@@ -581,13 +604,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if ((DriveStartHubo.Length == 0) || (DriveEndHubo.Length == 0))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(DriveStartHubo) || !regex.IsMatch(DriveEndHubo))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 

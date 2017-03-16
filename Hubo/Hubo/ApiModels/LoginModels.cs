@@ -11,6 +11,10 @@ namespace Hubo
     using System.Threading.Tasks;
     using Newtonsoft.Json;
 
+    public class LoginModels
+    {
+    }
+
     public class LoginRequestModel
     {
         public string UsernameOrEmailAddress { get; set; }

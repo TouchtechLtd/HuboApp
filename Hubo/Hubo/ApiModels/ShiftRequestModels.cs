@@ -4,11 +4,9 @@
 
 namespace Hubo
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    internal class ShiftRequestModels
+    {
+    }
 
     internal class StartShiftModel
     {
@@ -23,6 +21,7 @@ namespace Hubo
         public double startLocationLong { get; set; }
 
         public string startLocation { get; set; }
+
         public string startNote { get; set; }
     }
 
@@ -37,6 +36,7 @@ namespace Hubo
         public double endLocationLong { get; set; }
 
         public string endLocation { get; set; }
+
         public string endNote { get; set; }
     }
 
@@ -49,6 +49,7 @@ namespace Hubo
         public string startDrivingDateTime { get; set; }
 
         public int startHubo { get; set; }
+
         public string startNote { get; set; }
     }
 
@@ -59,6 +60,7 @@ namespace Hubo
         public string stopDrivingDateTime { get; set; }
 
         public int stopHubo { get; set; }
+
         public string endNote { get; set; }
     }
 
@@ -80,6 +82,7 @@ namespace Hubo
         public string stopBreakDateTime { get; set; }
 
         public string stopBreakLocation { get; set; }
+
         public string endNote { get; set; }
     }
 

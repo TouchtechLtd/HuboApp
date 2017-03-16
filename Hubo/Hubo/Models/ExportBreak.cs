@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ExportBreak.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ExportBreak
+    internal class ExportBreak
     {
-        public string shiftCode { get; set; }
-        public string breakStart { get; set; }
-        public string breakEnd { get; set; }
-        public string activeBreak { get; set; }
-        public string breakStartLocation { get; set; }
-        public string breakEndLocation { get; set; }
+        public string ShiftCode { get; set; }
+
+        public string BreakStart { get; set; }
+
+        public string BreakEnd { get; set; }
+
+        public string ActiveBreak { get; set; }
+
+        public string BreakStartLocation { get; set; }
+
+        public string BreakEndLocation { get; set; }
     }
 }

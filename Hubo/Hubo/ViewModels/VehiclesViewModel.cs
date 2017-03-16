@@ -1,15 +1,14 @@
-﻿// <copyright file="VehiclesViewModel.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="VehiclesViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
     using XLabs;
 
@@ -185,11 +184,13 @@ namespace Hubo
 
         private VehicleTable BindXAMLToVehicle()
         {
-            VehicleTable editedVehicle = new VehicleTable();
-            editedVehicle.CompanyId = SelectedCompany + 1;
-            editedVehicle.MakeModel = MakeModelEntry;
-            editedVehicle.Registration = RegistrationEntry;
-            editedVehicle.FleetNumber = FleetEntry;
+            VehicleTable editedVehicle = new VehicleTable()
+            {
+                CompanyId = SelectedCompany + 1,
+                MakeModel = MakeModelEntry,
+                Registration = RegistrationEntry,
+                FleetNumber = FleetEntry
+            };
             return editedVehicle;
         }
 
@@ -214,7 +215,7 @@ namespace Hubo
         {
             if (currentVehicle.Registration == null)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.ChooseVehicleToEdit, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.ChooseVehicleToEdit, Resource.Alert, Resource.DisplayAlertOkay);
             }
             else
             {

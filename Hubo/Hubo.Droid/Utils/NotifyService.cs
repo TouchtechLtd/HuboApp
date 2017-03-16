@@ -15,13 +15,13 @@ namespace Hubo.Droid
 
     public class NotifyService : INotifyService
     {
-        private const int Id = 5;
-        private NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
-        private NotificationCompat.Builder builder = new NotificationCompat.Builder(Forms.Context);
-
         public const string KEY_TOGGLE_SHIFT = "triotech.hubo.droid.SHIFT";
         public const string KEY_TOGGLE_BREAK = "triotech.hubo.droid.BREAK";
         public const string KEY_TOGGLE_DRIVE = "triotech.hubo.droid.Drive";
+
+        private const int Id = 5;
+        private NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+        private NotificationCompat.Builder builder = new NotificationCompat.Builder(Forms.Context);
 
         public NotifyService()
         {

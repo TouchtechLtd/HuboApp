@@ -116,6 +116,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to add a note?.
+        /// </summary>
+        internal static string AddNoteQuery {
+            get {
+                return ResourceManager.GetString("AddNoteQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address:.
         /// </summary>
         internal static string Address {
@@ -134,11 +143,29 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Vehicle.
+        ///   Looks up a localized string similar to Add Vehicle....
         /// </summary>
         internal static string AddVehicleText {
             get {
                 return ResourceManager.GetString("AddVehicleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        internal static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get battery status, Please use another device!.
+        /// </summary>
+        internal static string BatteryStatusError {
+            get {
+                return ResourceManager.GetString("BatteryStatusError", resourceCulture);
             }
         }
         
@@ -224,11 +251,38 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        internal static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to connect to server.
+        /// </summary>
+        internal static string ConnectionError {
+            get {
+                return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         internal static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is the correct odometer.
+        /// </summary>
+        internal static string CorrectOdometer {
+            get {
+                return ResourceManager.GetString("CorrectOdometer", resourceCulture);
             }
         }
         
@@ -247,6 +301,15 @@ namespace Hubo {
         internal static string Dash {
             get {
                 return ResourceManager.GetString("Dash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy-MM-dd HH:mm:ss.fff.
+        /// </summary>
+        internal static string DatabaseDateFormat {
+            get {
+                return ResourceManager.GetString("DatabaseDateFormat", resourceCulture);
             }
         }
         
@@ -278,11 +341,11 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alert.
+        ///   Looks up a localized string similar to Distance Travelled.
         /// </summary>
-        internal static string DisplayAlertTitle {
+        internal static string DistanceTraveled {
             get {
-                return ResourceManager.GetString("DisplayAlertTitle", resourceCulture);
+                return ResourceManager.GetString("DistanceTraveled", resourceCulture);
             }
         }
         
@@ -359,6 +422,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to send e-mail, Please try again.
+        /// </summary>
+        internal static string EmailError {
+            get {
+                return ResourceManager.GetString("EmailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please fill out the note section.
         /// </summary>
         internal static string EmptyNote {
@@ -373,6 +445,42 @@ namespace Hubo {
         internal static string EndBreak {
             get {
                 return ResourceManager.GetString("EndBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please end your break before ending your work shift.
+        /// </summary>
+        internal static string EndBreakBeforeShift {
+            get {
+                return ResourceManager.GetString("EndBreakBeforeShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to end your break?.
+        /// </summary>
+        internal static string EndBreakQuery {
+            get {
+                return ResourceManager.GetString("EndBreakQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please end your driving shift before ending your work shift.
+        /// </summary>
+        internal static string EndDriveBeforeShift {
+            get {
+                return ResourceManager.GetString("EndDriveBeforeShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to end your drive?.
+        /// </summary>
+        internal static string EndDriveQuery {
+            get {
+                return ResourceManager.GetString("EndDriveQuery", resourceCulture);
             }
         }
         
@@ -431,11 +539,29 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to end your shift?.
+        /// </summary>
+        internal static string EndShiftQuery {
+            get {
+                return ResourceManager.GetString("EndShiftQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Time: .
         /// </summary>
         internal static string EndTime {
             get {
                 return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERROR.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -611,6 +737,42 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username/Password is incorrect, Please try again.
+        /// </summary>
+        internal static string IncorrectCredentials {
+            get {
+                return ResourceManager.GetString("IncorrectCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-Enter Odometer.
+        /// </summary>
+        internal static string IncorrectOdometer {
+            get {
+                return ResourceManager.GetString("IncorrectOdometer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I did.
+        /// </summary>
+        internal static string InputCorrect {
+            get {
+                return ResourceManager.GetString("InputCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I did not.
+        /// </summary>
+        internal static string InputIncorrect {
+            get {
+                return ResourceManager.GetString("InputIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please input a location.
         /// </summary>
         internal static string InputLocation {
@@ -638,6 +800,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Server Key.
+        /// </summary>
+        internal static string InvalidServerKey {
+            get {
+                return ResourceManager.GetString("InvalidServerKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         internal static string LastName {
@@ -652,6 +823,24 @@ namespace Hubo {
         internal static string LastShiftEndText {
             get {
                 return ResourceManager.GetString("LastShiftEndText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For this setting to take affect a restart is required, the app will now close.
+        /// </summary>
+        internal static string LayoutSettingText {
+            get {
+                return ResourceManager.GetString("LayoutSettingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout Change.
+        /// </summary>
+        internal static string LayoutSettingTitle {
+            get {
+                return ResourceManager.GetString("LayoutSettingTitle", resourceCulture);
             }
         }
         
@@ -890,15 +1079,6 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alert.
-        /// </summary>
-        internal static string NoUsernameOrPasswordTitle {
-            get {
-                return ResourceManager.GetString("NoUsernameOrPasswordTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to NZTA.
         /// </summary>
         internal static string NZTA {
@@ -922,6 +1102,24 @@ namespace Hubo {
         internal static string NZTADisclaimer {
             get {
                 return ResourceManager.GetString("NZTADisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get photo of registration plate, Please pick a vehicle from the list.
+        /// </summary>
+        internal static string OCRError {
+            get {
+                return ResourceManager.GetString("OCRError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the correct ending odometer.
+        /// </summary>
+        internal static string OdometerError {
+            get {
+                return ResourceManager.GetString("OdometerError", resourceCulture);
             }
         }
         
@@ -953,6 +1151,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose Vehicle:.
+        /// </summary>
+        internal static string PickVehicle {
+            get {
+                return ResourceManager.GetString("PickVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PostCode:.
         /// </summary>
         internal static string PostCode {
@@ -967,6 +1174,15 @@ namespace Hubo {
         internal static string ProfileText {
             get {
                 return ResourceManager.GetString("ProfileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failure.
+        /// </summary>
+        internal static string RegisterFailTitle {
+            get {
+                return ResourceManager.GetString("RegisterFailTitle", resourceCulture);
             }
         }
         
@@ -994,6 +1210,15 @@ namespace Hubo {
         internal static string RegisterText {
             get {
                 return ResourceManager.GetString("RegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to register user, Please try again.
+        /// </summary>
+        internal static string RegisterUserError {
+            get {
+                return ResourceManager.GetString("RegisterUserError", resourceCulture);
             }
         }
         
@@ -1070,6 +1295,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Internal Server Error.
+        /// </summary>
+        internal static string ServerError {
+            get {
+                return ResourceManager.GetString("ServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string SettingsText {
@@ -1115,6 +1349,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to register shift, Please try again.
+        /// </summary>
+        internal static string ShiftRegisterError {
+            get {
+                return ResourceManager.GetString("ShiftRegisterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shift Start Time.
         /// </summary>
         internal static string ShiftStartTime {
@@ -1138,6 +1381,24 @@ namespace Hubo {
         internal static string StartBreak {
             get {
                 return ResourceManager.GetString("StartBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to go on a break?.
+        /// </summary>
+        internal static string StartBreakQuery {
+            get {
+                return ResourceManager.GetString("StartBreakQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to start your drive?.
+        /// </summary>
+        internal static string StartDriveQuery {
+            get {
+                return ResourceManager.GetString("StartDriveQuery", resourceCulture);
             }
         }
         
@@ -1183,6 +1444,15 @@ namespace Hubo {
         internal static string StartShift {
             get {
                 return ResourceManager.GetString("StartShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to start your shift?.
+        /// </summary>
+        internal static string StartShiftQuery {
+            get {
+                return ResourceManager.GetString("StartShiftQuery", resourceCulture);
             }
         }
         
@@ -1322,11 +1592,29 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to register vehicle, Please try again.
+        /// </summary>
+        internal static string VehicleRegistrationError {
+            get {
+                return ResourceManager.GetString("VehicleRegistrationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vehicles.
         /// </summary>
         internal static string VehiclesText {
             get {
                 return ResourceManager.GetString("VehiclesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WARNING.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

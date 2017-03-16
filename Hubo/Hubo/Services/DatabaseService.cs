@@ -172,7 +172,7 @@ namespace Hubo
             DateTime date = default(DateTime);
             date = DateTime.Now - TimeSpan.FromHours(24);
 
-            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] < '%" + date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "%'");
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [StartDate] < '%" + date.ToString(Resource.DatabaseDateFormat) + "%'");
 
             return shifts;
         }
@@ -210,10 +210,10 @@ namespace Hubo
                 db.CreateTable<VehicleOffline>();
             }
 
-            VehicleOffline offline = new VehicleOffline();
-
-            offline.VehicleKey = vehicle.Key;
-
+            VehicleOffline offline = new VehicleOffline()
+            {
+                VehicleKey = vehicle.Key
+            };
             db.Insert(offline);
         }
 
@@ -479,10 +479,10 @@ namespace Hubo
                 db.CreateTable<UserOffline>();
             }
 
-            UserOffline offline = new UserOffline();
-
-            offline.UserKey = user.Id;
-
+            UserOffline offline = new UserOffline()
+            {
+                UserKey = user.Id
+            };
             db.Insert(offline);
         }
 
@@ -512,14 +512,15 @@ namespace Hubo
 
         internal async Task SaveNote(string note, DateTime date)
         {
-            NoteTable newNote = new NoteTable();
-            newNote.Note = note;
-            newNote.Date = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
-
+            NoteTable newNote = new NoteTable()
+            {
+                Note = note,
+                Date = date.ToString(Resource.DatabaseDateFormat)
+            };
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetShift, Resource.Alert, Resource.DisplayAlertOkay);
             }
             else
             {
@@ -533,10 +534,10 @@ namespace Hubo
                 switch (result)
                 {
                     case -1:
-                        await UserDialogs.Instance.ConfirmAsync("Unable to connect to the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                         break;
                     case -2:
-                        await UserDialogs.Instance.ConfirmAsync("Internal server error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.ServerError, Resource.Alert, Resource.DisplayAlertOkay);
                         break;
                     default:
                         return;
@@ -549,10 +550,10 @@ namespace Hubo
                     db.CreateTable<NoteOffline>();
                 }
 
-                NoteOffline offline = new NoteOffline();
-
-                offline.NoteKey = newNote.Key;
-
+                NoteOffline offline = new NoteOffline()
+                {
+                    NoteKey = newNote.Key
+                };
                 db.Insert(offline);
             }
         }
@@ -587,13 +588,13 @@ namespace Hubo
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.OCRError, Resource.Alert, Resource.DisplayAlertOkay);
                 return -1;
             }
 
             if (photo == null)
             {
-                await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.OCRError, Resource.Alert, Resource.DisplayAlertOkay);
                 return -1;
             }
 
@@ -654,22 +655,21 @@ namespace Hubo
             DateTime date = DateTime.Now;
             using (UserDialogs.Instance.Loading("Starting Drive...", null, null, true, MaskType.Gradient))
             {
-
                 List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
                 if ((listOfShifts.Count == 0) || (listOfShifts.Count > 1))
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetShift, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 
                 List<VehicleTable> vehicles = new List<VehicleTable>();
                 vehicles = GetVehicles();
 
-                var vehicleResult = await Application.Current.MainPage.DisplayActionSheet("Choose Vehicle:", Resource.Cancel, "Add Vehicle...", vehicles.Select(l => l.Registration).ToArray());
+                var vehicleResult = await Application.Current.MainPage.DisplayActionSheet(Resource.PickVehicle, Resource.Cancel, Resource.AddVehicleText, vehicles.Select(l => l.Registration).ToArray());
                 int vehicleKey;
                 VehicleTable vehicle = new VehicleTable();
 
-                if (vehicleResult == "Add Vehicle...")
+                if (vehicleResult == Resource.AddVehicleText)
                 {
                     vehicleKey = -1;
                 }
@@ -687,7 +687,7 @@ namespace Hubo
 
                     if (regoKey < 0)
                     {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.DisplayAlertTitle, Resource.UnableToGetShift, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.UnableToGetShift, Resource.DisplayAlertOkay);
                         return false;
                     }
                 }
@@ -696,13 +696,15 @@ namespace Hubo
                     regoKey = vehicleKey;
                 }
 
-                DriveTable newDrive = new DriveTable();
-                newDrive.ActiveVehicle = true;
-                newDrive.ShiftKey = listOfShifts[0].Key;
-                newDrive.StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                newDrive.VehicleKey = regoKey;
-                newDrive.StartHubo = hubo;
-                newDrive.StartNote = note;
+                DriveTable newDrive = new DriveTable()
+                {
+                    ActiveVehicle = true,
+                    ShiftKey = listOfShifts[0].Key,
+                    StartDate = date.ToString(Resource.DatabaseDateFormat),
+                    VehicleKey = regoKey,
+                    StartHubo = hubo,
+                    StartNote = note
+                };
                 db.Insert(newDrive);
 
                 int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
@@ -710,10 +712,10 @@ namespace Hubo
                 switch (result)
                 {
                     case -1:
-                        await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                         break;
                     case -2:
-                        await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.ServerError, Resource.Alert, Resource.DisplayAlertOkay);
                         break;
                     default:
                         newDrive.ServerId = result;
@@ -729,12 +731,12 @@ namespace Hubo
                     db.CreateTable<DriveOffline>();
                 }
 
-                DriveOffline offline = new DriveOffline();
-
-                offline.DriveKey = newDrive.Key;
-                offline.StartOffline = true;
-                offline.EndOffline = false;
-
+                DriveOffline offline = new DriveOffline()
+                {
+                    DriveKey = newDrive.Key,
+                    StartOffline = true,
+                    EndOffline = false
+                };
                 db.Insert(offline);
 
                 return true;
@@ -747,12 +749,11 @@ namespace Hubo
             DateTime date = DateTime.Now;
             using (UserDialogs.Instance.Loading("Ending Drive...", null, null, true, MaskType.Gradient))
             {
-                //await ReturnOffline();
-
+                // await ReturnOffline();
                 List<DriveTable> listOfVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
                 if (listOfVehiclesInUse.Count == 0)
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetVehicle, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetVehicle, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 
@@ -762,23 +763,23 @@ namespace Hubo
 
                 if (distanceTravelled < 0)
                 {
-                    if (await UserDialogs.Instance.ConfirmAsync("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Re-Enter Odometer", "Alert", "This is the correct odometer"))
+                    if (await UserDialogs.Instance.ConfirmAsync("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, Resource.IncorrectOdometer, Resource.Alert, Resource.CorrectOdometer))
                     {
                         return false;
                     }
 
-                    //string[] test = new string[] { "Starting Odometer was initially wrong", "This is correct", "testing" };
-                    //await Application.Current.MainPage.DisplayActionSheet("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Cancel", "??", test);
+                    // string[] test = new string[] { "Starting Odometer was initially wrong", "This is correct", "testing" };
+                    // await Application.Current.MainPage.DisplayActionSheet("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Cancel", "??", test);
                 }
 
-                if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", Resource.DistanceTraveled, Resource.InputCorrect, Resource.InputIncorrect))
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Alert", "Please enter the correct ending odometer", "Got It");
+                    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.OdometerError, Resource.GotIt);
                     return false;
                 }
 
                 drive.ActiveVehicle = false;
-                drive.EndDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                drive.EndDate = date.ToString(Resource.DatabaseDateFormat);
                 drive.EndHubo = hubo;
                 drive.EndNote = note;
                 db.Update(drive);
@@ -792,10 +793,10 @@ namespace Hubo
                     switch (locationResult)
                     {
                         case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ServerError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         default:
                             db.Query<Geolocation>("DELETE FROM [GeolocationTable]");
@@ -810,10 +811,10 @@ namespace Hubo
                     switch (result)
                     {
                         case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ServerError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         default:
                             return true;
@@ -826,11 +827,12 @@ namespace Hubo
                 {
                     db.CreateTable<DriveOffline>();
 
-                    DriveOffline offline = new DriveOffline();
-
-                    offline.DriveKey = drive.Key;
-                    offline.EndOffline = true;
-                    offline.StartOffline = false;
+                    DriveOffline offline = new DriveOffline()
+                    {
+                        DriveKey = drive.Key,
+                        EndOffline = true,
+                        StartOffline = false
+                    };
                     db.Insert(offline);
                 }
                 else
@@ -850,11 +852,12 @@ namespace Hubo
 
                     if (num == 0)
                     {
-                        DriveOffline offline = new DriveOffline();
-
-                        offline.DriveKey = drive.Key;
-                        offline.EndOffline = true;
-                        offline.StartOffline = false;
+                        DriveOffline offline = new DriveOffline()
+                        {
+                            DriveKey = drive.Key,
+                            EndOffline = true,
+                            StartOffline = false
+                        };
                         db.Insert(offline);
                     }
                 }
@@ -875,8 +878,8 @@ namespace Hubo
             Geolocation geolocation = await restApi.GetLatAndLong().ConfigureAwait(false);
 
             geoInsert.DriveKey = driveKey;
-            geoInsert.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            geoInsert.latitude = geolocation.Latitude;
+            geoInsert.TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat);
+            geoInsert.Latitude = geolocation.Latitude;
             geoInsert.Longitude = geolocation.Longitude;
 
             db.Insert(geoInsert);
@@ -906,7 +909,7 @@ namespace Hubo
             }
             else if (list.Count > 1)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.ErrorMoreOneUser, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.ErrorMoreOneUser, Resource.Alert, Resource.DisplayAlertOkay);
 
                 ClearTablesForNewUser();
             }
@@ -932,7 +935,7 @@ namespace Hubo
                 return true;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.DisplayAlertOkay);
             return false;
         }
 
@@ -949,7 +952,7 @@ namespace Hubo
                 return -1;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveBreak, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveBreak, Resource.Alert, Resource.DisplayAlertOkay);
             return -2;
         }
 
@@ -978,7 +981,7 @@ namespace Hubo
                 return true;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveVehicle, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveVehicle, Resource.Alert, Resource.DisplayAlertOkay);
             return false;
         }
 
@@ -990,12 +993,12 @@ namespace Hubo
                 currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
                 if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetBreak, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetBreak, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 
                 BreakTable currentBreak = currentBreaks[0];
-                currentBreak.EndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                currentBreak.EndDate = DateTime.Now.ToString(Resource.DatabaseDateFormat);
                 currentBreak.ActiveBreak = false;
                 currentBreak.EndLocation = location;
                 currentBreak.EndNote = note;
@@ -1009,10 +1012,10 @@ namespace Hubo
                     switch (result)
                     {
                         case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ServerError, Resource.Alert, Resource.DisplayAlertOkay);
                             break;
                         default:
                             return true;
@@ -1020,7 +1023,7 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Invalid Server Key", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidServerKey, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 
@@ -1029,11 +1032,12 @@ namespace Hubo
                 if (tbl.Count == 0)
                 {
                     db.CreateTable<BreakOffline>();
-                    BreakOffline offline = new BreakOffline();
-
-                    offline.BreakKey = currentBreak.Key;
-                    offline.StartOffline = false;
-                    offline.EndOffline = true;
+                    BreakOffline offline = new BreakOffline()
+                    {
+                        BreakKey = currentBreak.Key,
+                        StartOffline = false,
+                        EndOffline = true
+                    };
                     db.Insert(offline);
                 }
                 else
@@ -1053,19 +1057,18 @@ namespace Hubo
 
                     if (num == 0)
                     {
-                        BreakOffline offline = new BreakOffline();
-
-                        offline.BreakKey = currentBreak.Key;
-                        offline.StartOffline = false;
-                        offline.EndOffline = true;
+                        BreakOffline offline = new BreakOffline()
+                        {
+                            BreakKey = currentBreak.Key,
+                            StartOffline = false,
+                            EndOffline = true
+                        };
                         db.Insert(offline);
                     }
                 }
 
                 return true;
             }
-
-            return false;
         }
 
         internal VehicleTable InsertVehicle(VehicleTable vehicleToAdd)
@@ -1092,7 +1095,7 @@ namespace Hubo
                 if (CheckActiveShiftIsCorrect(true, activeShift))
                 {
                     newBreak.ShiftKey = activeShift[0].ServerKey;
-                    newBreak.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    newBreak.StartDate = DateTime.Now.ToString(Resource.DatabaseDateFormat);
                     newBreak.ActiveBreak = true;
                     newBreak.StartLocation = location;
                     newBreak.StartNote = note;
@@ -1114,12 +1117,12 @@ namespace Hubo
                         db.CreateTable<BreakOffline>();
                     }
 
-                    BreakOffline offline = new BreakOffline();
-
-                    offline.BreakKey = newBreak.Key;
-                    offline.StartOffline = true;
-                    offline.EndOffline = false;
-
+                    BreakOffline offline = new BreakOffline()
+                    {
+                        BreakKey = newBreak.Key,
+                        StartOffline = true,
+                        EndOffline = false
+                    };
                     db.Insert(offline);
 
                     return true;
@@ -1127,16 +1130,17 @@ namespace Hubo
 
                 return false;
             }
-            return false;
         }
 
         internal List<string> GetChecklist()
         {
-            List<string> questions = new List<string>();
-            questions.Add("This is a test");
-            questions.Add("This is a test");
-            questions.Add("This is a test");
-            questions.Add("This is a test");
+            List<string> questions = new List<string>
+            {
+                "This is a test",
+                "This is a test",
+                "This is a test",
+                "This is a test"
+            };
             return questions;
         }
 
@@ -1156,13 +1160,15 @@ namespace Hubo
 
             using (UserDialogs.Instance.Loading("Starting Shift...", null, null, true, MaskType.Gradient))
             {
-                ShiftTable shift = new ShiftTable();
-                shift.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                shift.StartLat = geoCoords.Latitude;
-                shift.StartLong = geoCoords.Longitude;
-                shift.StartLocation = location;
-                shift.ActiveShift = true;
-                shift.StartNote = note;
+                ShiftTable shift = new ShiftTable()
+                {
+                    StartDate = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                    StartLat = geoCoords.Latitude,
+                    StartLong = geoCoords.Longitude,
+                    StartLocation = location,
+                    ActiveShift = true,
+                    StartNote = note
+                };
                 db.Insert(shift);
 
                 List<UserTable> user = new List<UserTable>();
@@ -1187,12 +1193,12 @@ namespace Hubo
                         db.CreateTable<ShiftOffline>();
                     }
 
-                    ShiftOffline offline = new ShiftOffline();
-
-                    offline.ShiftKey = shift.Key;
-                    offline.StartOffline = true;
-                    offline.EndOffline = false;
-
+                    ShiftOffline offline = new ShiftOffline()
+                    {
+                        ShiftKey = shift.Key,
+                        StartOffline = true,
+                        EndOffline = false
+                    };
                     db.Insert(offline);
                 }
 
@@ -1219,7 +1225,7 @@ namespace Hubo
                 if (CheckActiveShiftIsCorrect(true, activeShifts, null))
                 {
                     ShiftTable activeShift = activeShifts[0];
-                    activeShift.EndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    activeShift.EndDate = DateTime.Now.ToString(Resource.DatabaseDateFormat);
                     activeShift.ActiveShift = false;
                     activeShift.EndLat = geoCoords.Latitude;
                     activeShift.EndLong = geoCoords.Longitude;
@@ -1245,11 +1251,12 @@ namespace Hubo
                     {
                         db.CreateTable<ShiftOffline>();
 
-                        ShiftOffline offline = new ShiftOffline();
-
-                        offline.ShiftKey = activeShift.Key;
-                        offline.StartOffline = false;
-                        offline.EndOffline = true;
+                        ShiftOffline offline = new ShiftOffline()
+                        {
+                            ShiftKey = activeShift.Key,
+                            StartOffline = false,
+                            EndOffline = true
+                        };
                         db.Insert(offline);
                         return true;
                     }
@@ -1271,17 +1278,18 @@ namespace Hubo
 
                         if (num == 0)
                         {
-                            ShiftOffline offline = new ShiftOffline();
-
-                            offline.ShiftKey = activeShift.Key;
-                            offline.StartOffline = false;
-                            offline.EndOffline = true;
+                            ShiftOffline offline = new ShiftOffline()
+                            {
+                                ShiftKey = activeShift.Key,
+                                StartOffline = false,
+                                EndOffline = true
+                            };
                             db.Insert(offline);
                             return true;
                         }
                     }
 
-                    await UserDialogs.Instance.ConfirmAsync(Resource.ErrorEndShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.ErrorEndShift, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
             }
@@ -1301,13 +1309,14 @@ namespace Hubo
             db.Insert(user);
         }
 
-        internal int SaveShift(DateTime shiftStart, DateTime shiftEnd, List<DriveTable> driveList) // , double latStart, double longStart, double latEnd, double longEnd)
+        internal int SaveShift(DateTime shiftStart, DateTime shiftEnd, List<DriveTable> driveList)
         {
-            ShiftTable shift = new ShiftTable();
-
-            shift.StartDate = shiftStart.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            shift.EndDate = shiftEnd.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            shift.ActiveShift = false;
+            ShiftTable shift = new ShiftTable()
+            {
+                StartDate = shiftStart.ToString(Resource.DatabaseDateFormat),
+                EndDate = shiftEnd.ToString(Resource.DatabaseDateFormat),
+                ActiveShift = false
+            };
             db.Insert(shift);
 
             foreach (DriveTable drive in driveList)
@@ -1333,14 +1342,14 @@ namespace Hubo
 
             foreach (ShiftTable shiftData in shiftList)
             {
-                exportData.shiftCode = shiftData.Key.ToString();
-                exportData.activeShift = shiftData.ActiveShift.ToString();
-                exportData.shiftStart = shiftData.StartDate;
-                exportData.shiftEnd = shiftData.EndDate;
-                exportData.startLat = shiftData.StartLat.ToString();
-                exportData.startLong = shiftData.StartLong.ToString();
-                exportData.endLat = shiftData.EndLat.ToString();
-                exportData.endLong = shiftData.EndLong.ToString();
+                exportData.ShiftCode = shiftData.Key.ToString();
+                exportData.ActiveShift = shiftData.ActiveShift.ToString();
+                exportData.ShiftStart = shiftData.StartDate;
+                exportData.ShiftEnd = shiftData.EndDate;
+                exportData.StartLat = shiftData.StartLat.ToString();
+                exportData.StartLong = shiftData.StartLong.ToString();
+                exportData.EndLat = shiftData.EndLat.ToString();
+                exportData.EndLong = shiftData.EndLong.ToString();
 
                 exportList.Add(exportData);
             }
@@ -1362,12 +1371,12 @@ namespace Hubo
 
                 foreach (BreakTable breakData in breakList)
                 {
-                    exportData.shiftCode = breakData.Key.ToString();
-                    exportData.breakStart = breakData.StartDate;
-                    exportData.breakEnd = breakData.EndDate;
-                    exportData.activeBreak = breakData.ActiveBreak.ToString();
-                    exportData.breakStartLocation = breakData.StartLocation;
-                    exportData.breakEndLocation = breakData.EndLocation;
+                    exportData.ShiftCode = breakData.Key.ToString();
+                    exportData.BreakStart = breakData.StartDate;
+                    exportData.BreakEnd = breakData.EndDate;
+                    exportData.ActiveBreak = breakData.ActiveBreak.ToString();
+                    exportData.BreakStartLocation = breakData.StartLocation;
+                    exportData.BreakEndLocation = breakData.EndLocation;
 
                     exportList.Add(exportData);
                 }
@@ -1395,9 +1404,9 @@ namespace Hubo
 
                 foreach (NoteTable noteData in noteList)
                 {
-                    exportData.shiftCode = noteData.Key.ToString();
-                    exportData.noteTime = noteData.Date;
-                    exportData.noteDetails = noteData.Note;
+                    exportData.ShiftCode = noteData.Key.ToString();
+                    exportData.NoteTime = noteData.Date;
+                    exportData.NoteDetails = noteData.Note;
 
                     exportList.Add(exportData);
                 }
@@ -1429,13 +1438,13 @@ namespace Hubo
                     List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + driveData.VehicleKey);
                     foreach (VehicleTable vehicleData in vehicleList)
                     {
-                        exportData.vehicleMakeModel = vehicleData.MakeModel;
-                        exportData.vehicleRego = vehicleData.Registration;
-                        exportData.vehicleCompany = vehicleData.CompanyId.ToString();
-                        exportData.currentVehicle = driveData.ActiveVehicle.ToString();
+                        exportData.VehicleMakeModel = vehicleData.MakeModel;
+                        exportData.VehicleRego = vehicleData.Registration;
+                        exportData.VehicleCompany = vehicleData.CompanyId.ToString();
+                        exportData.CurrentVehicle = driveData.ActiveVehicle.ToString();
 
-                        exportData.huboStart = driveData.StartHubo.ToString();
-                        exportData.huboEnd = driveData.EndHubo.ToString();
+                        exportData.HuboStart = driveData.StartHubo.ToString();
+                        exportData.HuboEnd = driveData.EndHubo.ToString();
 
                         exportList.Add(exportData);
                     }
@@ -1705,12 +1714,12 @@ namespace Hubo
             {
                 if (activeShifts.Count == 0)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveShifts, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveShifts, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
                 else if (activeShifts.Count > 1)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 
@@ -1720,12 +1729,12 @@ namespace Hubo
             {
                 if (activeDrives.Count == 0)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveDrives, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveDrives, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
                 else if (activeDrives.Count > 1)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveDrive, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveDrive, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
 

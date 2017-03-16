@@ -13,6 +13,5 @@ namespace Hubo
 
     public class AddressComponents
     {
-
     }
 }

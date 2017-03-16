@@ -1,16 +1,17 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="LoadTextTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class LoadTextTable
+    using SQLite.Net.Attributes;
+
+    internal class LoadTextTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public string LoadText { get; set; }
     }
 }

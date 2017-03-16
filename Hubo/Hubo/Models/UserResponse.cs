@@ -1,26 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="UserResponse.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class QueryShiftResponse
+    using Newtonsoft.Json;
+
+    public class UserResponse
     {
-        [JsonProperty(PropertyName = "success")]
-        public bool Success { get; set; }
-
-        [JsonProperty(PropertyName = "result")]
-        public int Result { get; set; }
-
-        [JsonProperty(PropertyName = "error")]
-        public Error Error { get; set; }
-
-        [JsonProperty(PropertyName = "unAuthorizedRequest")]
-        public bool UnAuthorizedRequest { get; set; }
-
     }
 
     public class InsertGeoResponse
@@ -96,5 +83,20 @@ namespace Hubo
 
         [JsonProperty(PropertyName = "validationErrors")]
         public string ValidationErrors { get; set; }
+    }
+
+    internal class QueryShiftResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
     }
 }

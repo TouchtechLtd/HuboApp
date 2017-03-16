@@ -37,13 +37,13 @@ namespace Hubo
                 return false;
             }
 
-            LoginRequestModel loginModel = new LoginRequestModel();
-
-            // loginModel.usernameOrEmailAddress = username;
-            // loginModel.password = password;
-            loginModel.UsernameOrEmailAddress = "ben@triotech.co.nz";
-            loginModel.Password = "tazmania";
-
+            LoginRequestModel loginModel = new LoginRequestModel()
+            {
+                // loginModel.usernameOrEmailAddress = username;
+                // loginModel.password = password;
+                UsernameOrEmailAddress = "daniel@triotech.co.nz",
+                Password = "tazmania"
+            };
             string json = JsonConvert.SerializeObject(loginModel);
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
@@ -61,14 +61,16 @@ namespace Hubo
 
                 if (result.Success)
                 {
-                    UserTable user = new UserTable();
-                    user.Id = result.Result.Id;
-                    user.UserName = username;
-                    user.Token = result.Result.Token;
-                    user.DriverId = result.Result.DriverId;
-                    user.Email = result.Result.EmailAddress;
-                    user.FirstName = result.Result.FirstName;
-                    user.LastName = result.Result.Surname;
+                    UserTable user = new UserTable()
+                    {
+                        Id = result.Result.Id,
+                        UserName = username,
+                        Token = result.Result.Token,
+                        DriverId = result.Result.DriverId,
+                        Email = result.Result.EmailAddress,
+                        FirstName = result.Result.FirstName,
+                        LastName = result.Result.Surname
+                    };
                     db.InsertUser(user);
 
                     accessToken = "Bearer " + db.GetUserToken();
@@ -77,13 +79,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Username/Password is incorrect, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.IncorrectCredentials, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
         }
@@ -345,12 +347,13 @@ namespace Hubo
 
                     foreach (LicenceResponseModel licenceItem in userDetails.Result.ListOfLicences)
                     {
-                        LicenceTable licence = new LicenceTable();
-                        licence.DriverId = user.DriverId;
-                        licence.LicenceNumber = user.LicenceNumber;
-                        licence.LicenceVersion = int.Parse(licenceItem.Class);
-                        licence.Endorsements = licenceItem.Endorsement;
-
+                        LicenceTable licence = new LicenceTable()
+                        {
+                            DriverId = user.DriverId,
+                            LicenceNumber = user.LicenceNumber,
+                            LicenceVersion = int.Parse(licenceItem.Class),
+                            Endorsements = licenceItem.Endorsement
+                        };
                         db.InsertUserLicence(licence);
                     }
 
@@ -406,12 +409,14 @@ namespace Hubo
                         {
                             foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
                             {
-                                VehicleTable vehicle = new VehicleTable();
-                                vehicle.Registration = vehicleItem.Rego;
-                                vehicle.MakeModel = vehicleItem.MakeModel;
-                                vehicle.FleetNumber = vehicleItem.FleetNumber;
-                                vehicle.CompanyId = vehicleItem.CompanyId;
-                                vehicle.ServerKey = vehicleItem.Id;
+                                VehicleTable vehicle = new VehicleTable()
+                                {
+                                    Registration = vehicleItem.Rego,
+                                    MakeModel = vehicleItem.MakeModel,
+                                    FleetNumber = vehicleItem.FleetNumber,
+                                    CompanyId = vehicleItem.CompanyId,
+                                    ServerKey = vehicleItem.Id
+                                };
                                 db.InsertUserVehicles(vehicle);
                             }
                         }
@@ -451,7 +456,7 @@ namespace Hubo
                 }
                 catch (Exception e)
                 {
-                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.Alert, Resource.DisplayAlertOkay);
                     return null;
                 }
 
@@ -491,12 +496,13 @@ namespace Hubo
             string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
             string contentType = Constants.CONTENT_TYPE;
 
-            VehicleRequestModel vehicleModel = new VehicleRequestModel();
-            vehicleModel.registrationNo = vehicle.Registration;
-            vehicleModel.makeModel = vehicle.MakeModel;
-            vehicleModel.fleetNumber = vehicle.FleetNumber;
-            vehicleModel.companyId = vehicle.CompanyId;
-
+            VehicleRequestModel vehicleModel = new VehicleRequestModel()
+            {
+                registrationNo = vehicle.Registration,
+                makeModel = vehicle.MakeModel,
+                fleetNumber = vehicle.FleetNumber,
+                companyId = vehicle.CompanyId
+            };
             string json = JsonConvert.SerializeObject(vehicleModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
@@ -517,38 +523,17 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Unable to register vehicle, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.VehicleRegistrationError, Resource.Alert, Resource.DisplayAlertOkay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
         }
 
-        //internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
-        //{
-        //    string contentType = Constants.CONTENT_TYPE;
-        //    string url;
-
-        //    string json;
-
-        //    if (shiftStarted)
-        //    {
-        //        url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
-        //        EndShiftModel shiftModel = new EndShiftModel();
-
-        //        shiftModel.id = shift.ServerKey;
-        //        shiftModel.endDate = shift.EndDate;
-        //        shiftModel.endLocationLat = shift.EndLat;
-        //        shiftModel.endLocationLong = shift.EndLong;
-        //        shiftModel.endLocation = shift.EndLocation;
-        //        return false;
-        //    }
-        //}
-		
         internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
         {
             string contentType = Constants.CONTENT_TYPE;
@@ -559,31 +544,31 @@ namespace Hubo
             if (shiftStarted)
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
-                EndShiftModel shiftModel = new EndShiftModel();
-
-                shiftModel.id = shift.ServerKey;
-                shiftModel.endDate = shift.EndDate;
-                shiftModel.endLocationLat = shift.EndLat;
-                shiftModel.endLocationLong = shift.EndLong;
-                shiftModel.endLocation = shift.EndLocation;
-                shiftModel.endNote = shift.EndNote;
-
+                EndShiftModel shiftModel = new EndShiftModel()
+                {
+                    id = shift.ServerKey,
+                    endDate = shift.EndDate,
+                    endLocationLat = shift.EndLat,
+                    endLocationLong = shift.EndLong,
+                    endLocation = shift.EndLocation,
+                    endNote = shift.EndNote
+                };
                 json = JsonConvert.SerializeObject(shiftModel);
             }
             else
             {
                 url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTSTART;
 
-                StartShiftModel shiftModel = new StartShiftModel();
-
-                shiftModel.driverId = userId;
-                shiftModel.companyId = companyId;
-                shiftModel.startDate = shift.StartDate;
-                shiftModel.startLocationLat = shift.StartLat;
-                shiftModel.startLocationLong = shift.StartLong;
-                shiftModel.startLocation = shift.StartLocation;
-                shiftModel.startNote = shift.StartNote;
-
+                StartShiftModel shiftModel = new StartShiftModel()
+                {
+                    driverId = userId,
+                    companyId = companyId,
+                    startDate = shift.StartDate,
+                    startLocationLat = shift.StartLat,
+                    startLocationLong = shift.StartLong,
+                    startLocation = shift.StartLocation,
+                    startNote = shift.StartNote
+                };
                 json = JsonConvert.SerializeObject(shiftModel);
             }
 
@@ -610,7 +595,7 @@ namespace Hubo
                         }
                         else
                         {
-                            await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            await UserDialogs.Instance.ConfirmAsync(Resource.ShiftRegisterError, Resource.Alert, Resource.DisplayAlertOkay);
                             return -2;
                         }
                     }
@@ -621,13 +606,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.ShiftRegisterError, Resource.Alert, Resource.DisplayAlertOkay);
                     return -2;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.DisplayAlertOkay);
                 return -2;
             }
         }
@@ -792,12 +777,13 @@ namespace Hubo
 
             foreach (GeolocationTable item in geolocation)
             {
-                InsertGeoModel geoModel = new InsertGeoModel();
-                geoModel.drivingShiftId = item.DriveKey;
-                geoModel.timeStamp = item.TimeStamp;
-                geoModel.latitude = item.Longitude;
-                geoModel.longitude = item.Longitude;
-
+                InsertGeoModel geoModel = new InsertGeoModel()
+                {
+                    drivingShiftId = item.DriveKey,
+                    timeStamp = item.TimeStamp,
+                    latitude = item.Longitude,
+                    longitude = item.Longitude
+                };
                 modelList.Add(geoModel);
             }
 
@@ -835,11 +821,12 @@ namespace Hubo
             string contentType = Constants.CONTENT_TYPE;
             HttpResponseMessage response;
 
-            InsertNoteModel noteModel = new InsertNoteModel();
-            noteModel.shiftId = note.ShiftKey;
-            noteModel.noteText = note.Note;
-            noteModel.timeStamp = note.Date;
-
+            InsertNoteModel noteModel = new InsertNoteModel()
+            {
+                shiftId = note.ShiftKey,
+                noteText = note.Note,
+                timeStamp = note.Date
+            };
             string json = JsonConvert.SerializeObject(noteModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
@@ -874,10 +861,11 @@ namespace Hubo
             string contentType = Constants.CONTENT_TYPE;
             HttpResponseMessage response;
 
-            ExportModel export = new ExportModel();
-            export.email = emailAddress;
-            export.body = emailBody;
-
+            ExportModel export = new ExportModel()
+            {
+                email = emailAddress,
+                body = emailBody
+            };
             string json = JsonConvert.SerializeObject(export);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
@@ -911,12 +899,13 @@ namespace Hubo
             string contentType = Constants.CONTENT_TYPE;
             HttpResponseMessage response;
 
-            RegisterModel register = new RegisterModel();
-            register.firstName = newUser.FirstName;
-            register.lastName = newUser.LastName;
-            register.email = newUser.Email;
-            register.password = password;
-
+            RegisterModel register = new RegisterModel()
+            {
+                firstName = newUser.FirstName,
+                lastName = newUser.LastName,
+                email = newUser.Email,
+                password = password
+            };
             string json = JsonConvert.SerializeObject(register);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
@@ -937,30 +926,29 @@ namespace Hubo
             return -1;
         }
 
-        private string GetBaseUrl()
-        {
-            return "http://test.triotech.co.nz/huboportal/api";
-        }
-
         internal async Task<Geolocation> GetLatAndLong()
         {
-            Application.locator.DesiredAccuracy = 100;
+            Application.Locator.DesiredAccuracy = 100;
 
             Geolocation results = new Geolocation();
 
             try
             {
-                var position = await Application.locator.GetPositionAsync(timeoutMilliseconds: 6000);
+                var position = await Application.Locator.GetPositionAsync(timeoutMilliseconds: 6000);
 
                 results.Longitude = position.Longitude;
                 results.Latitude = position.Latitude;
                 return results;
             }
-            catch (Exception e)
+            catch
             {
-                //await UserDialogs.Instance.ConfirmAsync(Resource.DisplayAlertTitle, e.ToString(), Resource.DisplayAlertOkay);
                 return results;
             }
+        }
+
+        private string GetBaseUrl()
+        {
+            return "http://test.triotech.co.nz/huboportal/api";
         }
     }
 }

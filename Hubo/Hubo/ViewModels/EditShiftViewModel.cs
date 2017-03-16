@@ -4,12 +4,12 @@
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     internal class EditShiftViewModel : INotifyPropertyChanged
@@ -161,7 +161,7 @@ namespace Hubo
             }
             else
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.SelectAShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.SelectAShift, Resource.Alert, Resource.DisplayAlertOkay);
             }
         }
 
@@ -240,14 +240,16 @@ namespace Hubo
 
                 if ((ShiftEndDatePicker != oldEndShiftDate) || (ShiftEndTimePicker != oldEndShiftTime))
                 {
-                    AmendmentTable newStopShift = new AmendmentTable();
-                    newStopShift.Field = "EndDate";
-                    newStopShift.ShiftId = currentShift.Key;
-                    newStopShift.Table = "ShiftTable";
-                    newStopShift.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    newStopShift.BeforeValue = currentShift.EndDate;
-                    newStopShift.AfterValue = (ShiftEndDatePicker + ShiftEndTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    currentShift.EndDate = (ShiftEndDatePicker + ShiftEndTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    AmendmentTable newStopShift = new AmendmentTable()
+                    {
+                        Field = "EndDate",
+                        ShiftId = currentShift.Key,
+                        Table = "ShiftTable",
+                        TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                        BeforeValue = currentShift.EndDate,
+                        AfterValue = (ShiftEndDatePicker + ShiftEndTimePicker).ToString(Resource.DatabaseDateFormat)
+                    };
+                    currentShift.EndDate = (ShiftEndDatePicker + ShiftEndTimePicker).ToString(Resource.DatabaseDateFormat);
                     listOfAmendments.Add(newStopShift);
                 }
             }
@@ -257,15 +259,17 @@ namespace Hubo
 
             if ((ShiftStartDatePicker != oldStartShiftDate) || (oldStartShiftTime != ShiftStartTimePicker))
             {
-                AmendmentTable newStartShift = new AmendmentTable();
-                newStartShift.Field = "StartTime";
-                newStartShift.ShiftId = currentShift.Key;
-                newStartShift.Table = "ShiftTable";
-                newStartShift.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                newStartShift.BeforeValue = currentShift.StartDate;
-                newStartShift.AfterValue = (ShiftStartDatePicker + ShiftStartTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                AmendmentTable newStartShift = new AmendmentTable()
+                {
+                    Field = "StartTime",
+                    ShiftId = currentShift.Key,
+                    Table = "ShiftTable",
+                    TimeStamp = DateTime.Now.ToString(Resource.DatabaseDateFormat),
+                    BeforeValue = currentShift.StartDate,
+                    AfterValue = (ShiftStartDatePicker + ShiftStartTimePicker).ToString(Resource.DatabaseDateFormat)
+                };
                 listOfAmendments.Add(newStartShift);
-                currentShift.StartDate = (ShiftStartDatePicker + ShiftStartTimePicker).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                currentShift.StartDate = (ShiftStartDatePicker + ShiftStartTimePicker).ToString(Resource.DatabaseDateFormat);
             }
 
             if (listOfAmendments.Count > 0)

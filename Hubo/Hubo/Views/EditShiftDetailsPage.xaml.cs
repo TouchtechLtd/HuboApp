@@ -15,8 +15,10 @@ namespace Hubo
         public EditShiftDetailsPage(string instruction, DriveTable currentDrive = null, ShiftTable currentShift = null, BreakTable currentBreak = null, NoteTable currentNote = null)
         {
             InitializeComponent();
-            editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentDrive, currentShift, currentBreak, currentNote);
-            editShiftDetailsVM.Navigation = Navigation;
+            editShiftDetailsVM = new EditShiftDetailsViewModel(instruction, currentDrive, currentShift, currentBreak, currentNote)
+            {
+                Navigation = Navigation
+            };
             BindingContext = editShiftDetailsVM;
 
             if (instruction == "Breaks")

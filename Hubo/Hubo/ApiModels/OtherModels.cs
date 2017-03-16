@@ -10,6 +10,10 @@ namespace Hubo
     using System.Text;
     using System.Threading.Tasks;
 
+    public class OtherModels
+    {
+    }
+
     public class ExportModel
     {
         public string email { get; set; }

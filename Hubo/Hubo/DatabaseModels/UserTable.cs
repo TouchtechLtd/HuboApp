@@ -1,4 +1,8 @@
-﻿namespace Hubo
+﻿// <copyright file="UserTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
     using SQLite.Net.Attributes;
 
@@ -19,15 +23,25 @@
         public string LastName { get; set; }
 
         public string Email { get; set; }
+
         public string Address1 { get; set; }
+
         public string Address2 { get; set; }
+
         public string Address3 { get; set; }
+
         public string PostCode { get; set; }
+
         public string City { get; set; }
+
         public string Country { get; set; }
+
         public int Phone { get; set; }
+
         public string Token { get; set; }
+
         public int DriverId { get; set; }
+
         public string LicenceNumber { get; set; }
     }
 }

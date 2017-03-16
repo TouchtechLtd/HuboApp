@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Hubo.iOS;
-using System.IO;
-using Foundation;
+﻿// <copyright file="FileAccessHelper.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.iOS
 {
+    using System;
+    using System.IO;
+    using Foundation;
+
     public static class FileAccessHelper
     {
         public static string GetLocalFilePath(string filename)

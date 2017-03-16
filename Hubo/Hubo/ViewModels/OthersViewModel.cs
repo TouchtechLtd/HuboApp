@@ -1,5 +1,5 @@
-﻿// <copyright file="OthersViewModel.cs" company="Trio Technology LTD">
-// Copyright (c) Trio Technology LTD. All rights reserved.
+﻿// <copyright file="OthersViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -24,21 +24,24 @@ namespace Hubo
         {
             List<MenuItem> items = new List<MenuItem>();
 
-            MenuItem profile = new MenuItem();
-            profile.Title = Resource.ProfileText;
-            profile.TargetType = "Profile";
-            profile.ImageSource = "User96.png";
-
-            MenuItem settings = new MenuItem();
-            settings.Title = Resource.SettingsText;
-            settings.TargetType = "Settings";
-            settings.ImageSource = "Settings25.png";
-
-            MenuItem signOut = new MenuItem();
-            signOut.Title = Resource.SignOutText;
-            signOut.TargetType = "SignOut";
-            signOut.ImageSource = "Exit96.png";
-
+            MenuItem profile = new MenuItem()
+            {
+                Title = Resource.ProfileText,
+                TargetType = "Profile",
+                ImageSource = "User96.png"
+            };
+            MenuItem settings = new MenuItem()
+            {
+                Title = Resource.SettingsText,
+                TargetType = "Settings",
+                ImageSource = "Settings25.png"
+            };
+            MenuItem signOut = new MenuItem()
+            {
+                Title = Resource.SignOutText,
+                TargetType = "SignOut",
+                ImageSource = "Exit96.png"
+            };
             items.Add(profile);
             items.Add(settings);
             items.Add(signOut);

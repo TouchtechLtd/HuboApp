@@ -32,7 +32,6 @@ namespace Hubo
         private bool isRunning;
         private double totalTime;
         private double remainTime;
-        private int notificationId;
         private bool notifyReady;
 
         private CancellationTokenSource cancel;
@@ -246,10 +245,7 @@ namespace Hubo
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void SetVehicleLabel()
@@ -371,9 +367,8 @@ namespace Hubo
 
         private async Task<bool> StartDrive()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Would you like to start your drive?", "Confirmation", "Yes", "No"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.StartDriveQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
-
                 string location;
 
                 using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
@@ -403,7 +398,7 @@ namespace Hubo
                 if (await dbService.StartDrive(hubo, note, location))
                 {
                     UserDialogs.Instance.ShowSuccess("Drive Started!", 1500);
-                    
+
                     SetVehicleLabel();
                     GeoCollection();
                     return true;
@@ -412,10 +407,10 @@ namespace Hubo
 
             return false;
         }
-		
-		        private async Task<string> NotePromptAsync()
+
+                private async Task<string> NotePromptAsync()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Would you like to add a note?", "Alert", "I would", "Nope"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Alert, Resource.Yes, Resource.No))
             {
                 PromptConfig notePrompt = new PromptConfig()
                 {
@@ -437,7 +432,7 @@ namespace Hubo
 
         private async Task<bool> StopDrive()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Would you like to end your drive?", "Confirmation", "Yes", "No"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.EndDriveQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
                 string location;
 
@@ -508,7 +503,7 @@ namespace Hubo
 
         private async Task ToggleDrive()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
 
             if (!DriveShiftRunning)
             {
@@ -519,13 +514,12 @@ namespace Hubo
                 await StopDrive();
             }
 
-            await Application.locator.StopListeningAsync();
-
+            await Application.Locator.StopListeningAsync();
         }
 
         private async Task ToggleBreak()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
 
             if (!OnBreak)
             {
@@ -536,7 +530,7 @@ namespace Hubo
                 await StopBreak();
             }
 
-            await Application.locator.StopListeningAsync();
+            await Application.Locator.StopListeningAsync();
 
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("BreakButtonColor");
@@ -547,7 +541,7 @@ namespace Hubo
 
         private async Task StartBreak()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Are you sure you want to go on a break?", Resource.DisplayAlertTitle, "Yes", "No"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.StartDriveQuery, Resource.Alert, Resource.Yes, Resource.No))
             {
                 Geolocation geoCoords;
                 string location;
@@ -586,14 +580,14 @@ namespace Hubo
             {
                 TimeSpan time = TimeSpan.FromSeconds(TotalTime - RemainTime);
                 string remainTimeString = time.ToString(@"mm\:ss");
-                if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", "WARNING", "Yes", "No"))
+                if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", Resource.Warning, Resource.Yes, Resource.No))
                 {
                     return;
                 }
             }
             else
             {
-                if (!await UserDialogs.Instance.ConfirmAsync("Are you sure you want to end your break?", Resource.DisplayAlertTitle, "Yes", "No"))
+                if (!await UserDialogs.Instance.ConfirmAsync(Resource.EndBreakQuery, Resource.Alert, Resource.Yes, Resource.No))
                 {
                     return;
                 }
@@ -637,7 +631,7 @@ namespace Hubo
 
         private async Task ToggleShift()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
             bool success = false;
             if (!ShiftStarted)
             {
@@ -652,10 +646,12 @@ namespace Hubo
         private async Task<string> GetLocation(Geolocation geoCoords)
         {
             string location = await restApi.GetLocation(geoCoords);
-            PromptConfig locationPrompt = new PromptConfig();
-            locationPrompt.IsCancellable = true;
-            locationPrompt.Title = "Current Location: ";
-            locationPrompt.Text = location;
+            PromptConfig locationPrompt = new PromptConfig()
+            {
+                IsCancellable = true,
+                Title = "Current Location: ",
+                Text = location
+            };
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
             if (!promptResult.Ok || promptResult.Text == string.Empty)
@@ -672,7 +668,7 @@ namespace Hubo
             {
                 if (dbService.CheckOnBreak() == 1)
                 {
-                    if (await UserDialogs.Instance.ConfirmAsync("Would you like to end your shift?", "Confirmation", "Yes", "No"))
+                    if (await UserDialogs.Instance.ConfirmAsync(Resource.EndShiftQuery, Resource.Confirmation, Resource.Yes, Resource.No))
                     {
                         Geolocation geoCoords;
                         string location;
@@ -691,7 +687,7 @@ namespace Hubo
 
                             if (await dbService.StopShift(location, note, geoCoords))
                             {
-								ShiftStarted = false;
+                                ShiftStarted = false;
                                 ShowStartShiftXAML();
                                 UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
                                 MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
@@ -708,13 +704,13 @@ namespace Hubo
                     }
                     else
                     {
-                        await UserDialogs.Instance.ConfirmAsync("Please end your break before ending your work shift", "ERROR", "Gotcha");
+                        await UserDialogs.Instance.ConfirmAsync(Resource.EndBreakBeforeShift, Resource.Error, Resource.GotIt);
                         return false;
                     }
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Please end your driving shift before ending your work shift", "ERROR", "Gotcha");
+                    await UserDialogs.Instance.ConfirmAsync(Resource.EndDriveBeforeShift, Resource.Error, Resource.GotIt);
                     return false;
                 }
             }
@@ -750,15 +746,15 @@ namespace Hubo
         {
             if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
             {
-                await UserDialogs.Instance.ConfirmAsync("Unable to get battery status, Please use another device!", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.BatteryStatusError, Resource.Alert, Resource.DisplayAlertOkay);
             }
 
             if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
             {
-                await UserDialogs.Instance.ConfirmAsync("Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync("Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.Alert, Resource.DisplayAlertOkay);
             }
 
-            if (await UserDialogs.Instance.ConfirmAsync("Would you like to start your shift?", "Confirmation", "Yes", "No"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.StartShiftQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
                 List<string> checklistQuestions = dbService.GetChecklist();
                 int count = 0;
@@ -798,7 +794,7 @@ namespace Hubo
 
                     CancellationTokenSource cts = this.cancel;
 
-                    await Application.locator.StopListeningAsync();
+                    await Application.Locator.StopListeningAsync();
                     Device.StartTimer(TimeSpan.FromHours(13), () =>
                     {
                         if (this.cancel.IsCancellationRequested)
@@ -826,7 +822,7 @@ namespace Hubo
 
             if (CompletedJourney == -1)
             {
-                UserDialogs.Instance.ConfirmAsync("More Than One Active Shift!", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.DisplayAlertOkay);
                 return;
             }
 
@@ -887,7 +883,7 @@ namespace Hubo
 
         private async Task<string> NotePrompt()
         {
-            if (await UserDialogs.Instance.ConfirmAsync("Would you like to add a note?", "Confirmation", "I would", "Nope"))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
                 PromptConfig notePrompt = new PromptConfig()
                 {

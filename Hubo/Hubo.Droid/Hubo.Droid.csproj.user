@@ -3,6 +3,6 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
     <SelectedDevice>Sony F5121</SelectedDevice>
-    <DefaultDevice>Nexus6_Android6</DefaultDevice>
+    <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
   </PropertyGroup>
 </Project>

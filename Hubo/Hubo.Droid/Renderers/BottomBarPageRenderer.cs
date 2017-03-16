@@ -23,39 +23,37 @@ namespace Hubo.Droid
 {
     public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
     {
-        bool _disposed;
-        BottomNavigationBar.BottomBar _bottomBar;
-        FrameLayout _frameLayout;
-        IPageController _pageController;
+        private bool disposed;
+        private BottomNavigationBar.BottomBar bottomBar;
+        private FrameLayout frameLayout;
+        private IPageController pageController;
 
         public BottomBarPageRenderer()
         {
-            AutoPackage = false;
+            this.AutoPackage = false;
         }
 
-        #region IOnTabClickListener
         public void OnTabSelected(int position)
         {
-            //Do we need this call? It's also done in OnElementPropertyChanged
-            SwitchContent(Element.Children[position]);
-            var bottomBarPage = Element as BottomBarPage;
-            bottomBarPage.CurrentPage = Element.Children[position];
+            // Do we need this call? It's also done in OnElementPropertyChanged
+            this.SwitchContent(this.Element.Children[position]);
+            var bottomBarPage = this.Element as BottomBarPage;
+            bottomBarPage.CurrentPage = this.Element.Children[position];
         }
 
         public void OnTabReSelected(int position)
         {
         }
-        #endregion
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && !_disposed)
+            if (disposing && !this.disposed)
             {
-                _disposed = true;
+                this.disposed = true;
 
-                RemoveAllViews();
+                this.RemoveAllViews();
 
-                foreach (Page pageToRemove in Element.Children)
+                foreach (Page pageToRemove in this.Element.Children)
                 {
                     IVisualElementRenderer pageRenderer = Platform.GetRenderer(pageToRemove);
 
@@ -66,17 +64,17 @@ namespace Hubo.Droid
                     }
                 }
 
-                if (_bottomBar != null)
+                if (this.bottomBar != null)
                 {
-                    _bottomBar.SetOnTabClickListener(null);
-                    _bottomBar.Dispose();
-                    _bottomBar = null;
+                    this.bottomBar.SetOnTabClickListener(null);
+                    this.bottomBar.Dispose();
+                    this.bottomBar = null;
                 }
 
-                if (_frameLayout != null)
+                if (this.frameLayout != null)
                 {
-                    _frameLayout.Dispose();
-                    _frameLayout = null;
+                    this.frameLayout.Dispose();
+                    this.frameLayout = null;
                 }
             }
 
@@ -86,15 +84,14 @@ namespace Hubo.Droid
         protected override void OnAttachedToWindow()
         {
             base.OnAttachedToWindow();
-            _pageController.SendAppearing();
+            this.pageController.SendAppearing();
         }
 
         protected override void OnDetachedFromWindow()
         {
             base.OnDetachedFromWindow();
-            _pageController.SendDisappearing();
+            this.pageController.SendDisappearing();
         }
-
 
         protected override void OnElementChanged(ElementChangedEventArgs<BottomBarPage> e)
         {
@@ -102,24 +99,25 @@ namespace Hubo.Droid
 
             if (e.NewElement != null)
             {
-
                 BottomBarPage bottomBarPage = e.NewElement;
 
-                if (_bottomBar == null)
+                if (this.bottomBar == null)
                 {
-                    _pageController = PageController.Create(bottomBarPage);
+                    this.pageController = PageController.Create(bottomBarPage);
 
                     // create a view which will act as container for Page's
-                    _frameLayout = new FrameLayout(Forms.Context);
-                    _frameLayout.LayoutParameters = new FrameLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent, GravityFlags.Fill);
-                    AddView(_frameLayout, 0);
+                    this.frameLayout = new FrameLayout(Forms.Context)
+                    {
+                        LayoutParameters = new FrameLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent, GravityFlags.Fill)
+                    };
+                    this.AddView(this.frameLayout, 0);
 
                     // create bottomBar control
-                    _bottomBar = BottomNavigationBar.BottomBar.Attach(_frameLayout, null);
-                    _bottomBar.NoTabletGoodness();
+                    this.bottomBar = BottomNavigationBar.BottomBar.Attach(this.frameLayout, null);
+                    this.bottomBar.NoTabletGoodness();
                     if (bottomBarPage.FixedMode)
                     {
-                        _bottomBar.UseFixedMode();
+                        this.bottomBar.UseFixedMode();
                     }
 
                     switch (bottomBarPage.BarTheme)
@@ -127,25 +125,26 @@ namespace Hubo.Droid
                         case BottomBarPage.BarThemeTypes.Light:
                             break;
                         case BottomBarPage.BarThemeTypes.DarkWithAlpha:
-                            _bottomBar.UseDarkThemeWithAlpha(true);
+                            this.bottomBar.UseDarkThemeWithAlpha(true);
                             break;
                         case BottomBarPage.BarThemeTypes.DarkWithoutAlpha:
-                            _bottomBar.UseDarkThemeWithAlpha(false);
+                            this.bottomBar.UseDarkThemeWithAlpha(false);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                    _bottomBar.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
-                    _bottomBar.SetOnTabClickListener(this);
 
-                    UpdateTabs();
-                    UpdateBarBackgroundColor();
-                    UpdateBarTextColor();
+                    this.bottomBar.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
+                    this.bottomBar.SetOnTabClickListener(this);
+
+                    this.UpdateTabs();
+                    this.UpdateBarBackgroundColor();
+                    this.UpdateBarTextColor();
                 }
 
                 if (bottomBarPage.CurrentPage != null)
                 {
-                    SwitchContent(bottomBarPage.CurrentPage);
+                    this.SwitchContent(bottomBarPage.CurrentPage);
                 }
             }
         }
@@ -156,23 +155,23 @@ namespace Hubo.Droid
 
             if (e.PropertyName == nameof(TabbedPage.CurrentPage))
             {
-                SwitchContent(Element.CurrentPage);
+                this.SwitchContent(this.Element.CurrentPage);
             }
             else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName)
             {
-                UpdateBarBackgroundColor();
+                this.UpdateBarBackgroundColor();
             }
             else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName)
             {
-                UpdateBarTextColor();
+                this.UpdateBarTextColor();
             }
         }
 
         protected virtual void SwitchContent(Page view)
         {
-            Context.HideKeyboard(this);
+            this.Context.HideKeyboard(this);
 
-            _frameLayout.RemoveAllViews();
+            this.frameLayout.RemoveAllViews();
 
             if (view == null)
             {
@@ -184,7 +183,7 @@ namespace Hubo.Droid
                 Platform.SetRenderer(view, Platform.CreateRenderer(view));
             }
 
-            _frameLayout.AddView(Platform.GetRenderer(view).ViewGroup);
+            this.frameLayout.AddView(Platform.GetRenderer(view).ViewGroup);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -192,15 +191,15 @@ namespace Hubo.Droid
             int width = r - l;
             int height = b - t;
 
-            var context = Context;
+            var context = this.Context;
 
-            _bottomBar.Measure(MeasureSpecFactory.MakeMeasureSpec(width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(height, MeasureSpecMode.AtMost));
-            int tabsHeight = Math.Min(height, Math.Max(_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
+            this.bottomBar.Measure(MeasureSpecFactory.MakeMeasureSpec(width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(height, MeasureSpecMode.AtMost));
+            int tabsHeight = Math.Min(height, Math.Max(this.bottomBar.MeasuredHeight, this.bottomBar.MinimumHeight));
 
             if (width > 0 && height > 0)
             {
-                _pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(_frameLayout.Height));
-                ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
+                this.pageController.SetContainerArea(new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(this.frameLayout.Height)));
+                ObservableCollection<Element> internalChildren = this.pageController.InternalChildren;
 
                 for (var i = 0; i < internalChildren.Count; i++)
                 {
@@ -215,64 +214,66 @@ namespace Hubo.Droid
                     var navigationRenderer = renderer as NavigationPageRenderer;
                 }
 
-                _bottomBar.Measure(MeasureSpecFactory.MakeMeasureSpec(width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(tabsHeight, MeasureSpecMode.Exactly));
-                _bottomBar.Layout(0, 0, width, tabsHeight);
+                this.bottomBar.Measure(MeasureSpecFactory.MakeMeasureSpec(width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(tabsHeight, MeasureSpecMode.Exactly));
+                this.bottomBar.Layout(0, 0, width, tabsHeight);
             }
 
             base.OnLayout(changed, l, t, r, b);
         }
 
-        void UpdateBarBackgroundColor()
+        private void UpdateBarBackgroundColor()
         {
-            if (_disposed || _bottomBar == null)
+            if (this.disposed || this.bottomBar == null)
             {
                 return;
             }
-            _bottomBar.SetBackgroundColor(Element.BarBackgroundColor.ToAndroid());
+
+            this.bottomBar.SetBackgroundColor(this.Element.BarBackgroundColor.ToAndroid());
         }
 
-        void UpdateBarTextColor()
+        private void UpdateBarTextColor()
         {
-            if (_disposed || _bottomBar == null)
+            if (this.disposed || this.bottomBar == null)
             {
                 return;
             }
 
-            _bottomBar.SetActiveTabColor(Element.BarTextColor.ToAndroid());
+            this.bottomBar.SetActiveTabColor(this.Element.BarTextColor.ToAndroid());
+
             // The problem SetActiveTabColor does only work in fiexed mode // haven't found yet how to set text color for tab items on_bottomBar, doesn't seem to have a direct way
         }
 
-        void UpdateTabs()
+        private void UpdateTabs()
         {
             // create tab items
-            SetTabItems();
+            this.SetTabItems();
 
             // set tab colors
-            SetTabColors();
+            this.SetTabColors();
         }
 
-        void SetTabItems()
+        private void SetTabItems()
         {
-            BottomBarTab[] tabs = Element.Children.Select(page =>
+            BottomBarTab[] tabs = this.Element.Children.Select(page =>
             {
                 var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
                 return new BottomBarTab(tabIconId, page.Title);
             }).ToArray();
 
-            _bottomBar.SetItems(tabs);
+            this.bottomBar.SetItems(tabs);
         }
 
-        void SetTabColors()
+        private void SetTabColors()
         {
-            for (int i = 0; i < Element.Children.Count; ++i)
+            for (int i = 0; i < this.Element.Children.Count; ++i)
             {
-                Page page = Element.Children[i];
+                Page page = this.Element.Children[i];
 
                 Color? tabColor = page.GetTabColor();
 
                 if (tabColor != null)
                 {
-                    _bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
+                    this.bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
                 }
             }
         }

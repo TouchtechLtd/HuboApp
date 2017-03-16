@@ -1,9 +1,13 @@
+// <copyright file="BaseRenderer.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+using Android.Views.InputMethods;
 using Android.Widget;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
 using Hubo;
 using Hubo.Droid;
-using Android.Views.InputMethods;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(BaseEntry), typeof(BaseRenderer))]
 
@@ -11,20 +15,24 @@ namespace Hubo.Droid
 {
     public class BaseRenderer : EntryRenderer
     {
-        public BaseRenderer() { }
+        public BaseRenderer()
+        {
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
 
-            BaseEntry base_entry = (BaseEntry)Element;
+            BaseEntry base_entry = (BaseEntry)this.Element;
 
-            SetReturnType(base_entry);
+            this.SetReturnType(base_entry);
 
-            Control.EditorAction += (object sender, TextView.EditorActionEventArgs args) =>
+            this.Control.EditorAction += (object sender, TextView.EditorActionEventArgs args) =>
             {
                 if (base_entry.ReturnType != ReturnType.Next)
+                {
                     base_entry.Unfocus();
+                }
 
                 base_entry.InvokeCompleted();
             };
@@ -37,24 +45,24 @@ namespace Hubo.Droid
             switch (type)
             {
                 case ReturnType.Go:
-                    Control.ImeOptions = ImeAction.Go;
-                    Control.SetImeActionLabel("Go", ImeAction.Go);
+                    this.Control.ImeOptions = ImeAction.Go;
+                    this.Control.SetImeActionLabel("Go", ImeAction.Go);
                     break;
                 case ReturnType.Next:
-                    Control.ImeOptions = ImeAction.Next;
-                    Control.SetImeActionLabel("Next", ImeAction.Next);
+                    this.Control.ImeOptions = ImeAction.Next;
+                    this.Control.SetImeActionLabel("Next", ImeAction.Next);
                     break;
                 case ReturnType.Send:
-                    Control.ImeOptions = ImeAction.Send;
-                    Control.SetImeActionLabel("Send", ImeAction.Send);
+                    this.Control.ImeOptions = ImeAction.Send;
+                    this.Control.SetImeActionLabel("Send", ImeAction.Send);
                     break;
                 case ReturnType.Search:
-                    Control.ImeOptions = ImeAction.Search;
-                    Control.SetImeActionLabel("Search", ImeAction.Search);
+                    this.Control.ImeOptions = ImeAction.Search;
+                    this.Control.SetImeActionLabel("Search", ImeAction.Search);
                     break;
                 default:
-                    Control.ImeOptions = ImeAction.Done;
-                    Control.SetImeActionLabel("Done", ImeAction.Done);
+                    this.Control.ImeOptions = ImeAction.Done;
+                    this.Control.SetImeActionLabel("Done", ImeAction.Done);
                     break;
             }
         }

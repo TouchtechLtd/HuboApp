@@ -45,6 +45,8 @@
     <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -398,7 +400,7 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Renderers\BaseRenderer.cs" />
     <Compile Include="Renderers\BottomBarPageRenderer.cs" />
-    <Compile Include="Utils\CloseApplication.cs" />
+    <Compile Include="Utils\Close_Application.cs" />
     <Compile Include="Utils\Email_Android.cs" />
     <Compile Include="Utils\FileAccessHelper.cs" />
     <Compile Include="MainActivity.cs" />
@@ -417,6 +419,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <AndroidAsset Include="Assets\Hubo.db3" />
+    <AndroidAsset Include="Assets\SAGNEL.ttf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

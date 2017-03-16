@@ -135,14 +135,8 @@
   <data name="MissingText" xml:space="preserve">
     <value>Please fill out all the fields.</value>
   </data>
-  <data name="DisplayAlertTitle" xml:space="preserve">
-    <value>Alert</value>
-  </data>
   <data name="NoUsernameOrPasswordMessage" xml:space="preserve">
     <value>Please provide both Username &amp; Password</value>
-  </data>
-  <data name="NoUsernameOrPasswordTitle" xml:space="preserve">
-    <value>Alert</value>
   </data>
   <data name="NZTAButtonText" xml:space="preserve">
     <value>Agree</value>
@@ -184,7 +178,7 @@
     <value>Vehicles</value>
   </data>
   <data name="AddVehicleText" xml:space="preserve">
-    <value>Add Vehicle</value>
+    <value>Add Vehicle...</value>
   </data>
   <data name="CompanyText" xml:space="preserve">
     <value>Company: </value>
@@ -545,5 +539,107 @@
   </data>
   <data name="GetDetailsError" xml:space="preserve">
     <value>GUnable to Get User Details</value>
+  </data>
+  <data name="AddNoteQuery" xml:space="preserve">
+    <value>Would you like to add a note?</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="BatteryStatusError" xml:space="preserve">
+    <value>Unable to get battery status, Please use another device!</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Unable to connect to server</value>
+  </data>
+  <data name="CorrectOdometer" xml:space="preserve">
+    <value>This is the correct odometer</value>
+  </data>
+  <data name="DatabaseDateFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm:ss.fff</value>
+  </data>
+  <data name="DistanceTraveled" xml:space="preserve">
+    <value>Distance Travelled</value>
+  </data>
+  <data name="EmailError" xml:space="preserve">
+    <value>Unable to send e-mail, Please try again</value>
+  </data>
+  <data name="EndBreakBeforeShift" xml:space="preserve">
+    <value>Please end your break before ending your work shift</value>
+  </data>
+  <data name="EndBreakQuery" xml:space="preserve">
+    <value>Are you sure you want to end your break?</value>
+  </data>
+  <data name="EndDriveBeforeShift" xml:space="preserve">
+    <value>Please end your driving shift before ending your work shift</value>
+  </data>
+  <data name="EndDriveQuery" xml:space="preserve">
+    <value>Would you like to end your drive?</value>
+  </data>
+  <data name="EndShiftQuery" xml:space="preserve">
+    <value>Would you like to end your shift?</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="IncorrectCredentials" xml:space="preserve">
+    <value>Username/Password is incorrect, Please try again</value>
+  </data>
+  <data name="IncorrectOdometer" xml:space="preserve">
+    <value>Re-Enter Odometer</value>
+  </data>
+  <data name="InputCorrect" xml:space="preserve">
+    <value>I did</value>
+  </data>
+  <data name="InputIncorrect" xml:space="preserve">
+    <value>I did not</value>
+  </data>
+  <data name="InvalidServerKey" xml:space="preserve">
+    <value>Invalid Server Key</value>
+  </data>
+  <data name="LayoutSettingText" xml:space="preserve">
+    <value>For this setting to take affect a restart is required, the app will now close</value>
+  </data>
+  <data name="LayoutSettingTitle" xml:space="preserve">
+    <value>Layout Change</value>
+  </data>
+  <data name="OCRError" xml:space="preserve">
+    <value>Unable to get photo of registration plate, Please pick a vehicle from the list</value>
+  </data>
+  <data name="OdometerError" xml:space="preserve">
+    <value>Please enter the correct ending odometer</value>
+  </data>
+  <data name="PickVehicle" xml:space="preserve">
+    <value>Choose Vehicle:</value>
+  </data>
+  <data name="RegisterFailTitle" xml:space="preserve">
+    <value>Failure</value>
+  </data>
+  <data name="RegisterUserError" xml:space="preserve">
+    <value>Unable to register user, Please try again</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Internal Server Error</value>
+  </data>
+  <data name="ShiftRegisterError" xml:space="preserve">
+    <value>Unable to register shift, Please try again</value>
+  </data>
+  <data name="StartBreakQuery" xml:space="preserve">
+    <value>Are you sure you want to go on a break?</value>
+  </data>
+  <data name="StartDriveQuery" xml:space="preserve">
+    <value>Would you like to start your drive?</value>
+  </data>
+  <data name="StartShiftQuery" xml:space="preserve">
+    <value>Would you like to start your shift?</value>
+  </data>
+  <data name="VehicleRegistrationError" xml:space="preserve">
+    <value>Unable to register vehicle, Please try again</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>WARNING</value>
   </data>
 </root>

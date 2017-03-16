@@ -121,9 +121,11 @@ namespace Hubo
 
         public async void Save()
         {
-            PromptConfig huboPrompt = new PromptConfig();
-            huboPrompt.IsCancellable = true;
-            huboPrompt.Title = "Shift Add Reason:";
+            PromptConfig huboPrompt = new PromptConfig()
+            {
+                IsCancellable = true,
+                Title = "Shift Add Reason:"
+            };
             huboPrompt.SetInputMode(InputType.Default);
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
 
@@ -136,7 +138,7 @@ namespace Hubo
 
                 if (result == -1)
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.ShiftAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.ShiftAddError, Resource.Alert, Resource.DisplayAlertOkay);
                     return;
                 }
 
@@ -318,7 +320,7 @@ namespace Hubo
                     }
                     else
                     {
-                        UserDialogs.Instance.ConfirmAsync(Resource.BreakAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                        UserDialogs.Instance.ConfirmAsync(Resource.BreakAddError, Resource.Alert, Resource.DisplayAlertOkay);
                     }
                 });
             }
@@ -419,7 +421,7 @@ namespace Hubo
                         }
                         else
                         {
-                            UserDialogs.Instance.ConfirmAsync(Resource.NoteAddError, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                            UserDialogs.Instance.ConfirmAsync(Resource.NoteAddError, Resource.Alert, Resource.DisplayAlertOkay);
                         }
                     });
             }
@@ -571,13 +573,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.DisplayAlertOkay);
                 return false;
             }
 

@@ -1,56 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
+// <copyright file="PageController.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.Droid
 {
+    using System.Collections.ObjectModel;
+    using Xamarin.Forms;
+
     public class PageController : IPageController
     {
-        private ReflectedProxy<Page> _proxy;
+        private ReflectedProxy<Page> proxy;
 
-        public static IPageController Create(Page page)
+        private PageController(Page page)
         {
-            return new PageController(page);
-        }
-
-        PageController(Page page)
-        {
-            _proxy = new ReflectedProxy<Page>(page);
-        }
-
-        public Rectangle ContainerArea
-        {
-            get
-            {
-                return _proxy.GetPropertyValue<Rectangle>();
-            }
-
-            set
-            {
-                _proxy.SetPropertyValue(value);
-            }
+            this.proxy = new ReflectedProxy<Page>(page);
         }
 
         public bool IgnoresContainerArea
         {
             get
             {
-                return _proxy.GetPropertyValue<bool>();
+                return this.proxy.GetPropertyValue<bool>();
             }
 
             set
             {
-                _proxy.SetPropertyValue(value);
+                this.proxy.SetPropertyValue(value);
             }
         }
 
@@ -58,23 +33,38 @@ namespace Hubo.Droid
         {
             get
             {
-                return _proxy.GetPropertyValue<ObservableCollection<Element>>();
+                return this.proxy.GetPropertyValue<ObservableCollection<Element>>();
             }
 
             set
             {
-                _proxy.SetPropertyValue(value);
+                this.proxy.SetPropertyValue(value);
             }
+        }
+
+        public static IPageController Create(Page page)
+        {
+            return new PageController(page);
+        }
+
+        public Rectangle GetContainerArea()
+        {
+            return this.proxy.GetPropertyValue<Rectangle>();
+        }
+
+        public void SetContainerArea(Rectangle value)
+        {
+            this.proxy.SetPropertyValue(value);
         }
 
         public void SendAppearing()
         {
-            _proxy.Call();
+            this.proxy.Call();
         }
 
         public void SendDisappearing()
         {
-           _proxy.Call();
+           this.proxy.Call();
         }
     }
 }
