@@ -7,6 +7,7 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Acr.UserDialogs;
     using Microsoft.ProjectOxford.Vision.Contract;
@@ -14,7 +15,6 @@ namespace Hubo
     using Plugin.Media.Abstractions;
     using SQLite.Net;
     using Xamarin.Forms;
-    using System.Text.RegularExpressions;
 
     public class DatabaseService
     {
@@ -39,6 +39,23 @@ namespace Hubo
             db.CreateTable<ShiftOffline>();
             db.CreateTable<DriveOffline>();
             db.CreateTable<BreakOffline>();
+        }
+
+        public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
+        {
+            var head = input[0] == initialChar // Do I have a `0`?
+                ? new[] { initialChar.ToString(), replacementChar } // If so output both `"0"` & `"o"`
+                : new[] { input[0].ToString() }; // Otherwise output the current character
+
+            var tails = input.Length > 1 // Is there any more string?
+                ? Combinations(input.Substring(1), initialChar, replacementChar) // Yes, recursively compute
+                : new[] { string.Empty }; // Otherwise, output empty string
+
+            // Now, join it up and return
+            return
+                from h in head
+                from t in tails
+                select h + t;
         }
 
         internal List<ShiftTable> GetDayShifts(DateTime date)
@@ -211,10 +228,10 @@ namespace Hubo
                 db.CreateTable<VehicleOffline>();
             }
 
-            VehicleOffline offline = new VehicleOffline();
-
-            offline.VehicleKey = vehicle.Key;
-
+            VehicleOffline offline = new VehicleOffline()
+            {
+                VehicleKey = vehicle.Key
+            };
             db.Insert(offline);
         }
 
@@ -389,8 +406,7 @@ namespace Hubo
 
         internal string GetNextBreakTime()
         {
-            //TODO: Get latest Shift, look for latest break, if exists, 5.5 hours since last break, else 5.5 hours since shift start
-
+            // TODO: Get latest Shift, look for latest break, if exists, 5.5 hours since last break, else 5.5 hours since shift start
             List<ShiftTable> listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if (listOfActiveShifts.Count == 1)
             {
@@ -564,10 +580,10 @@ namespace Hubo
                 db.CreateTable<UserOffline>();
             }
 
-            UserOffline offline = new UserOffline();
-
-            offline.UserKey = user.Id;
-
+            UserOffline offline = new UserOffline()
+            {
+                UserKey = user.Id
+            };
             db.Insert(offline);
         }
 
@@ -597,10 +613,11 @@ namespace Hubo
 
         internal async Task SaveNote(string note, DateTime date)
         {
-            NoteTable newNote = new NoteTable();
-            newNote.Note = note;
-            newNote.Date = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
-
+            NoteTable newNote = new NoteTable()
+            {
+                Note = note,
+                Date = date.ToString("yyyy-MM-dd HH:mm:ss.fff")
+            };
             List<ShiftTable> currentShiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
             if ((currentShiftList.Count == 0) || (currentShiftList.Count > 1))
             {
@@ -634,10 +651,10 @@ namespace Hubo
                     db.CreateTable<NoteOffline>();
                 }
 
-                NoteOffline offline = new NoteOffline();
-
-                offline.NoteKey = newNote.Key;
-
+                NoteOffline offline = new NoteOffline()
+                {
+                    NoteKey = newNote.Key
+                };
                 db.Insert(offline);
             }
         }
@@ -721,20 +738,6 @@ namespace Hubo
                 }
             }
 
-            //List<VehicleTable> vehicleExists = new List<VehicleTable>();
-
-            //foreach (string regoNum in regoList)
-            //{
-            //    List<VehicleTable> temp = new List<VehicleTable>();
-            //    temp = GetVehicles().Where(stringToCheck => stringToCheck.Registration == regoNum).ToList();
-            //    vehicleExists.AddRange(temp);
-            //}
-
-            //if (!(vehicleExists.Count > 1) && !(vehicleExists.Count < 1))
-            //{
-            //    return vehicleExists[0].Key;
-            //}
-
             VehicleTable vehicleToInsert = new VehicleTable();
             restAPI = new RestService();
             if (regoList.Count > 0)
@@ -786,23 +789,6 @@ namespace Hubo
             return fullSetPossibilities.Distinct().ToList();
         }
 
-        public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
-        {
-            var head = input[0] == initialChar //Do I have a `0`?
-                ? new[] { initialChar.ToString(), replacementChar } //If so output both `"0"` & `"o"`
-                : new[] { input[0].ToString() }; //Otherwise output the current character
-
-            var tails = input.Length > 1 //Is there any more string?
-                ? Combinations(input.Substring(1), initialChar, replacementChar) //Yes, recursively compute
-                : new[] { "" }; //Otherwise, output empty string
-
-            //Now, join it up and return
-            return
-                from h in head
-                from t in tails
-                select h + t;
-        }
-
         internal void InsertNote(NoteTable newNote)
         {
             db.Insert(newNote);
@@ -814,7 +800,6 @@ namespace Hubo
             DateTime date = DateTime.Now;
             using (UserDialogs.Instance.Loading("Starting Drive...", null, null, true, MaskType.Gradient))
             {
-
                 List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
                 if ((listOfShifts.Count == 0) || (listOfShifts.Count > 1))
                 {
@@ -850,7 +835,6 @@ namespace Hubo
                     {
                         DriveKey = newDrive.Key
                     };
-
                 }
 
                 return true;
@@ -863,8 +847,7 @@ namespace Hubo
             DateTime date = DateTime.Now;
             using (UserDialogs.Instance.Loading("Ending Drive...", null, null, true, MaskType.Gradient))
             {
-                //await ReturnOffline();
-
+                // await ReturnOffline();
                 List<DriveTable> listOfVehiclesInUse = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
                 if (listOfVehiclesInUse.Count == 0)
                 {
@@ -882,9 +865,6 @@ namespace Hubo
                     {
                         return false;
                     }
-
-                    //string[] test = new string[] { "Starting Odometer was initially wrong", "This is correct", "testing" };
-                    //await Application.Current.MainPage.DisplayActionSheet("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Cancel", "??", test);
                 }
 
                 if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
@@ -942,11 +922,12 @@ namespace Hubo
                 {
                     db.CreateTable<DriveOffline>();
 
-                    DriveOffline offline = new DriveOffline();
-
-                    offline.DriveKey = drive.Key;
-                    offline.EndOffline = true;
-                    offline.StartOffline = false;
+                    DriveOffline offline = new DriveOffline()
+                    {
+                        DriveKey = drive.Key,
+                        EndOffline = true,
+                        StartOffline = false
+                    };
                     db.Insert(offline);
                 }
                 else
@@ -966,11 +947,12 @@ namespace Hubo
 
                     if (num == 0)
                     {
-                        DriveOffline offline = new DriveOffline();
-
-                        offline.DriveKey = drive.Key;
-                        offline.EndOffline = true;
-                        offline.StartOffline = false;
+                        DriveOffline offline = new DriveOffline()
+                        {
+                            DriveKey = drive.Key,
+                            EndOffline = true,
+                            StartOffline = false
+                        };
                         db.Insert(offline);
                     }
                 }
@@ -992,7 +974,7 @@ namespace Hubo
 
             geoInsert.DriveKey = driveKey;
             geoInsert.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            geoInsert.latitude = geolocation.Latitude;
+            geoInsert.Latitude = geolocation.Latitude;
             geoInsert.Longitude = geolocation.Longitude;
 
             db.Insert(geoInsert);
@@ -1145,11 +1127,12 @@ namespace Hubo
                 if (tbl.Count == 0)
                 {
                     db.CreateTable<BreakOffline>();
-                    BreakOffline offline = new BreakOffline();
-
-                    offline.BreakKey = currentBreak.Key;
-                    offline.StartOffline = false;
-                    offline.EndOffline = true;
+                    BreakOffline offline = new BreakOffline()
+                    {
+                        BreakKey = currentBreak.Key,
+                        StartOffline = false,
+                        EndOffline = true
+                    };
                     db.Insert(offline);
                 }
                 else
@@ -1169,19 +1152,18 @@ namespace Hubo
 
                     if (num == 0)
                     {
-                        BreakOffline offline = new BreakOffline();
-
-                        offline.BreakKey = currentBreak.Key;
-                        offline.StartOffline = false;
-                        offline.EndOffline = true;
+                        BreakOffline offline = new BreakOffline()
+                        {
+                            BreakKey = currentBreak.Key,
+                            StartOffline = false,
+                            EndOffline = true
+                        };
                         db.Insert(offline);
                     }
                 }
 
                 return true;
             }
-
-            return false;
         }
 
         internal VehicleTable InsertVehicle(VehicleTable vehicleToAdd)
@@ -1252,12 +1234,12 @@ namespace Hubo
                         db.CreateTable<BreakOffline>();
                     }
 
-                    BreakOffline offline = new BreakOffline();
-
-                    offline.BreakKey = newBreak.Key;
-                    offline.StartOffline = true;
-                    offline.EndOffline = false;
-
+                    BreakOffline offline = new BreakOffline()
+                    {
+                        BreakKey = newBreak.Key,
+                        StartOffline = true,
+                        EndOffline = false
+                    };
                     db.Insert(offline);
 
                     return true;
@@ -1265,16 +1247,17 @@ namespace Hubo
 
                 return false;
             }
-            return false;
         }
 
         internal List<string> GetChecklist()
         {
-            List<string> questions = new List<string>();
-            questions.Add("This is a test");
-            questions.Add("This is a test");
-            questions.Add("This is a test");
-            questions.Add("This is a test");
+            List<string> questions = new List<string>
+            {
+                "This is a test",
+                "This is a test",
+                "This is a test",
+                "This is a test"
+            };
             return questions;
         }
 
@@ -1294,13 +1277,15 @@ namespace Hubo
 
             using (UserDialogs.Instance.Loading("Starting Shift...", null, null, true, MaskType.Gradient))
             {
-                ShiftTable shift = new ShiftTable();
-                shift.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                shift.StartLat = geoCoords.Latitude;
-                shift.StartLong = geoCoords.Longitude;
-                shift.StartLocation = location;
-                shift.ActiveShift = true;
-                shift.StartNote = note;
+                ShiftTable shift = new ShiftTable()
+                {
+                    StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    StartLat = geoCoords.Latitude,
+                    StartLong = geoCoords.Longitude,
+                    StartLocation = location,
+                    ActiveShift = true,
+                    StartNote = note
+                };
                 db.Insert(shift);
 
                 List<UserTable> user = new List<UserTable>();
@@ -1383,11 +1368,12 @@ namespace Hubo
                     {
                         db.CreateTable<ShiftOffline>();
 
-                        ShiftOffline offline = new ShiftOffline();
-
-                        offline.ShiftKey = activeShift.Key;
-                        offline.StartOffline = false;
-                        offline.EndOffline = true;
+                        ShiftOffline offline = new ShiftOffline()
+                        {
+                            ShiftKey = activeShift.Key,
+                            StartOffline = false,
+                            EndOffline = true
+                        };
                         db.Insert(offline);
                         return true;
                     }
@@ -1409,11 +1395,12 @@ namespace Hubo
 
                         if (num == 0)
                         {
-                            ShiftOffline offline = new ShiftOffline();
-
-                            offline.ShiftKey = activeShift.Key;
-                            offline.StartOffline = false;
-                            offline.EndOffline = true;
+                            ShiftOffline offline = new ShiftOffline()
+                            {
+                                ShiftKey = activeShift.Key,
+                                StartOffline = false,
+                                EndOffline = true
+                            };
                             db.Insert(offline);
                             return true;
                         }
@@ -1441,11 +1428,12 @@ namespace Hubo
 
         internal int SaveShift(DateTime shiftStart, DateTime shiftEnd, List<DriveTable> driveList) // , double latStart, double longStart, double latEnd, double longEnd)
         {
-            ShiftTable shift = new ShiftTable();
-
-            shift.StartDate = shiftStart.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            shift.EndDate = shiftEnd.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            shift.ActiveShift = false;
+            ShiftTable shift = new ShiftTable()
+            {
+                StartDate = shiftStart.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                EndDate = shiftEnd.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                ActiveShift = false
+            };
             db.Insert(shift);
 
             foreach (DriveTable drive in driveList)

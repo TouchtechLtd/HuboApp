@@ -1,10 +1,12 @@
-using Xamarin.Forms.Platform.Android;
-using Hubo;
-using Hubo.Droid;
-using Xamarin.Forms;
-using Hubo.Droid.Renderers;
+// <copyright file="MyEntryRenderer.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 using Android.Graphics.Drawables;
-using static Java.Util.ResourceBundle;
+using Hubo;
+using Hubo.Droid.Renderers;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(MyEntry), typeof(MyEntryRenderer))]
 namespace Hubo.Droid.Renderers

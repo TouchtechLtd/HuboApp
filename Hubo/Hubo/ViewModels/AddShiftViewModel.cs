@@ -121,9 +121,11 @@ namespace Hubo
 
         public async void Save()
         {
-            PromptConfig huboPrompt = new PromptConfig();
-            huboPrompt.IsCancellable = true;
-            huboPrompt.Title = "Shift Add Reason:";
+            PromptConfig huboPrompt = new PromptConfig()
+            {
+                IsCancellable = true,
+                Title = "Shift Add Reason:"
+            };
             huboPrompt.SetInputMode(InputType.Default);
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
 

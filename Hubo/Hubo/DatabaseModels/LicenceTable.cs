@@ -1,19 +1,23 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="LicenceTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using SQLite.Net.Attributes;
+
     public class LicenceTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int DriverId { get; set; }
+
         public string LicenceNumber { get; set; }
+
         public int LicenceVersion { get; set; }
+
         public string Endorsements { get; set; }
     }
 }

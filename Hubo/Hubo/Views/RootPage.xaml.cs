@@ -1,7 +1,11 @@
-﻿namespace Hubo
+﻿// <copyright file="RootPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
-    using Acr.UserDialogs;
     using System.Threading.Tasks;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     public partial class RootPage : MasterDetailPage
@@ -25,10 +29,12 @@
                 BarTextColor = Color.White
             };
             this.PropertyChanged += RootPage_PropertyChanged;
-            ToolbarItem settings = new ToolbarItem();
-            settings.Icon = "Settings96.png";
-            settings.Text = "Settings";
-            settings.Command = new Command(NavigateToSettingsPage);
+            ToolbarItem settings = new ToolbarItem()
+            {
+                Icon = "Settings96.png",
+                Text = "Settings",
+                Command = new Command(NavigateToSettingsPage)
+            };
             ToolbarItems.Add(settings);
 
             MessagingCenter.Subscribe<string>("Remove_Settings", "Remove_Settings", (sender) =>

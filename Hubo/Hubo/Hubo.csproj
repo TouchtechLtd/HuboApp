@@ -37,7 +37,6 @@
     <CodeAnalysisRuleSet>Hubo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApiModels\AddressComponents.cs" />
     <Compile Include="ApiModels\GoogleGeoLocationResponse.cs" />
     <Compile Include="ApiModels\GoogleGeoResponse.cs" />
     <Compile Include="ApiModels\LoginModels.cs" />
@@ -98,13 +97,10 @@
     <Compile Include="ViewModels\AddManBreakNoteViewModel.cs" />
     <Compile Include="ViewModels\AddShiftViewModel.cs" />
     <Compile Include="ViewModels\DisplayShiftViewModel.cs" />
-    <Compile Include="ViewModels\EditShiftDetailsViewModel.cs" />
-    <Compile Include="ViewModels\EditShiftViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LandingPageViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\NZTAMessageViewModel.cs" />
     <Compile Include="ViewModels\OthersViewModel.cs" />
@@ -124,12 +120,6 @@
     <Compile Include="Views\DisplayShiftPage.xaml.cs">
       <DependentUpon>DisplayShiftPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditShiftDetailsPage.xaml.cs">
-      <DependentUpon>EditShiftDetailsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditShiftPage.xaml.cs">
-      <DependentUpon>EditShiftPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
@@ -141,9 +131,6 @@
     </Compile>
     <Compile Include="Views\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
@@ -376,12 +363,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\LoginPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Views\LandingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -461,18 +442,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ExportPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\EditShiftPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\EditShiftDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,9 +1,11 @@
-using Android.Graphics.Drawables;
+// <copyright file="MyButtonRenderer.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+using Hubo;
 using Hubo.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Hubo;
-using static Java.Util.ResourceBundle;
 
 [assembly: ExportRenderer(typeof(MyButton), typeof(MyButtonRenderer))]
 namespace Hubo.Droid.Renderers

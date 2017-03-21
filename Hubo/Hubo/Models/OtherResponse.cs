@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="OtherResponse.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ExportResponse
+    using Newtonsoft.Json;
+
+    internal class OtherResponse
+    {
+    }
+
+    internal class ExportResponse
     {
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
@@ -22,7 +25,7 @@ namespace Hubo
         public bool UnAuthorizedRequest { get; set; }
     }
 
-    class UpdateProfileResponse
+    internal class UpdateProfileResponse
     {
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }
@@ -37,7 +40,7 @@ namespace Hubo
         public bool UnAuthorizedRequest { get; set; }
     }
 
-    class RegisterResponse
+    internal class RegisterResponse
     {
         [JsonProperty(PropertyName = "success")]
         public bool Success { get; set; }

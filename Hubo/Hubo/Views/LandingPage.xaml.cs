@@ -1,18 +1,17 @@
-﻿// <copyright file="LandingPage.xaml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="LandingPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System;
-    using System.Threading.Tasks;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     public partial class LandingPage : ContentPage
     {
         private readonly LandingPageViewModel landingPageVM = new LandingPageViewModel();
-        internal bool isLoggingIn;
+        private bool isLoggingIn;
 
         public LandingPage()
         {
@@ -20,41 +19,13 @@ namespace Hubo
             BindingContext = landingPageVM;
             landingPageVM.Navigation = Navigation;
             loginButton.Clicked += LoginButton_ClickedAsync;
-            //usernameEntry.Completed += UsernameEntry_Completed;
             usernameEntry.ReturnType = ReturnType.Next;
             usernameEntry.Next = passwordEntry;
             passwordEntry.ReturnType = ReturnType.Done;
             passwordEntry.Completed += PasswordEntry_Completed;
             rightButton.Clicked += RightButton_Clicked;
             isLoggingIn = false;
-
         }
-
-        private async void RightButton_Clicked(object sender, EventArgs e)
-        {
-            if (isLoggingIn)
-            {
-                await huboLabelSecond.FadeTo(0, 250, Easing.Linear);
-                await stackLayoutLogin.FadeTo(0, 250, Easing.Linear);
-                await huboLabelFirst.FadeTo(1, 250, Easing.Linear);
-                isLoggingIn = false;
-                rightButton.Text = Resource.RegisterText;
-            }
-            else
-            {
-                await UserDialogs.Instance.ConfirmAsync("Alert", "Currently in progress of building", "Got it", "Still got it");
-            }
-        }
-
-        private async void PasswordEntry_Completed(object sender, EventArgs e)
-        {
-            LoginButton_ClickedAsync(sender, e);
-        }
-
-        //private void UsernameEntry_Completed(object sender, EventArgs e)
-        //{
-        //    passwordEntry.Focus();
-        //}
 
         public async void LoginButton_ClickedAsync(object sender, EventArgs e)
         {
@@ -83,6 +54,27 @@ namespace Hubo
                     UserDialogs.Instance.ShowError("Please input both Username & Password", 1500);
                 }
             }
+        }
+
+        private async void RightButton_Clicked(object sender, EventArgs e)
+        {
+            if (isLoggingIn)
+            {
+                await huboLabelSecond.FadeTo(0, 250, Easing.Linear);
+                await stackLayoutLogin.FadeTo(0, 250, Easing.Linear);
+                await huboLabelFirst.FadeTo(1, 250, Easing.Linear);
+                isLoggingIn = false;
+                rightButton.Text = Resource.RegisterText;
+            }
+            else
+            {
+                await UserDialogs.Instance.ConfirmAsync("Alert", "Currently in progress of building", "Got it", "Still got it");
+            }
+        }
+
+        private void PasswordEntry_Completed(object sender, EventArgs e)
+        {
+            LoginButton_ClickedAsync(sender, e);
         }
     }
 }

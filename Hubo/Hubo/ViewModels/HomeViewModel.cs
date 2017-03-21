@@ -7,6 +7,7 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -14,7 +15,6 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
-    using System.Linq;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -33,7 +33,6 @@ namespace Hubo
         private bool isRunning;
         private double totalTime;
         private double remainTime;
-        private int notificationId;
         private bool notifyReady;
 
         private CancellationTokenSource cancel;
@@ -77,8 +76,7 @@ namespace Hubo
                 await ToggleBreak();
             });
 
-            //List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
-
+            // List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
             CompletedJourney = 0;
             RemainderOfJourney = 0;
             Break = 0;
@@ -307,10 +305,7 @@ namespace Hubo
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void SetVehicleLabel()
@@ -494,7 +489,7 @@ namespace Hubo
 
                 if (offlineDrive)
                 {
-                    if (!await dbService.StartOfflineDriveAsync(hubo,note,location, vehicleKey))
+                    if (!await dbService.StartOfflineDriveAsync(hubo, note, location, vehicleKey))
                     {
                         return false;
                     }
@@ -611,7 +606,7 @@ namespace Hubo
 
         private async Task ToggleDrive()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
 
             if (!DriveShiftRunning)
             {
@@ -622,13 +617,12 @@ namespace Hubo
                 await StopDrive();
             }
 
-            await Application.locator.StopListeningAsync();
-
+            await Application.Locator.StopListeningAsync();
         }
 
         private async Task ToggleBreak()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
 
             if (!OnBreak)
             {
@@ -639,13 +633,12 @@ namespace Hubo
                 await StopBreak();
             }
 
-            await Application.locator.StopListeningAsync();
+            await Application.Locator.StopListeningAsync();
 
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
             OnPropertyChanged("OnBreak");
-            //OnPropertyChanged("DriveShiftRunning");
         }
 
         private async Task StartBreak()
@@ -673,7 +666,6 @@ namespace Hubo
                     BreakButtonColor = Color.FromHex("#cc0000");
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
-                    //DriveShiftRunning = false;
                     ShiftRunning = false;
 
                     countdown.Start(30 * 60);
@@ -730,7 +722,6 @@ namespace Hubo
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
-                //DriveShiftRunning = true;
                 ShiftRunning = true;
 
                 if (dbService.VehicleActive())
@@ -747,7 +738,7 @@ namespace Hubo
 
         private async Task ToggleShift()
         {
-            await Application.locator.StartListeningAsync(2000, 0, true);
+            await Application.Locator.StartListeningAsync(2000, 0, true);
             bool success = false;
             if (!ShiftStarted)
             {
@@ -757,16 +748,19 @@ namespace Hubo
             {
                 success = await StopShift();
             }
-            await Application.locator.StopListeningAsync();
+
+            await Application.Locator.StopListeningAsync();
         }
 
         private async Task<string> GetLocation(Geolocation geoCoords)
         {
             string location = await restApi.GetLocation(geoCoords);
-            PromptConfig locationPrompt = new PromptConfig();
-            locationPrompt.IsCancellable = true;
-            locationPrompt.Title = "Current Location: ";
-            locationPrompt.Text = location;
+            PromptConfig locationPrompt = new PromptConfig()
+            {
+                IsCancellable = true,
+                Title = "Current Location: ",
+                Text = location
+            };
             PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
             if (!promptResult.Ok || promptResult.Text == string.Empty)
@@ -816,7 +810,6 @@ namespace Hubo
 
                             return false;
                         }
-
                     }
                 }
                 else
@@ -907,7 +900,7 @@ namespace Hubo
 
                     CancellationTokenSource cts = this.cancel;
 
-                    await Application.locator.StopListeningAsync();
+                    await Application.Locator.StopListeningAsync();
                     Device.StartTimer(TimeSpan.FromHours(13), () =>
                     {
                         if (this.cancel.IsCancellationRequested)

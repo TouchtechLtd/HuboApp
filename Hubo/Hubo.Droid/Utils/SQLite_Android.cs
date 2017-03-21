@@ -1,3 +1,7 @@
+// <copyright file="SQLite_Android.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 using System;
 using System.IO;
 using Hubo.Droid;
@@ -24,7 +28,6 @@ namespace Hubo.Droid
 
             // FOR DEBUG REASON, REMOVE WHEN PUSHING TO USERS
             // path = path.Replace("data/user/0/triotech.hubo.droid/files/", "sdcard/Download/");
-
             return new SQLiteConnection(platform, path);
         }
     }
