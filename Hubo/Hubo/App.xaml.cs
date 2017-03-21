@@ -16,7 +16,7 @@
             //Run a scheduled task every minute
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
-                //ScheduledTasks.CheckOfflineData();
+                ScheduledTasks.CheckOfflineData();
                 return true;
             });
         }

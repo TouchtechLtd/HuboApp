@@ -39,7 +39,8 @@
     <!--<Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>-->
         <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
         <Label FontSize="22" TextColor="White" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" />
-        <Label Text="{Binding CanStartShiftText}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" FontSize="Medium" />
+        <Label Text="Your 10 hour rest break ends at:" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" Grid.Row="0"  Grid.Column="1" Grid.ColumnSpan="6" FontSize="Medium" />
+        <Label Text="12:44 a.m. Tuesday" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" Grid.Row="0"  Grid.Column="1" Grid.ColumnSpan="6" FontSize="Large" />
         <Label FontSize="20" TextColor="White" Text="{Binding NextBreakTime}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="1" />
 
         <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >

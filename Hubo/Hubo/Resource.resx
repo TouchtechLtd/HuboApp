@@ -549,4 +549,10 @@
   <data name="InputOwnRego" xml:space="preserve">
     <value>None of these are my Rego, let me input my own</value>
   </data>
+  <data name="RestBreakEnds" xml:space="preserve">
+    <value>Your 10 hour rest break ends at: </value>
+  </data>
+  <data name="YouAreRested" xml:space="preserve">
+    <value>You are rested. Start your shift when you can.</value>
+  </data>
 </root>

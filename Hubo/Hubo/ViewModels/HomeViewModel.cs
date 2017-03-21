@@ -774,7 +774,7 @@ namespace Hubo
                 return string.Empty;
             }
 
-            return location;
+            return promptResult.Text;
         }
 
         private async Task<bool> StopShift()

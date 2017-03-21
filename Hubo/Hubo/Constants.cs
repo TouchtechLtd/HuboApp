@@ -3,7 +3,7 @@
 // </copyright>
 
 using Xamarin.Forms;
-
+using Hubo;
 namespace Hubo
 {
     public static class Constants

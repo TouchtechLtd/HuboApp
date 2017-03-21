@@ -1016,6 +1016,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your 10 hour rest break ends at: .
+        /// </summary>
+        internal static string RestBreakEnds {
+            get {
+                return ResourceManager.GetString("RestBreakEnds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
@@ -1354,6 +1363,15 @@ namespace Hubo {
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are rested. Start your shift when you can..
+        /// </summary>
+        internal static string YouAreRested {
+            get {
+                return ResourceManager.GetString("YouAreRested", resourceCulture);
             }
         }
     }

@@ -99,7 +99,15 @@ namespace Hubo
 
                 using (HttpClient client = new HttpClient())
                 {
-                    googleResponse = await client.SendAsync(googleGet);
+                    try
+                    {
+                        googleResponse = await client.SendAsync(googleGet);
+                    }
+                    catch
+                    {
+                        //Is Offline, so return empty
+                        return string.Empty;
+                    }
                 }
 
                 if (googleResponse.IsSuccessStatusCode)
@@ -594,7 +602,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -2;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -986,7 +1001,7 @@ namespace Hubo
 
             try
             {
-                var position = await Application.locator.GetPositionAsync(timeoutMilliseconds: 6000);
+                var position = await Application.locator.GetPositionAsync(timeoutMilliseconds: 4000);
 
                 results.Longitude = position.Longitude;
                 results.Latitude = position.Latitude;

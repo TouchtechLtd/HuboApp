@@ -368,22 +368,22 @@ namespace Hubo
             List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
             if (listOfShifts.Count == 0)
             {
-                return "You are rested. Start your shift when you can";
+                return Resource.YouAreRested;
             }
 
             ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
 
             DateTime endTime = DateTime.Parse(lastShift.EndDate);
 
-            endTime = endTime.AddHours(14);
+            endTime = endTime.AddHours(10);
 
             if (DateTime.Now > endTime)
             {
-                return "You are rested. Start your shift when you can";
+                return Resource.YouAreRested;
             }
             else
             {
-                return "Your 14 hour rest break ends at: " + endTime.ToString("h: mm tt dddd");
+                return Resource.RestBreakEnds + endTime.ToString("h: mm tt dddd");
             }
         }
 
@@ -740,6 +740,12 @@ namespace Hubo
             if (regoList.Count > 0)
             {
                 string regoAnswer = await UserDialogs.Instance.ActionSheetAsync("Are any of these your vehicle?", "Cancel", Resource.InputOwnRego, null, regoList.ToArray());
+
+                if (regoAnswer == "Cancel")
+                {
+                    return -1;
+                }
+
                 if (regoAnswer != Resource.InputOwnRego)
                 {
                     vehicleToInsert.Registration = regoAnswer;
@@ -747,10 +753,7 @@ namespace Hubo
                     return vehicleToInsert.Key;
                 }
 
-                if (regoAnswer == "Cancel")
-                {
-                    return -1;
-                }
+
             }
 
             PromptResult regoResult = await UserDialogs.Instance.PromptAsync("Please input your Rego", "Alert", "Okay", "Cancel");
@@ -1322,12 +1325,12 @@ namespace Hubo
                         db.CreateTable<ShiftOffline>();
                     }
 
-                    ShiftOffline offline = new ShiftOffline();
-
-                    offline.ShiftKey = shift.Key;
-                    offline.StartOffline = true;
-                    offline.EndOffline = false;
-
+                    ShiftOffline offline = new ShiftOffline()
+                    {
+                        ShiftKey = shift.Key,
+                        StartOffline = true,
+                        EndOffline = false
+                    };
                     db.Insert(offline);
                 }
 
@@ -1582,257 +1585,304 @@ namespace Hubo
 
         internal async Task<bool> ReturnOffline()
         {
-            var shiftExists = db.GetTableInfo("ShiftOffline");
+            List<ShiftOffline> listOfflineShifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+            UserTable user = db.Get<UserTable>(0);
 
-            if (shiftExists.Count > 0)
+            if (user == null)
             {
-                List<ShiftOffline> shifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
-
-                if (shifts != null)
-                {
-                    int uploadErrors = 0;
-                    foreach (ShiftOffline item in shifts)
-                    {
-                        UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable]")[0];
-                        ShiftTable shift = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [Key] = " + item.ShiftKey)[0];
-                        DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + item.ShiftKey + " LIMIT 1")[0];
-
-                        if (item.StartOffline)
-                        {
-                            int result = await restAPI.QueryShift(shift, false, user.DriverId, drive.Key);
-
-                            if (result > 0)
-                            {
-                                shift.ServerKey = result;
-                                db.Update(shift);
-                            }
-                            else
-                            {
-                                uploadErrors++;
-                            }
-                        }
-
-                        if (item.EndOffline)
-                        {
-                            int result = await restAPI.QueryShift(shift, true);
-
-                            if (result != 0)
-                            {
-                                uploadErrors++;
-                            }
-                        }
-
-                        if (uploadErrors == 0)
-                        {
-                            db.Query<ShiftOffline>("DELETE FROM [ShiftOffline] WHERE [ShiftKey] = " + shift.Key);
-                        }
-                    }
-                }
-
-                List<ShiftOffline> empty = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<ShiftOffline>("DROP TABLE [ShiftOffline]");
-                }
+                return false;
             }
 
-            var driveExists = db.GetTableInfo("DriveOffline");
-
-            if (driveExists.Count > 0)
+            if (listOfflineShifts.Count > 0)
             {
-                List<DriveOffline> drives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+                // TODO: Sync all up to server
 
-                if (drives != null)
+                foreach (ShiftOffline offlineShift in listOfflineShifts)
                 {
-                    int uploadErrors = 0;
-                    foreach (DriveOffline item in drives)
+                    ShiftTable currentShift = db.Get<ShiftTable>(offlineShift.ShiftKey);
+                    if (offlineShift.StartOffline)
                     {
-                        DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [Key] = " + item.DriveKey)[0];
-
-                        if (item.StartOffline)
+                        // Query to start shift
+                        int result = await restAPI.QueryShift(currentShift, false, user.DriverId);
+                        if (result < 1)
                         {
-                            int result = await restAPI.QueryDrive(false, drive);
-
-                            if (result > 0)
-                            {
-                                drive.ServerId = result;
-                                db.Update(drive);
-                            }
-                            else
-                            {
-                                uploadErrors++;
-                            }
+                            return false;
                         }
 
-                        if (item.EndOffline)
-                        {
-                            int result = await restAPI.QueryDrive(true, drive);
+                        currentShift.ServerKey = result;
+                        db.Update(currentShift);
+                    }
 
-                            if (result != 0)
-                            {
-                                uploadErrors++;
-                            }
-                        }
-
-                        if (uploadErrors == 0)
+                    if (offlineShift.EndOffline)
+                    {
+                        //Query to end shift
+                        int result = await restAPI.QueryShift(currentShift, true);
+                        if (result < 1)
                         {
-                            db.Query<DriveOffline>("DELETE FROM [DriveOffline] WHERE [DriveKey] = " + drive.Key);
+                            return false;
                         }
                     }
-                }
 
-                List<DriveOffline> empty = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<DriveOffline>("DROP TABLE [DriveOffline]");
-                }
-            }
-
-            var breakExists = db.GetTableInfo("BreakOffline");
-
-            if (breakExists.Count > 0)
-            {
-                List<BreakOffline> breaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
-
-                if (breaks != null)
-                {
-                    int uploadErrors = 0;
-
-                    foreach (BreakOffline item in breaks)
-                    {
-                        BreakTable breakValue = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [Key] = " + item.BreakKey)[0];
-
-                        if (item.StartOffline)
-                        {
-                            int result = await restAPI.QueryBreak(false, breakValue);
-
-                            if (result > 0)
-                            {
-                                breakValue.ServerId = result;
-                                db.Update(breakValue);
-                            }
-                            else
-                            {
-                                uploadErrors++;
-                            }
-                        }
-
-                        if (item.EndOffline)
-                        {
-                            int result = await restAPI.QueryBreak(true, breakValue);
-
-                            if (result != 0)
-                            {
-                                uploadErrors++;
-                            }
-                        }
-
-                        if (uploadErrors == 0)
-                        {
-                            db.Query<BreakOffline>("DELETE FROM [BreakOffline] WHERE [BreakKey] = " + breakValue.Key);
-                        }
-                    }
-                }
-
-                List<BreakOffline> empty = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<BreakOffline>("DROP TABLE [BreakOffline]");
-                }
-            }
-
-            var noteExists = db.GetTableInfo("NoteOffline");
-
-            if (noteExists.Count > 0)
-            {
-                List<NoteOffline> notes = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
-
-                if (notes != null)
-                {
-                    foreach (NoteOffline item in notes)
-                    {
-                        NoteTable note = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + item.NoteKey)[0];
-
-                        int result = await restAPI.InsertNote(note);
-
-                        if (result > 0)
-                        {
-                            db.Query<NoteOffline>("DELETE FROM [NoteOffline] WHERE [NoteKey] = " + note.Key);
-                        }
-                    }
-                }
-
-                List<NoteOffline> empty = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<NoteOffline>("DROP TABLE [NoteOffline]");
-                }
-            }
-
-            var vehicleExists = db.GetTableInfo("VehicleOffline");
-
-            if (vehicleExists.Count > 0)
-            {
-                List<VehicleOffline> vehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
-
-                if (vehicles != null)
-                {
-                    foreach (VehicleOffline item in vehicles)
-                    {
-                        VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + item.VehicleKey)[0];
-
-                        bool result = await restAPI.QueryAddVehicle(vehicle);
-
-                        if (result)
-                        {
-                            db.Query<VehicleOffline>("DELETE FROM [VehicleOffline] WHERE [VehicleKey] = " + vehicle.Key);
-                        }
-                    }
-                }
-
-                List<VehicleOffline> empty = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<VehicleOffline>("DROP TABLE [VehicleOffline]");
-                }
-            }
-
-            var userChangesExist = db.GetTableInfo("UserOffline");
-
-            if (userChangesExist.Count > 0)
-            {
-                List<UserOffline> users = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
-
-                if (users != null)
-                {
-                    foreach (UserOffline item in users)
-                    {
-                        UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable] WHERE [Key] = " + item.UserKey)[0];
-
-                        bool result = await restAPI.QueryUpdateProfile(user);
-
-                        if (result)
-                        {
-                            db.Query<UserOffline>("DELETE FROM [VehicleOffline] WHERE [UserKey] = " + user.Id);
-                        }
-                    }
-                }
-
-                List<UserOffline> empty = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
-
-                if (empty.Count == 0)
-                {
-                    db.Query<UserOffline>("DROP TABLE [VehicleOffline");
+                    db.Delete(offlineShift);
                 }
             }
 
             return true;
         }
+
+        //internal async Task<bool> ReturnOffline()
+        //{
+        //    var shiftExists = db.GetTableInfo("ShiftOffline");
+
+        //    if (shiftExists.Count > 0)
+        //    {
+        //        List<ShiftOffline> shifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+
+        //        if (shifts != null)
+        //        {
+        //            int uploadErrors = 0;
+        //            foreach (ShiftOffline item in shifts)
+        //            {
+        //                UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable]")[0];
+        //                ShiftTable shift = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [Key] = " + item.ShiftKey)[0];
+        //                DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + item.ShiftKey + " LIMIT 1")[0];
+
+        //                if (item.StartOffline)
+        //                {
+        //                    int result = await restAPI.QueryShift(shift, false, user.DriverId, drive.Key);
+
+        //                    if (result > 0)
+        //                    {
+        //                        shift.ServerKey = result;
+        //                        db.Update(shift);
+        //                    }
+        //                    else
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (item.EndOffline)
+        //                {
+        //                    int result = await restAPI.QueryShift(shift, true);
+
+        //                    if (result != 0)
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (uploadErrors == 0)
+        //                {
+        //                    db.Query<ShiftOffline>("DELETE FROM [ShiftOffline] WHERE [ShiftKey] = " + shift.Key);
+        //                }
+        //            }
+        //        }
+
+        //        List<ShiftOffline> empty = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<ShiftOffline>("DROP TABLE [ShiftOffline]");
+        //        }
+        //    }
+
+        //    var driveExists = db.GetTableInfo("DriveOffline");
+
+        //    if (driveExists.Count > 0)
+        //    {
+        //        List<DriveOffline> drives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+
+        //        if (drives != null)
+        //        {
+        //            int uploadErrors = 0;
+        //            foreach (DriveOffline item in drives)
+        //            {
+        //                DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [Key] = " + item.DriveKey)[0];
+
+        //                if (item.StartOffline)
+        //                {
+        //                    int result = await restAPI.QueryDrive(false, drive);
+
+        //                    if (result > 0)
+        //                    {
+        //                        drive.ServerId = result;
+        //                        db.Update(drive);
+        //                    }
+        //                    else
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (item.EndOffline)
+        //                {
+        //                    int result = await restAPI.QueryDrive(true, drive);
+
+        //                    if (result != 0)
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (uploadErrors == 0)
+        //                {
+        //                    db.Query<DriveOffline>("DELETE FROM [DriveOffline] WHERE [DriveKey] = " + drive.Key);
+        //                }
+        //            }
+        //        }
+
+        //        List<DriveOffline> empty = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<DriveOffline>("DROP TABLE [DriveOffline]");
+        //        }
+        //    }
+
+        //    var breakExists = db.GetTableInfo("BreakOffline");
+
+        //    if (breakExists.Count > 0)
+        //    {
+        //        List<BreakOffline> breaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
+
+        //        if (breaks != null)
+        //        {
+        //            int uploadErrors = 0;
+
+        //            foreach (BreakOffline item in breaks)
+        //            {
+        //                BreakTable breakValue = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [Key] = " + item.BreakKey)[0];
+
+        //                if (item.StartOffline)
+        //                {
+        //                    int result = await restAPI.QueryBreak(false, breakValue);
+
+        //                    if (result > 0)
+        //                    {
+        //                        breakValue.ServerId = result;
+        //                        db.Update(breakValue);
+        //                    }
+        //                    else
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (item.EndOffline)
+        //                {
+        //                    int result = await restAPI.QueryBreak(true, breakValue);
+
+        //                    if (result != 0)
+        //                    {
+        //                        uploadErrors++;
+        //                    }
+        //                }
+
+        //                if (uploadErrors == 0)
+        //                {
+        //                    db.Query<BreakOffline>("DELETE FROM [BreakOffline] WHERE [BreakKey] = " + breakValue.Key);
+        //                }
+        //            }
+        //        }
+
+        //        List<BreakOffline> empty = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<BreakOffline>("DROP TABLE [BreakOffline]");
+        //        }
+        //    }
+
+        //    var noteExists = db.GetTableInfo("NoteOffline");
+
+        //    if (noteExists.Count > 0)
+        //    {
+        //        List<NoteOffline> notes = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
+
+        //        if (notes != null)
+        //        {
+        //            foreach (NoteOffline item in notes)
+        //            {
+        //                NoteTable note = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + item.NoteKey)[0];
+
+        //                int result = await restAPI.InsertNote(note);
+
+        //                if (result > 0)
+        //                {
+        //                    db.Query<NoteOffline>("DELETE FROM [NoteOffline] WHERE [NoteKey] = " + note.Key);
+        //                }
+        //            }
+        //        }
+
+        //        List<NoteOffline> empty = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<NoteOffline>("DROP TABLE [NoteOffline]");
+        //        }
+        //    }
+
+        //    var vehicleExists = db.GetTableInfo("VehicleOffline");
+
+        //    if (vehicleExists.Count > 0)
+        //    {
+        //        List<VehicleOffline> vehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+
+        //        if (vehicles != null)
+        //        {
+        //            foreach (VehicleOffline item in vehicles)
+        //            {
+        //                VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + item.VehicleKey)[0];
+
+        //                bool result = await restAPI.QueryAddVehicle(vehicle);
+
+        //                if (result)
+        //                {
+        //                    db.Query<VehicleOffline>("DELETE FROM [VehicleOffline] WHERE [VehicleKey] = " + vehicle.Key);
+        //                }
+        //            }
+        //        }
+
+        //        List<VehicleOffline> empty = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<VehicleOffline>("DROP TABLE [VehicleOffline]");
+        //        }
+        //    }
+
+        //    var userChangesExist = db.GetTableInfo("UserOffline");
+
+        //    if (userChangesExist.Count > 0)
+        //    {
+        //        List<UserOffline> users = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
+
+        //        if (users != null)
+        //        {
+        //            foreach (UserOffline item in users)
+        //            {
+        //                UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable] WHERE [Key] = " + item.UserKey)[0];
+
+        //                bool result = await restAPI.QueryUpdateProfile(user);
+
+        //                if (result)
+        //                {
+        //                    db.Query<UserOffline>("DELETE FROM [VehicleOffline] WHERE [UserKey] = " + user.Id);
+        //                }
+        //            }
+        //        }
+
+        //        List<UserOffline> empty = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
+
+        //        if (empty.Count == 0)
+        //        {
+        //            db.Query<UserOffline>("DROP TABLE [VehicleOffline");
+        //        }
+        //    }
+
+        //    return true;
+        //}
 
         private bool CheckActiveShiftIsCorrect(bool isShift, List<ShiftTable> activeShifts = null, List<DriveTable> activeDrives = null)
         {

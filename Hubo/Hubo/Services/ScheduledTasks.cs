@@ -21,7 +21,9 @@ namespace Hubo
             bool isConnected = CrossConnectivity.Current.IsConnected;
 
             if (isConnected)
+            {
                 await db.ReturnOffline();
+            }
         }
     }
 }
