@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
- 
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
-             xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
-             xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
-             xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
-             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
-             x:Class="Hubo.HomePage"
-             Style="{StaticResource ContentPageStyle}"
-             >
+<ContentPage Style="{StaticResource ContentPageStyle}"
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+            xmlns:syncfusion="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+            xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
+            xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
+            xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
+            x:Class="Hubo.HomePage"
+            >
 
   <ContentPage.Resources>
     <ResourceDictionary>

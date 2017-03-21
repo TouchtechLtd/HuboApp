@@ -5,7 +5,6 @@
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
              x:Class="Hubo.LandingPage"
-             Style="{StaticResource ContentPageStyle}"
              >
   <Grid RowSpacing="0" ColumnSpacing="0" x:Name="grid" Padding="10">
     <Grid.ColumnDefinitions>

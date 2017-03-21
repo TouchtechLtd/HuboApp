@@ -693,7 +693,7 @@ namespace Hubo
             }
 
             List<string> regoList = new List<string>();
-            Regex r = new Regex("^[A-Za-z0-9\u03B8]*$");
+            Regex r = new Regex("^[A-Za-z0-9Ø]*$");
             foreach (Region region in rego.Regions)
             {
                 foreach (Line line in region.Lines)
@@ -764,65 +764,10 @@ namespace Hubo
             return -1;
         }
 
-        //internal List<string> CheckPossiblities(string fullLine)
-        //{
-        //    List<string> firstSet = new List<string>();
-        //    List<string> fullSetPossibilities = new List<string>();
-
-        //    firstSet.Add(fullLine);
-
-        //    if (fullLine.Contains("I"))
-        //    {
-        //        List<string> possibilities = Combinations(fullLine, 'I', "1").ToList();
-        //        foreach (string possibility in possibilities)
-        //        {
-        //            firstSet.Add(possibility);
-        //        }
-        //    }
-
-        //    if (fullLine.Contains("i"))
-        //    {
-        //        List<string> tempSet = new List<string>();
-        //        foreach (string transfer in firstSet)
-        //        {
-        //            tempSet.Add(transfer);
-        //        }
-
-        //        //List<string> possibilities = Combinations(fullLine, 'i', "1").ToList();
-        //        foreach (string possibility in tempSet)
-        //        {
-        //            if (possibility.Contains("i"))
-        //            {
-        //                firstSet.Add(Regex.Replace(possibility, "i", "1"));
-        //            }
-        //        }
-        //    }
-
-        //    if (fullLine.Contains("\u03B8"))
-        //    {
-        //        List<string> tempSet = new List<string>();
-        //        foreach (string transfer in firstSet)
-        //        {
-        //            tempSet.Add(transfer);
-        //        }
-
-        //        foreach (string possibility in tempSet)
-        //        {
-        //            if (possibility.Contains('\u03B8'.ToString()))
-        //            {
-        //                fullSetPossibilities.Add(Regex.Replace(possibility, "\u03B8", "0"));
-        //            }
-        //        }
-
-        //        return fullSetPossibilities.Distinct().ToList();
-        //    }
-
-        //    return firstSet;
-        //}
         internal List<string> CheckPossiblities(string fullLine)
         {
             List<string> fullSetPossibilities = new List<string>();
-            fullLine = Regex.Replace(fullLine, "\u03B8", "0");
+            fullLine = Regex.Replace(fullLine, "Ø", "0");
             fullLine = Regex.Replace(fullLine, "i", "1");
             fullLine = Regex.Replace(fullLine, "l", "1");
             fullSetPossibilities.Add(fullLine);
