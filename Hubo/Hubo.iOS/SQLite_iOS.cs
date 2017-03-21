@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="SQLite_iOS.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+using System;
 using System.IO;
 using Hubo.iOS;
 using SQLite.Net;

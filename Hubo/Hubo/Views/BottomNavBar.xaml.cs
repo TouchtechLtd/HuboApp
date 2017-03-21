@@ -1,4 +1,8 @@
-﻿namespace Hubo
+﻿// <copyright file="BottomNavBar.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
     using Xamarin.Forms;
 

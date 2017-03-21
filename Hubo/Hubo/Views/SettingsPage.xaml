@@ -4,14 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hubo.SettingsPage">
 
-  <TableView>
-    <TableView.Root>
-      <TableSection Title="Layout">
-        <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
-        <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
+    <TableView>
+        <TableView.Root>
+            <TableSection Title="Layout">
+                <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
+                <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
 
-        <TextCell Text="SettingsPage" />
-      </TableSection>
-    </TableView.Root>
-  </TableView>
+                <TextCell Text="SettingsPage" />
+            </TableSection>
+        </TableView.Root>
+    </TableView>
 </ContentPage>

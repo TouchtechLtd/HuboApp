@@ -1,22 +1,29 @@
-﻿using SQLite.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="AmendmentTable.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class AmendmentTable
+    using SQLite.Net.Attributes;
+
+    internal class AmendmentTable
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         public int Key { get; set; }
+
         public int ShiftId { get; set; }
+
         public int DriveId { get; set; }
+
         public string Table { get; set; }
+
         public string Field { get; set; }
+
         public string TimeStamp { get; set; }
+
         public string BeforeValue { get; set; }
+
         public string AfterValue { get; set; }
     }
 }

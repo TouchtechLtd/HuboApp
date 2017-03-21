@@ -14,18 +14,10 @@ namespace Hubo.Helpers
     /// </summary>
     public static class Settings
     {
-        private static ISettings AppSettings
-        {
-            get
-            {
-                return CrossSettings.Current;
-            }
-        }
-
         private const string HamburgerKey = "hamburger_key";
-        private static readonly bool HamburgerDefault = false;
-
         private const string DarkLightKey = "darkLight_key";
+
+        private static readonly bool HamburgerDefault = false;
         private static readonly bool DarkLightDefault = false;
 
         public static bool HamburgerSettings
@@ -51,6 +43,14 @@ namespace Hubo.Helpers
             set
             {
                 AppSettings.AddOrUpdateValue<bool>(DarkLightKey, value);
+            }
+        }
+
+        private static ISettings AppSettings
+        {
+            get
+            {
+                return CrossSettings.Current;
             }
         }
     }

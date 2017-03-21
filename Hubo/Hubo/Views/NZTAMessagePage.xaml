@@ -2,21 +2,21 @@
 <ContentPage Style="{StaticResource ContentPageStyle}"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hubo.NZTAMessagePage"
-             Style="{StaticResource ContentPageStyle}"
-             >
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="4*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="8*"/>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <Label Text="{Binding NZTADisclaimer}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" AutomationId="NZTAPage"/>
-    <Button Text="{Binding NZTAButtonText}" Grid.Row="1" Grid.Column="1" AutomationId="NZTAButton" Command="{Binding NZTAButton}"/>
-  </Grid>
+             x:Class="Hubo.NZTAMessagePage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Label Text="{Binding NZTADisclaimer}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" AutomationId="NZTAPage"/>
+        <Button Text="{Binding NZTAButtonText}" Grid.Row="1" Grid.Column="1" AutomationId="NZTAButton" Command="{Binding NZTAButton}"/>
+    </Grid>
 </ContentPage>

@@ -1,5 +1,5 @@
-﻿// <copyright file="ProfileViewModel.cs" company="Trio Technology LTD">
-// Copyright (c) Trio Technology LTD. All rights reserved.
+﻿// <copyright file="ProfileViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -19,7 +19,7 @@ namespace Hubo
 
         public ProfileViewModel()
         {
-            SaveAndExit = new RelayCommand(async () => await SaveAndPop());
+            SaveAndExit = new RelayCommand(() => SaveAndPop());
             CancelAndExit = new RelayCommand(async () => await CancelAndPop());
 
             UserNameText = Resource.UserName;
@@ -121,7 +121,6 @@ namespace Hubo
 
         private void GetUserInfo()
         {
-
             dbService = new DatabaseService();
             user = dbService.GetUserInfo();
 
@@ -150,7 +149,7 @@ namespace Hubo
             OnPropertyChanged("Phone");
         }
 
-        private async Task SaveAndPop()
+        private void SaveAndPop()
         {
             UserTable userChanges = new UserTable();
 

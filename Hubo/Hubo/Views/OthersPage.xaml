@@ -2,15 +2,12 @@
 <ContentPage Style="{StaticResource ContentPageStyle}"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hubo.OthersPage"
-             Style="{StaticResource ContentPageStyle}"
-             >
+             x:Class="Hubo.OthersPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>

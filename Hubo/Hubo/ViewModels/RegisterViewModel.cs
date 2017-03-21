@@ -1,9 +1,13 @@
-﻿namespace Hubo
+﻿// <copyright file="RegisterViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
-    using Acr.UserDialogs;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
     using XLabs;
 
@@ -56,11 +60,12 @@
                 {
                     RestService restAPI = new RestService();
 
-                    UserTable user = new UserTable();
-                    user.FirstName = FirstName;
-                    user.LastName = LastName;
-                    user.Email = Email;
-
+                    UserTable user = new UserTable()
+                    {
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Email = Email
+                    };
                     int result = await restAPI.RegisterUser(user, Password);
 
                     switch (result)

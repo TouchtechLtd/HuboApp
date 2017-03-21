@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
- 
+<ContentPage Style="{StaticResource ContentPageStyle}"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
@@ -7,96 +7,74 @@
              xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
              xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
-             x:Class="Hubo.HomePage"
-             Style="{StaticResource ContentPageStyle}"
-             >
+             x:Class="Hubo.HomePage">
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <local:CountdownConverter x:Key="Converter"/>
-    </ResourceDictionary>
-  </ContentPage.Resources>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CountdownConverter x:Key="Converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-  <Grid x:Name="grid" Padding="-7">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="3*" />
-      <RowDefinition Height="3*" />
-      <RowDefinition Height="3*" />
-      <RowDefinition Height="4*" />
-      <RowDefinition Height="3*" />
-      <RowDefinition Height="3*" />
-    </Grid.RowDefinitions>
+    <Grid x:Name="grid" Padding="-7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
 
-    <!--<Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>-->
         <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
         <Label FontSize="22" TextColor="White" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" />
         <Label Text="{Binding CanStartShiftText}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" FontSize="Medium" />
         <Label FontSize="20" TextColor="White" Text="{Binding NextBreakTime}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="1" />
 
         <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >
-      <syncfusion:SfLinearGauge.Scales>
-        <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="15" ScaleBarColor="White" LabelColor="White">
-          <syncfusion:LinearScale.MajorTickSettings>
-            <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="White" />
-          </syncfusion:LinearScale.MajorTickSettings>
-          <syncfusion:LinearScale.Pointers>
-            <syncfusion:BarPointer Value="{Binding CompletedJourney}" Thickness="23" Color="Black"/>
-          </syncfusion:LinearScale.Pointers>
-        </syncfusion:LinearScale>
-      </syncfusion:SfLinearGauge.Scales>
-    </syncfusion:SfLinearGauge>
+            <syncfusion:SfLinearGauge.Scales>
+                <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="15" ScaleBarColor="White" LabelColor="White">
+                    <syncfusion:LinearScale.MajorTickSettings>
+                        <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="White" />
+                    </syncfusion:LinearScale.MajorTickSettings>
+                    <syncfusion:LinearScale.Pointers>
+                        <syncfusion:BarPointer Value="{Binding CompletedJourney}" Thickness="23" Color="Black"/>
+                    </syncfusion:LinearScale.Pointers>
+                </syncfusion:LinearScale>
+            </syncfusion:SfLinearGauge.Scales>
+        </syncfusion:SfLinearGauge>
 
-    <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.8" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
-      <telerikGauges:RadRadialGauge.Axis>
-        <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="14" Step="1" StrokeThickness="1" TickStroke="White" TickOffset="-1" ShowLabels="False" />
-      </telerikGauges:RadRadialGauge.Axis>
+        <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.8" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
+            <telerikGauges:RadRadialGauge.Axis>
+                <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="14" Step="1" StrokeThickness="1" TickStroke="White" TickOffset="-1" ShowLabels="False" />
+            </telerikGauges:RadRadialGauge.Axis>
 
-      <telerikGauges:RadRadialGauge.Indicators>
-        <telerikGauges:GaugeBarIndicator Value="{Binding CompletedJourney}" Fill="{Binding Source={x:Static local:Constants.RED_COLOR}" StartThickness="30" EndThickness="30" />
-        <telerikGauges:GaugeShapeIndicator Value="{Binding TotalBeforeBreak}" />
-      </telerikGauges:RadRadialGauge.Indicators>
+            <telerikGauges:RadRadialGauge.Indicators>
+                <telerikGauges:GaugeBarIndicator Value="{Binding CompletedJourney}" Fill="{Binding Source={x:Static local:Constants.RED_COLOR}" StartThickness="30" EndThickness="30" />
+                <telerikGauges:GaugeShapeIndicator Value="{Binding TotalBeforeBreak}" />
+            </telerikGauges:RadRadialGauge.Indicators>
 
-      <telerikGauges:RadRadialGauge.Ranges>
-        <telerikGauges:GaugeRangesDefinition StartThickness="30" EndThickness="30">
-            <telerikGauges:GaugeRange From="0" To="14" Color="{Binding Source={x:Static local:Constants.GREEN_COLOR}}" />
-        </telerikGauges:GaugeRangesDefinition>
-      </telerikGauges:RadRadialGauge.Ranges>
-    </telerikGauges:RadRadialGauge>
+            <telerikGauges:RadRadialGauge.Ranges>
+                <telerikGauges:GaugeRangesDefinition StartThickness="30" EndThickness="30">
+                    <telerikGauges:GaugeRange From="0" To="14" Color="{Binding Source={x:Static local:Constants.GREEN_COLOR}}" />
+                </telerikGauges:GaugeRangesDefinition>
+            </telerikGauges:RadRadialGauge.Ranges>
+        </telerikGauges:RadRadialGauge>
 
-    <!--<fab:FloatingActionButton Size="Normal"  x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" BorderRadius="5" BorderWidth="2"/>-->
         <fab:FloatingActionButton Size="Mini" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" x:Name="driveButton"  Command="{Binding VehicleCommand}" NormalColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" />
         <Label Text="{Binding VehicleText}" TextColor="White" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" VerticalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="Large" IsVisible="{Binding ShiftStarted}"/>
 
         <Label FontSize="20" TextColor="White" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="4" />
 
-    <!--<Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>-->
-    <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
-
-
-    <!--<telerikGauges:RadRadialGauge x:Name="breakGauge" StartAngle="90" SweepAngle="360" AxisRadiusFactor="0.75" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="5" IsVisible="{Binding IsRunning}">
-      <telerikGauges:RadRadialGauge.Axis>
-        <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="{Binding TotalTime}" Step="120" StrokeThickness="1" Stroke="#000000" TickStroke="#000000" TickOffset="-1" ShowLabels="False" />
-      </telerikGauges:RadRadialGauge.Axis>
-
-      <telerikGauges:RadRadialGauge.Indicators>
-        <telerikGauges:GaugeBarIndicator Value="{Binding RemainTime}" Fill="#0000cc" StartThickness="12" EndThickness="12" />
-      </telerikGauges:RadRadialGauge.Indicators>
-
-      <telerikGauges:RadRadialGauge.Ranges>
-        <telerikGauges:GaugeRangesDefinition StartThickness="12" EndThickness="12">
-          <telerikGauges:GaugeRange From="0" To="{Binding TotalTime}" Color="#000000" />
-        </telerikGauges:GaugeRangesDefinition>
-      </telerikGauges:RadRadialGauge.Ranges>
-    </telerikGauges:RadRadialGauge>-->
-  </Grid>
+        <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
+    </Grid>
 </ContentPage>

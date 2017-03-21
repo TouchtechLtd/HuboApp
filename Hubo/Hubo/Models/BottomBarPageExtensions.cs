@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿// <copyright file="BottomBarPageExtensions.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using Xamarin.Forms;
+
     public static class BottomBarPageExtensions
     {
-        #region TabColorProperty
-
         public static readonly BindableProperty TabColorProperty = BindableProperty.CreateAttached(
             propertyName: "TabColor",
             returnType: typeof(Color?),
@@ -20,7 +17,7 @@ namespace Hubo
             validateValue: null,
             propertyChanged: null);
 
-        public static void SetTabColor (this Page page, Color? color)
+        public static void SetTabColor(this Page page, Color? color)
         {
             page.SetValue(TabColorProperty, color);
         }
@@ -29,7 +26,5 @@ namespace Hubo
         {
             return (Color?)page.GetValue(TabColorProperty);
         }
-
-        #endregion
     }
 }

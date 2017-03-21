@@ -1,4 +1,8 @@
-﻿namespace Hubo
+﻿// <copyright file="VehiclesPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
     using System;
     using System.Collections.Generic;
@@ -37,8 +41,10 @@
 
         internal void AddToolBar()
         {
-            ToolbarItem topLeftText = new ToolbarItem();
-            topLeftText.Text = "Vehicle";
+            ToolbarItem topLeftText = new ToolbarItem()
+            {
+                Text = "Vehicle"
+            };
             ToolbarItems.Add(topLeftText);
         }
 

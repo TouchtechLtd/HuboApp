@@ -4,11 +4,10 @@
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Acr.UserDialogs;
     using Telerik.XamarinForms.Chart;
     using Xamarin.Forms;
 
@@ -21,8 +20,10 @@ namespace Hubo
         {
             InitializeComponent();
             historyVM = new HistoryViewModel();
-            ToolbarItem topLeftText = new ToolbarItem();
-            topLeftText.Text = "History";
+            ToolbarItem topLeftText = new ToolbarItem()
+            {
+                Text = "History"
+            };
             ToolbarItems.Add(topLeftText);
             historyVM.Navigation = Navigation;
             BindingContext = historyVM;

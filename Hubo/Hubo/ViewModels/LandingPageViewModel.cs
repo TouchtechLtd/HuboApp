@@ -4,25 +4,26 @@
 
 namespace Hubo
 {
-    using Acr.UserDialogs;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     internal class LandingPageViewModel
     {
+        private NavigationPage loadPage;
+
         private RestService restService;
 
         private BottomNavBar navBar = new BottomNavBar();
 
         private BottomBarPage bottomBarPage;
 
-        public NavigationPage loadPage;
-
         public LandingPageViewModel()
         {
             LoginButtonText = Resource.LoginText;
-            LoginButton = new Command(NavigateToLoginPage);
+
+            // LoginButton = new Command(NavigateToLoginPage);
             RegisterButton = new Command(NavigateToRegisterPage);
             bottomBarPage = navBar.GetBottomBar();
             NavigationPage.SetHasNavigationBar(bottomBarPage, false);
@@ -35,18 +36,7 @@ namespace Hubo
 
         public ICommand RegisterButton { get; set; }
 
-
         public string LoginButtonText { get; set; }
-
-        private void NavigateToRegisterPage()
-        {
-            Navigation.PushModalAsync(new RegisterPage());
-        }
-
-        private void NavigateToLoginPage()
-        {
-            Navigation.PushModalAsync(new LoginPage(), false);
-        }
 
         public async Task<bool> Login(string username, string password)
         {
@@ -78,7 +68,7 @@ namespace Hubo
 
                     if (shiftResult == 4)
                     {
-                        //Application.Current.MainPage = new NZTAMessagePage(1);
+                        // Application.Current.MainPage = new NZTAMessagePage(1);
                         Application.Current.MainPage = loadPage;
                         return true;
                     }
@@ -94,7 +84,18 @@ namespace Hubo
                     db.ClearTablesForUserShifts();
                 }
             }
+
             return false;
         }
+
+        private void NavigateToRegisterPage()
+        {
+            Navigation.PushModalAsync(new RegisterPage());
+        }
+
+        // private void NavigateToLoginPage()
+        // {
+        //    Navigation.PushModalAsync(new LoginPage(), false);
+        // }
     }
 }
