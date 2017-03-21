@@ -528,6 +528,27 @@ namespace Hubo
             }
         }
 
+        //internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
+        //{
+        //    string contentType = Constants.CONTENT_TYPE;
+        //    string url;
+
+        //    string json;
+
+        //    if (shiftStarted)
+        //    {
+        //        url = GetBaseUrl() + Constants.REST_URL_ADDSHIFTEND;
+        //        EndShiftModel shiftModel = new EndShiftModel();
+
+        //        shiftModel.id = shift.ServerKey;
+        //        shiftModel.endDate = shift.EndDate;
+        //        shiftModel.endLocationLat = shift.EndLat;
+        //        shiftModel.endLocationLong = shift.EndLong;
+        //        shiftModel.endLocation = shift.EndLocation;
+        //        return false;
+        //    }
+        //}
+		
         internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
         {
             string contentType = Constants.CONTENT_TYPE;

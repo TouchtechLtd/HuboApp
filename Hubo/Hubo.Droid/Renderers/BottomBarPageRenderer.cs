@@ -1,19 +1,16 @@
+// <copyright file="BottomBarPageRenderer.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-
-using BottomNavigationBar;
-using BottomNavigationBar.Listeners;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using BottomNavigationBar;
+using BottomNavigationBar.Listeners;
 using Hubo;
 using Hubo.Droid;
 using Xamarin.Forms;
