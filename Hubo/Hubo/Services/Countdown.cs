@@ -6,9 +6,9 @@ namespace Hubo
 {
     using System;
     using System.Diagnostics;
+    using System.Threading;
     using Acr.UserDialogs;
     using Xamarin.Forms;
-    using System.Threading;
 
     /// <summary>
     /// Countdown timer with periodical ticks.

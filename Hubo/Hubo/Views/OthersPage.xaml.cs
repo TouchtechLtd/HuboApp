@@ -1,7 +1,11 @@
-﻿namespace Hubo
+﻿// <copyright file="OthersPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+namespace Hubo
 {
-    using Acr.UserDialogs;
     using System.Threading.Tasks;
+    using Acr.UserDialogs;
     using Xamarin.Forms;
 
     public partial class OthersPage : ContentPage
@@ -12,8 +16,10 @@
         {
             InitializeComponent();
             Title = Resource.OthersText;
-            ToolbarItem topLeftText = new ToolbarItem();
-            topLeftText.Text = "Other";
+            ToolbarItem topLeftText = new ToolbarItem()
+            {
+                Text = "Other"
+            };
             ToolbarItems.Add(topLeftText);
             Icon = "Menu25.png";
             BindingContext = othersVM;

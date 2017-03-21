@@ -16,8 +16,10 @@ namespace Hubo
         public DisplayShiftPage(DateTime selectedDate)
         {
             InitializeComponent();
-            displayVM = new DisplayShiftViewModel(selectedDate);
-            displayVM.Navigation = Navigation;
+            displayVM = new DisplayShiftViewModel(selectedDate)
+            {
+                Navigation = Navigation
+            };
             BindingContext = displayVM;
             shiftPicker.Title = Resource.ShiftPickerTitle;
 

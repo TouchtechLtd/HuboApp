@@ -4,27 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.RegisterPage">
-  <ScrollView>
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="4*" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="2*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="2*" />
-      </Grid.RowDefinitions>
-      <local:BaseEntry Placeholder="{Binding FirstNamePlaceholder}" AutomationId="FirstName" Text="{Binding FirstName}" Grid.Column="1" Grid.Row="1" x:Name="firstName"/>
-      <local:BaseEntry Placeholder="{Binding LastNamePlaceholder}" AutomationId="LastName" Text="{Binding LastName}" Grid.Column="1" Grid.Row="2" x:Name="lastName"/>
-      <local:BaseEntry Placeholder="{Binding EmailPlaceholder}" AutomationId="Email" Text="{Binding Email}" Keyboard="Email" Grid.Column="1" Grid.Row="3" x:Name="email"/>
-      <local:BaseEntry Placeholder="{Binding PasswordPlaceholder}" AutomationId="Password" Text="{Binding Password}" Grid.Column="1" Grid.Row="4" x:Name="password"/>
-      <Button Text="{Binding RegisterButtonText}" AutomationId="RegisterButton" Command="{Binding RegisterButton}" Grid.Column="1" Grid.Row="5" />
-    </Grid>
-  </ScrollView>
+
+    <ScrollView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <local:BaseEntry Placeholder="{Binding FirstNamePlaceholder}" AutomationId="FirstName" Text="{Binding FirstName}" Grid.Column="1" Grid.Row="1" x:Name="firstName"/>
+            <local:BaseEntry Placeholder="{Binding LastNamePlaceholder}" AutomationId="LastName" Text="{Binding LastName}" Grid.Column="1" Grid.Row="2" x:Name="lastName"/>
+            <local:BaseEntry Placeholder="{Binding EmailPlaceholder}" AutomationId="Email" Text="{Binding Email}" Keyboard="Email" Grid.Column="1" Grid.Row="3" x:Name="email"/>
+            <local:BaseEntry Placeholder="{Binding PasswordPlaceholder}" AutomationId="Password" Text="{Binding Password}" Grid.Column="1" Grid.Row="4" x:Name="password"/>
+            <Button Text="{Binding RegisterButtonText}" AutomationId="RegisterButton" Command="{Binding RegisterButton}" Grid.Column="1" Grid.Row="5" />
+        </Grid>
+    </ScrollView>
 </ContentPage>

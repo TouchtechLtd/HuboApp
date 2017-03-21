@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ExportNote.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ExportNote
+    internal class ExportNote
     {
         public string shiftCode { get; set; }
+
         public string noteTime { get; set; }
+
         public string noteDetails { get; set; }
     }
 }

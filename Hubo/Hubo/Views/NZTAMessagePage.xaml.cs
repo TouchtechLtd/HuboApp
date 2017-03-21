@@ -1,5 +1,5 @@
-﻿// <copyright file="NZTAMessagePage.xaml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="NZTAMessagePage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -13,8 +13,10 @@ namespace Hubo
         public NZTAMessagePage(int instruction)
         {
             InitializeComponent();
-            nztaMessageVM = new NZTAMessageViewModel(instruction);
-            nztaMessageVM.Navigation = Navigation;
+            nztaMessageVM = new NZTAMessageViewModel(instruction)
+            {
+                Navigation = Navigation
+            };
             BindingContext = nztaMessageVM;
             Title = Resource.NZTA;
         }

@@ -5,9 +5,8 @@
              xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
-             x:Class="Hubo.HistoryPage"
-    
-             >
+             x:Class="Hubo.HistoryPage">
+
     <ContentView>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -53,9 +52,8 @@
                 </telerikChart:RadCartesianChart.Series>
             </telerikChart:RadCartesianChart>
 
-            <Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
-            <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" />
+            <!--<Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>-->
+            <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" />
         </Grid>
-
     </ContentView>
 </ContentPage>

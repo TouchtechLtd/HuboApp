@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+// <copyright file="MeasureSpecFactory.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.Droid
 {
+    using Android.Views;
+
     internal static class MeasureSpecFactory
     {
         public static int GetSize(int measureSpec)

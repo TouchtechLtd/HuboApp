@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿// <copyright file="LoginResponse.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    public class LoginResponse
+    {
+    }
+
     public class LoginUserResponse
     {
         [JsonProperty(PropertyName = "success")]

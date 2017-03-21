@@ -1,3 +1,7 @@
+// <copyright file="Settings.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 /*
 // Helpers/Settings.cs This file was automatically added when you installed the Settings Plugin. If you are not using a PCL then comment this file back in to use it.
 using Plugin.Settings;
@@ -8,7 +12,7 @@ namespace Hubo.Droid.Helpers
   /// <summary>
   /// This is the Settings static class that can be used in your Core solution or in any
   /// of your client applications. All settings are laid out the same exact way with getters
-  /// and setters. 
+  /// and setters.
   /// </summary>
   public static class Settings
   {

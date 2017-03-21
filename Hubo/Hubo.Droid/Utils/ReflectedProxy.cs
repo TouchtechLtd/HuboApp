@@ -1,70 +1,65 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+// <copyright file="ReflectedProxy.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo.Droid
 {
-    public class ReflectedProxy<T> where T : class
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+
+    public class ReflectedProxy<T>
+        where T : class
     {
-        private object _target;
+        private readonly Dictionary<string, PropertyInfo> cachedPropertyInfo;
+        private readonly Dictionary<string, MethodInfo> cachedMethodInfo;
 
-        private readonly Dictionary<string, PropertyInfo> _cachedPropertyInfo;
-        private readonly Dictionary<string, MethodInfo> _cachedMethodInfo;
+        private readonly IEnumerable<PropertyInfo> targetPropertyInfoList;
+        private readonly IEnumerable<MethodInfo> targetMethodInfoList;
 
-        private readonly IEnumerable<PropertyInfo> _targetPropertyInfoList;
-        private readonly IEnumerable<MethodInfo> _targetMethodInfoList;
+        private object target;
 
         public ReflectedProxy(T target)
         {
-            _target = target;
+            this.target = target;
 
-            _cachedPropertyInfo = new Dictionary<string, PropertyInfo>();
-            _cachedMethodInfo = new Dictionary<string, MethodInfo>();
+            this.cachedPropertyInfo = new Dictionary<string, PropertyInfo>();
+            this.cachedMethodInfo = new Dictionary<string, MethodInfo>();
 
             TypeInfo typeInfo = typeof(T).GetTypeInfo();
-            _targetPropertyInfoList = typeInfo.GetRuntimeProperties();
-            _targetMethodInfoList = typeInfo.GetRuntimeMethods();
+            this.targetPropertyInfoList = typeInfo.GetRuntimeProperties();
+            this.targetMethodInfoList = typeInfo.GetRuntimeMethods();
         }
 
         public void SetPropertyValue(object value, [CallerMemberName] string propertyName = "")
         {
-            GetPropertyInfo(propertyName).SetValue(_target, value);
+            this.GetPropertyInfo(propertyName).SetValue(this.target, value);
         }
 
         public TPropertyValue GetPropertyValue<TPropertyValue>([CallerMemberName] string propertyName = "")
         {
-            return (TPropertyValue)GetPropertyInfo(propertyName).GetValue(_target);
+            return (TPropertyValue)this.GetPropertyInfo(propertyName).GetValue(this.target);
         }
 
         public object Call([CallerMemberName] string methodName = "", object[] parameters = null)
         {
-
-            if (!_cachedMethodInfo.ContainsKey(methodName))
+            if (!this.cachedMethodInfo.ContainsKey(methodName))
             {
-                _cachedMethodInfo[methodName] = _targetMethodInfoList.Single(mi => mi.Name == methodName || mi.Name.Contains("." + methodName));
+                this.cachedMethodInfo[methodName] = this.targetMethodInfoList.Single(mi => mi.Name == methodName || mi.Name.Contains("." + methodName));
             }
 
-            return _cachedMethodInfo[methodName].Invoke(_target, parameters);
+            return this.cachedMethodInfo[methodName].Invoke(this.target, parameters);
         }
 
-        PropertyInfo GetPropertyInfo(string propertyName)
+        private PropertyInfo GetPropertyInfo(string propertyName)
         {
-            if (!_cachedPropertyInfo.ContainsKey(propertyName))
+            if (!this.cachedPropertyInfo.ContainsKey(propertyName))
             {
-                _cachedPropertyInfo[propertyName] = _targetPropertyInfoList.Single(pi => pi.Name == propertyName || pi.Name.Contains("." + propertyName));
+                this.cachedPropertyInfo[propertyName] = this.targetPropertyInfoList.Single(pi => pi.Name == propertyName || pi.Name.Contains("." + propertyName));
             }
 
-            return _cachedPropertyInfo[propertyName];
+            return this.cachedPropertyInfo[propertyName];
         }
     }
 }

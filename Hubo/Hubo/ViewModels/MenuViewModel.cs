@@ -1,5 +1,5 @@
-﻿// <copyright file="MenuViewModel.cs" company="Trio Technology LTD">
-// Copyright (c) Trio Technology LTD. All rights reserved.
+﻿// <copyright file="MenuViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
@@ -25,35 +25,47 @@ namespace Hubo
         {
             List<MenuItem> items = new List<MenuItem>();
 
-            MenuItem home = new MenuItem();
-            home.Title = Resource.HomeText;
-            home.TargetType = "Home";
-            home.ImageSource = "Home96.png";
+            MenuItem home = new MenuItem()
+            {
+                Title = Resource.HomeText,
+                TargetType = "Home",
+                ImageSource = "Home96.png"
+            };
 
-            MenuItem profile = new MenuItem();
-            profile.Title = Resource.ProfileText;
-            profile.TargetType = "Profile";
-            profile.ImageSource = "User96.png";
+            MenuItem profile = new MenuItem()
+            {
+                Title = Resource.ProfileText,
+                TargetType = "Profile",
+                ImageSource = "User96.png"
+            };
 
-            MenuItem vehicles = new MenuItem();
-            vehicles.Title = Resource.VehiclesText;
-            vehicles.TargetType = "Vehicles";
-            vehicles.ImageSource = "InterstateTruck96.png";
+            MenuItem vehicles = new MenuItem()
+            {
+                Title = Resource.VehiclesText,
+                TargetType = "Vehicles",
+                ImageSource = "InterstateTruck96.png"
+            };
 
-            MenuItem history = new MenuItem();
-            history.Title = Resource.HistoryText;
-            history.TargetType = "History";
-            history.ImageSource = "Clock96.png";
+            MenuItem history = new MenuItem()
+            {
+                Title = Resource.HistoryText,
+                TargetType = "History",
+                ImageSource = "Clock96.png"
+            };
 
-            MenuItem addShift = new MenuItem();
-            addShift.Title = Resource.AddShiftText;
-            addShift.TargetType = "AddShift";
-            addShift.ImageSource = "AddList96.png";
+            MenuItem addShift = new MenuItem()
+            {
+                Title = Resource.AddShiftText,
+                TargetType = "AddShift",
+                ImageSource = "AddList96.png"
+            };
 
-            MenuItem signOut = new MenuItem();
-            signOut.Title = Resource.SignOutText;
-            signOut.TargetType = "SignOut";
-            signOut.ImageSource = "Exit96.png";
+            MenuItem signOut = new MenuItem()
+            {
+                Title = Resource.SignOutText,
+                TargetType = "SignOut",
+                ImageSource = "Exit96.png"
+            };
 
             if (Settings.HamburgerSettings != true)
             {

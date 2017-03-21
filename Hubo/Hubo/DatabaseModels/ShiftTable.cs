@@ -1,5 +1,5 @@
 ﻿// <copyright file="ShiftTable.cs" company="TrioTech">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
 namespace Hubo
