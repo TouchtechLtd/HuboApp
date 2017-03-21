@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Hubo;
 using Hubo.Droid;
 using Android.Views.InputMethods;
+using Android.Graphics.Drawables;
 
 [assembly: ExportRenderer(typeof(BaseEntry), typeof(BaseRenderer))]
 
@@ -16,6 +17,14 @@ namespace Hubo.Droid
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
+
+            if (this.Control != null)
+            {
+                GradientDrawable gd = new GradientDrawable();
+                gd.SetCornerRadius(10);
+                gd.SetColor(Color.White.ToAndroid());
+                this.Control.SetBackground(gd);
+            }
 
             BaseEntry base_entry = (BaseEntry)Element;
 

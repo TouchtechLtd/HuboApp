@@ -1,17 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hubo.LandingPage">
-  <Grid RowSpacing="0" ColumnSpacing="0">
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
+             x:Class="Hubo.LandingPage"
+             Style="{StaticResource ContentPageStyle}"
+             >
+  <Grid RowSpacing="0" ColumnSpacing="0" x:Name="grid" Padding="10">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
+        <!--<ColumnDefinition Width="*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="*" />-->
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="8*" />
-      <RowDefinition Height="*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Button Text="{Binding Login}" Command="{Binding LoginButton}" Grid.Column="0" Grid.Row="1" AutomationId="LoginButton"/>
-    <Button Text="{Binding Register}" Command="{Binding RegisterButton}"  Grid.Column="1" Grid.Row="1" AutomationId="RegisterButton"/>
+    <Label Text="HUBO" FontSize="60" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7" x:Name="huboLabelSecond" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Opacity="0"/>
+    <Label Text="HUBO" FontSize="60" Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="7" x:Name="huboLabelFirst" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Opacity="1"/>
+    <StackLayout BackgroundColor="Transparent" x:Name="stackLayoutLogin" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"  Opacity="0">
+        <local:BaseEntry VerticalOptions="EndAndExpand" PlaceholderColor="Black" Placeholder="Username" x:Name="usernameEntry"/>
+        <local:BaseEntry VerticalOptions="StartAndExpand"  PlaceholderColor="Black" Placeholder="Password" x:Name="passwordEntry"/>
+        </StackLayout>
+    <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+    <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3"/>
+    <local:MyButton Text="{Binding LoginButtonText}" BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="LoginButton" x:Name="loginButton" TextColor="Black" BorderColor="Transparent"/>
+    <local:MyButton Text="Register" BackgroundColor="Transparent" Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="RegisterButton" x:Name="rightButton" TextColor="Black" BorderColor="Transparent"/>
   </Grid>
 </ContentPage>

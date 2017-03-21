@@ -34,5 +34,7 @@ namespace Hubo
         public string StartNote { get; set; }
 
         public string EndNote { get; set; }
+
+        public int LocalKey { get; set; }
     }
 }

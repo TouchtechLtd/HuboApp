@@ -14,6 +14,7 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
+    using System.Linq;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -36,6 +37,10 @@ namespace Hubo
         private bool notifyReady;
 
         private CancellationTokenSource cancel;
+        private string shiftTimes;
+        private string nextBreakTime;
+        private bool canStartShift;
+        private string canStartShiftText;
 
         public HomeViewModel()
         {
@@ -71,6 +76,8 @@ namespace Hubo
             {
                 await ToggleBreak();
             });
+
+            //List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
 
             CompletedJourney = 0;
             RemainderOfJourney = 0;
@@ -167,11 +174,51 @@ namespace Hubo
 
         public bool VehicleInUse { get; set; }
 
+        public bool CanStartShift
+        {
+            get
+            {
+                return canStartShift;
+            }
+
+            set
+            {
+                canStartShift = value;
+                OnPropertyChanged("CanStartShift");
+            }
+        }
+
         public string VehiclePickerText { get; set; }
 
         public bool PickerEnabled { get; set; }
 
-        public string ShiftTimes { get; set; }
+        public string NextBreakTime
+        {
+            get
+            {
+                return nextBreakTime;
+            }
+
+            set
+            {
+                nextBreakTime = value;
+                OnPropertyChanged("NextBreakTime");
+            }
+        }
+
+        public string ShiftTimes
+        {
+            get
+            {
+                return shiftTimes;
+            }
+
+            set
+            {
+                shiftTimes = value;
+                OnPropertyChanged("ShiftTimes");
+            }
+        }
 
         public FileImageSource ShiftImage { get; set; }
 
@@ -180,6 +227,20 @@ namespace Hubo
         public ICommand VehicleCommand { get; set; }
 
         public bool OnBreak { get; set; }
+
+        public string CanStartShiftText
+        {
+            get
+            {
+                return canStartShiftText;
+            }
+
+            set
+            {
+                canStartShiftText = value;
+                OnPropertyChanged("CanStartShiftText");
+            }
+        }
 
         public bool DriveShiftRunning
         {
@@ -273,7 +334,7 @@ namespace Hubo
 
                 VehiclePickerText = currentVehicle.Registration;
                 VehicleText = Resource.StopDriving;
-                VehicleTextColor = Color.FromHex("#F9D029");
+                VehicleTextColor = Constants.YELLOW_COLOR;
                 VehicleInUse = true;
                 DriveShiftRunning = true;
 
@@ -283,7 +344,7 @@ namespace Hubo
             {
                 VehiclePickerText = Resource.NoActiveVehicle;
                 VehicleText = Resource.StartDriving;
-                VehicleTextColor = Color.FromHex("#009900");
+                VehicleTextColor = Constants.GREEN_COLOR;
                 VehicleInUse = false;
                 DriveShiftRunning = false;
             }
@@ -314,11 +375,14 @@ namespace Hubo
         private void ShowEndShiftXAML()
         {
             ShiftText = "End Shift";
-            ShiftButtonColor = Color.FromHex("#dd4136");
+            ShiftButtonColor = Constants.RED_COLOR;
             StartShiftVisibility = false;
             ShiftStarted = true;
             ShiftRunning = true;
             ShiftImage = "Stop.png";
+            ShiftTimes = "End Shift by: " + dbService.GetShiftTimes();
+            NextBreakTime = "Take your break by: " + dbService.GetNextBreakTime();
+            CanStartShift = false;
 
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftRunning");
@@ -326,17 +390,18 @@ namespace Hubo
             OnPropertyChanged("StartShiftVisibility");
             OnPropertyChanged("ShiftStarted");
             OnPropertyChanged("ShiftImage");
-            OnPropertyChanged("ShiftTimes");
         }
 
         private void ShowStartShiftXAML()
         {
             ShiftText = "Start Shift";
-            ShiftButtonColor = Color.FromHex("#009900");
+            ShiftButtonColor = Constants.GREEN_COLOR;
             StartShiftVisibility = true;
             ShiftStarted = false;
             ShiftRunning = false;
             ShiftImage = "Play.png";
+            CanStartShiftText = dbService.GetLastShiftTime();
+            CanStartShift = true;
 
             OnPropertyChanged("ShiftText");
             OnPropertyChanged("ShiftRunning");
@@ -351,7 +416,7 @@ namespace Hubo
             int onBreak = dbService.CheckOnBreak();
             if (onBreak == -1)
             {
-                BreakButtonColor = Color.FromHex("#cc0000");
+                BreakButtonColor = Constants.RED_COLOR;
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
                 ShiftRunning = false;
@@ -362,7 +427,7 @@ namespace Hubo
             }
             else if (onBreak == 1)
             {
-                BreakButtonColor = Color.FromHex("#009900");
+                BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
                 ShiftRunning = true;
@@ -371,9 +436,10 @@ namespace Hubo
 
         private async Task<bool> StartDrive()
         {
+            int vehicleKey;
+            bool offlineDrive = false;
             if (await UserDialogs.Instance.ConfirmAsync("Would you like to start your drive?", "Confirmation", "Yes", "No"))
             {
-
                 string location;
 
                 using (UserDialogs.Instance.Loading("Getting Coordinates....", null, null, true, MaskType.Gradient))
@@ -384,6 +450,32 @@ namespace Hubo
                 if (location == string.Empty)
                 {
                     return false;
+                }
+
+                List<VehicleTable> listOfVehicles = dbService.GetVehicles();
+
+                var vehicleResult = await UserDialogs.Instance.ActionSheetAsync("Choose Vehicle:", Resource.Cancel, "Add Vehicle...", null, listOfVehicles.Select(l => l.Registration).ToArray());
+                using (UserDialogs.Instance.Loading("Adding Vehicle....", null, null, true, MaskType.Gradient))
+                {
+                    if (vehicleResult == "Add Vehicle...")
+                    {
+                        vehicleKey = await dbService.GetRego();
+                        if (vehicleKey < 0)
+                        {
+                            return false;
+                        }
+
+                        // Was unsuccessful at adding to remote server, thus was added locally, and the drive will have to be added locally until done remotely
+                        if (!await dbService.InsertVehicle(vehicleKey))
+                        {
+                            offlineDrive = true;
+                        }
+                    }
+                    else
+                    {
+                        VehicleTable vehicle = listOfVehicles.Where(v => v.Registration == vehicleResult).First();
+                        vehicleKey = vehicle.Key;
+                    }
                 }
 
                 int hubo = await HuboPrompt();
@@ -400,20 +492,31 @@ namespace Hubo
                     return false;
                 }
 
-                if (await dbService.StartDrive(hubo, note, location))
+                if (offlineDrive)
                 {
-                    UserDialogs.Instance.ShowSuccess("Drive Started!", 1500);
-                    
-                    SetVehicleLabel();
-                    GeoCollection();
-                    return true;
+                    if (!await dbService.StartOfflineDriveAsync(hubo,note,location, vehicleKey))
+                    {
+                        return false;
+                    }
                 }
+                else
+                {
+                    if (!await dbService.StartDrive(hubo, note, location, vehicleKey))
+                    {
+                        return false;
+                    }
+                }
+
+                UserDialogs.Instance.ShowSuccess("Drive Started!", 1500);
+                SetVehicleLabel();
+                GeoCollection();
+                return true;
             }
 
             return false;
         }
-		
-		        private async Task<string> NotePromptAsync()
+
+        private async Task<string> NotePromptAsync()
         {
             if (await UserDialogs.Instance.ConfirmAsync("Would you like to add a note?", "Alert", "I would", "Nope"))
             {
@@ -542,7 +645,7 @@ namespace Hubo
             OnPropertyChanged("BreakButtonColor");
             OnPropertyChanged("StartBreakText");
             OnPropertyChanged("OnBreak");
-            OnPropertyChanged("DriveShiftRunning");
+            //OnPropertyChanged("DriveShiftRunning");
         }
 
         private async Task StartBreak()
@@ -570,7 +673,7 @@ namespace Hubo
                     BreakButtonColor = Color.FromHex("#cc0000");
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
-                    DriveShiftRunning = false;
+                    //DriveShiftRunning = false;
                     ShiftRunning = false;
 
                     countdown.Start(30 * 60);
@@ -582,10 +685,12 @@ namespace Hubo
 
         private async Task StopBreak()
         {
+            bool fullBreak = true;
             if (RemainTime > 0)
             {
                 TimeSpan time = TimeSpan.FromSeconds(TotalTime - RemainTime);
                 string remainTimeString = time.ToString(@"mm\:ss");
+                fullBreak = false;
                 if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", "WARNING", "Yes", "No"))
                 {
                     return;
@@ -617,10 +722,15 @@ namespace Hubo
 
             if (await dbService.StopBreak(location, note))
             {
-                BreakButtonColor = Xamarin.Forms.Color.FromHex("#009900");
+                if (fullBreak)
+                {
+                    NextBreakTime = "Take your break by: " + dbService.GetNextBreakTime();
+                }
+
+                BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
-                DriveShiftRunning = true;
+                //DriveShiftRunning = true;
                 ShiftRunning = true;
 
                 if (dbService.VehicleActive())
@@ -647,6 +757,7 @@ namespace Hubo
             {
                 success = await StopShift();
             }
+            await Application.locator.StopListeningAsync();
         }
 
         private async Task<string> GetLocation(Geolocation geoCoords)
@@ -691,7 +802,7 @@ namespace Hubo
 
                             if (await dbService.StopShift(location, note, geoCoords))
                             {
-								ShiftStarted = false;
+                                ShiftStarted = false;
                                 ShowStartShiftXAML();
                                 UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
                                 MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
@@ -705,18 +816,17 @@ namespace Hubo
 
                             return false;
                         }
-                    }
-                    else
-                    {
-                        await UserDialogs.Instance.ConfirmAsync("Please end your break before ending your work shift", "ERROR", "Gotcha");
-                        return false;
+
                     }
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Please end your driving shift before ending your work shift", "ERROR", "Gotcha");
-                    return false;
+                    await UserDialogs.Instance.ConfirmAsync("Please end your break before ending your work shift", "ERROR", "Gotcha");
                 }
+            }
+            else
+            {
+                await UserDialogs.Instance.ConfirmAsync("Please end your driving shift before ending your work shift", "ERROR", "Gotcha");
             }
 
             return false;
@@ -791,7 +901,6 @@ namespace Hubo
                 if (await dbService.StartShift(location, note, geoCoords))
                 {
                     ShiftStarted = true;
-                    ShiftTimes = "End Shift by: " + dbService.GetShiftTimes();
                     ShowEndShiftXAML();
                     UpdateCircularGauge();
                     DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);

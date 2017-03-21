@@ -4,33 +4,44 @@
              x:Class="Hubo.Application">
     <Application.Resources>
         <ResourceDictionary>
-            <Image x:Key="pageBackgroundImage" Source="DesertRoadjpg.png"/>
             <Color x:Key="pageBackgroundColour">#FCFFF5</Color>
             <Color x:Key="barBackgroundColour">#193441</Color>
             <Color x:Key="entryBackgroundColour">#FCFFF5</Color>
             <Color x:Key="entryTextColour">#3E606F</Color>
             <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
             <Color x:Key="buttonTextColour">#FCFFF5</Color>
+            <OnPlatform x:Key="fontFamilyMean" x:TypeArguments="x:String" iOS="WordMean" Android="WordMean.ttf#WordMean" />
+            <OnPlatform x:Key="fontFamily" x:TypeArguments="x:String" iOS="SAGNEL" Android="SAGNEL.ttf#SAGNEL" />
+
             <Style TargetType="NavigationPage">
                 <Setter Property="BackgroundColor" Value="{StaticResource pageBackgroundColour}" />
                 <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
             </Style>
-            <!--<Style TargetType="Page">
-                <Setter Property="BackgroundImage" Value="{StaticResource pageBackgroundImage}" />
-                <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
-            </Style>-->
+
+            <Style x:Key="ContentPageStyle"  TargetType="ContentPage">
+                <Setter Property="BackgroundImage" Value="DesertRoadCopy.jpg" />
+            </Style>
+
             <Style TargetType="Entry">
                 <Setter Property="TextColor"  Value="{StaticResource entryTextColour}" />
                 <!--<Setter Property="BackgroundColor" Value="{StaticResource entryBackgroundColour}" />-->
-                <Setter Property="FontFamily" Value="ComicSans" />
+                <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
             </Style>
+
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
                 <Setter Property="BackgroundColor"  Value="{StaticResource buttonBackgroundColour}" />
+                <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
             </Style>
+
             <Style TargetType="Label">
-                <Setter Property="FontFamily" Value="Helvetica" />
+                <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
+                <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
             </Style>
+
+            <!--<Style TargetType="DatePicker">
+                <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

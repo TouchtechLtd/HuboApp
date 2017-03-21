@@ -8,6 +8,7 @@ using Android.Content.PM;
 using Android.OS;
 using HockeyApp.Android;
 using Plugin.Permissions;
+using RoundedBoxView.Forms.Plugin.Droid;
 using Syncfusion.SfAutoComplete.XForms.Droid;
 using Syncfusion.SfChart.XForms.Droid;
 using Syncfusion.SfGauge.XForms.Droid;
@@ -28,9 +29,11 @@ namespace Hubo.Droid
             base.OnCreate(bundle);
             UserDialogs.Init(() => (Activity)Forms.Context);
             Forms.Init(this, bundle);
+            RoundedBoxViewRenderer.Init();
             new SfGaugeRenderer();
             new SfChartRenderer();
             new SfAutoCompleteRenderer();
+            new FAB.Forms.FloatingActionButton();
             if (((int)Build.VERSION.SdkInt) >= 21)
             {
                 this.Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#0e1d25"));

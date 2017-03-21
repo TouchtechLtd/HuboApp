@@ -546,4 +546,7 @@
   <data name="GetDetailsError" xml:space="preserve">
     <value>GUnable to Get User Details</value>
   </data>
+  <data name="InputOwnRego" xml:space="preserve">
+    <value>None of these are my Rego, let me input my own</value>
+  </data>
 </root>

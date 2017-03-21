@@ -2,6 +2,8 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
+using Xamarin.Forms;
+
 namespace Hubo
 {
     public static class Constants
@@ -39,5 +41,11 @@ namespace Hubo
         public const string REST_URL_REGISTERUSER = "";
 
         public const string REST_URL_GOOGLEAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+        public static Color RED_COLOR = Color.FromHex("#a2101c");
+        public static Color GREEN_COLOR = Color.FromHex("#076409");
+        public static Color YELLOW_COLOR = Color.FromHex("#bb9707");
+
+        public const int BREAK_DURATION_TRUCK = 30;
     }
 }

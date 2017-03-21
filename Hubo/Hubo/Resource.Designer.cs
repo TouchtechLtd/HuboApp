@@ -620,6 +620,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None of these are my Rego, let me input my own.
+        /// </summary>
+        internal static string InputOwnRego {
+            get {
+                return ResourceManager.GetString("InputOwnRego", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please fill out a valid email address..
         /// </summary>
         internal static string InvalidEmail {

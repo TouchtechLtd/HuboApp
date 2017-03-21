@@ -110,4 +110,10 @@ namespace Hubo
 
         public int hubo { get; set; }
     }
+
+    internal class VehicleInsertModel
+    {
+        public string RegistrationNo { get; set; }
+        public bool IsManuallyEntered { get; set; }
+    }
 }

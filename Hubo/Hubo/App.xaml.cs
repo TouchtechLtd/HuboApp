@@ -23,7 +23,14 @@
 
         private void CheckLoggedInStatus()
         {
-            MainPage = DbService.CheckLoggedIn() ? new NavigationPage(new NZTAMessagePage(1)) : new NavigationPage(new LandingPage());
+            if (DbService.CheckLoggedIn())
+            {
+                MainPage = new NZTAMessagePage(1);
+            }
+            else
+            {
+                MainPage = new LandingPage();
+            }
         }
 
         protected override void OnStart()

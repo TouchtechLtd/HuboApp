@@ -4,7 +4,9 @@
              xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
-             x:Class="Hubo.HistoryPage">
+             x:Class="Hubo.HistoryPage"
+             Style="{StaticResource ContentPageStyle}"
+             >
   <ContentView>
     <Grid>
       <Grid.ColumnDefinitions>

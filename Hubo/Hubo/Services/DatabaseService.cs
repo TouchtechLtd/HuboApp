@@ -14,6 +14,7 @@ namespace Hubo
     using Plugin.Media.Abstractions;
     using SQLite.Net;
     using Xamarin.Forms;
+    using System.Text.RegularExpressions;
 
     public class DatabaseService
     {
@@ -362,6 +363,57 @@ namespace Hubo
             return totalHours;
         }
 
+        internal string GetLastShiftTime()
+        {
+            List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+            if (listOfShifts.Count == 0)
+            {
+                return "You are rested. Start your shift when you can";
+            }
+
+            ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
+
+            DateTime endTime = DateTime.Parse(lastShift.EndDate);
+
+            endTime = endTime.AddHours(14);
+
+            if (DateTime.Now > endTime)
+            {
+                return "You are rested. Start your shift when you can";
+            }
+            else
+            {
+                return "Your 14 hour rest break ends at: " + endTime.ToString("h: mm tt dddd");
+            }
+        }
+
+        internal string GetNextBreakTime()
+        {
+            //TODO: Get latest Shift, look for latest break, if exists, 5.5 hours since last break, else 5.5 hours since shift start
+
+            List<ShiftTable> listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            if (listOfActiveShifts.Count == 1)
+            {
+                List<BreakTable> listBreaksOfShift = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + listOfActiveShifts[0].ServerKey);
+                DateTime start = default(DateTime);
+                start = DateTime.Parse(listOfActiveShifts[0].StartDate);
+
+                if (listBreaksOfShift.Count != 0)
+                {
+                    TimeSpan breakDuration = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate) - DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].StartDate);
+                    if (breakDuration.Minutes >= Constants.BREAK_DURATION_TRUCK)
+                    {
+                        start = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate);
+                    }
+                }
+
+                DateTime breakTime = start.AddHours(5.5);
+                return breakTime.ToString("h:mm tt");
+            }
+
+            return null;
+        }
+
         internal List<DriveTable> GetDriveShifts(int key)
         {
             List<DriveTable> drives = new List<DriveTable>();
@@ -407,6 +459,39 @@ namespace Hubo
 
             int timeSinceReset = int.Parse(time.ToString().Remove(2));
             return timeSinceReset;
+        }
+
+        internal async Task<bool> StartOfflineDriveAsync(int hubo, string note, string location, int vehicleKey)
+        {
+            DateTime date = DateTime.Now;
+            using (UserDialogs.Instance.Loading("Starting Drive...", null, null, true, MaskType.Gradient))
+            {
+                List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+                if ((listOfShifts.Count == 0) || (listOfShifts.Count > 1))
+                {
+                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    return false;
+                }
+
+                // Was successful at entering
+                DriveTable newDrive = new DriveTable()
+                {
+                    ActiveVehicle = true,
+                    ShiftKey = listOfShifts[0].Key,
+                    StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    LocalKey = vehicleKey,
+                    StartHubo = hubo,
+                    StartNote = note
+                };
+                db.Insert(newDrive);
+
+                DriveOffline offlineDrive = new DriveOffline()
+                {
+                    DriveKey = newDrive.Key
+                };
+
+                return true;
+            }
         }
 
         internal List<CompanyTable> GetCompanies(int id = 0)
@@ -575,7 +660,8 @@ namespace Hubo
                     Directory = "Rego",
                     Name = "Rego.jpg",
                     PhotoSize = PhotoSize.Small,
-                    DefaultCamera = CameraDevice.Rear
+                    DefaultCamera = CameraDevice.Rear,
+                    SaveToAlbum = false
                 });
             }
             else if (CrossMedia.Current.IsPickPhotoSupported)
@@ -601,46 +687,172 @@ namespace Hubo
             restAPI = new RestService();
 
             rego = await restAPI.GetRegoText(photo);
-
             if (rego == null)
             {
                 return -1;
             }
 
             List<string> regoList = new List<string>();
+            Regex r = new Regex("^[A-Za-z0-9\u03B8]*$");
             foreach (Region region in rego.Regions)
             {
                 foreach (Line line in region.Lines)
                 {
+                    string fullLine = string.Empty;
                     foreach (Word word in line.Words)
                     {
-                        regoList.Add(word.Text.ToString());
+                        word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
+
+                        if (r.IsMatch(word.Text.ToString()))
+                        {
+                            fullLine = fullLine + word.Text.ToString();
+                        }
+                    }
+
+                    if (fullLine != string.Empty && fullLine.Trim().Length < 7)
+                    {
+                        List<string> listOfPossibilities = CheckPossiblities(fullLine);
+
+                        foreach (string possibility in listOfPossibilities)
+                        {
+                            regoList.Add(possibility);
+                        }
                     }
                 }
             }
 
-            List<VehicleTable> vehicleExists = new List<VehicleTable>();
+            //List<VehicleTable> vehicleExists = new List<VehicleTable>();
 
-            foreach (string regoNum in regoList)
-            {
-                List<VehicleTable> temp = new List<VehicleTable>();
-                temp = GetVehicles().Where(stringToCheck => stringToCheck.Registration == regoNum).ToList();
-                vehicleExists.AddRange(temp);
-            }
+            //foreach (string regoNum in regoList)
+            //{
+            //    List<VehicleTable> temp = new List<VehicleTable>();
+            //    temp = GetVehicles().Where(stringToCheck => stringToCheck.Registration == regoNum).ToList();
+            //    vehicleExists.AddRange(temp);
+            //}
 
-            if (!(vehicleExists.Count > 1) && !(vehicleExists.Count < 1))
+            //if (!(vehicleExists.Count > 1) && !(vehicleExists.Count < 1))
+            //{
+            //    return vehicleExists[0].Key;
+            //}
+
+            VehicleTable vehicleToInsert = new VehicleTable();
+            restAPI = new RestService();
+            if (regoList.Count > 0)
             {
-                return vehicleExists[0].Key;
-            }
-            else
-            {
-                if (!(regoList.Count > 1) && !(regoList.Count < 1))
+                string regoAnswer = await UserDialogs.Instance.ActionSheetAsync("Are any of these your vehicle?", "Cancel", Resource.InputOwnRego, null, regoList.ToArray());
+                if (regoAnswer != Resource.InputOwnRego)
                 {
-                    return db.Insert(regoList[0]);
+                    vehicleToInsert.Registration = regoAnswer;
+                    db.Insert(vehicleToInsert);
+                    return vehicleToInsert.Key;
+                }
+
+                if (regoAnswer == "Cancel")
+                {
+                    return -1;
                 }
             }
 
+            PromptResult regoResult = await UserDialogs.Instance.PromptAsync("Please input your Rego", "Alert", "Okay", "Cancel");
+            if (regoResult.Ok && regoResult.Text != string.Empty)
+            {
+                vehicleToInsert.Registration = regoResult.Text;
+                db.Insert(vehicleToInsert);
+                return vehicleToInsert.Key;
+            }
+
             return -1;
+        }
+
+        //internal List<string> CheckPossiblities(string fullLine)
+        //{
+        //    List<string> firstSet = new List<string>();
+        //    List<string> fullSetPossibilities = new List<string>();
+
+        //    firstSet.Add(fullLine);
+
+        //    if (fullLine.Contains("I"))
+        //    {
+        //        List<string> possibilities = Combinations(fullLine, 'I', "1").ToList();
+        //        foreach (string possibility in possibilities)
+        //        {
+        //            firstSet.Add(possibility);
+        //        }
+        //    }
+
+        //    if (fullLine.Contains("i"))
+        //    {
+        //        List<string> tempSet = new List<string>();
+        //        foreach (string transfer in firstSet)
+        //        {
+        //            tempSet.Add(transfer);
+        //        }
+
+        //        //List<string> possibilities = Combinations(fullLine, 'i', "1").ToList();
+        //        foreach (string possibility in tempSet)
+        //        {
+        //            if (possibility.Contains("i"))
+        //            {
+        //                firstSet.Add(Regex.Replace(possibility, "i", "1"));
+        //            }
+        //        }
+        //    }
+
+        //    if (fullLine.Contains("\u03B8"))
+        //    {
+        //        List<string> tempSet = new List<string>();
+        //        foreach (string transfer in firstSet)
+        //        {
+        //            tempSet.Add(transfer);
+        //        }
+
+        //        foreach (string possibility in tempSet)
+        //        {
+        //            if (possibility.Contains('\u03B8'.ToString()))
+        //            {
+        //                fullSetPossibilities.Add(Regex.Replace(possibility, "\u03B8", "0"));
+        //            }
+        //        }
+
+        //        return fullSetPossibilities.Distinct().ToList();
+        //    }
+
+        //    return firstSet;
+        //}
+        internal List<string> CheckPossiblities(string fullLine)
+        {
+            List<string> fullSetPossibilities = new List<string>();
+            fullLine = Regex.Replace(fullLine, "\u03B8", "0");
+            fullLine = Regex.Replace(fullLine, "i", "1");
+            fullLine = Regex.Replace(fullLine, "l", "1");
+            fullSetPossibilities.Add(fullLine);
+            if (fullLine.Contains("I"))
+            {
+                List<string> possibilities = Combinations(fullLine, 'I', "1").ToList();
+                foreach (string possibility in possibilities)
+                {
+                    fullSetPossibilities.Add(possibility);
+                }
+            }
+
+            return fullSetPossibilities.Distinct().ToList();
+        }
+
+        public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
+        {
+            var head = input[0] == initialChar //Do I have a `0`?
+                ? new[] { initialChar.ToString(), replacementChar } //If so output both `"0"` & `"o"`
+                : new[] { input[0].ToString() }; //Otherwise output the current character
+
+            var tails = input.Length > 1 //Is there any more string?
+                ? Combinations(input.Substring(1), initialChar, replacementChar) //Yes, recursively compute
+                : new[] { "" }; //Otherwise, output empty string
+
+            //Now, join it up and return
+            return
+                from h in head
+                from t in tails
+                select h + t;
         }
 
         internal void InsertNote(NoteTable newNote)
@@ -648,7 +860,7 @@ namespace Hubo
             db.Insert(newNote);
         }
 
-        internal async Task<bool> StartDrive(int hubo, string note, string location)
+        internal async Task<bool> StartDrive(int hubo, string note, string location, int vehicleKey)
         {
             restAPI = new RestService();
             DateTime date = DateTime.Now;
@@ -662,80 +874,36 @@ namespace Hubo
                     return false;
                 }
 
-                List<VehicleTable> vehicles = new List<VehicleTable>();
-                vehicles = GetVehicles();
+                VehicleTable currentVehicle = db.Get<VehicleTable>(vehicleKey);
 
-                var vehicleResult = await Application.Current.MainPage.DisplayActionSheet("Choose Vehicle:", Resource.Cancel, "Add Vehicle...", vehicles.Select(l => l.Registration).ToArray());
-                int vehicleKey;
-                VehicleTable vehicle = new VehicleTable();
-
-                if (vehicleResult == "Add Vehicle...")
+                // Was successful at entering
+                DriveTable newDrive = new DriveTable()
                 {
-                    vehicleKey = -1;
-                }
-                else
-                {
-                    vehicle = vehicles.Where(v => v.Registration == vehicleResult).First();
-                    vehicleKey = vehicle.Key;
-                }
-
-                int regoKey;
-
-                if (vehicleKey <= 0)
-                {
-                    regoKey = await GetRego();
-
-                    if (regoKey < 0)
-                    {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.DisplayAlertTitle, Resource.UnableToGetShift, Resource.DisplayAlertOkay);
-                        return false;
-                    }
-                }
-                else
-                {
-                    regoKey = vehicleKey;
-                }
-
-                DriveTable newDrive = new DriveTable();
-                newDrive.ActiveVehicle = true;
-                newDrive.ShiftKey = listOfShifts[0].Key;
-                newDrive.StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                newDrive.VehicleKey = regoKey;
-                newDrive.StartHubo = hubo;
-                newDrive.StartNote = note;
+                    ActiveVehicle = true,
+                    ShiftKey = listOfShifts[0].Key,
+                    StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    VehicleKey = currentVehicle.ServerKey,
+                    LocalKey = vehicleKey,
+                    StartHubo = hubo,
+                    StartNote = note
+                };
                 db.Insert(newDrive);
 
                 int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
 
-                switch (result)
+                if (result > 0)
                 {
-                    case -1:
-                        await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                        break;
-                    case -2:
-                        await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                        break;
-                    default:
-                        newDrive.ServerId = result;
-                        db.Update(newDrive);
-
-                        return true;
+                    newDrive.ServerId = result;
+                    db.Update(newDrive);
                 }
-
-                var tbl = db.GetTableInfo("DriveOffline");
-
-                if (tbl == null)
+                else
                 {
-                    db.CreateTable<DriveOffline>();
+                    DriveOffline offlineDrive = new DriveOffline()
+                    {
+                        DriveKey = newDrive.Key
+                    };
+
                 }
-
-                DriveOffline offline = new DriveOffline();
-
-                offline.DriveKey = newDrive.Key;
-                offline.StartOffline = true;
-                offline.EndOffline = false;
-
-                db.Insert(offline);
 
                 return true;
             }
@@ -959,7 +1127,7 @@ namespace Hubo
             List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
             // Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].LocalKey);
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;
@@ -1073,6 +1241,28 @@ namespace Hubo
             db.Insert(vehicleToAdd);
 
             return vehicleToAdd;
+        }
+
+        internal async Task<bool> InsertVehicle(int vehicleKey)
+        {
+            VehicleTable vehicleToInsert = db.Get<VehicleTable>(vehicleKey);
+
+            int vehicleServerKey = await restAPI.InsertVehicle(vehicleToInsert);
+            if (vehicleServerKey > 0)
+            {
+                vehicleToInsert.ServerKey = vehicleServerKey;
+                db.Update(vehicleToInsert);
+                return true;
+            }
+            else
+            {
+                VehicleOffline offlineVehicle = new VehicleOffline()
+                {
+                    VehicleKey = vehicleKey
+                };
+                db.Insert(offlineVehicle);
+                return false;
+            }
         }
 
         internal bool Login(UserTable user)

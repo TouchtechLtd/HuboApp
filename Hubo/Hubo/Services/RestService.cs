@@ -37,13 +37,14 @@ namespace Hubo
                 return false;
             }
 
-            LoginRequestModel loginModel = new LoginRequestModel();
+            LoginRequestModel loginModel = new LoginRequestModel()
+            {
 
-            // loginModel.usernameOrEmailAddress = username;
-            // loginModel.password = password;
-            loginModel.UsernameOrEmailAddress = "ben@triotech.co.nz";
-            loginModel.Password = "tazmania";
-
+                // loginModel.usernameOrEmailAddress = username;
+                // loginModel.password = password;
+                UsernameOrEmailAddress = "ben@triotech.co.nz",
+                Password = "tazmania"
+            };
             string json = JsonConvert.SerializeObject(loginModel);
 
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
@@ -442,7 +443,6 @@ namespace Hubo
         {
             OcrResults rego;
             var ocrClient = new VisionServiceClient("a2642181157b4664a1f6defc36dfabeb");
-
             using (var photoStream = photo.GetStream())
             {
                 try
@@ -808,17 +808,53 @@ namespace Hubo
             }
         }
 
+        internal async Task<int> InsertVehicle(VehicleTable vehicleToInsert)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
+            string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
+
+            VehicleInsertModel vehicleInsertModel = new VehicleInsertModel()
+            {
+                RegistrationNo = vehicleToInsert.Registration,
+                IsManuallyEntered = true
+            };
+
+            string json = JsonConvert.SerializeObject(vehicleInsertModel);
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                response = await client.PostAsync(url, content);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                InsertVehicleResponse result = JsonConvert.DeserializeObject<InsertVehicleResponse>(response.Content.ReadAsStringAsync().Result);
+                if (result.Success)
+                {
+                    return result.Result;
+                }
+
+                return -2;
+            }
+
+            return -1;
+        }
+
         internal async Task<int> InsertNote(NoteTable note)
         {
             string url = GetBaseUrl() + Constants.REST_URL_INSERTNOTE;
             string contentType = Constants.CONTENT_TYPE;
             HttpResponseMessage response;
 
-            InsertNoteModel noteModel = new InsertNoteModel();
-            noteModel.shiftId = note.ShiftKey;
-            noteModel.noteText = note.Note;
-            noteModel.timeStamp = note.Date;
-
+            InsertNoteModel noteModel = new InsertNoteModel()
+            {
+                shiftId = note.ShiftKey,
+                noteText = note.Note,
+                timeStamp = note.Date
+            };
             string json = JsonConvert.SerializeObject(noteModel);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 

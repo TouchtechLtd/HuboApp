@@ -6,6 +6,7 @@ namespace Hubo
 {
     using System.Collections.Generic;
     using Xamarin.Forms;
+    
 
     public partial class HomePage : ContentPage
     {
