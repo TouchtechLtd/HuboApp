@@ -982,7 +982,7 @@ namespace Hubo
 
             try
             {
-                var position = await Application.locator.GetPositionAsync(timeoutMilliseconds: 4000);
+                var position = await Application.Locator.GetPositionAsync(timeoutMilliseconds: 4000);
 
                 results.Longitude = position.Longitude;
                 results.Latitude = position.Latitude;
