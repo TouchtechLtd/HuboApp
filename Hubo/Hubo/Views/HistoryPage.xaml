@@ -53,7 +53,10 @@
             </telerikChart:RadCartesianChart>
 
             <!--<Button Text="{Binding EditShiftText}" Command="{Binding EditShiftCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>-->
-            <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" />
+            <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" />
+
+            <BoxView Color="Black" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4"/>
+            <Label Text="Coming Soon!" TextColor="White" FontSize="46" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4"/>
         </Grid>
     </ContentView>
 </ContentPage>

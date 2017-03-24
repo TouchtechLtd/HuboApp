@@ -55,6 +55,7 @@
     <Compile Include="DatabaseModels\LicenceTable.cs" />
     <Compile Include="DatabaseModels\LoadTextTable.cs" />
     <Compile Include="DatabaseModels\NoteTable.cs" />
+    <Compile Include="DatabaseModels\NotificationTable.cs" />
     <Compile Include="DatabaseModels\OfflineTables.cs" />
     <Compile Include="DatabaseModels\ShiftTable.cs" />
     <Compile Include="DatabaseModels\TipTable.cs" />

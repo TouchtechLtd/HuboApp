@@ -119,7 +119,7 @@ namespace Hubo
             {
                 isShiftActive = value;
                 OnPropertyChanged("IsShiftActive");
-                ((Command)EditShiftCommand).ChangeCanExecute();
+                // ((Command)EditShiftCommand).ChangeCanExecute();
             }
         }
 

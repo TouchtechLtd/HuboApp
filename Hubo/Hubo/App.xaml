@@ -38,10 +38,6 @@
                 <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
                 <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
             </Style>
-
-            <Style TargetType="DatePicker">
-                <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -39,6 +39,7 @@ namespace Hubo
             db.CreateTable<ShiftOffline>();
             db.CreateTable<DriveOffline>();
             db.CreateTable<BreakOffline>();
+            db.CreateTable<NotificationTable>();
         }
 
         public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
@@ -407,19 +408,30 @@ namespace Hubo
         internal string GetNextBreakTime()
         {
             // TODO: Get latest Shift, look for latest break, if exists, 5.5 hours since last break, else 5.5 hours since shift start
-            List<ShiftTable> listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
+            listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+
             if (listOfActiveShifts.Count == 1)
             {
-                List<BreakTable> listBreaksOfShift = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + listOfActiveShifts[0].ServerKey);
+                List<BreakTable> listBreaksOfShift = new List<BreakTable>();
+                listBreaksOfShift = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + listOfActiveShifts[0].ServerKey);
+
                 DateTime start = default(DateTime);
                 start = DateTime.Parse(listOfActiveShifts[0].StartDate);
 
                 if (listBreaksOfShift.Count != 0)
                 {
-                    TimeSpan breakDuration = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate) - DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].StartDate);
-                    if (breakDuration.Minutes >= Constants.BREAK_DURATION_TRUCK)
+                    if (listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate != null)
                     {
-                        start = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate);
+                        TimeSpan breakDuration = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate) - DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].StartDate);
+                        if (breakDuration.Minutes >= Constants.BREAK_DURATION_TRUCK)
+                        {
+                            start = DateTime.Parse(listBreaksOfShift[listBreaksOfShift.Count - 1].EndDate);
+                        }
+                    }
+                    else
+                    {
+                        return "--:--";
                     }
                 }
 
@@ -755,8 +767,6 @@ namespace Hubo
                     db.Insert(vehicleToInsert);
                     return vehicleToInsert.Key;
                 }
-
-
             }
 
             PromptResult regoResult = await UserDialogs.Instance.PromptAsync("Please input your Rego", "Alert", "Okay", "Cancel");
@@ -961,6 +971,97 @@ namespace Hubo
             }
         }
 
+        internal bool CheckFullBreak()
+        {
+            List<ShiftTable> shifts = new List<ShiftTable>();
+            shifts = db.Query<ShiftTable>("SELECT [Key] FROM [ShiftTable] WHERE [ActiveShift] = 1");
+
+            if (shifts.Count == 1)
+            {
+                List<BreakTable> breaks = new List<BreakTable>();
+                breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shifts[0]);
+
+                TimeSpan start = DateTime.Parse(breaks[breaks.Count - 1].StartDate).TimeOfDay;
+                TimeSpan end = DateTime.Parse(breaks[breaks.Count - 1].EndDate).TimeOfDay;
+
+                if ((end - start) < TimeSpan.FromMinutes(30))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        internal void CancelNotification(NotificationCategory notifyCategory, bool isTimed, bool fired = false)
+        {
+            List<NotificationTable> notify = new List<NotificationTable>();
+            NotificationTable cancelNotify = new NotificationTable();
+
+            if (isTimed)
+            {
+                notify = db.Query<NotificationTable>("SELECT * FROM [NotificationTable] WHERE [Category] = '" + notifyCategory + "' AND [Canceled] = '" + bool.FalseString + "' AND [Fired] = '" + bool.FalseString + "'");
+
+                if (notify.Count == 1)
+                {
+                    cancelNotify = notify[0];
+                    cancelNotify.Canceled = true;
+
+                    if (fired)
+                    {
+                        cancelNotify.Fired = true;
+                    }
+
+                    db.Update(cancelNotify);
+                }
+            }
+            else
+            {
+                notify = db.Query<NotificationTable>("SELECT * FROM [NotificationTable] WHERE [Category] = '" + notifyCategory + "' AND [Canceled] = '" + bool.FalseString + "' AND [Fired] = '" + bool.TrueString + "'");
+
+                if (notify.Count == 1)
+                {
+                    cancelNotify = notify[0];
+                    cancelNotify.Canceled = true;
+
+                    db.Update(cancelNotify);
+                }
+            }
+        }
+
+        internal bool CheckTimedNotification(NotificationCategory notifyCategory)
+        {
+            List<NotificationTable> notify = new List<NotificationTable>();
+            notify = db.Query<NotificationTable>("SELECT * FROM [NotificationTable] WHERE [Category] = '" + notifyCategory + "' AND [Canceled] = '" + bool.FalseString + "' AND [Fired] = '" + bool.FalseString + "'");
+
+            if (notify.Count == 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal void CreateNotification(string notificationText, bool isTimed, NotificationCategory notificationCategory, TimeSpan fireTime = default(TimeSpan))
+        {
+            NotificationTable newNotify = new NotificationTable()
+            {
+                Text = notificationText,
+                Category = notificationCategory
+            };
+
+            if (isTimed)
+            {
+                newNotify.FireTime = fireTime;
+            }
+            else
+            {
+                newNotify.Fired = true;
+            }
+
+            db.Insert(newNotify);
+        }
+
         internal void InsertDrive(DriveTable newDrive)
         {
             db.Insert(newDrive);
@@ -1020,7 +1121,9 @@ namespace Hubo
 
         internal bool CheckActiveShift()
         {
-            List<ShiftTable> shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+            List<ShiftTable> shiftList = new List<ShiftTable>();
+            shiftList = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] == 1");
+
             if (shiftList.Count == 0)
             {
                 return false;
@@ -1247,6 +1350,30 @@ namespace Hubo
 
                 return false;
             }
+        }
+
+        internal bool CheckTenHourBreak()
+        {
+            List<ShiftTable> shifts = new List<ShiftTable>();
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+
+            if (shifts.Count < 1)
+            {
+                return true;
+            }
+
+            ShiftTable shift = new ShiftTable();
+            shift = shifts[shifts.Count - 1];
+
+            DateTime end = DateTime.Parse(shift.EndDate);
+            DateTime now = DateTime.Now;
+
+            if ((now - end) < TimeSpan.FromHours(10))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         internal List<string> GetChecklist()
@@ -1584,7 +1711,6 @@ namespace Hubo
             if (listOfflineShifts.Count > 0)
             {
                 // TODO: Sync all up to server
-
                 foreach (ShiftOffline offlineShift in listOfflineShifts)
                 {
                     ShiftTable currentShift = db.Get<ShiftTable>(offlineShift.ShiftKey);

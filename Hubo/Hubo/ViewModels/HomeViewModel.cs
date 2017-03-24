@@ -8,7 +8,6 @@ namespace Hubo
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Acr.UserDialogs;
@@ -35,7 +34,6 @@ namespace Hubo
         private double remainTime;
         private bool notifyReady;
 
-        private CancellationTokenSource cancel;
         private string shiftTimes;
         private string nextBreakTime;
         private bool canStartShift;
@@ -100,37 +98,17 @@ namespace Hubo
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
             }
 
-            CheckActiveShift();
-            CheckActiveBreak();
-
-            if (dbService.CheckActiveShift())
-            {
-                UpdateCircularGauge();
-
-                if (dbService.CheckOnBreak() == -1)
-                {
-                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break", false);
-                }
-                else
-                {
-                    DependencyService.Get<INotifyService>().PresentNotification("Shift Running", "You are currently working", false);
-                }
-            }
-            else
-            {
-                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift", false);
-            }
-
             ShiftButton = new RelayCommand(async () => await ToggleShift());
             EndShiftText = Resource.EndShift;
             AddNoteText = Resource.AddNote;
             StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
             VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
-            cancel = new CancellationTokenSource();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool FullBreak { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -296,6 +274,26 @@ namespace Hubo
             }
         }
 
+        public void PageReload()
+        {
+            CheckActiveShift();
+            CheckActiveBreak();
+
+            int hoursTillReset = dbService.HoursTillReset();
+            if (hoursTillReset == -1)
+            {
+                HoursTillReset = Resource.NoShiftsDoneYet;
+            }
+            else if (hoursTillReset == -2)
+            {
+                HoursTillReset = Resource.FullyRested;
+            }
+            else
+            {
+                HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
+            }
+        }
+
         public List<VehicleTable> GetVehicles()
         {
             listOfVehicles = new List<VehicleTable>();
@@ -359,11 +357,279 @@ namespace Hubo
             {
                 ShiftStarted = true;
                 ShowEndShiftXAML();
+
+                UpdateCircularGauge();
+
+                if (dbService.CheckOnBreak() == -1)
+                {
+                    if (!dbService.CheckTimedNotification(NotificationCategory.Ongoing))
+                    {
+                        dbService.CreateNotification("You are currently on your break", false, NotificationCategory.Ongoing);
+                    }
+
+                    DependencyService.Get<INotifyService>().PresentNotification("On Break", "You are currently on your break", false);
+                }
+                else
+                {
+                    if (!dbService.CheckTimedNotification(NotificationCategory.Ongoing))
+                    {
+                        dbService.CreateNotification("You are currently working", false, NotificationCategory.Ongoing);
+                    }
+
+                    DependencyService.Get<INotifyService>().PresentNotification("Shift Running", "You are currently working", false);
+
+                    if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                    {
+                        if ((TotalBeforeBreak - 1) > 1)
+                        {
+                            dbService.CreateNotification("You have less than 1 hour until your break", true, NotificationCategory.Break, TimeSpan.FromHours(TotalBeforeBreak - 1));
+
+                            Device.StartTimer(TimeSpan.FromHours(TotalBeforeBreak - 1), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 1 hour until your break", true);
+
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                dbService.CreateNotification("You have less than 10 mins until your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
+
+                                Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                                {
+                                    if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                    {
+                                        return false;
+                                    }
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 10 mins until your break", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                    dbService.CreateNotification("It is time for your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+
+                                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                        return false;
+                                    });
+                                    return false;
+                                });
+                                return false;
+                            });
+                        }
+                        else
+                        {
+                            if ((TimeSpan.FromHours(TotalBeforeBreak) - TimeSpan.FromMinutes(10)) > TimeSpan.FromMinutes(10))
+                            {
+                                dbService.CreateNotification("You have less than 1 hour until your break", true, NotificationCategory.Break, TimeSpan.FromHours(TotalBeforeBreak) - TimeSpan.FromMinutes(10));
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 1 hour until your break", true);
+
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                dbService.CreateNotification("You have less than 10 mins until your break", true, NotificationCategory.Break, TimeSpan.FromHours(TotalBeforeBreak) - TimeSpan.FromMinutes(10));
+
+                                Device.StartTimer(TimeSpan.FromHours(TotalBeforeBreak) - TimeSpan.FromMinutes(10), () =>
+                                {
+                                    if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                    {
+                                        return false;
+                                    }
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 10 mins until your break", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                    dbService.CreateNotification("It is time for your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+
+                                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                        return false;
+                                    });
+                                    return false;
+                                });
+                            }
+                            else
+                            {
+                                if (TimeSpan.FromHours(TotalBeforeBreak) > TimeSpan.FromHours(0))
+                                {
+                                    dbService.CreateNotification("You have less than 10 mins until your break", true, NotificationCategory.Break, TimeSpan.FromHours(TotalBeforeBreak));
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 10 mins until your break", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                    dbService.CreateNotification("It is time for your break", true, NotificationCategory.Break, TimeSpan.FromHours(TotalBeforeBreak));
+
+                                    Device.StartTimer(TimeSpan.FromHours(TotalBeforeBreak), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                        return false;
+                                    });
+                                }
+                                else
+                                {
+                                    dbService.CreateNotification("It is time for your break", false, NotificationCategory.Break);
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+                                }
+                            }
+                        }
+                    }
+
+                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                    {
+                        double remainingShift = 14 - CompletedJourney;
+
+                        if ((remainingShift - 1) > 1)
+                        {
+                            dbService.CreateNotification("You have less than 1 hour until your shift ends", true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift - 1));
+
+                            Device.StartTimer(TimeSpan.FromHours(remainingShift - 1), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift Ending", "You have less than 1 hour until your shift ends", true);
+
+                                dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                dbService.CreateNotification("You have less than 10 mins until your shift ends", true, NotificationCategory.Shift, TimeSpan.FromMinutes(50));
+
+                                Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                                {
+                                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                    {
+                                        return false;
+                                    }
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Shift Ending", "You have less than 10 mins until your shift ends", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                    dbService.CreateNotification("It is time for your shift to end", true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
+
+                                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "It is time for your shift to end", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                        return false;
+                                    });
+                                    return false;
+                                });
+                                return false;
+                            });
+                        }
+                        else
+                        {
+                            if ((TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10)) > TimeSpan.FromMinutes(10))
+                            {
+                                dbService.CreateNotification("You have less than 1 hour until your shift ends", true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift Ending", "You have less than 1 hour until your shift ends", true);
+
+                                dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                dbService.CreateNotification("You have less than 10 mins until your shift ends", true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
+
+                                Device.StartTimer(TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10), () =>
+                                {
+                                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                    {
+                                        return false;
+                                    }
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Shift Ending", "You have less than 10 mins until your shift ends", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                    dbService.CreateNotification("It is time for your shift to end", true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
+
+                                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "It is time for your shift to end", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                        return false;
+                                    });
+                                    return false;
+                                });
+                            }
+                            else
+                            {
+                                if (TimeSpan.FromHours(remainingShift) > TimeSpan.FromHours(0))
+                                {
+                                    dbService.CreateNotification("You have less than 10 mins until your shift ends", true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Shift Ending", "You have less than 10 mins until your shift ends", true);
+
+                                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                    dbService.CreateNotification("It is time for your shift to end", true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
+
+                                    Device.StartTimer(TimeSpan.FromHours(remainingShift), () =>
+                                    {
+                                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                        {
+                                            return false;
+                                        }
+
+                                        DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "It is time for your shift to end", true);
+
+                                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                        return false;
+                                    });
+                                }
+                                else
+                                {
+                                    dbService.CreateNotification("It is time for your shift to end", false, NotificationCategory.Shift);
+
+                                    DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "It is time for your shift to end", true);
+                                }
+                            }
+                        }
+                    }
+                }
             }
             else
             {
                 ShiftStarted = false;
                 ShowStartShiftXAML();
+
+                if (!dbService.CheckTimedNotification(NotificationCategory.Ongoing))
+                {
+                    dbService.CreateNotification("This app is ready to record your shift", false, NotificationCategory.Ongoing);
+                }
+
+                DependencyService.Get<INotifyService>().PresentNotification("Ready", "This app is ready to record your shift", false);
             }
         }
 
@@ -406,7 +672,7 @@ namespace Hubo
             OnPropertyChanged("ShiftImage");
         }
 
-        private void CheckActiveBreak()
+        private async void CheckActiveBreak()
         {
             int onBreak = dbService.CheckOnBreak();
             if (onBreak == -1)
@@ -418,7 +684,33 @@ namespace Hubo
 
                 DateTime startTime = dbService.GetBreakStart();
 
-                countdown.Restart(30 * 60, startTime);
+                if ((DateTime.Now - startTime) <= TimeSpan.FromMinutes(30))
+                {
+                    countdown.Restart(30 * 60, startTime);
+                }
+                else
+                {
+                    if (await UserDialogs.Instance.ConfirmAsync("You have used up all the time in this break. Would you like to end it now", "Break End", "Yes", "No"))
+                    {
+                        await ToggleBreak();
+                    }
+
+                    // else
+                    // {
+                    //    PromptConfig notePrompt = new PromptConfig()
+                    //    {
+                    //        IsCancellable = false,
+                    //        OkText = "Okay",
+                    //        Message = "Note: "
+                    //    };
+
+                    // PromptResult result = await UserDialogs.Instance.PromptAsync(notePrompt);
+                    //    if (result.Ok && result.Text != string.Empty)
+                    //    {
+                    //        return result.Text;
+                    //    }
+                    // }
+                }
             }
             else if (onBreak == 1)
             {
@@ -426,6 +718,8 @@ namespace Hubo
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
                 ShiftRunning = true;
+
+                FullBreak = dbService.CheckFullBreak();
             }
         }
 
@@ -668,7 +962,14 @@ namespace Hubo
                     OnBreak = true;
                     ShiftRunning = false;
 
-                    countdown.Start(30 * 60);
+                    if (FullBreak)
+                    {
+                        countdown.Start(30 * 60);
+                    }
+                    else
+                    {
+                        countdown.Start(RemainTime);
+                    }
 
                     UserDialogs.Instance.ShowSuccess("Break Started!", 1500);
                 }
@@ -677,12 +978,11 @@ namespace Hubo
 
         private async Task StopBreak()
         {
-            bool fullBreak = true;
             if (RemainTime > 0)
             {
                 TimeSpan time = TimeSpan.FromSeconds(TotalTime - RemainTime);
                 string remainTimeString = time.ToString(@"mm\:ss");
-                fullBreak = false;
+                FullBreak = false;
                 if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", "WARNING", "Yes", "No"))
                 {
                     return;
@@ -714,9 +1014,54 @@ namespace Hubo
 
             if (await dbService.StopBreak(location, note))
             {
-                if (fullBreak)
+                if (FullBreak)
                 {
                     NextBreakTime = "Take your break by: " + dbService.GetNextBreakTime();
+
+                    dbService.CancelNotification(NotificationCategory.Break, true);
+
+                    dbService.CreateNotification("You have less than 1 hour until your break", true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
+
+                    Device.StartTimer(TimeSpan.FromHours(4.5), () =>
+                    {
+                        if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                        {
+                            return false;
+                        }
+
+                        DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 1 hour until your break", true);
+
+                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                        dbService.CreateNotification("You have less than 10 mins until your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
+
+                        Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                        {
+                            if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                            {
+                                return false;
+                            }
+
+                            DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 10 mins until your break", true);
+
+                            dbService.CancelNotification(NotificationCategory.Break, true, true);
+                            dbService.CreateNotification("It is time for your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+
+                            Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                return false;
+                            });
+                            return false;
+                        });
+                        return false;
+                    });
                 }
 
                 BreakButtonColor = Constants.GREEN_COLOR;
@@ -799,12 +1144,16 @@ namespace Hubo
                                 ShiftStarted = false;
                                 ShowStartShiftXAML();
                                 UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
-                                MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
+
+                                dbService.CancelNotification(NotificationCategory.Ongoing, false);
+                                dbService.CancelNotification(NotificationCategory.Shift, true);
+                                dbService.CancelNotification(NotificationCategory.Break, true);
+
+                                dbService.CreateNotification("Ready to record your shifts", false, NotificationCategory.Ongoing);
 
                                 DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
 
-                                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
                                 return true;
                             }
 
@@ -863,6 +1212,11 @@ namespace Hubo
 
             if (await UserDialogs.Instance.ConfirmAsync("Would you like to start your shift?", "Confirmation", "Yes", "No"))
             {
+                if (!dbService.CheckTenHourBreak())
+                {
+                    await UserDialogs.Instance.AlertAsync("You have not had your full 10 hour break between shifts", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                }
+
                 List<string> checklistQuestions = dbService.GetChecklist();
                 int count = 0;
                 foreach (string question in checklistQuestions)
@@ -896,22 +1250,98 @@ namespace Hubo
                     ShiftStarted = true;
                     ShowEndShiftXAML();
                     UpdateCircularGauge();
+
+                    dbService.CancelNotification(NotificationCategory.Ongoing, false);
+
+                    dbService.CreateNotification("Your Shift is Running", false, NotificationCategory.Ongoing);
                     DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
-                    CancellationTokenSource cts = this.cancel;
+                    dbService.CreateNotification("You have less than 1 hour until your break", true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
+
+                    Device.StartTimer(TimeSpan.FromHours(4.5), () =>
+                    {
+                        if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                        {
+                            return false;
+                        }
+
+                        DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 1 hour until your break", true);
+
+                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                        dbService.CreateNotification("You have less than 10 mins until your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
+
+                        Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                        {
+                            if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                            {
+                                return false;
+                            }
+
+                            DependencyService.Get<INotifyService>().UpdateNotification("Break Approaching", "You have less than 10 mins until your break", true);
+
+                            dbService.CancelNotification(NotificationCategory.Break, true, true);
+                            dbService.CreateNotification("It is time for your break", true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+
+                            Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Break))
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Break Start", "It is time for your break", true);
+
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                return false;
+                            });
+                            return false;
+                        });
+                        return false;
+                    });
 
                     await Application.Locator.StopListeningAsync();
+
+                    dbService.CreateNotification("You have less than 1 hour left in your shift", true, NotificationCategory.Shift, TimeSpan.FromHours(13));
                     Device.StartTimer(TimeSpan.FromHours(13), () =>
                     {
-                        if (this.cancel.IsCancellationRequested)
+                        if (dbService.CheckTimedNotification(NotificationCategory.Shift))
                         {
                             return false;
                         }
 
                         DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
+
+                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                        dbService.CreateNotification("You have less than 10 mins left in your shift", true, NotificationCategory.Shift, TimeSpan.FromMinutes(50));
+
+                        Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                        {
+                            if (dbService.CheckTimedNotification(NotificationCategory.Shift))
+                            {
+                                return false;
+                            }
+
+                            DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 10 mins left in your shift", true);
+
+                            dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                            dbService.CreateNotification("Your shift is at an end", true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
+
+                            Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                            {
+                                if (dbService.CheckTimedNotification(NotificationCategory.Shift))
+                                {
+                                    return false;
+                                }
+
+                                DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "Your shift is at an end", true);
+
+                                dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                                return false;
+                            });
+                            return false;
+                        });
                         return false;
                     });
-                    MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                     UserDialogs.Instance.ShowSuccess("Shift Started!", 1500);
 
                     return true;
@@ -945,10 +1375,10 @@ namespace Hubo
             OnPropertyChanged("TotalBeforeBreak");
 
             CountdownConverter convert = new CountdownConverter();
-            ToastConfig toast = new ToastConfig("You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift");
 
             if ((14 - CompletedJourney) < 1)
             {
+                ToastConfig toast = new ToastConfig("You have " + convert.Convert(50400 - ((CompletedJourney * 60) * 60), null, null, null) + " left in your shift");
                 UserDialogs.Instance.Toast(toast);
 
                 notifyReady = true;
@@ -962,7 +1392,7 @@ namespace Hubo
 
                 if ((14 - CompletedJourney) < 1 && !notifyReady)
                 {
-                    toast = new ToastConfig("You have " + convert.Convert(14 - CompletedJourney, null, null, null) + " left in your shift");
+                    ToastConfig toast = new ToastConfig("You have " + convert.Convert(50400 - ((CompletedJourney * 60) * 60), null, null, null) + " left in your shift");
                     UserDialogs.Instance.Toast(toast);
 
                     notifyReady = true;

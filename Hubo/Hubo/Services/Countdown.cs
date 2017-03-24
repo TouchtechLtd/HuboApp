@@ -18,7 +18,7 @@ namespace Hubo
         private static Stopwatch sw = new Stopwatch();
         private MessagingModel message = new MessagingModel();
         private ToastConfig toastConfig;
-        private CancellationTokenSource cancel;
+        private DatabaseService db = new DatabaseService();
 
         /// <summary>
         /// The remain time.
@@ -45,8 +45,6 @@ namespace Hubo
             IsRunning = sw.IsRunning;
 
             warningGiven = false;
-
-            cancel = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -148,20 +146,38 @@ namespace Hubo
 
             sw.Start();
 
-            CancellationTokenSource cts = this.cancel;
+            double criticalTime = TotalTime * 0.7;
 
-            double criticalTime = TotalTime * 0.9;
+            db.CancelNotification(NotificationCategory.Ongoing, false);
+            db.CreateNotification("You are currently on your break", false, NotificationCategory.Ongoing);
 
             DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false);
 
+            db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
             Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
             {
-                if (this.cancel.IsCancellationRequested)
+                if (!db.CheckTimedNotification(NotificationCategory.Break))
                 {
                     return false;
                 }
 
+                db.CancelNotification(NotificationCategory.Break, true, true);
+                db.CreateNotification("Your break is at an end", true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
+
                 DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true);
+
+                Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
+                {
+                    if (!db.CheckTimedNotification(NotificationCategory.Break))
+                    {
+                        return false;
+                    }
+
+                    DependencyService.Get<INotifyService>().UpdateNotification("Break End", "Your break is at an end", true);
+
+                    db.CancelNotification(NotificationCategory.Break, true, true);
+                    return false;
+                });
                 return false;
             });
 
@@ -191,6 +207,47 @@ namespace Hubo
 
             sw.Start();
 
+            double criticalTime = RemainTime * 0.7;
+
+            if (!db.CheckTimedNotification(NotificationCategory.Ongoing))
+            {
+                db.CreateNotification("You are currently on your break", false, NotificationCategory.Ongoing);
+            }
+
+            DependencyService.Get<INotifyService>().UpdateNotification("Break Running", "You are currently on your break", false);
+
+            if (!db.CheckTimedNotification(NotificationCategory.Break))
+            {
+                db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
+            }
+
+            Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
+            {
+                if (!db.CheckTimedNotification(NotificationCategory.Break))
+                {
+                    return false;
+                }
+
+                db.CancelNotification(NotificationCategory.Break, true, true);
+                db.CreateNotification("Your break is at an end", true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
+
+                DependencyService.Get<INotifyService>().UpdateNotification("Break End", "You have less than " + (criticalTime / 60) + " mins left in your break", true);
+
+                Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
+                {
+                    if (!db.CheckTimedNotification(NotificationCategory.Break))
+                    {
+                        return false;
+                    }
+
+                    DependencyService.Get<INotifyService>().UpdateNotification("Break End", "Your break is at an end", true);
+
+                    db.CancelNotification(NotificationCategory.Break, true, true);
+                    return false;
+                });
+                return false;
+            });
+
             IsRunning = sw.IsRunning;
             warningGiven = false;
 
@@ -213,9 +270,12 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
+                db.CancelNotification(NotificationCategory.Ongoing, false);
+                db.CreateNotification("Your shift is running", false, NotificationCategory.Ongoing);
+
                 DependencyService.Get<INotifyService>().UpdateNotification("Shift Running", "Your Shift is Running", false);
 
-                Interlocked.Exchange(ref this.cancel, new CancellationTokenSource()).Cancel();
+                db.CancelNotification(NotificationCategory.Break, true);
             }
         }
 
@@ -234,10 +294,7 @@ namespace Hubo
             {
                 RemainTime = 0;
 
-                sw.Stop();
-                sw.Reset();
-
-                IsRunning = sw.IsRunning;
+                this.Stop();
             }
 
             if (((RemainTime / TotalTime) * 100) < 10 && !warningGiven)

@@ -40,7 +40,7 @@ namespace Hubo
             {
                 // loginModel.usernameOrEmailAddress = username;
                 // loginModel.password = password;
-                UsernameOrEmailAddress = "ben@triotech.co.nz",
+                UsernameOrEmailAddress = "daniel@triotech.co.nz",
                 Password = "tazmania"
             };
             string json = JsonConvert.SerializeObject(loginModel);
@@ -105,7 +105,7 @@ namespace Hubo
                     }
                     catch
                     {
-                        //Is Offline, so return empty
+                        // Is Offline, so return empty
                         return string.Empty;
                     }
                 }

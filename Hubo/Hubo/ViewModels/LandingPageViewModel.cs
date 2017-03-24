@@ -22,8 +22,6 @@ namespace Hubo
         public LandingPageViewModel()
         {
             LoginButtonText = Resource.LoginText;
-
-            // LoginButton = new Command(NavigateToLoginPage);
             RegisterButton = new Command(NavigateToRegisterPage);
             bottomBarPage = navBar.GetBottomBar();
             NavigationPage.SetHasNavigationBar(bottomBarPage, false);
