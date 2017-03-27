@@ -38,8 +38,6 @@
                 <Setter Property="FontFamily" Value="{StaticResource fontFamily}" />
                 <Setter Property="TextColor" Value="{StaticResource buttonTextColour}" />
             </Style>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

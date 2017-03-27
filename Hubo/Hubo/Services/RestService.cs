@@ -42,7 +42,7 @@ namespace Hubo
             {
                 // loginModel.usernameOrEmailAddress = username;
                 // loginModel.password = password;
-                UsernameOrEmailAddress = "ben@triotech.co.nz",
+                UsernameOrEmailAddress = "daniel@triotech.co.nz",
                 Password = "tazmania"
             };
             string json = JsonConvert.SerializeObject(loginModel);
@@ -87,13 +87,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Username/Password is incorrect, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidLogin, Resource.Alert, Resource.Okay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return false;
             }
         }
@@ -114,7 +114,7 @@ namespace Hubo
                     }
                     catch
                     {
-                        //Is Offline, so return empty
+                        // Is Offline, so return empty
                         return string.Empty;
                     }
                 }
@@ -511,7 +511,7 @@ namespace Hubo
         internal async Task<OcrResults> GetRegoText(MediaFile photo)
         {
             OcrResults rego;
-            var ocrClient = new VisionServiceClient("a2642181157b4664a1f6defc36dfabeb");
+            var ocrClient = new VisionServiceClient(Resource.VisionKey);
             using (var photoStream = photo.GetStream())
             {
                 try
@@ -520,7 +520,7 @@ namespace Hubo
                 }
                 catch (Exception e)
                 {
-                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.Alert, Resource.Okay);
                     return null;
                 }
 
@@ -594,13 +594,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Unable to register vehicle, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterVehicleError, Resource.Alert, Resource.Okay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return false;
             }
         }
@@ -704,13 +704,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterShiftError, Resource.Alert, Resource.Okay);
                     return -2;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return -2;
             }
         }
@@ -1096,7 +1096,7 @@ namespace Hubo
 
         private string GetBaseUrl()
         {
-            return "http://test.triotech.co.nz/huboportal/api";
+            return Resource.SiteURL;
         }
     }
 }

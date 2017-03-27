@@ -15,3 +15,8 @@ packages/*
 Test/bin/
 Test/obj/
 triotech.hubo.droid.apk
+Hubo/Hubo/App.xaml.orig
+Hubo/Hubo/Services/DatabaseService.cs.orig
+Hubo/Hubo/Services/RestService.cs.orig
+Hubo/Hubo/ViewModels/HistoryViewModel.cs.orig
+Hubo/Hubo/ViewModels/HomeViewModel.cs.orig

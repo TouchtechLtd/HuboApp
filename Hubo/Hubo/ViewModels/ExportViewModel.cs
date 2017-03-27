@@ -103,7 +103,7 @@ namespace Hubo
 
                 filePaths.Add(exportVehicle.Path);
 
-                emailClient = DependencyService.Get<IEmail>().Email(EmailEntry, "Last 7 Days of Shifts", filePaths);
+                emailClient = DependencyService.Get<IEmail>().Email(EmailEntry, Resource.Last7ShiftDays, filePaths);
 
                 if (emailClient)
                 {
@@ -111,13 +111,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Unable to send email!", "Send Error", "OK");
+                    await UserDialogs.Instance.ConfirmAsync(Resource.EmailError, Resource.SendError, Resource.Okay);
                     return;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.Alert, Resource.Okay);
             }
         }
     }

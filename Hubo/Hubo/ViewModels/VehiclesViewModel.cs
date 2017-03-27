@@ -211,7 +211,7 @@ namespace Hubo
         {
             if (currentVehicle.Registration == null)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.ChooseVehicleToEdit, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.ChooseVehicleToEdit, Resource.Alert, Resource.Okay);
             }
             else
             {

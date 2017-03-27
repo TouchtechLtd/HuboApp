@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DisplayAlertOkay" xml:space="preserve">
-    <value>Ok</value>
+  <data name="Okay" xml:space="preserve">
+    <value>Okay</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -135,14 +135,11 @@
   <data name="MissingText" xml:space="preserve">
     <value>Please fill out all the fields.</value>
   </data>
-  <data name="DisplayAlertTitle" xml:space="preserve">
+  <data name="Alert" xml:space="preserve">
     <value>Alert</value>
   </data>
   <data name="NoUsernameOrPasswordMessage" xml:space="preserve">
     <value>Please provide both Username &amp; Password</value>
-  </data>
-  <data name="NoUsernameOrPasswordTitle" xml:space="preserve">
-    <value>Alert</value>
   </data>
   <data name="NZTAButtonText" xml:space="preserve">
     <value>Agree</value>
@@ -301,7 +298,7 @@
     <value>Hubo</value>
   </data>
   <data name="InvalidHubo" xml:space="preserve">
-    <value>Please enter a valid reading</value>
+    <value>Please enter a valid odometer reading</value>
   </data>
   <data name="EmptyNote" xml:space="preserve">
     <value>Please fill out the note section</value>
@@ -554,5 +551,83 @@
   </data>
   <data name="YouAreRested" xml:space="preserve">
     <value>You are rested. Start your shift when you can.</value>
+  </data>
+  <data name="AddManShiftTitle" xml:space="preserve">
+    <value>Shift Add Reason:</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Unable to connect to the server</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm:ss.fff</value>
+  </data>
+  <data name="EndingDrive" xml:space="preserve">
+    <value>Ending Drive...</value>
+  </data>
+  <data name="InvalidKey" xml:space="preserve">
+    <value>Invalid Server Key</value>
+  </data>
+  <data name="InvalidLogin" xml:space="preserve">
+    <value>Incorrect Username/Password, Please try again</value>
+  </data>
+  <data name="NotifyBreakRunningTitle" xml:space="preserve">
+    <value>Break Running</value>
+  </data>
+  <data name="NotifyEndingBreak" xml:space="preserve">
+    <value>Your break is at an end</value>
+  </data>
+  <data name="NotifyEndingBreakTitle" xml:space="preserve">
+    <value>Break End</value>
+  </data>
+  <data name="NotifyInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotifyOnBreak" xml:space="preserve">
+    <value>You are Currently on your break</value>
+  </data>
+  <data name="NotifyOnShift" xml:space="preserve">
+    <value>You are currently on your shift</value>
+  </data>
+  <data name="NotifyShiftRunningTitle" xml:space="preserve">
+    <value>Shift Running</value>
+  </data>
+  <data name="RegisterShiftError" xml:space="preserve">
+    <value>Unable to register shift, Please try again</value>
+  </data>
+  <data name="RegisterVehicleError" xml:space="preserve">
+    <value>Unable to register vehicle, Please try again</value>
+  </data>
+  <data name="RegoError" xml:space="preserve">
+    <value>Unable to get photo of registration plate, Please pick a vehicle from the list</value>
+  </data>
+  <data name="RegoInput" xml:space="preserve">
+    <value>Please input your Rego?</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Internal Server Error</value>
+  </data>
+  <data name="SiteURL" xml:space="preserve">
+    <value>http://test.triotech.co.nz/huboportal/api</value>
+  </data>
+  <data name="StartingBreak" xml:space="preserve">
+    <value>Starting Break...</value>
+  </data>
+  <data name="StartingDrive" xml:space="preserve">
+    <value>Starting Drive...</value>
+  </data>
+  <data name="StartingShift" xml:space="preserve">
+    <value>Starting Shift...</value>
+  </data>
+  <data name="StoppingBreak" xml:space="preserve">
+    <value>Stopping Break...</value>
+  </data>
+  <data name="StoppingShift" xml:space="preserve">
+    <value>Stopping Shift...</value>
+  </data>
+  <data name="VehicleQuestion" xml:space="preserve">
+    <value>Are any of these your vehicle?</value>
+  </data>
+  <data name="VisionKey" xml:space="preserve">
+    <value>a2642181157b4664a1f6defc36dfabeb</value>
   </data>
 </root>

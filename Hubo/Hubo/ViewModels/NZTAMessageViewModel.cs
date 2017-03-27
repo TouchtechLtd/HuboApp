@@ -64,6 +64,8 @@ namespace Hubo
 
         private void ProceedToHomePage()
         {
+            HomeViewModel homeVm = new HomeViewModel();
+            homeVm.PageReload();
             Application.Current.MainPage = new NavigationPage(bottomBarPage);
         }
     }
