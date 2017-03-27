@@ -19,10 +19,10 @@ namespace Hubo
             InitializeComponent();
 
             // Run a scheduled task every minute
-            Device.StartTimer(TimeSpan.FromMinutes(5), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
             {
-                // ScheduledTasks.CheckOfflineData();
-                return true;
+                ScheduledTasks.CheckOfflineData();
+                return false;
             });
         }
 

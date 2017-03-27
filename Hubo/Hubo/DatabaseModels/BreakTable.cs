@@ -18,6 +18,8 @@ namespace Hubo
 
         public int ShiftKey { get; set; }
 
+        public int ServerShiftKey { get; set; }
+
         public bool ActiveBreak { get; set; }
 
         public string StartLocation { get; set; }

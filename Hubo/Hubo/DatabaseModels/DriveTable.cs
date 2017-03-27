@@ -17,6 +17,8 @@ namespace Hubo
 
         public int VehicleKey { get; set; }
 
+        public int ServerVehicleKey { get; set; }
+
         public bool ActiveVehicle { get; set; }
 
         public string StartDate { get; set; }
@@ -34,7 +36,5 @@ namespace Hubo
         public string StartNote { get; set; }
 
         public string EndNote { get; set; }
-
-        public int LocalKey { get; set; }
     }
 }

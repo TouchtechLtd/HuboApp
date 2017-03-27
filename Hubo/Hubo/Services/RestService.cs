@@ -14,6 +14,8 @@ namespace Hubo
     using Microsoft.ProjectOxford.Vision.Contract;
     using Newtonsoft.Json;
     using Plugin.Media.Abstractions;
+    using Xamarin.Forms;
+    using System.IO;
 
     internal class RestService
     {
@@ -51,7 +53,14 @@ namespace Hubo
 
             using (HttpClient client = new HttpClient())
             {
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -154,7 +163,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                shiftResponse = await client.SendAsync(shiftGet);
+                try
+                {
+                    shiftResponse = await client.SendAsync(shiftGet);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (shiftResponse.IsSuccessStatusCode)
@@ -190,7 +206,14 @@ namespace Hubo
                         using (HttpClient client = new HttpClient())
                         {
                             client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            noteResponse = await client.SendAsync(noteGet);
+                            try
+                            {
+                                noteResponse = await client.SendAsync(noteGet);
+                            }
+                            catch
+                            {
+                                return -1;
+                            }
                         }
 
                         if (noteResponse.IsSuccessStatusCode)
@@ -226,7 +249,14 @@ namespace Hubo
                         using (HttpClient client = new HttpClient())
                         {
                             client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            driveResponse = await client.SendAsync(driveGet);
+                            try
+                            {
+                               driveResponse = await client.SendAsync(driveGet);
+                            }
+                            catch
+                            {
+                                return -1;
+                            }
                         }
 
                         if (driveResponse.IsSuccessStatusCode)
@@ -266,7 +296,14 @@ namespace Hubo
                         using (HttpClient client = new HttpClient())
                         {
                             client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            breakResponse = await client.SendAsync(breakGet);
+                            try
+                            {
+                                breakResponse = await client.SendAsync(breakGet);
+                            }
+                            catch
+                            {
+                                return -1;
+                            }
                         }
 
                         if (breakResponse.IsSuccessStatusCode)
@@ -333,7 +370,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                userResponse = await client.SendAsync(userGet);
+                try
+                {
+                    userResponse = await client.SendAsync(userGet);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (userResponse.IsSuccessStatusCode)
@@ -372,7 +416,14 @@ namespace Hubo
                     using (HttpClient client = new HttpClient())
                     {
                         client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                        companyResponse = await client.SendAsync(companyGet);
+                        try
+                        {
+                           companyResponse = await client.SendAsync(companyGet);
+                        }
+                        catch
+                        {
+                            return -1;
+                        }
                     }
 
                     if (companyResponse.IsSuccessStatusCode)
@@ -405,7 +456,14 @@ namespace Hubo
                     using (HttpClient client = new HttpClient())
                     {
                         client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                        vehicleResponse = await client.SendAsync(vehicleGet);
+                        try
+                        {
+                            vehicleResponse = await client.SendAsync(vehicleGet);
+                        }
+                        catch
+                        {
+                            return -1;
+                        }
                     }
 
                     if (vehicleResponse.IsSuccessStatusCode)
@@ -516,7 +574,14 @@ namespace Hubo
 
             using (HttpClient client = new HttpClient())
             {
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -538,6 +603,37 @@ namespace Hubo
                 await UserDialogs.Instance.ConfirmAsync("There was an error communicating with the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
                 return false;
             }
+        }
+
+        internal async Task<bool> QueryRegoPhoto(MediaFile photoStream)
+        {
+            string contentType = "application/jpeg";
+            string url = GetBaseUrl() + Constants.REST_URL_REGOPHOTO;
+
+            var stream = photoStream.GetStream();
+            var bytes = new byte[stream.Length];
+            await stream.ReadAsync(bytes, 0, (int)stream.Length);
+            string base64 = System.Convert.ToBase64String(bytes);
+
+            string json = JsonConvert.SerializeObject(base64);
+            HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
+
+            HttpResponseMessage response;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
@@ -600,22 +696,11 @@ namespace Hubo
                 QueryShiftResponse result = JsonConvert.DeserializeObject<QueryShiftResponse>(response.Content.ReadAsStringAsync().Result);
                 if (result.Success)
                 {
-                    if (!shiftStarted)
+                    if (result.Result > 0)
                     {
-                        if (result.Result > 0)
-                        {
-                            return result.Result;
-                        }
-                        else
-                        {
-                            await UserDialogs.Instance.ConfirmAsync("Unable to register shift, please try again", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            return -2;
-                        }
+                        return result.Result;
                     }
-                    else
-                    {
-                        return 0;
-                    }
+                    return 0;
                 }
                 else
                 {
@@ -644,7 +729,7 @@ namespace Hubo
                 {
                     shiftId = serverShift,
                     startDrivingDateTime = drive.StartDate,
-                    vehicleId = drive.VehicleKey,
+                    vehicleId = drive.ServerVehicleKey,
                     startHubo = drive.StartHubo,
                     startNote = drive.StartNote
                 };
@@ -669,7 +754,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -678,20 +770,13 @@ namespace Hubo
 
                 if (result.Success)
                 {
-                    if (!driveStarted)
+                    if (result.Result > 0)
                     {
-                        if (result.Result > 0)
-                        {
-                            return result.Result;
-                        }
-                        else
-                        {
-                            return -2;
-                        }
+                        return result.Result;
                     }
                     else
                     {
-                        return 0;
+                        return -2;
                     }
                 }
                 else
@@ -744,7 +829,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -753,20 +845,14 @@ namespace Hubo
 
                 if (result.Success)
                 {
-                    if (!breakStarted)
+
+                    if (result.Result > 0)
                     {
-                        if (result.Result > 0)
-                        {
-                            return result.Result;
-                        }
-                        else
-                        {
-                            return -2;
-                        }
+                        return result.Result;
                     }
                     else
                     {
-                        return 0;
+                        return -2;
                     }
                 }
                 else
@@ -806,7 +892,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -846,7 +939,14 @@ namespace Hubo
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                response = await client.PostAsync(url, content);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
             }
 
             if (response.IsSuccessStatusCode)
@@ -857,7 +957,7 @@ namespace Hubo
                     return result.Result;
                 }
 
-                return -2;
+                return -1;
             }
 
             return -1;

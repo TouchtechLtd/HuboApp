@@ -799,7 +799,7 @@ namespace Hubo
                                 ShiftStarted = false;
                                 ShowStartShiftXAML();
                                 UserDialogs.Instance.ShowSuccess("Shift Ended!", 1500);
-                                MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
+                                //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                                 await Navigation.PushModalAsync(new NZTAMessagePage(2));
 
                                 DependencyService.Get<INotifyService>().UpdateNotification("Ready", "Ready to record your shifts", false);
@@ -911,7 +911,7 @@ namespace Hubo
                         DependencyService.Get<INotifyService>().UpdateNotification("Shift End", "You have less than 1 hour left in your shift", true);
                         return false;
                     });
-                    MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
+                    //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
                     UserDialogs.Instance.ShowSuccess("Shift Started!", 1500);
 
                     return true;

@@ -14,6 +14,7 @@ namespace Hubo
         public const string REST_URL_LOGIN = "/Account/Authenticate";
 
         public const string REST_URL_ADDVEHICLE = "/Vehicles/registerVehicleAsync";
+        public const string REST_URL_REGOPHOTO = "/Vehicles/regoPhotoAsync";
 
         public const string REST_URL_ADDSHIFTSTART = "/WorkShift/StartShiftAsync";
         public const string REST_URL_ADDSHIFTEND = "/WorkShift/StopShiftAsync";

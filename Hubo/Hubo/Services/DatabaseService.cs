@@ -15,6 +15,7 @@ namespace Hubo
     using Plugin.Media.Abstractions;
     using SQLite.Net;
     using Xamarin.Forms;
+    using Plugin.Connectivity;
 
     public class DatabaseService
     {
@@ -39,6 +40,7 @@ namespace Hubo
             db.CreateTable<ShiftOffline>();
             db.CreateTable<DriveOffline>();
             db.CreateTable<BreakOffline>();
+            db.CreateTable<VehicleOffline>();
         }
 
         public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
@@ -495,7 +497,7 @@ namespace Hubo
                     ActiveVehicle = true,
                     ShiftKey = listOfShifts[0].Key,
                     StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                    LocalKey = vehicleKey,
+                    VehicleKey = vehicleKey,
                     StartHubo = hubo,
                     StartNote = note
                 };
@@ -503,8 +505,11 @@ namespace Hubo
 
                 DriveOffline offlineDrive = new DriveOffline()
                 {
-                    DriveKey = newDrive.Key
+                    DriveKey = newDrive.Key,
+                    StartOffline = true
                 };
+
+                db.Insert(offlineDrive);
 
                 return true;
             }
@@ -666,97 +671,99 @@ namespace Hubo
 
         internal async Task<int> GetRego()
         {
-            await CrossMedia.Current.Initialize();
-
-            MediaFile photo;
-
-            if (CrossMedia.Current.IsCameraAvailable || CrossMedia.Current.IsTakePhotoSupported)
-            {
-                photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
-                {
-                    Directory = "Rego",
-                    Name = "Rego.jpg",
-                    PhotoSize = PhotoSize.Small,
-                    DefaultCamera = CameraDevice.Rear,
-                    SaveToAlbum = false
-                });
-            }
-            else if (CrossMedia.Current.IsPickPhotoSupported)
-            {
-                photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
-                {
-                    PhotoSize = PhotoSize.Small
-                });
-            }
-            else
-            {
-                await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                return -1;
-            }
-
-            if (photo == null)
-            {
-                await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                return -1;
-            }
-
-            OcrResults rego;
-            restAPI = new RestService();
-
-            rego = await restAPI.GetRegoText(photo);
-            if (rego == null)
-            {
-                return -1;
-            }
-
-            List<string> regoList = new List<string>();
-            Regex r = new Regex("^[A-Za-z0-9Ø]*$");
-            foreach (Region region in rego.Regions)
-            {
-                foreach (Line line in region.Lines)
-                {
-                    string fullLine = string.Empty;
-                    foreach (Word word in line.Words)
-                    {
-                        word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
-
-                        if (r.IsMatch(word.Text.ToString()))
-                        {
-                            fullLine = fullLine + word.Text.ToString();
-                        }
-                    }
-
-                    if (fullLine != string.Empty && fullLine.Trim().Length < 7)
-                    {
-                        List<string> listOfPossibilities = CheckPossiblities(fullLine);
-
-                        foreach (string possibility in listOfPossibilities)
-                        {
-                            regoList.Add(possibility);
-                        }
-                    }
-                }
-            }
-
             VehicleTable vehicleToInsert = new VehicleTable();
-            restAPI = new RestService();
-            if (regoList.Count > 0)
+            if (CrossConnectivity.Current.IsConnected)
             {
-                string regoAnswer = await UserDialogs.Instance.ActionSheetAsync("Are any of these your vehicle?", "Cancel", Resource.InputOwnRego, null, regoList.ToArray());
+                await CrossMedia.Current.Initialize();
 
-                if (regoAnswer == "Cancel")
+                MediaFile photo;
+
+                if (CrossMedia.Current.IsCameraAvailable || CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        Directory = "Rego",
+                        Name = "Rego.jpg",
+                        PhotoSize = PhotoSize.Small,
+                        DefaultCamera = CameraDevice.Rear,
+                        SaveToAlbum = false
+                    });
+                }
+                else if (CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Small
+                    });
+                }
+                else
+                {
+                    await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    return -1;
+                }
+
+                if (photo == null)
+                {
+                    await UserDialogs.Instance.ConfirmAsync("Unable to get photo of registration plate, Please pick a vehicle from the list", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                    return -1;
+                }
+
+                restAPI = new RestService();
+
+                //await restAPI.QueryRegoPhoto(photo);
+
+                OcrResults rego = await restAPI.GetRegoText(photo);
+                if (rego == null)
                 {
                     return -1;
                 }
 
-                if (regoAnswer != Resource.InputOwnRego)
+                List<string> regoList = new List<string>();
+                Regex r = new Regex("^[A-Za-z0-9Ø]*$");
+                foreach (Region region in rego.Regions)
                 {
-                    vehicleToInsert.Registration = regoAnswer;
-                    db.Insert(vehicleToInsert);
-                    return vehicleToInsert.Key;
+                    foreach (Line line in region.Lines)
+                    {
+                        string fullLine = string.Empty;
+                        foreach (Word word in line.Words)
+                        {
+                            word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
+
+                            if (r.IsMatch(word.Text.ToString()))
+                            {
+                                fullLine = fullLine + word.Text.ToString();
+                            }
+                        }
+
+                        if (fullLine != string.Empty && fullLine.Trim().Length < 7)
+                        {
+                            List<string> listOfPossibilities = CheckPossiblities(fullLine);
+
+                            foreach (string possibility in listOfPossibilities)
+                            {
+                                regoList.Add(possibility);
+                            }
+                        }
+                    }
                 }
 
+                restAPI = new RestService();
+                if (regoList.Count > 0)
+                {
+                    string regoAnswer = await UserDialogs.Instance.ActionSheetAsync("Are any of these your vehicle?", "Cancel", Resource.InputOwnRego, null, regoList.ToArray());
 
+                    if (regoAnswer == "Cancel")
+                    {
+                        return -1;
+                    }
+
+                    if (regoAnswer != Resource.InputOwnRego)
+                    {
+                        vehicleToInsert.Registration = regoAnswer;
+                        db.Insert(vehicleToInsert);
+                        return vehicleToInsert.Key;
+                    }
+                }
             }
 
             PromptResult regoResult = await UserDialogs.Instance.PromptAsync("Please input your Rego", "Alert", "Okay", "Cancel");
@@ -815,27 +822,32 @@ namespace Hubo
                     ActiveVehicle = true,
                     ShiftKey = listOfShifts[0].Key,
                     StartDate = date.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                    VehicleKey = currentVehicle.ServerKey,
-                    LocalKey = vehicleKey,
+                    ServerVehicleKey = currentVehicle.ServerKey,
+                    VehicleKey = vehicleKey,
                     StartHubo = hubo,
                     StartNote = note
                 };
                 db.Insert(newDrive);
 
-                int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
+                if (await ReturnOffline())
+                {
+                    int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
 
-                if (result > 0)
-                {
-                    newDrive.ServerId = result;
-                    db.Update(newDrive);
-                }
-                else
-                {
-                    DriveOffline offlineDrive = new DriveOffline()
+                    if (result > 0)
                     {
-                        DriveKey = newDrive.Key
-                    };
+                        newDrive.ServerId = result;
+                        db.Update(newDrive);
+                        return true;
+                    }
                 }
+
+                DriveOffline offlineDrive = new DriveOffline()
+                {
+                    DriveKey = newDrive.Key,
+                    StartOffline = true
+                };
+
+                db.Insert(offlineDrive);
 
                 return true;
             }
@@ -879,82 +891,45 @@ namespace Hubo
                 drive.EndNote = note;
                 db.Update(drive);
 
-                List<GeolocationTable> locationUpload = db.Query<GeolocationTable>("SELECT * FROM [GeolocationTable] WHERE [DriveKey] = " + drive.Key);
+                //List<GeolocationTable> locationUpload = db.Query<GeolocationTable>("SELECT * FROM [GeolocationTable] WHERE [DriveKey] = " + drive.Key);
 
-                if (locationUpload != null)
-                {
-                    int locationResult = await restAPI.InsertGeoData(locationUpload);
+                //if (locationUpload != null)
+                //{
+                //    int locationResult = await restAPI.InsertGeoData(locationUpload);
 
-                    switch (locationResult)
-                    {
-                        case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        default:
-                            db.Query<Geolocation>("DELETE FROM [GeolocationTable]");
-                            break;
-                    }
-                }
+                //    if (locationResult > 0)
+                //    {
+                //        db.Query<Geolocation>("DELETE FROM [GeolocationTable]");
+                //    }
+                //}
 
-                if (drive.ServerId > 0)
+                if (await ReturnOffline())
                 {
                     int result = await restAPI.QueryDrive(true, drive);
 
-                    switch (result)
+                    if (result > 0)
                     {
-                        case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        default:
-                            return true;
+                        return true;
                     }
                 }
 
-                var tbl = db.GetTableInfo("DriveOffline");
+                List<DriveOffline> listOfflineDrives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline] WHERE [DriveKey] == " + drive.Key);
 
-                if (tbl.Count == 0)
+                if (listOfflineDrives.Count == 0)
                 {
-                    db.CreateTable<DriveOffline>();
-
                     DriveOffline offline = new DriveOffline()
                     {
                         DriveKey = drive.Key,
-                        EndOffline = true,
-                        StartOffline = false
+                        EndOffline = true
                     };
                     db.Insert(offline);
+
                 }
                 else
                 {
-                    List<DriveOffline> checkOffline = db.Query<DriveOffline>("SELECT [DriveKey] FROM [DriveOffline]");
-                    int num = 0;
-
-                    foreach (DriveOffline item in checkOffline)
-                    {
-                        if (item.DriveKey == drive.Key)
-                        {
-                            item.EndOffline = true;
-                            db.Update(item);
-                            num++;
-                        }
-                    }
-
-                    if (num == 0)
-                    {
-                        DriveOffline offline = new DriveOffline()
-                        {
-                            DriveKey = drive.Key,
-                            EndOffline = true,
-                            StartOffline = false
-                        };
-                        db.Insert(offline);
-                    }
+                    DriveOffline offline = listOfflineDrives[0];
+                    offline.EndOffline = true;
+                    db.Update(offline);
                 }
 
                 return true;
@@ -1057,7 +1032,7 @@ namespace Hubo
             List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
             // Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].LocalKey);
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;
@@ -1099,34 +1074,26 @@ namespace Hubo
                 currentBreak.EndNote = note;
                 db.Update(currentBreak);
 
-                if (currentBreak.ServerId > 0)
+                if (await ReturnOffline())
                 {
                     restAPI = new RestService();
                     int result = await restAPI.QueryBreak(true, currentBreak);
 
-                    switch (result)
+                    if (result > 0)
                     {
-                        case -1:
-                            await UserDialogs.Instance.ConfirmAsync("Unable to connect to the server", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        case -2:
-                            await UserDialogs.Instance.ConfirmAsync("Internal Server Error", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                            break;
-                        default:
-                            return true;
+                        return true;
                     }
+                }
+
+                List<BreakOffline> listOfflineBreaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline] WHERE [BreakKey] == " + currentBreak.Key);
+                if (listOfflineBreaks.Count > 0)
+                {
+                    BreakOffline offline = listOfflineBreaks[0];
+                    offline.EndOffline = true;
+                    db.Update(offline);
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync("Invalid Server Key", Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                    return false;
-                }
-
-                var tbl = db.GetTableInfo("BreakOffline");
-
-                if (tbl.Count == 0)
-                {
-                    db.CreateTable<BreakOffline>();
                     BreakOffline offline = new BreakOffline()
                     {
                         BreakKey = currentBreak.Key,
@@ -1134,32 +1101,6 @@ namespace Hubo
                         EndOffline = true
                     };
                     db.Insert(offline);
-                }
-                else
-                {
-                    List<BreakOffline> checkOffline = db.Query<BreakOffline>("SELECT [BreakKey] FROM [BreakOffline]");
-                    int num = 0;
-
-                    foreach (BreakOffline item in checkOffline)
-                    {
-                        if (item.BreakKey == currentBreak.Key)
-                        {
-                            item.EndOffline = true;
-                            db.Update(item);
-                            num++;
-                        }
-                    }
-
-                    if (num == 0)
-                    {
-                        BreakOffline offline = new BreakOffline()
-                        {
-                            BreakKey = currentBreak.Key,
-                            StartOffline = false,
-                            EndOffline = true
-                        };
-                        db.Insert(offline);
-                    }
                 }
 
                 return true;
@@ -1175,6 +1116,7 @@ namespace Hubo
 
         internal async Task<bool> InsertVehicle(int vehicleKey)
         {
+            restAPI = new RestService();
             VehicleTable vehicleToInsert = db.Get<VehicleTable>(vehicleKey);
 
             int vehicleServerKey = await restAPI.InsertVehicle(vehicleToInsert);
@@ -1211,34 +1153,31 @@ namespace Hubo
 
                 if (CheckActiveShiftIsCorrect(true, activeShift))
                 {
-                    newBreak.ShiftKey = activeShift[0].ServerKey;
+                    newBreak.ServerShiftKey = activeShift[0].ServerKey;
+                    newBreak.ShiftKey = activeShift[0].Key;
                     newBreak.StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
                     newBreak.ActiveBreak = true;
                     newBreak.StartLocation = location;
                     newBreak.StartNote = note;
                     db.Insert(newBreak);
 
-                    restAPI = new RestService();
-                    int result = await restAPI.QueryBreak(false, newBreak);
-
-                    if (result > 0)
+                    if (await ReturnOffline())
                     {
-                        newBreak.ServerId = result;
-                        db.Update(newBreak);
-                    }
+                        restAPI = new RestService();
+                        int result = await restAPI.QueryBreak(false, newBreak);
 
-                    var tbl = db.GetTableInfo("BreakOffline");
-
-                    if (tbl == null)
-                    {
-                        db.CreateTable<BreakOffline>();
+                        if (result > 0)
+                        {
+                            newBreak.ServerId = result;
+                            db.Update(newBreak);
+                            return true;
+                        }
                     }
 
                     BreakOffline offline = new BreakOffline()
                     {
                         BreakKey = newBreak.Key,
-                        StartOffline = true,
-                        EndOffline = false
+                        StartOffline = true
                     };
                     db.Insert(offline);
 
@@ -1294,30 +1233,25 @@ namespace Hubo
                 user = db.Query<UserTable>("SELECT * FROM [UserTable]");
                 company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
 
-                var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
-
-                if (result > 0)
+                if (await ReturnOffline())
                 {
-                    shift.ServerKey = result;
-                    db.Update(shift);
-                }
-                else
-                {
-                    var tbl = db.GetTableInfo("ShiftOffline");
+                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
 
-                    if (tbl.Count == 0)
+                    if (result > 0)
                     {
-                        db.CreateTable<ShiftOffline>();
+                        shift.ServerKey = result;
+                        db.Update(shift);
+                        return true;
                     }
-
-                    ShiftOffline offline = new ShiftOffline()
-                    {
-                        ShiftKey = shift.Key,
-                        StartOffline = true,
-                        EndOffline = false
-                    };
-                    db.Insert(offline);
                 }
+
+                ShiftOffline offline = new ShiftOffline()
+                {
+                    ShiftKey = shift.Key,
+                    StartOffline = true
+                };
+
+                db.Insert(offline);
 
                 return true;
             }
@@ -1350,24 +1284,22 @@ namespace Hubo
                     activeShift.EndNote = note;
                     db.Update(activeShift);
 
-                    if (activeShift.ServerKey > 0)
+                    if (await ReturnOffline())
                     {
                         restAPI = new RestService();
                         var result = await restAPI.QueryShift(activeShift, true);
 
                         if (result > 0)
                         {
-                            MessagingCenter.Send<string>("ShiftEnd", "ShiftEnd");
                             return true;
                         }
                     }
 
-                    var tbl = db.GetTableInfo("ShiftOffline");
+                    // TODO: Look for an instance of this shift in the table
+                    List<ShiftOffline> listOfflineShifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline] WHERE [ShiftKey] == " + activeShift.Key);
 
-                    if (tbl.Count == 0)
+                    if (listOfflineShifts.Count == 0)
                     {
-                        db.CreateTable<ShiftOffline>();
-
                         ShiftOffline offline = new ShiftOffline()
                         {
                             ShiftKey = activeShift.Key,
@@ -1375,39 +1307,15 @@ namespace Hubo
                             EndOffline = true
                         };
                         db.Insert(offline);
-                        return true;
                     }
                     else
                     {
-                        List<ShiftOffline> checkOffline = db.Query<ShiftOffline>("SELECT [ShiftKey] FROM [ShiftOffline]");
-                        int num = 0;
-
-                        foreach (ShiftOffline item in checkOffline)
-                        {
-                            if (item.ShiftKey == activeShift.Key)
-                            {
-                                item.EndOffline = true;
-                                db.Update(item);
-                                num++;
-                                return true;
-                            }
-                        }
-
-                        if (num == 0)
-                        {
-                            ShiftOffline offline = new ShiftOffline()
-                            {
-                                ShiftKey = activeShift.Key,
-                                StartOffline = false,
-                                EndOffline = true
-                            };
-                            db.Insert(offline);
-                            return true;
-                        }
+                        ShiftOffline offline = listOfflineShifts[0];
+                        offline.EndOffline = true;
+                        db.Update(offline);
                     }
 
-                    await UserDialogs.Instance.ConfirmAsync(Resource.ErrorEndShift, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
-                    return false;
+                    return true;
                 }
             }
 
@@ -1573,45 +1481,135 @@ namespace Hubo
 
         internal async Task<bool> ReturnOffline()
         {
-            List<ShiftOffline> listOfflineShifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
-            UserTable user = db.Get<UserTable>(0);
+            restAPI = new RestService();
 
-            if (user == null)
+            List<ShiftOffline> listOfflineShifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+            List<BreakOffline> listOfflineBreaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
+            List<DriveOffline> listOfflineDrives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
+            List<VehicleOffline> listOfflineVehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+
+            List<UserTable> user = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            List<CompanyTable> company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
+
+            if (user[0] == null || company[0] == null)
             {
                 return false;
             }
 
+            if (listOfflineVehicles.Count > 0)
+            {
+                foreach (VehicleOffline offlineVehicle in listOfflineVehicles)
+                {
+                    VehicleTable currentVehicle = db.Get<VehicleTable>(offlineVehicle.VehicleKey);
+                    int vehicleServerKey = await restAPI.InsertVehicle(currentVehicle);
+
+                    if (vehicleServerKey < 1)
+                    {
+                        return false;
+                    }
+
+                    currentVehicle.ServerKey = vehicleServerKey;
+                    db.Update(currentVehicle);
+                    db.Delete(offlineVehicle);
+                }
+            }
+
             if (listOfflineShifts.Count > 0)
             {
-                // TODO: Sync all up to server
-
                 foreach (ShiftOffline offlineShift in listOfflineShifts)
                 {
                     ShiftTable currentShift = db.Get<ShiftTable>(offlineShift.ShiftKey);
                     if (offlineShift.StartOffline)
                     {
-                        // Query to start shift
-                        int result = await restAPI.QueryShift(currentShift, false, user.DriverId);
-                        if (result < 1)
+                        int startResult = await restAPI.QueryShift(currentShift, false, user[0].DriverId, company[0].Key);
+                        if (startResult < 1)
                         {
                             return false;
                         }
 
-                        currentShift.ServerKey = result;
+                        currentShift.ServerKey = startResult;
                         db.Update(currentShift);
                     }
 
                     if (offlineShift.EndOffline)
                     {
-                        //Query to end shift
-                        int result = await restAPI.QueryShift(currentShift, true);
-                        if (result < 1)
+                        int stopResult = await restAPI.QueryShift(currentShift, true);
+                        if (stopResult < 1)
                         {
                             return false;
                         }
                     }
 
                     db.Delete(offlineShift);
+                }
+            }
+
+            if (listOfflineDrives.Count > 0)
+            {
+                foreach (DriveOffline offlineDrive in listOfflineDrives)
+                {
+                    DriveTable currentDrive = db.Get<DriveTable>(offlineDrive.DriveKey);
+                    if (currentDrive.ServerVehicleKey == 0)
+                    {
+                        VehicleTable currentVehicle = db.Get<VehicleTable>(currentDrive.VehicleKey);
+                        currentDrive.ServerVehicleKey = currentVehicle.ServerKey;
+                    }
+
+                    ShiftTable currentShift = db.Get<ShiftTable>(currentDrive.ShiftKey);
+                    if (offlineDrive.StartOffline)
+                    {
+                        int startDriveResult = await restAPI.QueryDrive(false, currentDrive, currentShift.ServerKey);
+                        if (startDriveResult < 0)
+                        {
+                            return false;
+                        }
+
+                        currentDrive.ServerId = startDriveResult;
+                        db.Update(currentDrive);
+                    }
+
+                    if (offlineDrive.EndOffline)
+                    {
+                        int stopDriveResult = await restAPI.QueryDrive(true, currentDrive);
+                        if (stopDriveResult < 0)
+                        {
+                            return false;
+                        }
+                    }
+
+                    db.Delete(offlineDrive);
+                }
+            }
+
+            if (listOfflineBreaks.Count > 0)
+            {
+                foreach (BreakOffline offlineBreak in listOfflineBreaks)
+                {
+                    BreakTable currentBreak = db.Get<BreakTable>(offlineBreak.BreakKey);
+                    ShiftTable currentShift = db.Get<ShiftTable>(currentBreak.ShiftKey);
+
+                    if (offlineBreak.StartOffline)
+                    {
+                        int startBreakResult = await restAPI.QueryBreak(false, currentBreak);
+                        if (startBreakResult < 1)
+                        {
+                            return false;
+                        }
+
+                        currentBreak.ServerId = startBreakResult;
+                    }
+
+                    if (offlineBreak.EndOffline)
+                    {
+                        int endBreakResult = await restAPI.QueryBreak(true, currentBreak);
+                        if (endBreakResult < 1)
+                        {
+                            return false;
+                        }
+                    }
+
+                    db.Update(currentBreak);
+                    db.Delete(offlineBreak);
                 }
             }
 
