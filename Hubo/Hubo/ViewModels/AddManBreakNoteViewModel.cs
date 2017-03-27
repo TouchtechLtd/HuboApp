@@ -197,8 +197,8 @@ namespace Hubo
 
                 BreakTable breakAdd = new BreakTable()
                 {
-                    StartDate = BreakStart.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                    EndDate = BreakEnd.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    StartDate = BreakStart.ToString(Resource.DateFormat),
+                    EndDate = BreakEnd.ToString(Resource.DateFormat),
                     StartLocation = LocationStart,
                     EndLocation = LocationEnd
                 };
@@ -208,7 +208,7 @@ namespace Hubo
             {
                 NoteTable note = new NoteTable()
                 {
-                    Date = NoteTime.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    Date = NoteTime.ToString(Resource.DateFormat),
                     Note = NoteDetail
                 };
                 MessagingCenter.Send(this, "Note_Added", note);
@@ -230,8 +230,8 @@ namespace Hubo
 
                 DriveTable drive = new DriveTable()
                 {
-                    StartDate = DriveStartTime.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                    EndDate = DriveEndTime.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    StartDate = DriveStartTime.ToString(Resource.DateFormat),
+                    EndDate = DriveEndTime.ToString(Resource.DateFormat),
                     StartHubo = int.Parse(HuboStart),
                     EndHubo = int.Parse(HuboEnd),
                     ActiveVehicle = false,
@@ -248,13 +248,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
                 return false;
             }
 

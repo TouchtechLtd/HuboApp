@@ -41,7 +41,7 @@ namespace Hubo
             restService = new RestService();
             DatabaseService db = new DatabaseService();
             bool loggedIn;
-            using (UserDialogs.Instance.Loading("Logging In....", null, null, true, MaskType.Gradient))
+            using (UserDialogs.Instance.Loading(Resource.LoggingIn, null, null, true, MaskType.Gradient))
             {
                 loggedIn = await restService.Login(username, password);
             }
@@ -52,14 +52,14 @@ namespace Hubo
                 int userResult;
                 int shiftResult;
 
-                using (UserDialogs.Instance.Loading("Getting Details....", null, null, true, MaskType.Gradient))
+                using (UserDialogs.Instance.Loading(Resource.GetDetails, null, null, true, MaskType.Gradient))
                 {
                     userResult = await restService.GetUser(user);
                 }
 
                 if (userResult == 3)
                 {
-                    using (UserDialogs.Instance.Loading("Getting Shifts....", null, null, true, MaskType.Gradient))
+                    using (UserDialogs.Instance.Loading(Resource.GetShifts, null, null, true, MaskType.Gradient))
                     {
                         shiftResult = await restService.GetShifts(user.DriverId);
                     }
@@ -72,13 +72,13 @@ namespace Hubo
                     }
                     else
                     {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.NoUsernameOrPasswordTitle, Resource.DisplayAlertOkay);
+                        await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
                         db.ClearTablesForUserShifts();
                     }
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.NoUsernameOrPasswordTitle, Resource.DisplayAlertOkay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
                     db.ClearTablesForUserShifts();
                 }
             }

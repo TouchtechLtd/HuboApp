@@ -26,7 +26,7 @@ namespace Hubo
 
         public TimeSpan FireTime { get; set; } = TimeSpan.FromMinutes(0);
 
-        public NotificationCategory Category { get; set; }
+        public string Category { get; set; }
 
         public bool Canceled { get; set; } = false;
 

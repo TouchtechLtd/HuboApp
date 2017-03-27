@@ -58,7 +58,7 @@ namespace Hubo
 
         public async Task Restart()
         {
-            await UserDialogs.Instance.ConfirmAsync("For this setting to take affect a restart is required, the app will now close", "Layout Change", "OK");
+            await UserDialogs.Instance.ConfirmAsync(Resource.LayoutChange, Resource.LayoutChangeTitle, Resource.Okay);
             DependencyService.Get<ICloseApplication>().CloseApplication();
         }
 
