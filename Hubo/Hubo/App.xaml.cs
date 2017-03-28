@@ -4,7 +4,6 @@
 
 namespace Hubo
 {
-    using System;
     using Plugin.Geolocator;
     using Plugin.Geolocator.Abstractions;
     using Xamarin.Forms;
@@ -18,36 +17,6 @@ namespace Hubo
         {
             InitializeComponent();
 
-            // Run a scheduled task every minute
-            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
-            {
-                ScheduledTasks.CheckOfflineData();
-                return false;
-            });
-        }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-            base.OnStart();
-            CheckLoggedInStatus();
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-            base.OnSleep();
-            MessagingCenter.Unsubscribe<string>("AddBreak", "AddBreak");
-        }
-
-        protected override void OnResume()
-        {
-            // Implement check for logged in status
-            base.OnResume();
-        }
-
-        private void CheckLoggedInStatus()
-        {
             if (dbService.CheckLoggedIn())
             {
                 MainPage = new NZTAMessagePage(1);
@@ -56,6 +25,32 @@ namespace Hubo
             {
                 MainPage = new LandingPage();
             }
+
+        // Run a scheduled task every minute
+        //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+        //{
+        //    ScheduledTasks.CheckOfflineData();
+        //    return false;
+        //});
+    }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+            base.OnStart();
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+            base.OnSleep();
+            MessagingCenter.Unsubscribe<string>("ReloadPage", "ReloadPage");
+        }
+
+        protected override void OnResume()
+        {
+            // Implement check for logged in status
+            base.OnResume();
         }
     }
 }

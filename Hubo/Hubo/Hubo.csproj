@@ -81,6 +81,7 @@
     <Compile Include="Models\ExportVehicle.cs" />
     <Compile Include="Models\ExportShift.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Renderers\CustomTableView.cs" />
     <Compile Include="Renderers\MyButton.cs" />
     <Compile Include="Renderers\MyEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

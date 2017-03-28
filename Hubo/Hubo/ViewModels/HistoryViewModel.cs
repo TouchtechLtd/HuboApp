@@ -68,10 +68,10 @@ namespace Hubo
 
             MaximumDate = DateTime.Now;
 
-            MessagingCenter.Subscribe<string>("ShiftEdited", "ShiftEdited", (sender) =>
-            {
-                UpdateShift();
-            });
+            //MessagingCenter.Subscribe<string>("ShiftEdited", "ShiftEdited", (sender) =>
+            //{
+            //    UpdateShift();
+            //});
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -74,6 +74,12 @@ namespace Hubo
                 await ToggleBreak();
             });
 
+            MessagingCenter.Subscribe<string>("ReloadPage", "ReloadPage", async (s) =>
+            {
+                await PageReload();
+                MessagingCenter.Unsubscribe<string>("ReloadPage", "ReloadPage");
+            });
+
             // List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
             CompletedJourney = 0;
             RemainderOfJourney = 0;
@@ -274,7 +280,7 @@ namespace Hubo
             }
         }
 
-        public void PageReload()
+        public Task PageReload()
         {
             CheckActiveShift();
             CheckActiveBreak();
@@ -292,6 +298,8 @@ namespace Hubo
             {
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
             }
+
+            return Task.FromResult(0);
         }
 
         public List<VehicleTable> GetVehicles()
@@ -957,7 +965,7 @@ namespace Hubo
 
                 if (await dbService.StartBreak(location, note))
                 {
-                    BreakButtonColor = Color.FromHex("#cc0000");
+                    BreakButtonColor = Constants.RED_COLOR;
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
                     ShiftRunning = false;
@@ -1173,30 +1181,6 @@ namespace Hubo
             }
 
             return false;
-        }
-
-        private void ToggleShiftXaml()
-        {
-            if (ShiftStarted)
-            {
-                ShiftText = Resource.EndShift;
-                ShiftButtonColor = Xamarin.Forms.Color.FromHex("#cc0000");
-                StartShiftVisibility = false;
-                ShiftRunning = true;
-            }
-            else
-            {
-                ShiftText = Resource.StartShift;
-                ShiftButtonColor = Xamarin.Forms.Color.FromHex("#009900");
-                StartShiftVisibility = true;
-                ShiftRunning = false;
-            }
-
-            OnPropertyChanged("ShiftText");
-            OnPropertyChanged("ShiftRunning");
-            OnPropertyChanged("ShiftButtonColor");
-            OnPropertyChanged("StartShiftVisibility");
-            OnPropertyChanged("ShiftImage");
         }
 
         private async Task<bool> StartShift()

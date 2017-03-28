@@ -410,6 +410,11 @@ namespace Hubo
 
             ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
 
+            if (lastShift.EndDate == null)
+            {
+                return Resource.YouAreRested;
+            }
+
             DateTime endTime = DateTime.Parse(lastShift.EndDate);
 
             endTime = endTime.AddHours(10);
@@ -779,9 +784,9 @@ namespace Hubo
                 restAPI = new RestService();
                 if (regoList.Count > 0)
                 {
-                string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
+                    string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
 
-                if (regoAnswer == Resource.Cancel)
+                    if (regoAnswer == Resource.Cancel)
                     {
                         return -1;
                     }
@@ -792,6 +797,7 @@ namespace Hubo
                         db.Insert(vehicleToInsert);
                         return vehicleToInsert.Key;
                     }
+                }
             }
 
             PromptResult regoResult = await UserDialogs.Instance.PromptAsync(Resource.RegoInput, Resource.Alert, Resource.Okay, Resource.Cancel);
@@ -972,14 +978,16 @@ namespace Hubo
             if (shifts.Count == 1)
             {
                 List<BreakTable> breaks = new List<BreakTable>();
-                breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shifts[0]);
+                breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] = " + shifts[0].Key);
 
-                TimeSpan start = DateTime.Parse(breaks[breaks.Count - 1].StartDate).TimeOfDay;
-                TimeSpan end = DateTime.Parse(breaks[breaks.Count - 1].EndDate).TimeOfDay;
-
-                if ((end - start) < TimeSpan.FromMinutes(30))
+                if (breaks.Count > 0)
                 {
-                    return false;
+                    TimeSpan start = DateTime.Parse(breaks[breaks.Count - 1].StartDate).TimeOfDay;
+                    TimeSpan end = DateTime.Parse(breaks[breaks.Count - 1].EndDate).TimeOfDay;
+                    if ((end - start) < TimeSpan.FromMinutes(30))
+                    {
+                        return false;
+                    }
                 }
             }
 

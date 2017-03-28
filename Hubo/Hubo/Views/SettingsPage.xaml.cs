@@ -16,6 +16,12 @@ namespace Hubo
             MessagingCenter.Send<string>("Remove_Settings", "Remove_Settings");
             BindingContext = settingsVM;
             Title = Resource.SettingsText;
+            closeButton.Clicked += CloseButton_Clicked;
+        }
+
+        private void CloseButton_Clicked(object sender, System.EventArgs e)
+        {
+            Navigation.PopModalAsync();
         }
 
         protected override void OnAppearing()

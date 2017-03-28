@@ -106,6 +106,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="BaseRenderer.cs" />
     <Compile Include="CloseApp.cs" />
+    <Compile Include="CustomTableViewRenderer.cs" />
     <Compile Include="Email_iOS.cs" />
     <Compile Include="FileAccessHelper.cs" />
     <Compile Include="AppDelegate.cs" />

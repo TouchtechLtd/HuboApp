@@ -66,7 +66,7 @@ namespace Hubo
 
                     if (shiftResult == 4)
                     {
-                        // Application.Current.MainPage = new NZTAMessagePage(1);
+                        MessagingCenter.Send<string>("ReloadPage", "ReloadPage");
                         Application.Current.MainPage = loadPage;
                         return true;
                     }

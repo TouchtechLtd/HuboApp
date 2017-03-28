@@ -917,7 +917,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to For this setting to take affect a restart is required, the app will now close.
         /// </summary>
         internal static string LayoutChange {
             get {

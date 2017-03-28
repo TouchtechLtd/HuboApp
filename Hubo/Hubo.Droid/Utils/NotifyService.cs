@@ -17,7 +17,7 @@ namespace Hubo.Droid
     {
         public const string KEY_TOGGLE_SHIFT = "triotech.hubo.droid.SHIFT";
         public const string KEY_TOGGLE_BREAK = "triotech.hubo.droid.BREAK";
-        public const string KEY_TOGGLE_DRIVE = "triotech.hubo.droid.Drive";
+        public const string KEY_TOGGLE_DRIVE = "triotech.hubo.droid.DRIVE";
 
         private const int Id = 5;
         private NotificationManager notifyManager = Forms.Context.GetSystemService(Context.NotificationService) as NotificationManager;
@@ -51,6 +51,8 @@ namespace Hubo.Droid
 
             if (title.Contains("Ready"))
             {
+                this.builder.MActions.Clear();
+
                 Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
                 PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
 
@@ -60,6 +62,8 @@ namespace Hubo.Droid
             }
             else if (title.Contains("Shift"))
             {
+                this.builder.MActions.Clear();
+
                 Intent shiftIntent = new Intent(KEY_TOGGLE_SHIFT);
                 PendingIntent shiftPending = PendingIntent.GetBroadcast(Forms.Context, 0, shiftIntent, PendingIntentFlags.UpdateCurrent);
 
@@ -71,7 +75,7 @@ namespace Hubo.Droid
 
                 NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Shift", shiftPending).Build();
 
-                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Drive", drivePending).Build();
 
                 NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
 
@@ -81,6 +85,8 @@ namespace Hubo.Droid
             }
             else if (title.Contains("Drive"))
             {
+                this.builder.MActions.Clear();
+
                 Intent driveIntent = new Intent(KEY_TOGGLE_DRIVE);
                 PendingIntent drivePending = PendingIntent.GetBroadcast(Forms.Context, 0, driveIntent, PendingIntentFlags.UpdateCurrent);
 
@@ -96,6 +102,8 @@ namespace Hubo.Droid
             }
             else if (title.Contains("Break"))
             {
+                this.builder.MActions.Clear();
+
                 Intent intent = new Intent(KEY_TOGGLE_BREAK);
                 PendingIntent pending = PendingIntent.GetBroadcast(Forms.Context, 0, intent, PendingIntentFlags.UpdateCurrent);
 
@@ -150,7 +158,7 @@ namespace Hubo.Droid
 
                 NotificationCompat.Action action = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Shift", shiftPending).Build();
 
-                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "End Drive", drivePending).Build();
+                NotificationCompat.Action actionDrive = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Drive", drivePending).Build();
 
                 NotificationCompat.Action actionBreak = new NotificationCompat.Action.Builder(Resource.Drawable.icon, "Start Break", breakPending).Build();
 

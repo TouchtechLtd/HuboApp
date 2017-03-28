@@ -35,10 +35,10 @@ namespace Hubo.Droid
             UserDialogs.Init(() => (Activity)Forms.Context);
             Forms.Init(this, bundle);
             RoundedBoxViewRenderer.Init();
+            FAB.Droid.FloatingActionButtonRenderer.InitControl();
             new SfGaugeRenderer();
             new SfChartRenderer();
             new SfAutoCompleteRenderer();
-            new FAB.Forms.FloatingActionButton();
             if (((int)Build.VERSION.SdkInt) >= 21)
             {
                 this.Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#0e1d25"));

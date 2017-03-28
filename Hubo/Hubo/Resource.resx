@@ -181,7 +181,7 @@
     <value>Vehicles</value>
   </data>
   <data name="AddVehicleText" xml:space="preserve">
-    <value>Add Vehicle</value>
+    <value>Add Vehicle...</value>
   </data>
   <data name="CompanyText" xml:space="preserve">
     <value>Company: </value>
@@ -541,7 +541,7 @@
     <value>Close</value>
   </data>
   <data name="GetDetailsError" xml:space="preserve">
-    <value>GUnable to Get User Details</value>
+    <value>Unable to Get User Details</value>
   </data>
   <data name="InputOwnRego" xml:space="preserve">
     <value>None of these are my Rego, let me input my own</value>
@@ -552,17 +552,77 @@
   <data name="YouAreRested" xml:space="preserve">
     <value>You are rested. Start your shift when you can.</value>
   </data>
+  <data name="AddingVehicle" xml:space="preserve">
+    <value>Adding Vehicle...</value>
+  </data>
   <data name="AddManShiftTitle" xml:space="preserve">
     <value>Shift Add Reason:</value>
+  </data>
+  <data name="AddNoteQuery" xml:space="preserve">
+    <value>Would you like to add a note?</value>
+  </data>
+  <data name="BatteryStatusError" xml:space="preserve">
+    <value>Unable to get battery status, Please use another device!</value>
+  </data>
+  <data name="BreakEnd" xml:space="preserve">
+    <value>BreakEnded!</value>
+  </data>
+  <data name="BreakStart" xml:space="preserve">
+    <value>Break Started!</value>
+  </data>
+  <data name="ChooseVehicle" xml:space="preserve">
+    <value>Choose Vehicle:</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
   </data>
   <data name="ConnectionError" xml:space="preserve">
     <value>Unable to connect to the server</value>
   </data>
+  <data name="CurrentLocation" xml:space="preserve">
+    <value>Current Location: </value>
+  </data>
   <data name="DateFormat" xml:space="preserve">
     <value>yyyy-MM-dd HH:mm:ss.fff</value>
   </data>
+  <data name="DriveEnd" xml:space="preserve">
+    <value>Drive Ended!</value>
+  </data>
+  <data name="DriveStarted" xml:space="preserve">
+    <value>Drive Started!</value>
+  </data>
+  <data name="EmailError" xml:space="preserve">
+    <value>Unable to send E-mail</value>
+  </data>
+  <data name="EndBreakQuery" xml:space="preserve">
+    <value>Are you sure you want to end your break?</value>
+  </data>
+  <data name="EndDriveQuery" xml:space="preserve">
+    <value>Would you like to end your drive?</value>
+  </data>
   <data name="EndingDrive" xml:space="preserve">
     <value>Ending Drive...</value>
+  </data>
+  <data name="EndShiftBreakError" xml:space="preserve">
+    <value>Please end your break before ending your work shift</value>
+  </data>
+  <data name="EndShiftDriveError" xml:space="preserve">
+    <value>Please end your driving shift before ending your work shift</value>
+  </data>
+  <data name="EndShiftQuery" xml:space="preserve">
+    <value>Would you like to end your shift?</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="GetCoordinates" xml:space="preserve">
+    <value>Getting Coordinates....</value>
+  </data>
+  <data name="GetDetails" xml:space="preserve">
+    <value>Getting Details....</value>
+  </data>
+  <data name="GetShifts" xml:space="preserve">
+    <value>Getting Shifts...</value>
   </data>
   <data name="InvalidKey" xml:space="preserve">
     <value>Invalid Server Key</value>
@@ -570,8 +630,53 @@
   <data name="InvalidLogin" xml:space="preserve">
     <value>Incorrect Username/Password, Please try again</value>
   </data>
+  <data name="InvalidOdometer" xml:space="preserve">
+    <value>Please enter a VALID odometer reading:</value>
+  </data>
+  <data name="IWould" xml:space="preserve">
+    <value>I Would</value>
+  </data>
+  <data name="Last7ShiftDays" xml:space="preserve">
+    <value>Last 7 Days of Shifts</value>
+  </data>
+  <data name="LayoutChange" xml:space="preserve">
+    <value>For this setting to take affect a restart is required, the app will now close</value>
+  </data>
+  <data name="LayoutChangeTitle" xml:space="preserve">
+    <value>Layout Change</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Logging In...</value>
+  </data>
+  <data name="NoBreakRemaining" xml:space="preserve">
+    <value>You have used up all the time in this break. Would you like to end it now?</value>
+  </data>
+  <data name="Nope" xml:space="preserve">
+    <value>Nope</value>
+  </data>
+  <data name="Notify10Break" xml:space="preserve">
+    <value>You have less than 10 mins until your break</value>
+  </data>
+  <data name="Notify10Shift" xml:space="preserve">
+    <value>You have less than 10 mins until your shift ends</value>
+  </data>
+  <data name="Notify1Break" xml:space="preserve">
+    <value>You have less than 1 hour until your break</value>
+  </data>
+  <data name="Notify1Shift" xml:space="preserve">
+    <value>You have less than 1 hour until your shift ends</value>
+  </data>
+  <data name="NotifyApproachingBreak" xml:space="preserve">
+    <value>Break Approaching</value>
+  </data>
   <data name="NotifyBreakRunningTitle" xml:space="preserve">
     <value>Break Running</value>
+  </data>
+  <data name="NotifyBreakTime" xml:space="preserve">
+    <value>It is time for your break</value>
+  </data>
+  <data name="NotifyBreakTimeTitle" xml:space="preserve">
+    <value>Break Start</value>
   </data>
   <data name="NotifyEndingBreak" xml:space="preserve">
     <value>Your break is at an end</value>
@@ -579,17 +684,32 @@
   <data name="NotifyEndingBreakTitle" xml:space="preserve">
     <value>Break End</value>
   </data>
+  <data name="NotifyEndingShiftTitle" xml:space="preserve">
+    <value>Shift Ending</value>
+  </data>
+  <data name="NotifyEndShift" xml:space="preserve">
+    <value>It is time for your shift to end</value>
+  </data>
+  <data name="NotifyEndShiftTitle" xml:space="preserve">
+    <value>Shift End</value>
+  </data>
   <data name="NotifyInactive" xml:space="preserve">
-    <value />
+    <value>This app is ready to record your shift</value>
+  </data>
+  <data name="NotifyInactiveTitle" xml:space="preserve">
+    <value>Ready</value>
   </data>
   <data name="NotifyOnBreak" xml:space="preserve">
-    <value>You are Currently on your break</value>
+    <value>You are currently on your break</value>
   </data>
   <data name="NotifyOnShift" xml:space="preserve">
     <value>You are currently on your shift</value>
   </data>
   <data name="NotifyShiftRunningTitle" xml:space="preserve">
     <value>Shift Running</value>
+  </data>
+  <data name="OdometerReading" xml:space="preserve">
+    <value>Current Odometer Reading: </value>
   </data>
   <data name="RegisterShiftError" xml:space="preserve">
     <value>Unable to register shift, Please try again</value>
@@ -603,11 +723,32 @@
   <data name="RegoInput" xml:space="preserve">
     <value>Please input your Rego?</value>
   </data>
+  <data name="SendError" xml:space="preserve">
+    <value>Send Error</value>
+  </data>
   <data name="ServerError" xml:space="preserve">
     <value>Internal Server Error</value>
   </data>
+  <data name="ShiftEnd" xml:space="preserve">
+    <value>Shift Ended!</value>
+  </data>
+  <data name="ShiftStart" xml:space="preserve">
+    <value>Shift Started!</value>
+  </data>
+  <data name="ShiftStartQuery" xml:space="preserve">
+    <value>Would you like to start your shift?</value>
+  </data>
+  <data name="ShortBreakBetweenShifts" xml:space="preserve">
+    <value>You have not had your full 10 hour break between shifts</value>
+  </data>
   <data name="SiteURL" xml:space="preserve">
     <value>http://test.triotech.co.nz/huboportal/api</value>
+  </data>
+  <data name="StartBreakQuery" xml:space="preserve">
+    <value>Are you sure you want to go on a break?</value>
+  </data>
+  <data name="StartDriveQuery" xml:space="preserve">
+    <value>Would you like to start your drive?</value>
   </data>
   <data name="StartingBreak" xml:space="preserve">
     <value>Starting Break...</value>
@@ -624,10 +765,19 @@
   <data name="StoppingShift" xml:space="preserve">
     <value>Stopping Shift...</value>
   </data>
+  <data name="TakeBreakBy" xml:space="preserve">
+    <value>Take Your Break By: </value>
+  </data>
+  <data name="UserRegisterError" xml:space="preserve">
+    <value>Unable to register user</value>
+  </data>
   <data name="VehicleQuestion" xml:space="preserve">
     <value>Are any of these your vehicle?</value>
   </data>
   <data name="VisionKey" xml:space="preserve">
     <value>a2642181157b4664a1f6defc36dfabeb</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>WARNING</value>
   </data>
 </root>

@@ -25,7 +25,6 @@ namespace Hubo
             VehicleSelected = false;
             VehicleAddSelected = false;
             VehicleEditSelected = true;
-            UpdateLabels();
             GetVehicles();
             currentVehicle = new VehicleTable();
             EditVehicleCommand = new Command(EditVehicle);

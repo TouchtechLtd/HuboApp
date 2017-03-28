@@ -14,8 +14,6 @@ namespace Hubo
     using Microsoft.ProjectOxford.Vision.Contract;
     using Newtonsoft.Json;
     using Plugin.Media.Abstractions;
-    using Xamarin.Forms;
-    using System.IO;
 
     internal class RestService
     {
@@ -803,7 +801,7 @@ namespace Hubo
 
                 BreakStartModel breakModel = new BreakStartModel()
                 {
-                    shiftId = breakTable.ShiftKey,
+                    shiftId = breakTable.ServerShiftKey,
                     startBreakDateTime = breakTable.StartDate,
                     startBreakLocation = breakTable.StartLocation,
                     startNote = breakTable.StartNote

@@ -28,21 +28,21 @@ namespace Hubo
             {
                 Title = Resource.ProfileText,
                 TargetType = "Profile",
-                ImageSource = "User96.png"
+                ImageSource = "UserWhite.png"
             };
 
             MenuItem settings = new MenuItem()
             {
                 Title = Resource.SettingsText,
                 TargetType = "Settings",
-                ImageSource = "Settings25.png"
+                ImageSource = "SettingsWhite.png"
             };
 
             MenuItem signOut = new MenuItem()
             {
                 Title = Resource.SignOutText,
                 TargetType = "SignOut",
-                ImageSource = "Exit96.png"
+                ImageSource = "ExitWhite.png"
             };
             items.Add(profile);
             items.Add(settings);
