@@ -18,7 +18,6 @@
         <local:CustomTableView Grid.Column="0" Grid.Row="0" Intent="Settings">
             <TableView.Root>
                 <TableSection Title="Design">
-                    <SwitchCell x:Name="hamburgerSwitch" Text="Change menu to Hamburger menu." On="{Binding HamburgerSettings}"/>
                     <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
                 </TableSection>
 

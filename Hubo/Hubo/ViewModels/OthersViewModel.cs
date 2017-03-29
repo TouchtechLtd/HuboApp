@@ -44,6 +44,7 @@ namespace Hubo
                 TargetType = "SignOut",
                 ImageSource = "ExitWhite.png"
             };
+
             items.Add(profile);
             items.Add(settings);
             items.Add(signOut);

@@ -5,7 +5,6 @@
 namespace Hubo
 {
     using System.Collections.Generic;
-    using Hubo.Helpers;
 
     public class MenuViewModel
     {
@@ -32,13 +31,6 @@ namespace Hubo
                 ImageSource = "Home96.png"
             };
 
-            MenuItem profile = new MenuItem()
-            {
-                Title = Resource.ProfileText,
-                TargetType = "Profile",
-                ImageSource = "User96.png"
-            };
-
             MenuItem vehicles = new MenuItem()
             {
                 Title = Resource.VehiclesText,
@@ -60,23 +52,10 @@ namespace Hubo
                 ImageSource = "AddList96.png"
             };
 
-            MenuItem signOut = new MenuItem()
-            {
-                Title = Resource.SignOutText,
-                TargetType = "SignOut",
-                ImageSource = "Exit96.png"
-            };
-
-            if (Settings.HamburgerSettings != true)
-            {
-                items.Add(home);
-            }
-
-            items.Add(profile);
+            items.Add(home);
             items.Add(vehicles);
             items.Add(history);
             items.Add(addShift);
-            items.Add(signOut);
 
             return items;
         }

@@ -917,7 +917,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For this setting to take affect a restart is required, the app will now close.
+        ///   Looks up a localized string similar to For this setting to take affect a restart is required, the app will now restart over the next 5 secs.
         /// </summary>
         internal static string LayoutChange {
             get {
@@ -2042,11 +2042,20 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are rested. Start your shift when you can..
+        ///   Looks up a localized string similar to You are rested..
         /// </summary>
-        internal static string YouAreRested {
+        internal static string YouAreRestedPart1 {
             get {
-                return ResourceManager.GetString("YouAreRested", resourceCulture);
+                return ResourceManager.GetString("YouAreRestedPart1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start your shift when you can..
+        /// </summary>
+        internal static string YouAreRestedPart2 {
+            get {
+                return ResourceManager.GetString("YouAreRestedPart2", resourceCulture);
             }
         }
     }

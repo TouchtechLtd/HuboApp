@@ -398,21 +398,21 @@ namespace Hubo
             return totalHours;
         }
 
-        internal string GetLastShiftTime()
+        internal double GetLastShiftTime()
         {
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
             listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
 
             if (listOfShifts.Count == 0)
             {
-                return Resource.YouAreRested;
+                return 0;
             }
 
             ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
 
             if (lastShift.EndDate == null)
             {
-                return Resource.YouAreRested;
+                return -1;
             }
 
             DateTime endTime = DateTime.Parse(lastShift.EndDate);
@@ -421,11 +421,11 @@ namespace Hubo
 
             if (DateTime.Now > endTime)
             {
-                return Resource.YouAreRested;
+                return 0;
             }
             else
             {
-                return Resource.RestBreakEnds + endTime.ToString("h: mm tt dddd");
+                return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
             }
         }
 

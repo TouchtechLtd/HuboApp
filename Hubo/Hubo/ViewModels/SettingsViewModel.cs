@@ -5,10 +5,6 @@
 namespace Hubo
 {
     using System.ComponentModel;
-    using System.Threading.Tasks;
-    using Acr.UserDialogs;
-    using Hubo.Helpers;
-    using Xamarin.Forms;
 
     internal class SettingsViewModel : INotifyPropertyChanged
     {
@@ -17,25 +13,6 @@ namespace Hubo
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public bool HamburgerSettings
-        {
-            get
-            {
-                return Settings.HamburgerSettings;
-            }
-
-            set
-            {
-                if (Settings.HamburgerSettings == value)
-                {
-                    return;
-                }
-
-                Settings.HamburgerSettings = value;
-                OnPropertyChangedAsync("HamburgerSettings");
-            }
-        }
 
         public bool DarkLightSetting
         {
@@ -46,33 +23,17 @@ namespace Hubo
 
             set
             {
-                if (Settings.DarkLightSetting == value)
+                if (Settings.DarkLightSetting != value)
                 {
-                    return;
+                    Settings.DarkLightSetting = value;
+                    OnPropertyChanged("DarkLightSetting");
                 }
-
-                Settings.DarkLightSetting = value;
-                OnPropertyChangedAsync("DarkLightSetting");
             }
         }
 
-        public async Task Restart()
+        public void OnPropertyChanged(string name)
         {
-            await UserDialogs.Instance.ConfirmAsync(Resource.LayoutChange, Resource.LayoutChangeTitle, Resource.Okay);
-            DependencyService.Get<ICloseApplication>().CloseApplication();
-        }
-
-        public async Task OnPropertyChangedAsync(string name)
-        {
-            var changed = PropertyChanged;
-            if (changed != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-                if (name == "HamburgerSettings")
-                {
-                    await Restart();
-                }
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

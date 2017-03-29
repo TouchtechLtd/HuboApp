@@ -37,7 +37,8 @@ namespace Hubo
         private string shiftTimes;
         private string nextBreakTime;
         private bool canStartShift;
-        private string canStartShiftText;
+        private string canStartShiftText1;
+        private string canStartShiftText2;
 
         public HomeViewModel()
         {
@@ -210,17 +211,31 @@ namespace Hubo
 
         public bool OnBreak { get; set; }
 
-        public string CanStartShiftText
+        public string CanStartShiftText1
         {
             get
             {
-                return canStartShiftText;
+                return canStartShiftText1;
             }
 
             set
             {
-                canStartShiftText = value;
-                OnPropertyChanged("CanStartShiftText");
+                canStartShiftText1 = value;
+                OnPropertyChanged("CanStartShiftText1");
+            }
+        }
+
+        public string CanStartShiftText2
+        {
+            get
+            {
+                return canStartShiftText2;
+            }
+
+            set
+            {
+                canStartShiftText2 = value;
+                OnPropertyChanged("CanStartShiftText2");
             }
         }
 
@@ -669,7 +684,20 @@ namespace Hubo
             ShiftStarted = false;
             ShiftRunning = false;
             ShiftImage = "Play.png";
-            CanStartShiftText = dbService.GetLastShiftTime();
+
+            double endRestTime = dbService.GetLastShiftTime();
+            if (endRestTime > 0)
+            {
+                DateTime restEnd = DateTime.Now + TimeSpan.FromMinutes(endRestTime);
+                CanStartShiftText1 = Resource.RestBreakEnds;
+                CanStartShiftText2 = restEnd.ToString("h: mm tt dddd");
+            }
+            else
+            {
+                CanStartShiftText1 = Resource.YouAreRestedPart1;
+                CanStartShiftText2 = Resource.YouAreRestedPart2;
+            }
+
             CanStartShift = true;
 
             OnPropertyChanged("ShiftText");

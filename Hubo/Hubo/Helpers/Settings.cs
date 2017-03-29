@@ -2,7 +2,7 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
-namespace Hubo.Helpers
+namespace Hubo
 {
     using Plugin.Settings;
     using Plugin.Settings.Abstractions;

@@ -90,10 +90,5 @@ namespace Hubo
         {
             Navigation.PushModalAsync(new RegisterPage());
         }
-
-        // private void NavigateToLoginPage()
-        // {
-        //    Navigation.PushModalAsync(new LoginPage(), false);
-        // }
     }
 }
