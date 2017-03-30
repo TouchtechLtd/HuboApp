@@ -24,7 +24,7 @@
         <Picker Grid.Row="0" Grid.Column="0" x:Name="shiftPicker" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
 
         <ScrollView Grid.Row="1" Grid.Column="0" IsVisible="{Binding ShiftSelected}">
-            <Grid>
+            <Grid> 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.05*"/>
                     <ColumnDefinition Width="*"/>

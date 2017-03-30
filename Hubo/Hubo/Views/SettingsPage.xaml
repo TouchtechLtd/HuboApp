@@ -21,7 +21,7 @@
                     <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
                 </TableSection>
 
-                <TableSection Title="Other Settings">
+                <TableSection Title="Other Settings"> 
                 </TableSection>
             </TableView.Root>
         </local:CustomTableView>

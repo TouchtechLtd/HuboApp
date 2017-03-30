@@ -14,9 +14,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
@@ -49,9 +46,15 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>NSLocationUsageDescription</key>
+	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
 	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
@@ -66,5 +69,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIPrerenderedIcon</key>
+	<false/>
 </dict>
 </plist>

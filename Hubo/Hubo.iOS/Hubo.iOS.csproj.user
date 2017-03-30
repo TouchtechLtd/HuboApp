@@ -21,6 +21,6 @@
 </TargetiOSDevice>
     <ProjectView>ProjectFiles</ProjectView>
     <SelectedDevice>Triotech.iPad.Mini</SelectedDevice>
-    <DefaultDevice>iPhone 6 iOS 10.2</DefaultDevice>
+    <DefaultDevice>iPhone 6 iOS 10.3</DefaultDevice>
   </PropertyGroup>
 </Project>

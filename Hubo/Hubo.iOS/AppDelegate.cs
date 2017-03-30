@@ -4,6 +4,7 @@
 
 using Foundation;
 using HockeyApp.iOS;
+using RoundedBoxView.Forms.Plugin.iOSUnified;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfGauge.XForms.iOS;
 using Telerik.XamarinForms.Common.iOS;
@@ -27,17 +28,13 @@ namespace Hubo.iOS
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-#if ENABLE_TEST_CLOUD
-                Xamarin.Calabash.Start();
-#endif
-
             new Telerik.XamarinForms.ChartRenderer.iOS.CartesianChartRenderer();
 
             Forms.Init();
             TelerikForms.Init();
             new SfChartRenderer();
             new SfGaugeRenderer();
-
+            RoundedBoxViewRenderer.Init();
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppIdIOS);
             manager.StartManager();
@@ -71,7 +68,8 @@ namespace Hubo.iOS
             UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
             okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-            this.Window.RootViewController.PresentViewController(okayAlertController, true, null);
+            var window = UIApplication.SharedApplication.KeyWindow;
+            window.RootViewController.PresentViewController(okayAlertController, true, null);
 
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }

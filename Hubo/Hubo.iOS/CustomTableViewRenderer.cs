@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using Foundation;
 using Hubo;
 using Hubo.iOS;
 using UIKit;
@@ -24,10 +25,11 @@ namespace Hubo.iOS
             }
 
             var customTableView = this.Element as CustomTableView;
-            tableView.WeakDelegate = new CustomTableViewModelRenderer(customTableView);
+
+            this.Control.WeakDelegate = new CustomTableViewModelRenderer(customTableView);
         }
 
-        private class CustomTableViewModelRenderer :UnEvenTableViewModelRenderer
+        private class CustomTableViewModelRenderer : TableViewModelRenderer
         {
             private readonly CustomTableView customTableView;
 
@@ -41,10 +43,19 @@ namespace Hubo.iOS
             {
                 return new UILabel()
                 {
-                    Text = TitleForHeader(tableView, section),
-                    TextColor = customTableView.HeaderTextColor.ToUIColor(),
-                    TextAlignment = UITextAlignment.Center
+                    Text = this.TitleForHeader(tableView, section),
+                    TextColor = this.customTableView.HeaderTextColor.ToUIColor(),
+                    TextAlignment = UITextAlignment.Left
                 };
+            }
+
+            public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+            {
+                var cell = base.GetCell(tableView, indexPath);
+
+                cell.TextLabel.TextColor = this.customTableView.TextColor.ToUIColor();
+
+                return cell;
             }
         }
     }

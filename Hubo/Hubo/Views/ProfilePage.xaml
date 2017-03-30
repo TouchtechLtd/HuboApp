@@ -17,7 +17,7 @@
     </NavigationPage>
 
     <NavigationPage Title="Licences">
-        <x:Arguments>
+        <x:Arguments> 
             <local:ProfileLicencePage/>
         </x:Arguments>
     </NavigationPage>
