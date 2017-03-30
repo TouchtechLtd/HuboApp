@@ -2,8 +2,7 @@
 <ContentPage Style="{StaticResource ContentPageStyle}"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Hubo.OthersPage"
-             >
+             x:Class="Hubo.OthersPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,12 +14,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <RelativeLayout Grid.Row="0" Grid.Column="0">
-            <Image Source="DesertRoadjpg.png" Aspect="AspectFill" />
-            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=8}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=140}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Constant=-16}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, Constant=48}" Orientation="Horizontal">
-                <Label Text="{Binding Name}"  TextColor="White" FontSize="22" YAlign="End" VerticalOptions="End" HorizontalOptions="FillAndExpand" VerticalTextAlignment="End" />
-            </StackLayout>
-        </RelativeLayout>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="DesertRoadjpg.png" Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+            <Label Text="{Binding Name}"  TextColor="White" FontSize="22" YAlign="Center" VerticalOptions="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" Grid.Column="0" Grid.Row="1" />
+        </Grid>
 
         <ListView x:Name="othersList" ItemsSource="{Binding OthersPageList}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Column="0" Grid.Row="1">
             <ListView.ItemTemplate>

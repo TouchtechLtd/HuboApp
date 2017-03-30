@@ -20,8 +20,16 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource barBackgroundColour}"/>
             </Style>
 
-            <Style x:Key="ContentPageStyle"  TargetType="ContentPage">
+            <Style x:Key="ContentPageStyle"  TargetType="ContentPage"> 
                 <Setter Property="BackgroundImage" Value="DesertRoadCopy.jpg" />
+            </Style>
+
+            <Style TargetType="ListView">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+
+            <Style TargetType="local:CustomTableView">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
             </Style>
 
             <Style TargetType="Entry">

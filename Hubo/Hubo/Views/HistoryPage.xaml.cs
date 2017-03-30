@@ -35,13 +35,13 @@ namespace Hubo
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
 
-            chart.Palette = basePalette;
+            //chart.Palette = basePalette;
 
             ChartPalette selectedPalette = new ChartPalette();
             selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
             selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
 
-            chart.SelectionPalette = selectedPalette;
+            //chart.SelectionPalette = selectedPalette;
         }
 
         private async void SelectionChangedHandler(object sender, EventArgs e)
