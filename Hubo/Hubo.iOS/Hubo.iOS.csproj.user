@@ -20,7 +20,7 @@
 &lt;/plist&gt;
 </TargetiOSDevice>
     <ProjectView>ProjectFiles</ProjectView>
-    <SelectedDevice>Triotech.iPad.Mini</SelectedDevice>
+    <SelectedDevice>Device</SelectedDevice>
     <DefaultDevice>iPhone 6 iOS 10.2</DefaultDevice>
   </PropertyGroup>
 </Project>

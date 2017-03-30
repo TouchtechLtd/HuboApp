@@ -49,7 +49,7 @@
                         <syncfusion:LinearTickSettings Length="10" Thickness="3" Color="White" />
                     </syncfusion:LinearScale.MajorTickSettings>
                     <syncfusion:LinearScale.Pointers>
-                        <syncfusion:BarPointer Value="{Binding CompletedJourney}" Thickness="23" Color="Black"/>
+                        <syncfusion:BarPointer Value="{Binding CompletedSeventy}" Thickness="23" Color="Black"/>
                     </syncfusion:LinearScale.Pointers>
                 </syncfusion:LinearScale>
             </syncfusion:SfLinearGauge.Scales>

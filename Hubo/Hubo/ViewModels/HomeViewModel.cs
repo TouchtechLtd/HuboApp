@@ -39,6 +39,7 @@ namespace Hubo
         private bool canStartShift;
         private string canStartShiftText1;
         private string canStartShiftText2;
+        private double completedSeventy;
 
         public HomeViewModel()
         {
@@ -111,6 +112,7 @@ namespace Hubo
             StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
             VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
+            CompletedSeventy = dbService.GetTotalOfSeventy();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -130,6 +132,20 @@ namespace Hubo
         public Color VehicleTextColor { get; set; }
 
         public double CompletedJourney { get; set; }
+
+        public double CompletedSeventy
+        {
+            get
+            {
+                return completedSeventy;
+            }
+
+            set
+            {
+                completedSeventy = value;
+                OnPropertyChanged("CompletedSeventy");
+            }
+        }
 
         public int RemainderOfJourney { get; set; }
 
@@ -174,6 +190,8 @@ namespace Hubo
         public string VehiclePickerText { get; set; }
 
         public bool PickerEnabled { get; set; }
+
+
 
         public string NextBreakTime
         {
@@ -299,6 +317,7 @@ namespace Hubo
         {
             CheckActiveShift();
             CheckActiveBreak();
+            CompletedSeventy = dbService.GetTotalOfSeventy();
 
             int hoursTillReset = dbService.HoursTillReset();
             if (hoursTillReset == -1)

@@ -342,6 +342,49 @@ namespace Hubo
             return nextBreak;
         }
 
+        internal double GetTotalOfSeventy()
+        {
+            // Get the datetime of now, get last shift end date, if greater than 24 hours, then return 0, else iterate through all previous shifts until a 24 hour break is detected.
+
+            DateTime dateTimeNow = DateTime.Now;
+
+            List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
+
+            double totalTime = 0;
+
+            if (listOfShifts.Count == 0)
+            {
+                return 0;
+            }
+
+            if (!listOfShifts[0].ActiveShift && (dateTimeNow - DateTime.Parse(listOfShifts[0].EndDate) > TimeSpan.FromHours(24)))
+            {
+                return 0;
+            }
+
+            DateTime reference = DateTime.Parse(listOfShifts[0].StartDate);
+
+            if (!listOfShifts[0].ActiveShift)
+            {
+                totalTime = (DateTime.Parse(listOfShifts[0].EndDate) - DateTime.Parse(listOfShifts[0].StartDate)).TotalMinutes;
+            }
+            else
+            {
+                totalTime = (dateTimeNow - DateTime.Parse(listOfShifts[0].StartDate)).TotalMinutes;
+            }
+
+            for (int i = 1; i < listOfShifts.Count; i++)
+            {
+                if ((reference - DateTime.Parse(listOfShifts[i].EndDate)) < TimeSpan.FromHours(24))
+                {
+                    totalTime = totalTime + (DateTime.Parse(listOfShifts[i].EndDate) - DateTime.Parse(listOfShifts[i].StartDate)).TotalMinutes;
+                    reference = DateTime.Parse(listOfShifts[i].StartDate);
+                }
+            }
+
+            return totalTime / 60;
+        }
+
         internal bool CheckOngoingNotification()
         {
             List<NotificationTable> notify = new List<NotificationTable>();
@@ -1351,10 +1394,21 @@ namespace Hubo
         {
             List<string> questions = new List<string>
             {
-                "This is a test",
-                "This is a test",
-                "This is a test",
-                "This is a test"
+                "Current COF / Rego?",
+                "Correct RUC for shift?",
+                "TSL Number displayed?",
+                "RT/MDT?",
+                "Oil levels?",
+                "Coolant levels?",
+                "Warning lights / buzzers?",
+                "Lights / Indicators / Reflectors?",
+                "Windscreen / Wipers?",
+                "Steering / Controls?",
+                "Tyres / Wheels / Rims",
+                "Tow Coupling / 5th Wheel?",
+                "Ramps?",
+                "Safety poles / Cables?",
+                "Load Security Equipment?"
             };
             return questions;
         }
