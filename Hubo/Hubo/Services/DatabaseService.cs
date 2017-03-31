@@ -1444,7 +1444,8 @@ namespace Hubo
 
         internal void Logout()
         {
-            db.Query<UserTable>("DELETE FROM [UserTable]");
+            ClearTablesForNewUser();
+            ClearTablesForUserShifts();
         }
 
         internal async Task<bool> StartShift(string location, string note, Geolocation geoCoords)

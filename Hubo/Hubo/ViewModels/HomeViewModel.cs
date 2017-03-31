@@ -792,12 +792,15 @@ namespace Hubo
             bool offlineDrive = false;
             if (await UserDialogs.Instance.ConfirmAsync(Resource.StartDriveQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
+                Geolocation geocords;
                 string location;
 
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
-                    location = await GetLocation(await restApi.GetLatAndLong().ConfigureAwait(false));
+                    geocords = await restApi.GetLatAndLong().ConfigureAwait(false);
                 }
+
+                location = await GetLocation(geocords);
 
                 if (location == string.Empty)
                 {
@@ -894,12 +897,15 @@ namespace Hubo
         {
             if (await UserDialogs.Instance.ConfirmAsync(Resource.EndDriveQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
+                Geolocation geocords;
                 string location;
 
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
-                    location = await GetLocation(await restApi.GetLatAndLong().ConfigureAwait(false));
+                    geocords = await restApi.GetLatAndLong().ConfigureAwait(false);
                 }
+
+                location = await GetLocation(geocords);
 
                 if (location == string.Empty)
                 {
@@ -1008,8 +1014,9 @@ namespace Hubo
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
                     geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
-                    location = await GetLocation(geoCoords);
                 }
+
+                location = await GetLocation(geoCoords);
 
                 if (location == string.Empty)
                 {
@@ -1065,8 +1072,9 @@ namespace Hubo
             using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
             {
                 geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
-                location = await GetLocation(geoCoords);
             }
+
+            location = await GetLocation(geoCoords);
 
             if (location == string.Empty)
             {
@@ -1193,36 +1201,38 @@ namespace Hubo
                         using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                         {
                             geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
-                            location = await GetLocation(geoCoords);
 
-                            if (location == string.Empty)
-                            {
-                                return false;
-                            }
+                        }
 
-                            string note = await NotePrompt();
+                        location = await GetLocation(geoCoords);
 
-                            if (await dbService.StopShift(location, note, geoCoords))
-                            {
-                                ShiftStarted = false;
-                                ShowStartShiftXAML();
-                                UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
-                                //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
-                                await Navigation.PushModalAsync(new NZTAMessagePage(2));
-
-                                dbService.CancelNotification(NotificationCategory.Ongoing, false);
-                                dbService.CancelNotification(NotificationCategory.Shift, true);
-                                dbService.CancelNotification(NotificationCategory.Break, true);
-
-                                dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
-
-                                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
-
-                                return true;
-                            }
-
+                        if (location == string.Empty)
+                        {
                             return false;
                         }
+
+                        string note = await NotePrompt();
+
+                        if (await dbService.StopShift(location, note, geoCoords))
+                        {
+                            ShiftStarted = false;
+                            ShowStartShiftXAML();
+                            UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
+                            //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
+                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
+
+                            dbService.CancelNotification(NotificationCategory.Ongoing, false);
+                            dbService.CancelNotification(NotificationCategory.Shift, true);
+                            dbService.CancelNotification(NotificationCategory.Break, true);
+
+                            dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
+
+                            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
+
+                            return true;
+                        }
+
+                        return false;
                     }
                 }
                 else
@@ -1242,12 +1252,12 @@ namespace Hubo
         {
             if (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown)
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.BatteryStatusError, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.BatteryStatusError, Resource.Alert, Resource.Okay);
             }
 
             if (CrossBattery.Current.RemainingChargePercent <= 50 && (CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Discharging || CrossBattery.Current.Status == Plugin.Battery.Abstractions.BatteryStatus.Unknown))
             {
-                await UserDialogs.Instance.ConfirmAsync("Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync("Battery at " + CrossBattery.Current.RemainingChargePercent + "%, Please ensure the device is charged soon!", Resource.Alert, Resource.Okay);
             }
 
             if (await UserDialogs.Instance.ConfirmAsync(Resource.ShiftStartQuery, Resource.Confirmation, Resource.Yes, Resource.No))
