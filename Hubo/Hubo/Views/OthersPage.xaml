@@ -7,28 +7,26 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Image Source="DesertRoadjpg.png" Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
-            <Label Text="{Binding Name}"  TextColor="White" FontSize="22" YAlign="Center" VerticalOptions="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" Grid.Column="0" Grid.Row="1" />
-        </Grid>
-
-        <ListView x:Name="othersList" ItemsSource="{Binding OthersPageList}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Column="0" Grid.Row="1">
+        
+            <!--<Image Source="DesertRoadjpg.png" Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>-->
+        <Label Text="{Binding Name}"  TextColor="White" FontSize="40" YAlign="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" />
+        <Label Text="BD14"  TextColor="White" FontSize="26" YAlign="Center" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Start" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" />
+        <ListView x:Name="othersList" ItemsSource="{Binding OthersPageList}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="3">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell >

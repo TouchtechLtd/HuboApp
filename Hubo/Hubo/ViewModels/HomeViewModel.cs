@@ -784,6 +784,18 @@ namespace Hubo
             bool offlineDrive = false;
             if (await UserDialogs.Instance.ConfirmAsync(Resource.StartDriveQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
+                List<string> checklistQuestions = dbService.GetChecklist();
+                int count = 0;
+                foreach (string question in checklistQuestions)
+                {
+                    count++;
+                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Yes, Resource.No);
+                    if (!result)
+                    {
+                        return false;
+                    }
+                }
+
                 string location;
 
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
@@ -801,7 +813,7 @@ namespace Hubo
                 var vehicleResult = await UserDialogs.Instance.ActionSheetAsync(Resource.ChooseVehicle, Resource.Cancel, Resource.AddVehicleText, null, listOfVehicles.Select(l => l.Registration).ToArray());
                 using (UserDialogs.Instance.Loading(Resource.AddingVehicle, null, null, true, MaskType.Gradient))
                 {
-                    if (vehicleResult == Resource.AddingVehicle)
+                    if (vehicleResult == Resource.AddVehicleText)
                     {
                         vehicleKey = await dbService.GetRego();
                         if (vehicleKey < 0)
@@ -1249,7 +1261,7 @@ namespace Hubo
                     await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
                 }
 
-                List<string> checklistQuestions = dbService.GetChecklist();
+                List<string> checklistQuestions = dbService.GetChecklistHealthSafety();
                 int count = 0;
                 foreach (string question in checklistQuestions)
                 {

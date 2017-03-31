@@ -444,7 +444,7 @@ namespace Hubo
         internal double GetLastShiftTime()
         {
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] ASC");
 
             if (listOfShifts.Count == 0)
             {
@@ -1388,6 +1388,16 @@ namespace Hubo
             }
 
             return true;
+        }
+
+        internal List<string> GetChecklistHealthSafety()
+        {
+            List<string> questions = new List<string>
+            {
+                "Are you sober?",
+                "Are you well-rested?"
+            };
+            return questions;
         }
 
         internal List<string> GetChecklist()

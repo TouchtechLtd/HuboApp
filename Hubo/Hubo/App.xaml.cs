@@ -26,13 +26,13 @@ namespace Hubo
                 MainPage = new LandingPage();
             }
 
-        // Run a scheduled task every minute
-        //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
-        //{
-        //    ScheduledTasks.CheckOfflineData();
-        //    return false;
-        //});
-    }
+            // Run a scheduled task every minute
+            //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            //{
+            //    ScheduledTasks.CheckOfflineData();
+            //    return false;
+            //});
+        }
 
         protected override void OnStart()
         {

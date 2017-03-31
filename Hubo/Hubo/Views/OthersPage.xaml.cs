@@ -40,11 +40,13 @@ namespace Hubo
         {
             if (menu.TargetType == "Profile")
             {
-                await Navigation.PushModalAsync(new ProfilePage());
+                //await Navigation.PushModalAsync(new ProfilePage());
+                await UserDialogs.Instance.ConfirmAsync("Profile Page under construction", "Alert", Resource.Okay);
             }
             else if (menu.TargetType == "Settings")
             {
-                await Navigation.PushModalAsync(new SettingsPage());
+                //await Navigation.PushModalAsync(new SettingsPage());
+                await UserDialogs.Instance.ConfirmAsync("Settings Page under construction", "Alert", Resource.Okay);
             }
             else if (menu.TargetType == "SignOut")
             {

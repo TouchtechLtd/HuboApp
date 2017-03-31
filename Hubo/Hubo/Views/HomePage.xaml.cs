@@ -2,7 +2,6 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
-[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace Hubo
 {
     using System.Collections.Generic;

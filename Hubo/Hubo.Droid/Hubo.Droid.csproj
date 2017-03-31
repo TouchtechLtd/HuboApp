@@ -424,6 +424,7 @@
     <Compile Include="Renderers\CustomTableViewRenderer.cs" />
     <Compile Include="Renderers\MyButtonRenderer.cs" />
     <Compile Include="Renderers\MyEntryRenderer.cs" />
+    <Compile Include="Renderers\MyTimepickerRenderer.cs" />
     <Compile Include="Utils\CloseApp.cs" />
     <Compile Include="Utils\Email_Android.cs" />
     <Compile Include="Utils\FileAccessHelper.cs" />

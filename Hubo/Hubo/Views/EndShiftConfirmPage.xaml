@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             xmlns:dialog="clr-namespace:Acr.UserDialogs;assembly=Acr.UserDialogs.Interface"
+             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
+             x:Class="Hubo.EndShiftConfirmPage"             
+             >
+
+    <Grid Padding="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!--WorkShift Checks-->
+        
+        <!-- Title -->
+        <Label Text="WorkShift" FontSize="40" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding WorkShift}" />
+        <!-- Times -->
+        <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:MyTimepicker Time="{Binding StartTimePicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" TextColor="Black"  IsVisible="{Binding WorkShift}" />
+        <Label Text="&#8212;" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:MyTimepicker Time="{Binding EndTimePicker}" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="2" TextColor="Black"  IsVisible="{Binding WorkShift}" />
+        
+        <!-- Location -->
+        <Label FontSize="Large" Text="Locations" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding WorkShift}"/>
+        <local:BaseEntry Text="{Binding StartLocation}" VerticalOptions="CenterAndExpand" Grid.Row="3" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="3" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:BaseEntry Text="{Binding EndLocation}" VerticalOptions="CenterAndExpand" Grid.Row="3" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+
+        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4"/>
+        <local:MyButton Text="Accept" BackgroundColor="Transparent" Grid.Row="7"  Grid.Column="2" Grid.ColumnSpan="4" BorderColor="Transparent" TextColor="Black" HorizontalOptions="Center"/>
+    </Grid>
+    
+    
+    
+</ContentPage>

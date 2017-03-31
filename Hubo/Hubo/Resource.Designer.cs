@@ -1439,7 +1439,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile.
+        ///   Looks up a localized string similar to Profile - Coming Soon.
         /// </summary>
         internal static string ProfileText {
             get {
@@ -1610,7 +1610,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Settings - Coming Soon.
         /// </summary>
         internal static string SettingsText {
             get {
