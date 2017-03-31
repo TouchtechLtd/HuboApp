@@ -29,8 +29,19 @@
             <local:BaseEntry VerticalOptions="EndAndExpand" PlaceholderColor="Black" Placeholder="Username" x:Name="usernameEntry"/>
             <local:BaseEntry VerticalOptions="StartAndExpand"  PlaceholderColor="Black" Placeholder="Password" x:Name="passwordEntry" IsPassword="True"/>
         </StackLayout>
-        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
-        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3"/>
+        
+        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" BorderThickness="20" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+            <abstractions:RoundedBoxView.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Double" iOS="35" Android="50"/>
+            </abstractions:RoundedBoxView.CornerRadius>
+        </abstractions:RoundedBoxView>
+        
+        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" BorderThickness="20" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3">
+            <abstractions:RoundedBoxView.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Double" iOS="35" Android="50"/>
+            </abstractions:RoundedBoxView.CornerRadius>
+        </abstractions:RoundedBoxView>
+        
         <local:MyButton Text="{Binding LoginButtonText}" BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="LoginButton" x:Name="loginButton" TextColor="Black" BorderColor="Transparent"/>
         <local:MyButton Text="Register" BackgroundColor="Transparent" Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="RegisterButton" x:Name="rightButton" TextColor="Black" BorderColor="Transparent"/>
     </Grid>

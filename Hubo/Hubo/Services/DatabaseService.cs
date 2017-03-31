@@ -313,33 +313,57 @@ namespace Hubo
             List<BreakTable> breaks = new List<BreakTable>();
             breaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ShiftKey] == " + activeShift.Key + " ORDER BY [Key] DESC");
 
+            TimeSpan hoursSince = default(TimeSpan);
+
             if (breaks.Count == 0)
             {
-                TimeSpan hoursSinceStart = default(TimeSpan);
+                hoursSince = TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
+            }
+            else
+            {
+                DateTime shiftStart = default(DateTime);
+                shiftStart = DateTime.Parse(activeShift.StartDate);
 
-                hoursSinceStart = TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
+                DateTime hadFullBreak = HadFullBreak(breaks);
 
-                nextBreak = hoursSinceStart.TotalHours;
-
-                return nextBreak;
+                if (hadFullBreak > shiftStart)
+                {
+                    hoursSince = (hadFullBreak - shiftStart) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
+                }
+                else
+                {
+                    hoursSince = TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
+                }
             }
 
-            BreakTable lastBreak = new BreakTable();
-            lastBreak = breaks[0];
-
-            DateTime driveStart = default(DateTime);
-            driveStart = DateTime.Parse(activeShift.StartDate);
-
-            DateTime breakEnd = default(DateTime);
-            breakEnd = DateTime.Parse(lastBreak.EndDate);
-
-            TimeSpan hoursSinceBreak = default(TimeSpan);
-
-            hoursSinceBreak = (breakEnd - driveStart) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(30);
-
-            nextBreak = hoursSinceBreak.TotalHours;
+            nextBreak = hoursSince.TotalHours;
 
             return nextBreak;
+        }
+
+        private DateTime HadFullBreak(List<BreakTable> breaks)
+        {
+            List<DateTime> endBreaks = new List<DateTime>();
+            DateTime start = default(DateTime);
+            DateTime end = default(DateTime);
+
+            foreach (BreakTable item in breaks)
+            {
+                start = DateTime.Parse(item.StartDate);
+                end = DateTime.Parse(item.EndDate);
+
+                if ((end - start) >= TimeSpan.FromMinutes(30))
+                {
+                    endBreaks.Add(end);
+                }
+            }
+
+            if (endBreaks.Count > 0)
+            {
+                return endBreaks[endBreaks.Count - 1];
+            }
+
+            return DateTime.Now - TimeSpan.FromDays(2);
         }
 
         internal double GetTotalOfSeventy()
@@ -1025,9 +1049,9 @@ namespace Hubo
 
                 if (breaks.Count > 0)
                 {
-                    TimeSpan start = DateTime.Parse(breaks[breaks.Count - 1].StartDate).TimeOfDay;
-                    TimeSpan end = DateTime.Parse(breaks[breaks.Count - 1].EndDate).TimeOfDay;
-                    if ((end - start) < TimeSpan.FromMinutes(30))
+                    DateTime fullBreak = HadFullBreak(breaks);
+                    DateTime shiftStart = DateTime.Parse(shifts[0].StartDate);
+                    if (fullBreak > shiftStart)
                     {
                         return false;
                     }
@@ -1430,7 +1454,8 @@ namespace Hubo
 
         internal void Logout()
         {
-            db.Query<UserTable>("DELETE FROM [UserTable]");
+            ClearTablesForNewUser();
+            ClearTablesForUserShifts();
         }
 
         internal async Task<bool> StartShift(string location, string note, Geolocation geoCoords)

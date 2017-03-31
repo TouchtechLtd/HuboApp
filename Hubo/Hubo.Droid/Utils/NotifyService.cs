@@ -32,7 +32,7 @@ namespace Hubo.Droid
             this.builder.SetVisibility((int)NotificationVisibility.Public);
             this.builder.SetContentTitle(title);
             this.builder.SetContentText(text);
-            this.builder.SetSmallIcon(Resource.Drawable.icon);
+            this.builder.SetSmallIcon(Resource.Drawable.IconSmall);
             this.builder.SetCategory(Notification.CategoryEvent);
             this.builder.SetOngoing(true);
             this.builder.SetAutoCancel(false);

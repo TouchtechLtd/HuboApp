@@ -19,9 +19,17 @@ namespace Hubo
             BottomBarPage bottomBarPage = new BottomBarPage()
             {
                 FixedMode = true,
-                BarTextColor = Color.White,
                 BarTheme = BottomBarPage.BarThemeTypes.DarkWithoutAlpha
             };
+
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                bottomBarPage.BarTextColor = Color.Black;
+            }
+            else
+            {
+                bottomBarPage.BarTextColor = Color.White;
+            }
 
             MenuViewModel menuVM = new MenuViewModel();
 

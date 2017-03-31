@@ -35,6 +35,8 @@ namespace Hubo.iOS
             new SfChartRenderer();
             new SfGaugeRenderer();
             RoundedBoxViewRenderer.Init();
+            FAB.iOS.FloatingActionButtonRenderer.InitControl();
+
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppIdIOS);
             manager.StartManager();

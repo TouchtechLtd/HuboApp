@@ -20,29 +20,30 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" /> 
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
 
         <!--<Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>-->
         <Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
-        <Label FontSize="22" TextColor="White" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" />
-        <Label Text="{Binding CanStartShiftText1}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" Grid.Row="0"  Grid.Column="1" Grid.ColumnSpan="6" FontSize="Medium" />
-        <Label Text="{Binding CanStartShiftText2}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" Grid.Row="0"  Grid.Column="1" Grid.ColumnSpan="6" FontSize="Large" />
-        <Label FontSize="20" TextColor="White" Text="{Binding NextBreakTime}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="1" />
+        <Label FontSize="22" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" />
+        <Label Text="{Binding CanStartShiftText1}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="End"  HorizontalTextAlignment="Center" FontSize="Medium" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
+        <Label Text="{Binding CanStartShiftText2}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontSize="Large" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8"/>
+        <Label FontSize="20" Text="{Binding NextBreakTime}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="1" />
 
-        <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >
+        <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >
             <syncfusion:SfLinearGauge.Scales>
                 <syncfusion:LinearScale MinimumValue="0" MaximumValue="70" Interval="10" ScaleBarLength="70" MinorTicksPerInterval="0" ScaleBarSize="15" ScaleBarColor="White" LabelColor="White">
                     <syncfusion:LinearScale.MajorTickSettings>
@@ -55,7 +56,7 @@
             </syncfusion:SfLinearGauge.Scales>
         </syncfusion:SfLinearGauge>
 
-        <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.8" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2" Grid.RowSpan="3">
+        <telerikGauges:RadRadialGauge StartAngle="225" SweepAngle="270" AxisRadiusFactor="0.8" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="3" Grid.RowSpan="3">
             <telerikGauges:RadRadialGauge.Axis>
                 <telerikGauges:GaugeLinearAxis Minimum="0" Maximum="14" Step="1" StrokeThickness="1" TickStroke="White" TickOffset="-1" ShowLabels="False" />
             </telerikGauges:RadRadialGauge.Axis>
@@ -73,12 +74,12 @@
         </telerikGauges:RadRadialGauge>
 
         <!--<fab:FloatingActionButton Size="Normal"  x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" BorderRadius="5" BorderWidth="2"/>-->
-        <fab:FloatingActionButton Size="Mini" Source="TransparentPlaceHolder.png" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" x:Name="driveButton"  Command="{Binding VehicleCommand}" NormalColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" />
-        <Label Text="{Binding VehicleText}" TextColor="White" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" VerticalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="Large" IsVisible="{Binding ShiftStarted}"/>
+        <fab:FloatingActionButton Size="Mini" Source="TransparentPlaceHolder.png" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" x:Name="driveButton"  Command="{Binding VehicleCommand}" NormalColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" />
+        <Label Text="{Binding VehicleText}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" VerticalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="Large" IsVisible="{Binding ShiftStarted}"/>
 
-        <Label FontSize="20" TextColor="White" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="4" />
+        <Label FontSize="20" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="5" />
 
         <!--<Button FontSize="30" IsVisible="{Binding ShiftStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>-->
-        <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="8"/>
+        <Button Text="{Binding ShiftText}"  FontSize="30" BackgroundColor="{Binding ShiftButtonColor}" Command="{Binding ShiftButton}" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="8"/>
     </Grid>
 </ContentPage>
