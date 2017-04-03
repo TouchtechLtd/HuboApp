@@ -3,6 +3,6 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
     <SelectedDevice>Samsung SM-G930F</SelectedDevice>
-    <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
+    <DefaultDevice>AVD_GalaxyNexus_ToolsForApacheCordova</DefaultDevice>
   </PropertyGroup>
 </Project>

@@ -487,7 +487,8 @@ namespace Hubo
             }
             else
             {
-                return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
+                return (endTime - DateTime.Now).TotalMinutes;
+                //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
             }
         }
 
