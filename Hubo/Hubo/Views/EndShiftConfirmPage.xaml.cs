@@ -8,6 +8,7 @@ namespace Hubo
     using System.Threading.Tasks;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
+    using Acr.UserDialogs;
 
     public partial class EndShiftConfirmPage : ContentPage
     {
@@ -17,6 +18,32 @@ namespace Hubo
         {
             InitializeComponent();
             BindingContext = endShiftConfirmVm;
+            acceptButton.Clicked += AcceptButton_ClickedAsync;
+        }
+
+        private async void AcceptButton_ClickedAsync(object sender, EventArgs e)
+        {
+            if (await UserDialogs.Instance.ConfirmAsync("Are you sure these details are correct? You may not change these details after confirming.", "Confirm", "Agree", "Cancel"))
+            {
+                if (endShiftConfirmVm.WorkShift)
+                {
+                    // Load details of Driving Shifts and then animate the stuff away
+                    endShiftConfirmVm.WorkShiftDone();
+                }
+                else if (endShiftConfirmVm.DriveShift)
+                {
+                    // Either increment or load details of Break Shifts
+                }
+                else
+                {
+                    //Either load next break or completed and make call to sync with DB
+                }
+            }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
         }
     }
 }

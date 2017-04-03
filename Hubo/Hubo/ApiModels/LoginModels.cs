@@ -107,6 +107,10 @@ namespace Hubo
 
         public double EndLocationLong { get; set; }
 
+        public string StartLocation { get; set; }
+
+        public string EndLocation { get; set; }
+
         public bool IsActive { get; set; }
     }
 

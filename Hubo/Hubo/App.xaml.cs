@@ -17,15 +17,15 @@ namespace Hubo
         {
             InitializeComponent();
 
-            if (dbService.CheckLoggedIn())
-            {
-                MainPage = new NZTAMessagePage(1);
-            }
-            else
-            {
-                MainPage = new LandingPage();
-            }
-
+            //if (dbService.CheckLoggedIn())
+            //{
+            //    MainPage = new NZTAMessagePage(1);
+            //}
+            //else
+            //{
+            //    MainPage = new LandingPage();
+            //}
+            MainPage = new EndShiftConfirmPage();
             // Run a scheduled task every minute
             //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
             //{

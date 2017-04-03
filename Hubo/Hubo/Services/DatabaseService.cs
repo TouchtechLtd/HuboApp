@@ -61,6 +61,12 @@ namespace Hubo
                 select h + t;
         }
 
+        internal ShiftTable GetLastShift()
+        {
+            List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable]");
+            return listOfShifts[listOfShifts.Count - 1];
+        }
+
         internal List<ShiftTable> GetDayShifts(DateTime date)
         {
             List<ShiftTable> shifts = new List<ShiftTable>();
@@ -185,6 +191,18 @@ namespace Hubo
             endTime = startTime + TimeSpan.FromHours(14);
 
             return endTime.ToString("h:mm tt");
+        }
+
+        internal VehicleTable GetVehicleById(int vehicleKey)
+        {
+            List<VehicleTable> listVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE Key = " + vehicleKey.ToString());
+            return listVehicles[0];
+        }
+
+        internal VehicleTable GetVehicleByServerId(int vehicleKey)
+        {
+            List<VehicleTable> listVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE ServerKey = " + vehicleKey.ToString());
+            return listVehicles[0];
         }
 
         internal List<ShiftTable> GetEditableShifts()

@@ -1231,7 +1231,6 @@ namespace Hubo
                             ShowStartShiftXAML();
                             UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
                             //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
-                            await Navigation.PushModalAsync(new NZTAMessagePage(2));
 
                             dbService.CancelNotification(NotificationCategory.Ongoing, false);
                             dbService.CancelNotification(NotificationCategory.Shift, true);
@@ -1240,6 +1239,7 @@ namespace Hubo
                             dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
 
                             DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
+                            await Navigation.PushModalAsync(new EndShiftConfirmPage());
 
                             return true;
                         }

@@ -189,6 +189,8 @@ namespace Hubo
                         shift.EndLat = shiftItem.EndLocationLat;
                         shift.EndLong = shiftItem.EndLocationLong;
                         shift.ActiveShift = shiftItem.IsActive;
+                        shift.StartLocation = shiftItem.StartLocation;
+                        shift.EndLocation = shiftItem.EndLocation;
 
                         ShiftTable shiftId = new ShiftTable();
                         shiftId = db.InsertUserShifts(shift);
@@ -274,7 +276,7 @@ namespace Hubo
                                     drive.StartHubo = driveItem.StartHubo;
                                     drive.EndHubo = driveItem.StopHubo;
                                     drive.ActiveVehicle = driveItem.IsActive;
-                                    drive.VehicleKey = driveItem.VehicleId;
+                                    drive.ServerVehicleKey = driveItem.VehicleId;
                                     db.InsertUserDrives(drive);
                                 }
                             }
