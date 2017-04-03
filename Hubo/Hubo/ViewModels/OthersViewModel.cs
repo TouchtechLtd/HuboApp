@@ -5,20 +5,43 @@
 namespace Hubo
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using Xamarin.Forms;
 
-    public class OthersViewModel
+    public class OthersViewModel : INotifyPropertyChanged
     {
         private readonly DatabaseService dbService = new DatabaseService();
+        private string name;
 
         public OthersViewModel()
         {
             OthersPageList = PopulateMenuItems();
             Name = dbService.GetName();
+            MessagingCenter.Subscribe<string>("ReloadOthersPage", "ReloadOthersPage", (s) =>
+            {
+                Name = dbService.GetName();
+                MessagingCenter.Unsubscribe<string>("ReloadOthersPage", "ReloadOthersPage");
+            });
         }
 
         public List<MenuItem> OthersPageList { get; set; }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
 
         private List<MenuItem> PopulateMenuItems()
         {
@@ -50,6 +73,11 @@ namespace Hubo
             items.Add(signOut);
 
             return items;
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

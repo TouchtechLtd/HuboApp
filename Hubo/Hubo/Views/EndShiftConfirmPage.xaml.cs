@@ -17,6 +17,7 @@ namespace Hubo
         public EndShiftConfirmPage()
         {
             InitializeComponent();
+            endShiftConfirmVm.Navigation = Navigation;
             BindingContext = endShiftConfirmVm;
             acceptButton.Clicked += AcceptButton_ClickedAsync;
         }
@@ -33,10 +34,12 @@ namespace Hubo
                 else if (endShiftConfirmVm.DriveShift)
                 {
                     // Either increment or load details of Break Shifts
+                    endShiftConfirmVm.DriveShiftAccepted();
                 }
                 else
                 {
                     //Either load next break or completed and make call to sync with DB
+                    endShiftConfirmVm.BreakAccepted();
                 }
             }
         }

@@ -7,6 +7,7 @@ namespace Hubo
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Xamarin.Forms;
 
     internal class EndShiftConfirmViewModel : INotifyPropertyChanged
     {
@@ -14,8 +15,12 @@ namespace Hubo
         private TimeSpan startTimeDrivePicker;
         private TimeSpan endTimePicker;
         private TimeSpan endTimeDrivePicker;
+        private TimeSpan startTimeBreakPicker;
+        private TimeSpan endTimeBreakPicker;
         private string startLocation;
         private string endLocation;
+        private string startBreakLocation;
+        private string endBreakLocation;
         private bool workShift;
         private bool driveShift;
         private bool breakShift;
@@ -25,11 +30,56 @@ namespace Hubo
         private int breakTotalCount;
         private string driveShiftTitle;
         private string registrationTitle;
+        private string breakTitle;
         private int startHubo;
         private int endHubo;
         private List<DriveTable> listOfDriveShifts;
         private List<BreakTable> listOfBreaks;
         private DatabaseService dbService;
+
+        public INavigation Navigation { get; set; }
+
+        public string StartBreakLocation
+        {
+            get
+            {
+                return startBreakLocation;
+            }
+
+            set
+            {
+                startBreakLocation = value;
+                OnPropertyChanged("StartBreakLocation");
+            }
+        }
+
+        public string EndBreakLocation
+        {
+            get
+            {
+                return endBreakLocation;
+            }
+
+            set
+            {
+                endBreakLocation = value;
+                OnPropertyChanged("EndBreakLocation");
+            }
+        }
+
+        public string BreakTitle
+        {
+            get
+            {
+                return breakTitle;
+            }
+
+            set
+            {
+                breakTitle = value;
+                OnPropertyChanged("BreakTitle");
+            }
+        }
 
         public int StartHubo
         {
@@ -241,6 +291,34 @@ namespace Hubo
             }
         }
 
+        public TimeSpan StartTimeBreakPicker
+        {
+            get
+            {
+                return startTimeBreakPicker;
+            }
+
+            set
+            {
+                startTimeBreakPicker = value;
+                OnPropertyChanged("StartTimeBreakPicker");
+            }
+        }
+
+        public TimeSpan EndTimeBreakPicker
+        {
+            get
+            {
+                return endTimeBreakPicker;
+            }
+
+            set
+            {
+                endTimeBreakPicker = value;
+                OnPropertyChanged("EndTimeBreakPicker");
+            }
+        }
+
         public string StartLocation
         {
             get
@@ -280,11 +358,8 @@ namespace Hubo
 
             ShiftTable currentShift = dbService.GetLastShift();
 
-            string uneditedStartLocation = currentShift.StartLocation;
-            string uneditedEndLocation = currentShift.EndLocation;
-
-            StartLocation = uneditedStartLocation.Substring(uneditedStartLocation.LastIndexOf(',') + 1);
-            EndLocation = uneditedEndLocation.Substring(uneditedEndLocation.LastIndexOf(',') + 1);
+            StartLocation = currentShift.StartLocation.Substring(currentShift.StartLocation.LastIndexOf(',') + 1);
+            EndLocation = currentShift.EndLocation.Substring(currentShift.EndLocation.LastIndexOf(',') + 1);
             StartTimePicker = DateTime.Parse(currentShift.StartDate).TimeOfDay;
             EndTimePicker = DateTime.Parse(currentShift.EndDate).TimeOfDay;
 
@@ -308,21 +383,76 @@ namespace Hubo
             if (listOfDriveShifts.Count > 0)
             {
                 //Load Details for driveShift
-                DriveShiftCount = 1;
                 DriveShift = true;
                 LoadDriveDetails(listOfDriveShifts[0]);
             }
             else if (listOfBreaks.Count > 0)
             {
-                BreakCount = 1;
                 BreakShift = true;
+                LoadBreakDetails(listOfBreaks[0]);
+            }
+            else
+            {
+                AcceptanceFinished();
             }
 
             // Else finish off work
         }
 
+        internal void DriveShiftAccepted()
+        {
+            if (listOfDriveShifts.Count == DriveShiftCount)
+            {
+                // DriveShift are done
+                DriveShift = false;
+                if (listOfBreaks.Count > 0)
+                {
+                    BreakShift = true;
+                    LoadBreakDetails(listOfBreaks[0]);
+                }
+                else
+                {
+                    AcceptanceFinished();
+                }
+            }
+            else
+            {
+                //Load next driveShift
+                LoadDriveDetails(listOfDriveShifts[DriveShiftCount]);
+            }
+        }
+
+        internal void BreakAccepted()
+        {
+            if (listOfBreaks.Count == BreakCount)
+            {
+                AcceptanceFinished();
+            }
+            else
+            {
+                LoadBreakDetails(listOfBreaks[BreakCount]);
+            }
+        }
+
+        private void AcceptanceFinished()
+        {
+            Navigation.PopModalAsync();
+        }
+
+        private void LoadBreakDetails(BreakTable currentBreak)
+        {
+            BreakCount++;
+            BreakTitle = "Break " + BreakCount.ToString() + " of " + BreakTotalCount.ToString();
+            StartTimeBreakPicker = DateTime.Parse(currentBreak.StartDate).TimeOfDay;
+            EndTimeBreakPicker = DateTime.Parse(currentBreak.EndDate).TimeOfDay;
+
+            StartBreakLocation = currentBreak.StartLocation.Substring(currentBreak.StartLocation.LastIndexOf(',') + 1);
+            EndBreakLocation = currentBreak.EndLocation.Substring(currentBreak.EndLocation.LastIndexOf(',') + 1);
+        }
+
         private void LoadDriveDetails(DriveTable currentDrive)
         {
+            DriveShiftCount++;
             DriveShiftTitle = "Drive Shift " + DriveShiftCount.ToString() + " of " + DriveShiftTotalCount.ToString();
             VehicleTable currentVehicle;
             if (currentDrive.ServerVehicleKey == 0)

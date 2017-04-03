@@ -62,8 +62,26 @@
         <local:BaseEntry Text="{Binding StartHubo}" VerticalOptions="End" Grid.Row="4"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding DriveShift}" />
         <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="5"  Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding DriveShift}"/>
         <local:BaseEntry Text="{Binding EndHubo}" VerticalOptions="Start" Grid.Row="6"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding DriveShift}"/>
+
         
         
+        
+        <!-- Break Title -->
+        <Label  Text="{Binding BreakTitle}" FontSize="40" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding BreakShift}"/>        
+        
+        <!--Break Times -->
+        <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:MyTimepicker  Time="{Binding StartTimeBreakPicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding BreakShift}" />
+        <Label Text="&#8212;" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:MyTimepicker Time="{Binding EndTimeBreakPicker}" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding BreakShift}" />
+
+        <!-- Break Locations -->
+        <Label  FontSize="Large" Text="Odometer" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}"/>
+        <local:BaseEntry Text="{Binding StartBreakLocation}" VerticalOptions="End" Grid.Row="4"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}" />
+        <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="5"  Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:BaseEntry Text="{Binding EndBreakLocation}" VerticalOptions="Start" Grid.Row="6"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}"/>
+
+
 
 
         <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4"/>

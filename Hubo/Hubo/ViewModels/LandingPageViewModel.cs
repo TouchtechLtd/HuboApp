@@ -67,6 +67,7 @@ namespace Hubo
                     if (shiftResult == 4)
                     {
                         MessagingCenter.Send<string>("ReloadPage", "ReloadPage");
+                        MessagingCenter.Send<string>("ReloadOthersPage", "ReloadOthersPage");
                         Application.Current.MainPage = loadPage;
                         return true;
                     }

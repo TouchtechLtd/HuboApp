@@ -810,14 +810,23 @@ namespace Hubo
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
                     geocords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                    location = await GetLocation(geocords);
                 }
 
-                location = await GetLocation(geocords);
+                PromptConfig locationPrompt = new PromptConfig()
+                {
+                    IsCancellable = true,
+                    Title = Resource.CurrentLocation,
+                    Text = location
+                };
+                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-                if (location == string.Empty)
+                if (!promptResult.Ok || promptResult.Text == string.Empty)
                 {
                     return false;
                 }
+
+                location = promptResult.Text;
 
                 List<VehicleTable> listOfVehicles = dbService.GetVehicles();
 
@@ -915,14 +924,23 @@ namespace Hubo
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
                     geocords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                    location = await GetLocation(geocords);
                 }
 
-                location = await GetLocation(geocords);
+                PromptConfig locationPrompt = new PromptConfig()
+                {
+                    IsCancellable = true,
+                    Title = Resource.CurrentLocation,
+                    Text = location
+                };
+                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-                if (location == string.Empty)
+                if (!promptResult.Ok || promptResult.Text == string.Empty)
                 {
                     return false;
                 }
+
+                location = promptResult.Text;
 
                 int hubo = await HuboPrompt();
 
@@ -1026,11 +1044,18 @@ namespace Hubo
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
                     geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                    location = await GetLocation(geoCoords);
                 }
 
-                location = await GetLocation(geoCoords);
+                PromptConfig locationPrompt = new PromptConfig()
+                {
+                    IsCancellable = true,
+                    Title = Resource.CurrentLocation,
+                    Text = location
+                };
+                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-                if (location == string.Empty)
+                if (!promptResult.Ok || promptResult.Text == string.Empty)
                 {
                     return;
                 }
@@ -1084,11 +1109,18 @@ namespace Hubo
             using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
             {
                 geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                location = await GetLocation(geoCoords);
             }
 
-            location = await GetLocation(geoCoords);
+            PromptConfig locationPrompt = new PromptConfig()
+            {
+                IsCancellable = true,
+                Title = Resource.CurrentLocation,
+                Text = location
+            };
+            PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-            if (location == string.Empty)
+            if (!promptResult.Ok || promptResult.Text == string.Empty)
             {
                 return;
             }
@@ -1183,20 +1215,7 @@ namespace Hubo
         private async Task<string> GetLocation(Geolocation geoCoords)
         {
             string location = await restApi.GetLocation(geoCoords);
-            PromptConfig locationPrompt = new PromptConfig()
-            {
-                IsCancellable = true,
-                Title = Resource.CurrentLocation,
-                Text = location
-            };
-            PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
-
-            if (!promptResult.Ok || promptResult.Text == string.Empty)
-            {
-                return string.Empty;
-            }
-
-            return promptResult.Text;
+            return location;
         }
 
         private async Task<bool> StopShift()
@@ -1213,15 +1232,23 @@ namespace Hubo
                         using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                         {
                             geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
-
+                            location = await GetLocation(geoCoords);
                         }
 
-                        location = await GetLocation(geoCoords);
+                        PromptConfig locationPrompt = new PromptConfig()
+                        {
+                            IsCancellable = true,
+                            Title = Resource.CurrentLocation,
+                            Text = location
+                        };
+                        PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-                        if (location == string.Empty)
+                        if (!promptResult.Ok || promptResult.Text == string.Empty)
                         {
                             return false;
                         }
+
+                        location = promptResult.Text;
 
                         string note = await NotePrompt();
 
@@ -1297,14 +1324,23 @@ namespace Hubo
                 using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
                 {
                     geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                    location = await GetLocation(geoCoords);
                 }
 
-                location = await GetLocation(geoCoords);
+                PromptConfig locationPrompt = new PromptConfig()
+                {
+                    IsCancellable = true,
+                    Title = Resource.CurrentLocation,
+                    Text = location
+                };
+                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
 
-                if (location == string.Empty)
+                if (!promptResult.Ok || promptResult.Text == string.Empty)
                 {
                     return false;
                 }
+
+                location = promptResult.Text;
 
                 string note = await NotePrompt();
 

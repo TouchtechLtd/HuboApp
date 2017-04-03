@@ -988,21 +988,21 @@ namespace Hubo
 
                 DriveTable drive = listOfVehiclesInUse[0];
 
-                int distanceTravelled = hubo - drive.StartHubo;
+                //int distanceTravelled = hubo - drive.StartHubo;
 
-                if (distanceTravelled < 0)
-                {
-                    if (await UserDialogs.Instance.ConfirmAsync("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Re-Enter Odometer", "Alert", "This is the correct odometer"))
-                    {
-                        return false;
-                    }
-                }
+                //if (distanceTravelled < 0)
+                //{
+                //    if (await UserDialogs.Instance.ConfirmAsync("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Re-Enter Odometer", "Alert", "This is the correct odometer"))
+                //    {
+                //        return false;
+                //    }
+                //}
 
-                if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
-                {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
-                    return false;
-                }
+                //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                //{
+                //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
+                //    return false;
+                //}
 
                 drive.ActiveVehicle = false;
                 drive.EndDate = date.ToString(Resource.DateFormat);
