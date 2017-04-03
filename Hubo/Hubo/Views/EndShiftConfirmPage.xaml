@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
         
         <!-- WorkShift Title -->
-        <Label  Text="WorkShift" FontSize="40" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding WorkShift}"/>
+        <Label  Text="WorkShift" FontSize="32" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding WorkShift}"/>
         <!-- WorkShift Times -->
         <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
         <local:MyTimepicker  Time="{Binding StartTimePicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding WorkShift}" />
@@ -84,7 +84,11 @@
 
 
 
-        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" CornerRadius="50" BorderThickness="20" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4"/>
+        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" BorderThickness="20" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4">
+            <abstractions:RoundedBoxView.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Double" iOS="35" Android="50"/>
+            </abstractions:RoundedBoxView.CornerRadius>
+        </abstractions:RoundedBoxView>
         <local:MyButton Text="Accept" BackgroundColor="Transparent" Grid.Row="7"  Grid.Column="2" Grid.ColumnSpan="4" BorderColor="Transparent" TextColor="Black" HorizontalOptions="Center" x:Name="acceptButton"/>
     </Grid>
 </ContentPage>
