@@ -966,8 +966,8 @@ namespace Hubo
 
                 //int distanceTravelled = hubo - drive.StartHubo;
 
-                while (!correctHubo)
-                {
+                //while (!correctHubo)
+                //{
 
                 //if (distanceTravelled < 0)
                 //{
@@ -976,17 +976,17 @@ namespace Hubo
                 //        return false;
                 //    }
                 //}
-                    else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                    //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //{
                 //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
                 //    return false;
                 //}
-                    else
-                    {
-                        correctHubo = true;
-                    }
-                }
+                //    else
+                //    {
+                //        correctHubo = true;
+                //    }
+                //}
 
                 drive.ActiveVehicle = false;
                 drive.EndDate = date.ToString(Resource.DateFormat);

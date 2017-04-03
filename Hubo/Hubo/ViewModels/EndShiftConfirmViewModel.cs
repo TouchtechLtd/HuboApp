@@ -347,8 +347,37 @@ namespace Hubo
             }
         }
 
-            StartLocation = currentShift.StartLocation.Substring(currentShift.StartLocation.LastIndexOf(',') + 1);
-            EndLocation = currentShift.EndLocation.Substring(currentShift.EndLocation.LastIndexOf(',') + 1);
+
+        public EndShiftConfirmViewModel()
+        {
+            WorkShift = true;
+            DriveShift = false;
+            BreakShift = false;
+            dbService = new DatabaseService();
+
+            // Get last workshift
+            ShiftTable currentShift = dbService.GetLastShift();
+
+            string uneditedStartLocation = currentShift.StartLocation;
+            string uneditedEndLocation = currentShift.EndLocation;
+
+            StartLocation = uneditedStartLocation.Substring(uneditedStartLocation.LastIndexOf(',') + 1);
+            EndLocation = uneditedEndLocation.Substring(uneditedEndLocation.LastIndexOf(',') + 1);
+            StartTimePicker = DateTime.Parse(currentShift.StartDate).TimeOfDay;
+            EndTimePicker = DateTime.Parse(currentShift.EndDate).TimeOfDay;
+
+            // Get all driving shifts associated
+            listOfDriveShifts = dbService.GetDriveShifts(currentShift.Key);
+            DriveShiftTotalCount = listOfDriveShifts.Count;
+
+            // Get all breaks associated
+            listOfBreaks = dbService.GetBreaks(currentShift);
+            BreakTotalCount = listOfBreaks.Count;
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         internal void WorkShiftDone()
         {
             WorkShift = false;
@@ -407,6 +436,12 @@ namespace Hubo
                 LoadBreakDetails(listOfBreaks[BreakCount]);
             }
         }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         private void AcceptanceFinished()
         {

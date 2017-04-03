@@ -42,7 +42,6 @@ namespace Hubo
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-
         private List<MenuItem> PopulateMenuItems()
         {
             List<MenuItem> items = new List<MenuItem>();
