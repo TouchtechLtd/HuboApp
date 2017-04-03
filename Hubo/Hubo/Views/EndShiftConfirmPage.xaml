@@ -48,7 +48,7 @@
         
         
         <!-- DriveShift Title -->
-        <Label  Text="{Binding DriveShiftTitle}" FontSize="40" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding DriveShift}"/>
+        <Label  Text="{Binding DriveShiftTitle}" FontSize="32" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding DriveShift}"/>
         <Label  Text="{Binding RegistrationTitle}" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding DriveShift}"/>
         
         <!-- DriveShift Times -->
@@ -67,7 +67,7 @@
         
         
         <!-- Break Title -->
-        <Label  Text="{Binding BreakTitle}" FontSize="40" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding BreakShift}"/>        
+        <Label  Text="{Binding BreakTitle}" FontSize="32" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding BreakShift}"/>        
         
         <!--Break Times -->
         <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
