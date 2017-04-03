@@ -22,7 +22,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>nz.co.triotech.hubo</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-60@2x.png</string>

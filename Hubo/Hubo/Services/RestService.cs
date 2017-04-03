@@ -38,10 +38,8 @@ namespace Hubo
 
             LoginRequestModel loginModel = new LoginRequestModel()
             {
-                // loginModel.usernameOrEmailAddress = username;
-                // loginModel.password = password;
-                UsernameOrEmailAddress = "ben@triotech.co.nz",
-                Password = "tazmania"
+                UsernameOrEmailAddress = username,
+                Password = password
             };
             string json = JsonConvert.SerializeObject(loginModel);
 

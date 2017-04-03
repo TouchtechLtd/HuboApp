@@ -40,9 +40,7 @@ namespace Hubo
             }
             else
             {
-                usernameEntry.Text = "ben@triotech.co.nz";
-                passwordEntry.Text = "tazmania";
-                if (usernameEntry.Text != string.Empty || passwordEntry.Text != string.Empty)
+                if (usernameEntry.Text != null || passwordEntry.Text != null)
                 {
                     if (!await landingPageVM.Login(usernameEntry.Text.Trim(), passwordEntry.Text))
                     {
