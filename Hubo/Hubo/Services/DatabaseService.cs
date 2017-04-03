@@ -11,11 +11,11 @@ namespace Hubo
     using System.Threading.Tasks;
     using Acr.UserDialogs;
     using Microsoft.ProjectOxford.Vision.Contract;
+    using Plugin.Connectivity;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
     using SQLite.Net;
     using Xamarin.Forms;
-    using Plugin.Connectivity;
 
     public class DatabaseService
     {
@@ -359,35 +359,9 @@ namespace Hubo
             return nextBreak;
         }
 
-        private DateTime HadFullBreak(List<BreakTable> breaks)
-        {
-            List<DateTime> endBreaks = new List<DateTime>();
-            DateTime start = default(DateTime);
-            DateTime end = default(DateTime);
-
-            foreach (BreakTable item in breaks)
-            {
-                start = DateTime.Parse(item.StartDate);
-                end = DateTime.Parse(item.EndDate);
-
-                if ((end - start) >= TimeSpan.FromMinutes(30))
-                {
-                    endBreaks.Add(end);
-                }
-            }
-
-            if (endBreaks.Count > 0)
-            {
-                return endBreaks[endBreaks.Count - 1];
-            }
-
-            return DateTime.Now - TimeSpan.FromDays(2);
-        }
-
         internal double GetTotalOfSeventy()
         {
             // Get the datetime of now, get last shift end date, if greater than 24 hours, then return 0, else iterate through all previous shifts until a 24 hour break is detected.
-
             DateTime dateTimeNow = DateTime.Now;
 
             List<ShiftTable> listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
@@ -417,10 +391,13 @@ namespace Hubo
 
             for (int i = 1; i < listOfShifts.Count; i++)
             {
-                if ((reference - DateTime.Parse(listOfShifts[i].EndDate)) < TimeSpan.FromHours(24))
+                if (!listOfShifts[i].ActiveShift)
                 {
-                    totalTime = totalTime + (DateTime.Parse(listOfShifts[i].EndDate) - DateTime.Parse(listOfShifts[i].StartDate)).TotalMinutes;
-                    reference = DateTime.Parse(listOfShifts[i].StartDate);
+                    if ((reference - DateTime.Parse(listOfShifts[i].EndDate)) < TimeSpan.FromHours(24))
+                    {
+                        totalTime = totalTime + (DateTime.Parse(listOfShifts[i].EndDate) - DateTime.Parse(listOfShifts[i].StartDate)).TotalMinutes;
+                        reference = DateTime.Parse(listOfShifts[i].StartDate);
+                    }
                 }
             }
 
@@ -817,19 +794,17 @@ namespace Hubo
                 }
                 else
                 {
-                await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
                     return -1;
                 }
 
                 if (photo == null)
                 {
-                await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
                     return -1;
                 }
 
                 restAPI = new RestService();
-
-                //await restAPI.QueryRegoPhoto(photo);
 
                 OcrResults rego = await restAPI.GetRegoText(photo);
                 if (rego == null)
@@ -940,6 +915,7 @@ namespace Hubo
                 {
                     ActiveVehicle = true,
                     ShiftKey = listOfShifts[0].Key,
+                    ServerShiftKey = listOfShifts[0].ServerKey,
                     StartDate = date.ToString(Resource.DateFormat),
                     ServerVehicleKey = currentVehicle.ServerKey,
                     VehicleKey = vehicleKey,
@@ -950,7 +926,7 @@ namespace Hubo
 
                 if (await ReturnOffline())
                 {
-                    int result = await restAPI.QueryDrive(false, newDrive, listOfShifts[0].ServerKey);
+                    int result = await restAPI.QueryDrive(false, newDrive);
 
                     if (result > 0)
                     {
@@ -990,6 +966,9 @@ namespace Hubo
 
                 //int distanceTravelled = hubo - drive.StartHubo;
 
+                while (!correctHubo)
+                {
+
                 //if (distanceTravelled < 0)
                 //{
                 //    if (await UserDialogs.Instance.ConfirmAsync("Starting Odometer: " + drive.StartHubo + " \nis HIGHER than \nEnding Odometer: " + hubo, "Re-Enter Odometer", "Alert", "This is the correct odometer"))
@@ -997,30 +976,23 @@ namespace Hubo
                 //        return false;
                 //    }
                 //}
-
+                    else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //{
                 //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
                 //    return false;
                 //}
+                    else
+                    {
+                        correctHubo = true;
+                    }
+                }
 
                 drive.ActiveVehicle = false;
                 drive.EndDate = date.ToString(Resource.DateFormat);
                 drive.EndHubo = hubo;
                 drive.EndNote = note;
                 db.Update(drive);
-
-                //List<GeolocationTable> locationUpload = db.Query<GeolocationTable>("SELECT * FROM [GeolocationTable] WHERE [DriveKey] = " + drive.Key);
-
-                //if (locationUpload != null)
-                //{
-                //    int locationResult = await restAPI.InsertGeoData(locationUpload);
-
-                //    if (locationResult > 0)
-                //    {
-                //        db.Query<Geolocation>("DELETE FROM [GeolocationTable]");
-                //    }
-                //}
 
                 if (await ReturnOffline())
                 {
@@ -1042,7 +1014,6 @@ namespace Hubo
                         EndOffline = true
                     };
                     db.Insert(offline);
-
                 }
                 else
                 {
@@ -1197,7 +1168,7 @@ namespace Hubo
             }
             else if (list.Count > 1)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.ErrorMoreOneUser, Resource.Alert, Resource.Okay);
+                UserDialogs.Instance.AlertAsync(Resource.ErrorMoreOneUser, Resource.Alert, Resource.Okay);
 
                 ClearTablesForNewUser();
             }
@@ -1225,7 +1196,7 @@ namespace Hubo
                 return true;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
+            UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
             return false;
         }
 
@@ -1242,7 +1213,7 @@ namespace Hubo
                 return -1;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveBreak, Resource.Alert, Resource.Okay);
+            UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveBreak, Resource.Alert, Resource.Okay);
             return -2;
         }
 
@@ -1271,7 +1242,7 @@ namespace Hubo
                 return true;
             }
 
-            UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveVehicle, Resource.Alert, Resource.Okay);
+            UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveVehicle, Resource.Alert, Resource.Okay);
             return false;
         }
 
@@ -1283,7 +1254,7 @@ namespace Hubo
                 currentBreaks = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [ActiveBreak] == 1");
                 if ((currentBreaks.Count == 0) || (currentBreaks.Count > 1))
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.UnableToGetBreak, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.UnableToGetBreak, Resource.Alert, Resource.Okay);
                     return false;
                 }
 
@@ -1779,6 +1750,7 @@ namespace Hubo
                     db.Delete(offlineVehicle);
                 }
             }
+
             if (listOfflineShifts.Count > 0)
             {
                 foreach (ShiftOffline offlineShift in listOfflineShifts)
@@ -1820,10 +1792,9 @@ namespace Hubo
                         currentDrive.ServerVehicleKey = currentVehicle.ServerKey;
                     }
 
-                    ShiftTable currentShift = db.Get<ShiftTable>(currentDrive.ShiftKey);
                     if (offlineDrive.StartOffline)
                     {
-                        int startDriveResult = await restAPI.QueryDrive(false, currentDrive, currentShift.ServerKey);
+                        int startDriveResult = await restAPI.QueryDrive(false, currentDrive);
                         if (startDriveResult < 0)
                         {
                             return false;
@@ -1881,259 +1852,30 @@ namespace Hubo
             return true;
         }
 
-        //internal async Task<bool> ReturnOffline()
-        //{
-        //    var shiftExists = db.GetTableInfo("ShiftOffline");
+        private DateTime HadFullBreak(List<BreakTable> breaks)
+        {
+            List<DateTime> endBreaks = new List<DateTime>();
+            DateTime start = default(DateTime);
+            DateTime end = default(DateTime);
 
-        //    if (shiftExists.Count > 0)
-        //    {
-        //        List<ShiftOffline> shifts = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
+            foreach (BreakTable item in breaks)
+            {
+                start = DateTime.Parse(item.StartDate);
+                end = DateTime.Parse(item.EndDate);
 
-        //        if (shifts != null)
-        //        {
-        //            int uploadErrors = 0;
-        //            foreach (ShiftOffline item in shifts)
-        //            {
-        //                UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable]")[0];
-        //                ShiftTable shift = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [Key] = " + item.ShiftKey)[0];
-        //                DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ShiftKey] = " + item.ShiftKey + " LIMIT 1")[0];
+                if ((end - start) >= TimeSpan.FromMinutes(30))
+                {
+                    endBreaks.Add(end);
+                }
+            }
 
-        //                if (item.StartOffline)
-        //                {
-        //                    int result = await restAPI.QueryShift(shift, false, user.DriverId, drive.Key);
+            if (endBreaks.Count > 0)
+            {
+                return endBreaks[endBreaks.Count - 1];
+            }
 
-        //                    if (result > 0)
-        //                    {
-        //                        shift.ServerKey = result;
-        //                        db.Update(shift);
-        //                    }
-        //                    else
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (item.EndOffline)
-        //                {
-        //                    int result = await restAPI.QueryShift(shift, true);
-
-        //                    if (result != 0)
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (uploadErrors == 0)
-        //                {
-        //                    db.Query<ShiftOffline>("DELETE FROM [ShiftOffline] WHERE [ShiftKey] = " + shift.Key);
-        //                }
-        //            }
-        //        }
-
-        //        List<ShiftOffline> empty = db.Query<ShiftOffline>("SELECT * FROM [ShiftOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<ShiftOffline>("DROP TABLE [ShiftOffline]");
-        //        }
-        //    }
-
-        //    var driveExists = db.GetTableInfo("DriveOffline");
-
-        //    if (driveExists.Count > 0)
-        //    {
-        //        List<DriveOffline> drives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
-
-        //        if (drives != null)
-        //        {
-        //            int uploadErrors = 0;
-        //            foreach (DriveOffline item in drives)
-        //            {
-        //                DriveTable drive = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [Key] = " + item.DriveKey)[0];
-
-        //                if (item.StartOffline)
-        //                {
-        //                    int result = await restAPI.QueryDrive(false, drive);
-
-        //                    if (result > 0)
-        //                    {
-        //                        drive.ServerId = result;
-        //                        db.Update(drive);
-        //                    }
-        //                    else
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (item.EndOffline)
-        //                {
-        //                    int result = await restAPI.QueryDrive(true, drive);
-
-        //                    if (result != 0)
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (uploadErrors == 0)
-        //                {
-        //                    db.Query<DriveOffline>("DELETE FROM [DriveOffline] WHERE [DriveKey] = " + drive.Key);
-        //                }
-        //            }
-        //        }
-
-        //        List<DriveOffline> empty = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<DriveOffline>("DROP TABLE [DriveOffline]");
-        //        }
-        //    }
-
-        //    var breakExists = db.GetTableInfo("BreakOffline");
-
-        //    if (breakExists.Count > 0)
-        //    {
-        //        List<BreakOffline> breaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
-
-        //        if (breaks != null)
-        //        {
-        //            int uploadErrors = 0;
-
-        //            foreach (BreakOffline item in breaks)
-        //            {
-        //                BreakTable breakValue = db.Query<BreakTable>("SELECT * FROM [BreakTable] WHERE [Key] = " + item.BreakKey)[0];
-
-        //                if (item.StartOffline)
-        //                {
-        //                    int result = await restAPI.QueryBreak(false, breakValue);
-
-        //                    if (result > 0)
-        //                    {
-        //                        breakValue.ServerId = result;
-        //                        db.Update(breakValue);
-        //                    }
-        //                    else
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (item.EndOffline)
-        //                {
-        //                    int result = await restAPI.QueryBreak(true, breakValue);
-
-        //                    if (result != 0)
-        //                    {
-        //                        uploadErrors++;
-        //                    }
-        //                }
-
-        //                if (uploadErrors == 0)
-        //                {
-        //                    db.Query<BreakOffline>("DELETE FROM [BreakOffline] WHERE [BreakKey] = " + breakValue.Key);
-        //                }
-        //            }
-        //        }
-
-        //        List<BreakOffline> empty = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<BreakOffline>("DROP TABLE [BreakOffline]");
-        //        }
-        //    }
-
-        //    var noteExists = db.GetTableInfo("NoteOffline");
-
-        //    if (noteExists.Count > 0)
-        //    {
-        //        List<NoteOffline> notes = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
-
-        //        if (notes != null)
-        //        {
-        //            foreach (NoteOffline item in notes)
-        //            {
-        //                NoteTable note = db.Query<NoteTable>("SELECT * FROM [NoteTable] WHERE [Key] = " + item.NoteKey)[0];
-
-        //                int result = await restAPI.InsertNote(note);
-
-        //                if (result > 0)
-        //                {
-        //                    db.Query<NoteOffline>("DELETE FROM [NoteOffline] WHERE [NoteKey] = " + note.Key);
-        //                }
-        //            }
-        //        }
-
-        //        List<NoteOffline> empty = db.Query<NoteOffline>("SELECT * FROM [NoteOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<NoteOffline>("DROP TABLE [NoteOffline]");
-        //        }
-        //    }
-
-        //    var vehicleExists = db.GetTableInfo("VehicleOffline");
-
-        //    if (vehicleExists.Count > 0)
-        //    {
-        //        List<VehicleOffline> vehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
-
-        //        if (vehicles != null)
-        //        {
-        //            foreach (VehicleOffline item in vehicles)
-        //            {
-        //                VehicleTable vehicle = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] = " + item.VehicleKey)[0];
-
-        //                bool result = await restAPI.QueryAddVehicle(vehicle);
-
-        //                if (result)
-        //                {
-        //                    db.Query<VehicleOffline>("DELETE FROM [VehicleOffline] WHERE [VehicleKey] = " + vehicle.Key);
-        //                }
-        //            }
-        //        }
-
-        //        List<VehicleOffline> empty = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<VehicleOffline>("DROP TABLE [VehicleOffline]");
-        //        }
-        //    }
-
-        //    var userChangesExist = db.GetTableInfo("UserOffline");
-
-        //    if (userChangesExist.Count > 0)
-        //    {
-        //        List<UserOffline> users = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
-
-        //        if (users != null)
-        //        {
-        //            foreach (UserOffline item in users)
-        //            {
-        //                UserTable user = db.Query<UserTable>("SELECT * FROM [UserTable] WHERE [Key] = " + item.UserKey)[0];
-
-        //                bool result = await restAPI.QueryUpdateProfile(user);
-
-        //                if (result)
-        //                {
-        //                    db.Query<UserOffline>("DELETE FROM [VehicleOffline] WHERE [UserKey] = " + user.Id);
-        //                }
-        //            }
-        //        }
-
-        //        List<UserOffline> empty = db.Query<UserOffline>("SELECT * FROM [UserOffline]");
-
-        //        if (empty.Count == 0)
-        //        {
-        //            db.Query<UserOffline>("DROP TABLE [VehicleOffline");
-        //        }
-        //    }
-
-        //    return true;
-        //}
+            return DateTime.Now - TimeSpan.FromDays(2);
+        }
 
         private bool CheckActiveShiftIsCorrect(bool isShift, List<ShiftTable> activeShifts = null, List<DriveTable> activeDrives = null)
         {
@@ -2141,12 +1883,12 @@ namespace Hubo
             {
                 if (activeShifts.Count == 0)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveShifts, Resource.Alert, Resource.Okay);
+                    UserDialogs.Instance.AlertAsync(Resource.NoActiveShifts, Resource.Alert, Resource.Okay);
                     return false;
                 }
                 else if (activeShifts.Count > 1)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
+                    UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
                     return false;
                 }
 
@@ -2156,17 +1898,53 @@ namespace Hubo
             {
                 if (activeDrives.Count == 0)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.NoActiveDrives, Resource.Alert, Resource.Okay);
+                    UserDialogs.Instance.AlertAsync(Resource.NoActiveDrives, Resource.Alert, Resource.Okay);
                     return false;
                 }
                 else if (activeDrives.Count > 1)
                 {
-                    UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveDrive, Resource.Alert, Resource.Okay);
+                    UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveDrive, Resource.Alert, Resource.Okay);
                     return false;
                 }
 
                 return true;
             }
+        }
+
+        private async Task<int> HuboPrompt(int oldHubo)
+        {
+            bool invalidFormat = true;
+            int hubo = 0;
+            string promptTitle = Resource.OdometerReading;
+            while (invalidFormat)
+            {
+                hubo = 0;
+
+                PromptConfig huboPrompt = new PromptConfig()
+                {
+                    IsCancellable = true,
+                    Title = promptTitle,
+                    Text = oldHubo.ToString()
+                };
+                huboPrompt.SetInputMode(InputType.Number);
+                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
+
+                bool isNumeric = int.TryParse(promptResult.Text, out hubo);
+
+                if (promptResult.Ok && isNumeric)
+                {
+                    invalidFormat = false;
+                }
+
+                if (!promptResult.Ok)
+                {
+                    return 0;
+                }
+
+                promptTitle = Resource.InvalidOdometer;
+            }
+
+            return hubo;
         }
     }
 }

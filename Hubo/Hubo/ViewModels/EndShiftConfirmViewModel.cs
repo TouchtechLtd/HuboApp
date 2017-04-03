@@ -1,12 +1,12 @@
-﻿
+﻿// <copyright file="EndShiftConfirmViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 namespace Hubo
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Xamarin.Forms;
 
     internal class EndShiftConfirmViewModel : INotifyPropertyChanged
@@ -347,34 +347,8 @@ namespace Hubo
             }
         }
 
-        public EndShiftConfirmViewModel()
-        {
-            WorkShift = true;
-            DriveShift = false;
-            BreakShift = false;
-            dbService = new DatabaseService();
-
-            //Get last workshift
-
-            ShiftTable currentShift = dbService.GetLastShift();
-
             StartLocation = currentShift.StartLocation.Substring(currentShift.StartLocation.LastIndexOf(',') + 1);
             EndLocation = currentShift.EndLocation.Substring(currentShift.EndLocation.LastIndexOf(',') + 1);
-            StartTimePicker = DateTime.Parse(currentShift.StartDate).TimeOfDay;
-            EndTimePicker = DateTime.Parse(currentShift.EndDate).TimeOfDay;
-
-            //Get all driving shifts associated
-            listOfDriveShifts = dbService.GetDriveShifts(currentShift.Key);
-            DriveShiftTotalCount = listOfDriveShifts.Count;
-
-            //Get all breaks associated
-            listOfBreaks = dbService.GetBreaks(currentShift);
-            BreakTotalCount = listOfBreaks.Count;
-
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         internal void WorkShiftDone()
         {
             WorkShift = false;
@@ -382,7 +356,7 @@ namespace Hubo
             // Load details for driveShifts
             if (listOfDriveShifts.Count > 0)
             {
-                //Load Details for driveShift
+                // Load Details for driveShift
                 DriveShift = true;
                 LoadDriveDetails(listOfDriveShifts[0]);
             }
@@ -469,11 +443,6 @@ namespace Hubo
             EndTimeDrivePicker = DateTime.Parse(currentDrive.EndDate).TimeOfDay;
             StartHubo = currentDrive.StartHubo;
             EndHubo = currentDrive.EndHubo;
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

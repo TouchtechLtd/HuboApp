@@ -1276,12 +1276,12 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.EndShiftBreakError, Resource.Error, Resource.GotIt);
+                    await UserDialogs.Instance.AlertAsync(Resource.EndShiftBreakError, Resource.Error, Resource.GotIt);
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.EndShiftDriveError, Resource.Error, Resource.GotIt);
+                await UserDialogs.Instance.AlertAsync(Resource.EndShiftDriveError, Resource.Error, Resource.GotIt);
             }
 
             return false;
@@ -1457,7 +1457,7 @@ namespace Hubo
 
             if (CompletedJourney == -1)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
+                UserDialogs.Instance.AlertAsync(Resource.MoreOneActiveShift, Resource.Alert, Resource.Okay);
                 return;
             }
 

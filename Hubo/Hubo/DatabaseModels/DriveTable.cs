@@ -17,6 +17,8 @@ namespace Hubo
 
         public int VehicleKey { get; set; }
 
+        public int ServerShiftKey { get; set; }
+
         public int ServerVehicleKey { get; set; }
 
         public bool ActiveVehicle { get; set; }
