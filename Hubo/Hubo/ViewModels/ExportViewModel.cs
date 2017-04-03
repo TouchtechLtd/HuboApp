@@ -111,13 +111,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.EmailError, Resource.SendError, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.EmailError, Resource.SendError, Resource.Okay);
                     return;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.InvalidEmail, Resource.Alert, Resource.Okay);
             }
         }
     }

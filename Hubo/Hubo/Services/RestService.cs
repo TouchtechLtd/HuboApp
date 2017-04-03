@@ -85,13 +85,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidLogin, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.InvalidLogin, Resource.Alert, Resource.Okay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return false;
             }
         }
@@ -520,7 +520,7 @@ namespace Hubo
                 }
                 catch (Exception e)
                 {
-                    await UserDialogs.Instance.ConfirmAsync(e.Message.ToString(), Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(e.Message.ToString(), Resource.Alert, Resource.Okay);
                     return null;
                 }
 
@@ -594,13 +594,13 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterVehicleError, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.RegisterVehicleError, Resource.Alert, Resource.Okay);
                     return false;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return false;
             }
         }
@@ -700,22 +700,23 @@ namespace Hubo
                     {
                         return result.Result;
                     }
+
                     return 0;
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterShiftError, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.RegisterShiftError, Resource.Alert, Resource.Okay);
                     return -2;
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.ConnectionError, Resource.Alert, Resource.Okay);
                 return -2;
             }
         }
 
-        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive, int serverShift = -1)
+        internal async Task<int> QueryDrive(bool driveStarted, DriveTable drive)
         {
             string url;
             string contentType = Constants.CONTENT_TYPE;
@@ -727,7 +728,7 @@ namespace Hubo
 
                 DriveStartModel driveModel = new DriveStartModel()
                 {
-                    shiftId = serverShift,
+                    shiftId = drive.ServerShiftKey,
                     startDrivingDateTime = drive.StartDate,
                     vehicleId = drive.ServerVehicleKey,
                     startHubo = drive.StartHubo,
@@ -845,7 +846,6 @@ namespace Hubo
 
                 if (result.Success)
                 {
-
                     if (result.Result > 0)
                     {
                         return result.Result;

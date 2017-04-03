@@ -43,6 +43,6 @@
         </abstractions:RoundedBoxView>
         
         <local:MyButton Text="{Binding LoginButtonText}" BackgroundColor="Transparent" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="LoginButton" x:Name="loginButton" TextColor="Black" BorderColor="Transparent"/>
-        <local:MyButton Text="Register" BackgroundColor="Transparent" Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="RegisterButton" x:Name="rightButton" TextColor="Black" BorderColor="Transparent"/>
+        <local:MyButton Text="Register - Coming Soon" BackgroundColor="Transparent" Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="4" AutomationId="RegisterButton" x:Name="rightButton" TextColor="Black" BorderColor="Transparent"/>
     </Grid>
 </ContentPage>

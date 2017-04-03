@@ -66,11 +66,11 @@ namespace Hubo
                 await stackLayoutLogin.FadeTo(0, 250, Easing.Linear);
                 await huboLabelFirst.FadeTo(1, 250, Easing.Linear);
                 isLoggingIn = false;
-                rightButton.Text = Resource.RegisterText;
+                rightButton.Text = "Register - Coming Soon";
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync("Alert", "Currently in progress of building", "Got it", "Still got it");
+                UserDialogs.Instance.Alert("Register User Page Under Construction", "Coming Soon", Resource.GotIt);
             }
         }
 

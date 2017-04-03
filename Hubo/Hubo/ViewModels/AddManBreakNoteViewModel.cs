@@ -248,13 +248,13 @@ namespace Hubo
             Regex regex = new Regex("^[0-9]+$");
             if (huboValue.Length == 0)
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
+                UserDialogs.Instance.AlertAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
                 return false;
             }
 
             if (!regex.IsMatch(huboValue))
             {
-                UserDialogs.Instance.ConfirmAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
+                UserDialogs.Instance.AlertAsync(Resource.InvalidHubo, Resource.Alert, Resource.Okay);
                 return false;
             }
 

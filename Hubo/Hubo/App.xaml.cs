@@ -6,7 +6,6 @@ namespace Hubo
 {
     using Plugin.Geolocator;
     using Plugin.Geolocator.Abstractions;
-    using Xamarin.Forms;
 
     public partial class Application : Xamarin.Forms.Application
     {
@@ -17,40 +16,38 @@ namespace Hubo
         {
             InitializeComponent();
 
-            //if (dbService.CheckLoggedIn())
-            //{
-            //    MainPage = new NZTAMessagePage(1);
-            //}
-            //else
-            //{
-            //    MainPage = new LandingPage();
-            //}
-            MainPage = new EndShiftConfirmPage();
+            if (dbService.CheckLoggedIn())
+            {
+                MainPage = new NZTAMessagePage(1);
+            }
+            else
+            {
+                MainPage = new LandingPage();
+            }
+
+            // MainPage = new EndShiftConfirmPage();
+
             // Run a scheduled task every minute
-            //Device.StartTimer(TimeSpan.FromSeconds(10), () =>
-            //{
+            // Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            // {
             //    ScheduledTasks.CheckOfflineData();
             //    return false;
-            //});
+            // });
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
-            base.OnStart();
         }
 
         protected override void OnSleep()
         {
             // Handle when your app sleeps
-            base.OnSleep();
-            MessagingCenter.Unsubscribe<string>("ReloadPage", "ReloadPage");
         }
 
         protected override void OnResume()
         {
             // Implement check for logged in status
-            base.OnResume();
         }
     }
 }

@@ -77,17 +77,17 @@ namespace Hubo
                             break;
                     }
 
-                    await UserDialogs.Instance.ConfirmAsync(Resource.RegisterSuccessText, Resource.RegisterSuccessTitle, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.RegisterSuccessText, Resource.RegisterSuccessTitle, Resource.Okay);
                     Application.Current.MainPage = new NZTAMessagePage(1);
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.InvalidEmail, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.InvalidEmail, Resource.Alert, Resource.Okay);
                 }
             }
             else
             {
-                await UserDialogs.Instance.ConfirmAsync(Resource.MissingText, Resource.Alert, Resource.Okay);
+                await UserDialogs.Instance.AlertAsync(Resource.MissingText, Resource.Alert, Resource.Okay);
             }
         }
     }

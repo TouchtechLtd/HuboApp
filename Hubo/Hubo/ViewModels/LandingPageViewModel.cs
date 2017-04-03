@@ -72,13 +72,13 @@ namespace Hubo
                     }
                     else
                     {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
+                        await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
                         db.ClearTablesForUserShifts();
                     }
                 }
                 else
                 {
-                    await UserDialogs.Instance.ConfirmAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
+                    await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
                     db.ClearTablesForUserShifts();
                 }
             }
@@ -88,7 +88,7 @@ namespace Hubo
 
         private void NavigateToRegisterPage()
         {
-            Navigation.PushModalAsync(new RegisterPage());
+            // Navigation.PushModalAsync(new RegisterPage());
         }
     }
 }

@@ -214,7 +214,7 @@ namespace Hubo
         //    };
         //    if (currentShift == null)
         //    {
-        //        await UserDialogs.Instance.ConfirmAsync(Resource.NoShiftsFound, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
+        //        await UserDialogs.Instance.AlertAsync(Resource.NoShiftsFound, Resource.DisplayAlertTitle, Resource.DisplayAlertOkay);
         //    }
         //    else
         //    {

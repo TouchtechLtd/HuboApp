@@ -1,14 +1,13 @@
-﻿[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
+﻿// <copyright file="EndShiftConfirmPage.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
+[assembly: Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
 namespace Hubo
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
     using Acr.UserDialogs;
+    using Xamarin.Forms;
 
     public partial class EndShiftConfirmPage : ContentPage
     {
@@ -19,6 +18,11 @@ namespace Hubo
             InitializeComponent();
             BindingContext = endShiftConfirmVm;
             acceptButton.Clicked += AcceptButton_ClickedAsync;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
         }
 
         private async void AcceptButton_ClickedAsync(object sender, EventArgs e)
@@ -36,14 +40,9 @@ namespace Hubo
                 }
                 else
                 {
-                    //Either load next break or completed and make call to sync with DB
+                    // Either load next break or completed and make call to sync with DB
                 }
             }
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return false;
         }
     }
 }

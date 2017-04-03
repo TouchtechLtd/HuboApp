@@ -1,12 +1,12 @@
-﻿
+﻿// <copyright file="EndShiftConfirmViewModel.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
+
 namespace Hubo
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     internal class EndShiftConfirmViewModel : INotifyPropertyChanged
     {
@@ -30,6 +30,35 @@ namespace Hubo
         private List<DriveTable> listOfDriveShifts;
         private List<BreakTable> listOfBreaks;
         private DatabaseService dbService;
+
+        public EndShiftConfirmViewModel()
+        {
+            WorkShift = true;
+            DriveShift = false;
+            BreakShift = false;
+            dbService = new DatabaseService();
+
+            // Get last workshift
+            ShiftTable currentShift = dbService.GetLastShift();
+
+            string uneditedStartLocation = currentShift.StartLocation;
+            string uneditedEndLocation = currentShift.EndLocation;
+
+            StartLocation = uneditedStartLocation.Substring(uneditedStartLocation.LastIndexOf(',') + 1);
+            EndLocation = "test";
+            EndLocation = uneditedEndLocation.Substring(uneditedEndLocation.LastIndexOf(',') + 1);
+            EndTimePicker = DateTime.Parse(currentShift.EndDate).TimeOfDay;
+
+            // Get all driving shifts associated
+            listOfDriveShifts = dbService.GetDriveShifts(currentShift.Key);
+            DriveShiftTotalCount = listOfDriveShifts.Count;
+
+            // Get all breaks associated
+            listOfBreaks = dbService.GetBreaks(currentShift);
+            BreakTotalCount = listOfBreaks.Count;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public int StartHubo
         {
@@ -269,37 +298,6 @@ namespace Hubo
             }
         }
 
-        public EndShiftConfirmViewModel()
-        {
-            WorkShift = true;
-            DriveShift = false;
-            BreakShift = false;
-            dbService = new DatabaseService();
-
-            //Get last workshift
-
-            ShiftTable currentShift = dbService.GetLastShift();
-
-            string uneditedStartLocation = currentShift.StartLocation;
-            string uneditedEndLocation = currentShift.EndLocation;
-
-            StartLocation = uneditedStartLocation.Substring(uneditedStartLocation.LastIndexOf(',') + 1);
-            EndLocation = uneditedEndLocation.Substring(uneditedEndLocation.LastIndexOf(',') + 1);
-            StartTimePicker = DateTime.Parse(currentShift.StartDate).TimeOfDay;
-            EndTimePicker = DateTime.Parse(currentShift.EndDate).TimeOfDay;
-
-            //Get all driving shifts associated
-            listOfDriveShifts = dbService.GetDriveShifts(currentShift.Key);
-            DriveShiftTotalCount = listOfDriveShifts.Count;
-
-            //Get all breaks associated
-            listOfBreaks = dbService.GetBreaks(currentShift);
-            BreakTotalCount = listOfBreaks.Count;
-
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         internal void WorkShiftDone()
         {
             WorkShift = false;
@@ -307,7 +305,7 @@ namespace Hubo
             // Load details for driveShifts
             if (listOfDriveShifts.Count > 0)
             {
-                //Load Details for driveShift
+                // Load Details for driveShift
                 DriveShiftCount = 1;
                 DriveShift = true;
                 LoadDriveDetails(listOfDriveShifts[0]);
@@ -319,6 +317,11 @@ namespace Hubo
             }
 
             // Else finish off work
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void LoadDriveDetails(DriveTable currentDrive)
@@ -339,11 +342,6 @@ namespace Hubo
             EndTimeDrivePicker = DateTime.Parse(currentDrive.EndDate).TimeOfDay;
             StartHubo = currentDrive.StartHubo;
             EndHubo = currentDrive.EndHubo;
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
