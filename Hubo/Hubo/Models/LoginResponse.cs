@@ -47,7 +47,7 @@ namespace Hubo
         public bool Success { get; set; }
 
         [JsonProperty(PropertyName = "result")]
-        public List<CompanyTable> Companies { get; set; }
+        public List<CompanyResultResponseModel> Companies { get; set; }
 
         [JsonProperty(PropertyName = "error")]
         public Error Error { get; set; }

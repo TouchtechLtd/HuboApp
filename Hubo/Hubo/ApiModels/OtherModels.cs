@@ -10,9 +10,7 @@ namespace Hubo
 
     public class ExportModel
     {
-        public string email { get; set; }
-
-        public string body { get; set; }
+        public int DriverId { get; set; }
     }
 
     public class RegisterModel

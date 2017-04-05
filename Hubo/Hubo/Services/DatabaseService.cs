@@ -622,7 +622,7 @@ namespace Hubo
             }
             else
             {
-                companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable] WHERE [Key] = " + id);
+                companies = db.Query<CompanyTable>("SELECT * FROM [CompanyTable] WHERE [ServerId] = " + id);
             }
 
             return companies;

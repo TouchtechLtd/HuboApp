@@ -29,5 +29,7 @@ namespace Hubo
         public string Country { get; set; }
 
         public int DriverId { get; set; }
+
+        public int ServerId { get; set; }
     }
 }

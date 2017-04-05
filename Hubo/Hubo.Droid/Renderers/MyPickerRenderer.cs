@@ -1,4 +1,4 @@
-// <copyright file="MyTimepickerRenderer.cs" company="TrioTech">
+// <copyright file="MyPickerRenderer.cs" company="TrioTech">
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
@@ -8,12 +8,12 @@ using Hubo.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(MyTimepicker), typeof(MyTimepickerRenderer))]
+[assembly: ExportRenderer(typeof(MyPicker), typeof(MyPickerRenderer))]
 namespace Hubo.Droid.Renderers
 {
-    public class MyTimepickerRenderer : TimePickerRenderer
+    public class MyPickerRenderer : PickerRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<TimePicker> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
         {
             base.OnElementChanged(e);
 

@@ -30,18 +30,17 @@ namespace Hubo
             Title = Resource.HistoryText;
             picker.DateSelected += Picker_DateSelected;
 
-            // LoadTip();
             ChartPalette basePalette = new ChartPalette();
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
             basePalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
 
-            //chart.Palette = basePalette;
+            chart.Palette = basePalette;
 
             ChartPalette selectedPalette = new ChartPalette();
             selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Green, StrokeColor = Color.Green });
             selectedPalette.Entries.Add(new PaletteEntry() { FillColor = Color.Blue, StrokeColor = Color.Blue });
 
-            //chart.SelectionPalette = selectedPalette;
+            chart.SelectionPalette = selectedPalette;
         }
 
         private async void SelectionChangedHandler(object sender, EventArgs e)
@@ -54,24 +53,13 @@ namespace Hubo
 
             DateTime selectedDate = DateTime.Parse(date.Category + "/" + now.Year);
 
-            await Navigation.PushModalAsync(new DisplayShiftPage(selectedDate));
+            await UserDialogs.Instance.AlertAsync("Details Page under construction", "Coming Soon", Resource.Okay);
+            //await Navigation.PushModalAsync(new DisplayShiftPage(selectedDate));
         }
 
         private void Picker_DateSelected(object sender, DateChangedEventArgs e)
         {
             historyVM.UpdateShift();
-        }
-
-        private async Task LoadTip()
-        {
-            if (dbService.ShowTip("HistoryViewModel"))
-            {
-                bool tipResult = await UserDialogs.Instance.ConfirmAsync(Resource.Tip, Resource.HistoryTip, Resource.GotIt, Resource.DontShowAgain);
-                if (!tipResult)
-                {
-                    dbService.HideTip("HistoryViewModel");
-                }
-            }
         }
     }
 }

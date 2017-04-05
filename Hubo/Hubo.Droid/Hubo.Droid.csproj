@@ -17,7 +17,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
@@ -423,7 +423,9 @@
     <Compile Include="Renderers\BottomBarPageRenderer.cs" />
     <Compile Include="Renderers\CustomTableViewRenderer.cs" />
     <Compile Include="Renderers\MyButtonRenderer.cs" />
+    <Compile Include="Renderers\MyDatePickerRenderer.cs" />
     <Compile Include="Renderers\MyEntryRenderer.cs" />
+    <Compile Include="Renderers\MyPickerRenderer.cs" />
     <Compile Include="Renderers\MyTimepickerRenderer.cs" />
     <Compile Include="Utils\CloseApp.cs" />
     <Compile Include="Utils\Email_Android.cs" />

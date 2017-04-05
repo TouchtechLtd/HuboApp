@@ -68,6 +68,7 @@ namespace Hubo
                     {
                         MessagingCenter.Send<string>("ReloadPage", "ReloadPage");
                         MessagingCenter.Send<string>("ReloadOthersPage", "ReloadOthersPage");
+                        MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");
                         Application.Current.MainPage = loadPage;
                         return true;
                     }

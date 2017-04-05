@@ -21,22 +21,14 @@ namespace Hubo
             BindingContext = vehiclesVM;
             UpdateList();
             Title = Resource.VehiclesText;
-            companyPicker.SelectedIndexChanged += CompanyPicker_SelectedIndexChanged;
             vehiclePicker.SelectedIndexChanged += VehiclePicker_SelectedIndexChanged;
             vehiclePicker.Title = Resource.SelectAVehicle;
-            MessagingCenter.Subscribe<string, int>("UpdateVehicles", "UpdateVehicles", (sender, vehicleID) =>
+
+            MessagingCenter.Subscribe<string>("UpdateVehicles", "UpdateVehicles", (s) =>
             {
                 UpdateList();
-                vehiclePicker.SelectedIndex = vehicleID - 1;
+                MessagingCenter.Unsubscribe<string>("UpdateVehicles", "UpdateVehicles");
             });
-
-            registration.ReturnType = ReturnType.Next;
-            registration.Next = makeModel;
-
-            makeModel.ReturnType = ReturnType.Next;
-            makeModel.Next = fleet;
-
-            fleet.ReturnType = ReturnType.Done;
         }
 
         internal void AddToolBar()
@@ -48,48 +40,20 @@ namespace Hubo
             ToolbarItems.Add(topLeftText);
         }
 
-        private void CompanyPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (companyPicker.SelectedIndex != -1)
-            {
-                vehiclesVM.SelectedCompany = companyPicker.SelectedIndex;
-            }
-        }
-
         private void UpdateList()
         {
             vehicles = vehiclesVM.GetVehicles();
-            companies = vehiclesVM.GetCompanies();
 
             vehiclePicker.Items.Clear();
             foreach (VehicleTable vehicle in vehicles)
             {
-                vehiclePicker.Items.Add(vehicle.Registration);
-            }
-
-            vehiclePicker.Items.Add("Add Vehicle...");
-
-            companyPicker.Items.Clear();
-            foreach (CompanyTable item in companies)
-            {
-                companyPicker.Items.Add(item.Name);
+                vehiclePicker.Items.Add(vehicle.Registration + " - " + vehicle.MakeModel);
             }
         }
 
         private void VehiclePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (vehiclePicker.SelectedIndex != -1 && vehiclePicker.SelectedIndex < vehiclePicker.Items.Count - 1)
-            {
-                int id = vehiclesVM.UpdatePage(vehiclePicker.SelectedIndex);
-
-                companyPicker.SelectedIndex = id - 1;
-            }
-            else
-            {
-                vehiclesVM.UpdatePageAdd();
-
-                companyPicker.SelectedIndex = 0;
-            }
+            vehiclesVM.UpdatePage(vehiclePicker.SelectedIndex);
         }
     }
 }

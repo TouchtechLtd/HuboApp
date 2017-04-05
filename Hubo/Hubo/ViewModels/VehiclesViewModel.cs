@@ -17,18 +17,18 @@ namespace Hubo
         private readonly DatabaseService dbService = new DatabaseService();
         private readonly RestService restAPI = new RestService();
         private List<VehicleTable> listOfVehicles;
-        private List<CompanyTable> listOfCompanies;
-        private VehicleTable currentVehicle;
+
+        private string company;
 
         public VehiclesViewModel()
         {
             VehicleSelected = false;
-            VehicleAddSelected = false;
-            VehicleEditSelected = true;
-            GetVehicles();
-            currentVehicle = new VehicleTable();
-            EditVehicleCommand = new Command(EditVehicle);
-            AddVehicleCommand = new RelayCommand(async () => await InsertVehicle());
+            RegistrationText = Resource.RegistrationText;
+            MakeModelText = Resource.MakeModelText;
+            CompanyText = Resource.CompanyText;
+            FleetText = Resource.FleetText;
+            EditVehicleText = Resource.EditVehicleText;
+            AddVehicleText = Resource.AddVehicleText;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -49,15 +49,7 @@ namespace Hubo
 
         public string AddVehicleText { get; set; }
 
-        public ICommand EditVehicleCommand { get; set; }
-
-        public ICommand AddVehicleCommand { get; set; }
-
         public bool VehicleSelected { get; set; }
-
-        public bool VehicleAddSelected { get; set; }
-
-        public bool VehicleEditSelected { get; set; }
 
         public int SelectedCompany { get; set; }
 
@@ -65,101 +57,58 @@ namespace Hubo
 
         public string FleetText { get; set; }
 
-        public async Task InsertVehicle()
+        public string Company
         {
-            if (VehicleAddSelected)
+            get
             {
-                VehicleTable vehicleToAdd = BindXAMLToVehicle();
-
-                if (vehicleToAdd.Registration == string.Empty)
-                {
-                    return;
-                }
-
-                if (vehicleToAdd.MakeModel == string.Empty)
-                {
-                    return;
-                }
-
-                if (vehicleToAdd.FleetNumber == string.Empty)
-                {
-                    return;
-                }
-
-                if (await restAPI.QueryAddVehicle(vehicleToAdd))
-                {
-                    vehicleToAdd = dbService.InsertVehicle(vehicleToAdd);
-                    GetVehicles();
-                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", vehicleToAdd.Key);
-                }
-                else
-                {
-                    vehicleToAdd = dbService.InsertVehicle(vehicleToAdd);
-                    dbService.VehicleOffine(vehicleToAdd);
-                    GetVehicles();
-                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", vehicleToAdd.Key);
-                }
+                return company;
             }
-        }
 
-        public void UpdatePageAdd()
-        {
-            RegistrationEntry = string.Empty;
-            MakeModelEntry = string.Empty;
-            FleetEntry = string.Empty;
-            VehicleSelected = true;
-            VehicleAddSelected = true;
-            VehicleEditSelected = false;
-
-            OnPropertyChanged("VehicleSelected");
-            OnPropertyChanged("VehicleAddSelected");
-            OnPropertyChanged("VehicleEditSelected");
-            OnPropertyChanged("RegistrationEntry");
-            OnPropertyChanged("MakeModelEntry");
-            OnPropertyChanged("FleetEntry");
+            set
+            {
+                company = value;
+                OnPropertyChanged("Company");
+            }
         }
 
         public List<VehicleTable> GetVehicles()
         {
+            listOfVehicles = new List<VehicleTable>();
             listOfVehicles = dbService.GetVehicles();
 
-            UpdateLabels();
             return listOfVehicles;
         }
 
-        public List<CompanyTable> GetCompanies()
+        public CompanyTable GetCompany(int id)
         {
-            listOfCompanies = dbService.GetCompanies();
+            List<CompanyTable> listOfCompanies = new List<CompanyTable>();
+            listOfCompanies = dbService.GetCompanies(id);
 
-            return listOfCompanies;
-        }
-
-        public void SaveVehicleDetails()
-        {
-            if (VehicleEditSelected)
+            if (listOfCompanies.Count != 1)
             {
-                VehicleTable editedVehicle = BindXAMLToVehicle();
-                editedVehicle.Key = currentVehicle.Key;
-
-                if (editedVehicle.Registration != currentVehicle.Registration || editedVehicle.MakeModel != currentVehicle.MakeModel || editedVehicle.CompanyId != currentVehicle.CompanyId || editedVehicle.FleetNumber != currentVehicle.FleetNumber)
-                {
-                    dbService.UpdateVehicleInfo(editedVehicle);
-                    MessagingCenter.Send<string, int>("UpdateVehicles", "UpdateVehicles", editedVehicle.Key);
-                }
+                return null;
             }
+
+            CompanyTable companyDetails = new CompanyTable();
+            companyDetails = listOfCompanies[0];
+
+            return companyDetails;
         }
 
-        internal int UpdatePage(int selectedVehicle)
+        internal void UpdatePage(int selectedVehicle)
         {
-            VehicleTable vehicle = listOfVehicles[selectedVehicle];
+            VehicleTable vehicle = new VehicleTable();
+            vehicle = listOfVehicles[selectedVehicle];
+
+            CompanyTable companyDetails = new CompanyTable();
+            companyDetails = GetCompany(vehicle.CompanyId);
 
             RegistrationEntry = vehicle.Registration;
             MakeModelEntry = vehicle.MakeModel;
             FleetEntry = vehicle.FleetNumber;
+            Company = companyDetails.Name;
 
             VehicleSelected = true;
-            VehicleAddSelected = false;
-            VehicleEditSelected = true;
 
             OnPropertyChanged("RegistrationEntry");
             OnPropertyChanged("MakeModelEntry");
@@ -167,55 +116,11 @@ namespace Hubo
             OnPropertyChanged("VehicleActive");
             OnPropertyChanged("VehicleSelected");
             OnPropertyChanged("SwitchText");
-            currentVehicle = vehicle;
-
-            return vehicle.CompanyId;
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private VehicleTable BindXAMLToVehicle()
-        {
-            VehicleTable editedVehicle = new VehicleTable()
-            {
-                CompanyId = SelectedCompany + 1,
-                MakeModel = MakeModelEntry,
-                Registration = RegistrationEntry,
-                FleetNumber = FleetEntry
-            };
-            return editedVehicle;
-        }
-
-        private void UpdateLabels()
-        {
-            RegistrationText = Resource.RegistrationText;
-            MakeModelText = Resource.MakeModelText;
-            CompanyText = Resource.CompanyText;
-            FleetText = Resource.FleetText;
-            EditVehicleText = Resource.EditVehicleText;
-            AddVehicleText = Resource.AddVehicleText;
-
-            OnPropertyChanged("HuboText");
-            OnPropertyChanged("RegistrationText");
-            OnPropertyChanged("MakeText");
-            OnPropertyChanged("ModelText");
-            OnPropertyChanged("CompanyText");
-            OnPropertyChanged("FleetText");
-        }
-
-        private void EditVehicle()
-        {
-            if (currentVehicle.Registration == null)
-            {
-                UserDialogs.Instance.AlertAsync(Resource.ChooseVehicleToEdit, Resource.Alert, Resource.Okay);
-            }
-            else
-            {
-                SaveVehicleDetails();
-            }
         }
     }
 }

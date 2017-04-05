@@ -48,6 +48,36 @@ namespace Hubo
         public List<LicenceResponseModel> ListOfLicences { get; set; }
     }
 
+    public class CompanyResultResponseModel
+    {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "address1")]
+        public string Address1 { get; set; }
+
+        [JsonProperty(PropertyName = "address2")]
+        public string Address2 { get; set; }
+
+        [JsonProperty(PropertyName = "address3")]
+        public string Address3 { get; set; }
+
+        [JsonProperty(PropertyName = "postCode")]
+        public int PostCode { get; set; }
+
+        [JsonProperty(PropertyName = "suburb")]
+        public string Suburb { get; set; }
+
+        [JsonProperty(PropertyName = "city")]
+        public string City { get; set; }
+
+        [JsonProperty(PropertyName = "country")]
+        public string Country { get; set; }
+    }
+
     public class UserResponseModel
     {
         [JsonProperty(PropertyName = "id")]

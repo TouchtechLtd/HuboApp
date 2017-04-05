@@ -430,10 +430,23 @@ namespace Hubo
 
                         if (companyDetails.Success)
                         {
-                            foreach (CompanyTable companyItem in companyDetails.Companies)
+                            foreach (CompanyResultResponseModel companyItem in companyDetails.Companies)
                             {
-                                companyItem.DriverId = user.DriverId;
-                                db.InsertUserComapany(companyItem);
+                                CompanyTable company = new CompanyTable()
+                                {
+                                    Name = companyItem.Name,
+                                    Address1 = companyItem.Address1,
+                                    Address2 = companyItem.Address2,
+                                    Address3 = companyItem.Address3,
+                                    PostCode = companyItem.PostCode,
+                                    Suburb = companyItem.Suburb,
+                                    City = companyItem.City,
+                                    Country = companyItem.Country,
+                                    ServerId = companyItem.Id,
+                                    DriverId = user.DriverId
+                                };
+
+                                db.InsertUserComapany(company);
                             }
                         }
                         else
@@ -1000,24 +1013,34 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> ExportData(string emailAddress, string emailBody)
+        internal async Task<int> ExportData()
         {
             // TODO: make sure offline data is synced first
             string url = GetBaseUrl() + Constants.REST_URL_EXPORTDATA;
             string contentType = Constants.CONTENT_TYPE;
             HttpResponseMessage response;
 
+            UserTable user = new UserTable();
+            user = db.GetUserInfo();
+
             ExportModel export = new ExportModel()
             {
-                email = emailAddress,
-                body = emailBody
+                DriverId = user.DriverId
             };
             string json = JsonConvert.SerializeObject(export);
             HttpContent content = new StringContent(json, Encoding.UTF8, contentType);
 
             using (HttpClient client = new HttpClient())
             {
-                response = await client.PostAsync(url, content);
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -1;
+                }
             }
 
             if (response.IsSuccessStatusCode)

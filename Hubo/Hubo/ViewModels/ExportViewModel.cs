@@ -18,6 +18,7 @@ namespace Hubo
     internal class ExportViewModel
     {
         private readonly DatabaseService dbService = new DatabaseService();
+        private readonly RestService restAPI = new RestService();
 
         public ExportViewModel()
         {
@@ -38,82 +39,95 @@ namespace Hubo
 
         public ICommand ExportCommand { get; set; }
 
+        public INavigation Navigation { get; set; }
+
         public async Task Export()
         {
             EmailEntry = EmailEntry.Trim();
             if (Regex.IsMatch(EmailEntry, @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"))
             {
-                bool emailClient;
-                List<string> filePaths = new List<string>();
+                //bool emailClient;
+                //List<string> filePaths = new List<string>();
 
-                IFolder rootFolder = FileSystem.Current.LocalStorage;
-                IFolder folder = await rootFolder.CreateFolderAsync("ExportFolder", CreationCollisionOption.OpenIfExists);
+                //IFolder rootFolder = FileSystem.Current.LocalStorage;
+                //IFolder folder = await rootFolder.CreateFolderAsync("ExportFolder", CreationCollisionOption.OpenIfExists);
 
-                IFile exportShift = await folder.CreateFileAsync("exportShift.csv", CreationCollisionOption.ReplaceExisting);
-                IFile exportVehicle = await folder.CreateFileAsync("exportVehicle.csv", CreationCollisionOption.ReplaceExisting);
+                //IFile exportShift = await folder.CreateFileAsync("exportShift.csv", CreationCollisionOption.ReplaceExisting);
+                //IFile exportVehicle = await folder.CreateFileAsync("exportVehicle.csv", CreationCollisionOption.ReplaceExisting);
 
-                IEnumerable<ExportShift> compiledShiftData = dbService.GetExportShift();
-                IEnumerable<ExportBreak> compiledBreakData = dbService.GetExportBreak();
-                IEnumerable<ExportNote> compiledNoteData = dbService.GetExportNote();
-                IEnumerable<ExportVehicle> compiledVehicleData = dbService.GetExportVehicle();
+                //IEnumerable<ExportShift> compiledShiftData = dbService.GetExportShift();
+                //IEnumerable<ExportBreak> compiledBreakData = dbService.GetExportBreak();
+                //IEnumerable<ExportNote> compiledNoteData = dbService.GetExportNote();
+                //IEnumerable<ExportVehicle> compiledVehicleData = dbService.GetExportVehicle();
 
-                using (Stream file = await exportShift.OpenAsync(FileAccess.ReadAndWrite))
-                using (TextWriter sw = new StreamWriter(file))
-                using (var writer = new CsvWriter(sw))
-                {
-                    writer.WriteRecords(compiledShiftData);
-                }
+                //using (Stream file = await exportShift.OpenAsync(FileAccess.ReadAndWrite))
+                //using (TextWriter sw = new StreamWriter(file))
+                //using (var writer = new CsvWriter(sw))
+                //{
+                //    writer.WriteRecords(compiledShiftData);
+                //}
 
-                filePaths.Add(exportShift.Path);
+                //filePaths.Add(exportShift.Path);
 
-                if (compiledBreakData != null)
-                {
-                    IFile exportBreak = await folder.CreateFileAsync("exportBreak.csv", CreationCollisionOption.ReplaceExisting);
+                //if (compiledBreakData != null)
+                //{
+                //    IFile exportBreak = await folder.CreateFileAsync("exportBreak.csv", CreationCollisionOption.ReplaceExisting);
 
-                    using (Stream file = await exportBreak.OpenAsync(FileAccess.ReadAndWrite))
-                    using (TextWriter sw = new StreamWriter(file))
-                    using (var writer = new CsvWriter(sw))
-                    {
-                        writer.WriteRecords(compiledBreakData);
-                    }
+                //    using (Stream file = await exportBreak.OpenAsync(FileAccess.ReadAndWrite))
+                //    using (TextWriter sw = new StreamWriter(file))
+                //    using (var writer = new CsvWriter(sw))
+                //    {
+                //        writer.WriteRecords(compiledBreakData);
+                //    }
 
-                    filePaths.Add(exportBreak.Path);
-                }
+                //    filePaths.Add(exportBreak.Path);
+                //}
 
-                if (compiledNoteData != null)
-                {
-                    IFile exportNote = await folder.CreateFileAsync("exportNote.csv", CreationCollisionOption.ReplaceExisting);
+                //if (compiledNoteData != null)
+                //{
+                //    IFile exportNote = await folder.CreateFileAsync("exportNote.csv", CreationCollisionOption.ReplaceExisting);
 
-                    using (Stream file = await exportNote.OpenAsync(FileAccess.ReadAndWrite))
-                    using (TextWriter sw = new StreamWriter(file))
-                    using (var writer = new CsvWriter(sw))
-                    {
-                        writer.WriteRecords(compiledNoteData);
-                    }
+                //    using (Stream file = await exportNote.OpenAsync(FileAccess.ReadAndWrite))
+                //    using (TextWriter sw = new StreamWriter(file))
+                //    using (var writer = new CsvWriter(sw))
+                //    {
+                //        writer.WriteRecords(compiledNoteData);
+                //    }
 
-                    filePaths.Add(exportNote.Path);
-                }
+                //    filePaths.Add(exportNote.Path);
+                //}
 
-                using (Stream file = await exportVehicle.OpenAsync(FileAccess.ReadAndWrite))
-                using (TextWriter sw = new StreamWriter(file))
-                using (var writer = new CsvWriter(sw))
-                {
-                    writer.WriteRecords(compiledVehicleData);
-                }
+                //using (Stream file = await exportVehicle.OpenAsync(FileAccess.ReadAndWrite))
+                //using (TextWriter sw = new StreamWriter(file))
+                //using (var writer = new CsvWriter(sw))
+                //{
+                //    writer.WriteRecords(compiledVehicleData);
+                //}
 
-                filePaths.Add(exportVehicle.Path);
+                //filePaths.Add(exportVehicle.Path);
 
-                emailClient = DependencyService.Get<IEmail>().Email(EmailEntry, Resource.Last7ShiftDays, filePaths);
+                //emailClient = DependencyService.Get<IEmail>().Email(EmailEntry, Resource.Last7ShiftDays, filePaths);
 
-                if (emailClient)
-                {
-                    MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
-                }
-                else
+                //if (emailClient)
+                //{
+                //    // MessagingCenter.Send<string>("PopAfterExport", "PopAfterExport");
+                //    await Navigation.PopModalAsync();
+                //}
+                //else
+                //{
+                //    await UserDialogs.Instance.AlertAsync(Resource.EmailError, Resource.SendError, Resource.Okay);
+                //    return;
+                //}
+
+                int result = await restAPI.ExportData();
+
+                if (result < 1)
                 {
                     await UserDialogs.Instance.AlertAsync(Resource.EmailError, Resource.SendError, Resource.Okay);
                     return;
                 }
+
+                await Navigation.PopModalAsync();
             }
             else
             {

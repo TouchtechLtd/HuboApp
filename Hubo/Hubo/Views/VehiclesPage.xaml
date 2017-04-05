@@ -3,8 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
-             x:Class="Hubo.VehiclesPage"
-             >
+             x:Class="Hubo.VehiclesPage">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -20,27 +19,20 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Picker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="Start" IsVisible="False"/>
+        <local:MyPicker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Start"/>
 
-        <Label Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="False"/>
-        <local:BaseEntry x:Name="registration" IsEnabled="{Binding VehicleSelected}" Text="{Binding RegistrationEntry}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" IsVisible="False"/>
+        <Label FontSize="16" Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}"/>
+        <Label FontSize="16" Text="{Binding RegistrationEntry}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
 
-        <Label Text="{Binding MakeModelText}" Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="False" />
-        <local:BaseEntry x:Name="makeModel" IsEnabled="{Binding VehicleSelected}" Text="{Binding MakeModelEntry}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center" IsVisible="False"/>
+        <Label FontSize="16" Text="{Binding MakeModelText}" Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}" />
+        <Label FontSize="16" Text="{Binding MakeModelEntry}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
 
-        <Label Text="{Binding CompanyText}" Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="False" />
-        <Picker x:Name="companyPicker" Grid.Column="2" IsEnabled="{Binding VehicleSelected}" Grid.Row="4" VerticalOptions="Center" IsVisible="False" />
+        <Label FontSize="16" Text="{Binding CompanyText}" Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}"/>
+        <Label FontSize="16" Text="{Binding Company}" Grid.Column="2" Grid.Row="4" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
 
-        <Label Text="{Binding FleetText}" Grid.Row="5" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="False" />
-        <local:BaseEntry x:Name="fleet" IsEnabled="{Binding VehicleSelected}" Text="{Binding FleetEntry}" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" IsVisible="False"/>
-
-        <!--<Button Text="{Binding EditVehicleText}" Command="{Binding EditVehicleCommand}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>-->
-        <!--<Button Text="{Binding AddVehicleText}" Command="{Binding AddVehicleCommand}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" IsVisible="{Binding VehiclesPageFromMenu}"/>-->
-
-        <BoxView Color="Black" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>
-        <Label Text="Coming Soon!" TextColor="White" FontSize="46" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="8"/>
+        <Label FontSize="16" Text="{Binding FleetText}" Grid.Row="5" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}" />
+        <Label FontSize="16" Text="{Binding FleetEntry}" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
     </Grid>
 </ContentPage>

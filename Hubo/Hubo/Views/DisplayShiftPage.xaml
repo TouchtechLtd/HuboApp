@@ -54,7 +54,7 @@
                 <BoxView Color="Gray" HeightRequest="1" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" />
 
                 <Label Text="{Binding DrivesText}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" IsVisible="{Binding DrivesAvailable}"/>
-                <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" IsVisible="{Binding DrivesAvailable}">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" IsVisible="{Binding DrivesAvailable}">
                     <ListView x:Name="driveList" ItemsSource="{Binding Drives}" HasUnevenRows="True" SeparatorVisibility="Default">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -95,7 +95,7 @@
                 </StackLayout>
 
                 <Label Text="{Binding BreaksText}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="1" IsVisible="{Binding BreaksAvailable}"/>
-                <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" IsVisible="{Binding BreaksAvailable}">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" IsVisible="{Binding BreaksAvailable}">
                     <ListView x:Name="breakList" ItemsSource="{Binding Breaks}" HasUnevenRows="True" SeparatorVisibility="Default">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -135,7 +135,7 @@
                 </StackLayout>
 
                 <Label Text="{Binding NotesText}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="1" IsVisible="{Binding NotesAvailable}"/>
-                <StackLayout BackgroundColor="#cccccc" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10" IsVisible="{Binding NotesAvailable}">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10" IsVisible="{Binding NotesAvailable}">
                     <ListView x:Name="noteList" ItemsSource="{Binding Notes}" HasUnevenRows="True" SeparatorVisibility="Default">
                         <ListView.ItemTemplate>
                             <DataTemplate>

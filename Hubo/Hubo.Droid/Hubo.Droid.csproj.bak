@@ -63,7 +63,7 @@
     <Debugger>.Net (Xamarin)</Debugger>
     <AotAssemblies>False</AotAssemblies>
     <EnableLLVM>False</EnableLLVM>
-    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
