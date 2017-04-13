@@ -26,6 +26,7 @@
 
             <Style TargetType="ListView">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="SeparatorColor" Value="White"/>
             </Style>
 
             <Style TargetType="local:CustomTableView">

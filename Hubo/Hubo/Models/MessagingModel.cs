@@ -2,6 +2,8 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
+using System.Collections;
+
 namespace Hubo
 {
     internal class MessagingModel

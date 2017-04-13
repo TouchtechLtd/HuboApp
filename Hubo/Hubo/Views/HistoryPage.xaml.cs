@@ -49,12 +49,14 @@ namespace Hubo
 
             var date = (CategoryData)selectedPoint.DataItem;
 
+            (sender as ChartSelectionBehavior).ClearSelection();
+
             DateTime now = DateTime.Now;
 
             DateTime selectedDate = DateTime.Parse(date.Category + "/" + now.Year);
 
-            await UserDialogs.Instance.AlertAsync("Details Page under construction", "Coming Soon", Resource.Okay);
-            //await Navigation.PushModalAsync(new DisplayShiftPage(selectedDate));
+            // await UserDialogs.Instance.AlertAsync("Details Page under construction", "Coming Soon", Resource.Okay);
+            await Navigation.PushModalAsync(new DisplayShiftPage(selectedDate));
         }
 
         private void Picker_DateSelected(object sender, DateChangedEventArgs e)

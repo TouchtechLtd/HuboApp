@@ -1408,8 +1408,11 @@ namespace Hubo
         {
             List<string> questions = new List<string>
             {
-                "Are you sober?",
-                "Are you well-rested?"
+                "Have you consumed any alcohol or drugs prior to this shift?",
+                "Have you had sufficient sleep prior to this shift?",
+                "Do you feel tired?",
+                "Have you operated a motor vehicle or machinery in excess of 1 hour during your 10 hour break?",
+                "Do you have the correct PPE with you?"
             };
             return questions;
         }

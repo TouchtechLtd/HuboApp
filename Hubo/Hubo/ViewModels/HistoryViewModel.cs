@@ -65,8 +65,8 @@ namespace Hubo
             {
                 for (int i = 0; i < (5 - number.Count); i++)
                 {
-                    HistoryChartData.Add(new CategoryData { Category = (i + 1) + "/3", Value = 0 });
-                    HistoryChartData1.Add(new CategoryData { Category = (i + 1) + "/3", Value = 0 });
+                    HistoryChartData.Add(new CategoryData { Category = (i + 1) + "/0", Value = 0 });
+                    HistoryChartData1.Add(new CategoryData { Category = (i + 1) + "/0", Value = 0 });
                 }
             }
 
@@ -176,8 +176,8 @@ namespace Hubo
             {
                 for (int i = 0; i < (5 - number.Count); i++)
                 {
-                    HistoryChartData.Add(new CategoryData { Category = (i + 1) + "/3", Value = 0 });
-                    HistoryChartData1.Add(new CategoryData { Category = (i + 1) + "/3", Value = 0 });
+                    HistoryChartData.Add(new CategoryData { Category = (i + 1) + "/0", Value = 0 });
+                    HistoryChartData1.Add(new CategoryData { Category = (i + 1) + "/0", Value = 0 });
                 }
             }
 

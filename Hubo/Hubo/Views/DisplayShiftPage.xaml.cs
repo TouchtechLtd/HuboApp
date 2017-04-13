@@ -7,6 +7,7 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using Xamarin.Forms;
+    using XFShapeView;
 
     public partial class DisplayShiftPage : ContentPage
     {
@@ -39,42 +40,73 @@ namespace Hubo
                 shiftPicker.Items.Add(string.Format("{0:dd/MM}", shiftStart) + ") " + string.Format("{0:hh:mm tt}", shiftStart) + " - " + string.Format("{0:hh:mm tt}", shiftEnd));
             }
 
-            driveList.ItemSelected += (sender, e) =>
+            var leftArrow = new ShapeView
             {
-                if (((ListView)sender).SelectedItem == null)
-                {
-                    return;
-                }
-
-                ((ListView)sender).SelectedItem = null;
+                ShapeType = ShapeType.Triangle,
+                Color = Color.Gray,
+                HeightRequest = 30,
+                WidthRequest = 30,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Rotation = -90
             };
+            leftArrow.SetBinding(ShapeView.IsVisibleProperty, "CanExecuteLeft");
 
-            noteList.ItemSelected += (sender, e) =>
-             {
-                 if (((ListView)sender).SelectedItem == null)
-                 {
-                     return;
-                 }
+            var leftTapGesture = new TapGestureRecognizer()
+            {
+                CommandParameter = "Left"
+            };
+            leftTapGesture.SetBinding(TapGestureRecognizer.CommandProperty, "ChangeShiftLeftCommand");
+            leftArrow.GestureRecognizers.Add(leftTapGesture);
+            leftBox.GestureRecognizers.Add(leftTapGesture);
 
-                ((ListView)sender).SelectedItem = null;
-             };
+            var rightArrow = new ShapeView
+            {
+                ShapeType = ShapeType.Triangle,
+                Color = Color.Gray,
+                HeightRequest = 30,
+                WidthRequest = 30,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Rotation = 90
+            };
+            rightArrow.SetBinding(ShapeView.IsVisibleProperty, "CanExecuteRight");
 
-            breakList.ItemSelected += (sender, e) =>
-             {
-                 if (((ListView)sender).SelectedItem == null)
-                 {
-                     return;
-                 }
+            var rightTapGesture = new TapGestureRecognizer()
+            {
+                CommandParameter = "Right"
+            };
+            rightTapGesture.SetBinding(TapGestureRecognizer.CommandProperty, "ChangeShiftRightCommand");
+            rightArrow.GestureRecognizers.Add(rightTapGesture);
+            rightBox.GestureRecognizers.Add(rightTapGesture);
 
-                ((ListView)sender).SelectedItem = null;
-             };
+            grid.Children.Add(leftArrow, 0, 0);
+            grid.Children.Add(rightArrow, 2, 0);
 
             shiftPicker.SelectedIndexChanged += ShiftPicker_SelectedIndexChanged;
+
+            MessagingCenter.Subscribe<string, int>("ChangeShift", "ChangeShift", (s, index) =>
+            {
+                shiftPicker.SelectedIndex = index;
+            });
         }
 
         private void ShiftPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            displayVM.LoadShiftDetails(shifts[shiftPicker.SelectedIndex]);
+            if (shifts.Count > 0)
+            {
+                displayVM.LoadShiftDetails(shifts[shiftPicker.SelectedIndex]);
+            }
+        }
+
+        private void DisableItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (((ListView)sender).SelectedItem == null)
+            {
+                return;
+            }
+
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }
