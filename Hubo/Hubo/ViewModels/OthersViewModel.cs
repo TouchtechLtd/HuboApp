@@ -24,6 +24,8 @@ namespace Hubo
             });
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public List<MenuItem> OthersPageList { get; set; }
 
         public string Name
@@ -39,8 +41,6 @@ namespace Hubo
                 OnPropertyChanged("Name");
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private List<MenuItem> PopulateMenuItems()
         {

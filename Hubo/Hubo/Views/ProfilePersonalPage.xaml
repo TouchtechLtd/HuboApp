@@ -5,56 +5,34 @@
              xmlns:local="clr-namespace:Hubo;assembly=Hubo"
              x:Class="Hubo.ProfilePersonalPage">
 
-    <ScrollView>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" /> 
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <Label Text="{Binding UserNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding UserName}" x:Name="userName" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
+        <Label Text="{Binding UserNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding UserName}" x:Name="userName" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
 
-            <Label Text="{Binding FirstNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
+        <Label Text="{Binding FirstNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding FirstName}" x:Name="firstName" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
 
-            <Label Text="{Binding LastNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"  YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding LastName}" x:Name="lastName" Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
+        <Label Text="{Binding LastNameText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"  YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding LastName}" x:Name="lastName" Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
 
-            <Label Text="{Binding EmailText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding Email}" x:Name="email"  Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
+        <Label Text="{Binding EmailText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"  YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding Email}" x:Name="email"  Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
 
-            <Label Text="{Binding PhoneText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="4" VerticalOptions="Center"/>
-
-            <Label Text="{Binding AddressText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding Address1}" x:Name="address1" Grid.Column="2" Grid.Row="5" VerticalOptions="Center"/>
-            <local:BaseEntry Text="{Binding Address2}" x:Name="address2" Grid.Column="2" Grid.Row="6" VerticalOptions="Center"/>
-            <local:BaseEntry Text="{Binding Address3}" x:Name="address3" Grid.Column="2" Grid.Row="7" VerticalOptions="Center"/>
-
-            <Label Text="{Binding PostCodeText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding PostCode}" x:Name="postCode" Grid.Column="2" Grid.Row="8" VerticalOptions="Center"/>
-
-            <Label Text="{Binding CityText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding City}" x:Name="city" Grid.Column="2" Grid.Row="9" VerticalOptions="Center"/>
-
-            <Label Text="{Binding CountryText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" YAlign="Center" XAlign="Center"/>
-            <local:BaseEntry Text="{Binding Country}" x:Name="country" Grid.Column="2" Grid.Row="10" VerticalOptions="Center"/>
-        </Grid>
-    </ScrollView>
+        <Label Text="{Binding PhoneText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding Phone}" x:Name="phone" Grid.Column="2" Grid.Row="4" VerticalOptions="Center"/>
+    </Grid>
 </ContentPage>

@@ -21,7 +21,7 @@ namespace Hubo
             cancel.Text = Resource.Cancel;
             done.Command = profileVM.SaveAndExit;
             cancel.Command = profileVM.CancelAndExit;
-            ToolbarItems.Add(done);
+            //ToolbarItems.Add(done);
             ToolbarItems.Add(cancel);
             Title = Resource.ProfileText;
         }

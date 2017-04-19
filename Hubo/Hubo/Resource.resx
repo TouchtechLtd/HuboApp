@@ -169,7 +169,7 @@
     <value>History</value>
   </data>
   <data name="ProfileText" xml:space="preserve">
-    <value>Profile - Coming Soon</value>
+    <value>Profile</value>
   </data>
   <data name="SettingsText" xml:space="preserve">
     <value>Settings - Coming Soon</value>
@@ -651,9 +651,6 @@
   <data name="NoBreakRemaining" xml:space="preserve">
     <value>You have used up all the time in this break. Would you like to end it now?</value>
   </data>
-  <data name="Nope" xml:space="preserve">
-    <value>Nope</value>
-  </data>
   <data name="Notify10Break" xml:space="preserve">
     <value>You have less than 10 mins until your break</value>
   </data>
@@ -782,5 +779,8 @@
   </data>
   <data name="YouAreRestedPart2" xml:space="preserve">
     <value>Start your shift when you can.</value>
+  </data>
+  <data name="NotOkay" xml:space="preserve">
+    <value>Not Okay</value>
   </data>
 </root>

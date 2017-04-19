@@ -1124,15 +1124,6 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nope.
-        /// </summary>
-        internal static string Nope {
-            get {
-                return ResourceManager.GetString("Nope", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No shifts have been recorded yet.
         /// </summary>
         internal static string NoShiftsDoneYet {
@@ -1349,6 +1340,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Okay.
+        /// </summary>
+        internal static string NotOkay {
+            get {
+                return ResourceManager.GetString("NotOkay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please provide both Username &amp; Password.
         /// </summary>
         internal static string NoUsernameOrPasswordMessage {
@@ -1439,7 +1439,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile - Coming Soon.
+        ///   Looks up a localized string similar to Profile.
         /// </summary>
         internal static string ProfileText {
             get {

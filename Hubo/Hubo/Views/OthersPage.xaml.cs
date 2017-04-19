@@ -40,8 +40,8 @@ namespace Hubo
         {
             if (menu.TargetType == "Profile")
             {
-                // await Navigation.PushModalAsync(new ProfilePage());
-                await UserDialogs.Instance.AlertAsync("Profile Page under construction", "Coming Soon", Resource.Okay);
+                await Navigation.PushModalAsync(new ProfilePage());
+                // await UserDialogs.Instance.AlertAsync("Profile Page under construction", "Coming Soon", Resource.Okay);
             }
             else if (menu.TargetType == "Settings")
             {

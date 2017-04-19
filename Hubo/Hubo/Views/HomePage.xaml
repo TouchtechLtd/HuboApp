@@ -75,7 +75,7 @@
 
         <!--<fab:FloatingActionButton Size="Normal"  x:Name="driveButton" Text="{Binding VehicleText}" BackgroundColor="{Binding VehicleTextColor}" Command="{Binding VehicleCommand}" IsVisible="{Binding ShiftStarted}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" BorderRadius="5" BorderWidth="2"/>-->
         <fab:FloatingActionButton Size="Mini" Source="TransparentPlaceHolder.png" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" x:Name="driveButton"  Command="{Binding VehicleCommand}" NormalColor="{Binding VehicleTextColor}" IsVisible="{Binding ShiftStarted}" />
-        <Label Text="{Binding VehicleText}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" VerticalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="Large" IsVisible="{Binding ShiftStarted}"/>
+        <Label x:Name="driveLabel" Text="{Binding VehicleText}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Large" IsVisible="{Binding ShiftStarted}"/>
 
         <Label FontSize="20" Text="{Binding ShiftTimes}" IsVisible="{Binding ShiftStarted}" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="5" />
 

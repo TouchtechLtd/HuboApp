@@ -10,13 +10,19 @@
         </x:Arguments>
     </NavigationPage>
 
-    <NavigationPage Title="Companies">
+    <NavigationPage Title="Address">
+        <x:Arguments>
+            <local:ProfileAddressPage/>
+        </x:Arguments>
+    </NavigationPage>
+    
+    <NavigationPage Title="Company">
         <x:Arguments>
             <local:ProfileCompanyPage/>
         </x:Arguments>
     </NavigationPage>
 
-    <NavigationPage Title="Licences">
+    <NavigationPage Title="Licence">
         <x:Arguments> 
             <local:ProfileLicencePage/>
         </x:Arguments>

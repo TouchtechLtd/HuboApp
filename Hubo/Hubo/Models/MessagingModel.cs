@@ -2,8 +2,6 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
-using System.Collections;
-
 namespace Hubo
 {
     internal class MessagingModel
@@ -13,5 +11,12 @@ namespace Hubo
         public double PropertyValue { get; set; } = -1;
 
         public bool PropertyBool { get; set; } = false;
+    }
+
+    internal class QuestionModel
+    {
+        public string Question { get; set; }
+
+        public bool YesCorrect { get; set; }
     }
 }

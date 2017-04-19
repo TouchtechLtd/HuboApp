@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.ProfileAddressPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Label Text="{Binding AddressText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding Address1}" x:Name="address1" Grid.Column="2" Grid.Row="0" VerticalOptions="Center"/>
+        <local:BaseEntry Text="{Binding Address2}" x:Name="address2" Grid.Column="2" Grid.Row="1" VerticalOptions="Center"/>
+        <local:BaseEntry Text="{Binding Address3}" x:Name="address3" Grid.Column="2" Grid.Row="2" VerticalOptions="Center"/>
+
+        <Label Text="{Binding PostCodeText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding PostCode}" x:Name="postCode" Grid.Column="2" Grid.Row="3" VerticalOptions="Center"/>
+
+        <Label Text="{Binding CityText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding City}" x:Name="city" Grid.Column="2" Grid.Row="4" VerticalOptions="Center"/>
+
+        <Label Text="{Binding CountryText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" YAlign="Center" XAlign="Center"/>
+        <local:BaseEntry Text="{Binding Country}" x:Name="country" Grid.Column="2" Grid.Row="5" VerticalOptions="Center"/>
+    </Grid>
+</ContentPage>

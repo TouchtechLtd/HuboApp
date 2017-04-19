@@ -6,6 +6,7 @@ namespace Hubo
 {
     using System.Collections.Generic;
     using Xamarin.Forms;
+    using XFShapeView;
 
     public partial class HomePage : ContentPage
     {
@@ -21,6 +22,10 @@ namespace Hubo
             BackgroundColor = Color.FromHex("#FCFFF5");
             Title = Resource.Hubo;
             UpdateList();
+
+            var driveButton = new TapGestureRecognizer();
+            driveButton.SetBinding(TapGestureRecognizer.CommandProperty, "VehicleCommand");
+            driveLabel.GestureRecognizers.Add(driveButton);
         }
 
         public void UpdateList()

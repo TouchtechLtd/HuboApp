@@ -24,25 +24,7 @@ namespace Hubo
             email.ReturnType = ReturnType.Next;
             email.Next = phone;
 
-            phone.ReturnType = ReturnType.Next;
-            phone.Next = address1;
-
-            address1.ReturnType = ReturnType.Next;
-            address1.Next = address2;
-
-            address2.ReturnType = ReturnType.Next;
-            address2.Next = address3;
-
-            address3.ReturnType = ReturnType.Next;
-            address3.Next = postCode;
-
-            postCode.ReturnType = ReturnType.Next;
-            postCode.Next = city;
-
-            city.ReturnType = ReturnType.Next;
-            city.Next = country;
-
-            country.ReturnType = ReturnType.Done;
+            phone.ReturnType = ReturnType.Done;
         }
     }
 }

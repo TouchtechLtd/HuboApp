@@ -83,7 +83,6 @@ namespace Hubo
                 }
                 else
                 {
-                    await UserDialogs.Instance.AlertAsync(Resource.InvalidLogin, Resource.Alert, Resource.Okay);
                     return false;
                 }
             }

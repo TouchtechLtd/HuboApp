@@ -151,6 +151,9 @@
     <Compile Include="Views\OthersPage.xaml.cs">
       <DependentUpon>OthersPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProfileAddressPage.xaml.cs">
+      <DependentUpon>ProfileAddressPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProfileCompanyPage.xaml.cs">
       <DependentUpon>ProfileCompanyPage.xaml</DependentUpon>
     </Compile>
@@ -476,6 +479,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EndShiftConfirmPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ProfileAddressPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

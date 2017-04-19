@@ -14,6 +14,7 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
+    using System.IO;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -798,7 +799,7 @@ namespace Hubo
                 foreach (string question in checklistQuestions)
                 {
                     count++;
-                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Yes, Resource.No);
+                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Okay, Resource.NotOkay);
                     if (!result)
                     {
                         return false;
@@ -894,7 +895,7 @@ namespace Hubo
 
         private async Task<string> NotePromptAsync()
         {
-            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Alert, Resource.IWould, Resource.Nope))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Alert, Resource.IWould, Resource.No))
             {
                 PromptConfig notePrompt = new PromptConfig()
                 {
@@ -1306,13 +1307,14 @@ namespace Hubo
                     await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
                 }
 
-                List<string> checklistQuestions = dbService.GetChecklistHealthSafety();
+                List<QuestionModel> checklistQuestions = dbService.GetChecklistHealthSafety();
                 int count = 0;
-                foreach (string question in checklistQuestions)
+                foreach (QuestionModel question in checklistQuestions)
                 {
                     count++;
-                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Yes, Resource.No);
-                    if (!result)
+                    bool result = await UserDialogs.Instance.ConfirmAsync(question.Question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Yes, Resource.No);
+
+                    if (question.YesCorrect ? !result : result)
                     {
                         return false;
                     }
@@ -1518,7 +1520,7 @@ namespace Hubo
 
         private async Task<string> NotePrompt()
         {
-            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Confirmation, Resource.IWould, Resource.Nope))
+            if (await UserDialogs.Instance.ConfirmAsync(Resource.AddNoteQuery, Resource.Confirmation, Resource.IWould, Resource.No))
             {
                 PromptConfig notePrompt = new PromptConfig()
                 {

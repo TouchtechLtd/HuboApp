@@ -10,7 +10,7 @@
             <Color x:Key="barBackgroundColour">#193441</Color>
             <Color x:Key="entryBackgroundColour">#FCFFF5</Color>
             <Color x:Key="entryTextColour">#3E606F</Color>
-            <Color x:Key="buttonBackgroundColour">#91AA9D</Color>
+            <Color x:Key="buttonBackgroundColour">#40505e</Color>
             <Color x:Key="buttonTextColour">#FCFFF5</Color>
             <OnPlatform x:Key="fontFamilyMean" x:TypeArguments="x:String" iOS="WordMean" Android="WordMean.ttf#WordMean" />
             <OnPlatform x:Key="fontFamily" x:TypeArguments="x:String" iOS="SAGNEL" Android="SAGNEL.ttf#SAGNEL" />
@@ -22,6 +22,11 @@
 
             <Style x:Key="ContentPageStyle"  TargetType="ContentPage"> 
                 <Setter Property="BackgroundImage" Value="DesertRoadCopy.jpg" />
+                <Setter Property="Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness" iOS="0,25,0,0" Android="0,0,0,0"/>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style TargetType="ListView">
