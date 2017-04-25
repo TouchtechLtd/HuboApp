@@ -1455,7 +1455,7 @@ namespace Hubo
         {
             restAPI = new RestService();
 
-            using (UserDialogs.Instance.Loading(Resource.StoppingShift, null, null, true, MaskType.Gradient))
+            using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
             {
                 ShiftTable shift = new ShiftTable()
                 {
