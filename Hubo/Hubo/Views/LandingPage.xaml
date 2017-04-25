@@ -26,7 +26,7 @@
         <Label Text="HUBO" FontSize="60" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7" x:Name="huboLabelSecond" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Opacity="0"/>
         <Label Text="HUBO" FontSize="60" Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="7" x:Name="huboLabelFirst" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Opacity="1"/>
         <StackLayout BackgroundColor="Transparent" x:Name="stackLayoutLogin" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"  Opacity="0">
-            <local:BaseEntry VerticalOptions="EndAndExpand" PlaceholderColor="Black" Placeholder="Username" x:Name="usernameEntry"/>
+            <local:BaseEntry VerticalOptions="EndAndExpand" PlaceholderColor="Black" Placeholder="Username" x:Name="usernameEntry" Keyboard="Email"/>
             <local:BaseEntry VerticalOptions="StartAndExpand"  PlaceholderColor="Black" Placeholder="Password" x:Name="passwordEntry" IsPassword="True"/>
         </StackLayout>
         
