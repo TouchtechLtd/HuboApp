@@ -783,4 +783,10 @@
   <data name="NotOkay" xml:space="preserve">
     <value>Not Okay</value>
   </data>
+  <data name="BreakAfter70" xml:space="preserve">
+    <value>Please end your shift and wait 24 hours before your next shift!</value>
+  </data>
+  <data name="BreakAfter70Title" xml:space="preserve">
+    <value>24 Hour Break Needed</value>
+  </data>
 </root>

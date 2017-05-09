@@ -39,7 +39,9 @@ namespace Hubo.iOS
 
             BITHockeyManager manager = BITHockeyManager.SharedHockeyManager;
             manager.Configure(Configuration.HockeyAppIdIOS);
+            manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
             manager.StartManager();
+            manager.Authenticator.AuthenticateInstallation();
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
             {

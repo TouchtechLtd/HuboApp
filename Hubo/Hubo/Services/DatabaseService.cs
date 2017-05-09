@@ -284,6 +284,10 @@ namespace Hubo
             {
                 return -1;
             }
+            else if (listOfActiveShifts.Count == 0)
+            {
+                return 0;
+            }
 
             TimeSpan previous = default(TimeSpan);
             TimeSpan current = DateTime.Now.TimeOfDay;
@@ -359,7 +363,7 @@ namespace Hubo
             return nextBreak;
         }
 
-        internal double GetTotalOfSeventy()
+        internal async Task<double> GetTotalOfSeventy()
         {
             // Get the datetime of now, get last shift end date, if greater than 24 hours, then return 0, else iterate through all previous shifts until a 24 hour break is detected.
             DateTime dateTimeNow = DateTime.Now;
@@ -401,7 +405,16 @@ namespace Hubo
                 }
             }
 
-            return totalTime / 60;
+            totalTime = totalTime / 60;
+
+            if (totalTime > 70)
+            {
+                return 70;
+            }
+            else
+            {
+                return totalTime / 60;
+            }
         }
 
         internal bool CheckOngoingNotification()
@@ -478,8 +491,16 @@ namespace Hubo
             }
 
             DateTime endTime = DateTime.Parse(lastShift.EndDate);
+            DateTime startTime = DateTime.Parse(lastShift.StartDate);
 
-            endTime = endTime.AddHours(10);
+            if ((endTime - startTime) > TimeSpan.FromHours(14))
+            {
+                endTime = endTime.AddHours(24);
+            }
+            else
+            {
+                endTime = endTime.AddHours(10);
+            }
 
             if (DateTime.Now > endTime)
             {
@@ -488,7 +509,6 @@ namespace Hubo
             else
             {
                 return (endTime - DateTime.Now).TotalMinutes;
-                //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
             }
         }
 
@@ -977,7 +997,7 @@ namespace Hubo
                 //        return false;
                 //    }
                 //}
-                    //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //{
                 //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
@@ -1030,7 +1050,7 @@ namespace Hubo
         internal bool CheckFullBreak()
         {
             List<ShiftTable> shifts = new List<ShiftTable>();
-            shifts = db.Query<ShiftTable>("SELECT [Key] FROM [ShiftTable] WHERE [ActiveShift] = 1");
+            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
             if (shifts.Count == 1)
             {

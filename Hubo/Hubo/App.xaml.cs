@@ -14,15 +14,22 @@ namespace Hubo
 
         public Application()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            if (dbService.CheckLoggedIn())
-            {
-                MainPage = new NZTAMessagePage(1);
+                if (dbService.CheckLoggedIn())
+                {
+                    MainPage = new NZTAMessagePage(1);
+                }
+                else
+                {
+                    MainPage = new LandingPage();
+                }
             }
-            else
+            catch
             {
-                MainPage = new LandingPage();
+                MainPage = new ErrorPage();
             }
 
             // MainPage = new EndShiftConfirmPage();

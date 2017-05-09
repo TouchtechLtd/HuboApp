@@ -28,6 +28,13 @@ namespace Hubo
             driveLabel.GestureRecognizers.Add(driveButton);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Send<string>("loadComplete", "loadComplete");
+        }
+
         public void UpdateList()
         {
             vehicles = homeVM.GetVehicles();

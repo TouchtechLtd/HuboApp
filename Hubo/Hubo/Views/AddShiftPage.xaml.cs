@@ -30,6 +30,13 @@ namespace Hubo
 
             endLocation.ReturnType = ReturnType.Done;
             endLocation.Completed += EndLocation_Completed;
+
+            //serviceButton.Clicked += ServiceButton_Clicked;
+        }
+
+        private void ServiceButton_Clicked(object sender, EventArgs e)
+        {
+            DependencyService.Get<IServiceController>().StartService();
         }
 
         private void EndLocation_Completed(object sender, EventArgs e)

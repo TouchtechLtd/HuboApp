@@ -7,6 +7,7 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -14,7 +15,6 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
-    using System.IO;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -44,6 +44,16 @@ namespace Hubo
 
         public HomeViewModel()
         {
+            MessagingCenter.Subscribe<string>("loadComplete", "loadComplete", async (s) =>
+            {
+                if (CompletedSeventy >= 70)
+                {
+                    await UserDialogs.Instance.AlertAsync(Resource.BreakAfter70, Resource.BreakAfter70Title, Resource.Okay);
+                }
+
+                MessagingCenter.Unsubscribe<string>("loadComplete", "loadComplete");
+            });
+
             MessagingCenter.Subscribe<string, MessagingModel>("Countdown Update", "CountDown Update", (s, sentValues) =>
             {
                 switch (sentValues.PropertyName)
@@ -84,7 +94,7 @@ namespace Hubo
             });
 
             // List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
-            CompletedJourney = 0;
+            CompletedJourney = dbService.TotalSinceStart();
             RemainderOfJourney = 0;
             Break = 0;
 
@@ -256,7 +266,7 @@ namespace Hubo
             StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
             VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
-            CompletedSeventy = dbService.GetTotalOfSeventy();
+            Initialize();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -334,8 +344,6 @@ namespace Hubo
         public string VehiclePickerText { get; set; }
 
         public bool PickerEnabled { get; set; }
-
-
 
         public string NextBreakTime
         {
@@ -457,11 +465,11 @@ namespace Hubo
             }
         }
 
-        public Task PageReload()
+        public async Task PageReload()
         {
             CheckActiveShift();
             CheckActiveBreak();
-            CompletedSeventy = dbService.GetTotalOfSeventy();
+            CompletedSeventy = await dbService.GetTotalOfSeventy();
 
             if (dbService.CheckActiveShift())
             {
@@ -482,7 +490,7 @@ namespace Hubo
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
             }
 
-            return Task.FromResult(0);
+            return;
         }
 
         public List<VehicleTable> GetVehicles()
@@ -495,6 +503,11 @@ namespace Hubo
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private async void Initialize()
+        {
+            CompletedSeventy = await dbService.GetTotalOfSeventy();
         }
 
         private void SetVehicleLabel()
@@ -1455,7 +1468,7 @@ namespace Hubo
         private void UpdateCircularGauge()
         {
             notifyReady = false;
-            CompletedJourney = dbService.TotalSinceStart();
+            //CompletedJourney = dbService.TotalSinceStart();
 
             if (CompletedJourney == -1)
             {

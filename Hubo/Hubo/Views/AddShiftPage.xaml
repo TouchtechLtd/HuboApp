@@ -39,8 +39,10 @@
             <Button Text="{Binding AddText}" Command="{Binding AddButton}" x:Name="addButton" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}" IsVisible="False" />
             <Button Text="{Binding SaveText}" Command="{Binding SaveButton}" x:Name="saveButton" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="{Binding ButtonRow}" IsVisible="False"/>
 
-            <BoxView Color="Black" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="5"/>
-            <Label Text="Coming Soon!" TextColor="White" FontSize="46" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="5"/>
+            <BoxView Color="Black" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4"/>
+            <Label Text="Coming Soon!" TextColor="White" FontSize="46" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" Grid.RowSpan="4"/>
+
+            <!--<Button x:Name="serviceButton" Text="Test Service" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="4"/>-->
         </Grid>
     </ScrollView>
 </ContentPage>

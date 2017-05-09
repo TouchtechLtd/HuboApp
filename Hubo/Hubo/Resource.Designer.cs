@@ -206,6 +206,24 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please end your shift and wait 24 hours before your next shift!.
+        /// </summary>
+        internal static string BreakAfter70 {
+            get {
+                return ResourceManager.GetString("BreakAfter70", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 24 Hour Break Needed.
+        /// </summary>
+        internal static string BreakAfter70Title {
+            get {
+                return ResourceManager.GetString("BreakAfter70Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BreakEnded!.
         /// </summary>
         internal static string BreakEnd {
