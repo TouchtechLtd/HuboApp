@@ -8,6 +8,8 @@ namespace Hubo
     using System.Collections.Generic;
     using System.ComponentModel;
     using Xamarin.Forms;
+    using Acr.UserDialogs;
+
 
     internal class EndShiftConfirmViewModel : INotifyPropertyChanged
     {
@@ -404,24 +406,31 @@ namespace Hubo
 
         internal void DriveShiftAccepted()
         {
-            if (listOfDriveShifts.Count == DriveShiftCount)
+            if(endHubo > startHubo)
             {
-                // DriveShift are done
-                DriveShift = false;
-                if (listOfBreaks.Count > 0)
+                if (listOfDriveShifts.Count == DriveShiftCount)
                 {
-                    BreakShift = true;
-                    LoadBreakDetails(listOfBreaks[0]);
+                    // DriveShift are done
+                    DriveShift = false;
+                    if (listOfBreaks.Count > 0)
+                    {
+                        BreakShift = true;
+                        LoadBreakDetails(listOfBreaks[0]);
+                    }
+                    else
+                    {
+                        AcceptanceFinished();
+                    }
                 }
                 else
                 {
-                    AcceptanceFinished();
+                    //Load next driveShift
+                    LoadDriveDetails(listOfDriveShifts[DriveShiftCount]);
                 }
             }
             else
             {
-                //Load next driveShift
-                LoadDriveDetails(listOfDriveShifts[DriveShiftCount]);
+                UserDialogs.Instance.ConfirmAsync("Ending hubo needs to be greater than starting hubo.", "Ok");
             }
         }
 

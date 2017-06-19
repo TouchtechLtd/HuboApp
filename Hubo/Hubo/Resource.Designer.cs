@@ -1376,7 +1376,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *PLACEHOLDER FOR DISCLAIMER*.
+        ///   Looks up a localized string similar to By using this application, you agree that all entries recorded are truthful and in accordance with the law. .
         /// </summary>
         internal static string NZTADisclaimer {
             get {

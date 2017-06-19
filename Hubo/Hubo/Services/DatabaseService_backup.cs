@@ -102,8 +102,7 @@ namespace Hubo
 
         internal string GetName()
         {
-            List<UserTable> listUser = new List<UserTable>();
-            listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            List<UserTable> listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
             if ((listUser.Count == 0) || (listUser.Count > 1))
             {
                 return "ERROR";
@@ -464,14 +463,14 @@ namespace Hubo
         internal double GetLastShiftTime()
         {
             List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
+            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] ASC");
 
             if (listOfShifts.Count == 0)
             {
                 return 0;
             }
 
-            ShiftTable lastShift = listOfShifts[0];
+            ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
 
             if (lastShift.EndDate == null)
             {
@@ -488,45 +487,7 @@ namespace Hubo
             }
             else
             {
-
-                foreach (ShiftTable workingTable in listOfShifts)
-                {
-                    // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-                    if(workingTable.Key != lastShift.Key)
-                    {
-                        if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            lastShift = workingTable;
-                        }
-                    }
-                }
-                endTime = DateTime.Parse(lastShift.StartDate);
-
-                //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
-
-                if (endTime.AddHours(14) > DateTime.Now)
-                {
-                    return 0;
-                }
-                else
-                {
-                    //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
-                    //{
-                    //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-                    //}
-                    //else
-                    //{
-                    //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
-                    //}
-
-                    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-
-                }
-
+                return (endTime - DateTime.Now).TotalMinutes;
                 //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
             }
         }
@@ -838,151 +799,78 @@ namespace Hubo
                     return -1;
                 }
 
-                using (UserDialogs.Instance.Loading(Resource.AddingVehicle, null, null, true, MaskType.Gradient))
+                if (photo == null)
                 {
-                    if (photo == null)
-                    {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
-                        return -1;
-                    }
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
+                    return -1;
+                }
 
-                    restAPI = new RestService();
+                restAPI = new RestService();
 
-                    OcrResults rego = await restAPI.GetRegoText(photo);
-                    if (rego == null)
-                    {
-                        return -1;
-                    }
+                OcrResults rego = await restAPI.GetRegoText(photo);
+                if (rego == null)
+                {
+                    return -1;
+                }
 
-                    List<string> regoList = new List<string>();
-                    Regex r = new Regex("^[A-Za-z0-9Ø]*$");
-                    foreach (Region region in rego.Regions)
+                List<string> regoList = new List<string>();
+                Regex r = new Regex("^[A-Za-z0-9Ø]*$");
+                foreach (Region region in rego.Regions)
+                {
+                    foreach (Line line in region.Lines)
                     {
-                        foreach (Line line in region.Lines)
+                        string fullLine = string.Empty;
+                        foreach (Word word in line.Words)
                         {
-                            string fullLine = string.Empty;
-                            foreach (Word word in line.Words)
+                            word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
+
+                            if (r.IsMatch(word.Text.ToString()))
                             {
-                                word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
-
-                                if (r.IsMatch(word.Text.ToString()))
-                                {
-                                    fullLine = fullLine + word.Text.ToString();
-                                }
-                            }
-
-                            if (fullLine != string.Empty && fullLine.Trim().Length < 7)
-                            {
-                                List<string> listOfPossibilities = CheckPossiblities(fullLine);
-
-                                foreach (string possibility in listOfPossibilities)
-                                {
-                                    regoList.Add(possibility);
-                                }
+                                fullLine = fullLine + word.Text.ToString();
                             }
                         }
-                    }
 
-                    restAPI = new RestService();
-                    if (regoList.Count > 0)
-                    {
-                        string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
-
-                        if (regoAnswer == Resource.Cancel)
+                        if (fullLine != string.Empty && fullLine.Trim().Length < 7)
                         {
-                            return -1;
-                        }
+                            List<string> listOfPossibilities = CheckPossiblities(fullLine);
 
-                        if (regoAnswer != Resource.InputOwnRego)
-                        {
-                            vehicleToInsert.Registration = regoAnswer;
-                            db.Insert(vehicleToInsert);
-                            return vehicleToInsert.Key;
+                            foreach (string possibility in listOfPossibilities)
+                            {
+                                regoList.Add(possibility);
+                            }
                         }
                     }
                 }
 
-                PromptResult regoResult = await UserDialogs.Instance.PromptAsync(Resource.RegoInput, Resource.Alert, Resource.Okay, Resource.Cancel);
-                if (regoResult.Ok && regoResult.Text != string.Empty)
+                restAPI = new RestService();
+                if (regoList.Count > 0)
                 {
-                    vehicleToInsert.Registration = regoResult.Text;
-                    db.Insert(vehicleToInsert);
-                    return vehicleToInsert.Key;
+                    string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
+
+                    if (regoAnswer == Resource.Cancel)
+                    {
+                        return -1;
+                    }
+
+                    if (regoAnswer != Resource.InputOwnRego)
+                    {
+                        vehicleToInsert.Registration = regoAnswer;
+                        db.Insert(vehicleToInsert);
+                        return vehicleToInsert.Key;
+                    }
                 }
+            }
+
+            PromptResult regoResult = await UserDialogs.Instance.PromptAsync(Resource.RegoInput, Resource.Alert, Resource.Okay, Resource.Cancel);
+            if (regoResult.Ok && regoResult.Text != string.Empty)
+            {
+                vehicleToInsert.Registration = regoResult.Text;
+                db.Insert(vehicleToInsert);
+                return vehicleToInsert.Key;
             }
 
             return -1;
         }
-
-        //internal string GetFirstShiftStartTime()
-        //{
-        //    List<ShiftTable> listOfShifts = new List<ShiftTable>();
-        //    listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
-
-        //    if (listOfShifts.Count == 0)
-        //    {
-        //        return 0;
-        //    }
-
-        //    ShiftTable lastShift = listOfShifts[0];
-
-        //    if (lastShift.EndDate == null)
-        //    {
-        //        return -1;
-        //    }
-
-        //    DateTime endTime = DateTime.Parse(lastShift.EndDate);
-
-        //    endTime = endTime.AddHours(10);
-
-        //    if (DateTime.Now > endTime)
-        //    {
-        //        return 0;
-        //    }
-        //    else
-        //    {
-
-        //        foreach (ShiftTable workingTable in listOfShifts)
-        //        {
-        //            // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-        //            if (workingTable.Key != lastShift.Key)
-        //            {
-        //                if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
-        //                {
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    lastShift = workingTable;
-        //                }
-        //            }
-        //        }
-        //        endTime = DateTime.Parse(lastShift.StartDate);
-
-        //        //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
-
-        //        if (endTime.AddHours(14) > DateTime.Now)
-        //        {
-        //            return 0;
-        //        }
-        //        else
-        //        {
-        //            //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
-        //            //{
-        //            //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-        //            //}
-        //            //else
-        //            //{
-        //            //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
-        //            //}
-
-        //            return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-
-        //        }
-
-        //        //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
-        //    }
-        //}
 
         internal List<string> CheckPossiblities(string fullLine)
         {
@@ -1089,7 +977,7 @@ namespace Hubo
                 //        return false;
                 //    }
                 //}
-                //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                    //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //{
                 //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
@@ -1142,7 +1030,7 @@ namespace Hubo
         internal bool CheckFullBreak()
         {
             List<ShiftTable> shifts = new List<ShiftTable>();
-            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
+            shifts = db.Query<ShiftTable>("SELECT [Key] FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
             if (shifts.Count == 1)
             {
@@ -1335,17 +1223,8 @@ namespace Hubo
             // Retrieve currently used vehicle
             List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
-            List<VehicleTable> allVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
-
             // Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [ServerKey] == " + currentVehicleInUseList[0].ServerVehicleKey);
-            if(vehicleList.Count == 0)
-            {
-                vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
-            }
-            currentVehicleInUseList[0].VehicleKey = vehicleList[0].Key;
-            db.Update(currentVehicleInUseList[0]);
-
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;

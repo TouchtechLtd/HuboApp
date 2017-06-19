@@ -131,6 +131,40 @@ namespace Hubo
             return string.Empty;
         }
 
+        internal async Task<int> GetVehicleHubo(VehicleTable vehicle)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_GETVEHICLEHUBO;
+            string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
+
+            var huboGet = new HttpRequestMessage(HttpMethod.Get, url);
+            huboGet.Headers.Add("VehicleId", vehicle.ServerKey.ToString());
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+
+                try
+                {
+                    response = await client.SendAsync(huboGet);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                VehicleHuboResponse huboResponse = JsonConvert.DeserializeObject<VehicleHuboResponse>(response.Content.ReadAsStringAsync().Result);
+                return huboResponse.Hubo;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         internal async Task<int> GetShifts(int id)
         {
             string urlShift = GetBaseUrl() + Constants.REST_URL_GETSHIFTDETAILS;
@@ -930,6 +964,8 @@ namespace Hubo
                 return -1;
             }
         }
+
+
 
         internal async Task<int> InsertVehicle(VehicleTable vehicleToInsert)
         {

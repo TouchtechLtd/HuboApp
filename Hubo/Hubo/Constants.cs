@@ -32,6 +32,9 @@ namespace Hubo
         public const string REST_URL_ADDDRIVESTART = "/DrivingShift/StartDrivingAsync";
         public const string REST_URL_ADDDRIVEEND = "/DrivingShift/StopDrivingAsync";
 
+        public const string REST_URL_GETVEHICLEHUBO = "/DrivingShift/GetVehicleHuboAsync";
+
+
         public const string REST_URL_ADDBREAKSTART = "/Break/StartBreakAsync";
         public const string REST_URL_ADDBREAKEND = "/Break/StopBreakAsync";
 

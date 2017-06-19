@@ -2,6 +2,8 @@
 // Copyright (c) TrioTech. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+
 namespace Hubo
 {
     public class OtherModels
@@ -22,5 +24,20 @@ namespace Hubo
         public string email { get; set; }
 
         public string password { get; set; }
+    }
+
+    public class VehicleHuboResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Hubo { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
     }
 }

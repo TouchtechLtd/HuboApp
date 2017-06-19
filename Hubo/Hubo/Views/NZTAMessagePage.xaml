@@ -15,7 +15,7 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Label Text="{Binding NZTADisclaimer}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" AutomationId="NZTAPage"/>
+    <Label FontSize="Large" Text="{Binding NZTADisclaimer}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" AutomationId="NZTAPage"/>
     <Button Text="{Binding NZTAButtonText}" Grid.Row="1" Grid.Column="1" AutomationId="NZTAButton" Command="{Binding NZTAButton}"/>
   </Grid> 
 </ContentPage>

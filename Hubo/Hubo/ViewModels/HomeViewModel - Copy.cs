@@ -34,7 +34,6 @@ namespace Hubo
         private double totalTime;
         private double remainTime;
         private bool notifyReady;
-        private bool shiftAndBreakNotStarted;
 
         private string shiftTimes;
         private string nextBreakTime;
@@ -42,8 +41,6 @@ namespace Hubo
         private string canStartShiftText1;
         private string canStartShiftText2;
         private double completedSeventy;
-
-        private string mainShiftStartTime;
 
         public HomeViewModel()
         {
@@ -320,34 +317,6 @@ namespace Hubo
 
         public bool VehicleInUse { get; set; }
 
-        private string MainShiftStartTime
-        {
-            get
-            {
-                return mainShiftStartTime;
-            }
-
-            set
-            {
-                mainShiftStartTime = value;
-                OnPropertyChanged("MainShiftStartTime");
-            }
-        }
-
-        public bool ShiftAndBreakNotStarted
-        {
-            get
-            {
-                return shiftAndBreakNotStarted;
-            }
-
-            set
-            {
-                shiftAndBreakNotStarted = value;
-                OnPropertyChanged("ShiftAndBreakNotStarted");
-            }
-        }
-
         public bool CanStartShift
         {
             get
@@ -365,6 +334,8 @@ namespace Hubo
         public string VehiclePickerText { get; set; }
 
         public bool PickerEnabled { get; set; }
+
+
 
         public string NextBreakTime
         {
@@ -576,7 +547,6 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 ShiftStarted = true;
-                ShiftAndBreakNotStarted = true;
                 ShowEndShiftXAML();
 
                 //    if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
@@ -753,8 +723,6 @@ namespace Hubo
             }
             else
             {
-                //Get main shift start time
-                //mainShiftStartTime = dbService.GetFirstShiftStartTime();
                 CanStartShiftText1 = Resource.YouAreRestedPart1;
                 CanStartShiftText2 = Resource.YouAreRestedPart2;
                 ShiftButtonColor = Constants.GREEN_COLOR;
@@ -779,7 +747,6 @@ namespace Hubo
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
                 ShiftRunning = false;
-                ShiftAndBreakNotStarted = false;
 
                 DateTime startTime = dbService.GetBreakStart();
 
@@ -813,19 +780,10 @@ namespace Hubo
             }
             else if (onBreak == 1)
             {
-                if (dbService.CheckActiveShift())
-                {
-                    ShiftAndBreakNotStarted = true;
-                    ShiftRunning = true;
-                }
-                else
-                {
-                    ShiftAndBreakNotStarted = false;
-                    ShiftRunning = false;
-                }
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
+                ShiftRunning = true;
 
                 FullBreak = dbService.CheckFullBreak();
             }
@@ -839,6 +797,16 @@ namespace Hubo
             {
                 List<string> checklistQuestions = dbService.GetChecklist();
                 Geolocation geocords;
+                int count = 0;
+                foreach (string question in checklistQuestions)
+                {
+                    count++;
+                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Okay, Resource.NotOkay);
+                    if (!result)
+                    {
+                        return false;
+                    }
+                }
 
                 string location;
 
@@ -864,52 +832,37 @@ namespace Hubo
                 location = promptResult.Text;
 
                 List<VehicleTable> listOfVehicles = dbService.GetVehicles();
-                int hubo = 0;
+
                 var vehicleResult = await UserDialogs.Instance.ActionSheetAsync(Resource.ChooseVehicle, Resource.Cancel, Resource.AddVehicleText, null, listOfVehicles.Select(l => l.Registration).ToArray());
-                if (vehicleResult == Resource.Cancel)
-                {
-                    return false;
-                }
 
                 if (vehicleResult == Resource.AddVehicleText)
                 {
                     vehicleKey = await dbService.GetRego();
-                    if (vehicleKey < 0)
+                    using (UserDialogs.Instance.Loading(Resource.AddingVehicle, null, null, true, MaskType.Gradient))
                     {
-                        return false;
-                    }
+                        if (vehicleKey < 0)
+                        {
+                            return false;
+                        }
 
-                    // Was unsuccessful at adding to remote server, thus was added locally, and the drive will have to be added locally until done remotely
-                    if (!await dbService.InsertVehicle(vehicleKey))
-                    {
-                        offlineDrive = true;
+                        // Was unsuccessful at adding to remote server, thus was added locally, and the drive will have to be added locally until done remotely
+                        if (!await dbService.InsertVehicle(vehicleKey))
+                        {
+                            offlineDrive = true;
+                        }
                     }
-
-                    hubo = await HuboPrompt();
                 }
                 else
                 {
                     VehicleTable vehicle = listOfVehicles.Where(v => v.Registration == vehicleResult).First();
                     vehicleKey = vehicle.Key;
-                    int huboFromServer = await restApi.GetVehicleHubo(vehicle);
-                    hubo = await HuboPrompt(huboFromServer);
-
                 }
+
+                int hubo = await HuboPrompt();
 
                 if (hubo == 0)
                 {
                     return false;
-                }
-
-                int count = 0;
-                foreach (string question in checklistQuestions)
-                {
-                    count++;
-                    bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Okay, Resource.NotOkay);
-                    if (!result)
-                    {
-                        return false;
-                    }
                 }
 
                 string note = await NotePromptAsync();
@@ -1013,31 +966,20 @@ namespace Hubo
             return false;
         }
 
-        private async Task<int> HuboPrompt(int hubo = 0)
+        private async Task<int> HuboPrompt()
         {
             bool invalidFormat = true;
+            int hubo = 0;
             string promptTitle = Resource.OdometerReading;
-            bool firstRun = true;
             while (invalidFormat)
             {
+                hubo = 0;
 
                 PromptConfig huboPrompt = new PromptConfig()
                 {
                     IsCancellable = true,
                     Title = promptTitle
                 };
-
-                if (!firstRun)
-                {
-                    hubo = 0;
-                }
-                else
-                {
-                    huboPrompt.Text = hubo.ToString();
-                }
-
-                firstRun = false;
-
                 huboPrompt.SetInputMode(InputType.Number);
                 PromptResult promptResult = await UserDialogs.Instance.PromptAsync(huboPrompt);
 
@@ -1129,7 +1071,6 @@ namespace Hubo
                     BreakButtonColor = Constants.RED_COLOR;
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
-                    ShiftAndBreakNotStarted = false;
                     ShiftRunning = false;
 
                     if (FullBreak)
@@ -1146,7 +1087,7 @@ namespace Hubo
             }
         }
 
-        private async Task<bool> StopBreak()
+        private async Task StopBreak()
         {
             if (RemainTime > 0)
             {
@@ -1155,14 +1096,14 @@ namespace Hubo
                 FullBreak = false;
                 if (!await UserDialogs.Instance.ConfirmAsync("You have only had a " + remainTimeString + " minute break, this will not count as a full 30 min break, continue anyway?", Resource.Warning, Resource.Yes, Resource.No))
                 {
-                    return false;
+                    return;
                 }
             }
             else
             {
                 if (!await UserDialogs.Instance.ConfirmAsync(Resource.EndBreakQuery, Resource.Alert, Resource.Yes, Resource.No))
                 {
-                    return false;
+                    return;
                 }
             }
 
@@ -1185,7 +1126,7 @@ namespace Hubo
 
             if (!promptResult.Ok || promptResult.Text == string.Empty)
             {
-                return false;
+                return;
             }
 
             string note = await NotePrompt();
@@ -1196,56 +1137,55 @@ namespace Hubo
                 {
                     NextBreakTime = Resource.TakeBreakBy + dbService.GetNextBreakTime();
 
-                    //dbService.CancelNotification(NotificationCategory.Break, true);
+                    dbService.CancelNotification(NotificationCategory.Break, true);
 
-                    //dbService.CreateNotification(Resource.Notify1Break, true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
+                    dbService.CreateNotification(Resource.Notify1Break, true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
 
-                    //Device.StartTimer(TimeSpan.FromHours(4.5), () =>
-                    //{
-                    //    if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //    {
-                    //        return false;
-                    //    }
+                    Device.StartTimer(TimeSpan.FromHours(4.5), () =>
+                    {
+                        if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                        {
+                            return false;
+                        }
 
-                    //    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify1Break, true);
+                        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify1Break, true);
 
-                    //    dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //    dbService.CreateNotification(Resource.Notify10Break, true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
+                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                        dbService.CreateNotification(Resource.Notify10Break, true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
 
-                    //    Device.StartTimer(TimeSpan.FromMinutes(50), () =>
-                    //    {
-                    //        if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //        {
-                    //            return false;
-                    //        }
+                        Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                        {
+                            if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                            {
+                                return false;
+                            }
 
-                    //        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify10Break, true);
+                            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify10Break, true);
 
-                    //        dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //        dbService.CreateNotification(Resource.NotifyBreakTime, true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+                            dbService.CancelNotification(NotificationCategory.Break, true, true);
+                            dbService.CreateNotification(Resource.NotifyBreakTime, true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
 
-                    //        Device.StartTimer(TimeSpan.FromMinutes(10), () =>
-                    //        {
-                    //            if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //            {
-                    //                return false;
-                    //            }
+                            Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                                {
+                                    return false;
+                                }
 
-                    //            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakTimeTitle, Resource.NotifyBreakTime, true);
+                                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakTimeTitle, Resource.NotifyBreakTime, true);
 
-                    //            dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //            return false;
-                    //        });
-                    //        return false;
-                    //    });
-                    //    return false;
-                    //});
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                return false;
+                            });
+                            return false;
+                        });
+                        return false;
+                    });
                 }
 
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
-                ShiftAndBreakNotStarted = true;
                 ShiftRunning = true;
 
                 if (dbService.VehicleActive())
@@ -1258,7 +1198,6 @@ namespace Hubo
 
                 countdown.Stop();
             }
-            return true;
         }
 
         private async Task ToggleShift()
@@ -1285,72 +1224,69 @@ namespace Hubo
 
         private async Task<bool> StopShift()
         {
-            if (dbService.VehicleActive())
+            if (!dbService.VehicleActive())
             {
-                if (!await StopDrive())
+                if (dbService.CheckOnBreak() == 1)
                 {
-                    return false;
+                    if (await UserDialogs.Instance.ConfirmAsync(Resource.EndShiftQuery, Resource.Confirmation, Resource.Yes, Resource.No))
+                    {
+                        Geolocation geoCoords;
+                        string location;
+
+                        using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
+                        {
+                            geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
+                            location = await GetLocation(geoCoords);
+                        }
+
+                        PromptConfig locationPrompt = new PromptConfig()
+                        {
+                            IsCancellable = true,
+                            Title = Resource.CurrentLocation,
+                            Text = location
+                        };
+                        PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
+
+                        if (!promptResult.Ok || promptResult.Text == string.Empty)
+                        {
+                            return false;
+                        }
+
+                        location = promptResult.Text;
+
+                        string note = await NotePrompt();
+
+                        if (await dbService.StopShift(location, note, geoCoords))
+                        {
+                            ShiftStarted = false;
+                            ShowStartShiftXAML();
+                            UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
+                            //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
+
+                            //dbService.CancelNotification(NotificationCategory.Ongoing, false);
+                            //dbService.CancelNotification(NotificationCategory.Shift, true);
+                            //dbService.CancelNotification(NotificationCategory.Break, true);
+
+                            //dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
+
+                            //DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
+                            await Navigation.PushModalAsync(new EndShiftConfirmPage());
+
+                            return true;
+                        }
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    await UserDialogs.Instance.AlertAsync(Resource.EndShiftBreakError, Resource.Error, Resource.GotIt);
                 }
             }
-            if (dbService.CheckOnBreak() == -1)
+            else
             {
-                if (!await StopBreak())
-                {
-                    return false;
-                }
+                await UserDialogs.Instance.AlertAsync(Resource.EndShiftDriveError, Resource.Error, Resource.GotIt);
             }
-
-            if (await UserDialogs.Instance.ConfirmAsync(Resource.EndShiftQuery, Resource.Confirmation, Resource.Yes, Resource.No))
-            {
-                Geolocation geoCoords;
-                string location;
-
-                using (UserDialogs.Instance.Loading(Resource.GetCoordinates, null, null, true, MaskType.Gradient))
-                {
-                    geoCoords = await restApi.GetLatAndLong().ConfigureAwait(false);
-                    location = await GetLocation(geoCoords);
-                }
-
-                PromptConfig locationPrompt = new PromptConfig()
-                {
-                    IsCancellable = true,
-                    Title = Resource.CurrentLocation,
-                    Text = location
-                };
-                PromptResult promptResult = await UserDialogs.Instance.PromptAsync(locationPrompt);
-
-                if (!promptResult.Ok || promptResult.Text == string.Empty)
-                {
-                    return false;
-                }
-
-                location = promptResult.Text;
-
-                string note = await NotePrompt();
-
-                if (await dbService.StopShift(location, note, geoCoords))
-                {
-                    ShiftStarted = false;
-                    ShiftAndBreakNotStarted = true;
-                    ShowStartShiftXAML();
-                    UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
-                    //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
-
-                    //dbService.CancelNotification(NotificationCategory.Ongoing, false);
-                    //dbService.CancelNotification(NotificationCategory.Shift, true);
-                    //dbService.CancelNotification(NotificationCategory.Break, true);
-
-                    //dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
-
-                    //DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
-                    await Navigation.PushModalAsync(new EndShiftConfirmPage());
-
-                    return true;
-                }
-
-                return false;
-            }
-
 
             return false;
         }
@@ -1416,7 +1352,6 @@ namespace Hubo
                 if (await dbService.StartShift(location, note, geoCoords))
                 {
                     ShiftStarted = true;
-                    ShiftAndBreakNotStarted = true;
                     ShowEndShiftXAML();
                     UpdateCircularGauge();
 

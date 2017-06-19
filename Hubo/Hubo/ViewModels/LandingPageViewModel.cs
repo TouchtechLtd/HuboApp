@@ -23,9 +23,7 @@ namespace Hubo
         {
             LoginButtonText = Resource.LoginText;
             RegisterButton = new Command(NavigateToRegisterPage);
-            bottomBarPage = navBar.GetBottomBar();
-            NavigationPage.SetHasNavigationBar(bottomBarPage, false);
-            loadPage = new NavigationPage(bottomBarPage);
+ 
         }
 
         public INavigation Navigation { get; set; }
@@ -66,6 +64,9 @@ namespace Hubo
 
                     if (shiftResult == 4)
                     {
+                        bottomBarPage = navBar.GetBottomBar();
+                        NavigationPage.SetHasNavigationBar(bottomBarPage, false);
+                        loadPage = new NavigationPage(bottomBarPage);
                         MessagingCenter.Send<string>("ReloadPage", "ReloadPage");
                         MessagingCenter.Send<string>("ReloadOthersPage", "ReloadOthersPage");
                         MessagingCenter.Send<string>("UpdateVehicles", "UpdateVehicles");

@@ -145,7 +145,7 @@
     <value>Agree</value>
   </data>
   <data name="NZTADisclaimer" xml:space="preserve">
-    <value>*PLACEHOLDER FOR DISCLAIMER*</value>
+    <value>By using this application, you agree that all entries recorded are truthful and in accordance with the law. </value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
