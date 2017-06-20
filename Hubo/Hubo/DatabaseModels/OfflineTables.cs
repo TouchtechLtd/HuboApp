@@ -10,6 +10,15 @@ namespace Hubo
     {
     }
 
+    internal class DayShiftOffline
+    {
+        [PrimaryKey]
+        [AutoIncrement]
+        public int Key { get; set; }
+
+        public int DayShiftKey { get; set; }
+    }
+
     internal class ShiftOffline
     {
         [PrimaryKey]

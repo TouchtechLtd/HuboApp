@@ -42,6 +42,7 @@ namespace Hubo
             db.CreateTable<BreakOffline>();
             db.CreateTable<VehicleOffline>();
             db.CreateTable<NotificationTable>();
+            db.CreateTable<DayShiftTable>();
         }
 
         public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
@@ -492,7 +493,7 @@ namespace Hubo
                 foreach (ShiftTable workingTable in listOfShifts)
                 {
                     // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-                    if(workingTable.Key != lastShift.Key)
+                    if (workingTable.Key != lastShift.Key)
                     {
                         if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
                         {
@@ -1339,7 +1340,7 @@ namespace Hubo
 
             // Retrieve vehicle details using currentvehicles key
             List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [ServerKey] == " + currentVehicleInUseList[0].ServerVehicleKey);
-            if(vehicleList.Count == 0)
+            if (vehicleList.Count == 0)
             {
                 vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
             }
@@ -1578,6 +1579,70 @@ namespace Hubo
 
             using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
             {
+                List<DayShiftTable> dayShifts = new List<DayShiftTable>();
+                dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable WHERE IsActive = 1");
+
+                DayShiftTable currentDayShift = new DayShiftTable();
+
+                if (dayShifts.Count != 1)
+                {
+                    return false;
+                }
+                else if (dayShifts.Count == 0)
+                {
+                    DayShiftTable newDay = new DayShiftTable()
+                    {
+                        DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
+                        ServerKey = await restAPI.NewDayShift(DateTime.Now),
+                        IsActive = true
+                    };
+
+                    db.Insert(newDay);
+
+                    currentDayShift = newDay;
+                }
+                else
+                {
+                    if ((DateTime.Now - DateTime.Parse(dayShifts[0].DayShiftStart)) > TimeSpan.FromHours(14))
+                    {
+                        DayShiftTable oldDay = new DayShiftTable();
+                        oldDay = dayShifts[0];
+                        oldDay.IsActive = false;
+
+                        db.Update(oldDay);
+
+                        if ((DateTime.Now - (DateTime.Parse(dayShifts[0].DayShiftStart) + TimeSpan.FromHours(14))) < TimeSpan.FromHours(10))
+                        {
+                            await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
+                        }
+
+                        DayShiftTable newDay = new DayShiftTable()
+                        {
+                            DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
+                            ServerKey = await restAPI.NewDayShift(DateTime.Now),
+                            IsActive = true
+                        };
+
+                        db.Insert(newDay);
+
+                        if (newDay.ServerKey < 1)
+                        {
+                            DayShiftOffline dayOffline = new DayShiftOffline()
+                            {
+                                Key = newDay.Key
+                            };
+
+                            db.Insert(dayOffline);
+                        }
+
+                        currentDayShift = newDay;
+                    }
+                    else
+                    {
+                        currentDayShift = dayShifts[0];
+                    }
+                }
+
                 ShiftTable shift = new ShiftTable()
                 {
                     StartDate = DateTime.Now.ToString(Resource.DateFormat),
@@ -1585,7 +1650,8 @@ namespace Hubo
                     StartLong = geoCoords.Longitude,
                     StartLocation = location,
                     ActiveShift = true,
-                    StartNote = note
+                    StartNote = note,
+                    DayShiftKey = currentDayShift.Key
                 };
                 db.Insert(shift);
 
@@ -1597,7 +1663,7 @@ namespace Hubo
 
                 if (await ReturnOffline())
                 {
-                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
+                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].ServerId, currentDayShift.ServerKey);
 
                     if (result > 0)
                     {
@@ -1849,6 +1915,7 @@ namespace Hubo
             List<BreakOffline> listOfflineBreaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
             List<DriveOffline> listOfflineDrives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
             List<VehicleOffline> listOfflineVehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
+            List<DayShiftOffline> listOfflineDayShifts = db.Query<DayShiftOffline>("SELECT * FROM [DayShiftOffline]");
 
             List<UserTable> user = db.Query<UserTable>("SELECT * FROM [UserTable]");
             List<CompanyTable> company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
@@ -1876,14 +1943,38 @@ namespace Hubo
                 }
             }
 
+            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
+
+            if (listOfflineDayShifts.Count > 0)
+            {
+                foreach (DayShiftOffline item in listOfflineDayShifts)
+                {
+                    DayShiftTable currentDayShift = db.Get<DayShiftTable>(item.DayShiftKey);
+
+                    int dayShiftKey = await restAPI.NewDayShift(DateTime.Parse(currentDayShift.DayShiftStart));
+
+                    if (dayShiftKey < 1)
+                    {
+                        return false;
+                    }
+
+                    currentDayShift.ServerKey = dayShiftKey;
+                    db.Update(currentDayShift);
+
+                    dayShifts.Add(currentDayShift);
+                }
+            }
+
             if (listOfflineShifts.Count > 0)
             {
                 foreach (ShiftOffline offlineShift in listOfflineShifts)
                 {
                     ShiftTable currentShift = db.Get<ShiftTable>(offlineShift.ShiftKey);
+                    DayShiftTable relatedDayShift = db.Get<DayShiftTable>(currentShift.DayShiftKey);
+
                     if (offlineShift.StartOffline)
                     {
-                        int startResult = await restAPI.QueryShift(currentShift, false, user[0].DriverId, company[0].Key);
+                        int startResult = await restAPI.QueryShift(currentShift, false, user[0].DriverId, company[0].ServerId, relatedDayShift.ServerKey);
                         if (startResult < 1)
                         {
                             return false;

@@ -23,6 +23,8 @@ namespace Hubo
         public string startLocation { get; set; }
 
         public string startNote { get; set; }
+
+        public int dayShiftId { get; set; }
     }
 
     internal class EndShiftModel

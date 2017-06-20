@@ -823,6 +823,7 @@ namespace Hubo
                     ShiftAndBreakNotStarted = false;
                     ShiftRunning = false;
                 }
+
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
@@ -1258,6 +1259,7 @@ namespace Hubo
 
                 countdown.Stop();
             }
+
             return true;
         }
 
@@ -1350,7 +1352,6 @@ namespace Hubo
 
                 return false;
             }
-
 
             return false;
         }

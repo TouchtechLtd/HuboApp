@@ -680,7 +680,7 @@ namespace Hubo
             return true;
         }
 
-        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0)
+        internal async Task<int> QueryShift(ShiftTable shift, bool shiftStarted, int userId = 0, int companyId = 0, int dayShift = 0)
         {
             string contentType = Constants.CONTENT_TYPE;
             string url;
@@ -713,7 +713,8 @@ namespace Hubo
                     startLocationLat = shift.StartLat,
                     startLocationLong = shift.StartLong,
                     startLocation = shift.StartLocation,
-                    startNote = shift.StartNote
+                    startNote = shift.StartNote,
+                    dayShiftId = dayShift
                 };
                 json = JsonConvert.SerializeObject(shiftModel);
             }
@@ -1148,6 +1149,23 @@ namespace Hubo
             {
                 return results;
             }
+        }
+
+        internal async Task<int> NewDayShift(DateTime now)
+        {
+            string url = GetBaseUrl() + Constants.REST_URL_REGISTERUSER;
+            string contentType = Constants.CONTENT_TYPE;
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            DayShiftTable newDay = new DayShiftTable()
+            {
+                ServerKey = 1,
+                DayShiftStart = now.ToString(Resource.DateFormat),
+                IsActive = true
+            };
+
+            return newDay.ServerKey;
         }
 
         private string GetBaseUrl()

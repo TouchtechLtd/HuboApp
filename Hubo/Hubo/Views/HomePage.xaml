@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <local:CountdownConverter x:Key="Converter"/>
             <local:InvertBoolConverter x:Key="InvertBoolConverter"/>
-        </ResourceDictionary>
+        </ResourceDictionary> 
     </ContentPage.Resources>
 
     <Grid x:Name="grid" Padding="-7">

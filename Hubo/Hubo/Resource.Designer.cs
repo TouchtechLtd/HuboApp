@@ -377,6 +377,24 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to get Day Shift.
+        /// </summary>
+        internal static string DayShiftError {
+            get {
+                return ResourceManager.GetString("DayShiftError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day Shift Error.
+        /// </summary>
+        internal static string DayShiftErrorTitle {
+            get {
+                return ResourceManager.GetString("DayShiftErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t Show Again.
         /// </summary>
         internal static string DontShowAgain {

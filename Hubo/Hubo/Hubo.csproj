@@ -51,6 +51,7 @@
     <Compile Include="DatabaseModels\AmendmentTable.cs" />
     <Compile Include="DatabaseModels\BreakTable.cs" />
     <Compile Include="DatabaseModels\CompanyTable.cs" />
+    <Compile Include="DatabaseModels\DayShiftTable.cs" />
     <Compile Include="DatabaseModels\GeolocationTable.cs" />
     <Compile Include="DatabaseModels\LicenceTable.cs" />
     <Compile Include="DatabaseModels\LoadTextTable.cs" />
