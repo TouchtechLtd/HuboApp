@@ -1615,16 +1615,15 @@ namespace Hubo
         internal async Task<bool> StartShift(string location, string note, Geolocation geoCoords)
         {
             restAPI = new RestService();
+            DayShiftTable currentDayShift = new DayShiftTable();
+            List<UserTable> user = new List<UserTable>();
 
             using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
             {
                 List<DayShiftTable> dayShifts = new List<DayShiftTable>();
-                List<UserTable> user = new List<UserTable>();
 
                 dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable WHERE IsActive = 1");
                 user = db.Query<UserTable>("SELECT * FROM [UserTable]");
-
-                DayShiftTable currentDayShift = new DayShiftTable();
 
                 if (dayShifts.Count > 1)
                 {
@@ -1663,11 +1662,6 @@ namespace Hubo
 
                         db.Update(oldDay);
 
-                        if ((DateTime.Now - (DateTime.Parse(dayShifts[0].DayShiftStart) + TimeSpan.FromHours(14))) < TimeSpan.FromHours(10))
-                        {
-                            await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
-                        }
-
                         DayShiftTable newDay = new DayShiftTable()
                         {
                             DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
@@ -1694,7 +1688,15 @@ namespace Hubo
                         currentDayShift = dayShifts[0];
                     }
                 }
+            }
 
+            if ((DateTime.Now - DateTime.Parse(currentDayShift.DayShiftStart)) > TimeSpan.FromHours(14) && (DateTime.Now - DateTime.Parse(currentDayShift.DayShiftStart)) < TimeSpan.FromHours(24))
+            {
+                await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
+            }
+
+            using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
+            {
                 ShiftTable shift = new ShiftTable()
                 {
                     StartDate = DateTime.Now.ToString(Resource.DateFormat),

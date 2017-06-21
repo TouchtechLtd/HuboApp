@@ -795,4 +795,13 @@
   <data name="StartDayShiftText" xml:space="preserve">
     <value>First Shift of Cycle: </value>
   </data>
+  <data name="VehicleProblem" xml:space="preserve">
+    <value>This Vehicle currently has these problems:</value>
+  </data>
+  <data name="VehicleProblemTitle" xml:space="preserve">
+    <value>Vehicle Problems</value>
+  </data>
+  <data name="VehicleProblemChoice" xml:space="preserve">
+    <value>Would you like to alert your supervisor?</value>
+  </data>
 </root>

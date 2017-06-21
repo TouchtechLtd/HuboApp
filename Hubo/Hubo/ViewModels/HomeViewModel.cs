@@ -910,14 +910,34 @@ namespace Hubo
                 }
 
                 int count = 0;
+                List<Tuple<int, string>> problems = new List<Tuple<int, string>>();
+
                 foreach (string question in checklistQuestions)
                 {
                     count++;
                     bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Okay, Resource.NotOkay);
                     if (!result)
                     {
-                        return false;
+                        problems.Add(Tuple.Create(count - 1, question));
                     }
+                }
+
+                if (problems.Count > 0)
+                {
+                    string problemString = "\n";
+
+                    foreach (var item in problems)
+                    {
+                        problemString += "\n" + item.Item2;
+                    }
+
+                    problemString += "\n\n";
+
+                    problemString.Replace("\n", Environment.NewLine);
+
+                    await UserDialogs.Instance.ConfirmAsync(Resource.VehicleProblem + problemString + Resource.VehicleProblemChoice, Resource.VehicleProblemTitle, Resource.Yes, Resource.No);
+
+                    return false;
                 }
 
                 string note = await NotePromptAsync();
@@ -1340,7 +1360,7 @@ namespace Hubo
                 if (await dbService.StopShift(location, note, geoCoords))
                 {
                     ShiftStarted = false;
-                    ShiftAndBreakNotStarted = true;
+                    ShiftAndBreakNotStarted = false;
                     ShowStartShiftXAML();
                     UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
                     //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
@@ -1377,10 +1397,10 @@ namespace Hubo
 
             if (await UserDialogs.Instance.ConfirmAsync(Resource.ShiftStartQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
-                if (!dbService.CheckTenHourBreak())
-                {
-                    await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
-                }
+                //if (!dbService.CheckTenHourBreak())
+                //{
+                //    await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
+                //}
 
                 List<QuestionModel> checklistQuestions = dbService.GetChecklistHealthSafety();
                 int count = 0;

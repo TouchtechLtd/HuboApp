@@ -2024,6 +2024,33 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Vehicle currently has these problems:.
+        /// </summary>
+        internal static string VehicleProblem {
+            get {
+                return ResourceManager.GetString("VehicleProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to alert your supervisor?.
+        /// </summary>
+        internal static string VehicleProblemChoice {
+            get {
+                return ResourceManager.GetString("VehicleProblemChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle Problems.
+        /// </summary>
+        internal static string VehicleProblemTitle {
+            get {
+                return ResourceManager.GetString("VehicleProblemTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are any of these your vehicle?.
         /// </summary>
         internal static string VehicleQuestion {
