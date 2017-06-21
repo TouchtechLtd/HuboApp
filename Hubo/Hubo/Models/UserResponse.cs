@@ -114,4 +114,19 @@ namespace Hubo
         [JsonProperty(PropertyName = "unAuthorizedRequest")]
         public bool UnAuthorizedRequest { get; set; }
     }
+
+    internal class DayShiftResponse
+    {
+        [JsonProperty(PropertyName = "success")]
+        public bool Success { get; set; }
+
+        [JsonProperty(PropertyName = "result")]
+        public int Result { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public Error Error { get; set; }
+
+        [JsonProperty(PropertyName = "unAuthorizedRequest")]
+        public bool UnAuthorizedRequest { get; set; }
+    }
 }

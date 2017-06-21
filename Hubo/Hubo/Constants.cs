@@ -44,6 +44,8 @@ namespace Hubo
 
         public const string REST_URL_REGISTERUSER = "";
 
+        public const string REST_URL_STARTDAY = "/DayShift/StartDayAsync";
+
         public const string REST_URL_GOOGLEAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
 
         public const int BREAK_DURATION_TRUCK = 30;

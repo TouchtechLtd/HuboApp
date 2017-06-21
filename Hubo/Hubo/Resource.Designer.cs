@@ -521,6 +521,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End All Shifts by: .
+        /// </summary>
+        internal static string EndDayShiftText {
+            get {
+                return ResourceManager.GetString("EndDayShiftText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to end your drive?.
         /// </summary>
         internal static string EndDriveQuery {
@@ -1750,6 +1759,15 @@ namespace Hubo {
         internal static string StartBreakQuery {
             get {
                 return ResourceManager.GetString("StartBreakQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Shift of Cycle: .
+        /// </summary>
+        internal static string StartDayShiftText {
+            get {
+                return ResourceManager.GetString("StartDayShiftText", resourceCulture);
             }
         }
         

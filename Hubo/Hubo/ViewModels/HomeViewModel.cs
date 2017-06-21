@@ -751,13 +751,20 @@ namespace Hubo
                 CanStartShiftText2 = restEnd.ToString("h: mm tt dddd");
                 ShiftButtonColor = Constants.RED_COLOR;
             }
-            else
+            else if (endRestTime == 0)
             {
                 //Get main shift start time
                 //mainShiftStartTime = dbService.GetFirstShiftStartTime();
                 CanStartShiftText1 = Resource.YouAreRestedPart1;
                 CanStartShiftText2 = Resource.YouAreRestedPart2;
                 ShiftButtonColor = Constants.GREEN_COLOR;
+            }
+            else
+            {
+                DateTime dayStart = dbService.GetDayShiftStart();
+
+                CanStartShiftText1 = Resource.StartDayShiftText + dayStart.ToString("h: mm tt dddd");
+                CanStartShiftText2 = Resource.EndDayShiftText + dayStart.AddHours(14).ToString("h: mm tt dddd");
             }
 
             CanStartShift = true;

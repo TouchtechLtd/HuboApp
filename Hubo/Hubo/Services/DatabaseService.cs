@@ -43,6 +43,7 @@ namespace Hubo
             db.CreateTable<VehicleOffline>();
             db.CreateTable<NotificationTable>();
             db.CreateTable<DayShiftTable>();
+            db.CreateTable<DayShiftOffline>();
         }
 
         public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
@@ -464,72 +465,110 @@ namespace Hubo
 
         internal double GetLastShiftTime()
         {
-            List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
+            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
+            dayShifts = db.Query<DayShiftTable>("SELECT * FROM [DayShiftTable] WHERE [IsActive] = 1");
 
-            if (listOfShifts.Count == 0)
+            if (dayShifts.Count == 0)
+            {
+                dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable ORDER BY [DayShiftStart] DESC");
+
+                if (dayShifts.Count == 0)
+                {
+                    return 0;
+                }
+            }
+
+            DateTime shiftStartTime = DateTime.Parse(dayShifts[0].DayShiftStart);
+
+            if (shiftStartTime.AddHours(24) < DateTime.Now)
             {
                 return 0;
             }
+            else if (shiftStartTime.AddHours(14) < DateTime.Now)
+            {
+                double restTime = (shiftStartTime.AddHours(24) - DateTime.Now).TotalMinutes;
 
-            ShiftTable lastShift = listOfShifts[0];
-
-            if (lastShift.EndDate == null)
+                return restTime;
+            }
+            else
             {
                 return -1;
             }
 
-            DateTime endTime = DateTime.Parse(lastShift.EndDate);
+            //List<ShiftTable> listOfShifts = new List<ShiftTable>();
+            //listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
 
-            endTime = endTime.AddHours(10);
+            //if (listOfShifts.Count == 0)
+            //{
+            //    return 0;
+            //}
 
-            if (DateTime.Now > endTime)
-            {
-                return 0;
-            }
-            else
-            {
+            //ShiftTable lastShift = listOfShifts[0];
 
-                foreach (ShiftTable workingTable in listOfShifts)
-                {
-                    // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-                    if (workingTable.Key != lastShift.Key)
-                    {
-                        if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            lastShift = workingTable;
-                        }
-                    }
-                }
-                endTime = DateTime.Parse(lastShift.StartDate);
+            //if (lastShift.EndDate == null)
+            //{
+            //    return -1;
+            //}
 
-                //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
+            //DateTime endTime = DateTime.Parse(lastShift.EndDate);
 
-                if (endTime.AddHours(14) > DateTime.Now)
-                {
-                    return 0;
-                }
-                else
-                {
-                    //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
-                    //{
-                    //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-                    //}
-                    //else
-                    //{
-                    //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
-                    //}
+            //endTime = endTime.AddHours(10);
 
-                    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
+            //if (DateTime.Now > endTime)
+            //{
+            //    return 0;
+            //}
+            //else
+            //{
 
-                }
+            //    foreach (ShiftTable workingTable in listOfShifts)
+            //    {
+            //        // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
+            //        if (workingTable.Key != lastShift.Key)
+            //        {
+            //            if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
+            //            {
+            //                break;
+            //            }
+            //            else
+            //            {
+            //                lastShift = workingTable;
+            //            }
+            //        }
+            //    }
+            //    endTime = DateTime.Parse(lastShift.StartDate);
 
-                //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
-            }
+            //    //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
+
+            //    if (endTime.AddHours(14) > DateTime.Now)
+            //    {
+            //        return 0;
+            //    }
+            //    else
+            //    {
+            //        //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
+            //        //{
+            //        //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
+            //        //}
+            //        //else
+            //        //{
+            //        //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
+            //        //}
+
+            //        return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
+
+            //    }
+
+            //    //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
+            //}
+        }
+
+        internal DateTime GetDayShiftStart()
+        {
+            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
+            dayShifts = db.Query<DayShiftTable>("SELECT * FROM [DayShiftTable] WHERE [IsActive] = 1");
+
+            return DateTime.Parse(dayShifts[0].DayShiftStart);
         }
 
         internal string GetNextBreakTime()
@@ -1580,11 +1619,14 @@ namespace Hubo
             using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
             {
                 List<DayShiftTable> dayShifts = new List<DayShiftTable>();
+                List<UserTable> user = new List<UserTable>();
+
                 dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable WHERE IsActive = 1");
+                user = db.Query<UserTable>("SELECT * FROM [UserTable]");
 
                 DayShiftTable currentDayShift = new DayShiftTable();
 
-                if (dayShifts.Count != 1)
+                if (dayShifts.Count > 1)
                 {
                     return false;
                 }
@@ -1593,11 +1635,21 @@ namespace Hubo
                     DayShiftTable newDay = new DayShiftTable()
                     {
                         DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
-                        ServerKey = await restAPI.NewDayShift(DateTime.Now),
+                        ServerKey = await restAPI.NewDayShift(user[0].DriverId),
                         IsActive = true
                     };
 
                     db.Insert(newDay);
+
+                    if (newDay.ServerKey < 1)
+                    {
+                        DayShiftOffline dayOffline = new DayShiftOffline()
+                        {
+                            Key = newDay.Key
+                        };
+
+                        db.Insert(dayOffline);
+                    }
 
                     currentDayShift = newDay;
                 }
@@ -1619,7 +1671,7 @@ namespace Hubo
                         DayShiftTable newDay = new DayShiftTable()
                         {
                             DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
-                            ServerKey = await restAPI.NewDayShift(DateTime.Now),
+                            ServerKey = await restAPI.NewDayShift(user[0].DriverId),
                             IsActive = true
                         };
 
@@ -1655,10 +1707,8 @@ namespace Hubo
                 };
                 db.Insert(shift);
 
-                List<UserTable> user = new List<UserTable>();
                 List<CompanyTable> company = new List<CompanyTable>();
 
-                user = db.Query<UserTable>("SELECT * FROM [UserTable]");
                 company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
 
                 if (await ReturnOffline())
@@ -1951,7 +2001,7 @@ namespace Hubo
                 {
                     DayShiftTable currentDayShift = db.Get<DayShiftTable>(item.DayShiftKey);
 
-                    int dayShiftKey = await restAPI.NewDayShift(DateTime.Parse(currentDayShift.DayShiftStart));
+                    int dayShiftKey = await restAPI.NewDayShift(user[0].DriverId);
 
                     if (dayShiftKey < 1)
                     {

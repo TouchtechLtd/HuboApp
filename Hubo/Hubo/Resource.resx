@@ -789,4 +789,10 @@
   <data name="DayShiftErrorTitle" xml:space="preserve">
     <value>Day Shift Error</value>
   </data>
+  <data name="EndDayShiftText" xml:space="preserve">
+    <value>End All Shifts by: </value>
+  </data>
+  <data name="StartDayShiftText" xml:space="preserve">
+    <value>First Shift of Cycle: </value>
+  </data>
 </root>

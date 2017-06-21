@@ -20,7 +20,7 @@
 &lt;/plist&gt;
 </TargetiOSDevice>
     <ProjectView>ProjectFiles</ProjectView>
-    <SelectedDevice>Trio ’s iPod touch</SelectedDevice>
+    <SelectedDevice>Device</SelectedDevice>
     <DefaultDevice>iPhone 6 iOS 10.3</DefaultDevice>
   </PropertyGroup>
 </Project>

@@ -32,7 +32,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="3*" />
-            <RowDefinition Height="4*" />
+            <RowDefinition Height="5*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
@@ -41,8 +41,8 @@
         <Button FontSize="30" IsVisible="{Binding ShiftAndBreakNotStarted}" Text="{Binding StartBreakText}" BackgroundColor="{Binding BreakButtonColor}" Command="{Binding StartBreakCommand}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8"/>
         <Label FontSize="22" Text="Remaining time left in break:" IsVisible="{Binding IsRunning}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" />
         <Label FontSize="22" Text="{Binding RemainTime, Converter={StaticResource Converter}}" IsVisible="{Binding IsRunning}" VerticalTextAlignment="End" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" />
-        <Label Text="{Binding CanStartShiftText1}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="End"  HorizontalTextAlignment="Center" FontSize="Medium" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8"/>
-        <Label Text="{Binding CanStartShiftText2}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontSize="50" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="8"/>
+        <Label Text="{Binding CanStartShiftText1}" IsVisible="{Binding CanStartShift}" VerticalTextAlignment="End"  HorizontalTextAlignment="Center" FontSize="20" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8"/>
+        <Label Text="{Binding CanStartShiftText2}" IsVisible="{Binding CanStartShift}" Margin="10,0,10,0" VerticalTextAlignment="Start" HorizontalTextAlignment="Center" FontSize="40" Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="8"/>
         <Label FontSize="20" Text="{Binding NextBreakTime}" IsVisible="{Binding ShiftAndBreakNotStarted}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="End" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="1" />
 
         <syncfusion:SfLinearGauge x:Name="linearGauge" Orientation="OrientationHorizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" BackgroundColor="Transparent" >

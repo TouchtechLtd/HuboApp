@@ -122,4 +122,9 @@ namespace Hubo
 
         public bool IsManuallyEntered { get; set; }
     }
+
+    internal class NewShiftModel
+    {
+        public int driverId { get; set; }
+    }
 }

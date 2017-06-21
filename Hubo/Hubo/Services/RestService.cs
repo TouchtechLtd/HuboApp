@@ -282,7 +282,7 @@ namespace Hubo
                             client.DefaultRequestHeaders.Add("Authorization", accessToken);
                             try
                             {
-                               driveResponse = await client.SendAsync(driveGet);
+                                driveResponse = await client.SendAsync(driveGet);
                             }
                             catch
                             {
@@ -449,7 +449,7 @@ namespace Hubo
                         client.DefaultRequestHeaders.Add("Authorization", accessToken);
                         try
                         {
-                           companyResponse = await client.SendAsync(companyGet);
+                            companyResponse = await client.SendAsync(companyGet);
                         }
                         catch
                         {
@@ -966,8 +966,6 @@ namespace Hubo
             }
         }
 
-
-
         internal async Task<int> InsertVehicle(VehicleTable vehicleToInsert)
         {
             string url = GetBaseUrl() + Constants.REST_URL_ADDVEHICLE;
@@ -990,7 +988,7 @@ namespace Hubo
                 {
                     response = await client.PostAsync(url, content);
                 }
-                catch (Exception ex)
+                catch
                 {
                     return -1;
                 }
@@ -1151,21 +1149,46 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> NewDayShift(DateTime now)
+        internal async Task<int> NewDayShift(int driver)
         {
-            string url = GetBaseUrl() + Constants.REST_URL_REGISTERUSER;
+            string url = GetBaseUrl() + Constants.REST_URL_STARTDAY;
             string contentType = Constants.CONTENT_TYPE;
+            HttpResponseMessage response;
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
-
-            DayShiftTable newDay = new DayShiftTable()
+            NewShiftModel newDayShift = new NewShiftModel()
             {
-                ServerKey = 1,
-                DayShiftStart = now.ToString(Resource.DateFormat),
-                IsActive = true
+                driverId = driver
             };
 
-            return newDay.ServerKey;
+            string json = JsonConvert.SerializeObject(newDayShift);
+            HttpContent content = new StringContent(driver.ToString(), Encoding.UTF8, contentType);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                try
+                {
+                    response = await client.PostAsync(url, content);
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                DayShiftResponse result = JsonConvert.DeserializeObject<DayShiftResponse>(response.Content.ReadAsStringAsync().Result);
+
+                if (result.Success)
+                {
+                    return result.Result;
+                }
+
+                return -1;
+            }
+
+            return -1;
         }
 
         private string GetBaseUrl()
