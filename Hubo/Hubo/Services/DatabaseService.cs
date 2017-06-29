@@ -283,7 +283,7 @@ namespace Hubo
             List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
             listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
-            if (listOfActiveShifts.Count > 1)
+            if (listOfActiveShifts.Count != 1)
             {
                 return -1;
             }
