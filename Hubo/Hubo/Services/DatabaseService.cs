@@ -2001,7 +2001,7 @@ namespace Hubo
             {
                 foreach (DayShiftOffline item in listOfflineDayShifts)
                 {
-                    DayShiftTable currentDayShift = db.Get<DayShiftTable>(item.DayShiftKey);
+                    DayShiftTable currentDayShift = db.Get<DayShiftTable>(item.Key);
 
                     int dayShiftKey = await restAPI.NewDayShift(user[0].DriverId);
 
@@ -2059,7 +2059,8 @@ namespace Hubo
                         VehicleTable currentVehicle = db.Get<VehicleTable>(currentDrive.VehicleKey);
                         currentDrive.ServerVehicleKey = currentVehicle.ServerKey;
                     }
-
+                    ShiftTable currentShift = db.Get<ShiftTable>(currentDrive.ShiftKey);
+                    currentDrive.ServerShiftKey = currentShift.ServerKey;
                     if (offlineDrive.StartOffline)
                     {
                         int startDriveResult = await restAPI.QueryDrive(false, currentDrive);
@@ -2091,7 +2092,7 @@ namespace Hubo
                 {
                     BreakTable currentBreak = db.Get<BreakTable>(offlineBreak.BreakKey);
                     ShiftTable currentShift = db.Get<ShiftTable>(currentBreak.ShiftKey);
-
+                    currentBreak.ServerShiftKey = currentShift.ServerKey;
                     if (offlineBreak.StartOffline)
                     {
                         int startBreakResult = await restAPI.QueryBreak(false, currentBreak);
