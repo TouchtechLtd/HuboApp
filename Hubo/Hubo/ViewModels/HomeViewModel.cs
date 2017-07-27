@@ -1321,6 +1321,7 @@ namespace Hubo
                     return false;
                 }
             }
+
             if (dbService.CheckOnBreak() == -1)
             {
                 if (!await StopBreak())
