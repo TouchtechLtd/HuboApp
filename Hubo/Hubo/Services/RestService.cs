@@ -165,25 +165,15 @@ namespace Hubo
             }
         }
 
-        internal async Task<int> GetShifts(int id)
+        internal async Task<bool> GetShifts(int id)
         {
-            string urlShift = GetBaseUrl() + Constants.REST_URL_GETSHIFTDETAILS;
-            string urlDrive = GetBaseUrl() + Constants.REST_URL_GETDRIVEDETAILS;
-            string urlBreak = GetBaseUrl() + Constants.REST_URL_GETBREAKDETAILS;
-            string urlNote = GetBaseUrl() + Constants.REST_URL_GETNOTEDETAILS;
+            string urlShift = GetBaseUrl() + Constants.REST_URL_GETDAYSHIFTS;
+
             HttpResponseMessage shiftResponse;
-            HttpResponseMessage noteResponse;
-            HttpResponseMessage driveResponse;
-            HttpResponseMessage breakResponse;
 
             if (!db.ClearTablesForUserShifts())
             {
-                return -3;
-            }
-
-            if (id < 0)
-            {
-                return -2;
+                return false;
             }
 
             var shiftGet = new HttpRequestMessage(HttpMethod.Get, urlShift);
@@ -198,191 +188,118 @@ namespace Hubo
                 }
                 catch
                 {
-                    return -1;
+                    return false;
                 }
             }
 
             if (shiftResponse.IsSuccessStatusCode)
             {
-                LoginShiftResponse shiftDetails = JsonConvert.DeserializeObject<LoginShiftResponse>(shiftResponse.Content.ReadAsStringAsync().Result);
-
-                if (shiftDetails.Success)
-                {
-                    ShiftTable shift = new ShiftTable();
-
-                    foreach (ShiftResponseModel shiftItem in shiftDetails.Shifts)
-                    {
-                        shift.ServerKey = shiftItem.Id;
-                        shift.StartDate = shiftItem.StartDate;
-                        shift.EndDate = shiftItem.EndDate;
-                        shift.StartLat = shiftItem.StartLocationLat;
-                        shift.StartLong = shiftItem.StartLocationLong;
-                        shift.EndLat = shiftItem.EndLocationLat;
-                        shift.EndLong = shiftItem.EndLocationLong;
-                        shift.ActiveShift = shiftItem.IsActive;
-                        shift.StartLocation = shiftItem.StartLocation;
-                        shift.EndLocation = shiftItem.EndLocation;
-
-                        ShiftTable shiftId = new ShiftTable();
-                        shiftId = db.InsertUserShifts(shift);
-
-                        if (shiftId == null)
-                        {
-                            return -4;
-                        }
-
-                        var noteGet = new HttpRequestMessage(HttpMethod.Get, urlNote);
-                        noteGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            try
-                            {
-                                noteResponse = await client.SendAsync(noteGet);
-                            }
-                            catch
-                            {
-                                return -1;
-                            }
-                        }
-
-                        if (noteResponse.IsSuccessStatusCode)
-                        {
-                            LoginNoteResponse noteDetails = JsonConvert.DeserializeObject<LoginNoteResponse>(noteResponse.Content.ReadAsStringAsync().Result);
-
-                            if (noteDetails.Success)
-                            {
-                                NoteTable note = new NoteTable();
-
-                                foreach (NoteResponseModel noteItem in noteDetails.Notes)
-                                {
-                                    note.Note = noteItem.NoteText;
-                                    note.Date = noteItem.TimeStamp;
-                                    note.ShiftKey = shiftId.Key;
-
-                                    db.InsertUserNotes(note);
-                                }
-                            }
-                            else
-                            {
-                                return 1;
-                            }
-                        }
-                        else
-                        {
-                            return 1;
-                        }
-
-                        var driveGet = new HttpRequestMessage(HttpMethod.Get, urlDrive);
-                        driveGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            try
-                            {
-                                driveResponse = await client.SendAsync(driveGet);
-                            }
-                            catch
-                            {
-                                return -1;
-                            }
-                        }
-
-                        if (driveResponse.IsSuccessStatusCode)
-                        {
-                            LoginDriveResponse driveDetails = JsonConvert.DeserializeObject<LoginDriveResponse>(driveResponse.Content.ReadAsStringAsync().Result);
-
-                            if (driveDetails.Success)
-                            {
-                                DriveTable drive = new DriveTable();
-
-                                foreach (DriveResponseModel driveItem in driveDetails.Drives)
-                                {
-                                    drive.ServerId = driveItem.Id;
-                                    drive.ShiftKey = shiftId.Key;
-                                    drive.StartDate = driveItem.StartDrivingDateTime;
-                                    drive.EndDate = driveItem.StopDrivingDateTime;
-                                    drive.StartHubo = driveItem.StartHubo;
-                                    drive.EndHubo = driveItem.StopHubo;
-                                    drive.ActiveVehicle = driveItem.IsActive;
-                                    drive.ServerVehicleKey = driveItem.VehicleId;
-                                    db.InsertUserDrives(drive);
-                                }
-                            }
-                            else
-                            {
-                                return 2;
-                            }
-                        }
-                        else
-                        {
-                            return 2;
-                        }
-
-                        var breakGet = new HttpRequestMessage(HttpMethod.Get, urlBreak);
-                        breakGet.Headers.Add("ShiftId", shiftId.ServerKey.ToString());
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                            try
-                            {
-                                breakResponse = await client.SendAsync(breakGet);
-                            }
-                            catch
-                            {
-                                return -1;
-                            }
-                        }
-
-                        if (breakResponse.IsSuccessStatusCode)
-                        {
-                            LoginBreakResponse breakDetails = JsonConvert.DeserializeObject<LoginBreakResponse>(breakResponse.Content.ReadAsStringAsync().Result);
-
-                            if (breakDetails.Success)
-                            {
-                                BreakTable breakTable = new BreakTable();
-
-                                foreach (BreakResponseModel breakItem in breakDetails.Breaks)
-                                {
-                                    breakTable.ShiftKey = shiftId.Key;
-                                    breakTable.ActiveBreak = breakItem.IsActive;
-                                    breakTable.StartDate = breakItem.StartBreakDateTime;
-                                    breakTable.EndDate = breakItem.StopBreakDateTime;
-                                    breakTable.StartLocation = breakItem.StartBreakLocation;
-                                    breakTable.EndLocation = breakItem.StopBreakLocation;
-                                    breakTable.ServerId = breakItem.Id;
-
-                                    db.InsertUserBreaks(breakTable);
-                                }
-                            }
-                            else
-                            {
-                                return 3;
-                            }
-                        }
-                        else
-                        {
-                            return 3;
-                        }
-                    }
-
-                    return 4;
-                }
-                else
-                {
-                    return -1;
-                }
+                return true;
             }
             else
             {
-                return -1;
+                return false;
             }
         }
 
-        internal async Task<int> GetUser(UserTable user)
+        internal async Task<bool> GetCompanies(int driverId)
+        {
+            string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
+            var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
+            companyGet.Headers.Add("DriverId", driverId.ToString());
+
+            HttpResponseMessage companyResponse;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                try
+                {
+                    companyResponse = await client.SendAsync(companyGet);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            if (companyResponse.IsSuccessStatusCode)
+            {
+                LoginCompanyResponse companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
+
+                if (companyDetails.Success)
+                {
+                    foreach (CompanyResultResponseModel companyItem in companyDetails.Companies)
+                    {
+                        CompanyTable company = new CompanyTable()
+                        {
+                            Name = companyItem.Name,
+                            Address1 = companyItem.Address1,
+                            Address2 = companyItem.Address2,
+                            Address3 = companyItem.Address3,
+                            PostCode = companyItem.PostCode,
+                            Suburb = companyItem.Suburb,
+                            City = companyItem.City,
+                            Country = companyItem.Country,
+                            ServerId = companyItem.Id,
+                            DriverId = driverId
+                        };
+
+                        if (!db.InsertUserCompany(company)) { }
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal async Task<bool> GetVehicles(List<CompanyTable> listOfCompanies = null)
+        {
+            string urlVehicle = GetBaseUrl() + Constants.REST_URL_GETVEHICLES;
+
+            if (listOfCompanies == null)
+            {
+                listOfCompanies = db.GetCompanies();
+            }
+
+            List<int> listOfCompanyIds = new List<int>();
+            foreach (CompanyTable company in listOfCompanies)
+            {
+                listOfCompanyIds.Add(company.ServerId);
+            }
+
+            var companiesGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
+            companiesGet.Headers.Add("CompaniesList", listOfCompanyIds.ToString());
+
+            HttpResponseMessage vehiclesResponse;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+                try
+                {
+                    vehiclesResponse = await client.SendAsync(companiesGet);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            if (vehiclesResponse.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        internal async Task<bool> GetUser(UserTable user)
         {
             string urlUser = GetBaseUrl() + Constants.REST_URL_GETUSERDETAILS;
             string urlCompany = GetBaseUrl() + Constants.REST_URL_GETCOMPANYDETAILS;
@@ -390,7 +307,7 @@ namespace Hubo
 
             if (user.Id < 0)
             {
-                return -2;
+                return false;
             }
 
             var userGet = new HttpRequestMessage(HttpMethod.Get, urlUser);
@@ -407,7 +324,7 @@ namespace Hubo
                 }
                 catch
                 {
-                    return -1;
+                    return false;
                 }
             }
 
@@ -436,121 +353,84 @@ namespace Hubo
                             LicenceVersion = int.Parse(licenceItem.Class),
                             Endorsements = licenceItem.Endorsement
                         };
-                        db.InsertUserLicence(licence);
-                    }
-
-                    var companyGet = new HttpRequestMessage(HttpMethod.Get, urlCompany);
-                    companyGet.Headers.Add("DriverId", user.DriverId.ToString());
-
-                    HttpResponseMessage companyResponse;
-
-                    using (HttpClient client = new HttpClient())
-                    {
-                        client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                        try
+                        if (!db.InsertUserLicence(licence))
                         {
-                            companyResponse = await client.SendAsync(companyGet);
-                        }
-                        catch
-                        {
-                            return -1;
+                            return false;
                         }
                     }
 
-                    if (companyResponse.IsSuccessStatusCode)
-                    {
-                        LoginCompanyResponse companyDetails = JsonConvert.DeserializeObject<LoginCompanyResponse>(companyResponse.Content.ReadAsStringAsync().Result);
-
-                        if (companyDetails.Success)
-                        {
-                            foreach (CompanyResultResponseModel companyItem in companyDetails.Companies)
-                            {
-                                CompanyTable company = new CompanyTable()
-                                {
-                                    Name = companyItem.Name,
-                                    Address1 = companyItem.Address1,
-                                    Address2 = companyItem.Address2,
-                                    Address3 = companyItem.Address3,
-                                    PostCode = companyItem.PostCode,
-                                    Suburb = companyItem.Suburb,
-                                    City = companyItem.City,
-                                    Country = companyItem.Country,
-                                    ServerId = companyItem.Id,
-                                    DriverId = user.DriverId
-                                };
-
-                                db.InsertUserComapany(company);
-                            }
-                        }
-                        else
-                        {
-                            return 2;
-                        }
-                    }
-                    else
-                    {
-                        return 2;
-                    }
-
-                    var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
-                    vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
-
-                    HttpResponseMessage vehicleResponse;
-
-                    using (HttpClient client = new HttpClient())
-                    {
-                        client.DefaultRequestHeaders.Add("Authorization", accessToken);
-                        try
-                        {
-                            vehicleResponse = await client.SendAsync(vehicleGet);
-                        }
-                        catch
-                        {
-                            return -1;
-                        }
-                    }
-
-                    if (vehicleResponse.IsSuccessStatusCode)
-                    {
-                        LoginVehicleResponse vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
-
-                        if (vehicleDetails.Success)
-                        {
-                            foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
-                            {
-                                VehicleTable vehicle = new VehicleTable()
-                                {
-                                    Registration = vehicleItem.Rego,
-                                    MakeModel = vehicleItem.MakeModel,
-                                    FleetNumber = vehicleItem.FleetNumber,
-                                    CompanyId = vehicleItem.CompanyId,
-                                    ServerKey = vehicleItem.Id
-                                };
-                                db.InsertUserVehicles(vehicle);
-                            }
-                        }
-                        else
-                        {
-                            return 1;
-                        }
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-
-                    return 3;
-                }
-                else
-                {
-                    return -1;
+                    return true;
                 }
             }
-            else
-            {
-                return -1;
-            }
+
+            return false;
         }
+
+
+        //            else
+        //            {
+        //                return 2;
+        //            }
+
+        //            var vehicleGet = new HttpRequestMessage(HttpMethod.Get, urlVehicle);
+        //            vehicleGet.Headers.Add("DriverId", user.DriverId.ToString());
+
+        //            HttpResponseMessage vehicleResponse;
+
+        //            using (HttpClient client = new HttpClient())
+        //            {
+        //                client.DefaultRequestHeaders.Add("Authorization", accessToken);
+        //                try
+        //                {
+        //                    vehicleResponse = await client.SendAsync(vehicleGet);
+        //                }
+        //                catch
+        //                {
+        //                    return -1;
+        //                }
+        //            }
+
+        //            if (vehicleResponse.IsSuccessStatusCode)
+        //            {
+        //                LoginVehicleResponse vehicleDetails = JsonConvert.DeserializeObject<LoginVehicleResponse>(vehicleResponse.Content.ReadAsStringAsync().Result);
+
+        //                if (vehicleDetails.Success)
+        //                {
+        //                    foreach (VehicleResponseModel vehicleItem in vehicleDetails.Vehicles)
+        //                    {
+        //                        VehicleTable vehicle = new VehicleTable()
+        //                        {
+        //                            Registration = vehicleItem.Rego,
+        //                            MakeModel = vehicleItem.MakeModel,
+        //                            FleetNumber = vehicleItem.FleetNumber,
+        //                            CompanyId = vehicleItem.CompanyId,
+        //                            ServerKey = vehicleItem.Id
+        //                        };
+        //                        db.InsertUserVehicles(vehicle);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    return 1;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return 1;
+        //            }
+
+        //            return 3;
+        //        }
+        //        else
+        //        {
+        //            return -1;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return -1;
+        //    }
+        //}
 
         internal async Task<OcrResults> GetRegoText(MediaFile photo)
         {

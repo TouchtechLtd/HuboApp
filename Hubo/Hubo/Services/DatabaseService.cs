@@ -240,9 +240,14 @@ namespace Hubo
             db.Insert(vehicle);
         }
 
-        internal void InsertUserComapany(CompanyTable company)
+        internal bool InsertUserCompany(CompanyTable company)
         {
-            db.Insert(company);
+            if (db.Insert(company) != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         internal void VehicleOffine(VehicleTable vehicle)
@@ -840,9 +845,14 @@ namespace Hubo
             }
         }
 
-        internal void InsertUserLicence(LicenceTable licence)
+        internal bool InsertUserLicence(LicenceTable licence)
         {
-            db.Insert(licence);
+            if (db.Insert(licence) != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         internal async Task<int> GetRego()
