@@ -148,38 +148,38 @@ namespace Hubo
 
             double criticalTime = TotalTime * 0.7;
 
-            db.CancelNotification(NotificationCategory.Ongoing, false);
-            db.CreateNotification(Resource.NotifyOnBreak, false, NotificationCategory.Ongoing);
+            //db.CancelNotification(NotificationCategory.Ongoing, false);
+            //db.CreateNotification(Resource.NotifyOnBreak, false, NotificationCategory.Ongoing);
 
-            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakRunningTitle, Resource.NotifyOnBreak, false);
+            //DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakRunningTitle, Resource.NotifyOnBreak, false);
 
-            db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
-            Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
-            {
-                if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                {
-                    return false;
-                }
+            //db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
+            //Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
+            //{
+            //    if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+            //    {
+            //        return false;
+            //    }
 
-                db.CancelNotification(NotificationCategory.Break, true, true);
-                db.CreateNotification(Resource.NotifyEndingBreak, true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
+            //    db.CancelNotification(NotificationCategory.Break, true, true);
+            //    db.CreateNotification(Resource.NotifyEndingBreak, true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
 
-                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, "You have less than " + (criticalTime / 60) + " mins left in your break", true);
+            //    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, "You have less than " + (criticalTime / 60) + " mins left in your break", true);
 
-                Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
-                {
-                    if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    {
-                        return false;
-                    }
+            //    Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
+            //    {
+            //        if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+            //        {
+            //            return false;
+            //        }
 
-                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, Resource.NotifyEndingBreak, true);
+            //        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, Resource.NotifyEndingBreak, true);
 
-                    db.CancelNotification(NotificationCategory.Break, true, true);
-                    return false;
-                });
-                return false;
-            });
+            //        db.CancelNotification(NotificationCategory.Break, true, true);
+            //        return false;
+            //    });
+            //    return false;
+            //});
 
             IsRunning = sw.IsRunning;
             warningGiven = false;
@@ -209,44 +209,44 @@ namespace Hubo
 
             double criticalTime = RemainTime * 0.7;
 
-            if (!db.CheckOngoingNotification())
-            {
-                db.CreateNotification(Resource.NotifyOnBreak, false, NotificationCategory.Ongoing);
-            }
+            //if (!db.CheckOngoingNotification())
+            //{
+            //    db.CreateNotification(Resource.NotifyOnBreak, false, NotificationCategory.Ongoing);
+            //}
 
-            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakRunningTitle, Resource.NotifyOnBreak, false);
+            //DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakRunningTitle, Resource.NotifyOnBreak, false);
 
-            if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-            {
-                db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
-            }
+            //if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+            //{
+            //    db.CreateNotification("You have less than {0} mins left in your break", true, NotificationCategory.Break, TimeSpan.FromSeconds(criticalTime));
+            //}
 
-            Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
-            {
-                if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                {
-                    return false;
-                }
+            //Device.StartTimer(TimeSpan.FromSeconds(criticalTime), () =>
+            //{
+            //    if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+            //    {
+            //        return false;
+            //    }
 
-                db.CancelNotification(NotificationCategory.Break, true, true);
-                db.CreateNotification(Resource.NotifyEndingBreak, true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
+            //    db.CancelNotification(NotificationCategory.Break, true, true);
+            //    db.CreateNotification(Resource.NotifyEndingBreak, true, NotificationCategory.Break, TimeSpan.FromSeconds(TotalTime - criticalTime));
 
-                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, "You have less than " + (criticalTime / 60) + " mins left in your break", true);
+            //    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, "You have less than " + (criticalTime / 60) + " mins left in your break", true);
 
-                Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
-                {
-                    if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    {
-                        return false;
-                    }
+            //    Device.StartTimer(TimeSpan.FromSeconds(TotalTime - criticalTime), () =>
+            //    {
+            //        if (!db.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+            //        {
+            //            return false;
+            //        }
 
-                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, Resource.NotifyEndingBreak, true);
+            //        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingBreakTitle, Resource.NotifyEndingBreak, true);
 
-                    db.CancelNotification(NotificationCategory.Break, true, true);
-                    return false;
-                });
-                return false;
-            });
+            //        db.CancelNotification(NotificationCategory.Break, true, true);
+            //        return false;
+            //    });
+            //    return false;
+            //});
 
             IsRunning = sw.IsRunning;
             warningGiven = false;
@@ -270,12 +270,12 @@ namespace Hubo
 
                 IsRunning = sw.IsRunning;
 
-                db.CancelNotification(NotificationCategory.Ongoing, false);
-                db.CreateNotification(Resource.NotifyOnShift, false, NotificationCategory.Ongoing);
+                //db.CancelNotification(NotificationCategory.Ongoing, false);
+                //db.CreateNotification(Resource.NotifyOnShift, false, NotificationCategory.Ongoing);
 
-                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyShiftRunningTitle, Resource.NotifyOnShift, false);
+                //DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyShiftRunningTitle, Resource.NotifyOnShift, false);
 
-                db.CancelNotification(NotificationCategory.Break, true);
+                //db.CancelNotification(NotificationCategory.Break, true);
             }
         }
 

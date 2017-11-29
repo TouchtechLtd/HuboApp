@@ -42,8 +42,6 @@ namespace Hubo
             db.CreateTable<BreakOffline>();
             db.CreateTable<VehicleOffline>();
             db.CreateTable<NotificationTable>();
-            db.CreateTable<DayShiftTable>();
-            db.CreateTable<DayShiftOffline>();
         }
 
         public IEnumerable<string> Combinations(string input, char initialChar, string replacementChar)
@@ -104,8 +102,7 @@ namespace Hubo
 
         internal string GetName()
         {
-            List<UserTable> listUser = new List<UserTable>();
-            listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
+            List<UserTable> listUser = db.Query<UserTable>("SELECT * FROM [UserTable]");
             if ((listUser.Count == 0) || (listUser.Count > 1))
             {
                 return "ERROR";
@@ -240,14 +237,9 @@ namespace Hubo
             db.Insert(vehicle);
         }
 
-        internal bool InsertUserCompany(CompanyTable company)
+        internal void InsertUserComapany(CompanyTable company)
         {
-            if (db.Insert(company) != 0)
-            {
-                return true;
-            }
-
-            return false;
+            db.Insert(company);
         }
 
         internal void VehicleOffine(VehicleTable vehicle)
@@ -288,13 +280,9 @@ namespace Hubo
             List<ShiftTable> listOfActiveShifts = new List<ShiftTable>();
             listOfActiveShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
-            if (listOfActiveShifts.Count != 1)
+            if (listOfActiveShifts.Count > 1)
             {
                 return -1;
-            }
-            else if (listOfActiveShifts.Count == 0)
-            {
-                return 0;
             }
 
             TimeSpan previous = default(TimeSpan);
@@ -371,7 +359,7 @@ namespace Hubo
             return nextBreak;
         }
 
-        internal async Task<double> GetTotalOfSeventy()
+        internal double GetTotalOfSeventy()
         {
             // Get the datetime of now, get last shift end date, if greater than 24 hours, then return 0, else iterate through all previous shifts until a 24 hour break is detected.
             DateTime dateTimeNow = DateTime.Now;
@@ -413,16 +401,7 @@ namespace Hubo
                 }
             }
 
-            totalTime = totalTime / 60;
-
-            if (totalTime > 70)
-            {
-                return 70;
-            }
-            else
-            {
-                return totalTime / 60;
-            }
+            return totalTime / 60;
         }
 
         internal bool CheckOngoingNotification()
@@ -483,113 +462,34 @@ namespace Hubo
 
         internal double GetLastShiftTime()
         {
-            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
-            dayShifts = db.Query<DayShiftTable>("SELECT * FROM [DayShiftTable] WHERE [IsActive] = 1");
+            List<ShiftTable> listOfShifts = new List<ShiftTable>();
+            listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] ASC");
 
-            if (dayShifts.Count == 0)
-            {
-                dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable ORDER BY [DayShiftStart] DESC");
-
-                if (dayShifts.Count == 0)
-                {
-                    return 0;
-                }
-            }
-
-            DateTime shiftStartTime = DateTime.Parse(dayShifts[0].DayShiftStart);
-
-            if (shiftStartTime.AddHours(24) < DateTime.Now)
+            if (listOfShifts.Count == 0)
             {
                 return 0;
             }
-            else if (shiftStartTime.AddHours(14) < DateTime.Now)
-            {
-                double restTime = (shiftStartTime.AddHours(24) - DateTime.Now).TotalMinutes;
 
-                return restTime;
-            }
-            else
+            ShiftTable lastShift = listOfShifts[listOfShifts.Count - 1];
+
+            if (lastShift.EndDate == null)
             {
                 return -1;
             }
 
-            //List<ShiftTable> listOfShifts = new List<ShiftTable>();
-            //listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
+            DateTime endTime = DateTime.Parse(lastShift.EndDate);
 
-            //if (listOfShifts.Count == 0)
-            //{
-            //    return 0;
-            //}
+            endTime = endTime.AddHours(10);
+
+            if (DateTime.Now > endTime)
+            {
+                return 0;
+            }
             else
             {
+                return (endTime - DateTime.Now).TotalMinutes;
+                //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
             }
-
-            //ShiftTable lastShift = listOfShifts[0];
-
-            //if (lastShift.EndDate == null)
-            //{
-            //    return -1;
-            //}
-
-            //DateTime endTime = DateTime.Parse(lastShift.EndDate);
-
-            //endTime = endTime.AddHours(10);
-
-            //if (DateTime.Now > endTime)
-            //{
-            //    return 0;
-            //}
-            //else
-            //{
-
-            //    foreach (ShiftTable workingTable in listOfShifts)
-            //    {
-            //        // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-            //        if (workingTable.Key != lastShift.Key)
-            //        {
-            //            if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
-            //            {
-            //                break;
-            //            }
-            //            else
-            //            {
-            //                lastShift = workingTable;
-            //            }
-            //        }
-            //    }
-            //    endTime = DateTime.Parse(lastShift.StartDate);
-
-            //    //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
-
-            //    if (endTime.AddHours(14) > DateTime.Now)
-            //    {
-            //        return 0;
-            //    }
-            //    else
-            //    {
-            //        //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
-            //        //{
-            //        //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-            //        //}
-            //        //else
-            //        //{
-            //        //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
-            //        //}
-
-            //        return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-
-            //    }
-
-            //    //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
-            //}
-        }
-
-        internal DateTime GetDayShiftStart()
-        {
-            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
-            dayShifts = db.Query<DayShiftTable>("SELECT * FROM [DayShiftTable] WHERE [IsActive] = 1");
-
-            return DateTime.Parse(dayShifts[0].DayShiftStart);
         }
 
         internal string GetNextBreakTime()
@@ -861,14 +761,9 @@ namespace Hubo
             }
         }
 
-        internal bool InsertUserLicence(LicenceTable licence)
+        internal void InsertUserLicence(LicenceTable licence)
         {
-            if (db.Insert(licence) != 0)
-            {
-                return true;
-            }
-
-            return false;
+            db.Insert(licence);
         }
 
         internal async Task<int> GetRego()
@@ -904,151 +799,78 @@ namespace Hubo
                     return -1;
                 }
 
-                using (UserDialogs.Instance.Loading(Resource.AddingVehicle, null, null, true, MaskType.Gradient))
+                if (photo == null)
                 {
-                    if (photo == null)
-                    {
-                        await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
-                        return -1;
-                    }
+                    await UserDialogs.Instance.ConfirmAsync(Resource.RegoError, Resource.Alert, Resource.Okay);
+                    return -1;
+                }
 
-                    restAPI = new RestService();
+                restAPI = new RestService();
 
-                    OcrResults rego = await restAPI.GetRegoText(photo);
-                    if (rego == null)
-                    {
-                        return -1;
-                    }
+                OcrResults rego = await restAPI.GetRegoText(photo);
+                if (rego == null)
+                {
+                    return -1;
+                }
 
-                    List<string> regoList = new List<string>();
-                    Regex r = new Regex("^[A-Za-z0-9Ø]*$");
-                    foreach (Region region in rego.Regions)
+                List<string> regoList = new List<string>();
+                Regex r = new Regex("^[A-Za-z0-9Ø]*$");
+                foreach (Region region in rego.Regions)
+                {
+                    foreach (Line line in region.Lines)
                     {
-                        foreach (Line line in region.Lines)
+                        string fullLine = string.Empty;
+                        foreach (Word word in line.Words)
                         {
-                            string fullLine = string.Empty;
-                            foreach (Word word in line.Words)
+                            word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
+
+                            if (r.IsMatch(word.Text.ToString()))
                             {
-                                word.Text = word.Text.Replace(".", string.Empty).Replace(",", string.Empty);
-
-                                if (r.IsMatch(word.Text.ToString()))
-                                {
-                                    fullLine = fullLine + word.Text.ToString();
-                                }
-                            }
-
-                            if (fullLine != string.Empty && fullLine.Trim().Length < 7)
-                            {
-                                List<string> listOfPossibilities = CheckPossiblities(fullLine);
-
-                                foreach (string possibility in listOfPossibilities)
-                                {
-                                    regoList.Add(possibility);
-                                }
+                                fullLine = fullLine + word.Text.ToString();
                             }
                         }
-                    }
 
-                    restAPI = new RestService();
-                    if (regoList.Count > 0)
-                    {
-                        string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
-
-                        if (regoAnswer == Resource.Cancel)
+                        if (fullLine != string.Empty && fullLine.Trim().Length < 7)
                         {
-                            return -1;
-                        }
+                            List<string> listOfPossibilities = CheckPossiblities(fullLine);
 
-                        if (regoAnswer != Resource.InputOwnRego)
-                        {
-                            vehicleToInsert.Registration = regoAnswer;
-                            db.Insert(vehicleToInsert);
-                            return vehicleToInsert.Key;
+                            foreach (string possibility in listOfPossibilities)
+                            {
+                                regoList.Add(possibility);
+                            }
                         }
                     }
                 }
 
-                PromptResult regoResult = await UserDialogs.Instance.PromptAsync(Resource.RegoInput, Resource.Alert, Resource.Okay, Resource.Cancel);
-                if (regoResult.Ok && regoResult.Text != string.Empty)
+                restAPI = new RestService();
+                if (regoList.Count > 0)
                 {
-                    vehicleToInsert.Registration = regoResult.Text;
-                    db.Insert(vehicleToInsert);
-                    return vehicleToInsert.Key;
+                    string regoAnswer = await UserDialogs.Instance.ActionSheetAsync(Resource.VehicleQuestion, Resource.Cancel, Resource.InputOwnRego, null, regoList.ToArray());
+
+                    if (regoAnswer == Resource.Cancel)
+                    {
+                        return -1;
+                    }
+
+                    if (regoAnswer != Resource.InputOwnRego)
+                    {
+                        vehicleToInsert.Registration = regoAnswer;
+                        db.Insert(vehicleToInsert);
+                        return vehicleToInsert.Key;
+                    }
                 }
+            }
+
+            PromptResult regoResult = await UserDialogs.Instance.PromptAsync(Resource.RegoInput, Resource.Alert, Resource.Okay, Resource.Cancel);
+            if (regoResult.Ok && regoResult.Text != string.Empty)
+            {
+                vehicleToInsert.Registration = regoResult.Text;
+                db.Insert(vehicleToInsert);
+                return vehicleToInsert.Key;
             }
 
             return -1;
         }
-
-        //internal string GetFirstShiftStartTime()
-        //{
-        //    List<ShiftTable> listOfShifts = new List<ShiftTable>();
-        //    listOfShifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] ORDER BY [StartDate] DESC");
-
-        //    if (listOfShifts.Count == 0)
-        //    {
-        //        return 0;
-        //    }
-
-        //    ShiftTable lastShift = listOfShifts[0];
-
-        //    if (lastShift.EndDate == null)
-        //    {
-        //        return -1;
-        //    }
-
-        //    DateTime endTime = DateTime.Parse(lastShift.EndDate);
-
-        //    endTime = endTime.AddHours(10);
-
-        //    if (DateTime.Now > endTime)
-        //    {
-        //        return 0;
-        //    }
-        //    else
-        //    {
-
-        //        foreach (ShiftTable workingTable in listOfShifts)
-        //        {
-        //            // Last shift is greater than one we're iterating through by 10 hours, so this last shift is the one to calculate from
-        //            if (workingTable.Key != lastShift.Key)
-        //            {
-        //                if (DateTime.Parse(workingTable.EndDate).AddHours(10) < DateTime.Parse(lastShift.StartDate))
-        //                {
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    lastShift = workingTable;
-        //                }
-        //            }
-        //        }
-        //        endTime = DateTime.Parse(lastShift.StartDate);
-
-        //        //Compare last shift before long break with end date of current shift, if greater than 14 hours, need to set rest for 10 hours from break
-
-        //        if (endTime.AddHours(14) > DateTime.Now)
-        //        {
-        //            return 0;
-        //        }
-        //        else
-        //        {
-        //            //if(DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) > endTime.AddHours(24))
-        //            //{
-        //            //    return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-        //            //}
-        //            //else
-        //            //{
-        //            //    return (endTime.AddHours(24) - DateTime.Now).TotalMinutes;
-        //            //}
-
-        //            return (DateTime.Parse(listOfShifts[0].EndDate).AddHours(10) - DateTime.Now).TotalMinutes;
-
-        //        }
-
-        //        //return (endTime.TimeOfDay - DateTime.Now.TimeOfDay).TotalMinutes;
-        //    }
-        //}
 
         internal List<string> CheckPossiblities(string fullLine)
         {
@@ -1155,7 +977,7 @@ namespace Hubo
                 //        return false;
                 //    }
                 //}
-                //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
+                    //else if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //if (!await UserDialogs.Instance.ConfirmAsync("Did you travel " + distanceTravelled.ToString() + "KM?", "Distance Travelled", "I did", "I did not"))
                 //{
                 //    await UserDialogs.Instance.ConfirmAsync(Resource.Alert, Resource.InvalidHubo, Resource.GotIt);
@@ -1208,7 +1030,7 @@ namespace Hubo
         internal bool CheckFullBreak()
         {
             List<ShiftTable> shifts = new List<ShiftTable>();
-            shifts = db.Query<ShiftTable>("SELECT * FROM [ShiftTable] WHERE [ActiveShift] = 1");
+            shifts = db.Query<ShiftTable>("SELECT [Key] FROM [ShiftTable] WHERE [ActiveShift] = 1");
 
             if (shifts.Count == 1)
             {
@@ -1401,17 +1223,8 @@ namespace Hubo
             // Retrieve currently used vehicle
             List<DriveTable> currentVehicleInUseList = db.Query<DriveTable>("SELECT * FROM [DriveTable] WHERE [ActiveVehicle] == 1");
 
-            List<VehicleTable> allVehicles = db.Query<VehicleTable>("SELECT * FROM [VehicleTable]");
-
             // Retrieve vehicle details using currentvehicles key
-            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [ServerKey] == " + currentVehicleInUseList[0].ServerVehicleKey);
-            if (vehicleList.Count == 0)
-            {
-                vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
-            }
-            currentVehicleInUseList[0].VehicleKey = vehicleList[0].Key;
-            db.Update(currentVehicleInUseList[0]);
-
+            List<VehicleTable> vehicleList = db.Query<VehicleTable>("SELECT * FROM [VehicleTable] WHERE [Key] == " + currentVehicleInUseList[0].VehicleKey);
             VehicleTable vehicle = vehicleList[0];
 
             return vehicle;
@@ -1641,85 +1454,6 @@ namespace Hubo
         internal async Task<bool> StartShift(string location, string note, Geolocation geoCoords)
         {
             restAPI = new RestService();
-            DayShiftTable currentDayShift = new DayShiftTable();
-            List<UserTable> user = new List<UserTable>();
-
-            using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
-            {
-                List<DayShiftTable> dayShifts = new List<DayShiftTable>();
-
-                dayShifts = db.Query<DayShiftTable>("SELECT * FROM DayShiftTable WHERE IsActive = 1");
-                user = db.Query<UserTable>("SELECT * FROM [UserTable]");
-
-                if (dayShifts.Count > 1)
-                {
-                    return false;
-                }
-                else if (dayShifts.Count == 0)
-                {
-                    DayShiftTable newDay = new DayShiftTable()
-                    {
-                        DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
-                        ServerKey = await restAPI.NewDayShift(user[0].DriverId),
-                        IsActive = true
-                    };
-
-                    db.Insert(newDay);
-
-                    if (newDay.ServerKey < 1)
-                    {
-                        DayShiftOffline dayOffline = new DayShiftOffline()
-                        {
-                            Key = newDay.Key
-                        };
-
-                        db.Insert(dayOffline);
-                    }
-
-                    currentDayShift = newDay;
-                }
-                else
-                {
-                    if ((DateTime.Now - DateTime.Parse(dayShifts[0].DayShiftStart)) > TimeSpan.FromHours(14))
-                    {
-                        DayShiftTable oldDay = new DayShiftTable();
-                        oldDay = dayShifts[0];
-                        oldDay.IsActive = false;
-
-                        db.Update(oldDay);
-
-                        DayShiftTable newDay = new DayShiftTable()
-                        {
-                            DayShiftStart = DateTime.Now.ToString(Resource.DateFormat),
-                            ServerKey = await restAPI.NewDayShift(user[0].DriverId),
-                            IsActive = true
-                        };
-
-                        db.Insert(newDay);
-
-                        if (newDay.ServerKey < 1)
-                        {
-                            DayShiftOffline dayOffline = new DayShiftOffline()
-                            {
-                                Key = newDay.Key
-                            };
-
-                            db.Insert(dayOffline);
-                        }
-
-                        currentDayShift = newDay;
-                    }
-                    else
-                    {
-                        currentDayShift = dayShifts[0];
-                    }
-                }
-            }
-
-            if ((DateTime.Now - DateTime.Parse(currentDayShift.DayShiftStart)) > TimeSpan.FromHours(14) && (DateTime.Now - DateTime.Parse(currentDayShift.DayShiftStart)) < TimeSpan.FromHours(24))
-            {
-                await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
-            }
 
             using (UserDialogs.Instance.Loading(Resource.StartingShift, null, null, true, MaskType.Gradient))
             {
@@ -1730,18 +1464,19 @@ namespace Hubo
                     StartLong = geoCoords.Longitude,
                     StartLocation = location,
                     ActiveShift = true,
-                    StartNote = note,
-                    DayShiftKey = currentDayShift.Key
+                    StartNote = note
                 };
                 db.Insert(shift);
 
+                List<UserTable> user = new List<UserTable>();
                 List<CompanyTable> company = new List<CompanyTable>();
 
+                user = db.Query<UserTable>("SELECT * FROM [UserTable]");
                 company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
 
                 if (await ReturnOffline())
                 {
-                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].ServerId, currentDayShift.ServerKey);
+                    var result = await restAPI.QueryShift(shift, false, user[0].DriverId, company[0].Key);
 
                     if (result > 0)
                     {
@@ -1993,7 +1728,6 @@ namespace Hubo
             List<BreakOffline> listOfflineBreaks = db.Query<BreakOffline>("SELECT * FROM [BreakOffline]");
             List<DriveOffline> listOfflineDrives = db.Query<DriveOffline>("SELECT * FROM [DriveOffline]");
             List<VehicleOffline> listOfflineVehicles = db.Query<VehicleOffline>("SELECT * FROM [VehicleOffline]");
-            List<DayShiftOffline> listOfflineDayShifts = db.Query<DayShiftOffline>("SELECT * FROM [DayShiftOffline]");
 
             List<UserTable> user = db.Query<UserTable>("SELECT * FROM [UserTable]");
             List<CompanyTable> company = db.Query<CompanyTable>("SELECT * FROM [CompanyTable]");
@@ -2021,38 +1755,14 @@ namespace Hubo
                 }
             }
 
-            List<DayShiftTable> dayShifts = new List<DayShiftTable>();
-
-            if (listOfflineDayShifts.Count > 0)
-            {
-                foreach (DayShiftOffline item in listOfflineDayShifts)
-                {
-                    DayShiftTable currentDayShift = db.Get<DayShiftTable>(item.Key);
-
-                    int dayShiftKey = await restAPI.NewDayShift(user[0].DriverId);
-
-                    if (dayShiftKey < 1)
-                    {
-                        return false;
-                    }
-
-                    currentDayShift.ServerKey = dayShiftKey;
-                    db.Update(currentDayShift);
-
-                    dayShifts.Add(currentDayShift);
-                }
-            }
-
             if (listOfflineShifts.Count > 0)
             {
                 foreach (ShiftOffline offlineShift in listOfflineShifts)
                 {
                     ShiftTable currentShift = db.Get<ShiftTable>(offlineShift.ShiftKey);
-                    DayShiftTable relatedDayShift = db.Get<DayShiftTable>(currentShift.DayShiftKey);
-
                     if (offlineShift.StartOffline)
                     {
-                        int startResult = await restAPI.QueryShift(currentShift, false, user[0].DriverId, company[0].ServerId, relatedDayShift.ServerKey);
+                        int startResult = await restAPI.QueryShift(currentShift, false, user[0].DriverId, company[0].Key);
                         if (startResult < 1)
                         {
                             return false;
@@ -2085,8 +1795,7 @@ namespace Hubo
                         VehicleTable currentVehicle = db.Get<VehicleTable>(currentDrive.VehicleKey);
                         currentDrive.ServerVehicleKey = currentVehicle.ServerKey;
                     }
-                    ShiftTable currentShift = db.Get<ShiftTable>(currentDrive.ShiftKey);
-                    currentDrive.ServerShiftKey = currentShift.ServerKey;
+
                     if (offlineDrive.StartOffline)
                     {
                         int startDriveResult = await restAPI.QueryDrive(false, currentDrive);
@@ -2118,7 +1827,7 @@ namespace Hubo
                 {
                     BreakTable currentBreak = db.Get<BreakTable>(offlineBreak.BreakKey);
                     ShiftTable currentShift = db.Get<ShiftTable>(currentBreak.ShiftKey);
-                    currentBreak.ServerShiftKey = currentShift.ServerKey;
+
                     if (offlineBreak.StartOffline)
                     {
                         int startBreakResult = await restAPI.QueryBreak(false, currentBreak);

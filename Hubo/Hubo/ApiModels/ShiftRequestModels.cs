@@ -23,6 +23,8 @@ namespace Hubo
         public string startLocation { get; set; }
 
         public string startNote { get; set; }
+
+        public int dayShiftId { get; set; }
     }
 
     internal class EndShiftModel
@@ -119,5 +121,10 @@ namespace Hubo
         public string RegistrationNo { get; set; }
 
         public bool IsManuallyEntered { get; set; }
+    }
+
+    internal class NewShiftModel
+    {
+        public int driverId { get; set; }
     }
 }

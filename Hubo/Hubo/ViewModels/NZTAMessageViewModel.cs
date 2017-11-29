@@ -10,7 +10,7 @@ namespace Hubo
 
     internal class NZTAMessageViewModel : INotifyPropertyChanged
     {
-        private BottomNavBar navBar = new BottomNavBar();
+        private BottomNavBar navBar;
 
         private BottomBarPage bottomBarPage;
 
@@ -21,8 +21,7 @@ namespace Hubo
                 NZTAButtonText = Resource.NZTAButtonText;
                 NZTADisclaimer = Resource.NZTADisclaimer;
                 NZTAButton = new Command(ProceedToHomePage);
-                this.bottomBarPage = navBar.GetBottomBar();
-                NavigationPage.SetHasNavigationBar(bottomBarPage, false);
+
             }
             else if (instruction == 2)
             {
@@ -64,6 +63,9 @@ namespace Hubo
 
         private void ProceedToHomePage()
         {
+            this.navBar = new BottomNavBar();
+            this.bottomBarPage = navBar.GetBottomBar();
+            NavigationPage.SetHasNavigationBar(bottomBarPage, false);
             Application.Current.MainPage = new NavigationPage(bottomBarPage);
         }
     }

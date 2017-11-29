@@ -7,7 +7,8 @@ namespace Hubo
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Acr.UserDialogs;
+    using Acr.UserDialogs;    
+    
     using Telerik.XamarinForms.Chart;
     using Xamarin.Forms;
 

@@ -6310,7 +6310,7 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.left = global::Hubo.Droid.Resource.Id.left;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.legendItemIconView = global::Hubo.Droid.Resource.Id.legendItemIconView;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.legendItemTitleView = global::Hubo.Droid.Resource.Id.legendItemTitleView;
-			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.legendListView = global::Hubo.Droid.Resource.Id.legendListView;
+			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.legendRecyclerView = global::Hubo.Droid.Resource.Id.legendRecyclerView;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.line1 = global::Hubo.Droid.Resource.Id.line1;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.line3 = global::Hubo.Droid.Resource.Id.line3;
 			global::Telerik.XamarinForms.ChartRenderer.Android.Resource.Id.listMode = global::Hubo.Droid.Resource.Id.listMode;
@@ -9379,8 +9379,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.buttonStyleSmall = global::Hubo.Droid.Resource.Attribute.buttonStyleSmall;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.buttonTint = global::Hubo.Droid.Resource.Attribute.buttonTint;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.buttonTintMode = global::Hubo.Droid.Resource.Attribute.buttonTintMode;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.calendarBackground = global::Hubo.Droid.Resource.Attribute.calendarBackground;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.calendarStyle = global::Hubo.Droid.Resource.Attribute.calendarStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.cardBackgroundColor = global::Hubo.Droid.Resource.Attribute.cardBackgroundColor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.cardCornerRadius = global::Hubo.Droid.Resource.Attribute.cardCornerRadius;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.cardElevation = global::Hubo.Droid.Resource.Attribute.cardElevation;
@@ -9424,7 +9422,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.defaultQueryHint = global::Hubo.Droid.Resource.Attribute.defaultQueryHint;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.dialogPreferredPadding = global::Hubo.Droid.Resource.Attribute.dialogPreferredPadding;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.dialogTheme = global::Hubo.Droid.Resource.Attribute.dialogTheme;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.displayMode = global::Hubo.Droid.Resource.Attribute.displayMode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.displayOptions = global::Hubo.Droid.Resource.Attribute.displayOptions;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.divider = global::Hubo.Droid.Resource.Attribute.divider;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.dividerHorizontal = global::Hubo.Droid.Resource.Attribute.dividerHorizontal;
@@ -9470,7 +9467,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.initialActivityCount = global::Hubo.Droid.Resource.Attribute.initialActivityCount;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.insetForeground = global::Hubo.Droid.Resource.Attribute.insetForeground;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.isLightTheme = global::Hubo.Droid.Resource.Attribute.isLightTheme;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.isYearModeCompact = global::Hubo.Droid.Resource.Attribute.isYearModeCompact;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.itemBackground = global::Hubo.Droid.Resource.Attribute.itemBackground;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.itemIconTint = global::Hubo.Droid.Resource.Attribute.itemIconTint;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.itemPadding = global::Hubo.Droid.Resource.Attribute.itemPadding;
@@ -9555,14 +9551,9 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.seekBarStyle = global::Hubo.Droid.Resource.Attribute.seekBarStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.selectableItemBackground = global::Hubo.Droid.Resource.Attribute.selectableItemBackground;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.selectableItemBackgroundBorderless = global::Hubo.Droid.Resource.Attribute.selectableItemBackgroundBorderless;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.selectionMode = global::Hubo.Droid.Resource.Attribute.selectionMode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showAsAction = global::Hubo.Droid.Resource.Attribute.showAsAction;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showCellDecorations = global::Hubo.Droid.Resource.Attribute.showCellDecorations;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showDayNames = global::Hubo.Droid.Resource.Attribute.showDayNames;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showDividers = global::Hubo.Droid.Resource.Attribute.showDividers;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showGridLines = global::Hubo.Droid.Resource.Attribute.showGridLines;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showText = global::Hubo.Droid.Resource.Attribute.showText;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.showTitle = global::Hubo.Droid.Resource.Attribute.showTitle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.singleChoiceItemLayout = global::Hubo.Droid.Resource.Attribute.singleChoiceItemLayout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.spanCount = global::Hubo.Droid.Resource.Attribute.spanCount;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.spinBars = global::Hubo.Droid.Resource.Attribute.spinBars;
@@ -9572,7 +9563,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.srcCompat = global::Hubo.Droid.Resource.Attribute.srcCompat;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.stackFromEnd = global::Hubo.Droid.Resource.Attribute.stackFromEnd;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.state_above_anchor = global::Hubo.Droid.Resource.Attribute.state_above_anchor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.state_calendar_cell_today = global::Hubo.Droid.Resource.Attribute.state_calendar_cell_today;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.statusBarBackground = global::Hubo.Droid.Resource.Attribute.statusBarBackground;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.statusBarScrim = global::Hubo.Droid.Resource.Attribute.statusBarScrim;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.strokeColor = global::Hubo.Droid.Resource.Attribute.strokeColor;
@@ -9631,7 +9621,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.track = global::Hubo.Droid.Resource.Attribute.track;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.useCompatPadding = global::Hubo.Droid.Resource.Attribute.useCompatPadding;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.voiceIcon = global::Hubo.Droid.Resource.Attribute.voiceIcon;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.weekNumberDisplayMode = global::Hubo.Droid.Resource.Attribute.weekNumberDisplayMode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.windowActionBar = global::Hubo.Droid.Resource.Attribute.windowActionBar;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.windowActionBarOverlay = global::Hubo.Droid.Resource.Attribute.windowActionBarOverlay;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Attribute.windowActionModeOverlay = global::Hubo.Droid.Resource.Attribute.windowActionModeOverlay;
@@ -9666,7 +9655,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.abc_secondary_text_material_light = global::Hubo.Droid.Resource.Color.abc_secondary_text_material_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.accent_material_dark = global::Hubo.Droid.Resource.Color.accent_material_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.accent_material_light = global::Hubo.Droid.Resource.Color.accent_material_light;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.autocomplete_primary = global::Hubo.Droid.Resource.Color.autocomplete_primary;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.background_floating_material_dark = global::Hubo.Droid.Resource.Color.background_floating_material_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.background_floating_material_light = global::Hubo.Droid.Resource.Color.background_floating_material_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.background_material_dark = global::Hubo.Droid.Resource.Color.background_material_dark;
@@ -9684,9 +9672,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.cardview_light_background = global::Hubo.Droid.Resource.Color.cardview_light_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.cardview_shadow_end_color = global::Hubo.Droid.Resource.Color.cardview_shadow_end_color;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.cardview_shadow_start_color = global::Hubo.Droid.Resource.Color.cardview_shadow_start_color;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.data_form_invalid_validation_color = global::Hubo.Droid.Resource.Color.data_form_invalid_validation_color;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.data_form_list_selected = global::Hubo.Droid.Resource.Color.data_form_list_selected;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.data_form_valid_validation_color = global::Hubo.Droid.Resource.Color.data_form_valid_validation_color;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.design_fab_shadow_end_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_end_color;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.design_fab_shadow_mid_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_mid_color;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.design_fab_shadow_start_color = global::Hubo.Droid.Resource.Color.design_fab_shadow_start_color;
@@ -9746,8 +9731,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.switch_thumb_material_light = global::Hubo.Droid.Resource.Color.switch_thumb_material_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.switch_thumb_normal_material_dark = global::Hubo.Droid.Resource.Color.switch_thumb_normal_material_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.switch_thumb_normal_material_light = global::Hubo.Droid.Resource.Color.switch_thumb_normal_material_light;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.token_normal = global::Hubo.Droid.Resource.Color.token_normal;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.token_selected = global::Hubo.Droid.Resource.Color.token_selected;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.transparent = global::Hubo.Droid.Resource.Color.transparent;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Color.white = global::Hubo.Droid.Resource.Color.white;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.abc_action_bar_content_inset_material = global::Hubo.Droid.Resource.Dimension.abc_action_bar_content_inset_material;
@@ -9821,13 +9804,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.cardview_compat_inset_shadow = global::Hubo.Droid.Resource.Dimension.cardview_compat_inset_shadow;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.cardview_default_elevation = global::Hubo.Droid.Resource.Dimension.cardview_default_elevation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.cardview_default_radius = global::Hubo.Droid.Resource.Dimension.cardview_default_radius;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_header_text_size = global::Hubo.Droid.Resource.Dimension.data_form_editor_header_text_size;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_margin_horizontal = global::Hubo.Droid.Resource.Dimension.data_form_editor_margin_horizontal;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_padding_horizontal = global::Hubo.Droid.Resource.Dimension.data_form_editor_padding_horizontal;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_padding_vertical = global::Hubo.Droid.Resource.Dimension.data_form_editor_padding_vertical;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_text_size = global::Hubo.Droid.Resource.Dimension.data_form_editor_text_size;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.data_form_editor_validation_text_size = global::Hubo.Droid.Resource.Dimension.data_form_editor_validation_text_size;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.date_text_size_year_mode = global::Hubo.Droid.Resource.Dimension.date_text_size_year_mode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.design_appbar_elevation = global::Hubo.Droid.Resource.Dimension.design_appbar_elevation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.design_bottom_sheet_modal_elevation = global::Hubo.Droid.Resource.Dimension.design_bottom_sheet_modal_elevation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Dimension.design_bottom_sheet_modal_peek_height = global::Hubo.Droid.Resource.Dimension.design_bottom_sheet_modal_peek_height;
@@ -9949,19 +9925,8 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.abc_textfield_search_material = global::Hubo.Droid.Resource.Drawable.abc_textfield_search_material;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.autocomplete_default_backgound = global::Hubo.Droid.Resource.Drawable.autocomplete_default_backgound;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_invalid_background = global::Hubo.Droid.Resource.Drawable.data_form_invalid_background;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_invalid_icon = global::Hubo.Droid.Resource.Drawable.data_form_invalid_icon;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_list_item_states = global::Hubo.Droid.Resource.Drawable.data_form_list_item_states;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_checked = global::Hubo.Droid.Resource.Drawable.data_form_segment_checked;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_item = global::Hubo.Droid.Resource.Drawable.data_form_segment_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_segment_unchecked = global::Hubo.Droid.Resource.Drawable.data_form_segment_unchecked;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_valid_background = global::Hubo.Droid.Resource.Drawable.data_form_valid_background;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.data_form_valid_icon = global::Hubo.Droid.Resource.Drawable.data_form_valid_icon;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.dataform_number_picker_background = global::Hubo.Droid.Resource.Drawable.dataform_number_picker_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.design_fab_background = global::Hubo.Droid.Resource.Drawable.design_fab_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.design_snackbar_background = global::Hubo.Droid.Resource.Drawable.design_snackbar_background;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.events_popup_bg = global::Hubo.Droid.Resource.Drawable.events_popup_bg;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.gingerbread_background = global::Hubo.Droid.Resource.Drawable.gingerbread_background;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_audiotrack = global::Hubo.Droid.Resource.Drawable.ic_audiotrack;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_audiotrack_light = global::Hubo.Droid.Resource.Drawable.ic_audiotrack_light;
@@ -9977,7 +9942,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_cast_on_2_light = global::Hubo.Droid.Resource.Drawable.ic_cast_on_2_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_cast_on_light = global::Hubo.Droid.Resource.Drawable.ic_cast_on_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_cast_white = global::Hubo.Droid.Resource.Drawable.ic_cast_white;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_clear = global::Hubo.Droid.Resource.Drawable.ic_clear;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_close_dark = global::Hubo.Droid.Resource.Drawable.ic_close_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_close_light = global::Hubo.Droid.Resource.Drawable.ic_close_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_collapse = global::Hubo.Droid.Resource.Drawable.ic_collapse;
@@ -9997,7 +9961,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_collapse_00013 = global::Hubo.Droid.Resource.Drawable.ic_collapse_00013;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_collapse_00014 = global::Hubo.Droid.Resource.Drawable.ic_collapse_00014;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_collapse_00015 = global::Hubo.Droid.Resource.Drawable.ic_collapse_00015;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_collapse_dataform_group = global::Hubo.Droid.Resource.Drawable.ic_collapse_dataform_group;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand = global::Hubo.Droid.Resource.Drawable.ic_expand;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_00000 = global::Hubo.Droid.Resource.Drawable.ic_expand_00000;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_00001 = global::Hubo.Droid.Resource.Drawable.ic_expand_00001;
@@ -10015,7 +9978,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_00013 = global::Hubo.Droid.Resource.Drawable.ic_expand_00013;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_00014 = global::Hubo.Droid.Resource.Drawable.ic_expand_00014;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_00015 = global::Hubo.Droid.Resource.Drawable.ic_expand_00015;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_expand_dataform_group = global::Hubo.Droid.Resource.Drawable.ic_expand_dataform_group;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_media_pause = global::Hubo.Droid.Resource.Drawable.ic_media_pause;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_media_play = global::Hubo.Droid.Resource.Drawable.ic_media_play;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_media_route_disabled_mono_dark = global::Hubo.Droid.Resource.Drawable.ic_media_route_disabled_mono_dark;
@@ -10032,8 +9994,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_speaker_group_dark = global::Hubo.Droid.Resource.Drawable.ic_speaker_group_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_speaker_group_light = global::Hubo.Droid.Resource.Drawable.ic_speaker_group_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_speaker_light = global::Hubo.Droid.Resource.Drawable.ic_speaker_light;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_token_remove = global::Hubo.Droid.Resource.Drawable.ic_token_remove;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_token_remove_pressed = global::Hubo.Droid.Resource.Drawable.ic_token_remove_pressed;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_tv_dark = global::Hubo.Droid.Resource.Drawable.ic_tv_dark;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.ic_tv_light = global::Hubo.Droid.Resource.Drawable.ic_tv_light;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.mr_dialog_material_background_dark = global::Hubo.Droid.Resource.Drawable.mr_dialog_material_background_dark;
@@ -10057,19 +10017,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.shade_bottom = global::Hubo.Droid.Resource.Drawable.shade_bottom;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.shade_corner = global::Hubo.Droid.Resource.Drawable.shade_corner;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.shade_right = global::Hubo.Droid.Resource.Drawable.shade_right;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.token_bg = global::Hubo.Droid.Resource.Drawable.token_bg;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.token_default = global::Hubo.Droid.Resource.Drawable.token_default;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.token_selected = global::Hubo.Droid.Resource.Drawable.token_selected;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Drawable.token_text_color = global::Hubo.Droid.Resource.Drawable.token_text_color;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Block = global::Hubo.Droid.Resource.Id.Block;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Inline = global::Hubo.Droid.Resource.Id.Inline;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Month = global::Hubo.Droid.Resource.Id.Month;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Multiple = global::Hubo.Droid.Resource.Id.Multiple;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.None = global::Hubo.Droid.Resource.Id.None;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Range = global::Hubo.Droid.Resource.Id.Range;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Single = global::Hubo.Droid.Resource.Id.Single;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Week = global::Hubo.Droid.Resource.Id.Week;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.Year = global::Hubo.Droid.Resource.Id.Year;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.action0 = global::Hubo.Droid.Resource.Id.action0;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.action_bar = global::Hubo.Droid.Resource.Id.action_bar;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.action_bar_activity_content = global::Hubo.Droid.Resource.Id.action_bar_activity_content;
@@ -10103,34 +10050,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.contentPanel = global::Hubo.Droid.Resource.Id.contentPanel;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.custom = global::Hubo.Droid.Resource.Id.custom;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.customPanel = global::Hubo.Droid.Resource.Id.customPanel;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_autocomplete_editor = global::Hubo.Droid.Resource.Id.data_form_autocomplete_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_checkbox_editor = global::Hubo.Droid.Resource.Id.data_form_checkbox_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_date_editor = global::Hubo.Droid.Resource.Id.data_form_date_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_decimal_editor = global::Hubo.Droid.Resource.Id.data_form_decimal_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_editor_container = global::Hubo.Droid.Resource.Id.data_form_editor_container;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_editor_group_container = global::Hubo.Droid.Resource.Id.data_form_editor_group_container;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_editor_image = global::Hubo.Droid.Resource.Id.data_form_editor_image;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_expandable_group_expand_button = global::Hubo.Droid.Resource.Id.data_form_expandable_group_expand_button;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_group_header = global::Hubo.Droid.Resource.Id.data_form_group_header;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_group_header_container = global::Hubo.Droid.Resource.Id.data_form_group_header_container;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_header_container = global::Hubo.Droid.Resource.Id.data_form_header_container;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_integer_editor = global::Hubo.Droid.Resource.Id.data_form_integer_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_list_editor = global::Hubo.Droid.Resource.Id.data_form_list_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_number_picker_editor = global::Hubo.Droid.Resource.Id.data_form_number_picker_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_rad_autocomplete_editor = global::Hubo.Droid.Resource.Id.data_form_rad_autocomplete_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_radio_group = global::Hubo.Droid.Resource.Id.data_form_radio_group;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_root_layout = global::Hubo.Droid.Resource.Id.data_form_root_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_seekbar_editor = global::Hubo.Droid.Resource.Id.data_form_seekbar_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_spinner_editor = global::Hubo.Droid.Resource.Id.data_form_spinner_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_switch_editor = global::Hubo.Droid.Resource.Id.data_form_switch_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_text_editor = global::Hubo.Droid.Resource.Id.data_form_text_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_text_viewer = global::Hubo.Droid.Resource.Id.data_form_text_viewer;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_text_viewer_header = global::Hubo.Droid.Resource.Id.data_form_text_viewer_header;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_time_editor = global::Hubo.Droid.Resource.Id.data_form_time_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_toggle_editor = global::Hubo.Droid.Resource.Id.data_form_toggle_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_validation_container = global::Hubo.Droid.Resource.Id.data_form_validation_container;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_validation_icon = global::Hubo.Droid.Resource.Id.data_form_validation_icon;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.data_form_validation_message_view = global::Hubo.Droid.Resource.Id.data_form_validation_message_view;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.decor_content_parent = global::Hubo.Droid.Resource.Id.decor_content_parent;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.default_activity_button = global::Hubo.Droid.Resource.Id.default_activity_button;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.design_bottom_sheet = global::Hubo.Droid.Resource.Id.design_bottom_sheet;
@@ -10159,9 +10078,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.ifRoom = global::Hubo.Droid.Resource.Id.ifRoom;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.image = global::Hubo.Droid.Resource.Id.image;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.info = global::Hubo.Droid.Resource.Id.info;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.inline_event_end = global::Hubo.Droid.Resource.Id.inline_event_end;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.inline_event_start = global::Hubo.Droid.Resource.Id.inline_event_start;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.inline_event_title = global::Hubo.Droid.Resource.Id.inline_event_title;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.item_touch_helper_previous_elevation = global::Hubo.Droid.Resource.Id.item_touch_helper_previous_elevation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.left = global::Hubo.Droid.Resource.Id.left;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.line1 = global::Hubo.Droid.Resource.Id.line1;
@@ -10196,20 +10112,13 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.mr_volume_item_icon = global::Hubo.Droid.Resource.Id.mr_volume_item_icon;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.mr_volume_slider = global::Hubo.Droid.Resource.Id.mr_volume_slider;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.multiply = global::Hubo.Droid.Resource.Id.multiply;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.name = global::Hubo.Droid.Resource.Id.name;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.navigation_header_container = global::Hubo.Droid.Resource.Id.navigation_header_container;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.never = global::Hubo.Droid.Resource.Id.never;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.none = global::Hubo.Droid.Resource.Id.none;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.normal = global::Hubo.Droid.Resource.Id.normal;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.number_picker_minus = global::Hubo.Droid.Resource.Id.number_picker_minus;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.number_picker_plus = global::Hubo.Droid.Resource.Id.number_picker_plus;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.number_picker_root = global::Hubo.Droid.Resource.Id.number_picker_root;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.number_picker_view = global::Hubo.Droid.Resource.Id.number_picker_view;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.parallax = global::Hubo.Droid.Resource.Id.parallax;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.parentPanel = global::Hubo.Droid.Resource.Id.parentPanel;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.pin = global::Hubo.Droid.Resource.Id.pin;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.popup_event_time = global::Hubo.Droid.Resource.Id.popup_event_time;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.popup_event_title = global::Hubo.Droid.Resource.Id.popup_event_title;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.progress_circular = global::Hubo.Droid.Resource.Id.progress_circular;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.progress_horizontal = global::Hubo.Droid.Resource.Id.progress_horizontal;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.radio = global::Hubo.Droid.Resource.Id.radio;
@@ -10246,8 +10155,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.start = global::Hubo.Droid.Resource.Id.start;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.status_bar_latest_event_content = global::Hubo.Droid.Resource.Id.status_bar_latest_event_content;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.submit_area = global::Hubo.Droid.Resource.Id.submit_area;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.suggestion_img = global::Hubo.Droid.Resource.Id.suggestion_img;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.suggestion_text = global::Hubo.Droid.Resource.Id.suggestion_text;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.tabMode = global::Hubo.Droid.Resource.Id.tabMode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.text = global::Hubo.Droid.Resource.Id.text;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.text1 = global::Hubo.Droid.Resource.Id.text1;
@@ -10256,8 +10163,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.time = global::Hubo.Droid.Resource.Id.time;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.title = global::Hubo.Droid.Resource.Id.title;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.title_template = global::Hubo.Droid.Resource.Id.title_template;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.tokenimage = global::Hubo.Droid.Resource.Id.tokenimage;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.tokentext = global::Hubo.Droid.Resource.Id.tokentext;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.top = global::Hubo.Droid.Resource.Id.top;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.topPanel = global::Hubo.Droid.Resource.Id.topPanel;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.touch_outside = global::Hubo.Droid.Resource.Id.touch_outside;
@@ -10267,7 +10172,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.volume_item_container = global::Hubo.Droid.Resource.Id.volume_item_container;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.withText = global::Hubo.Droid.Resource.Id.withText;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.wrap_content = global::Hubo.Droid.Resource.Id.wrap_content;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Id.xview = global::Hubo.Droid.Resource.Id.xview;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Integer.abc_config_activityDefaultDur = global::Hubo.Droid.Resource.Integer.abc_config_activityDefaultDur;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Integer.abc_config_activityShortDur = global::Hubo.Droid.Resource.Integer.abc_config_activityShortDur;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Integer.abc_max_action_buttons = global::Hubo.Droid.Resource.Integer.abc_max_action_buttons;
@@ -10305,35 +10209,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.abc_search_dropdown_item_icons_2line = global::Hubo.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.abc_search_view = global::Hubo.Droid.Resource.Layout.abc_search_view;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.abc_select_dialog_material = global::Hubo.Droid.Resource.Layout.abc_select_dialog_material;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_autocomplete_editor = global::Hubo.Droid.Resource.Layout.data_form_autocomplete_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_checkbox_editor = global::Hubo.Droid.Resource.Layout.data_form_checkbox_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_date_editor = global::Hubo.Droid.Resource.Layout.data_form_date_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_decimal_editor = global::Hubo.Droid.Resource.Layout.data_form_decimal_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_default_group_layout = global::Hubo.Droid.Resource.Layout.data_form_default_group_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_editor_header_layout_1 = global::Hubo.Droid.Resource.Layout.data_form_editor_header_layout_1;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_editor_header_layout_2 = global::Hubo.Droid.Resource.Layout.data_form_editor_header_layout_2;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_editor_layout_1 = global::Hubo.Droid.Resource.Layout.data_form_editor_layout_1;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_editor_layout_2 = global::Hubo.Droid.Resource.Layout.data_form_editor_layout_2;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_editor_validation_layout_1 = global::Hubo.Droid.Resource.Layout.data_form_editor_validation_layout_1;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_expandable_group_layout = global::Hubo.Droid.Resource.Layout.data_form_expandable_group_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_group_layout = global::Hubo.Droid.Resource.Layout.data_form_group_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_integer_editor = global::Hubo.Droid.Resource.Layout.data_form_integer_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_linear_layout = global::Hubo.Droid.Resource.Layout.data_form_linear_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor = global::Hubo.Droid.Resource.Layout.data_form_list_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_list_editor_item = global::Hubo.Droid.Resource.Layout.data_form_list_editor_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_number_picker = global::Hubo.Droid.Resource.Layout.data_form_number_picker;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_rad_autocomplete_editor = global::Hubo.Droid.Resource.Layout.data_form_rad_autocomplete_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_radio_group_editor = global::Hubo.Droid.Resource.Layout.data_form_radio_group_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_root_layout = global::Hubo.Droid.Resource.Layout.data_form_root_layout;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_seek_bar_editor = global::Hubo.Droid.Resource.Layout.data_form_seek_bar_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_segmented_editor = global::Hubo.Droid.Resource.Layout.data_form_segmented_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_spinner_editor = global::Hubo.Droid.Resource.Layout.data_form_spinner_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_spinner_item = global::Hubo.Droid.Resource.Layout.data_form_spinner_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_switch_editor = global::Hubo.Droid.Resource.Layout.data_form_switch_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_text_editor = global::Hubo.Droid.Resource.Layout.data_form_text_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_text_viewer = global::Hubo.Droid.Resource.Layout.data_form_text_viewer;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_time_editor = global::Hubo.Droid.Resource.Layout.data_form_time_editor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.data_form_toggle_button_editor = global::Hubo.Droid.Resource.Layout.data_form_toggle_button_editor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_bottom_sheet_dialog = global::Hubo.Droid.Resource.Layout.design_bottom_sheet_dialog;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_layout_snackbar = global::Hubo.Droid.Resource.Layout.design_layout_snackbar;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_layout_snackbar_include = global::Hubo.Droid.Resource.Layout.design_layout_snackbar_include;
@@ -10346,7 +10221,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_navigation_item_subheader = global::Hubo.Droid.Resource.Layout.design_navigation_item_subheader;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_navigation_menu = global::Hubo.Droid.Resource.Layout.design_navigation_menu;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.design_navigation_menu_item = global::Hubo.Droid.Resource.Layout.design_navigation_menu_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.inline_event = global::Hubo.Droid.Resource.Layout.inline_event;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.mr_chooser_dialog = global::Hubo.Droid.Resource.Layout.mr_chooser_dialog;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.mr_chooser_list_item = global::Hubo.Droid.Resource.Layout.mr_chooser_list_item;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.mr_controller_material_dialog_b = global::Hubo.Droid.Resource.Layout.mr_controller_material_dialog_b;
@@ -10361,19 +10235,15 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.notification_template_media = global::Hubo.Droid.Resource.Layout.notification_template_media;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.notification_template_part_chronometer = global::Hubo.Droid.Resource.Layout.notification_template_part_chronometer;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.notification_template_part_time = global::Hubo.Droid.Resource.Layout.notification_template_part_time;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.number_picker = global::Hubo.Droid.Resource.Layout.number_picker;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.on_demand_automatic = global::Hubo.Droid.Resource.Layout.on_demand_automatic;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.on_demand_manual = global::Hubo.Droid.Resource.Layout.on_demand_manual;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.popup_event = global::Hubo.Droid.Resource.Layout.popup_event;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.select_dialog_item_material = global::Hubo.Droid.Resource.Layout.select_dialog_item_material;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.select_dialog_multichoice_material = global::Hubo.Droid.Resource.Layout.select_dialog_multichoice_material;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.select_dialog_singlechoice_material = global::Hubo.Droid.Resource.Layout.select_dialog_singlechoice_material;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.simple_empty_content = global::Hubo.Droid.Resource.Layout.simple_empty_content;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.simple_group_header_item = global::Hubo.Droid.Resource.Layout.simple_group_header_item;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.simple_list_item = global::Hubo.Droid.Resource.Layout.simple_list_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.suggestion_item_layout = global::Hubo.Droid.Resource.Layout.suggestion_item_layout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.support_simple_spinner_dropdown_item = global::Hubo.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.token = global::Hubo.Droid.Resource.Layout.token;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Layout.trial_message = global::Hubo.Droid.Resource.Layout.trial_message;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.String.ApplicationName = global::Hubo.Droid.Resource.String.ApplicationName;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.String.Hello = global::Hubo.Droid.Resource.String.Hello;
@@ -10971,10 +10841,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.BottomSheetBehavior_Params_behavior_peekHeight = global::Hubo.Droid.Resource.Styleable.BottomSheetBehavior_Params_behavior_peekHeight;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.ButtonBarLayout = global::Hubo.Droid.Resource.Styleable.ButtonBarLayout;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.ButtonBarLayout_allowStacking = global::Hubo.Droid.Resource.Styleable.ButtonBarLayout_allowStacking;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CalendarCellState = global::Hubo.Droid.Resource.Styleable.CalendarCellState;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CalendarCellState_state_calendar_cell_today = global::Hubo.Droid.Resource.Styleable.CalendarCellState_state_calendar_cell_today;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CalendarTheme = global::Hubo.Droid.Resource.Styleable.CalendarTheme;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CalendarTheme_calendarStyle = global::Hubo.Droid.Resource.Styleable.CalendarTheme_calendarStyle;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CardView = global::Hubo.Droid.Resource.Styleable.CardView;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CardView_android_minHeight = global::Hubo.Droid.Resource.Styleable.CardView_android_minHeight;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.CardView_android_minWidth = global::Hubo.Droid.Resource.Styleable.CardView_android_minWidth;
@@ -11118,16 +10984,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.PopupWindow_overlapAnchor = global::Hubo.Droid.Resource.Styleable.PopupWindow_overlapAnchor;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.PopupWindowBackgroundState = global::Hubo.Droid.Resource.Styleable.PopupWindowBackgroundState;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::Hubo.Droid.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView = global::Hubo.Droid.Resource.Styleable.RadCalendarView;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_calendarBackground = global::Hubo.Droid.Resource.Styleable.RadCalendarView_calendarBackground;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_displayMode = global::Hubo.Droid.Resource.Styleable.RadCalendarView_displayMode;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_isYearModeCompact = global::Hubo.Droid.Resource.Styleable.RadCalendarView_isYearModeCompact;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_selectionMode = global::Hubo.Droid.Resource.Styleable.RadCalendarView_selectionMode;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showCellDecorations = global::Hubo.Droid.Resource.Styleable.RadCalendarView_showCellDecorations;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showDayNames = global::Hubo.Droid.Resource.Styleable.RadCalendarView_showDayNames;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showGridLines = global::Hubo.Droid.Resource.Styleable.RadCalendarView_showGridLines;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_showTitle = global::Hubo.Droid.Resource.Styleable.RadCalendarView_showTitle;
-			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RadCalendarView_weekNumberDisplayMode = global::Hubo.Droid.Resource.Styleable.RadCalendarView_weekNumberDisplayMode;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView = global::Hubo.Droid.Resource.Styleable.RecyclerView;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView_android_orientation = global::Hubo.Droid.Resource.Styleable.RecyclerView_android_orientation;
 			global::Telerik.XamarinForms.DataControlsRenderer.Android.Resource.Styleable.RecyclerView_layoutManager = global::Hubo.Droid.Resource.Styleable.RecyclerView_layoutManager;
@@ -11513,6 +11369,7 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.queryBackground = global::Hubo.Droid.Resource.Attribute.queryBackground;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.queryHint = global::Hubo.Droid.Resource.Attribute.queryHint;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.radScrollViewStyle = global::Hubo.Droid.Resource.Attribute.radScrollViewStyle;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.rad_segmented_view_type = global::Hubo.Droid.Resource.Attribute.rad_segmented_view_type;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.radioButtonStyle = global::Hubo.Droid.Resource.Attribute.radioButtonStyle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.ratingBarStyle = global::Hubo.Droid.Resource.Attribute.ratingBarStyle;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Attribute.ratingBarStyleIndicator = global::Hubo.Droid.Resource.Attribute.ratingBarStyleIndicator;
@@ -11925,9 +11782,6 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_invalid_background = global::Hubo.Droid.Resource.Drawable.data_form_invalid_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_invalid_icon = global::Hubo.Droid.Resource.Drawable.data_form_invalid_icon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_list_item_states = global::Hubo.Droid.Resource.Drawable.data_form_list_item_states;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_checked = global::Hubo.Droid.Resource.Drawable.data_form_segment_checked;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_item = global::Hubo.Droid.Resource.Drawable.data_form_segment_item;
-			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_segment_unchecked = global::Hubo.Droid.Resource.Drawable.data_form_segment_unchecked;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_valid_background = global::Hubo.Droid.Resource.Drawable.data_form_valid_background;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.data_form_valid_icon = global::Hubo.Droid.Resource.Drawable.data_form_valid_icon;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Drawable.dataform_number_picker_background = global::Hubo.Droid.Resource.Drawable.dataform_number_picker_background;
@@ -12123,6 +11977,8 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.end_padder = global::Hubo.Droid.Resource.Id.end_padder;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.enterAlways = global::Hubo.Droid.Resource.Id.enterAlways;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.enterAlwaysCollapsed = global::Hubo.Droid.Resource.Id.enterAlwaysCollapsed;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.event_details = global::Hubo.Droid.Resource.Id.event_details;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.event_title = global::Hubo.Droid.Resource.Id.event_title;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.exitUntilCollapsed = global::Hubo.Droid.Resource.Id.exitUntilCollapsed;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.expand_activities_button = global::Hubo.Droid.Resource.Id.expand_activities_button;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.expanded_menu = global::Hubo.Droid.Resource.Id.expanded_menu;
@@ -12213,6 +12069,7 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_plate = global::Hubo.Droid.Resource.Id.search_plate;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_src_text = global::Hubo.Droid.Resource.Id.search_src_text;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.search_voice_btn = global::Hubo.Droid.Resource.Id.search_voice_btn;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.segmented = global::Hubo.Droid.Resource.Id.segmented;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.select_dialog_listview = global::Hubo.Droid.Resource.Id.select_dialog_listview;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.shortcut = global::Hubo.Droid.Resource.Id.shortcut;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Id.showCustom = global::Hubo.Droid.Resource.Id.showCustom;
@@ -12292,6 +12149,8 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.abc_search_dropdown_item_icons_2line = global::Hubo.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.abc_search_view = global::Hubo.Droid.Resource.Layout.abc_search_view;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.abc_select_dialog_material = global::Hubo.Droid.Resource.Layout.abc_select_dialog_material;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.calendar_all_day_event_view = global::Hubo.Droid.Resource.Layout.calendar_all_day_event_view;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.calendar_day_event_view = global::Hubo.Droid.Resource.Layout.calendar_day_event_view;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_autocomplete_editor = global::Hubo.Droid.Resource.Layout.data_form_autocomplete_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_checkbox_editor = global::Hubo.Droid.Resource.Layout.data_form_checkbox_editor;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Layout.data_form_date_editor = global::Hubo.Droid.Resource.Layout.data_form_date_editor;
@@ -13134,6 +12993,8 @@ namespace Hubo.Droid
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollView_scrollMode = global::Hubo.Droid.Resource.Styleable.RadScrollView_scrollMode;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollViewTheme = global::Hubo.Droid.Resource.Styleable.RadScrollViewTheme;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadScrollViewTheme_radScrollViewStyle = global::Hubo.Droid.Resource.Styleable.RadScrollViewTheme_radScrollViewStyle;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadSegmentedView = global::Hubo.Droid.Resource.Styleable.RadSegmentedView;
+			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RadSegmentedView_rad_segmented_view_type = global::Hubo.Droid.Resource.Styleable.RadSegmentedView_rad_segmented_view_type;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView = global::Hubo.Droid.Resource.Styleable.RecyclerView;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView_android_orientation = global::Hubo.Droid.Resource.Styleable.RecyclerView_android_orientation;
 			global::Telerik.XamarinForms.InputRenderer.Android.Resource.Styleable.RecyclerView_layoutManager = global::Hubo.Droid.Resource.Styleable.RecyclerView_layoutManager;
@@ -18397,62 +18258,62 @@ namespace Hubo.Droid
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f0101b3
-			public const int AreaSeriesStyle = 2130772403;
+			// aapt resource value: 0x7f010189
+			public const int AreaSeriesStyle = 2130772361;
 			
-			// aapt resource value: 0x7f0101a7
-			public const int AxisStyle = 2130772391;
+			// aapt resource value: 0x7f01017d
+			public const int AxisStyle = 2130772349;
 			
-			// aapt resource value: 0x7f0101af
-			public const int BarSeriesStyle = 2130772399;
+			// aapt resource value: 0x7f010185
+			public const int BarSeriesStyle = 2130772357;
 			
-			// aapt resource value: 0x7f0101a8
-			public const int CartesianAxisStyle = 2130772392;
+			// aapt resource value: 0x7f01017e
+			public const int CartesianAxisStyle = 2130772350;
 			
-			// aapt resource value: 0x7f0101b7
-			public const int CartesianCustomAnnotationStyle = 2130772407;
+			// aapt resource value: 0x7f01018d
+			public const int CartesianCustomAnnotationStyle = 2130772365;
 			
-			// aapt resource value: 0x7f0101b6
-			public const int CartesianPlotBandAnnotationStyle = 2130772406;
+			// aapt resource value: 0x7f01018c
+			public const int CartesianPlotBandAnnotationStyle = 2130772364;
 			
-			// aapt resource value: 0x7f0101b5
-			public const int CartesianStrokedAnnotationStyle = 2130772405;
+			// aapt resource value: 0x7f01018b
+			public const int CartesianStrokedAnnotationStyle = 2130772363;
 			
-			// aapt resource value: 0x7f0101a9
-			public const int CategoricalAxisStyle = 2130772393;
+			// aapt resource value: 0x7f01017f
+			public const int CategoricalAxisStyle = 2130772351;
 			
-			// aapt resource value: 0x7f0101b1
-			public const int CategoricalSeriesStyle = 2130772401;
+			// aapt resource value: 0x7f010187
+			public const int CategoricalSeriesStyle = 2130772359;
 			
-			// aapt resource value: 0x7f0101b2
-			public const int CategoricalStrokedSeriesStyle = 2130772402;
+			// aapt resource value: 0x7f010188
+			public const int CategoricalStrokedSeriesStyle = 2130772360;
 			
-			// aapt resource value: 0x7f0101b4
-			public const int ChartAnnotationStyle = 2130772404;
+			// aapt resource value: 0x7f01018a
+			public const int ChartAnnotationStyle = 2130772362;
 			
-			// aapt resource value: 0x7f0101ad
-			public const int ChartSeriesStyle = 2130772397;
+			// aapt resource value: 0x7f010183
+			public const int ChartSeriesStyle = 2130772355;
 			
-			// aapt resource value: 0x7f0101aa
-			public const int DateTimeCategoricalAxisStyle = 2130772394;
+			// aapt resource value: 0x7f010180
+			public const int DateTimeCategoricalAxisStyle = 2130772352;
 			
-			// aapt resource value: 0x7f0101ab
-			public const int DateTimeContinuousAxisStyle = 2130772395;
+			// aapt resource value: 0x7f010181
+			public const int DateTimeContinuousAxisStyle = 2130772353;
 			
-			// aapt resource value: 0x7f0101ae
-			public const int LineAxisStyle = 2130772398;
+			// aapt resource value: 0x7f010184
+			public const int LineAxisStyle = 2130772356;
 			
 			// aapt resource value: 0x7f010004
 			public const int MediaRouteControllerWindowBackground = 2130771972;
 			
-			// aapt resource value: 0x7f0101ac
-			public const int RadChartBaseStyle = 2130772396;
+			// aapt resource value: 0x7f010182
+			public const int RadChartBaseStyle = 2130772354;
 			
-			// aapt resource value: 0x7f0101b0
-			public const int RangeBarSeriesStyle = 2130772400;
+			// aapt resource value: 0x7f010186
+			public const int RangeBarSeriesStyle = 2130772358;
 			
-			// aapt resource value: 0x7f0101b8
-			public const int TestBarSeriesStyle = 2130772408;
+			// aapt resource value: 0x7f01018e
+			public const int TestBarSeriesStyle = 2130772366;
 			
 			// aapt resource value: 0x7f010061
 			public const int actionBarDivider = 2130772065;
@@ -18556,41 +18417,41 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010083
 			public const int activityChooserViewStyle = 2130772099;
 			
-			// aapt resource value: 0x7f0101c2
-			public const int ahBarColor = 2130772418;
+			// aapt resource value: 0x7f010198
+			public const int ahBarColor = 2130772376;
 			
-			// aapt resource value: 0x7f0101ca
-			public const int ahBarLength = 2130772426;
+			// aapt resource value: 0x7f0101a0
+			public const int ahBarLength = 2130772384;
 			
-			// aapt resource value: 0x7f0101c9
-			public const int ahBarWidth = 2130772425;
+			// aapt resource value: 0x7f01019f
+			public const int ahBarWidth = 2130772383;
 			
-			// aapt resource value: 0x7f0101c7
-			public const int ahCircleColor = 2130772423;
+			// aapt resource value: 0x7f01019d
+			public const int ahCircleColor = 2130772381;
 			
-			// aapt resource value: 0x7f0101c6
-			public const int ahDelayMillis = 2130772422;
+			// aapt resource value: 0x7f01019c
+			public const int ahDelayMillis = 2130772380;
 			
-			// aapt resource value: 0x7f0101c8
-			public const int ahRadius = 2130772424;
+			// aapt resource value: 0x7f01019e
+			public const int ahRadius = 2130772382;
 			
-			// aapt resource value: 0x7f0101c3
-			public const int ahRimColor = 2130772419;
+			// aapt resource value: 0x7f010199
+			public const int ahRimColor = 2130772377;
 			
-			// aapt resource value: 0x7f0101c4
-			public const int ahRimWidth = 2130772420;
+			// aapt resource value: 0x7f01019a
+			public const int ahRimWidth = 2130772378;
 			
-			// aapt resource value: 0x7f0101c5
-			public const int ahSpinSpeed = 2130772421;
+			// aapt resource value: 0x7f01019b
+			public const int ahSpinSpeed = 2130772379;
 			
-			// aapt resource value: 0x7f0101bf
-			public const int ahText = 2130772415;
+			// aapt resource value: 0x7f010195
+			public const int ahText = 2130772373;
 			
-			// aapt resource value: 0x7f0101c0
-			public const int ahTextColor = 2130772416;
+			// aapt resource value: 0x7f010196
+			public const int ahTextColor = 2130772374;
 			
-			// aapt resource value: 0x7f0101c1
-			public const int ahTextSize = 2130772417;
+			// aapt resource value: 0x7f010197
+			public const int ahTextSize = 2130772375;
 			
 			// aapt resource value: 0x7f0100a6
 			public const int alertDialogButtonGroupStyle = 2130772134;
@@ -18607,20 +18468,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100ba
 			public const int allowStacking = 2130772154;
 			
-			// aapt resource value: 0x7f01016b
-			public const int animated = 2130772331;
+			// aapt resource value: 0x7f01015e
+			public const int applyDefaultPalette = 2130772318;
 			
-			// aapt resource value: 0x7f01016c
-			public const int animationDuration = 2130772332;
-			
-			// aapt resource value: 0x7f01014f
-			public const int animationStartValue = 2130772303;
-			
-			// aapt resource value: 0x7f010188
-			public const int applyDefaultPalette = 2130772360;
-			
-			// aapt resource value: 0x7f010185
-			public const int areBarsRounded = 2130772357;
+			// aapt resource value: 0x7f01015b
+			public const int areBarsRounded = 2130772315;
 			
 			// aapt resource value: 0x7f0100c1
 			public const int arrowHeadLength = 2130772161;
@@ -18631,14 +18483,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100ad
 			public const int autoCompleteTextViewStyle = 2130772141;
 			
-			// aapt resource value: 0x7f010194
-			public const int axisLabelFitMode = 2130772372;
+			// aapt resource value: 0x7f01016a
+			public const int axisLabelFitMode = 2130772330;
 			
-			// aapt resource value: 0x7f010191
-			public const int axisLastLabelVisibility = 2130772369;
+			// aapt resource value: 0x7f010167
+			public const int axisLastLabelVisibility = 2130772327;
 			
-			// aapt resource value: 0x7f010195
-			public const int axisTitle = 2130772373;
+			// aapt resource value: 0x7f01016b
+			public const int axisTitle = 2130772331;
 			
 			// aapt resource value: 0x7f010032
 			public const int background = 2130772018;
@@ -18679,9 +18531,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010112
 			public const int bottomSheetStyle = 2130772242;
 			
-			// aapt resource value: 0x7f010170
-			public const int bottomWidth = 2130772336;
-			
 			// aapt resource value: 0x7f01007d
 			public const int buttonBarButtonStyle = 2130772093;
 			
@@ -18718,9 +18567,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01014c
 			public const int calendarStyle = 2130772300;
 			
-			// aapt resource value: 0x7f01016e
-			public const int cap = 2130772334;
-			
 			// aapt resource value: 0x7f01001b
 			public const int cardBackgroundColor = 2130771995;
 			
@@ -18739,8 +18585,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01001f
 			public const int cardUseCompatPadding = 2130771999;
 			
-			// aapt resource value: 0x7f01018a
-			public const int chartZoom = 2130772362;
+			// aapt resource value: 0x7f010160
+			public const int chartZoom = 2130772320;
 			
 			// aapt resource value: 0x7f0100b0
 			public const int checkboxStyle = 2130772144;
@@ -18748,23 +18594,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100b1
 			public const int checkedTextViewStyle = 2130772145;
 			
-			// aapt resource value: 0x7f010175
-			public const int circleFillColor = 2130772341;
+			// aapt resource value: 0x7f010162
+			public const int clipToBounds = 2130772322;
 			
-			// aapt resource value: 0x7f010173
-			public const int circleInnerRadius = 2130772339;
-			
-			// aapt resource value: 0x7f010172
-			public const int circleRadius = 2130772338;
-			
-			// aapt resource value: 0x7f010176
-			public const int circleStrokeColor = 2130772342;
-			
-			// aapt resource value: 0x7f01018c
-			public const int clipToBounds = 2130772364;
-			
-			// aapt resource value: 0x7f01017a
-			public const int clipToPlotArea = 2130772346;
+			// aapt resource value: 0x7f010150
+			public const int clipToPlotArea = 2130772304;
 			
 			// aapt resource value: 0x7f0100d3
 			public const int closeIcon = 2130772179;
@@ -18811,14 +18645,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100a3
 			public const int colorSwitchThumbNormal = 2130772131;
 			
-			// aapt resource value: 0x7f01018f
-			public const int combineMode = 2130772367;
+			// aapt resource value: 0x7f010165
+			public const int combineMode = 2130772325;
 			
 			// aapt resource value: 0x7f0100d8
 			public const int commitIcon = 2130772184;
 			
-			// aapt resource value: 0x7f0101a4
-			public const int content = 2130772388;
+			// aapt resource value: 0x7f01017a
+			public const int content = 2130772346;
 			
 			// aapt resource value: 0x7f01003d
 			public const int contentInsetEnd = 2130772029;
@@ -18868,11 +18702,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010035
 			public const int customNavigationLayout = 2130772021;
 			
-			// aapt resource value: 0x7f01019c
-			public const int dateFormat = 2130772380;
+			// aapt resource value: 0x7f010172
+			public const int dateFormat = 2130772338;
 			
-			// aapt resource value: 0x7f01019d
-			public const int dateTimeComponent = 2130772381;
+			// aapt resource value: 0x7f010173
+			public const int dateTimeComponent = 2130772339;
 			
 			// aapt resource value: 0x7f0100d2
 			public const int defaultQueryHint = 2130772178;
@@ -18925,8 +18759,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010040
 			public const int elevation = 2130772032;
 			
-			// aapt resource value: 0x7f01018d
-			public const int emptyContent = 2130772365;
+			// aapt resource value: 0x7f010163
+			public const int emptyContent = 2130772323;
 			
 			// aapt resource value: 0x7f010135
 			public const int errorEnabled = 2130772277;
@@ -18967,26 +18801,26 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010115
 			public const int fabSize = 2130772245;
 			
-			// aapt resource value: 0x7f0101bb
-			public const int fab_colorDisabled = 2130772411;
+			// aapt resource value: 0x7f010191
+			public const int fab_colorDisabled = 2130772369;
 			
-			// aapt resource value: 0x7f0101ba
-			public const int fab_colorNormal = 2130772410;
+			// aapt resource value: 0x7f010190
+			public const int fab_colorNormal = 2130772368;
 			
-			// aapt resource value: 0x7f0101b9
-			public const int fab_colorPressed = 2130772409;
+			// aapt resource value: 0x7f01018f
+			public const int fab_colorPressed = 2130772367;
 			
-			// aapt resource value: 0x7f0101bc
-			public const int fab_colorRipple = 2130772412;
+			// aapt resource value: 0x7f010192
+			public const int fab_colorRipple = 2130772370;
 			
-			// aapt resource value: 0x7f0101bd
-			public const int fab_shadow = 2130772413;
+			// aapt resource value: 0x7f010193
+			public const int fab_shadow = 2130772371;
 			
-			// aapt resource value: 0x7f0101be
-			public const int fab_size = 2130772414;
+			// aapt resource value: 0x7f010194
+			public const int fab_size = 2130772372;
 			
-			// aapt resource value: 0x7f010178
-			public const int fillColor = 2130772344;
+			// aapt resource value: 0x7f01014e
+			public const int fillColor = 2130772302;
 			
 			// aapt resource value: 0x7f01013f
 			public const int fillViewport = 2130772287;
@@ -18997,8 +18831,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100c0
 			public const int gapBetweenBars = 2130772160;
 			
-			// aapt resource value: 0x7f01017c
-			public const int gapLength = 2130772348;
+			// aapt resource value: 0x7f010152
+			public const int gapLength = 2130772306;
 			
 			// aapt resource value: 0x7f0100d4
 			public const int goIcon = 2130772180;
@@ -19027,14 +18861,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010036
 			public const int homeLayout = 2130772022;
 			
-			// aapt resource value: 0x7f0101a5
-			public const int horizontalAlignment = 2130772389;
+			// aapt resource value: 0x7f01017b
+			public const int horizontalAlignment = 2130772347;
 			
-			// aapt resource value: 0x7f01019a
-			public const int horizontalLocation = 2130772378;
+			// aapt resource value: 0x7f010170
+			public const int horizontalLocation = 2130772336;
 			
-			// aapt resource value: 0x7f0101a2
-			public const int horizontalOffset = 2130772386;
+			// aapt resource value: 0x7f010178
+			public const int horizontalOffset = 2130772344;
 			
 			// aapt resource value: 0x7f01002f
 			public const int icon = 2130772015;
@@ -19078,50 +18912,35 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01010b
 			public const int keylines = 2130772235;
 			
-			// aapt resource value: 0x7f0101a1
-			public const int label = 2130772385;
+			// aapt resource value: 0x7f010177
+			public const int label = 2130772343;
 			
-			// aapt resource value: 0x7f01017e
-			public const int labelColor = 2130772350;
+			// aapt resource value: 0x7f010154
+			public const int labelColor = 2130772308;
 			
-			// aapt resource value: 0x7f010182
-			public const int labelFont = 2130772354;
+			// aapt resource value: 0x7f010158
+			public const int labelFont = 2130772312;
 			
-			// aapt resource value: 0x7f010183
-			public const int labelFontStyle = 2130772355;
+			// aapt resource value: 0x7f010159
+			public const int labelFontStyle = 2130772313;
 			
-			// aapt resource value: 0x7f010187
-			public const int labelFormat = 2130772359;
+			// aapt resource value: 0x7f01015d
+			public const int labelFormat = 2130772317;
 			
-			// aapt resource value: 0x7f010197
-			public const int labelInterval = 2130772375;
+			// aapt resource value: 0x7f01016d
+			public const int labelInterval = 2130772333;
 			
-			// aapt resource value: 0x7f010180
-			public const int labelMargin = 2130772352;
+			// aapt resource value: 0x7f010156
+			public const int labelMargin = 2130772310;
 			
-			// aapt resource value: 0x7f010193
-			public const int labelOffset = 2130772371;
-			
-			// aapt resource value: 0x7f010190
-			public const int labelRotationAngle = 2130772368;
-			
-			// aapt resource value: 0x7f01017f
-			public const int labelSize = 2130772351;
-			
-			// aapt resource value: 0x7f010165
-			public const int labelsColor = 2130772325;
-			
-			// aapt resource value: 0x7f010164
-			public const int labelsCount = 2130772324;
+			// aapt resource value: 0x7f010169
+			public const int labelOffset = 2130772329;
 			
 			// aapt resource value: 0x7f010166
-			public const int labelsLayoutMode = 2130772326;
+			public const int labelRotationAngle = 2130772326;
 			
-			// aapt resource value: 0x7f010167
-			public const int labelsOffset = 2130772327;
-			
-			// aapt resource value: 0x7f010163
-			public const int labelsVisible = 2130772323;
+			// aapt resource value: 0x7f010155
+			public const int labelSize = 2130772309;
 			
 			// aapt resource value: 0x7f0100cf
 			public const int layout = 2130772175;
@@ -19153,17 +18972,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100f9
 			public const int layout_scrollInterpolator = 2130772217;
 			
-			// aapt resource value: 0x7f01016f
-			public const int length = 2130772335;
+			// aapt resource value: 0x7f01016e
+			public const int lineColor = 2130772334;
 			
-			// aapt resource value: 0x7f010198
-			public const int lineColor = 2130772376;
-			
-			// aapt resource value: 0x7f010181
-			public const int lineThickness = 2130772353;
-			
-			// aapt resource value: 0x7f010155
-			public const int lineVisible = 2130772309;
+			// aapt resource value: 0x7f010157
+			public const int lineThickness = 2130772311;
 			
 			// aapt resource value: 0x7f01009b
 			public const int listChoiceBackgroundIndicator = 2130772123;
@@ -19195,41 +19008,23 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010093
 			public const int listPreferredItemPaddingRight = 2130772115;
 			
-			// aapt resource value: 0x7f01016d
-			public const int location = 2130772333;
-			
 			// aapt resource value: 0x7f010030
 			public const int logo = 2130772016;
 			
 			// aapt resource value: 0x7f0100ef
 			public const int logoDescription = 2130772207;
 			
-			// aapt resource value: 0x7f01019f
-			public const int majorStep = 2130772383;
+			// aapt resource value: 0x7f010175
+			public const int majorStep = 2130772341;
 			
-			// aapt resource value: 0x7f0101a0
-			public const int majorStepUnit = 2130772384;
+			// aapt resource value: 0x7f010176
+			public const int majorStepUnit = 2130772342;
 			
-			// aapt resource value: 0x7f010199
-			public const int majorTickInterval = 2130772377;
+			// aapt resource value: 0x7f01016f
+			public const int majorTickInterval = 2130772335;
 			
-			// aapt resource value: 0x7f010192
-			public const int majorTickOffset = 2130772370;
-			
-			// aapt resource value: 0x7f01015a
-			public const int majorTicksCount = 2130772314;
-			
-			// aapt resource value: 0x7f010156
-			public const int majorTicksFillColor = 2130772310;
-			
-			// aapt resource value: 0x7f01015d
-			public const int majorTicksLength = 2130772317;
-			
-			// aapt resource value: 0x7f010157
-			public const int majorTicksStrokeColor = 2130772311;
-			
-			// aapt resource value: 0x7f01015f
-			public const int majorTicksWidth = 2130772319;
+			// aapt resource value: 0x7f010168
+			public const int majorTickOffset = 2130772328;
 			
 			// aapt resource value: 0x7f010122
 			public const int maxActionInlineWidth = 2130772258;
@@ -19237,14 +19032,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100ea
 			public const int maxButtonHeight = 2130772202;
 			
-			// aapt resource value: 0x7f01018b
-			public const int maxZoom = 2130772363;
+			// aapt resource value: 0x7f010161
+			public const int maxZoom = 2130772321;
 			
-			// aapt resource value: 0x7f01014d
-			public const int maximum = 2130772301;
-			
-			// aapt resource value: 0x7f01019e
-			public const int maximumTicks = 2130772382;
+			// aapt resource value: 0x7f010174
+			public const int maximumTicks = 2130772340;
 			
 			// aapt resource value: 0x7f0100c5
 			public const int measureWithLargestChild = 2130772165;
@@ -19315,24 +19107,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01011a
 			public const int menu = 2130772250;
 			
-			// aapt resource value: 0x7f01014e
-			public const int minimum = 2130772302;
-			
-			// aapt resource value: 0x7f01015b
-			public const int minorTicksCount = 2130772315;
-			
-			// aapt resource value: 0x7f010158
-			public const int minorTicksFillColor = 2130772312;
-			
-			// aapt resource value: 0x7f01015e
-			public const int minorTicksLength = 2130772318;
-			
-			// aapt resource value: 0x7f010159
-			public const int minorTicksStrokeColor = 2130772313;
-			
-			// aapt resource value: 0x7f010160
-			public const int minorTicksWidth = 2130772320;
-			
 			// aapt resource value: 0x7f010047
 			public const int multiChoiceItemLayout = 2130772039;
 			
@@ -19345,9 +19119,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01002a
 			public const int navigationMode = 2130772010;
 			
-			// aapt resource value: 0x7f010174
-			public const int offset = 2130772340;
-			
 			// aapt resource value: 0x7f0100cd
 			public const int overlapAnchor = 2130772173;
 			
@@ -19357,11 +19128,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100f2
 			public const int paddingStart = 2130772210;
 			
-			// aapt resource value: 0x7f01018e
-			public const int palette = 2130772366;
+			// aapt resource value: 0x7f010164
+			public const int palette = 2130772324;
 			
-			// aapt resource value: 0x7f010189
-			public const int pan = 2130772361;
+			// aapt resource value: 0x7f01015f
+			public const int pan = 2130772319;
 			
 			// aapt resource value: 0x7f010098
 			public const int panelBackground = 2130772120;
@@ -19372,8 +19143,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010099
 			public const int panelMenuListWidth = 2130772121;
 			
-			// aapt resource value: 0x7f01017d
-			public const int plotMode = 2130772349;
+			// aapt resource value: 0x7f010153
+			public const int plotMode = 2130772307;
 			
 			// aapt resource value: 0x7f01013e
 			public const int pointerFill = 2130772286;
@@ -19414,11 +19185,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010141
 			public const int radScrollViewStyle = 2130772289;
 			
+			// aapt resource value: 0x7f01014d
+			public const int rad_segmented_view_type = 2130772301;
+			
 			// aapt resource value: 0x7f0100b3
 			public const int radioButtonStyle = 2130772147;
-			
-			// aapt resource value: 0x7f01016a
-			public const int radius = 2130772330;
 			
 			// aapt resource value: 0x7f0100b4
 			public const int ratingBarStyle = 2130772148;
@@ -19435,8 +19206,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010114
 			public const int rippleColor = 2130772244;
 			
-			// aapt resource value: 0x7f010186
-			public const int roundBarsRadius = 2130772358;
+			// aapt resource value: 0x7f01015c
+			public const int roundBarsRadius = 2130772316;
 			
 			// aapt resource value: 0x7f010140
 			public const int scrollMode = 2130772288;
@@ -19477,8 +19248,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010146
 			public const int showGridLines = 2130772294;
 			
-			// aapt resource value: 0x7f01017b
-			public const int showLabels = 2130772347;
+			// aapt resource value: 0x7f010151
+			public const int showLabels = 2130772305;
 			
 			// aapt resource value: 0x7f0100e2
 			public const int showText = 2130772194;
@@ -19510,9 +19281,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010003
 			public const int stackFromEnd = 2130771971;
 			
-			// aapt resource value: 0x7f010168
-			public const int startAngle = 2130772328;
-			
 			// aapt resource value: 0x7f0100ce
 			public const int state_above_anchor = 2130772174;
 			
@@ -19525,23 +19293,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010106
 			public const int statusBarScrim = 2130772230;
 			
-			// aapt resource value: 0x7f010179
-			public const int strokeColor = 2130772345;
+			// aapt resource value: 0x7f01014f
+			public const int strokeColor = 2130772303;
 			
-			// aapt resource value: 0x7f010184
-			public const int strokeWidth = 2130772356;
-			
-			// aapt resource value: 0x7f010150
-			public const int strokeWidthF = 2130772304;
+			// aapt resource value: 0x7f01015a
+			public const int strokeWidth = 2130772314;
 			
 			// aapt resource value: 0x7f0100db
 			public const int submitBackground = 2130772187;
 			
 			// aapt resource value: 0x7f01002c
 			public const int subtitle = 2130772012;
-			
-			// aapt resource value: 0x7f010153
-			public const int subtitleHorizontalOffset = 2130772307;
 			
 			// aapt resource value: 0x7f0100e4
 			public const int subtitleTextAppearance = 2130772196;
@@ -19552,14 +19314,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01002e
 			public const int subtitleTextStyle = 2130772014;
 			
-			// aapt resource value: 0x7f010154
-			public const int subtitleVerticalOffset = 2130772308;
-			
 			// aapt resource value: 0x7f0100d9
 			public const int suggestionRowLayout = 2130772185;
-			
-			// aapt resource value: 0x7f010169
-			public const int sweepAngle = 2130772329;
 			
 			// aapt resource value: 0x7f0100df
 			public const int switchMinWidth = 2130772191;
@@ -19660,26 +19416,14 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0100dd
 			public const int thumbTextPadding = 2130772189;
 			
-			// aapt resource value: 0x7f010196
-			public const int tickThickness = 2130772374;
-			
-			// aapt resource value: 0x7f010162
-			public const int ticksLayoutMode = 2130772322;
-			
-			// aapt resource value: 0x7f010161
-			public const int ticksOffset = 2130772321;
-			
-			// aapt resource value: 0x7f01015c
-			public const int ticksVisible = 2130772316;
+			// aapt resource value: 0x7f01016c
+			public const int tickThickness = 2130772332;
 			
 			// aapt resource value: 0x7f010029
 			public const int title = 2130772009;
 			
 			// aapt resource value: 0x7f01010a
 			public const int titleEnabled = 2130772234;
-			
-			// aapt resource value: 0x7f010151
-			public const int titleHorizontalOffset = 2130772305;
 			
 			// aapt resource value: 0x7f0100e9
 			public const int titleMarginBottom = 2130772201;
@@ -19705,9 +19449,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f01002d
 			public const int titleTextStyle = 2130772013;
 			
-			// aapt resource value: 0x7f010152
-			public const int titleVerticalOffset = 2130772306;
-			
 			// aapt resource value: 0x7f010107
 			public const int toolbarId = 2130772231;
 			
@@ -19717,26 +19458,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f010084
 			public const int toolbarStyle = 2130772100;
 			
-			// aapt resource value: 0x7f010171
-			public const int topWidth = 2130772337;
-			
 			// aapt resource value: 0x7f0100dc
 			public const int track = 2130772188;
 			
 			// aapt resource value: 0x7f010118
 			public const int useCompatPadding = 2130772248;
 			
-			// aapt resource value: 0x7f010177
-			public const int value = 2130772343;
+			// aapt resource value: 0x7f01017c
+			public const int verticalAlignment = 2130772348;
 			
-			// aapt resource value: 0x7f0101a6
-			public const int verticalAlignment = 2130772390;
+			// aapt resource value: 0x7f010171
+			public const int verticalLocation = 2130772337;
 			
-			// aapt resource value: 0x7f01019b
-			public const int verticalLocation = 2130772379;
-			
-			// aapt resource value: 0x7f0101a3
-			public const int verticalOffset = 2130772387;
+			// aapt resource value: 0x7f010179
+			public const int verticalOffset = 2130772345;
 			
 			// aapt resource value: 0x7f0100d7
 			public const int voiceIcon = 2130772183;
@@ -19827,32 +19562,32 @@ namespace Hubo.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0c0075
-			public const int abc_background_cache_hint_selector_material_dark = 2131492981;
+			// aapt resource value: 0x7f0c0072
+			public const int abc_background_cache_hint_selector_material_dark = 2131492978;
 			
-			// aapt resource value: 0x7f0c0076
-			public const int abc_background_cache_hint_selector_material_light = 2131492982;
+			// aapt resource value: 0x7f0c0073
+			public const int abc_background_cache_hint_selector_material_light = 2131492979;
 			
-			// aapt resource value: 0x7f0c0077
-			public const int abc_color_highlight_material = 2131492983;
+			// aapt resource value: 0x7f0c0074
+			public const int abc_color_highlight_material = 2131492980;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int abc_input_method_navigation_guard = 2131492868;
 			
+			// aapt resource value: 0x7f0c0075
+			public const int abc_primary_text_disable_only_material_dark = 2131492981;
+			
+			// aapt resource value: 0x7f0c0076
+			public const int abc_primary_text_disable_only_material_light = 2131492982;
+			
+			// aapt resource value: 0x7f0c0077
+			public const int abc_primary_text_material_dark = 2131492983;
+			
 			// aapt resource value: 0x7f0c0078
-			public const int abc_primary_text_disable_only_material_dark = 2131492984;
+			public const int abc_primary_text_material_light = 2131492984;
 			
 			// aapt resource value: 0x7f0c0079
-			public const int abc_primary_text_disable_only_material_light = 2131492985;
-			
-			// aapt resource value: 0x7f0c007a
-			public const int abc_primary_text_material_dark = 2131492986;
-			
-			// aapt resource value: 0x7f0c007b
-			public const int abc_primary_text_material_light = 2131492987;
-			
-			// aapt resource value: 0x7f0c007c
-			public const int abc_search_url_text = 2131492988;
+			public const int abc_search_url_text = 2131492985;
 			
 			// aapt resource value: 0x7f0c0005
 			public const int abc_search_url_text_normal = 2131492869;
@@ -19863,11 +19598,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0007
 			public const int abc_search_url_text_selected = 2131492871;
 			
-			// aapt resource value: 0x7f0c007d
-			public const int abc_secondary_text_material_dark = 2131492989;
+			// aapt resource value: 0x7f0c007a
+			public const int abc_secondary_text_material_dark = 2131492986;
 			
-			// aapt resource value: 0x7f0c007e
-			public const int abc_secondary_text_material_light = 2131492990;
+			// aapt resource value: 0x7f0c007b
+			public const int abc_secondary_text_material_light = 2131492987;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int accent_material_dark = 2131492872;
@@ -19890,17 +19625,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c000d
 			public const int background_material_light = 2131492877;
 			
-			// aapt resource value: 0x7f0c0073
-			public const int bb_darkBackgroundColor = 2131492979;
+			// aapt resource value: 0x7f0c0070
+			public const int bb_darkBackgroundColor = 2131492976;
 			
-			// aapt resource value: 0x7f0c0072
-			public const int bb_inActiveBottomBarItemColor = 2131492978;
+			// aapt resource value: 0x7f0c006f
+			public const int bb_inActiveBottomBarItemColor = 2131492975;
 			
-			// aapt resource value: 0x7f0c0074
-			public const int bb_tabletRightBorderDark = 2131492980;
+			// aapt resource value: 0x7f0c0071
+			public const int bb_tabletRightBorderDark = 2131492977;
 			
-			// aapt resource value: 0x7f0c0065
-			public const int black = 2131492965;
+			// aapt resource value: 0x7f0c0062
+			public const int black = 2131492962;
 			
 			// aapt resource value: 0x7f0c000e
 			public const int bright_foreground_disabled_material_dark = 2131492878;
@@ -19956,8 +19691,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0051
 			public const int calendar_text_selected = 2131492945;
 			
-			// aapt resource value: 0x7f0c007f
-			public const int calendar_text_selector = 2131492991;
+			// aapt resource value: 0x7f0c007c
+			public const int calendar_text_selector = 2131492988;
 			
 			// aapt resource value: 0x7f0c0052
 			public const int calendar_text_unselectable = 2131492946;
@@ -19973,15 +19708,6 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f0c0003
 			public const int cardview_shadow_start_color = 2131492867;
-			
-			// aapt resource value: 0x7f0c0064
-			public const int colorAccent = 2131492964;
-			
-			// aapt resource value: 0x7f0c0062
-			public const int colorPrimary = 2131492962;
-			
-			// aapt resource value: 0x7f0c0063
-			public const int colorPrimaryDark = 2131492963;
 			
 			// aapt resource value: 0x7f0c005e
 			public const int data_form_invalid_validation_color = 2131492958;
@@ -20034,8 +19760,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0019
 			public const int dim_foreground_material_light = 2131492889;
 			
-			// aapt resource value: 0x7f0c0071
-			public const int fab_material_blue_500 = 2131492977;
+			// aapt resource value: 0x7f0c006e
+			public const int fab_material_blue_500 = 2131492974;
 			
 			// aapt resource value: 0x7f0c001a
 			public const int foreground_material_dark = 2131492890;
@@ -20058,35 +19784,35 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c001f
 			public const int hint_foreground_material_light = 2131492895;
 			
+			// aapt resource value: 0x7f0c0064
+			public const int hockeyapp_background_header = 2131492964;
+			
+			// aapt resource value: 0x7f0c0065
+			public const int hockeyapp_background_light = 2131492965;
+			
+			// aapt resource value: 0x7f0c0066
+			public const int hockeyapp_background_white = 2131492966;
+			
 			// aapt resource value: 0x7f0c0067
-			public const int hockeyapp_background_header = 2131492967;
+			public const int hockeyapp_button_background = 2131492967;
 			
 			// aapt resource value: 0x7f0c0068
-			public const int hockeyapp_background_light = 2131492968;
+			public const int hockeyapp_button_background_pressed = 2131492968;
 			
 			// aapt resource value: 0x7f0c0069
-			public const int hockeyapp_background_white = 2131492969;
+			public const int hockeyapp_button_background_selected = 2131492969;
 			
 			// aapt resource value: 0x7f0c006a
-			public const int hockeyapp_button_background = 2131492970;
+			public const int hockeyapp_text_black = 2131492970;
 			
 			// aapt resource value: 0x7f0c006b
-			public const int hockeyapp_button_background_pressed = 2131492971;
+			public const int hockeyapp_text_light = 2131492971;
 			
 			// aapt resource value: 0x7f0c006c
-			public const int hockeyapp_button_background_selected = 2131492972;
+			public const int hockeyapp_text_normal = 2131492972;
 			
 			// aapt resource value: 0x7f0c006d
-			public const int hockeyapp_text_black = 2131492973;
-			
-			// aapt resource value: 0x7f0c006e
-			public const int hockeyapp_text_light = 2131492974;
-			
-			// aapt resource value: 0x7f0c006f
-			public const int hockeyapp_text_normal = 2131492975;
-			
-			// aapt resource value: 0x7f0c0070
-			public const int hockeyapp_text_white = 2131492976;
+			public const int hockeyapp_text_white = 2131492973;
 			
 			// aapt resource value: 0x7f0c0058
 			public const int listAccentColor = 2131492952;
@@ -20157,8 +19883,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c0033
 			public const int primary_text_disabled_material_light = 2131492915;
 			
-			// aapt resource value: 0x7f0c0066
-			public const int red = 2131492966;
+			// aapt resource value: 0x7f0c0063
+			public const int red = 2131492963;
 			
 			// aapt resource value: 0x7f0c0034
 			public const int ripple_material_dark = 2131492916;
@@ -20193,11 +19919,11 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0c003b
 			public const int switch_thumb_disabled_material_light = 2131492923;
 			
-			// aapt resource value: 0x7f0c0080
-			public const int switch_thumb_material_dark = 2131492992;
+			// aapt resource value: 0x7f0c007d
+			public const int switch_thumb_material_dark = 2131492989;
 			
-			// aapt resource value: 0x7f0c0081
-			public const int switch_thumb_material_light = 2131492993;
+			// aapt resource value: 0x7f0c007e
+			public const int switch_thumb_material_light = 2131492990;
 			
 			// aapt resource value: 0x7f0c003c
 			public const int switch_thumb_normal_material_dark = 2131492924;
@@ -20925,424 +20651,415 @@ namespace Hubo.Droid
 			public const int data_form_list_item_states = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int data_form_segment_checked = 2130837589;
+			public const int data_form_valid_background = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int data_form_segment_item = 2130837590;
+			public const int data_form_valid_icon = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int data_form_segment_unchecked = 2130837591;
+			public const int dataform_number_picker_background = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int data_form_valid_background = 2130837592;
+			public const int DesertRoad = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int data_form_valid_icon = 2130837593;
+			public const int DesertRoadCopy = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int dataform_number_picker_background = 2130837594;
+			public const int DesertRoadjpg = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int DesertRoad = 2130837595;
+			public const int design_fab_background = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int DesertRoadCopy = 2130837596;
+			public const int design_snackbar_background = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int DesertRoadjpg = 2130837597;
+			public const int events_popup_bg = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int design_fab_background = 2130837598;
+			public const int Exit96 = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int design_snackbar_background = 2130837599;
+			public const int ExitWhite = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int events_popup_bg = 2130837600;
+			public const int fab_shadow = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int Exit96 = 2130837601;
+			public const int fab_shadow_mini = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int ExitWhite = 2130837602;
+			public const int gingerbread_background = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int fab_shadow = 2130837603;
+			public const int hamburger = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int fab_shadow_mini = 2130837604;
+			public const int hmb = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int gingerbread_background = 2130837605;
+			public const int hockeyapp_btn_background = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int hamburger = 2130837606;
+			public const int Home96 = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int hmb = 2130837607;
+			public const int ic_audiotrack = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int hockeyapp_btn_background = 2130837608;
+			public const int ic_audiotrack_light = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int Home96 = 2130837609;
+			public const int ic_bluetooth_grey = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ic_audiotrack = 2130837610;
+			public const int ic_bluetooth_white = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int ic_audiotrack_light = 2130837611;
+			public const int ic_cast_dark = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int ic_bluetooth_grey = 2130837612;
+			public const int ic_cast_disabled_light = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int ic_bluetooth_white = 2130837613;
+			public const int ic_cast_grey = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int ic_cast_dark = 2130837614;
+			public const int ic_cast_light = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int ic_cast_disabled_light = 2130837615;
+			public const int ic_cast_off_light = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int ic_cast_grey = 2130837616;
+			public const int ic_cast_on_0_light = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int ic_cast_light = 2130837617;
+			public const int ic_cast_on_1_light = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int ic_cast_off_light = 2130837618;
+			public const int ic_cast_on_2_light = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int ic_cast_on_0_light = 2130837619;
+			public const int ic_cast_on_light = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int ic_cast_on_1_light = 2130837620;
+			public const int ic_cast_white = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int ic_cast_on_2_light = 2130837621;
+			public const int ic_clear = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int ic_cast_on_light = 2130837622;
+			public const int ic_close_dark = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int ic_cast_white = 2130837623;
+			public const int ic_close_light = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int ic_clear = 2130837624;
+			public const int ic_collapse = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int ic_close_dark = 2130837625;
+			public const int ic_collapse_00000 = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int ic_close_light = 2130837626;
+			public const int ic_collapse_00001 = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int ic_collapse = 2130837627;
+			public const int ic_collapse_00002 = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int ic_collapse_00000 = 2130837628;
+			public const int ic_collapse_00003 = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int ic_collapse_00001 = 2130837629;
+			public const int ic_collapse_00004 = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int ic_collapse_00002 = 2130837630;
+			public const int ic_collapse_00005 = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int ic_collapse_00003 = 2130837631;
+			public const int ic_collapse_00006 = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int ic_collapse_00004 = 2130837632;
+			public const int ic_collapse_00007 = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int ic_collapse_00005 = 2130837633;
+			public const int ic_collapse_00008 = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int ic_collapse_00006 = 2130837634;
+			public const int ic_collapse_00009 = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int ic_collapse_00007 = 2130837635;
+			public const int ic_collapse_00010 = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int ic_collapse_00008 = 2130837636;
+			public const int ic_collapse_00011 = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int ic_collapse_00009 = 2130837637;
+			public const int ic_collapse_00012 = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int ic_collapse_00010 = 2130837638;
+			public const int ic_collapse_00013 = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int ic_collapse_00011 = 2130837639;
+			public const int ic_collapse_00014 = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int ic_collapse_00012 = 2130837640;
+			public const int ic_collapse_00015 = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int ic_collapse_00013 = 2130837641;
+			public const int ic_collapse_dataform_group = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int ic_collapse_00014 = 2130837642;
+			public const int ic_errorstatus = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int ic_collapse_00015 = 2130837643;
+			public const int ic_expand = 2130837643;
 			
 			// aapt resource value: 0x7f02008c
-			public const int ic_collapse_dataform_group = 2130837644;
+			public const int ic_expand_00000 = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int ic_errorstatus = 2130837645;
+			public const int ic_expand_00001 = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int ic_expand = 2130837646;
+			public const int ic_expand_00002 = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int ic_expand_00000 = 2130837647;
+			public const int ic_expand_00003 = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int ic_expand_00001 = 2130837648;
+			public const int ic_expand_00004 = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int ic_expand_00002 = 2130837649;
+			public const int ic_expand_00005 = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int ic_expand_00003 = 2130837650;
+			public const int ic_expand_00006 = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int ic_expand_00004 = 2130837651;
+			public const int ic_expand_00007 = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ic_expand_00005 = 2130837652;
+			public const int ic_expand_00008 = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ic_expand_00006 = 2130837653;
+			public const int ic_expand_00009 = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int ic_expand_00007 = 2130837654;
+			public const int ic_expand_00010 = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int ic_expand_00008 = 2130837655;
+			public const int ic_expand_00011 = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int ic_expand_00009 = 2130837656;
+			public const int ic_expand_00012 = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int ic_expand_00010 = 2130837657;
+			public const int ic_expand_00013 = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int ic_expand_00011 = 2130837658;
+			public const int ic_expand_00014 = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int ic_expand_00012 = 2130837659;
+			public const int ic_expand_00015 = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int ic_expand_00013 = 2130837660;
+			public const int ic_expand_dataform_group = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int ic_expand_00014 = 2130837661;
+			public const int ic_media_pause = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int ic_expand_00015 = 2130837662;
+			public const int ic_media_play = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int ic_expand_dataform_group = 2130837663;
+			public const int ic_media_route_disabled_mono_dark = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int ic_media_pause = 2130837664;
+			public const int ic_media_route_off_mono_dark = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int ic_media_play = 2130837665;
+			public const int ic_media_route_on_0_mono_dark = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int ic_media_route_disabled_mono_dark = 2130837666;
+			public const int ic_media_route_on_1_mono_dark = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int ic_media_route_off_mono_dark = 2130837667;
+			public const int ic_media_route_on_2_mono_dark = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int ic_media_route_on_0_mono_dark = 2130837668;
+			public const int ic_media_route_on_mono_dark = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int ic_media_route_on_1_mono_dark = 2130837669;
+			public const int ic_pause_dark = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int ic_media_route_on_2_mono_dark = 2130837670;
+			public const int ic_pause_light = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int ic_media_route_on_mono_dark = 2130837671;
+			public const int ic_play_dark = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int ic_pause_dark = 2130837672;
+			public const int ic_play_light = 2130837672;
 			
 			// aapt resource value: 0x7f0200a9
-			public const int ic_pause_light = 2130837673;
+			public const int ic_speaker_dark = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int ic_play_dark = 2130837674;
+			public const int ic_speaker_group_dark = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int ic_play_light = 2130837675;
+			public const int ic_speaker_group_light = 2130837675;
 			
 			// aapt resource value: 0x7f0200ac
-			public const int ic_speaker_dark = 2130837676;
+			public const int ic_speaker_light = 2130837676;
 			
 			// aapt resource value: 0x7f0200ad
-			public const int ic_speaker_group_dark = 2130837677;
+			public const int ic_successstatus = 2130837677;
 			
 			// aapt resource value: 0x7f0200ae
-			public const int ic_speaker_group_light = 2130837678;
+			public const int ic_token_remove = 2130837678;
 			
 			// aapt resource value: 0x7f0200af
-			public const int ic_speaker_light = 2130837679;
+			public const int ic_token_remove_pressed = 2130837679;
 			
 			// aapt resource value: 0x7f0200b0
-			public const int ic_successstatus = 2130837680;
+			public const int ic_tv_dark = 2130837680;
 			
 			// aapt resource value: 0x7f0200b1
-			public const int ic_token_remove = 2130837681;
+			public const int ic_tv_light = 2130837681;
 			
 			// aapt resource value: 0x7f0200b2
-			public const int ic_token_remove_pressed = 2130837682;
+			public const int icon = 2130837682;
 			
 			// aapt resource value: 0x7f0200b3
-			public const int ic_tv_dark = 2130837683;
+			public const int IconSmall = 2130837683;
 			
 			// aapt resource value: 0x7f0200b4
-			public const int ic_tv_light = 2130837684;
+			public const int InterstateTruck96 = 2130837684;
 			
 			// aapt resource value: 0x7f0200b5
-			public const int icon = 2130837685;
+			public const int lightDesertRoad = 2130837685;
 			
 			// aapt resource value: 0x7f0200b6
-			public const int IconSmall = 2130837686;
+			public const int Menu25 = 2130837686;
 			
 			// aapt resource value: 0x7f0200b7
-			public const int InterstateTruck96 = 2130837687;
+			public const int mr_dialog_material_background_dark = 2130837687;
 			
 			// aapt resource value: 0x7f0200b8
-			public const int lightDesertRoad = 2130837688;
+			public const int mr_dialog_material_background_light = 2130837688;
 			
 			// aapt resource value: 0x7f0200b9
-			public const int Menu25 = 2130837689;
+			public const int mr_ic_audiotrack_light = 2130837689;
 			
 			// aapt resource value: 0x7f0200ba
-			public const int mr_dialog_material_background_dark = 2130837690;
+			public const int mr_ic_cast_dark = 2130837690;
 			
 			// aapt resource value: 0x7f0200bb
-			public const int mr_dialog_material_background_light = 2130837691;
+			public const int mr_ic_cast_light = 2130837691;
 			
 			// aapt resource value: 0x7f0200bc
-			public const int mr_ic_audiotrack_light = 2130837692;
+			public const int mr_ic_close_dark = 2130837692;
 			
 			// aapt resource value: 0x7f0200bd
-			public const int mr_ic_cast_dark = 2130837693;
+			public const int mr_ic_close_light = 2130837693;
 			
 			// aapt resource value: 0x7f0200be
-			public const int mr_ic_cast_light = 2130837694;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837694;
 			
 			// aapt resource value: 0x7f0200bf
-			public const int mr_ic_close_dark = 2130837695;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837695;
 			
 			// aapt resource value: 0x7f0200c0
-			public const int mr_ic_close_light = 2130837696;
+			public const int mr_ic_media_route_mono_dark = 2130837696;
 			
 			// aapt resource value: 0x7f0200c1
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837697;
+			public const int mr_ic_media_route_mono_light = 2130837697;
 			
 			// aapt resource value: 0x7f0200c2
-			public const int mr_ic_media_route_connecting_mono_light = 2130837698;
+			public const int mr_ic_pause_dark = 2130837698;
 			
 			// aapt resource value: 0x7f0200c3
-			public const int mr_ic_media_route_mono_dark = 2130837699;
+			public const int mr_ic_pause_light = 2130837699;
 			
 			// aapt resource value: 0x7f0200c4
-			public const int mr_ic_media_route_mono_light = 2130837700;
+			public const int mr_ic_play_dark = 2130837700;
 			
 			// aapt resource value: 0x7f0200c5
-			public const int mr_ic_pause_dark = 2130837701;
-			
-			// aapt resource value: 0x7f0200c6
-			public const int mr_ic_pause_light = 2130837702;
-			
-			// aapt resource value: 0x7f0200c7
-			public const int mr_ic_play_dark = 2130837703;
-			
-			// aapt resource value: 0x7f0200c8
-			public const int mr_ic_play_light = 2130837704;
-			
-			// aapt resource value: 0x7f0200e0
-			public const int notification_template_icon_bg = 2130837728;
-			
-			// aapt resource value: 0x7f0200c9
-			public const int Ok = 2130837705;
-			
-			// aapt resource value: 0x7f0200ca
-			public const int Play = 2130837706;
-			
-			// aapt resource value: 0x7f0200cb
-			public const int pressable_item_background = 2130837707;
-			
-			// aapt resource value: 0x7f0200cc
-			public const int roundedbg = 2130837708;
-			
-			// aapt resource value: 0x7f0200cd
-			public const int roundedbgdark = 2130837709;
-			
-			// aapt resource value: 0x7f0200ce
-			public const int selectable_item_background = 2130837710;
-			
-			// aapt resource value: 0x7f0200cf
-			public const int Settings25 = 2130837711;
-			
-			// aapt resource value: 0x7f0200d0
-			public const int Settings96 = 2130837712;
-			
-			// aapt resource value: 0x7f0200d1
-			public const int SettingsWhite = 2130837713;
-			
-			// aapt resource value: 0x7f0200d2
-			public const int sfclosebutton = 2130837714;
-			
-			// aapt resource value: 0x7f0200d3
-			public const int shade_bottom = 2130837715;
-			
-			// aapt resource value: 0x7f0200d4
-			public const int shade_corner = 2130837716;
-			
-			// aapt resource value: 0x7f0200d5
-			public const int shade_right = 2130837717;
-			
-			// aapt resource value: 0x7f0200d6
-			public const int Stop = 2130837718;
-			
-			// aapt resource value: 0x7f0200d7
-			public const int styleinfo = 2130837719;
-			
-			// aapt resource value: 0x7f0200d8
-			public const int tab_view_popup_background = 2130837720;
-			
-			// aapt resource value: 0x7f0200d9
-			public const int token_bg = 2130837721;
-			
-			// aapt resource value: 0x7f0200da
-			public const int token_default = 2130837722;
-			
-			// aapt resource value: 0x7f0200db
-			public const int token_selected = 2130837723;
-			
-			// aapt resource value: 0x7f0200dc
-			public const int token_text_color = 2130837724;
+			public const int mr_ic_play_light = 2130837701;
 			
 			// aapt resource value: 0x7f0200dd
-			public const int TransparentPlaceHolder = 2130837725;
+			public const int notification_template_icon_bg = 2130837725;
 			
-			// aapt resource value: 0x7f0200de
-			public const int User96 = 2130837726;
+			// aapt resource value: 0x7f0200c6
+			public const int Ok = 2130837702;
 			
-			// aapt resource value: 0x7f0200df
-			public const int UserWhite = 2130837727;
+			// aapt resource value: 0x7f0200c7
+			public const int Play = 2130837703;
+			
+			// aapt resource value: 0x7f0200c8
+			public const int pressable_item_background = 2130837704;
+			
+			// aapt resource value: 0x7f0200c9
+			public const int roundedbg = 2130837705;
+			
+			// aapt resource value: 0x7f0200ca
+			public const int roundedbgdark = 2130837706;
+			
+			// aapt resource value: 0x7f0200cb
+			public const int selectable_item_background = 2130837707;
+			
+			// aapt resource value: 0x7f0200cc
+			public const int Settings25 = 2130837708;
+			
+			// aapt resource value: 0x7f0200cd
+			public const int Settings96 = 2130837709;
+			
+			// aapt resource value: 0x7f0200ce
+			public const int SettingsWhite = 2130837710;
+			
+			// aapt resource value: 0x7f0200cf
+			public const int sfclosebutton = 2130837711;
+			
+			// aapt resource value: 0x7f0200d0
+			public const int shade_bottom = 2130837712;
+			
+			// aapt resource value: 0x7f0200d1
+			public const int shade_corner = 2130837713;
+			
+			// aapt resource value: 0x7f0200d2
+			public const int shade_right = 2130837714;
+			
+			// aapt resource value: 0x7f0200d3
+			public const int Stop = 2130837715;
+			
+			// aapt resource value: 0x7f0200d4
+			public const int styleinfo = 2130837716;
+			
+			// aapt resource value: 0x7f0200d5
+			public const int tab_view_popup_background = 2130837717;
+			
+			// aapt resource value: 0x7f0200d6
+			public const int token_bg = 2130837718;
+			
+			// aapt resource value: 0x7f0200d7
+			public const int token_default = 2130837719;
+			
+			// aapt resource value: 0x7f0200d8
+			public const int token_selected = 2130837720;
+			
+			// aapt resource value: 0x7f0200d9
+			public const int token_text_color = 2130837721;
+			
+			// aapt resource value: 0x7f0200da
+			public const int TransparentPlaceHolder = 2130837722;
+			
+			// aapt resource value: 0x7f0200db
+			public const int User96 = 2130837723;
+			
+			// aapt resource value: 0x7f0200dc
+			public const int UserWhite = 2130837724;
 			
 			static Drawable()
 			{
@@ -21357,59 +21074,59 @@ namespace Hubo.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080049
-			public const int BetweenTicks = 2131230793;
+			// aapt resource value: 0x7f080047
+			public const int BetweenTicks = 2131230791;
 			
 			// aapt resource value: 0x7f080042
 			public const int Block = 2131230786;
 			
+			// aapt resource value: 0x7f080054
+			public const int Bottom = 2131230804;
+			
+			// aapt resource value: 0x7f08004d
+			public const int Clip = 2131230797;
+			
+			// aapt resource value: 0x7f08004a
+			public const int Cluster = 2131230794;
+			
 			// aapt resource value: 0x7f080056
-			public const int Bottom = 2131230806;
+			public const int Date = 2131230806;
 			
-			// aapt resource value: 0x7f08004f
-			public const int Clip = 2131230799;
-			
-			// aapt resource value: 0x7f08004c
-			public const int Cluster = 2131230796;
+			// aapt resource value: 0x7f080057
+			public const int Day = 2131230807;
 			
 			// aapt resource value: 0x7f080058
-			public const int Date = 2131230808;
+			public const int DayOfWeek = 2131230808;
 			
 			// aapt resource value: 0x7f080059
-			public const int Day = 2131230809;
+			public const int DayOfYear = 2131230809;
+			
+			// aapt resource value: 0x7f08004e
+			public const int Hidden = 2131230798;
 			
 			// aapt resource value: 0x7f08005a
-			public const int DayOfWeek = 2131230810;
-			
-			// aapt resource value: 0x7f08005b
-			public const int DayOfYear = 2131230811;
-			
-			// aapt resource value: 0x7f080050
-			public const int Hidden = 2131230800;
-			
-			// aapt resource value: 0x7f08005c
-			public const int Hour = 2131230812;
+			public const int Hour = 2131230810;
 			
 			// aapt resource value: 0x7f080043
 			public const int Inline = 2131230787;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int Itemname = 2131230892;
+			// aapt resource value: 0x7f0800ab
+			public const int Itemname = 2131230891;
 			
-			// aapt resource value: 0x7f080054
-			public const int Left = 2131230804;
+			// aapt resource value: 0x7f080052
+			public const int Left = 2131230802;
 			
-			// aapt resource value: 0x7f08005d
-			public const int Millisecond = 2131230813;
+			// aapt resource value: 0x7f08005b
+			public const int Millisecond = 2131230811;
 			
-			// aapt resource value: 0x7f08005e
-			public const int Minute = 2131230814;
+			// aapt resource value: 0x7f08005c
+			public const int Minute = 2131230812;
 			
 			// aapt resource value: 0x7f08003f
 			public const int Month = 2131230783;
 			
-			// aapt resource value: 0x7f080052
-			public const int Multiline = 2131230802;
+			// aapt resource value: 0x7f080050
+			public const int Multiline = 2131230800;
 			
 			// aapt resource value: 0x7f08003c
 			public const int Multiple = 2131230780;
@@ -21417,44 +21134,44 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080044
 			public const int None = 2131230788;
 			
-			// aapt resource value: 0x7f08004a
-			public const int OnTicks = 2131230794;
+			// aapt resource value: 0x7f080048
+			public const int OnTicks = 2131230792;
 			
-			// aapt resource value: 0x7f08004b
-			public const int OnTicksPadded = 2131230795;
+			// aapt resource value: 0x7f080049
+			public const int OnTicksPadded = 2131230793;
 			
-			// aapt resource value: 0x7f08005f
-			public const int Quarter = 2131230815;
+			// aapt resource value: 0x7f08005d
+			public const int Quarter = 2131230813;
 			
 			// aapt resource value: 0x7f08003d
 			public const int Range = 2131230781;
 			
-			// aapt resource value: 0x7f080055
-			public const int Right = 2131230805;
-			
 			// aapt resource value: 0x7f080053
-			public const int Rotate = 2131230803;
+			public const int Right = 2131230803;
 			
-			// aapt resource value: 0x7f080060
-			public const int Second = 2131230816;
+			// aapt resource value: 0x7f080051
+			public const int Rotate = 2131230801;
+			
+			// aapt resource value: 0x7f08005e
+			public const int Second = 2131230814;
 			
 			// aapt resource value: 0x7f08003e
 			public const int Single = 2131230782;
 			
-			// aapt resource value: 0x7f08004d
-			public const int Stack = 2131230797;
+			// aapt resource value: 0x7f08004b
+			public const int Stack = 2131230795;
 			
-			// aapt resource value: 0x7f08004e
-			public const int Stack100 = 2131230798;
+			// aapt resource value: 0x7f08004c
+			public const int Stack100 = 2131230796;
 			
-			// aapt resource value: 0x7f080061
-			public const int TimeOfDay = 2131230817;
+			// aapt resource value: 0x7f08005f
+			public const int TimeOfDay = 2131230815;
 			
-			// aapt resource value: 0x7f080057
-			public const int Top = 2131230807;
+			// aapt resource value: 0x7f080055
+			public const int Top = 2131230805;
 			
-			// aapt resource value: 0x7f080051
-			public const int Visible = 2131230801;
+			// aapt resource value: 0x7f08004f
+			public const int Visible = 2131230799;
 			
 			// aapt resource value: 0x7f080040
 			public const int Week = 2131230784;
@@ -21462,35 +21179,35 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080041
 			public const int Year = 2131230785;
 			
-			// aapt resource value: 0x7f080125
-			public const int action0 = 2131231013;
+			// aapt resource value: 0x7f080124
+			public const int action0 = 2131231012;
 			
-			// aapt resource value: 0x7f080082
-			public const int action_bar = 2131230850;
+			// aapt resource value: 0x7f08007f
+			public const int action_bar = 2131230847;
 			
 			// aapt resource value: 0x7f080001
 			public const int action_bar_activity_content = 2131230721;
 			
-			// aapt resource value: 0x7f080081
-			public const int action_bar_container = 2131230849;
+			// aapt resource value: 0x7f08007e
+			public const int action_bar_container = 2131230846;
 			
-			// aapt resource value: 0x7f08007d
-			public const int action_bar_root = 2131230845;
+			// aapt resource value: 0x7f08007a
+			public const int action_bar_root = 2131230842;
 			
 			// aapt resource value: 0x7f080002
 			public const int action_bar_spinner = 2131230722;
 			
-			// aapt resource value: 0x7f080063
-			public const int action_bar_subtitle = 2131230819;
+			// aapt resource value: 0x7f080061
+			public const int action_bar_subtitle = 2131230817;
 			
-			// aapt resource value: 0x7f080062
-			public const int action_bar_title = 2131230818;
+			// aapt resource value: 0x7f080060
+			public const int action_bar_title = 2131230816;
 			
-			// aapt resource value: 0x7f080083
-			public const int action_context_bar = 2131230851;
+			// aapt resource value: 0x7f080080
+			public const int action_context_bar = 2131230848;
 			
-			// aapt resource value: 0x7f080129
-			public const int action_divider = 2131231017;
+			// aapt resource value: 0x7f080128
+			public const int action_divider = 2131231016;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -21498,56 +21215,56 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080004
 			public const int action_menu_presenter = 2131230724;
 			
-			// aapt resource value: 0x7f08007f
-			public const int action_mode_bar = 2131230847;
+			// aapt resource value: 0x7f08007c
+			public const int action_mode_bar = 2131230844;
 			
-			// aapt resource value: 0x7f08007e
-			public const int action_mode_bar_stub = 2131230846;
+			// aapt resource value: 0x7f08007b
+			public const int action_mode_bar_stub = 2131230843;
 			
-			// aapt resource value: 0x7f080064
-			public const int action_mode_close_button = 2131230820;
+			// aapt resource value: 0x7f080062
+			public const int action_mode_close_button = 2131230818;
 			
-			// aapt resource value: 0x7f080065
-			public const int activity_chooser_view_content = 2131230821;
+			// aapt resource value: 0x7f080063
+			public const int activity_chooser_view_content = 2131230819;
 			
-			// aapt resource value: 0x7f080071
-			public const int alertTitle = 2131230833;
+			// aapt resource value: 0x7f08006f
+			public const int alertTitle = 2131230831;
 			
 			// aapt resource value: 0x7f08001e
 			public const int always = 2131230750;
 			
-			// aapt resource value: 0x7f0800d2
-			public const int areaText = 2131230930;
+			// aapt resource value: 0x7f0800d1
+			public const int areaText = 2131230929;
 			
-			// aapt resource value: 0x7f0800a5
-			public const int axisLayout = 2131230885;
-			
-			// aapt resource value: 0x7f080095
-			public const int bb_bottom_bar_background_overlay = 2131230869;
-			
-			// aapt resource value: 0x7f080094
-			public const int bb_bottom_bar_background_view = 2131230868;
-			
-			// aapt resource value: 0x7f080098
-			public const int bb_bottom_bar_icon = 2131230872;
-			
-			// aapt resource value: 0x7f080096
-			public const int bb_bottom_bar_item_container = 2131230870;
+			// aapt resource value: 0x7f0800a4
+			public const int axisLayout = 2131230884;
 			
 			// aapt resource value: 0x7f080092
-			public const int bb_bottom_bar_outer_container = 2131230866;
-			
-			// aapt resource value: 0x7f080093
-			public const int bb_bottom_bar_shadow = 2131230867;
-			
-			// aapt resource value: 0x7f080099
-			public const int bb_bottom_bar_title = 2131230873;
-			
-			// aapt resource value: 0x7f080097
-			public const int bb_tablet_right_border = 2131230871;
+			public const int bb_bottom_bar_background_overlay = 2131230866;
 			
 			// aapt resource value: 0x7f080091
-			public const int bb_user_content_container = 2131230865;
+			public const int bb_bottom_bar_background_view = 2131230865;
+			
+			// aapt resource value: 0x7f080095
+			public const int bb_bottom_bar_icon = 2131230869;
+			
+			// aapt resource value: 0x7f080093
+			public const int bb_bottom_bar_item_container = 2131230867;
+			
+			// aapt resource value: 0x7f08008f
+			public const int bb_bottom_bar_outer_container = 2131230863;
+			
+			// aapt resource value: 0x7f080090
+			public const int bb_bottom_bar_shadow = 2131230864;
+			
+			// aapt resource value: 0x7f080096
+			public const int bb_bottom_bar_title = 2131230870;
+			
+			// aapt resource value: 0x7f080094
+			public const int bb_tablet_right_border = 2131230868;
+			
+			// aapt resource value: 0x7f08008e
+			public const int bb_user_content_container = 2131230862;
 			
 			// aapt resource value: 0x7f08001b
 			public const int beginning = 2131230747;
@@ -21555,38 +21272,38 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08002a
 			public const int bottom = 2131230762;
 			
-			// aapt resource value: 0x7f08013d
-			public const int bottom_labels = 2131231037;
+			// aapt resource value: 0x7f08013c
+			public const int bottom_labels = 2131231036;
 			
-			// aapt resource value: 0x7f08006c
-			public const int buttonPanel = 2131230828;
+			// aapt resource value: 0x7f08006a
+			public const int buttonPanel = 2131230826;
+			
+			// aapt resource value: 0x7f0800f0
+			public const int button_add_response = 2131230960;
+			
+			// aapt resource value: 0x7f0800eb
+			public const int button_attachment = 2131230955;
+			
+			// aapt resource value: 0x7f0800f5
+			public const int button_login = 2131230965;
 			
 			// aapt resource value: 0x7f0800f1
-			public const int button_add_response = 2131230961;
+			public const int button_refresh = 2131230961;
 			
 			// aapt resource value: 0x7f0800ec
-			public const int button_attachment = 2131230956;
+			public const int button_send = 2131230956;
 			
-			// aapt resource value: 0x7f0800f6
-			public const int button_login = 2131230966;
+			// aapt resource value: 0x7f0800f9
+			public const int button_update = 2131230969;
 			
-			// aapt resource value: 0x7f0800f2
-			public const int button_refresh = 2131230962;
+			// aapt resource value: 0x7f080108
+			public const int calendar_grid = 2131230984;
 			
-			// aapt resource value: 0x7f0800ed
-			public const int button_send = 2131230957;
+			// aapt resource value: 0x7f080099
+			public const int calendar_view = 2131230873;
 			
-			// aapt resource value: 0x7f0800fa
-			public const int button_update = 2131230970;
-			
-			// aapt resource value: 0x7f080109
-			public const int calendar_grid = 2131230985;
-			
-			// aapt resource value: 0x7f08009a
-			public const int calendar_view = 2131230874;
-			
-			// aapt resource value: 0x7f080126
-			public const int cancel_action = 2131231014;
+			// aapt resource value: 0x7f080125
+			public const int cancel_action = 2131231013;
 			
 			// aapt resource value: 0x7f08002b
 			public const int center = 2131230763;
@@ -21597,38 +21314,38 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08002d
 			public const int center_vertical = 2131230765;
 			
-			// aapt resource value: 0x7f08009f
-			public const int chartAreaLayout = 2131230879;
-			
 			// aapt resource value: 0x7f08009e
-			public const int chartTitle = 2131230878;
+			public const int chartAreaLayout = 2131230878;
 			
-			// aapt resource value: 0x7f08014f
-			public const int chart_data_point_content_container = 2131231055;
-			
-			// aapt resource value: 0x7f080138
-			public const int chart_layout_root = 2131231032;
-			
-			// aapt resource value: 0x7f0800ca
-			public const int chart_tooltip_category = 2131230922;
+			// aapt resource value: 0x7f08009d
+			public const int chartTitle = 2131230877;
 			
 			// aapt resource value: 0x7f08014e
-			public const int chart_tooltip_pointer = 2131231054;
+			public const int chart_data_point_content_container = 2131231054;
 			
-			// aapt resource value: 0x7f0800cb
-			public const int chart_tooltip_value = 2131230923;
+			// aapt resource value: 0x7f080137
+			public const int chart_layout_root = 2131231031;
 			
-			// aapt resource value: 0x7f0800d3
-			public const int chart_trackball_category = 2131230931;
+			// aapt resource value: 0x7f0800c9
+			public const int chart_tooltip_category = 2131230921;
 			
-			// aapt resource value: 0x7f0800d5
-			public const int chart_trackball_value = 2131230933;
+			// aapt resource value: 0x7f08014d
+			public const int chart_tooltip_pointer = 2131231053;
 			
-			// aapt resource value: 0x7f08007a
-			public const int checkbox = 2131230842;
+			// aapt resource value: 0x7f0800ca
+			public const int chart_tooltip_value = 2131230922;
 			
-			// aapt resource value: 0x7f08012c
-			public const int chronometer = 2131231020;
+			// aapt resource value: 0x7f0800d2
+			public const int chart_trackball_category = 2131230930;
+			
+			// aapt resource value: 0x7f0800d4
+			public const int chart_trackball_value = 2131230932;
+			
+			// aapt resource value: 0x7f080078
+			public const int checkbox = 2131230840;
+			
+			// aapt resource value: 0x7f08012b
+			public const int chronometer = 2131231019;
 			
 			// aapt resource value: 0x7f080033
 			public const int clip_horizontal = 2131230771;
@@ -21636,152 +21353,149 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080034
 			public const int clip_vertical = 2131230772;
 			
-			// aapt resource value: 0x7f0800ce
-			public const int closeText = 2131230926;
+			// aapt resource value: 0x7f0800cd
+			public const int closeText = 2131230925;
 			
 			// aapt resource value: 0x7f08001f
 			public const int collapseActionView = 2131230751;
 			
-			// aapt resource value: 0x7f08013e
-			public const int content = 2131231038;
+			// aapt resource value: 0x7f08013d
+			public const int content = 2131231037;
 			
-			// aapt resource value: 0x7f080072
-			public const int contentPanel = 2131230834;
+			// aapt resource value: 0x7f080070
+			public const int contentPanel = 2131230832;
 			
-			// aapt resource value: 0x7f080078
-			public const int custom = 2131230840;
+			// aapt resource value: 0x7f080076
+			public const int custom = 2131230838;
 			
-			// aapt resource value: 0x7f080077
-			public const int customPanel = 2131230839;
+			// aapt resource value: 0x7f080075
+			public const int customPanel = 2131230837;
 			
-			// aapt resource value: 0x7f0800a3
-			public const int dataMarkerLayout = 2131230883;
+			// aapt resource value: 0x7f0800a2
+			public const int dataMarkerLayout = 2131230882;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int data_form_autocomplete_editor = 2131230892;
 			
 			// aapt resource value: 0x7f0800ad
-			public const int data_form_autocomplete_editor = 2131230893;
+			public const int data_form_checkbox_editor = 2131230893;
 			
 			// aapt resource value: 0x7f0800ae
-			public const int data_form_checkbox_editor = 2131230894;
+			public const int data_form_date_editor = 2131230894;
 			
 			// aapt resource value: 0x7f0800af
-			public const int data_form_date_editor = 2131230895;
-			
-			// aapt resource value: 0x7f0800b0
-			public const int data_form_decimal_editor = 2131230896;
-			
-			// aapt resource value: 0x7f0800b8
-			public const int data_form_editor_container = 2131230904;
-			
-			// aapt resource value: 0x7f0800b3
-			public const int data_form_editor_group_container = 2131230899;
-			
-			// aapt resource value: 0x7f0800b5
-			public const int data_form_editor_image = 2131230901;
-			
-			// aapt resource value: 0x7f0800bb
-			public const int data_form_expandable_group_expand_button = 2131230907;
-			
-			// aapt resource value: 0x7f0800b2
-			public const int data_form_group_header = 2131230898;
-			
-			// aapt resource value: 0x7f0800b1
-			public const int data_form_group_header_container = 2131230897;
-			
-			// aapt resource value: 0x7f0800b6
-			public const int data_form_header_container = 2131230902;
-			
-			// aapt resource value: 0x7f0800bc
-			public const int data_form_integer_editor = 2131230908;
-			
-			// aapt resource value: 0x7f0800bd
-			public const int data_form_list_editor = 2131230909;
-			
-			// aapt resource value: 0x7f0800be
-			public const int data_form_number_picker_editor = 2131230910;
-			
-			// aapt resource value: 0x7f0800bf
-			public const int data_form_rad_autocomplete_editor = 2131230911;
-			
-			// aapt resource value: 0x7f0800c0
-			public const int data_form_radio_group = 2131230912;
-			
-			// aapt resource value: 0x7f0800c1
-			public const int data_form_root_layout = 2131230913;
-			
-			// aapt resource value: 0x7f0800c2
-			public const int data_form_seekbar_editor = 2131230914;
-			
-			// aapt resource value: 0x7f0800c3
-			public const int data_form_spinner_editor = 2131230915;
-			
-			// aapt resource value: 0x7f0800c4
-			public const int data_form_switch_editor = 2131230916;
-			
-			// aapt resource value: 0x7f0800c5
-			public const int data_form_text_editor = 2131230917;
-			
-			// aapt resource value: 0x7f0800c6
-			public const int data_form_text_viewer = 2131230918;
-			
-			// aapt resource value: 0x7f0800b4
-			public const int data_form_text_viewer_header = 2131230900;
-			
-			// aapt resource value: 0x7f0800c7
-			public const int data_form_time_editor = 2131230919;
-			
-			// aapt resource value: 0x7f0800c8
-			public const int data_form_toggle_editor = 2131230920;
-			
-			// aapt resource value: 0x7f0800b9
-			public const int data_form_validation_container = 2131230905;
+			public const int data_form_decimal_editor = 2131230895;
 			
 			// aapt resource value: 0x7f0800b7
-			public const int data_form_validation_icon = 2131230903;
+			public const int data_form_editor_container = 2131230903;
+			
+			// aapt resource value: 0x7f0800b2
+			public const int data_form_editor_group_container = 2131230898;
+			
+			// aapt resource value: 0x7f0800b4
+			public const int data_form_editor_image = 2131230900;
 			
 			// aapt resource value: 0x7f0800ba
-			public const int data_form_validation_message_view = 2131230906;
+			public const int data_form_expandable_group_expand_button = 2131230906;
 			
-			// aapt resource value: 0x7f080080
-			public const int decor_content_parent = 2131230848;
+			// aapt resource value: 0x7f0800b1
+			public const int data_form_group_header = 2131230897;
 			
-			// aapt resource value: 0x7f080068
-			public const int default_activity_button = 2131230824;
+			// aapt resource value: 0x7f0800b0
+			public const int data_form_group_header_container = 2131230896;
 			
-			// aapt resource value: 0x7f0800d7
-			public const int design_bottom_sheet = 2131230935;
+			// aapt resource value: 0x7f0800b5
+			public const int data_form_header_container = 2131230901;
 			
-			// aapt resource value: 0x7f0800de
-			public const int design_menu_item_action_area = 2131230942;
+			// aapt resource value: 0x7f0800bb
+			public const int data_form_integer_editor = 2131230907;
+			
+			// aapt resource value: 0x7f0800bc
+			public const int data_form_list_editor = 2131230908;
+			
+			// aapt resource value: 0x7f0800bd
+			public const int data_form_number_picker_editor = 2131230909;
+			
+			// aapt resource value: 0x7f0800be
+			public const int data_form_rad_autocomplete_editor = 2131230910;
+			
+			// aapt resource value: 0x7f0800bf
+			public const int data_form_radio_group = 2131230911;
+			
+			// aapt resource value: 0x7f0800c0
+			public const int data_form_root_layout = 2131230912;
+			
+			// aapt resource value: 0x7f0800c1
+			public const int data_form_seekbar_editor = 2131230913;
+			
+			// aapt resource value: 0x7f0800c2
+			public const int data_form_spinner_editor = 2131230914;
+			
+			// aapt resource value: 0x7f0800c3
+			public const int data_form_switch_editor = 2131230915;
+			
+			// aapt resource value: 0x7f0800c4
+			public const int data_form_text_editor = 2131230916;
+			
+			// aapt resource value: 0x7f0800c5
+			public const int data_form_text_viewer = 2131230917;
+			
+			// aapt resource value: 0x7f0800b3
+			public const int data_form_text_viewer_header = 2131230899;
+			
+			// aapt resource value: 0x7f0800c6
+			public const int data_form_time_editor = 2131230918;
+			
+			// aapt resource value: 0x7f0800c7
+			public const int data_form_toggle_editor = 2131230919;
+			
+			// aapt resource value: 0x7f0800b8
+			public const int data_form_validation_container = 2131230904;
+			
+			// aapt resource value: 0x7f0800b6
+			public const int data_form_validation_icon = 2131230902;
+			
+			// aapt resource value: 0x7f0800b9
+			public const int data_form_validation_message_view = 2131230905;
+			
+			// aapt resource value: 0x7f08007d
+			public const int decor_content_parent = 2131230845;
+			
+			// aapt resource value: 0x7f080066
+			public const int default_activity_button = 2131230822;
+			
+			// aapt resource value: 0x7f0800d6
+			public const int design_bottom_sheet = 2131230934;
 			
 			// aapt resource value: 0x7f0800dd
-			public const int design_menu_item_action_area_stub = 2131230941;
+			public const int design_menu_item_action_area = 2131230941;
 			
 			// aapt resource value: 0x7f0800dc
-			public const int design_menu_item_text = 2131230940;
+			public const int design_menu_item_action_area_stub = 2131230940;
 			
 			// aapt resource value: 0x7f0800db
-			public const int design_navigation_view = 2131230939;
+			public const int design_menu_item_text = 2131230939;
+			
+			// aapt resource value: 0x7f0800da
+			public const int design_navigation_view = 2131230938;
 			
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
 			
-			// aapt resource value: 0x7f080047
-			public const int edge = 2131230791;
+			// aapt resource value: 0x7f080081
+			public const int edit_query = 2131230849;
 			
-			// aapt resource value: 0x7f080084
-			public const int edit_query = 2131230852;
+			// aapt resource value: 0x7f0800df
+			public const int eightsegment = 2131230943;
 			
-			// aapt resource value: 0x7f0800e0
-			public const int eightsegment = 2131230944;
-			
-			// aapt resource value: 0x7f080139
-			public const int emptyContent = 2131231033;
+			// aapt resource value: 0x7f080138
+			public const int emptyContent = 2131231032;
 			
 			// aapt resource value: 0x7f08001c
 			public const int end = 2131230748;
 			
-			// aapt resource value: 0x7f080131
-			public const int end_padder = 2131231025;
+			// aapt resource value: 0x7f080130
+			public const int end_padder = 2131231024;
 			
 			// aapt resource value: 0x7f080023
 			public const int enterAlways = 2131230755;
@@ -21789,14 +21503,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080024
 			public const int enterAlwaysCollapsed = 2131230756;
 			
+			// aapt resource value: 0x7f080098
+			public const int event_details = 2131230872;
+			
+			// aapt resource value: 0x7f080097
+			public const int event_title = 2131230871;
+			
 			// aapt resource value: 0x7f080025
 			public const int exitUntilCollapsed = 2131230757;
 			
-			// aapt resource value: 0x7f080066
-			public const int expand_activities_button = 2131230822;
+			// aapt resource value: 0x7f080064
+			public const int expand_activities_button = 2131230820;
 			
-			// aapt resource value: 0x7f080079
-			public const int expanded_menu = 2131230841;
+			// aapt resource value: 0x7f080077
+			public const int expanded_menu = 2131230839;
 			
 			// aapt resource value: 0x7f080035
 			public const int fill = 2131230773;
@@ -21810,23 +21530,23 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080038
 			public const int @fixed = 2131230776;
 			
-			// aapt resource value: 0x7f0800e1
-			public const int fourteensegment = 2131230945;
+			// aapt resource value: 0x7f0800e0
+			public const int fourteensegment = 2131230944;
 			
-			// aapt resource value: 0x7f0800a0
-			public const int gridLineLayout = 2131230880;
+			// aapt resource value: 0x7f08009f
+			public const int gridLineLayout = 2131230879;
 			
-			// aapt resource value: 0x7f08013f
-			public const int gridLinesLayout = 2131231039;
+			// aapt resource value: 0x7f08013e
+			public const int gridLinesLayout = 2131231038;
+			
+			// aapt resource value: 0x7f080140
+			public const int groupHeaderCollapseImage = 2131231040;
 			
 			// aapt resource value: 0x7f080141
-			public const int groupHeaderCollapseImage = 2131231041;
+			public const int groupHeaderText = 2131231041;
 			
-			// aapt resource value: 0x7f080142
-			public const int groupHeaderText = 2131231042;
-			
-			// aapt resource value: 0x7f0800cc
-			public const int highText = 2131230924;
+			// aapt resource value: 0x7f0800cb
+			public const int highText = 2131230923;
 			
 			// aapt resource value: 0x7f080005
 			public const int home = 2131230725;
@@ -21837,137 +21557,134 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08003a
 			public const int horizontal = 2131230778;
 			
-			// aapt resource value: 0x7f08006a
-			public const int icon = 2131230826;
+			// aapt resource value: 0x7f080068
+			public const int icon = 2131230824;
 			
-			// aapt resource value: 0x7f0800aa
-			public const int iconView = 2131230890;
+			// aapt resource value: 0x7f0800a9
+			public const int iconView = 2131230889;
 			
 			// aapt resource value: 0x7f080020
 			public const int ifRoom = 2131230752;
 			
-			// aapt resource value: 0x7f080067
-			public const int image = 2131230823;
+			// aapt resource value: 0x7f080065
+			public const int image = 2131230821;
 			
-			// aapt resource value: 0x7f0800e3
-			public const int imageView = 2131230947;
+			// aapt resource value: 0x7f0800e2
+			public const int imageView = 2131230946;
 			
-			// aapt resource value: 0x7f080130
-			public const int info = 2131231024;
-			
-			// aapt resource value: 0x7f080101
-			public const int inline_event_end = 2131230977;
+			// aapt resource value: 0x7f08012f
+			public const int info = 2131231023;
 			
 			// aapt resource value: 0x7f080100
-			public const int inline_event_start = 2131230976;
+			public const int inline_event_end = 2131230976;
 			
-			// aapt resource value: 0x7f080102
-			public const int inline_event_title = 2131230978;
+			// aapt resource value: 0x7f0800ff
+			public const int inline_event_start = 2131230975;
 			
-			// aapt resource value: 0x7f080045
-			public const int inner = 2131230789;
-			
-			// aapt resource value: 0x7f0800e8
-			public const int input_email = 2131230952;
-			
-			// aapt resource value: 0x7f0800ea
-			public const int input_message = 2131230954;
+			// aapt resource value: 0x7f080101
+			public const int inline_event_title = 2131230977;
 			
 			// aapt resource value: 0x7f0800e7
-			public const int input_name = 2131230951;
-			
-			// aapt resource value: 0x7f0800f5
-			public const int input_password = 2131230965;
+			public const int input_email = 2131230951;
 			
 			// aapt resource value: 0x7f0800e9
-			public const int input_subject = 2131230953;
+			public const int input_message = 2131230953;
+			
+			// aapt resource value: 0x7f0800e6
+			public const int input_name = 2131230950;
+			
+			// aapt resource value: 0x7f0800f4
+			public const int input_password = 2131230964;
+			
+			// aapt resource value: 0x7f0800e8
+			public const int input_subject = 2131230952;
 			
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
-			// aapt resource value: 0x7f0800ab
-			public const int label = 2131230891;
+			// aapt resource value: 0x7f0800aa
+			public const int label = 2131230890;
+			
+			// aapt resource value: 0x7f0800fb
+			public const int label_author = 2131230971;
 			
 			// aapt resource value: 0x7f0800fc
-			public const int label_author = 2131230972;
+			public const int label_date = 2131230972;
+			
+			// aapt resource value: 0x7f0800ee
+			public const int label_last_updated = 2131230958;
+			
+			// aapt resource value: 0x7f0800e3
+			public const int label_message = 2131230947;
 			
 			// aapt resource value: 0x7f0800fd
-			public const int label_date = 2131230973;
+			public const int label_text = 2131230973;
 			
-			// aapt resource value: 0x7f0800ef
-			public const int label_last_updated = 2131230959;
-			
-			// aapt resource value: 0x7f0800e4
-			public const int label_message = 2131230948;
-			
-			// aapt resource value: 0x7f0800fe
-			public const int label_text = 2131230974;
+			// aapt resource value: 0x7f0800f7
+			public const int label_title = 2131230967;
 			
 			// aapt resource value: 0x7f0800f8
-			public const int label_title = 2131230968;
-			
-			// aapt resource value: 0x7f0800f9
-			public const int label_version = 2131230969;
+			public const int label_version = 2131230968;
 			
 			// aapt resource value: 0x7f08002f
 			public const int left = 2131230767;
 			
-			// aapt resource value: 0x7f08009c
-			public const int left_arrow = 2131230876;
-			
-			// aapt resource value: 0x7f0800a7
-			public const int legendHeader = 2131230887;
-			
-			// aapt resource value: 0x7f080103
-			public const int legendItemIconView = 2131230979;
-			
-			// aapt resource value: 0x7f080104
-			public const int legendItemTitleView = 2131230980;
-			
-			// aapt resource value: 0x7f0800a9
-			public const int legendItemsLayout = 2131230889;
-			
-			// aapt resource value: 0x7f08013b
-			public const int legendListView = 2131231035;
-			
-			// aapt resource value: 0x7f0800a8
-			public const int legendScrollView = 2131230888;
+			// aapt resource value: 0x7f08009b
+			public const int left_arrow = 2131230875;
 			
 			// aapt resource value: 0x7f0800a6
-			public const int legendViewGroup = 2131230886;
+			public const int legendHeader = 2131230886;
 			
-			// aapt resource value: 0x7f08012a
-			public const int line1 = 2131231018;
+			// aapt resource value: 0x7f080102
+			public const int legendItemIconView = 2131230978;
 			
-			// aapt resource value: 0x7f08012e
-			public const int line3 = 2131231022;
+			// aapt resource value: 0x7f080103
+			public const int legendItemTitleView = 2131230979;
+			
+			// aapt resource value: 0x7f0800a8
+			public const int legendItemsLayout = 2131230888;
+			
+			// aapt resource value: 0x7f08013a
+			public const int legendRecyclerView = 2131231034;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int legendScrollView = 2131230887;
+			
+			// aapt resource value: 0x7f0800a5
+			public const int legendViewGroup = 2131230885;
+			
+			// aapt resource value: 0x7f080129
+			public const int line1 = 2131231017;
+			
+			// aapt resource value: 0x7f08012d
+			public const int line3 = 2131231021;
 			
 			// aapt resource value: 0x7f08000b
 			public const int listMode = 2131230731;
 			
-			// aapt resource value: 0x7f0800ff
-			public const int list_attachments = 2131230975;
+			// aapt resource value: 0x7f0800fe
+			public const int list_attachments = 2131230974;
 			
-			// aapt resource value: 0x7f0800f3
-			public const int list_feedback_messages = 2131230963;
+			// aapt resource value: 0x7f0800f2
+			public const int list_feedback_messages = 2131230962;
 			
-			// aapt resource value: 0x7f080069
-			public const int list_item = 2131230825;
+			// aapt resource value: 0x7f080067
+			public const int list_item = 2131230823;
+			
+			// aapt resource value: 0x7f080106
+			public const int loadingImage = 2131230982;
+			
+			// aapt resource value: 0x7f080104
+			public const int loadingProgressBar = 2131230980;
 			
 			// aapt resource value: 0x7f080107
-			public const int loadingImage = 2131230983;
+			public const int loadingProgressWheel = 2131230983;
 			
-			// aapt resource value: 0x7f080105
-			public const int loadingProgressBar = 2131230981;
+			// aapt resource value: 0x7f0800ce
+			public const int lowText = 2131230926;
 			
-			// aapt resource value: 0x7f080108
-			public const int loadingProgressWheel = 2131230984;
-			
-			// aapt resource value: 0x7f0800cf
-			public const int lowText = 2131230927;
-			
-			// aapt resource value: 0x7f080128
-			public const int media_actions = 2131231016;
+			// aapt resource value: 0x7f080127
+			public const int media_actions = 2131231015;
 			
 			// aapt resource value: 0x7f08001d
 			public const int middle = 2131230749;
@@ -21975,92 +21692,92 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080037
 			public const int mini = 2131230775;
 			
-			// aapt resource value: 0x7f080115
-			public const int mr_art = 2131230997;
+			// aapt resource value: 0x7f080114
+			public const int mr_art = 2131230996;
 			
-			// aapt resource value: 0x7f08010a
-			public const int mr_chooser_list = 2131230986;
-			
-			// aapt resource value: 0x7f08010d
-			public const int mr_chooser_route_desc = 2131230989;
-			
-			// aapt resource value: 0x7f08010b
-			public const int mr_chooser_route_icon = 2131230987;
+			// aapt resource value: 0x7f080109
+			public const int mr_chooser_list = 2131230985;
 			
 			// aapt resource value: 0x7f08010c
-			public const int mr_chooser_route_name = 2131230988;
+			public const int mr_chooser_route_desc = 2131230988;
 			
-			// aapt resource value: 0x7f080112
-			public const int mr_close = 2131230994;
+			// aapt resource value: 0x7f08010a
+			public const int mr_chooser_route_icon = 2131230986;
 			
-			// aapt resource value: 0x7f080118
-			public const int mr_control_divider = 2131231000;
-			
-			// aapt resource value: 0x7f08011e
-			public const int mr_control_play_pause = 2131231006;
-			
-			// aapt resource value: 0x7f080121
-			public const int mr_control_subtitle = 2131231009;
-			
-			// aapt resource value: 0x7f080120
-			public const int mr_control_title = 2131231008;
-			
-			// aapt resource value: 0x7f08011f
-			public const int mr_control_title_container = 2131231007;
-			
-			// aapt resource value: 0x7f080113
-			public const int mr_custom_control = 2131230995;
-			
-			// aapt resource value: 0x7f080114
-			public const int mr_default_control = 2131230996;
-			
-			// aapt resource value: 0x7f08010f
-			public const int mr_dialog_area = 2131230991;
-			
-			// aapt resource value: 0x7f08010e
-			public const int mr_expandable_area = 2131230990;
-			
-			// aapt resource value: 0x7f080122
-			public const int mr_group_expand_collapse = 2131231010;
-			
-			// aapt resource value: 0x7f080116
-			public const int mr_media_main_control = 2131230998;
+			// aapt resource value: 0x7f08010b
+			public const int mr_chooser_route_name = 2131230987;
 			
 			// aapt resource value: 0x7f080111
-			public const int mr_name = 2131230993;
+			public const int mr_close = 2131230993;
 			
 			// aapt resource value: 0x7f080117
-			public const int mr_playback_control = 2131230999;
-			
-			// aapt resource value: 0x7f080110
-			public const int mr_title_bar = 2131230992;
-			
-			// aapt resource value: 0x7f080119
-			public const int mr_volume_control = 2131231001;
-			
-			// aapt resource value: 0x7f08011a
-			public const int mr_volume_group_list = 2131231002;
-			
-			// aapt resource value: 0x7f08011c
-			public const int mr_volume_item_icon = 2131231004;
+			public const int mr_control_divider = 2131230999;
 			
 			// aapt resource value: 0x7f08011d
-			public const int mr_volume_slider = 2131231005;
+			public const int mr_control_play_pause = 2131231005;
+			
+			// aapt resource value: 0x7f080120
+			public const int mr_control_subtitle = 2131231008;
+			
+			// aapt resource value: 0x7f08011f
+			public const int mr_control_title = 2131231007;
+			
+			// aapt resource value: 0x7f08011e
+			public const int mr_control_title_container = 2131231006;
+			
+			// aapt resource value: 0x7f080112
+			public const int mr_custom_control = 2131230994;
+			
+			// aapt resource value: 0x7f080113
+			public const int mr_default_control = 2131230995;
+			
+			// aapt resource value: 0x7f08010e
+			public const int mr_dialog_area = 2131230990;
+			
+			// aapt resource value: 0x7f08010d
+			public const int mr_expandable_area = 2131230989;
+			
+			// aapt resource value: 0x7f080121
+			public const int mr_group_expand_collapse = 2131231009;
+			
+			// aapt resource value: 0x7f080115
+			public const int mr_media_main_control = 2131230997;
+			
+			// aapt resource value: 0x7f080110
+			public const int mr_name = 2131230992;
+			
+			// aapt resource value: 0x7f080116
+			public const int mr_playback_control = 2131230998;
+			
+			// aapt resource value: 0x7f08010f
+			public const int mr_title_bar = 2131230991;
+			
+			// aapt resource value: 0x7f080118
+			public const int mr_volume_control = 2131231000;
+			
+			// aapt resource value: 0x7f080119
+			public const int mr_volume_group_list = 2131231001;
+			
+			// aapt resource value: 0x7f08011b
+			public const int mr_volume_item_icon = 2131231003;
+			
+			// aapt resource value: 0x7f08011c
+			public const int mr_volume_slider = 2131231004;
 			
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080149
-			public const int name = 2131231049;
+			// aapt resource value: 0x7f080148
+			public const int name = 2131231048;
+			
+			// aapt resource value: 0x7f080122
+			public const int navItemsLayout = 2131231010;
 			
 			// aapt resource value: 0x7f080123
-			public const int navItemsLayout = 2131231011;
+			public const int navigationItemText = 2131231011;
 			
-			// aapt resource value: 0x7f080124
-			public const int navigationItemText = 2131231012;
-			
-			// aapt resource value: 0x7f0800da
-			public const int navigation_header_container = 2131230938;
+			// aapt resource value: 0x7f0800d9
+			public const int navigation_header_container = 2131230937;
 			
 			// aapt resource value: 0x7f080021
 			public const int never = 2131230753;
@@ -22071,38 +21788,35 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08000c
 			public const int normal = 2131230732;
 			
-			// aapt resource value: 0x7f080133
-			public const int number_picker_minus = 2131231027;
-			
-			// aapt resource value: 0x7f080135
-			public const int number_picker_plus = 2131231029;
-			
 			// aapt resource value: 0x7f080132
-			public const int number_picker_root = 2131231026;
+			public const int number_picker_minus = 2131231026;
 			
 			// aapt resource value: 0x7f080134
-			public const int number_picker_view = 2131231028;
+			public const int number_picker_plus = 2131231028;
 			
-			// aapt resource value: 0x7f0800cd
-			public const int openText = 2131230925;
+			// aapt resource value: 0x7f080131
+			public const int number_picker_root = 2131231025;
 			
-			// aapt resource value: 0x7f080046
-			public const int outer = 2131230790;
+			// aapt resource value: 0x7f080133
+			public const int number_picker_view = 2131231027;
+			
+			// aapt resource value: 0x7f0800cc
+			public const int openText = 2131230924;
 			
 			// aapt resource value: 0x7f080028
 			public const int parallax = 2131230760;
 			
-			// aapt resource value: 0x7f08006e
-			public const int parentPanel = 2131230830;
+			// aapt resource value: 0x7f08006c
+			public const int parentPanel = 2131230828;
 			
 			// aapt resource value: 0x7f080029
 			public const int pin = 2131230761;
 			
-			// aapt resource value: 0x7f080136
-			public const int popup_event_time = 2131231030;
+			// aapt resource value: 0x7f080135
+			public const int popup_event_time = 2131231029;
 			
-			// aapt resource value: 0x7f080137
-			public const int popup_event_title = 2131231031;
+			// aapt resource value: 0x7f080136
+			public const int popup_event_title = 2131231030;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -22110,23 +21824,20 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080007
 			public const int progress_horizontal = 2131230727;
 			
-			// aapt resource value: 0x7f08007c
-			public const int radio = 2131230844;
+			// aapt resource value: 0x7f080045
+			public const int radio = 2131230789;
 			
-			// aapt resource value: 0x7f08013a
-			public const int renderSurface = 2131231034;
+			// aapt resource value: 0x7f080139
+			public const int renderSurface = 2131231033;
 			
 			// aapt resource value: 0x7f080030
 			public const int right = 2131230768;
 			
-			// aapt resource value: 0x7f08009b
-			public const int right_arrow = 2131230875;
+			// aapt resource value: 0x7f08009a
+			public const int right_arrow = 2131230874;
 			
-			// aapt resource value: 0x7f08009d
-			public const int rootLayout = 2131230877;
-			
-			// aapt resource value: 0x7f080048
-			public const int round = 2131230792;
+			// aapt resource value: 0x7f08009c
+			public const int rootLayout = 2131230876;
 			
 			// aapt resource value: 0x7f080017
 			public const int screen = 2131230743;
@@ -22134,59 +21845,62 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080026
 			public const int scroll = 2131230758;
 			
-			// aapt resource value: 0x7f080076
-			public const int scrollIndicatorDown = 2131230838;
-			
-			// aapt resource value: 0x7f080073
-			public const int scrollIndicatorUp = 2131230835;
-			
 			// aapt resource value: 0x7f080074
-			public const int scrollView = 2131230836;
+			public const int scrollIndicatorDown = 2131230836;
+			
+			// aapt resource value: 0x7f080071
+			public const int scrollIndicatorUp = 2131230833;
+			
+			// aapt resource value: 0x7f080072
+			public const int scrollView = 2131230834;
 			
 			// aapt resource value: 0x7f080039
 			public const int scrollable = 2131230777;
 			
-			// aapt resource value: 0x7f080086
-			public const int search_badge = 2131230854;
+			// aapt resource value: 0x7f080083
+			public const int search_badge = 2131230851;
 			
-			// aapt resource value: 0x7f080085
-			public const int search_bar = 2131230853;
+			// aapt resource value: 0x7f080082
+			public const int search_bar = 2131230850;
 			
-			// aapt resource value: 0x7f080087
-			public const int search_button = 2131230855;
-			
-			// aapt resource value: 0x7f08008c
-			public const int search_close_btn = 2131230860;
-			
-			// aapt resource value: 0x7f080088
-			public const int search_edit_frame = 2131230856;
-			
-			// aapt resource value: 0x7f08008e
-			public const int search_go_btn = 2131230862;
+			// aapt resource value: 0x7f080084
+			public const int search_button = 2131230852;
 			
 			// aapt resource value: 0x7f080089
-			public const int search_mag_icon = 2131230857;
+			public const int search_close_btn = 2131230857;
 			
-			// aapt resource value: 0x7f08008a
-			public const int search_plate = 2131230858;
+			// aapt resource value: 0x7f080085
+			public const int search_edit_frame = 2131230853;
 			
 			// aapt resource value: 0x7f08008b
-			public const int search_src_text = 2131230859;
+			public const int search_go_btn = 2131230859;
 			
-			// aapt resource value: 0x7f08008f
-			public const int search_voice_btn = 2131230863;
+			// aapt resource value: 0x7f080086
+			public const int search_mag_icon = 2131230854;
 			
-			// aapt resource value: 0x7f080090
-			public const int select_dialog_listview = 2131230864;
+			// aapt resource value: 0x7f080087
+			public const int search_plate = 2131230855;
 			
-			// aapt resource value: 0x7f0800a2
-			public const int seriesLayout = 2131230882;
+			// aapt resource value: 0x7f080088
+			public const int search_src_text = 2131230856;
 			
-			// aapt resource value: 0x7f0800df
-			public const int sevensegment = 2131230943;
+			// aapt resource value: 0x7f08008c
+			public const int search_voice_btn = 2131230860;
 			
-			// aapt resource value: 0x7f08007b
-			public const int shortcut = 2131230843;
+			// aapt resource value: 0x7f080046
+			public const int segmented = 2131230790;
+			
+			// aapt resource value: 0x7f08008d
+			public const int select_dialog_listview = 2131230861;
+			
+			// aapt resource value: 0x7f0800a1
+			public const int seriesLayout = 2131230881;
+			
+			// aapt resource value: 0x7f0800de
+			public const int sevensegment = 2131230942;
+			
+			// aapt resource value: 0x7f080079
+			public const int shortcut = 2131230841;
 			
 			// aapt resource value: 0x7f080011
 			public const int showCustom = 2131230737;
@@ -22197,23 +21911,23 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080013
 			public const int showTitle = 2131230739;
 			
-			// aapt resource value: 0x7f0800e2
-			public const int sixteensegment = 2131230946;
+			// aapt resource value: 0x7f0800e1
+			public const int sixteensegment = 2131230945;
 			
-			// aapt resource value: 0x7f080148
-			public const int sliding_tabs = 2131231048;
-			
-			// aapt resource value: 0x7f0800d9
-			public const int snackbar_action = 2131230937;
+			// aapt resource value: 0x7f080147
+			public const int sliding_tabs = 2131231047;
 			
 			// aapt resource value: 0x7f0800d8
-			public const int snackbar_text = 2131230936;
+			public const int snackbar_action = 2131230936;
+			
+			// aapt resource value: 0x7f0800d7
+			public const int snackbar_text = 2131230935;
 			
 			// aapt resource value: 0x7f080027
 			public const int snap = 2131230759;
 			
-			// aapt resource value: 0x7f08006d
-			public const int spacer = 2131230829;
+			// aapt resource value: 0x7f08006b
+			public const int spacer = 2131230827;
 			
 			// aapt resource value: 0x7f080008
 			public const int split_action_bar = 2131230728;
@@ -22230,89 +21944,89 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080031
 			public const int start = 2131230769;
 			
-			// aapt resource value: 0x7f080127
-			public const int status_bar_latest_event_content = 2131231015;
+			// aapt resource value: 0x7f080126
+			public const int status_bar_latest_event_content = 2131231014;
 			
-			// aapt resource value: 0x7f0800a1
-			public const int stripLinesLayout = 2131230881;
+			// aapt resource value: 0x7f0800a0
+			public const int stripLinesLayout = 2131230880;
 			
-			// aapt resource value: 0x7f08008d
-			public const int submit_area = 2131230861;
+			// aapt resource value: 0x7f08008a
+			public const int submit_area = 2131230858;
+			
+			// aapt resource value: 0x7f080143
+			public const int suggestion_img = 2131231043;
 			
 			// aapt resource value: 0x7f080144
-			public const int suggestion_img = 2131231044;
-			
-			// aapt resource value: 0x7f080145
-			public const int suggestion_text = 2131231045;
-			
-			// aapt resource value: 0x7f080147
-			public const int tabItemImageView = 2131231047;
+			public const int suggestion_text = 2131231044;
 			
 			// aapt resource value: 0x7f080146
-			public const int tabItemTextView = 2131231046;
+			public const int tabItemImageView = 2131231046;
+			
+			// aapt resource value: 0x7f080145
+			public const int tabItemTextView = 2131231045;
 			
 			// aapt resource value: 0x7f08000d
 			public const int tabMode = 2131230733;
 			
-			// aapt resource value: 0x7f0800a4
-			public const int technicalIndicatorLayout = 2131230884;
+			// aapt resource value: 0x7f0800a3
+			public const int technicalIndicatorLayout = 2131230883;
 			
-			// aapt resource value: 0x7f08012f
-			public const int text = 2131231023;
+			// aapt resource value: 0x7f08012e
+			public const int text = 2131231022;
 			
-			// aapt resource value: 0x7f080143
-			public const int text1 = 2131231043;
+			// aapt resource value: 0x7f080142
+			public const int text1 = 2131231042;
 			
-			// aapt resource value: 0x7f08012d
-			public const int text2 = 2131231021;
+			// aapt resource value: 0x7f08012c
+			public const int text2 = 2131231020;
 			
-			// aapt resource value: 0x7f080075
-			public const int textSpacerNoButtons = 2131230837;
+			// aapt resource value: 0x7f080073
+			public const int textSpacerNoButtons = 2131230835;
 			
-			// aapt resource value: 0x7f080106
-			public const int textViewStatus = 2131230982;
+			// aapt resource value: 0x7f080105
+			public const int textViewStatus = 2131230981;
 			
-			// aapt resource value: 0x7f0800f4
-			public const int text_headline = 2131230964;
+			// aapt resource value: 0x7f0800f3
+			public const int text_headline = 2131230963;
 			
-			// aapt resource value: 0x7f080140
-			public const int thumbLayout = 2131231040;
+			// aapt resource value: 0x7f08013f
+			public const int thumbLayout = 2131231039;
 			
-			// aapt resource value: 0x7f08012b
-			public const int time = 2131231019;
+			// aapt resource value: 0x7f08012a
+			public const int time = 2131231018;
 			
-			// aapt resource value: 0x7f08006b
-			public const int title = 2131230827;
+			// aapt resource value: 0x7f080069
+			public const int title = 2131230825;
 			
-			// aapt resource value: 0x7f080070
-			public const int title_template = 2131230832;
+			// aapt resource value: 0x7f08006e
+			public const int title_template = 2131230830;
+			
+			// aapt resource value: 0x7f080149
+			public const int tokenimage = 2131231049;
 			
 			// aapt resource value: 0x7f08014a
-			public const int tokenimage = 2131231050;
+			public const int tokentext = 2131231050;
 			
-			// aapt resource value: 0x7f08014b
-			public const int tokentext = 2131231051;
+			// aapt resource value: 0x7f08014c
+			public const int toolbar = 2131231052;
 			
-			// aapt resource value: 0x7f08014d
-			public const int toolbar = 2131231053;
-			
-			// aapt resource value: 0x7f0800c9
-			public const int tooltip_content_container = 2131230921;
+			// aapt resource value: 0x7f0800c8
+			public const int tooltip_content_container = 2131230920;
 			
 			// aapt resource value: 0x7f080032
 			public const int top = 2131230770;
 			
-			// aapt resource value: 0x7f08006f
-			public const int topPanel = 2131230831;
+			// aapt resource value: 0x7f08006d
+			public const int topPanel = 2131230829;
 			
-			// aapt resource value: 0x7f08013c
-			public const int top_labels = 2131231036;
+			// aapt resource value: 0x7f08013b
+			public const int top_labels = 2131231035;
 			
-			// aapt resource value: 0x7f0800d6
-			public const int touch_outside = 2131230934;
+			// aapt resource value: 0x7f0800d5
+			public const int touch_outside = 2131230933;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int trackball_points_list = 2131230932;
+			// aapt resource value: 0x7f0800d3
+			public const int trackball_points_list = 2131230931;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -22323,17 +22037,17 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f08003b
 			public const int vertical = 2131230779;
 			
-			// aapt resource value: 0x7f0800f7
-			public const int view_header = 2131230967;
+			// aapt resource value: 0x7f0800f6
+			public const int view_header = 2131230966;
 			
 			// aapt resource value: 0x7f08000a
 			public const int view_offset_helper = 2131230730;
 			
-			// aapt resource value: 0x7f08011b
-			public const int volume_item_container = 2131231003;
+			// aapt resource value: 0x7f08011a
+			public const int volume_item_container = 2131231002;
 			
-			// aapt resource value: 0x7f0800fb
-			public const int web_update_details = 2131230971;
+			// aapt resource value: 0x7f0800fa
+			public const int web_update_details = 2131230970;
 			
 			// aapt resource value: 0x7f080022
 			public const int withText = 2131230754;
@@ -22341,29 +22055,29 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f080015
 			public const int wrap_content = 2131230741;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int wrapper_attachments = 2131230955;
-			
-			// aapt resource value: 0x7f0800e6
-			public const int wrapper_feedback = 2131230950;
+			// aapt resource value: 0x7f0800ea
+			public const int wrapper_attachments = 2131230954;
 			
 			// aapt resource value: 0x7f0800e5
-			public const int wrapper_feedback_scroll = 2131230949;
+			public const int wrapper_feedback = 2131230949;
 			
-			// aapt resource value: 0x7f0800ee
-			public const int wrapper_messages = 2131230958;
+			// aapt resource value: 0x7f0800e4
+			public const int wrapper_feedback_scroll = 2131230948;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int wrapper_messages_buttons = 2131230960;
+			// aapt resource value: 0x7f0800ed
+			public const int wrapper_messages = 2131230957;
+			
+			// aapt resource value: 0x7f0800ef
+			public const int wrapper_messages_buttons = 2131230959;
+			
+			// aapt resource value: 0x7f0800cf
+			public const int xText = 2131230927;
+			
+			// aapt resource value: 0x7f08014b
+			public const int xview = 2131231051;
 			
 			// aapt resource value: 0x7f0800d0
-			public const int xText = 2131230928;
-			
-			// aapt resource value: 0x7f08014c
-			public const int xview = 2131231052;
-			
-			// aapt resource value: 0x7f0800d1
-			public const int yText = 2131230929;
+			public const int yText = 2131230928;
 			
 			static Id()
 			{
@@ -22531,352 +22245,358 @@ namespace Hubo.Droid
 			public const int bb_bottom_bar_item_shifting = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int calendar_pager_layout = 2130903070;
+			public const int calendar_all_day_event_view = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int calendar_picker = 2130903071;
+			public const int calendar_day_event_view = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int chart_layout = 2130903072;
+			public const int calendar_pager_layout = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int chart_legend = 2130903073;
+			public const int calendar_picker = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int chart_legend_item = 2130903074;
+			public const int chart_layout = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int circulargauge_layout = 2130903075;
+			public const int chart_legend = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int customizedview = 2130903076;
+			public const int chart_legend_item = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int customizedview1 = 2130903077;
+			public const int circulargauge_layout = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int data_form_autocomplete_editor = 2130903078;
+			public const int customizedview = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int data_form_checkbox_editor = 2130903079;
+			public const int customizedview1 = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int data_form_date_editor = 2130903080;
+			public const int data_form_autocomplete_editor = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int data_form_decimal_editor = 2130903081;
+			public const int data_form_checkbox_editor = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int data_form_default_group_layout = 2130903082;
+			public const int data_form_date_editor = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int data_form_editor_header_layout_1 = 2130903083;
+			public const int data_form_decimal_editor = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int data_form_editor_header_layout_2 = 2130903084;
+			public const int data_form_default_group_layout = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int data_form_editor_layout_1 = 2130903085;
+			public const int data_form_editor_header_layout_1 = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int data_form_editor_layout_2 = 2130903086;
+			public const int data_form_editor_header_layout_2 = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int data_form_editor_validation_layout_1 = 2130903087;
+			public const int data_form_editor_layout_1 = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int data_form_expandable_group_layout = 2130903088;
+			public const int data_form_editor_layout_2 = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int data_form_group_layout = 2130903089;
+			public const int data_form_editor_validation_layout_1 = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int data_form_integer_editor = 2130903090;
+			public const int data_form_expandable_group_layout = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int data_form_linear_layout = 2130903091;
+			public const int data_form_group_layout = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int data_form_list_editor = 2130903092;
+			public const int data_form_integer_editor = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int data_form_list_editor_item = 2130903093;
+			public const int data_form_linear_layout = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int data_form_number_picker = 2130903094;
+			public const int data_form_list_editor = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int data_form_rad_autocomplete_editor = 2130903095;
+			public const int data_form_list_editor_item = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int data_form_radio_group_editor = 2130903096;
+			public const int data_form_number_picker = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int data_form_root_layout = 2130903097;
+			public const int data_form_rad_autocomplete_editor = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int data_form_seek_bar_editor = 2130903098;
+			public const int data_form_radio_group_editor = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int data_form_segmented_editor = 2130903099;
+			public const int data_form_root_layout = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int data_form_spinner_editor = 2130903100;
+			public const int data_form_seek_bar_editor = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int data_form_spinner_item = 2130903101;
+			public const int data_form_segmented_editor = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int data_form_switch_editor = 2130903102;
+			public const int data_form_spinner_editor = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int data_form_text_editor = 2130903103;
+			public const int data_form_spinner_item = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int data_form_text_viewer = 2130903104;
+			public const int data_form_switch_editor = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int data_form_time_editor = 2130903105;
+			public const int data_form_text_editor = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int data_form_toggle_button_editor = 2130903106;
+			public const int data_form_text_viewer = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int default_tooltip_content = 2130903107;
+			public const int data_form_time_editor = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int default_tooltip_ohlc_content = 2130903108;
+			public const int data_form_toggle_button_editor = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int default_tooltip_scatter_bubble_content = 2130903109;
+			public const int default_tooltip_content = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int default_tooltip_scatter_content = 2130903110;
+			public const int default_tooltip_ohlc_content = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int default_trackball_content = 2130903111;
+			public const int default_tooltip_scatter_bubble_content = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int default_trackball_item_content = 2130903112;
+			public const int default_tooltip_scatter_content = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int design_bottom_sheet_dialog = 2130903113;
+			public const int default_trackball_content = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int design_layout_snackbar = 2130903114;
+			public const int default_trackball_item_content = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int design_layout_snackbar_include = 2130903115;
+			public const int design_bottom_sheet_dialog = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int design_layout_tab_icon = 2130903116;
+			public const int design_layout_snackbar = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int design_layout_tab_text = 2130903117;
+			public const int design_layout_snackbar_include = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int design_menu_item_action_area = 2130903118;
+			public const int design_layout_tab_icon = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int design_navigation_item = 2130903119;
+			public const int design_layout_tab_text = 2130903119;
 			
 			// aapt resource value: 0x7f030050
-			public const int design_navigation_item_header = 2130903120;
+			public const int design_menu_item_action_area = 2130903120;
 			
 			// aapt resource value: 0x7f030051
-			public const int design_navigation_item_separator = 2130903121;
+			public const int design_navigation_item = 2130903121;
 			
 			// aapt resource value: 0x7f030052
-			public const int design_navigation_item_subheader = 2130903122;
+			public const int design_navigation_item_header = 2130903122;
 			
 			// aapt resource value: 0x7f030053
-			public const int design_navigation_menu = 2130903123;
+			public const int design_navigation_item_separator = 2130903123;
 			
 			// aapt resource value: 0x7f030054
-			public const int design_navigation_menu_item = 2130903124;
+			public const int design_navigation_item_subheader = 2130903124;
 			
 			// aapt resource value: 0x7f030055
-			public const int dialog = 2130903125;
+			public const int design_navigation_menu = 2130903125;
 			
 			// aapt resource value: 0x7f030056
-			public const int digitalgauge_layout = 2130903126;
+			public const int design_navigation_menu_item = 2130903126;
 			
 			// aapt resource value: 0x7f030057
-			public const int drawer_blur_fade_layer = 2130903127;
+			public const int dialog = 2130903127;
 			
 			// aapt resource value: 0x7f030058
-			public const int hockeyapp_activity_expiry_info = 2130903128;
+			public const int digitalgauge_layout = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int hockeyapp_activity_feedback = 2130903129;
+			public const int drawer_blur_fade_layer = 2130903129;
 			
 			// aapt resource value: 0x7f03005a
-			public const int hockeyapp_activity_login = 2130903130;
+			public const int hockeyapp_activity_expiry_info = 2130903130;
 			
 			// aapt resource value: 0x7f03005b
-			public const int hockeyapp_activity_update = 2130903131;
+			public const int hockeyapp_activity_feedback = 2130903131;
 			
 			// aapt resource value: 0x7f03005c
-			public const int hockeyapp_fragment_update = 2130903132;
+			public const int hockeyapp_activity_login = 2130903132;
 			
 			// aapt resource value: 0x7f03005d
-			public const int hockeyapp_view_feedback_message = 2130903133;
+			public const int hockeyapp_activity_update = 2130903133;
 			
 			// aapt resource value: 0x7f03005e
-			public const int inline_event = 2130903134;
+			public const int hockeyapp_fragment_update = 2130903134;
 			
 			// aapt resource value: 0x7f03005f
-			public const int legend_item_view = 2130903135;
+			public const int hockeyapp_view_feedback_message = 2130903135;
 			
 			// aapt resource value: 0x7f030060
-			public const int linear_layout = 2130903136;
+			public const int inline_event = 2130903136;
 			
 			// aapt resource value: 0x7f030061
-			public const int loading = 2130903137;
+			public const int legend_item_view = 2130903137;
 			
 			// aapt resource value: 0x7f030062
-			public const int loadingimage = 2130903138;
+			public const int linear_layout = 2130903138;
 			
 			// aapt resource value: 0x7f030063
-			public const int loadingprogress = 2130903139;
+			public const int loading = 2130903139;
 			
 			// aapt resource value: 0x7f030064
-			public const int mini_fab = 2130903140;
+			public const int loadingimage = 2130903140;
 			
 			// aapt resource value: 0x7f030065
-			public const int month = 2130903141;
+			public const int loadingprogress = 2130903141;
 			
 			// aapt resource value: 0x7f030066
-			public const int mr_chooser_dialog = 2130903142;
+			public const int mini_fab = 2130903142;
 			
 			// aapt resource value: 0x7f030067
-			public const int mr_chooser_list_item = 2130903143;
+			public const int month = 2130903143;
 			
 			// aapt resource value: 0x7f030068
-			public const int mr_controller_material_dialog_b = 2130903144;
+			public const int mr_chooser_dialog = 2130903144;
 			
 			// aapt resource value: 0x7f030069
-			public const int mr_controller_volume_item = 2130903145;
+			public const int mr_chooser_list_item = 2130903145;
 			
 			// aapt resource value: 0x7f03006a
-			public const int mr_playback_control = 2130903146;
+			public const int mr_controller_material_dialog_b = 2130903146;
 			
 			// aapt resource value: 0x7f03006b
-			public const int mr_volume_control = 2130903147;
+			public const int mr_controller_volume_item = 2130903147;
 			
 			// aapt resource value: 0x7f03006c
-			public const int navigation_drawer_content = 2130903148;
+			public const int mr_playback_control = 2130903148;
 			
 			// aapt resource value: 0x7f03006d
-			public const int navigation_item_view = 2130903149;
+			public const int mr_volume_control = 2130903149;
 			
 			// aapt resource value: 0x7f03006e
-			public const int normal_fab = 2130903150;
+			public const int navigation_drawer_content = 2130903150;
 			
 			// aapt resource value: 0x7f03006f
-			public const int notification_media_action = 2130903151;
+			public const int navigation_item_view = 2130903151;
 			
 			// aapt resource value: 0x7f030070
-			public const int notification_media_cancel_action = 2130903152;
+			public const int normal_fab = 2130903152;
 			
 			// aapt resource value: 0x7f030071
-			public const int notification_template_big_media = 2130903153;
+			public const int notification_media_action = 2130903153;
 			
 			// aapt resource value: 0x7f030072
-			public const int notification_template_big_media_narrow = 2130903154;
+			public const int notification_media_cancel_action = 2130903154;
 			
 			// aapt resource value: 0x7f030073
-			public const int notification_template_lines = 2130903155;
+			public const int notification_template_big_media = 2130903155;
 			
 			// aapt resource value: 0x7f030074
-			public const int notification_template_media = 2130903156;
+			public const int notification_template_big_media_narrow = 2130903156;
 			
 			// aapt resource value: 0x7f030075
-			public const int notification_template_part_chronometer = 2130903157;
+			public const int notification_template_lines = 2130903157;
 			
 			// aapt resource value: 0x7f030076
-			public const int notification_template_part_time = 2130903158;
+			public const int notification_template_media = 2130903158;
 			
 			// aapt resource value: 0x7f030077
-			public const int number_picker = 2130903159;
+			public const int notification_template_part_chronometer = 2130903159;
 			
 			// aapt resource value: 0x7f030078
-			public const int ohlc_trackball_item_content = 2130903160;
+			public const int notification_template_part_time = 2130903160;
 			
 			// aapt resource value: 0x7f030079
-			public const int on_demand_automatic = 2130903161;
+			public const int number_picker = 2130903161;
 			
 			// aapt resource value: 0x7f03007a
-			public const int on_demand_manual = 2130903162;
+			public const int ohlc_trackball_item_content = 2130903162;
 			
 			// aapt resource value: 0x7f03007b
-			public const int popup_event = 2130903163;
+			public const int on_demand_automatic = 2130903163;
 			
 			// aapt resource value: 0x7f03007c
-			public const int radchartbase = 2130903164;
+			public const int on_demand_manual = 2130903164;
 			
 			// aapt resource value: 0x7f03007d
-			public const int radlegendcontrol = 2130903165;
+			public const int popup_event = 2130903165;
 			
 			// aapt resource value: 0x7f03007e
-			public const int range_navigator_layout = 2130903166;
+			public const int radchartbase = 2130903166;
 			
 			// aapt resource value: 0x7f03007f
-			public const int range_trackball_item_content = 2130903167;
+			public const int radlegendcontrol = 2130903167;
 			
 			// aapt resource value: 0x7f030080
-			public const int select_dialog_item_material = 2130903168;
+			public const int range_navigator_layout = 2130903168;
 			
 			// aapt resource value: 0x7f030081
-			public const int select_dialog_multichoice_material = 2130903169;
+			public const int range_trackball_item_content = 2130903169;
 			
 			// aapt resource value: 0x7f030082
-			public const int select_dialog_singlechoice_material = 2130903170;
+			public const int select_dialog_item_material = 2130903170;
 			
 			// aapt resource value: 0x7f030083
-			public const int sfautocomplete_layout = 2130903171;
+			public const int select_dialog_multichoice_material = 2130903171;
 			
 			// aapt resource value: 0x7f030084
-			public const int simple_empty_content = 2130903172;
+			public const int select_dialog_singlechoice_material = 2130903172;
 			
 			// aapt resource value: 0x7f030085
-			public const int simple_group_header_item = 2130903173;
+			public const int sfautocomplete_layout = 2130903173;
 			
 			// aapt resource value: 0x7f030086
-			public const int simple_list_item = 2130903174;
+			public const int simple_empty_content = 2130903174;
 			
 			// aapt resource value: 0x7f030087
-			public const int suggestion_item_layout = 2130903175;
+			public const int simple_group_header_item = 2130903175;
 			
 			// aapt resource value: 0x7f030088
-			public const int support_simple_spinner_dropdown_item = 2130903176;
+			public const int simple_list_item = 2130903176;
 			
 			// aapt resource value: 0x7f030089
-			public const int tab_item_view = 2130903177;
+			public const int suggestion_item_layout = 2130903177;
 			
 			// aapt resource value: 0x7f03008a
-			public const int Tabbar = 2130903178;
+			public const int support_simple_spinner_dropdown_item = 2130903178;
 			
 			// aapt resource value: 0x7f03008b
-			public const int table_layout = 2130903179;
+			public const int tab_item_view = 2130903179;
 			
 			// aapt resource value: 0x7f03008c
-			public const int token = 2130903180;
+			public const int Tabbar = 2130903180;
 			
 			// aapt resource value: 0x7f03008d
-			public const int Toolbar = 2130903181;
+			public const int table_layout = 2130903181;
 			
 			// aapt resource value: 0x7f03008e
-			public const int tooltip_container = 2130903182;
+			public const int token = 2130903182;
 			
 			// aapt resource value: 0x7f03008f
-			public const int trackball_container = 2130903183;
+			public const int Toolbar = 2130903183;
 			
 			// aapt resource value: 0x7f030090
-			public const int trial_message = 2130903184;
+			public const int tooltip_container = 2130903184;
 			
 			// aapt resource value: 0x7f030091
-			public const int week = 2130903185;
+			public const int trackball_container = 2130903185;
+			
+			// aapt resource value: 0x7f030092
+			public const int trial_message = 2130903186;
+			
+			// aapt resource value: 0x7f030093
+			public const int week = 2130903187;
 			
 			static Layout()
 			{
@@ -22954,8 +22674,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f090021
 			public const int abc_toolbar_collapse_description = 2131296289;
 			
-			// aapt resource value: 0x7f090030
-			public const int app_name = 2131296304;
+			// aapt resource value: 0x7f090087
+			public const int app_name = 2131296391;
 			
 			// aapt resource value: 0x7f090023
 			public const int appbar_scrolling_view_behavior = 2131296291;
@@ -22969,82 +22689,91 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f090029
 			public const int day_name_format = 2131296297;
 			
+<<<<<<< HEAD
 			// aapt resource value: 0x7f090084
 			public const int define_FloatingActionButton = 2131296388;
+=======
+			// aapt resource value: 0x7f09007d
+			public const int define_FloatingActionButton = 2131296381;
+>>>>>>> bug/bugfixes2605
 			
 			// aapt resource value: 0x7f09002c
 			public const int full_date_format = 2131296300;
 			
+			// aapt resource value: 0x7f090036
+			public const int hockeyapp_crash_dialog_app_name_fallback = 2131296310;
+			
 			// aapt resource value: 0x7f090037
-			public const int hockeyapp_crash_dialog_app_name_fallback = 2131296311;
+			public const int hockeyapp_crash_dialog_message = 2131296311;
 			
 			// aapt resource value: 0x7f090038
-			public const int hockeyapp_crash_dialog_message = 2131296312;
+			public const int hockeyapp_crash_dialog_negative_button = 2131296312;
 			
 			// aapt resource value: 0x7f090039
-			public const int hockeyapp_crash_dialog_negative_button = 2131296313;
+			public const int hockeyapp_crash_dialog_neutral_button = 2131296313;
 			
 			// aapt resource value: 0x7f09003a
-			public const int hockeyapp_crash_dialog_neutral_button = 2131296314;
+			public const int hockeyapp_crash_dialog_positive_button = 2131296314;
 			
 			// aapt resource value: 0x7f09003b
-			public const int hockeyapp_crash_dialog_positive_button = 2131296315;
+			public const int hockeyapp_crash_dialog_title = 2131296315;
 			
 			// aapt resource value: 0x7f09003c
-			public const int hockeyapp_crash_dialog_title = 2131296316;
+			public const int hockeyapp_dialog_error_message = 2131296316;
 			
 			// aapt resource value: 0x7f09003d
-			public const int hockeyapp_dialog_error_message = 2131296317;
+			public const int hockeyapp_dialog_error_title = 2131296317;
 			
 			// aapt resource value: 0x7f09003e
-			public const int hockeyapp_dialog_error_title = 2131296318;
+			public const int hockeyapp_dialog_negative_button = 2131296318;
 			
 			// aapt resource value: 0x7f09003f
-			public const int hockeyapp_dialog_negative_button = 2131296319;
+			public const int hockeyapp_dialog_positive_button = 2131296319;
 			
 			// aapt resource value: 0x7f090040
-			public const int hockeyapp_dialog_positive_button = 2131296320;
+			public const int hockeyapp_download_failed_dialog_message = 2131296320;
 			
 			// aapt resource value: 0x7f090041
-			public const int hockeyapp_download_failed_dialog_message = 2131296321;
+			public const int hockeyapp_download_failed_dialog_negative_button = 2131296321;
 			
 			// aapt resource value: 0x7f090042
-			public const int hockeyapp_download_failed_dialog_negative_button = 2131296322;
+			public const int hockeyapp_download_failed_dialog_positive_button = 2131296322;
 			
 			// aapt resource value: 0x7f090043
-			public const int hockeyapp_download_failed_dialog_positive_button = 2131296323;
+			public const int hockeyapp_download_failed_dialog_title = 2131296323;
 			
 			// aapt resource value: 0x7f090044
-			public const int hockeyapp_download_failed_dialog_title = 2131296324;
+			public const int hockeyapp_error_no_network_message = 2131296324;
 			
 			// aapt resource value: 0x7f090045
-			public const int hockeyapp_error_no_network_message = 2131296325;
+			public const int hockeyapp_expiry_info_text = 2131296325;
 			
 			// aapt resource value: 0x7f090046
-			public const int hockeyapp_expiry_info_text = 2131296326;
+			public const int hockeyapp_expiry_info_title = 2131296326;
 			
 			// aapt resource value: 0x7f090047
-			public const int hockeyapp_expiry_info_title = 2131296327;
+			public const int hockeyapp_feedback_attach_file = 2131296327;
 			
 			// aapt resource value: 0x7f090048
-			public const int hockeyapp_feedback_attach_file = 2131296328;
+			public const int hockeyapp_feedback_attach_picture = 2131296328;
 			
 			// aapt resource value: 0x7f090049
-			public const int hockeyapp_feedback_attach_picture = 2131296329;
+			public const int hockeyapp_feedback_attachment_button_text = 2131296329;
 			
 			// aapt resource value: 0x7f09004a
-			public const int hockeyapp_feedback_attachment_button_text = 2131296330;
+			public const int hockeyapp_feedback_attachment_error = 2131296330;
 			
 			// aapt resource value: 0x7f09004b
-			public const int hockeyapp_feedback_attachment_error = 2131296331;
+			public const int hockeyapp_feedback_attachment_loading = 2131296331;
 			
 			// aapt resource value: 0x7f09004c
-			public const int hockeyapp_feedback_attachment_loading = 2131296332;
+			public const int hockeyapp_feedback_email_hint = 2131296332;
 			
 			// aapt resource value: 0x7f09004d
-			public const int hockeyapp_feedback_email_hint = 2131296333;
+			public const int hockeyapp_feedback_failed_text = 2131296333;
 			
 			// aapt resource value: 0x7f09004e
+<<<<<<< HEAD
 			public const int hockeyapp_feedback_email_hint_required = 2131296334;
 			
 			// aapt resource value: 0x7f09004f
@@ -23187,10 +22916,152 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f09007d
 			public const int hockeyapp_update_button = 2131296381;
+=======
+			public const int hockeyapp_feedback_failed_title = 2131296334;
+			
+			// aapt resource value: 0x7f09004f
+			public const int hockeyapp_feedback_fetching_feedback_text = 2131296335;
+			
+			// aapt resource value: 0x7f090050
+			public const int hockeyapp_feedback_generic_error = 2131296336;
+			
+			// aapt resource value: 0x7f090051
+			public const int hockeyapp_feedback_last_updated_text = 2131296337;
+			
+			// aapt resource value: 0x7f090052
+			public const int hockeyapp_feedback_max_attachments_allowed = 2131296338;
+			
+			// aapt resource value: 0x7f090053
+			public const int hockeyapp_feedback_message_hint = 2131296339;
+			
+			// aapt resource value: 0x7f090054
+			public const int hockeyapp_feedback_name_hint = 2131296340;
+			
+			// aapt resource value: 0x7f090055
+			public const int hockeyapp_feedback_refresh_button_text = 2131296341;
+			
+			// aapt resource value: 0x7f090056
+			public const int hockeyapp_feedback_response_button_text = 2131296342;
+			
+			// aapt resource value: 0x7f090057
+			public const int hockeyapp_feedback_select_file = 2131296343;
+			
+			// aapt resource value: 0x7f090058
+			public const int hockeyapp_feedback_select_picture = 2131296344;
+			
+			// aapt resource value: 0x7f090059
+			public const int hockeyapp_feedback_send_button_text = 2131296345;
+			
+			// aapt resource value: 0x7f09005a
+			public const int hockeyapp_feedback_send_generic_error = 2131296346;
+			
+			// aapt resource value: 0x7f09005b
+			public const int hockeyapp_feedback_send_network_error = 2131296347;
+			
+			// aapt resource value: 0x7f09005c
+			public const int hockeyapp_feedback_sending_feedback_text = 2131296348;
+			
+			// aapt resource value: 0x7f09005d
+			public const int hockeyapp_feedback_subject_hint = 2131296349;
+			
+			// aapt resource value: 0x7f09005e
+			public const int hockeyapp_feedback_title = 2131296350;
+			
+			// aapt resource value: 0x7f09005f
+			public const int hockeyapp_feedback_validate_email_empty = 2131296351;
+			
+			// aapt resource value: 0x7f090060
+			public const int hockeyapp_feedback_validate_email_error = 2131296352;
+			
+			// aapt resource value: 0x7f090061
+			public const int hockeyapp_feedback_validate_name_error = 2131296353;
+			
+			// aapt resource value: 0x7f090062
+			public const int hockeyapp_feedback_validate_subject_error = 2131296354;
+			
+			// aapt resource value: 0x7f090063
+			public const int hockeyapp_feedback_validate_text_error = 2131296355;
+			
+			// aapt resource value: 0x7f090064
+			public const int hockeyapp_login_email_hint = 2131296356;
+			
+			// aapt resource value: 0x7f090065
+			public const int hockeyapp_login_headline_text = 2131296357;
+			
+			// aapt resource value: 0x7f090066
+			public const int hockeyapp_login_headline_text_email_only = 2131296358;
+			
+			// aapt resource value: 0x7f090067
+			public const int hockeyapp_login_login_button_text = 2131296359;
+			
+			// aapt resource value: 0x7f090068
+			public const int hockeyapp_login_missing_credentials_toast = 2131296360;
+			
+			// aapt resource value: 0x7f090069
+			public const int hockeyapp_login_password_hint = 2131296361;
+			
+			// aapt resource value: 0x7f09006a
+			public const int hockeyapp_paint_dialog_message = 2131296362;
+			
+			// aapt resource value: 0x7f09006b
+			public const int hockeyapp_paint_dialog_negative_button = 2131296363;
+			
+			// aapt resource value: 0x7f09006c
+			public const int hockeyapp_paint_dialog_neutral_button = 2131296364;
+			
+			// aapt resource value: 0x7f09006d
+			public const int hockeyapp_paint_dialog_positive_button = 2131296365;
+			
+			// aapt resource value: 0x7f09006e
+			public const int hockeyapp_paint_indicator_toast = 2131296366;
+			
+			// aapt resource value: 0x7f09006f
+			public const int hockeyapp_paint_menu_clear = 2131296367;
+			
+			// aapt resource value: 0x7f090070
+			public const int hockeyapp_paint_menu_save = 2131296368;
+			
+			// aapt resource value: 0x7f090071
+			public const int hockeyapp_paint_menu_undo = 2131296369;
+			
+			// aapt resource value: 0x7f090072
+			public const int hockeyapp_permission_dialog_negative_button = 2131296370;
+			
+			// aapt resource value: 0x7f090073
+			public const int hockeyapp_permission_dialog_positive_button = 2131296371;
+			
+			// aapt resource value: 0x7f090074
+			public const int hockeyapp_permission_update_message = 2131296372;
+			
+			// aapt resource value: 0x7f090075
+			public const int hockeyapp_permission_update_title = 2131296373;
+			
+			// aapt resource value: 0x7f090076
+			public const int hockeyapp_update_button = 2131296374;
+			
+			// aapt resource value: 0x7f090077
+			public const int hockeyapp_update_dialog_message = 2131296375;
+			
+			// aapt resource value: 0x7f090078
+			public const int hockeyapp_update_dialog_negative_button = 2131296376;
+			
+			// aapt resource value: 0x7f090079
+			public const int hockeyapp_update_dialog_positive_button = 2131296377;
+			
+			// aapt resource value: 0x7f09007a
+			public const int hockeyapp_update_dialog_title = 2131296378;
+			
+			// aapt resource value: 0x7f09007b
+			public const int hockeyapp_update_mandatory_toast = 2131296379;
+			
+			// aapt resource value: 0x7f09007c
+			public const int hockeyapp_update_version_details_label = 2131296380;
+>>>>>>> bug/bugfixes2605
 			
 			// aapt resource value: 0x7f09007e
 			public const int hockeyapp_update_dialog_message = 2131296382;
 			
+<<<<<<< HEAD
 			// aapt resource value: 0x7f09007f
 			public const int hockeyapp_update_dialog_negative_button = 2131296383;
 			
@@ -23235,6 +23106,34 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f09008c
 			public const int library_FloatingActionButton_repositoryLink = 2131296396;
+=======
+			// aapt resource value: 0x7f09007e
+			public const int library_FloatingActionButton_author = 2131296382;
+			
+			// aapt resource value: 0x7f09007f
+			public const int library_FloatingActionButton_authorWebsite = 2131296383;
+			
+			// aapt resource value: 0x7f090084
+			public const int library_FloatingActionButton_isOpenSource = 2131296388;
+			
+			// aapt resource value: 0x7f090081
+			public const int library_FloatingActionButton_libraryDescription = 2131296385;
+			
+			// aapt resource value: 0x7f090080
+			public const int library_FloatingActionButton_libraryName = 2131296384;
+			
+			// aapt resource value: 0x7f090083
+			public const int library_FloatingActionButton_libraryVersion = 2131296387;
+			
+			// aapt resource value: 0x7f090082
+			public const int library_FloatingActionButton_libraryWebsite = 2131296386;
+			
+			// aapt resource value: 0x7f090086
+			public const int library_FloatingActionButton_licenseId = 2131296390;
+			
+			// aapt resource value: 0x7f090085
+			public const int library_FloatingActionButton_repositoryLink = 2131296389;
+>>>>>>> bug/bugfixes2605
 			
 			// aapt resource value: 0x7f090028
 			public const int library_name = 2131296296;
@@ -23296,26 +23195,26 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f09002d
 			public const int on_demand_manual_button_idle = 2131296301;
 			
-			// aapt resource value: 0x7f090033
-			public const int q = 2131296307;
+			// aapt resource value: 0x7f090032
+			public const int q = 2131296306;
 			
-			// aapt resource value: 0x7f090034
-			public const int quarter = 2131296308;
+			// aapt resource value: 0x7f090033
+			public const int quarter = 2131296307;
 			
 			// aapt resource value: 0x7f090022
 			public const int status_bar_notification_info_overflow = 2131296290;
 			
-			// aapt resource value: 0x7f090031
-			public const int trial_message = 2131296305;
+			// aapt resource value: 0x7f090030
+			public const int trial_message = 2131296304;
 			
-			// aapt resource value: 0x7f090032
-			public const int trial_message_caption = 2131296306;
+			// aapt resource value: 0x7f090031
+			public const int trial_message_caption = 2131296305;
+			
+			// aapt resource value: 0x7f090034
+			public const int w = 2131296308;
 			
 			// aapt resource value: 0x7f090035
-			public const int w = 2131296309;
-			
-			// aapt resource value: 0x7f090036
-			public const int week = 2131296310;
+			public const int week = 2131296309;
 			
 			static String()
 			{
@@ -23345,56 +23244,53 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b015a
 			public const int Animation_Design_BottomSheetDialog = 2131427674;
 			
-			// aapt resource value: 0x7f0b019a
-			public const int AppCompatDialogStyle = 2131427738;
+			// aapt resource value: 0x7f0b0199
+			public const int AppCompatDialogStyle = 2131427737;
 			
 			// aapt resource value: 0x7f0b0178
-			public const int AppTheme = 2131427704;
+			public const int AxisStyle = 2131427704;
 			
-			// aapt resource value: 0x7f0b0179
-			public const int AxisStyle = 2131427705;
+			// aapt resource value: 0x7f0b017b
+			public const int AxisStyle_LineAxisStyle = 2131427707;
 			
-			// aapt resource value: 0x7f0b017c
-			public const int AxisStyle_LineAxisStyle = 2131427708;
+			// aapt resource value: 0x7f0b0182
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle = 2131427714;
 			
 			// aapt resource value: 0x7f0b0183
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle = 2131427715;
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle = 2131427715;
 			
 			// aapt resource value: 0x7f0b0184
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle = 2131427716;
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_DateTimeCategoricalAxisStyle = 2131427716;
 			
 			// aapt resource value: 0x7f0b0185
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_DateTimeCategoricalAxisStyle = 2131427717;
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_TestDateTimeCategoricalAxisStyle = 2131427717;
 			
 			// aapt resource value: 0x7f0b0186
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_CategoricalAxisStyle_TestDateTimeCategoricalAxisStyle = 2131427718;
-			
-			// aapt resource value: 0x7f0b0187
-			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_DateTimeContinuousAxisStyle = 2131427719;
-			
-			// aapt resource value: 0x7f0b0197
-			public const int BB_BottomBarBadge_Text = 2131427735;
-			
-			// aapt resource value: 0x7f0b0190
-			public const int BB_BottomBarItem = 2131427728;
-			
-			// aapt resource value: 0x7f0b0191
-			public const int BB_BottomBarItem_Fixed = 2131427729;
-			
-			// aapt resource value: 0x7f0b0193
-			public const int BB_BottomBarItem_Fixed_TitleAppearance = 2131427731;
-			
-			// aapt resource value: 0x7f0b0194
-			public const int BB_BottomBarItem_Shifting = 2131427732;
-			
-			// aapt resource value: 0x7f0b0195
-			public const int BB_BottomBarItem_Shifting_TitleAppearance = 2131427733;
+			public const int AxisStyle_LineAxisStyle_CartesianAxisStyle_DateTimeContinuousAxisStyle = 2131427718;
 			
 			// aapt resource value: 0x7f0b0196
-			public const int BB_BottomBarItem_Tablet = 2131427734;
+			public const int BB_BottomBarBadge_Text = 2131427734;
+			
+			// aapt resource value: 0x7f0b018f
+			public const int BB_BottomBarItem = 2131427727;
+			
+			// aapt resource value: 0x7f0b0190
+			public const int BB_BottomBarItem_Fixed = 2131427728;
 			
 			// aapt resource value: 0x7f0b0192
-			public const int BB_BottomBarItem_TitleStyle = 2131427730;
+			public const int BB_BottomBarItem_Fixed_TitleAppearance = 2131427730;
+			
+			// aapt resource value: 0x7f0b0193
+			public const int BB_BottomBarItem_Shifting = 2131427731;
+			
+			// aapt resource value: 0x7f0b0194
+			public const int BB_BottomBarItem_Shifting_TitleAppearance = 2131427732;
+			
+			// aapt resource value: 0x7f0b0195
+			public const int BB_BottomBarItem_Tablet = 2131427733;
+			
+			// aapt resource value: 0x7f0b0191
+			public const int BB_BottomBarItem_TitleStyle = 2131427729;
 			
 			// aapt resource value: 0x7f0b00a5
 			public const int Base_AlertDialog_AppCompat = 2131427493;
@@ -23849,53 +23745,53 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b001a
 			public const int CardView_Light = 2131427354;
 			
-			// aapt resource value: 0x7f0b0188
-			public const int ChartAnnotationStyle = 2131427720;
-			
-			// aapt resource value: 0x7f0b018b
-			public const int ChartAnnotationStyle_CartesianCustomAnnotationStyle = 2131427723;
-			
-			// aapt resource value: 0x7f0b0189
-			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle = 2131427721;
+			// aapt resource value: 0x7f0b0187
+			public const int ChartAnnotationStyle = 2131427719;
 			
 			// aapt resource value: 0x7f0b018a
-			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle_CartesianPlotBandAnnotationStyle = 2131427722;
+			public const int ChartAnnotationStyle_CartesianCustomAnnotationStyle = 2131427722;
 			
-			// aapt resource value: 0x7f0b017b
-			public const int ChartSeriesStyle = 2131427707;
+			// aapt resource value: 0x7f0b0188
+			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle = 2131427720;
 			
-			// aapt resource value: 0x7f0b0180
-			public const int ChartSeriesStyle_CategoricalSeriesStyle = 2131427712;
+			// aapt resource value: 0x7f0b0189
+			public const int ChartAnnotationStyle_CartesianStrokedAnnotationStyle_CartesianPlotBandAnnotationStyle = 2131427721;
 			
-			// aapt resource value: 0x7f0b017d
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_BarSeriesStyle = 2131427709;
-			
-			// aapt resource value: 0x7f0b0181
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle = 2131427713;
-			
-			// aapt resource value: 0x7f0b0182
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle_AreaSeriesStyle = 2131427714;
-			
-			// aapt resource value: 0x7f0b017e
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_RangeBarSeriesStyle = 2131427710;
+			// aapt resource value: 0x7f0b017a
+			public const int ChartSeriesStyle = 2131427706;
 			
 			// aapt resource value: 0x7f0b017f
-			public const int ChartSeriesStyle_CategoricalSeriesStyle_TestBarSeriesStyle = 2131427711;
+			public const int ChartSeriesStyle_CategoricalSeriesStyle = 2131427711;
+			
+			// aapt resource value: 0x7f0b017c
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_BarSeriesStyle = 2131427708;
+			
+			// aapt resource value: 0x7f0b0180
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle = 2131427712;
+			
+			// aapt resource value: 0x7f0b0181
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_CategoricalStrokedSeriesStyle_AreaSeriesStyle = 2131427713;
+			
+			// aapt resource value: 0x7f0b017d
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_RangeBarSeriesStyle = 2131427709;
+			
+			// aapt resource value: 0x7f0b017e
+			public const int ChartSeriesStyle_CategoricalSeriesStyle_TestBarSeriesStyle = 2131427710;
+			
+			// aapt resource value: 0x7f0b018c
+			public const int HockeyApp_ButtonStyle = 2131427724;
 			
 			// aapt resource value: 0x7f0b018d
-			public const int HockeyApp_ButtonStyle = 2131427725;
+			public const int HockeyApp_EditTextStyle = 2131427725;
 			
 			// aapt resource value: 0x7f0b018e
-			public const int HockeyApp_EditTextStyle = 2131427726;
+			public const int HockeyApp_SingleLineInputStyle = 2131427726;
 			
-			// aapt resource value: 0x7f0b018f
-			public const int HockeyApp_SingleLineInputStyle = 2131427727;
+			// aapt resource value: 0x7f0b0197
+			public const int MainTheme = 2131427735;
 			
 			// aapt resource value: 0x7f0b0198
-			public const int MainTheme = 2131427736;
-			
-			// aapt resource value: 0x7f0b0199
-			public const int MainTheme_Base = 2131427737;
+			public const int MainTheme_Base = 2131427736;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int Platform_AppCompat = 2131427378;
@@ -23927,8 +23823,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b0036
 			public const int Platform_Widget_AppCompat_Spinner = 2131427382;
 			
-			// aapt resource value: 0x7f0b017a
-			public const int RadChartBaseStyle = 2131427706;
+			// aapt resource value: 0x7f0b0179
+			public const int RadChartBaseStyle = 2131427705;
 			
 			// aapt resource value: 0x7f0b0176
 			public const int RadScrollViewStyle = 2131427702;
@@ -24218,8 +24114,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f0b010d
 			public const int Theme_AppCompat_NoActionBar = 2131427597;
 			
-			// aapt resource value: 0x7f0b018c
-			public const int Theme_ChartTheme = 2131427724;
+			// aapt resource value: 0x7f0b018b
+			public const int Theme_ChartTheme = 2131427723;
 			
 			// aapt resource value: 0x7f0b0163
 			public const int Theme_Design = 2131427683;
@@ -25285,28 +25181,28 @@ namespace Hubo.Droid
 			public const int AppCompatTheme_windowNoTitle = 3;
 			
 			public static int[] AreaSeries = new int[] {
-					2130772344};
+					2130772302};
 			
 			// aapt resource value: 0
 			public const int AreaSeries_fillColor = 0;
 			
 			public static int[] Axis = new int[] {
-					2130772347,
-					2130772350,
-					2130772351,
-					2130772352,
-					2130772353,
-					2130772354,
-					2130772355,
-					2130772359,
-					2130772368,
-					2130772369,
-					2130772370,
-					2130772371,
-					2130772372,
-					2130772373,
-					2130772374,
-					2130772375};
+					2130772305,
+					2130772308,
+					2130772309,
+					2130772310,
+					2130772311,
+					2130772312,
+					2130772313,
+					2130772317,
+					2130772326,
+					2130772327,
+					2130772328,
+					2130772329,
+					2130772330,
+					2130772331,
+					2130772332,
+					2130772333};
 			
 			// aapt resource value: 12
 			public const int Axis_axisLabelFitMode = 12;
@@ -25357,11 +25253,11 @@ namespace Hubo.Droid
 			public const int Axis_tickThickness = 14;
 			
 			public static int[] BarSeries = new int[] {
-					2130772344,
-					2130772345,
-					2130772356,
-					2130772357,
-					2130772358};
+					2130772302,
+					2130772303,
+					2130772314,
+					2130772315,
+					2130772316};
 			
 			// aapt resource value: 3
 			public const int BarSeries_areBarsRounded = 3;
@@ -25461,8 +25357,8 @@ namespace Hubo.Droid
 			public const int CardView_contentPaddingTop = 11;
 			
 			public static int[] CartesianAxis = new int[] {
-					2130772378,
-					2130772379};
+					2130772336,
+					2130772337};
 			
 			// aapt resource value: 0
 			public const int CartesianAxis_horizontalLocation = 0;
@@ -25471,11 +25367,11 @@ namespace Hubo.Droid
 			public const int CartesianAxis_verticalLocation = 1;
 			
 			public static int[] CartesianCustomAnnotation = new int[] {
-					2130772386,
-					2130772387,
-					2130772388,
-					2130772389,
-					2130772390};
+					2130772344,
+					2130772345,
+					2130772346,
+					2130772347,
+					2130772348};
 			
 			// aapt resource value: 2
 			public const int CartesianCustomAnnotation_content = 2;
@@ -25493,15 +25389,15 @@ namespace Hubo.Droid
 			public const int CartesianCustomAnnotation_verticalOffset = 1;
 			
 			public static int[] CartesianPlotBandAnnotation = new int[] {
-					2130772344};
+					2130772302};
 			
 			// aapt resource value: 0
 			public const int CartesianPlotBandAnnotation_fillColor = 0;
 			
 			public static int[] CartesianStrokedAnnotation = new int[] {
-					2130772345,
-					2130772356,
-					2130772385};
+					2130772303,
+					2130772314,
+					2130772343};
 			
 			// aapt resource value: 2
 			public const int CartesianStrokedAnnotation_label = 2;
@@ -25513,9 +25409,9 @@ namespace Hubo.Droid
 			public const int CartesianStrokedAnnotation_strokeWidth = 1;
 			
 			public static int[] CategoricalAxis = new int[] {
-					2130772348,
-					2130772349,
-					2130772377};
+					2130772306,
+					2130772307,
+					2130772335};
 			
 			// aapt resource value: 0
 			public const int CategoricalAxis_gapLength = 0;
@@ -25527,14 +25423,14 @@ namespace Hubo.Droid
 			public const int CategoricalAxis_plotMode = 1;
 			
 			public static int[] CategoricalSeries = new int[] {
-					2130772367};
+					2130772325};
 			
 			// aapt resource value: 0
 			public const int CategoricalSeries_combineMode = 0;
 			
 			public static int[] CategoricalStrokedSeries = new int[] {
-					2130772345,
-					2130772356};
+					2130772303,
+					2130772314};
 			
 			// aapt resource value: 0
 			public const int CategoricalStrokedSeries_strokeColor = 0;
@@ -25543,19 +25439,19 @@ namespace Hubo.Droid
 			public const int CategoricalStrokedSeries_strokeWidth = 1;
 			
 			public static int[] ChartAnnotation = new int[] {
-					2130772346};
+					2130772304};
 			
 			// aapt resource value: 0
 			public const int ChartAnnotation_clipToPlotArea = 0;
 			
 			public static int[] ChartSeries = new int[] {
-					2130772346,
-					2130772347,
-					2130772350,
-					2130772351,
-					2130772354,
-					2130772355,
-					2130772359};
+					2130772304,
+					2130772305,
+					2130772308,
+					2130772309,
+					2130772312,
+					2130772313,
+					2130772317};
 			
 			// aapt resource value: 0
 			public const int ChartSeries_clipToPlotArea = 0;
@@ -25579,24 +25475,24 @@ namespace Hubo.Droid
 			public const int ChartSeries_showLabels = 1;
 			
 			public static int[] ChartTheme = new int[] {
-					2130772391,
-					2130772392,
-					2130772393,
-					2130772394,
-					2130772395,
-					2130772396,
-					2130772397,
-					2130772398,
-					2130772399,
-					2130772400,
-					2130772401,
-					2130772402,
-					2130772403,
-					2130772404,
-					2130772405,
-					2130772406,
-					2130772407,
-					2130772408};
+					2130772349,
+					2130772350,
+					2130772351,
+					2130772352,
+					2130772353,
+					2130772354,
+					2130772355,
+					2130772356,
+					2130772357,
+					2130772358,
+					2130772359,
+					2130772360,
+					2130772361,
+					2130772362,
+					2130772363,
+					2130772364,
+					2130772365,
+					2130772366};
 			
 			// aapt resource value: 12
 			public const int ChartTheme_AreaSeriesStyle = 12;
@@ -25767,8 +25663,8 @@ namespace Hubo.Droid
 			public const int CoordinatorLayout_LayoutParams_layout_keyline = 3;
 			
 			public static int[] DateTimeCategoricalAxis = new int[] {
-					2130772380,
-					2130772381};
+					2130772338,
+					2130772339};
 			
 			// aapt resource value: 0
 			public const int DateTimeCategoricalAxis_dateFormat = 0;
@@ -25777,11 +25673,11 @@ namespace Hubo.Droid
 			public const int DateTimeCategoricalAxis_dateTimeComponent = 1;
 			
 			public static int[] DateTimeContinuousAxis = new int[] {
-					2130772348,
-					2130772349,
-					2130772382,
-					2130772383,
-					2130772384};
+					2130772306,
+					2130772307,
+					2130772340,
+					2130772341,
+					2130772342};
 			
 			// aapt resource value: 0
 			public const int DateTimeContinuousAxis_gapLength = 0;
@@ -25855,12 +25751,12 @@ namespace Hubo.Droid
 					2130772246,
 					2130772247,
 					2130772248,
-					2130772409,
-					2130772410,
-					2130772411,
-					2130772412,
-					2130772413,
-					2130772414};
+					2130772367,
+					2130772368,
+					2130772369,
+					2130772370,
+					2130772371,
+					2130772372};
 			
 			// aapt resource value: 1
 			public const int FloatingActionButton_backgroundTint = 1;
@@ -25918,208 +25814,8 @@ namespace Hubo.Droid
 			// aapt resource value: 2
 			public const int ForegroundLinearLayout_foregroundInsidePadding = 2;
 			
-			public static int[] GaugeBarIndicator = new int[] {
-					2130772301,
-					2130772302,
-					2130772303,
-					2130772333,
-					2130772334};
-			
-			// aapt resource value: 2
-			public const int GaugeBarIndicator_animationStartValue = 2;
-			
-			// aapt resource value: 4
-			public const int GaugeBarIndicator_cap = 4;
-			
-			// aapt resource value: 3
-			public const int GaugeBarIndicator_location = 3;
-			
-			// aapt resource value: 0
-			public const int GaugeBarIndicator_maximum = 0;
-			
-			// aapt resource value: 1
-			public const int GaugeBarIndicator_minimum = 1;
-			
-			public static int[] GaugeIndicator = new int[] {
-					2130772304,
-					2130772331,
-					2130772332,
-					2130772344,
-					2130772345};
-			
-			// aapt resource value: 1
-			public const int GaugeIndicator_animated = 1;
-			
-			// aapt resource value: 2
-			public const int GaugeIndicator_animationDuration = 2;
-			
-			// aapt resource value: 3
-			public const int GaugeIndicator_fillColor = 3;
-			
-			// aapt resource value: 4
-			public const int GaugeIndicator_strokeColor = 4;
-			
-			// aapt resource value: 0
-			public const int GaugeIndicator_strokeWidthF = 0;
-			
-			public static int[] GaugeRadialBarIndicator;
-			
-			public static int[] GaugeRadialNeedle = new int[] {
-					2130772303,
-					2130772335,
-					2130772336,
-					2130772337,
-					2130772338,
-					2130772339,
-					2130772340,
-					2130772341,
-					2130772342,
-					2130772343};
-			
-			// aapt resource value: 0
-			public const int GaugeRadialNeedle_animationStartValue = 0;
-			
-			// aapt resource value: 2
-			public const int GaugeRadialNeedle_bottomWidth = 2;
-			
-			// aapt resource value: 7
-			public const int GaugeRadialNeedle_circleFillColor = 7;
-			
-			// aapt resource value: 5
-			public const int GaugeRadialNeedle_circleInnerRadius = 5;
-			
-			// aapt resource value: 4
-			public const int GaugeRadialNeedle_circleRadius = 4;
-			
-			// aapt resource value: 8
-			public const int GaugeRadialNeedle_circleStrokeColor = 8;
-			
-			// aapt resource value: 1
-			public const int GaugeRadialNeedle_length = 1;
-			
-			// aapt resource value: 6
-			public const int GaugeRadialNeedle_offset = 6;
-			
-			// aapt resource value: 3
-			public const int GaugeRadialNeedle_topWidth = 3;
-			
-			// aapt resource value: 9
-			public const int GaugeRadialNeedle_value = 9;
-			
-			public static int[] GaugeRadialScale = new int[] {
-					2130772328,
-					2130772329,
-					2130772330};
-			
-			// aapt resource value: 2
-			public const int GaugeRadialScale_radius = 2;
-			
-			// aapt resource value: 0
-			public const int GaugeRadialScale_startAngle = 0;
-			
-			// aapt resource value: 1
-			public const int GaugeRadialScale_sweepAngle = 1;
-			
-			public static int[] GaugeScale = new int[] {
-					2130772301,
-					2130772302,
-					2130772304,
-					2130772309,
-					2130772310,
-					2130772311,
-					2130772312,
-					2130772313,
-					2130772314,
-					2130772315,
-					2130772316,
-					2130772317,
-					2130772318,
-					2130772319,
-					2130772320,
-					2130772321,
-					2130772322,
-					2130772323,
-					2130772324,
-					2130772325,
-					2130772326,
-					2130772327,
-					2130772344,
-					2130772345};
-			
-			// aapt resource value: 22
-			public const int GaugeScale_fillColor = 22;
-			
-			// aapt resource value: 19
-			public const int GaugeScale_labelsColor = 19;
-			
-			// aapt resource value: 18
-			public const int GaugeScale_labelsCount = 18;
-			
-			// aapt resource value: 20
-			public const int GaugeScale_labelsLayoutMode = 20;
-			
-			// aapt resource value: 21
-			public const int GaugeScale_labelsOffset = 21;
-			
-			// aapt resource value: 17
-			public const int GaugeScale_labelsVisible = 17;
-			
-			// aapt resource value: 3
-			public const int GaugeScale_lineVisible = 3;
-			
-			// aapt resource value: 8
-			public const int GaugeScale_majorTicksCount = 8;
-			
-			// aapt resource value: 4
-			public const int GaugeScale_majorTicksFillColor = 4;
-			
-			// aapt resource value: 11
-			public const int GaugeScale_majorTicksLength = 11;
-			
-			// aapt resource value: 5
-			public const int GaugeScale_majorTicksStrokeColor = 5;
-			
-			// aapt resource value: 13
-			public const int GaugeScale_majorTicksWidth = 13;
-			
-			// aapt resource value: 0
-			public const int GaugeScale_maximum = 0;
-			
-			// aapt resource value: 1
-			public const int GaugeScale_minimum = 1;
-			
-			// aapt resource value: 9
-			public const int GaugeScale_minorTicksCount = 9;
-			
-			// aapt resource value: 6
-			public const int GaugeScale_minorTicksFillColor = 6;
-			
-			// aapt resource value: 12
-			public const int GaugeScale_minorTicksLength = 12;
-			
-			// aapt resource value: 7
-			public const int GaugeScale_minorTicksStrokeColor = 7;
-			
-			// aapt resource value: 14
-			public const int GaugeScale_minorTicksWidth = 14;
-			
-			// aapt resource value: 23
-			public const int GaugeScale_strokeColor = 23;
-			
-			// aapt resource value: 2
-			public const int GaugeScale_strokeWidthF = 2;
-			
-			// aapt resource value: 16
-			public const int GaugeScale_ticksLayoutMode = 16;
-			
-			// aapt resource value: 15
-			public const int GaugeScale_ticksOffset = 15;
-			
-			// aapt resource value: 10
-			public const int GaugeScale_ticksVisible = 10;
-			
 			public static int[] LineAxis = new int[] {
-					2130772376};
+					2130772334};
 			
 			// aapt resource value: 0
 			public const int LineAxis_lineColor = 0;
@@ -26407,18 +26103,18 @@ namespace Hubo.Droid
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
 			
 			public static int[] ProgressWheel = new int[] {
-					2130772415,
-					2130772416,
-					2130772417,
-					2130772418,
-					2130772419,
-					2130772420,
-					2130772421,
-					2130772422,
-					2130772423,
-					2130772424,
-					2130772425,
-					2130772426};
+					2130772373,
+					2130772374,
+					2130772375,
+					2130772376,
+					2130772377,
+					2130772378,
+					2130772379,
+					2130772380,
+					2130772381,
+					2130772382,
+					2130772383,
+					2130772384};
 			
 			// aapt resource value: 3
 			public const int ProgressWheel_ahBarColor = 3;
@@ -26495,12 +26191,12 @@ namespace Hubo.Droid
 			public const int RadCalendarView_weekNumberDisplayMode = 7;
 			
 			public static int[] RadChartViewBase = new int[] {
-					2130772361,
-					2130772362,
-					2130772363,
-					2130772364,
-					2130772365,
-					2130772366};
+					2130772319,
+					2130772320,
+					2130772321,
+					2130772322,
+					2130772323,
+					2130772324};
 			
 			// aapt resource value: 1
 			public const int RadChartViewBase_chartZoom = 1;
@@ -26520,28 +26216,6 @@ namespace Hubo.Droid
 			// aapt resource value: 0
 			public const int RadChartViewBase_pan = 0;
 			
-			public static int[] RadGaugeView = new int[] {
-					2130772305,
-					2130772306,
-					2130772307,
-					2130772308,
-					2130772344};
-			
-			// aapt resource value: 4
-			public const int RadGaugeView_fillColor = 4;
-			
-			// aapt resource value: 2
-			public const int RadGaugeView_subtitleHorizontalOffset = 2;
-			
-			// aapt resource value: 3
-			public const int RadGaugeView_subtitleVerticalOffset = 3;
-			
-			// aapt resource value: 0
-			public const int RadGaugeView_titleHorizontalOffset = 0;
-			
-			// aapt resource value: 1
-			public const int RadGaugeView_titleVerticalOffset = 1;
-			
 			public static int[] RadScrollView = new int[] {
 					2130772287,
 					2130772288};
@@ -26558,12 +26232,18 @@ namespace Hubo.Droid
 			// aapt resource value: 0
 			public const int RadScrollViewTheme_radScrollViewStyle = 0;
 			
+			public static int[] RadSegmentedView = new int[] {
+					2130772301};
+			
+			// aapt resource value: 0
+			public const int RadSegmentedView_rad_segmented_view_type = 0;
+			
 			public static int[] RangeBarSeries = new int[] {
-					2130772344,
-					2130772345,
-					2130772356,
-					2130772357,
-					2130772358};
+					2130772302,
+					2130772303,
+					2130772314,
+					2130772315,
+					2130772316};
 			
 			// aapt resource value: 3
 			public const int RangeBarSeries_areBarsRounded = 3;

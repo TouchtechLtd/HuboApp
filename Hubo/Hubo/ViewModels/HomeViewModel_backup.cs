@@ -7,7 +7,6 @@ namespace Hubo
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -15,6 +14,7 @@ namespace Hubo
     using Plugin.Battery;
     using Xamarin.Forms;
     using XLabs;
+    using System.IO;
 
     internal class HomeViewModel : INotifyPropertyChanged
     {
@@ -34,7 +34,6 @@ namespace Hubo
         private double totalTime;
         private double remainTime;
         private bool notifyReady;
-        private bool shiftAndBreakNotStarted;
 
         private string shiftTimes;
         private string nextBreakTime;
@@ -43,20 +42,8 @@ namespace Hubo
         private string canStartShiftText2;
         private double completedSeventy;
 
-        private string mainShiftStartTime;
-
         public HomeViewModel()
         {
-            MessagingCenter.Subscribe<string>("loadComplete", "loadComplete", async (s) =>
-            {
-                if (CompletedSeventy >= 70)
-                {
-                    await UserDialogs.Instance.AlertAsync(Resource.BreakAfter70, Resource.BreakAfter70Title, Resource.Okay);
-                }
-
-                MessagingCenter.Unsubscribe<string>("loadComplete", "loadComplete");
-            });
-
             MessagingCenter.Subscribe<string, MessagingModel>("Countdown Update", "CountDown Update", (s, sentValues) =>
             {
                 switch (sentValues.PropertyName)
@@ -97,7 +84,7 @@ namespace Hubo
             });
 
             // List<string> test = dbService.CheckPossiblities("DMNIi\u03B8");
-            CompletedJourney = dbService.TotalSinceStart();
+            CompletedJourney = 0;
             RemainderOfJourney = 0;
             Break = 0;
 
@@ -269,7 +256,7 @@ namespace Hubo
             StartBreakCommand = new RelayCommand(async () => await ToggleBreak());
             VehicleCommand = new RelayCommand(async () => await ToggleDrive());
             SetVehicleLabel();
-            Initialize();
+            CompletedSeventy = dbService.GetTotalOfSeventy();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -330,34 +317,6 @@ namespace Hubo
 
         public bool VehicleInUse { get; set; }
 
-        private string MainShiftStartTime
-        {
-            get
-            {
-                return mainShiftStartTime;
-            }
-
-            set
-            {
-                mainShiftStartTime = value;
-                OnPropertyChanged("MainShiftStartTime");
-            }
-        }
-
-        public bool ShiftAndBreakNotStarted
-        {
-            get
-            {
-                return shiftAndBreakNotStarted;
-            }
-
-            set
-            {
-                shiftAndBreakNotStarted = value;
-                OnPropertyChanged("ShiftAndBreakNotStarted");
-            }
-        }
-
         public bool CanStartShift
         {
             get
@@ -375,6 +334,8 @@ namespace Hubo
         public string VehiclePickerText { get; set; }
 
         public bool PickerEnabled { get; set; }
+
+
 
         public string NextBreakTime
         {
@@ -496,11 +457,11 @@ namespace Hubo
             }
         }
 
-        public async Task PageReload()
+        public Task PageReload()
         {
             CheckActiveShift();
             CheckActiveBreak();
-            CompletedSeventy = await dbService.GetTotalOfSeventy();
+            CompletedSeventy = dbService.GetTotalOfSeventy();
 
             if (dbService.CheckActiveShift())
             {
@@ -521,7 +482,7 @@ namespace Hubo
                 HoursTillReset = hoursTillReset.ToString() + Resource.LastShiftEndText;
             }
 
-            return;
+            return Task.FromResult(0);
         }
 
         public List<VehicleTable> GetVehicles()
@@ -534,11 +495,6 @@ namespace Hubo
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private async void Initialize()
-        {
-            CompletedSeventy = await dbService.GetTotalOfSeventy();
         }
 
         private void SetVehicleLabel()
@@ -591,53 +547,90 @@ namespace Hubo
             if (dbService.CheckActiveShift())
             {
                 ShiftStarted = true;
-                ShiftAndBreakNotStarted = true;
                 ShowEndShiftXAML();
 
-                //    if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                //if (!dbService.CheckTimedNotification(NotificationCategory.Shift))
+                //{
+                //    double remainingShift = 14 - CompletedJourney;
+
+                //    if ((remainingShift - 1) > 1)
                 //    {
-                //        double remainingShift = 14 - CompletedJourney;
+                //        dbService.CreateNotification(Resource.Notify1Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift - 1));
 
-                //        if ((remainingShift - 1) > 1)
+                //        Device.StartTimer(TimeSpan.FromHours(remainingShift - 1), () =>
                 //        {
-                //            dbService.CreateNotification(Resource.Notify1Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift - 1));
+                //            if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
+                //            {
+                //                return false;
+                //            }
 
-                //            Device.StartTimer(TimeSpan.FromHours(remainingShift - 1), () =>
+                //            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify1Shift, true);
+
+                //            dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                //            dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(50));
+
+                //            Device.StartTimer(TimeSpan.FromMinutes(50), () =>
                 //            {
                 //                if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
                 //                {
                 //                    return false;
                 //                }
 
-                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify1Shift, true);
+                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
 
                 //                dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(50));
+                //                dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
 
-                //                Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                //                Device.StartTimer(TimeSpan.FromMinutes(10), () =>
                 //                {
                 //                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
                 //                    {
                 //                        return false;
                 //                    }
 
-                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
+                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
 
                 //                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                    dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
+                //                    return false;
+                //                });
+                //                return false;
+                //            });
+                //            return false;
+                //        });
+                //    }
+                //    else
+                //    {
+                //        if ((TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10)) > TimeSpan.FromMinutes(10))
+                //        {
+                //            dbService.CreateNotification(Resource.Notify1Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
 
-                //                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                //            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify1Shift, true);
+
+                //            dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                //            dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
+
+                //            Device.StartTimer(TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10), () =>
+                //            {
+                //                if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
+                //                {
+                //                    return false;
+                //                }
+
+                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
+
+                //                dbService.CancelNotification(NotificationCategory.Shift, true, true);
+                //                dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
+
+                //                Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                //                {
+                //                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
                 //                    {
-                //                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
-                //                        {
-                //                            return false;
-                //                        }
-
-                //                        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
-
-                //                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
                 //                        return false;
-                //                    });
+                //                    }
+
+                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
+
+                //                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
                 //                    return false;
                 //                });
                 //                return false;
@@ -645,87 +638,49 @@ namespace Hubo
                 //        }
                 //        else
                 //        {
-                //            if ((TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10)) > TimeSpan.FromMinutes(10))
+                //            if (TimeSpan.FromHours(remainingShift) > TimeSpan.FromHours(0))
                 //            {
-                //                dbService.CreateNotification(Resource.Notify1Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
+                //                dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
 
-                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify1Shift, true);
+                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
 
                 //                dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10));
+                //                dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
 
-                //                Device.StartTimer(TimeSpan.FromHours(remainingShift) - TimeSpan.FromMinutes(10), () =>
+                //                Device.StartTimer(TimeSpan.FromHours(remainingShift), () =>
                 //                {
                 //                    if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
                 //                    {
                 //                        return false;
                 //                    }
 
-                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
+                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
 
                 //                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                    dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromMinutes(10));
-
-                //                    Device.StartTimer(TimeSpan.FromMinutes(10), () =>
-                //                    {
-                //                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
-                //                        {
-                //                            return false;
-                //                        }
-
-                //                        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
-
-                //                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                        return false;
-                //                    });
                 //                    return false;
                 //                });
                 //            }
                 //            else
                 //            {
-                //                if (TimeSpan.FromHours(remainingShift) > TimeSpan.FromHours(0))
-                //                {
-                //                    dbService.CreateNotification(Resource.Notify10Shift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
+                //                dbService.CreateNotification(Resource.NotifyEndShift, false, NotificationCategory.Shift);
 
-                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndingShiftTitle, Resource.Notify10Shift, true);
-
-                //                    dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                    dbService.CreateNotification(Resource.NotifyEndShift, true, NotificationCategory.Shift, TimeSpan.FromHours(remainingShift));
-
-                //                    Device.StartTimer(TimeSpan.FromHours(remainingShift), () =>
-                //                    {
-                //                        if (!dbService.CheckTimedNotification(NotificationCategory.Shift, DateTime.Now))
-                //                        {
-                //                            return false;
-                //                        }
-
-                //                        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
-
-                //                        dbService.CancelNotification(NotificationCategory.Shift, true, true);
-                //                        return false;
-                //                    });
-                //                }
-                //                else
-                //                {
-                //                    dbService.CreateNotification(Resource.NotifyEndShift, false, NotificationCategory.Shift);
-
-                //                    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
-                //                }
+                //                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyEndShiftTitle, Resource.NotifyEndShift, true);
                 //            }
                 //        }
                 //    }
+                //}
             }
             else
             {
                 ShiftStarted = false;
                 ShowStartShiftXAML();
 
-                //    if (!dbService.CheckOngoingNotification())
-                //    {
-                //        dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
-                //    }
+                //if (!dbService.CheckOngoingNotification())
+                //{
+                //    dbService.CreateNotification(Resource.NotifyInactive, false, NotificationCategory.Ongoing);
+                //}
 
-                //    DependencyService.Get<INotifyService>().PresentNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
+                //DependencyService.Get<INotifyService>().PresentNotification(Resource.NotifyInactiveTitle, Resource.NotifyInactive, false);
             }
         }
 
@@ -764,22 +719,11 @@ namespace Hubo
                 DateTime restEnd = DateTime.Now + TimeSpan.FromMinutes(endRestTime);
                 CanStartShiftText1 = Resource.RestBreakEnds;
                 CanStartShiftText2 = restEnd.ToString("h: mm tt dddd");
-                ShiftButtonColor = Constants.RED_COLOR;
-            }
-            else if (endRestTime == 0)
-            {
-                //Get main shift start time
-                //mainShiftStartTime = dbService.GetFirstShiftStartTime();
-                CanStartShiftText1 = Resource.YouAreRestedPart1;
-                CanStartShiftText2 = Resource.YouAreRestedPart2;
-                ShiftButtonColor = Constants.GREEN_COLOR;
             }
             else
             {
-                DateTime dayStart = dbService.GetDayShiftStart();
-
-                CanStartShiftText1 = Resource.StartDayShiftText + dayStart.ToString("h: mm tt dddd");
-                CanStartShiftText2 = Resource.EndDayShiftText + dayStart.AddHours(14).ToString("h: mm tt dddd");
+                CanStartShiftText1 = Resource.YouAreRestedPart1;
+                CanStartShiftText2 = Resource.YouAreRestedPart2;
             }
 
             CanStartShift = true;
@@ -801,7 +745,6 @@ namespace Hubo
                 StartBreakText = Resource.EndBreak;
                 OnBreak = true;
                 ShiftRunning = false;
-                ShiftAndBreakNotStarted = false;
 
                 DateTime startTime = dbService.GetBreakStart();
 
@@ -835,20 +778,10 @@ namespace Hubo
             }
             else if (onBreak == 1)
             {
-                if (dbService.CheckActiveShift())
-                {
-                    ShiftAndBreakNotStarted = true;
-                    ShiftRunning = true;
-                }
-                else
-                {
-                    ShiftAndBreakNotStarted = false;
-                    ShiftRunning = false;
-                }
-
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
+                ShiftRunning = true;
 
                 FullBreak = dbService.CheckFullBreak();
             }
@@ -862,6 +795,7 @@ namespace Hubo
             {
                 List<string> checklistQuestions = dbService.GetChecklist();
                 Geolocation geocords;
+
 
                 string location;
 
@@ -893,30 +827,32 @@ namespace Hubo
                 {
                     return false;
                 }
-
-                if (vehicleResult == Resource.AddVehicleText)
+                using (UserDialogs.Instance.Loading(Resource.AddingVehicle, null, null, true, MaskType.Gradient))
                 {
-                    vehicleKey = await dbService.GetRego();
-                    if (vehicleKey < 0)
+                    if (vehicleResult == Resource.AddVehicleText)
                     {
-                        return false;
-                    }
+                        vehicleKey = await dbService.GetRego();
+                        if (vehicleKey < 0)
+                        {
+                            return false;
+                        }
 
-                    // Was unsuccessful at adding to remote server, thus was added locally, and the drive will have to be added locally until done remotely
-                    if (!await dbService.InsertVehicle(vehicleKey))
+                        // Was unsuccessful at adding to remote server, thus was added locally, and the drive will have to be added locally until done remotely
+                        if (!await dbService.InsertVehicle(vehicleKey))
+                        {
+                            offlineDrive = true;
+                        }
+
+                        hubo = await HuboPrompt();
+                    }
+                    else
                     {
-                        offlineDrive = true;
+                        VehicleTable vehicle = listOfVehicles.Where(v => v.Registration == vehicleResult).First();
+                        vehicleKey = vehicle.Key;
+                        int huboFromServer = await restApi.GetVehicleHubo(vehicle);
+                        hubo = await HuboPrompt(huboFromServer);
+
                     }
-
-                    hubo = await HuboPrompt();
-                }
-                else
-                {
-                    VehicleTable vehicle = listOfVehicles.Where(v => v.Registration == vehicleResult).First();
-                    vehicleKey = vehicle.Key;
-                    int huboFromServer = await restApi.GetVehicleHubo(vehicle);
-                    hubo = await HuboPrompt(huboFromServer);
-
                 }
 
                 if (hubo == 0)
@@ -925,35 +861,17 @@ namespace Hubo
                 }
 
                 int count = 0;
-                List<Tuple<int, string>> problems = new List<Tuple<int, string>>();
-
                 foreach (string question in checklistQuestions)
                 {
                     count++;
                     bool result = await UserDialogs.Instance.ConfirmAsync(question, Resource.ChecklistQuestionNumber + count.ToString(), Resource.Okay, Resource.NotOkay);
                     if (!result)
                     {
-                        problems.Add(Tuple.Create(count - 1, question));
+                        return false;
                     }
                 }
 
-                if (problems.Count > 0)
-                {
-                    string problemString = "\n";
-
-                    foreach (var item in problems)
-                    {
-                        problemString += "\n" + item.Item2;
-                    }
-
-                    problemString += "\n\n";
-
-                    problemString.Replace("\n", Environment.NewLine);
-
-                    await UserDialogs.Instance.ConfirmAsync(Resource.VehicleProblem + problemString + Resource.VehicleProblemChoice, Resource.VehicleProblemTitle, Resource.Yes, Resource.No);
-
-                    return false;
-                }
+            
 
                 string note = await NotePromptAsync();
 
@@ -1172,7 +1090,6 @@ namespace Hubo
                     BreakButtonColor = Constants.RED_COLOR;
                     StartBreakText = Resource.EndBreak;
                     OnBreak = true;
-                    ShiftAndBreakNotStarted = false;
                     ShiftRunning = false;
 
                     if (FullBreak)
@@ -1239,56 +1156,55 @@ namespace Hubo
                 {
                     NextBreakTime = Resource.TakeBreakBy + dbService.GetNextBreakTime();
 
-                    //dbService.CancelNotification(NotificationCategory.Break, true);
+                    dbService.CancelNotification(NotificationCategory.Break, true);
 
-                    //dbService.CreateNotification(Resource.Notify1Break, true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
+                    dbService.CreateNotification(Resource.Notify1Break, true, NotificationCategory.Break, TimeSpan.FromHours(4.5));
 
-                    //Device.StartTimer(TimeSpan.FromHours(4.5), () =>
-                    //{
-                    //    if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //    {
-                    //        return false;
-                    //    }
+                    Device.StartTimer(TimeSpan.FromHours(4.5), () =>
+                    {
+                        if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                        {
+                            return false;
+                        }
 
-                    //    DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify1Break, true);
+                        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify1Break, true);
 
-                    //    dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //    dbService.CreateNotification(Resource.Notify10Break, true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
+                        dbService.CancelNotification(NotificationCategory.Break, true, true);
+                        dbService.CreateNotification(Resource.Notify10Break, true, NotificationCategory.Break, TimeSpan.FromMinutes(50));
 
-                    //    Device.StartTimer(TimeSpan.FromMinutes(50), () =>
-                    //    {
-                    //        if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //        {
-                    //            return false;
-                    //        }
+                        Device.StartTimer(TimeSpan.FromMinutes(50), () =>
+                        {
+                            if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                            {
+                                return false;
+                            }
 
-                    //        DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify10Break, true);
+                            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyApproachingBreak, Resource.Notify10Break, true);
 
-                    //        dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //        dbService.CreateNotification(Resource.NotifyBreakTime, true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
+                            dbService.CancelNotification(NotificationCategory.Break, true, true);
+                            dbService.CreateNotification(Resource.NotifyBreakTime, true, NotificationCategory.Break, TimeSpan.FromMinutes(10));
 
-                    //        Device.StartTimer(TimeSpan.FromMinutes(10), () =>
-                    //        {
-                    //            if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
-                    //            {
-                    //                return false;
-                    //            }
+                            Device.StartTimer(TimeSpan.FromMinutes(10), () =>
+                            {
+                                if (!dbService.CheckTimedNotification(NotificationCategory.Break, DateTime.Now))
+                                {
+                                    return false;
+                                }
 
-                    //            DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakTimeTitle, Resource.NotifyBreakTime, true);
+                                DependencyService.Get<INotifyService>().UpdateNotification(Resource.NotifyBreakTimeTitle, Resource.NotifyBreakTime, true);
 
-                    //            dbService.CancelNotification(NotificationCategory.Break, true, true);
-                    //            return false;
-                    //        });
-                    //        return false;
-                    //    });
-                    //    return false;
-                    //});
+                                dbService.CancelNotification(NotificationCategory.Break, true, true);
+                                return false;
+                            });
+                            return false;
+                        });
+                        return false;
+                    });
                 }
 
                 BreakButtonColor = Constants.GREEN_COLOR;
                 StartBreakText = Resource.StartBreak;
                 OnBreak = false;
-                ShiftAndBreakNotStarted = true;
                 ShiftRunning = true;
 
                 if (dbService.VehicleActive())
@@ -1301,7 +1217,6 @@ namespace Hubo
 
                 countdown.Stop();
             }
-
             return true;
         }
 
@@ -1336,10 +1251,9 @@ namespace Hubo
                     return false;
                 }
             }
-
             if (dbService.CheckOnBreak() == -1)
             {
-                if (!await StopBreak())
+                if(!await StopBreak())
                 {
                     return false;
                 }
@@ -1376,7 +1290,6 @@ namespace Hubo
                 if (await dbService.StopShift(location, note, geoCoords))
                 {
                     ShiftStarted = false;
-                    ShiftAndBreakNotStarted = false;
                     ShowStartShiftXAML();
                     UserDialogs.Instance.ShowSuccess(Resource.ShiftEnd, 1500);
                     //MessagingCenter.Send<string>("ShiftEdited", "ShiftEdited");
@@ -1396,6 +1309,7 @@ namespace Hubo
                 return false;
             }
 
+
             return false;
         }
 
@@ -1413,10 +1327,10 @@ namespace Hubo
 
             if (await UserDialogs.Instance.ConfirmAsync(Resource.ShiftStartQuery, Resource.Confirmation, Resource.Yes, Resource.No))
             {
-                //if (!dbService.CheckTenHourBreak())
-                //{
-                //    await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
-                //}
+                if (!dbService.CheckTenHourBreak())
+                {
+                    await UserDialogs.Instance.AlertAsync(Resource.ShortBreakBetweenShifts, Resource.Alert, Resource.Okay);
+                }
 
                 List<QuestionModel> checklistQuestions = dbService.GetChecklistHealthSafety();
                 int count = 0;
@@ -1460,7 +1374,6 @@ namespace Hubo
                 if (await dbService.StartShift(location, note, geoCoords))
                 {
                     ShiftStarted = true;
-                    ShiftAndBreakNotStarted = true;
                     ShowEndShiftXAML();
                     UpdateCircularGauge();
 
@@ -1555,8 +1468,8 @@ namespace Hubo
                     //    });
                     //    return false;
                     //});
-                    UserDialogs.Instance.ShowSuccess(Resource.ShiftStart, 1500);
-
+                    UserDialogs.Instance.ShowSuccess(Resource.ShiftStart, 2000);
+                    
                     return true;
                 }
             }
@@ -1567,7 +1480,7 @@ namespace Hubo
         private void UpdateCircularGauge()
         {
             notifyReady = false;
-            //CompletedJourney = dbService.TotalSinceStart();
+            CompletedJourney = dbService.TotalSinceStart();
 
             if (CompletedJourney == -1)
             {

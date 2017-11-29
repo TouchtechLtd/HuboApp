@@ -395,6 +395,24 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to get Day Shift.
+        /// </summary>
+        internal static string DayShiftError {
+            get {
+                return ResourceManager.GetString("DayShiftError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day Shift Error.
+        /// </summary>
+        internal static string DayShiftErrorTitle {
+            get {
+                return ResourceManager.GetString("DayShiftErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t Show Again.
         /// </summary>
         internal static string DontShowAgain {
@@ -517,6 +535,15 @@ namespace Hubo {
         internal static string EndBreakQuery {
             get {
                 return ResourceManager.GetString("EndBreakQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End All Shifts by: .
+        /// </summary>
+        internal static string EndDayShiftText {
+            get {
+                return ResourceManager.GetString("EndDayShiftText", resourceCulture);
             }
         }
         
@@ -1394,7 +1421,7 @@ namespace Hubo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *PLACEHOLDER FOR DISCLAIMER*.
+        ///   Looks up a localized string similar to By using this application, you agree that all entries recorded are truthful and in accordance with the law. .
         /// </summary>
         internal static string NZTADisclaimer {
             get {
@@ -1754,6 +1781,15 @@ namespace Hubo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First Shift of Cycle: .
+        /// </summary>
+        internal static string StartDayShiftText {
+            get {
+                return ResourceManager.GetString("StartDayShiftText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to start your drive?.
         /// </summary>
         internal static string StartDriveQuery {
@@ -2002,6 +2038,33 @@ namespace Hubo {
         internal static string Vehicle {
             get {
                 return ResourceManager.GetString("Vehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Vehicle currently has these problems:.
+        /// </summary>
+        internal static string VehicleProblem {
+            get {
+                return ResourceManager.GetString("VehicleProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to alert your supervisor?.
+        /// </summary>
+        internal static string VehicleProblemChoice {
+            get {
+                return ResourceManager.GetString("VehicleProblemChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle Problems.
+        /// </summary>
+        internal static string VehicleProblemTitle {
+            get {
+                return ResourceManager.GetString("VehicleProblemTitle", resourceCulture);
             }
         }
         
