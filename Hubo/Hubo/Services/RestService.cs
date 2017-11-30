@@ -245,7 +245,7 @@ namespace Hubo
                             DriverId = driverId
                         };
 
-                        if (!db.InsertUserCompany(company)) { }
+                        if (!db.InsertUserCompany(company))
                         {
                             return false;
                         }

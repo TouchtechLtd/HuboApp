@@ -62,19 +62,23 @@ namespace Hubo
                     return false;
                 }
 
-                if (!await restService.GetVehicles())
-                {
-                    db.ClearTablesForUserShifts();
-                    await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
-                    return false;
-                }
+                // TODO: Fix server call for vehicles
 
-                if (!await restService.GetShifts(user.DriverId))
-                {
-                    db.ClearTablesForUserShifts();
-                    await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
-                    return false;
-                }
+                //if (!await restService.GetVehicles())
+                //{
+                //    db.ClearTablesForUserShifts();
+                //    await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
+                //    return false;
+                //}
+
+                // TODO: Fix server call for shifts
+
+                //if (!await restService.GetShifts(user.DriverId))
+                //{
+                //    db.ClearTablesForUserShifts();
+                //    await UserDialogs.Instance.AlertAsync(Resource.GetDetailsError, Resource.Alert, Resource.Okay);
+                //    return false;
+                //}
 
                 bottomBarPage = navBar.GetBottomBar();
                 NavigationPage.SetHasNavigationBar(bottomBarPage, false);
