@@ -783,13 +783,12 @@
   <data name="NotOkay" xml:space="preserve">
     <value>Not Okay</value>
   </data>
-<<<<<<< HEAD
   <data name="BreakAfter70" xml:space="preserve">
     <value>Please end your shift and wait 24 hours before your next shift!</value>
   </data>
   <data name="BreakAfter70Title" xml:space="preserve">
     <value>24 Hour Break Needed</value>
-=======
+    </data>
   <data name="DayShiftError" xml:space="preserve">
     <value>Unable to get Day Shift</value>
   </data>
@@ -810,6 +809,5 @@
   </data>
   <data name="VehicleProblemChoice" xml:space="preserve">
     <value>Would you like to alert your supervisor?</value>
->>>>>>> bug/bugfixes2605
   </data>
 </root>

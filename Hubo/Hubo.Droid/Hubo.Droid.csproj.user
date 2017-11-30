@@ -2,12 +2,9 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
-<<<<<<< HEAD
     <SelectedDevice>Android_Accelerated_x86</SelectedDevice>
     <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
-=======
-    <SelectedDevice>AVD_GalaxyNexus_ToolsForApacheCordova</SelectedDevice>
+    <SelectedDevice>Samsung SM-G930F</SelectedDevice>
     <DefaultDevice>AVD_GalaxyNexus_ToolsForApacheCordova</DefaultDevice>
->>>>>>> bug/bugfixes2605
   </PropertyGroup>
 </Project>

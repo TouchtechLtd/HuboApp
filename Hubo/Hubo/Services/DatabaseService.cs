@@ -520,9 +520,7 @@ namespace Hubo
             //{
             //    return 0;
             //}
-            else
-            {
-            }
+
 
             //ShiftTable lastShift = listOfShifts[0];
 

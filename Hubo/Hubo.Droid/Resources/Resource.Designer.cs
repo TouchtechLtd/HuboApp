@@ -5357,7 +5357,6 @@ namespace Hubo.Droid
 			global::HockeyApp.Resource.String.hockeyapp_feedback_attachment_error = global::Hubo.Droid.Resource.String.hockeyapp_feedback_attachment_error;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_attachment_loading = global::Hubo.Droid.Resource.String.hockeyapp_feedback_attachment_loading;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_email_hint = global::Hubo.Droid.Resource.String.hockeyapp_feedback_email_hint;
-			global::HockeyApp.Resource.String.hockeyapp_feedback_email_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_feedback_email_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_failed_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_failed_text;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_failed_title = global::Hubo.Droid.Resource.String.hockeyapp_feedback_failed_title;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_fetching_feedback_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_fetching_feedback_text;
@@ -5365,9 +5364,7 @@ namespace Hubo.Droid
 			global::HockeyApp.Resource.String.hockeyapp_feedback_last_updated_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_last_updated_text;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_max_attachments_allowed = global::Hubo.Droid.Resource.String.hockeyapp_feedback_max_attachments_allowed;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_message_hint = global::Hubo.Droid.Resource.String.hockeyapp_feedback_message_hint;
-			global::HockeyApp.Resource.String.hockeyapp_feedback_message_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_feedback_message_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_name_hint = global::Hubo.Droid.Resource.String.hockeyapp_feedback_name_hint;
-			global::HockeyApp.Resource.String.hockeyapp_feedback_name_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_feedback_name_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_refresh_button_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_refresh_button_text;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_response_button_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_response_button_text;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_select_file = global::Hubo.Droid.Resource.String.hockeyapp_feedback_select_file;
@@ -5377,7 +5374,6 @@ namespace Hubo.Droid
 			global::HockeyApp.Resource.String.hockeyapp_feedback_send_network_error = global::Hubo.Droid.Resource.String.hockeyapp_feedback_send_network_error;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_sending_feedback_text = global::Hubo.Droid.Resource.String.hockeyapp_feedback_sending_feedback_text;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_subject_hint = global::Hubo.Droid.Resource.String.hockeyapp_feedback_subject_hint;
-			global::HockeyApp.Resource.String.hockeyapp_feedback_subject_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_feedback_subject_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_title = global::Hubo.Droid.Resource.String.hockeyapp_feedback_title;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_validate_email_empty = global::Hubo.Droid.Resource.String.hockeyapp_feedback_validate_email_empty;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_validate_email_error = global::Hubo.Droid.Resource.String.hockeyapp_feedback_validate_email_error;
@@ -5385,13 +5381,11 @@ namespace Hubo.Droid
 			global::HockeyApp.Resource.String.hockeyapp_feedback_validate_subject_error = global::Hubo.Droid.Resource.String.hockeyapp_feedback_validate_subject_error;
 			global::HockeyApp.Resource.String.hockeyapp_feedback_validate_text_error = global::Hubo.Droid.Resource.String.hockeyapp_feedback_validate_text_error;
 			global::HockeyApp.Resource.String.hockeyapp_login_email_hint = global::Hubo.Droid.Resource.String.hockeyapp_login_email_hint;
-			global::HockeyApp.Resource.String.hockeyapp_login_email_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_login_email_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_login_headline_text = global::Hubo.Droid.Resource.String.hockeyapp_login_headline_text;
 			global::HockeyApp.Resource.String.hockeyapp_login_headline_text_email_only = global::Hubo.Droid.Resource.String.hockeyapp_login_headline_text_email_only;
 			global::HockeyApp.Resource.String.hockeyapp_login_login_button_text = global::Hubo.Droid.Resource.String.hockeyapp_login_login_button_text;
 			global::HockeyApp.Resource.String.hockeyapp_login_missing_credentials_toast = global::Hubo.Droid.Resource.String.hockeyapp_login_missing_credentials_toast;
 			global::HockeyApp.Resource.String.hockeyapp_login_password_hint = global::Hubo.Droid.Resource.String.hockeyapp_login_password_hint;
-			global::HockeyApp.Resource.String.hockeyapp_login_password_hint_required = global::Hubo.Droid.Resource.String.hockeyapp_login_password_hint_required;
 			global::HockeyApp.Resource.String.hockeyapp_paint_dialog_message = global::Hubo.Droid.Resource.String.hockeyapp_paint_dialog_message;
 			global::HockeyApp.Resource.String.hockeyapp_paint_dialog_negative_button = global::Hubo.Droid.Resource.String.hockeyapp_paint_dialog_negative_button;
 			global::HockeyApp.Resource.String.hockeyapp_paint_dialog_neutral_button = global::Hubo.Droid.Resource.String.hockeyapp_paint_dialog_neutral_button;
@@ -22689,13 +22683,8 @@ namespace Hubo.Droid
 			// aapt resource value: 0x7f090029
 			public const int day_name_format = 2131296297;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f090084
-			public const int define_FloatingActionButton = 2131296388;
-=======
 			// aapt resource value: 0x7f09007d
 			public const int define_FloatingActionButton = 2131296381;
->>>>>>> bug/bugfixes2605
 			
 			// aapt resource value: 0x7f09002c
 			public const int full_date_format = 2131296300;
@@ -22773,150 +22762,6 @@ namespace Hubo.Droid
 			public const int hockeyapp_feedback_failed_text = 2131296333;
 			
 			// aapt resource value: 0x7f09004e
-<<<<<<< HEAD
-			public const int hockeyapp_feedback_email_hint_required = 2131296334;
-			
-			// aapt resource value: 0x7f09004f
-			public const int hockeyapp_feedback_failed_text = 2131296335;
-			
-			// aapt resource value: 0x7f090050
-			public const int hockeyapp_feedback_failed_title = 2131296336;
-			
-			// aapt resource value: 0x7f090051
-			public const int hockeyapp_feedback_fetching_feedback_text = 2131296337;
-			
-			// aapt resource value: 0x7f090052
-			public const int hockeyapp_feedback_generic_error = 2131296338;
-			
-			// aapt resource value: 0x7f090053
-			public const int hockeyapp_feedback_last_updated_text = 2131296339;
-			
-			// aapt resource value: 0x7f090054
-			public const int hockeyapp_feedback_max_attachments_allowed = 2131296340;
-			
-			// aapt resource value: 0x7f090055
-			public const int hockeyapp_feedback_message_hint = 2131296341;
-			
-			// aapt resource value: 0x7f090056
-			public const int hockeyapp_feedback_message_hint_required = 2131296342;
-			
-			// aapt resource value: 0x7f090057
-			public const int hockeyapp_feedback_name_hint = 2131296343;
-			
-			// aapt resource value: 0x7f090058
-			public const int hockeyapp_feedback_name_hint_required = 2131296344;
-			
-			// aapt resource value: 0x7f090059
-			public const int hockeyapp_feedback_refresh_button_text = 2131296345;
-			
-			// aapt resource value: 0x7f09005a
-			public const int hockeyapp_feedback_response_button_text = 2131296346;
-			
-			// aapt resource value: 0x7f09005b
-			public const int hockeyapp_feedback_select_file = 2131296347;
-			
-			// aapt resource value: 0x7f09005c
-			public const int hockeyapp_feedback_select_picture = 2131296348;
-			
-			// aapt resource value: 0x7f09005d
-			public const int hockeyapp_feedback_send_button_text = 2131296349;
-			
-			// aapt resource value: 0x7f09005e
-			public const int hockeyapp_feedback_send_generic_error = 2131296350;
-			
-			// aapt resource value: 0x7f09005f
-			public const int hockeyapp_feedback_send_network_error = 2131296351;
-			
-			// aapt resource value: 0x7f090060
-			public const int hockeyapp_feedback_sending_feedback_text = 2131296352;
-			
-			// aapt resource value: 0x7f090061
-			public const int hockeyapp_feedback_subject_hint = 2131296353;
-			
-			// aapt resource value: 0x7f090062
-			public const int hockeyapp_feedback_subject_hint_required = 2131296354;
-			
-			// aapt resource value: 0x7f090063
-			public const int hockeyapp_feedback_title = 2131296355;
-			
-			// aapt resource value: 0x7f090064
-			public const int hockeyapp_feedback_validate_email_empty = 2131296356;
-			
-			// aapt resource value: 0x7f090065
-			public const int hockeyapp_feedback_validate_email_error = 2131296357;
-			
-			// aapt resource value: 0x7f090066
-			public const int hockeyapp_feedback_validate_name_error = 2131296358;
-			
-			// aapt resource value: 0x7f090067
-			public const int hockeyapp_feedback_validate_subject_error = 2131296359;
-			
-			// aapt resource value: 0x7f090068
-			public const int hockeyapp_feedback_validate_text_error = 2131296360;
-			
-			// aapt resource value: 0x7f090069
-			public const int hockeyapp_login_email_hint = 2131296361;
-			
-			// aapt resource value: 0x7f09006a
-			public const int hockeyapp_login_email_hint_required = 2131296362;
-			
-			// aapt resource value: 0x7f09006b
-			public const int hockeyapp_login_headline_text = 2131296363;
-			
-			// aapt resource value: 0x7f09006c
-			public const int hockeyapp_login_headline_text_email_only = 2131296364;
-			
-			// aapt resource value: 0x7f09006d
-			public const int hockeyapp_login_login_button_text = 2131296365;
-			
-			// aapt resource value: 0x7f09006e
-			public const int hockeyapp_login_missing_credentials_toast = 2131296366;
-			
-			// aapt resource value: 0x7f09006f
-			public const int hockeyapp_login_password_hint = 2131296367;
-			
-			// aapt resource value: 0x7f090070
-			public const int hockeyapp_login_password_hint_required = 2131296368;
-			
-			// aapt resource value: 0x7f090071
-			public const int hockeyapp_paint_dialog_message = 2131296369;
-			
-			// aapt resource value: 0x7f090072
-			public const int hockeyapp_paint_dialog_negative_button = 2131296370;
-			
-			// aapt resource value: 0x7f090073
-			public const int hockeyapp_paint_dialog_neutral_button = 2131296371;
-			
-			// aapt resource value: 0x7f090074
-			public const int hockeyapp_paint_dialog_positive_button = 2131296372;
-			
-			// aapt resource value: 0x7f090075
-			public const int hockeyapp_paint_indicator_toast = 2131296373;
-			
-			// aapt resource value: 0x7f090076
-			public const int hockeyapp_paint_menu_clear = 2131296374;
-			
-			// aapt resource value: 0x7f090077
-			public const int hockeyapp_paint_menu_save = 2131296375;
-			
-			// aapt resource value: 0x7f090078
-			public const int hockeyapp_paint_menu_undo = 2131296376;
-			
-			// aapt resource value: 0x7f090079
-			public const int hockeyapp_permission_dialog_negative_button = 2131296377;
-			
-			// aapt resource value: 0x7f09007a
-			public const int hockeyapp_permission_dialog_positive_button = 2131296378;
-			
-			// aapt resource value: 0x7f09007b
-			public const int hockeyapp_permission_update_message = 2131296379;
-			
-			// aapt resource value: 0x7f09007c
-			public const int hockeyapp_permission_update_title = 2131296380;
-			
-			// aapt resource value: 0x7f09007d
-			public const int hockeyapp_update_button = 2131296381;
-=======
 			public const int hockeyapp_feedback_failed_title = 2131296334;
 			
 			// aapt resource value: 0x7f09004f
@@ -23056,57 +22901,10 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f09007c
 			public const int hockeyapp_update_version_details_label = 2131296380;
->>>>>>> bug/bugfixes2605
-			
-			// aapt resource value: 0x7f09007e
-			public const int hockeyapp_update_dialog_message = 2131296382;
-			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f09007f
-			public const int hockeyapp_update_dialog_negative_button = 2131296383;
-			
-			// aapt resource value: 0x7f090080
-			public const int hockeyapp_update_dialog_positive_button = 2131296384;
-			
-			// aapt resource value: 0x7f090081
-			public const int hockeyapp_update_dialog_title = 2131296385;
-			
-			// aapt resource value: 0x7f090082
-			public const int hockeyapp_update_mandatory_toast = 2131296386;
-			
-			// aapt resource value: 0x7f090083
-			public const int hockeyapp_update_version_details_label = 2131296387;
 			
 			// aapt resource value: 0x7f09002a
 			public const int invalid_date = 2131296298;
 			
-			// aapt resource value: 0x7f090085
-			public const int library_FloatingActionButton_author = 2131296389;
-			
-			// aapt resource value: 0x7f090086
-			public const int library_FloatingActionButton_authorWebsite = 2131296390;
-			
-			// aapt resource value: 0x7f09008b
-			public const int library_FloatingActionButton_isOpenSource = 2131296395;
-			
-			// aapt resource value: 0x7f090088
-			public const int library_FloatingActionButton_libraryDescription = 2131296392;
-			
-			// aapt resource value: 0x7f090087
-			public const int library_FloatingActionButton_libraryName = 2131296391;
-			
-			// aapt resource value: 0x7f09008a
-			public const int library_FloatingActionButton_libraryVersion = 2131296394;
-			
-			// aapt resource value: 0x7f090089
-			public const int library_FloatingActionButton_libraryWebsite = 2131296393;
-			
-			// aapt resource value: 0x7f09008d
-			public const int library_FloatingActionButton_licenseId = 2131296397;
-			
-			// aapt resource value: 0x7f09008c
-			public const int library_FloatingActionButton_repositoryLink = 2131296396;
-=======
 			// aapt resource value: 0x7f09007e
 			public const int library_FloatingActionButton_author = 2131296382;
 			
@@ -23133,7 +22931,6 @@ namespace Hubo.Droid
 			
 			// aapt resource value: 0x7f090085
 			public const int library_FloatingActionButton_repositoryLink = 2131296389;
->>>>>>> bug/bugfixes2605
 			
 			// aapt resource value: 0x7f090028
 			public const int library_name = 2131296296;
