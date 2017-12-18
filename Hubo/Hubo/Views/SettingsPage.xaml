@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.SettingsPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <local:CustomTableView Grid.Column="0" Grid.Row="0" Intent="Settings">
+            <TableView.Root>
+                <TableSection Title="Design">
+                    <SwitchCell x:Name="darkLightSwitch" Text="Change theme from Light to Dark." On="{Binding DarkLightSetting}"/>
+                </TableSection>
+
+                <TableSection Title="Other Settings"> 
+                </TableSection>
+            </TableView.Root>
+        </local:CustomTableView>
+
+        <Button x:Name="closeButton" Text="Close" Grid.Column="0" Grid.Row="1"/>
+    </Grid>
+</ContentPage>

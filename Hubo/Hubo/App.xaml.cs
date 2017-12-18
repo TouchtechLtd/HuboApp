@@ -1,39 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿// <copyright file="App.xaml.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-            MainPage = new NavigationPage(new HomePage());
+    using Plugin.Geolocator;
+    using Plugin.Geolocator.Abstractions;
 
-            //TODO run a scheduled task every minute
-            Device.StartTimer(TimeSpan.FromMinutes(1), () => {
-                return ScheduledTasks.testTask();
-            });
+    public partial class Application : Xamarin.Forms.Application
+    {
+        internal static IGeolocator Locator = CrossGeolocator.Current;
+        private DatabaseService dbService = new DatabaseService();
+
+        public Application()
+        {
+            try
+            {
+                InitializeComponent();
+
+                if (dbService.CheckLoggedIn())
+                {
+                    MainPage = new NZTAMessagePage(1);
+                }
+                else
+                {
+                    MainPage = new LandingPage();
+                }
+            }
+            catch
+            {
+                MainPage = new ErrorPage();
+            }
+
+            // MainPage = new EndShiftConfirmPage();
+
+            // Run a scheduled task every minute
+            // Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            // {
+            //    ScheduledTasks.CheckOfflineData();
+            //    return false;
+            // });
         }
 
         protected override void OnStart()
         {
-            //TODO Handle when your app starts
+            // Handle when your app starts
         }
 
         protected override void OnSleep()
         {
-            //TODO Handle when your app sleeps
+            // Handle when your app sleeps
         }
 
         protected override void OnResume()
         {
-            //TODO Handle when your app resumes
+            // Implement check for logged in status
         }
     }
 }
-

@@ -1,16 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ScheduledTasks.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
-    class ScheduledTasks
+    using System;
+    using Plugin.Connectivity;
+
+    public static class ScheduledTasks
     {
-        public static Boolean testTask()
+        public static bool TestTask()
         {
             return true;
+        }
+
+        public static async void CheckOfflineData()
+        {
+            DatabaseService db = new DatabaseService();
+
+            bool isConnected = CrossConnectivity.Current.IsConnected;
+
+            if (isConnected)
+            {
+                await db.ReturnOffline();
+            }
         }
     }
 }

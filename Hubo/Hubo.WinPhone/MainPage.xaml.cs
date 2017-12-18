@@ -28,7 +28,10 @@ namespace Hubo.WinPhone
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            LoadApplication(new Hubo.App());
+            //String used to get the path of and load the database
+            string dbPath = FileAccessHelper.GetLocalFilePath("Hubo.db3");
+
+            LoadApplication(new Hubo.Application());
         }
 
         /// <summary>

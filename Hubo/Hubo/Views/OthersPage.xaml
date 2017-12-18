@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hubo.OthersPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+            <!--<Image Source="DesertRoadjpg.png" Aspect="AspectFill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>-->
+        <Label Text="{Binding Name}"  TextColor="White" FontSize="40" YAlign="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" />
+        <Label Text="BD14"  TextColor="White" FontSize="26" YAlign="Center" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Start" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" />
+        <ListView x:Name="othersList" ItemsSource="{Binding OthersPageList}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="3">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        <ViewCell.View >
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15,12,0,12"  >
+                                <Image x:Name="image" Source="{Binding ImageSource}" HeightRequest="30"/>
+                                <Label Text="{Binding Title}" YAlign="Center" FontSize="14" HorizontalTextAlignment="Center" XAlign="Center" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.VehiclesPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <local:MyPicker x:Name="vehiclePicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="Start"/>
+
+        <Label FontSize="16" Text="{Binding RegistrationText}" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}"/>
+        <Label FontSize="16" Text="{Binding RegistrationEntry}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
+
+        <Label FontSize="16" Text="{Binding MakeModelText}" Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}" />
+        <Label FontSize="16" Text="{Binding MakeModelEntry}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
+
+        <Label FontSize="16" Text="{Binding CompanyText}" Grid.Row="4" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}"/>
+        <Label FontSize="16" Text="{Binding Company}" Grid.Column="2" Grid.Row="4" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
+
+        <Label FontSize="16" Text="{Binding FleetText}" Grid.Row="5" Grid.Column="1" VerticalTextAlignment="Center" IsVisible="{Binding VehicleSelected}" />
+        <Label FontSize="16" Text="{Binding FleetEntry}" Grid.Row="5" Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding VehicleSelected}"/>
+    </Grid>
+</ContentPage>

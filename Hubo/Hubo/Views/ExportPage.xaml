@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.ExportPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="2*" /> 
+        </Grid.RowDefinitions>
+        
+        <Label Text="{Binding ExportDisclaimerText}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" XAlign="Center" YAlign="Center"/>
+        <Label Text="{Binding EmailText}" Grid.Row="2" Grid.Column="1" YAlign="Center" />
+        <local:BaseEntry Text="{Binding EmailEntry}" x:Name="emailEntry" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" Keyboard="Email"/>
+        <Button Text="{Binding ExportText}" Command="{Binding ExportCommand}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
+    </Grid>
+</ContentPage>

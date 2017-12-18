@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.ProfileCompanyPage">
+
+    <ListView x:Name="companyList" ItemsSource="{Binding Companies}" HasUnevenRows="True" SeparatorVisibility="Default">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="*"/> 
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="0.5*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" YAlign="Center" FontSize="20" HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" />
+
+                            <Label BindingContext="{local:ProfileViewModel}" Text="{Binding AddressText}" YAlign="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" />
+                            <Label Text="{Binding Address1}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="1" />
+                            <Label Text="{Binding Address2}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="2" />
+                            <Label Text="{Binding Address3}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="3" />
+
+                            <Label BindingContext="{local:ProfileViewModel}" Text="{Binding PostCodeText}" YAlign="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" />
+                            <Label Text="{Binding PostCode}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="4" />
+
+                            <Label BindingContext="{local:ProfileViewModel}" Text="{Binding SuburbText}" YAlign="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
+                            <Label Text="{Binding Suburb}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="5" />
+
+                            <Label BindingContext="{local:ProfileViewModel}" Text="{Binding CityText}" YAlign="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" />
+                            <Label Text="{Binding City}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="6" />
+
+                            <Label BindingContext="{local:ProfileViewModel}" Text="{Binding CountryText}" YAlign="Center" HorizontalTextAlignment="End" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" />
+                            <Label Text="{Binding Country}" YAlign="Center" HorizontalTextAlignment="Center" Grid.Column="2" Grid.Row="7" />
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

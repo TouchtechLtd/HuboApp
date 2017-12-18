@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             x:Class="Hubo.LoginPage"
+             >
+  <ScrollView>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <local:BaseEntry Placeholder="Username" Text="{Binding Username}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" x:Name="username" AutomationId="Username" VerticalOptions="Center"/>
+      <local:BaseEntry Placeholder="Password" Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" x:Name="password" AutomationId="Password" IsPassword="true" VerticalOptions="Center"/>
+      <Button Text="{Binding LoginText}" Command="{Binding LoginButton}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" AutomationId="LoginButton"/>
+    </Grid>
+  </ScrollView>
+</ContentPage>

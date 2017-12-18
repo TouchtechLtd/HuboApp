@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="Hubo.Droid"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="triotech.hubo.droid" android:installLocation="auto" android:versionName="1.10" android:versionCode="10">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="23" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<application android:label="Hubo.Droid" android:hardwareAccelerated="true">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="triotech.hubo.droid.fileprovider" android:grantUriPermissions="true" android:exported="false" android:minSdkVersion="16">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths" />
+		</provider>
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="triotech.hubo.droid.fileprovider" android:grantUriPermissions="true" android:exported="true" android:maxSdkVersion="16">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths" />
+		</provider>
+	</application>
 </manifest>

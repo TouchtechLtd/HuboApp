@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Style="{StaticResource ContentPageStyle}"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hubo;assembly=Hubo"
+             xmlns:dialog="clr-namespace:Acr.UserDialogs;assembly=Acr.UserDialogs.Interface"
+             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
+             x:Class="Hubo.EndShiftConfirmPage"             
+             >
+    
+    <Grid Padding="20" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- WorkShift Title -->
+        <Label  Text="WorkShift" FontSize="32" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding WorkShift}"/>
+        <!-- WorkShift Times -->
+        <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:MyTimepicker  Time="{Binding StartTimePicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding WorkShift}" />
+        <Label Text="&#8212;" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:MyTimepicker Time="{Binding EndTimePicker}" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding WorkShift}" />
+
+        <!-- WorkShift Location -->
+        <Label  FontSize="Large" Text="Locations" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding WorkShift}"/>
+        <local:BaseEntry Text="{Binding StartLocation}" VerticalOptions="End" Grid.Row="4"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding WorkShift}" />
+        <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="5"  Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding WorkShift}"/>
+        <local:BaseEntry Text="{Binding EndLocation}" VerticalOptions="Start" Grid.Row="6"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding WorkShift}"/>
+        
+        
+        
+        
+        <!-- DriveShift Title -->
+        <Label  Text="{Binding DriveShiftTitle}" FontSize="32" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding DriveShift}"/>
+        <Label  Text="{Binding RegistrationTitle}" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding DriveShift}"/>
+        
+        <!-- DriveShift Times -->
+        <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding DriveShift}"/>
+        <local:MyTimepicker  Time="{Binding StartTimeDrivePicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding DriveShift}" />
+        <Label Text="&#8212;" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding DriveShift}"/>
+        <local:MyTimepicker Time="{Binding EndTimeDrivePicker}" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding DriveShift}" />
+
+        <!-- DriveShift Hubo -->
+        <Label  FontSize="Large" Text="Odometer" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding DriveShift}"/>
+        <local:BaseEntry Text="{Binding StartHubo}" VerticalOptions="End" Grid.Row="4"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding DriveShift}" />
+        <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="5"  Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding DriveShift}"/>
+        <local:BaseEntry Text="{Binding EndHubo}" VerticalOptions="Start" Grid.Row="6"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding DriveShift}"/>
+
+        
+        
+        
+        <!-- Break Title -->
+        <Label  Text="{Binding BreakTitle}" FontSize="32" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="6" HorizontalTextAlignment="Center" IsVisible="{Binding BreakShift}"/>        
+        
+        <!--Break Times -->
+        <Label FontSize="Large" Text="Times" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:MyTimepicker  Time="{Binding StartTimeBreakPicker}"  VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding BreakShift}" />
+        <Label Text="&#8212;" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:MyTimepicker Time="{Binding EndTimeBreakPicker}" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.RowSpan="3" Grid.Column="5" Grid.ColumnSpan="3" TextColor="Black" IsVisible="{Binding BreakShift}" />
+
+        <!-- Break Locations -->
+        <Label  FontSize="Large" Text="Odometer" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}"/>
+        <local:BaseEntry Text="{Binding StartBreakLocation}" VerticalOptions="End" Grid.Row="4"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}" />
+        <Label Text="to" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="5"  Grid.Column="3" Grid.ColumnSpan="2" IsVisible="{Binding BreakShift}"/>
+        <local:BaseEntry Text="{Binding EndBreakLocation}" VerticalOptions="Start" Grid.Row="6"  Grid.Column="2" Grid.ColumnSpan="4" IsVisible="{Binding BreakShift}"/>
+
+
+
+
+        <abstractions:RoundedBoxView BackgroundColor="White" BorderColor="White" BorderThickness="20" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4">
+            <abstractions:RoundedBoxView.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Double" iOS="35" Android="50"/>
+            </abstractions:RoundedBoxView.CornerRadius>
+        </abstractions:RoundedBoxView>
+        <local:MyButton Text="Accept" BackgroundColor="Transparent" Grid.Row="7"  Grid.Column="2" Grid.ColumnSpan="4" BorderColor="Transparent" TextColor="Black" HorizontalOptions="Center" x:Name="acceptButton"/>
+    </Grid>
+</ContentPage>

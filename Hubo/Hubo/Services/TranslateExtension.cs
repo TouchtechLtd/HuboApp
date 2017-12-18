@@ -1,13 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
-using Hubo.Resources;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿// <copyright file="TranslateExtension.cs" company="TrioTech">
+// Copyright (c) TrioTech. All rights reserved.
+// </copyright>
 
 namespace Hubo
 {
+    using System;
+    using System.Globalization;
+    using Xamarin.Forms;
+    using Xamarin.Forms.Xaml;
+
     // You exclude the 'Extension' suffix when using in Xaml markup
     [ContentProperty("Text")]
     public class TranslateExtension : IMarkupExtension
@@ -17,7 +18,9 @@ namespace Hubo
         public object ProvideValue(IServiceProvider serviceProvider)
         {
             if (Text == null)
+            {
                 return null;
+            }
 
             return Resource.ResourceManager.GetString(Text, CultureInfo.CurrentCulture);
         }
